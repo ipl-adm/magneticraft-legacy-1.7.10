@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -380,4 +381,40 @@ public class TileWindTurbine extends TileConductorLow implements IManagerInvento
     {
         return INFINITE_EXTENT_AABB;
     }
+	
+	public int getSizeInventory() {
+		return getInv().getSizeInventory();
+	}
+
+	public ItemStack getStackInSlot(int s) {
+		return getInv().getStackInSlot(s);
+	}
+
+	public ItemStack getStackInSlotOnClosing(int a) {
+		return getInv().getStackInSlotOnClosing(a);
+	}
+
+	public String getInventoryName() {
+		return getInv().getInventoryName();
+	}
+
+	public boolean hasCustomInventoryName() {
+		return getInv().hasCustomInventoryName();
+	}
+
+	public int getInventoryStackLimit() {
+		return getInv().getInventoryStackLimit();
+	}
+
+	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+		return true;
+	}
+
+	public void openInventory() {}
+
+	public void closeInventory() {}
+
+	public boolean isItemValidForSlot(int a, ItemStack b) {
+		return getInv().isItemValidForSlot(a, b);
+	}
 }

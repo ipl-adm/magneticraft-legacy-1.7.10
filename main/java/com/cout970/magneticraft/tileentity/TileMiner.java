@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
@@ -243,5 +244,49 @@ public class TileMiner extends TileConductorMedium implements IManagerInventory,
 	@Override
 	public float getLevel() {
 		return Math.min(minedLastSecond/100f, 1);
+	}
+	
+	public int getSizeInventory() {
+		return getInv().getSizeInventory();
+	}
+
+	public ItemStack getStackInSlot(int s) {
+		return getInv().getStackInSlot(s);
+	}
+
+	public ItemStack decrStackSize(int a, int b) {
+		return getInv().decrStackSize(a, b);
+	}
+
+	public ItemStack getStackInSlotOnClosing(int a) {
+		return getInv().getStackInSlotOnClosing(a);
+	}
+
+	public void setInventorySlotContents(int a, ItemStack b) {
+		getInv().setInventorySlotContents(a, b);
+	}
+
+	public String getInventoryName() {
+		return getInv().getInventoryName();
+	}
+
+	public boolean hasCustomInventoryName() {
+		return getInv().hasCustomInventoryName();
+	}
+
+	public int getInventoryStackLimit() {
+		return getInv().getInventoryStackLimit();
+	}
+
+	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+		return true;
+	}
+
+	public void openInventory() {}
+
+	public void closeInventory() {}
+
+	public boolean isItemValidForSlot(int a, ItemStack b) {
+		return getInv().isItemValidForSlot(a, b);
 	}
 }

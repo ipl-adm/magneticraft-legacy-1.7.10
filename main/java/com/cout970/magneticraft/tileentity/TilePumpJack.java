@@ -205,33 +205,33 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		return 0;
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource,
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
-		return drain(from, resource.amount, doDrain);
+		return drainMg(from, resource.amount, doDrain);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		return tank.drain(maxDrain, doDrain);
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		return fluid.getName() == "oil";
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[]{tank.getInfo()};
 	}
 

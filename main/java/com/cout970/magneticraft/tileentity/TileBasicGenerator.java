@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -187,35 +188,35 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	}
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		if(resource != null && resource.fluidID == FluidRegistry.getFluidID("water"))
 			return water.fill(resource, doFill);
 		return 0;
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource,
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
-		return drain(from, resource.amount, doDrain);
+		return drainMg(from, resource.amount, doDrain);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		return steam.drain(maxDrain, doDrain);
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		return FluidRegistry.WATER == fluid;
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		return FluidRegistry.getFluid("steam") == fluid;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[]{water.getInfo(),steam.getInfo()};
 	}
 
@@ -236,5 +237,49 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	
 	public InventoryComponent getInv() {
 		return inv;
+	}
+	
+	public int getSizeInventory() {
+		return getInv().getSizeInventory();
+	}
+
+	public ItemStack getStackInSlot(int s) {
+		return getInv().getStackInSlot(s);
+	}
+
+	public ItemStack decrStackSize(int a, int b) {
+		return getInv().decrStackSize(a, b);
+	}
+
+	public ItemStack getStackInSlotOnClosing(int a) {
+		return getInv().getStackInSlotOnClosing(a);
+	}
+
+	public void setInventorySlotContents(int a, ItemStack b) {
+		getInv().setInventorySlotContents(a, b);
+	}
+
+	public String getInventoryName() {
+		return getInv().getInventoryName();
+	}
+
+	public boolean hasCustomInventoryName() {
+		return getInv().hasCustomInventoryName();
+	}
+
+	public int getInventoryStackLimit() {
+		return getInv().getInventoryStackLimit();
+	}
+
+	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+		return true;
+	}
+
+	public void openInventory() {}
+
+	public void closeInventory() {}
+
+	public boolean isItemValidForSlot(int a, ItemStack b) {
+		return getInv().isItemValidForSlot(a, b);
 	}
 }

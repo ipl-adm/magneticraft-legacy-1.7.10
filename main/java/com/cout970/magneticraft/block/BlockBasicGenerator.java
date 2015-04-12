@@ -39,7 +39,7 @@ public class BlockBasicGenerator extends BlockMg{
 			FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
 			IFluidHandler1_8 tank = (IFluidHandler1_8) w.getTileEntity(x, y, z);
 			if (liquid != null) {
-				int qty = tank.fill(MgDirection.UP, liquid, true);
+				int qty = tank.fillMg(MgDirection.UP, liquid, true);
 				if (qty != 0 && !p.capabilities.isCreativeMode) {
 					p.inventory.setInventorySlotContents(p.inventory.currentItem, consumeItem(current));
 				}

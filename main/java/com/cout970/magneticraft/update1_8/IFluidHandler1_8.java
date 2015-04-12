@@ -10,12 +10,12 @@ public interface IFluidHandler1_8 extends net.minecraftforge.fluids.IFluidHandle
 
 	//anticipation the 1.8 update
 	
-	int fill(MgDirection from, FluidStack resource, boolean doFill);
-	FluidStack drain(MgDirection from, FluidStack resource, boolean doDrain);
-	FluidStack drain(MgDirection from, int maxDrain, boolean doDrain);
-	boolean canFill(MgDirection from, Fluid fluid);
-	boolean canDrain(MgDirection from, Fluid fluid);
-	FluidTankInfo[] getTankInfo(MgDirection from);
+	int fillMg(MgDirection from, FluidStack resource, boolean doFill);
+	FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain);
+	FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain);
+	boolean canFillMg(MgDirection from, Fluid fluid);
+	boolean canDrainMg(MgDirection from, Fluid fluid);
+	FluidTankInfo[] getTankInfoMg(MgDirection from);
 	
 //	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 //		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fill(EnumFacing.values()[from.ordinal()], resource, doFill);

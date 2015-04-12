@@ -79,7 +79,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 	}
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		if(resource != null && "steam".equalsIgnoreCase(FluidRegistry.getFluidName(resource))){
 			return tank.fill(resource, doFill);
 		}
@@ -87,28 +87,28 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource,
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
 		return null;
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		return null;
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		return fluid != null && FluidRegistry.getFluidName(fluid.getID()) == "steam";
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		return false;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[]{tank.getInfo()};
 	}
 

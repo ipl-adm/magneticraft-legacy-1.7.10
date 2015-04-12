@@ -84,32 +84,32 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 	}
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		return getTank().fill(resource, doFill);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource, boolean doDrain) {
-		return drain(from, resource.amount, doDrain);
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
+		return drainMg(from, resource.amount, doDrain);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		return getTank().drain(maxDrain, doDrain);
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		return true;
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		return true;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[]{getTank().getInfo()};
 	}
 

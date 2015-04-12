@@ -49,7 +49,7 @@ public class BlockMgTank extends BlockMg implements MB_Block{
 
 			// Handle filled containers
 			if (liquid != null) {
-				int qty = tank.fill(MgDirection.UP, liquid, true);
+				int qty = tank.fillMg(MgDirection.UP, liquid, true);
 
 				if (qty != 0 && !entityplayer.capabilities.isCreativeMode) {
 					entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
@@ -59,7 +59,7 @@ public class BlockMgTank extends BlockMg implements MB_Block{
 				// Handle empty containers
 			} else {
 
-				FluidStack available = tank.getTankInfo(MgDirection.UP)[0].fluid;
+				FluidStack available = tank.getTankInfoMg(MgDirection.UP)[0].fluid;
 				if (available != null) {
 					ItemStack filled = FluidContainerRegistry.fillFluidContainer(available, current);
 
@@ -78,7 +78,7 @@ public class BlockMgTank extends BlockMg implements MB_Block{
 								entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, filled);
 							}
 						}
-						tank.drain(MgDirection.UP, liquid.amount, true);
+						tank.drainMg(MgDirection.UP, liquid.amount, true);
 						return true;
 					}
 				}

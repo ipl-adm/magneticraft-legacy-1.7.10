@@ -120,35 +120,35 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 	}
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		if(from != MgDirection.getDirection(getBlockMetadata()))
 			return tank.fill(resource, doFill);
 		return 0;
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource,
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
-		return drain(from, resource.amount, doDrain);
+		return drainMg(from, resource.amount, doDrain);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		return tank.drain(maxDrain, doDrain);
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		return true;
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		return true;
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[] { tank.getInfo() };
 	}
 

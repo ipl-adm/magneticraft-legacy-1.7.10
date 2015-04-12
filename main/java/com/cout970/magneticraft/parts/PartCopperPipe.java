@@ -153,7 +153,7 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 					if(t != null){
 						toD = Math.min(toD, t.fill(t.side, new FluidStack(getNetwork().fluid, toD), false));//min (this can transfer and tank can transfer)
 						if(toD > 0){
-							FluidStack df = drain(t.side.opposite(), toD, true);//drain from the network
+							FluidStack df = drainMg(t.side.opposite(), toD, true);//drain from the network
 							if(df != null){
 								t.fill(t.side, df, true);//fill the tank
 							}
@@ -168,7 +168,7 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 							int toD = Math.min(f.amount, space);//min space, fluid
 							if(toD > 0){
 								FluidStack c = t.drain(t.side, toD, false);
-								int filled = fill(MgDirection.UP, c, true);
+								int filled = fillMg(MgDirection.UP, c, true);
 								t.drain(t.side, filled, true);
 							}
 						}
@@ -179,39 +179,39 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 	}
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		if(getNetwork() == null)return 0;
-		return getNetwork().manager.fill(from, resource, doFill);
+		return getNetwork().manager.fillMg(from, resource, doFill);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource,
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
 		if(resource == null)return null;
 		if(getNetwork() == null)return null;
-		return getNetwork().manager.drain(from, resource, doDrain);
+		return getNetwork().manager.drainMg_F(from, resource, doDrain);
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		if(getNetwork() == null)return null;
-		return getNetwork().manager.drain(from, maxDrain, doDrain);
+		return getNetwork().manager.drainMg(from, maxDrain, doDrain);
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		if(getNetwork() == null)return false;
-		return getNetwork().manager.canFill(from, fluid);
+		return getNetwork().manager.canFillMg(from, fluid);
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		if(getNetwork() == null)return false;
-		return getNetwork().manager.canDrain(from, fluid);
+		return getNetwork().manager.canDrainMg(from, fluid);
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[]{new FluidTankInfo(getTank())};
 	}
 

@@ -71,14 +71,14 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 	}
 
 	@Override
-	public int fill(MgDirection from, FluidStack resource, boolean doFill) {
+	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 		if(resource != null && resource.fluidID == FluidRegistry.getFluidID("water"))
 			return water.fill(resource, doFill);
 		return 0;
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, FluidStack resource,
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
 		if(resource != null && resource.fluidID == FluidRegistry.getFluidID("steam"))
 			return steam.drain(resource.amount, doDrain);
@@ -86,22 +86,22 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 	}
 
 	@Override
-	public FluidStack drain(MgDirection from, int maxDrain, boolean doDrain) {
+	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
 		return steam.drain(maxDrain, doDrain);
 	}
 
 	@Override
-	public boolean canFill(MgDirection from, Fluid fluid) {
+	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		return fluid == FluidRegistry.WATER;
 	}
 
 	@Override
-	public boolean canDrain(MgDirection from, Fluid fluid) {
+	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		return fluid == FluidRegistry.getFluid("steam");
 	}
 
 	@Override
-	public FluidTankInfo[] getTankInfo(MgDirection from) {
+	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
 		return new FluidTankInfo[]{water.getInfo(),steam.getInfo()};
 	}
 	

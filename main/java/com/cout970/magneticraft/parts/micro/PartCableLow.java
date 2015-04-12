@@ -81,7 +81,7 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IP
 	}
 
 	public void create(){
-		cond = new Conductor(getTile(), ElectricConstants.RESISTANCE_BASE){
+		cond = new Conductor(getTile(), ElectricConstants.RESISTANCE_COPPER_2X2){
 			
 			@Override
 			public VecInt[] getValidConnections() {

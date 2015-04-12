@@ -50,7 +50,7 @@ public class TileMiner extends TileConductorMedium implements IManagerInventory,
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this, 2, ElectricConstants.RESISTANCE_BASE);
+		return new Conductor(this, 2, ElectricConstants.RESISTANCE_COPPER_2X2);
 	}
 
 	public void updateEntity() {

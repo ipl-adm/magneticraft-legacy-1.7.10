@@ -35,7 +35,7 @@ public class Conductor implements IElectricConductor{
 	}
 	
 	public Conductor(TileEntity tile) {
-		this(tile, ElectricConstants.RESISTANCE_BASE);
+		this(tile, ElectricConstants.RESISTANCE_COPPER_2X2);
 	}
 
 	@Override
@@ -180,6 +180,7 @@ public class Conductor implements IElectricConductor{
 	
 	@Override
 	public void applyPower(double power) {
+		power = power * getVoltageMultiplier();
 		//sqrt(V^2+(power))-V
 		double square = Math.sqrt(this.V * this.V + Q1 * power) - this.V;
         this.applyCurrent(Q2 * square);

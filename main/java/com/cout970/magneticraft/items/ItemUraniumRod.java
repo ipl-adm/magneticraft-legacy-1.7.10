@@ -16,7 +16,7 @@ import com.cout970.magneticraft.client.tilerender.ModelTextures;
 
 public class ItemUraniumRod extends ItemBasic implements IRadiactiveItem{
 
-	private static final double INITIAL_NUMBER_OF_GRAMES = 1000;//1Kg
+	private static final double INITIAL_NUMBER_OF_GRAMES = 10000;//10Kg
 
 	public ItemUraniumRod(String unlocalizedname) {
 		super(unlocalizedname);

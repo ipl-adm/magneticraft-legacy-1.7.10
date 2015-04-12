@@ -25,16 +25,16 @@ public class TileRenderKineticGenerator extends TileEntitySpecialRenderer{
 		GL11.glRotatef(180, 0, 0, 1);
 		TileKineticGenerator tile = (TileKineticGenerator) t;
 		
-		if(tile.getOrientation() == MgDirection.NORTH){
+		if(tile.getDirection() == MgDirection.NORTH){
 			GL11.glRotatef(180, 0, 1, 0);
-		}else if(tile.getOrientation() == MgDirection.WEST){
+		}else if(tile.getDirection() == MgDirection.WEST){
 			GL11.glRotatef(90, 0, 1, 0);
-		}else if(tile.getOrientation() == MgDirection.EAST){
+		}else if(tile.getDirection() == MgDirection.EAST){
 			GL11.glRotatef(-90, 0, 1, 0);
-		}else if(tile.getOrientation() == MgDirection.DOWN){
+		}else if(tile.getDirection() == MgDirection.DOWN){
 			GL11.glRotatef(-90, 1, 0, 0);
 			GL11.glTranslatef(0, -1, 1);
-		}else if(tile.getOrientation() == MgDirection.UP){
+		}else if(tile.getDirection() == MgDirection.UP){
 			GL11.glRotatef(90, 1, 0, 0);
 			GL11.glTranslatef(0, -1, -1);
 		}

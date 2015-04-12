@@ -30,7 +30,7 @@ public class TileGrinder extends TileMB_Base implements IManagerInventory, ISide
 	public boolean active;
 	public int speed;
 	public int maxProgres = 100;
-	public BatteryConductor cond = new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public BatteryConductor cond = new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private int Progres;
 	private boolean auto;
 	private double flow;

@@ -32,7 +32,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public boolean auto;
 	public int Progres = 0;
 	public int maxProgres = 100;
-	public BatteryConductor cond = new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public BatteryConductor cond = new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
 	private InventoryComponent in;
@@ -74,22 +74,40 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 
 	private void distributeItems() {
 		if (in == null) {
-			MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
-			VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().getOpposite());
-			TileEntity c = MgUtils.getTileEntity(this,v);
-			if (c instanceof IManagerInventory) {
-				in = ((IManagerInventory) c).getInv();
+			if(getBlockMetadata() > 6){
+				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().getOpposite());
+				TileEntity c = MgUtils.getTileEntity(this,v);
+				if (c instanceof IManagerInventory) {
+					in = ((IManagerInventory) c).getInv();
+				}
+			}else{
+				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().getOpposite());
+				TileEntity c = MgUtils.getTileEntity(this,v);
+				if (c instanceof IManagerInventory) {
+					in = ((IManagerInventory) c).getInv();
+				}
 			}
 		}
 		if (out == null) {
-			MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
-			VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().multiply(3).getOpposite());
-			TileEntity c = MgUtils.getTileEntity(this,v);
-			if (c instanceof IManagerInventory) {
-				out = ((IManagerInventory) c).getInv();
+			if(getBlockMetadata() > 6){
+				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().multiply(3).getOpposite());
+				TileEntity c = MgUtils.getTileEntity(this,v);
+				if (c instanceof IManagerInventory) {
+					out = ((IManagerInventory) c).getInv();
+				}
+			}else{
+				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().multiply(3).getOpposite());
+				TileEntity c = MgUtils.getTileEntity(this,v);
+				if (c instanceof IManagerInventory) {
+					out = ((IManagerInventory) c).getInv();
+				}
 			}
 		}
-	
+
 		if (in != null && out != null) {
 			if(((TileBase)in.tile).isControled()){
 				if(getInv().getStackInSlot(0) != null){
@@ -173,7 +191,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public void updateConductor() {
 		cond.recache();
 		cond.iterate();
-		MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
+		MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
 		TileEntity c = MgUtils.getTileEntity(this, d.getVecInt().multiply(3));
 		if (c instanceof IElectricTile) {
 			CableCompound comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR,-1);
@@ -246,6 +264,8 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public void onNeigChange() {
 		super.onNeigChange();
 		cond.disconect();
+		in = null;
+		out = null;
 	}
 
 	@Override

@@ -5,20 +5,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.tileentity.TileReactorControl;
+import com.cout970.magneticraft.tileentity.TileReactorControlRods;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockReactorControl extends BlockMg{
+public class BlockReactorControlRods extends BlockMg{
 
-	public BlockReactorControl() {
+	public BlockReactorControlRods() {
 		super(Material.iron);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileReactorControl();
+		return new TileReactorControlRods();
 	}
 
 	@Override

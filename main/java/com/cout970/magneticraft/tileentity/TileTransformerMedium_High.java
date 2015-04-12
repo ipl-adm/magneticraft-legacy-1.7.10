@@ -12,8 +12,8 @@ import com.cout970.magneticraft.api.util.VecInt;
 
 public class TileTransformerMedium_High extends TileBase implements IElectricTile{
 
-	public IElectricConductor medium = new Conductor(this,2, ElectricConstants.RESISTANCE_BASE);
-	public IElectricConductor high = new Conductor(this,4, ElectricConstants.RESISTANCE_BASE);
+	public IElectricConductor medium = new Conductor(this,2, ElectricConstants.RESISTANCE_COPPER_2X2);
+	public IElectricConductor high = new Conductor(this,4, ElectricConstants.RESISTANCE_COPPER_2X2);
 	public double flow;
 
 	@Override

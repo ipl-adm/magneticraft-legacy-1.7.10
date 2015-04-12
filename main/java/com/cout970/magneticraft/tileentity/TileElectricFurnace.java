@@ -125,7 +125,7 @@ public class TileElectricFurnace extends TileConductorLow implements IManagerInv
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 
 	@Override

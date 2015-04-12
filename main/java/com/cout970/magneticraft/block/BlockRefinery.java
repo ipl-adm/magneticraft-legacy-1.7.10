@@ -59,7 +59,7 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 			TileEntity t = w.getTileEntity(x, y, z);
 			if(t instanceof TileRefinery){
 				if(!((TileRefinery) t).isActive()){
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.Refinery, getDirection(w, new BlockPosition(x,y,z)));
+					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_REFINERY), getDirection(w, new BlockPosition(x,y,z)));
 				}else{
 					p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 				}
@@ -83,21 +83,14 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 	{
 		int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-		if (l == 0){
+		if (l == 0)
 			w.setBlockMetadataWithNotify(x, y, z, 2, 2);
-		}
-
-		if (l == 1){
+		if (l == 1)
 			w.setBlockMetadataWithNotify(x, y, z, 5, 2);
-		}
-
-		if (l == 2){
+		if (l == 2)
 			w.setBlockMetadataWithNotify(x, y, z, 3, 2);
-		}
-
-		if (l == 3){
+		if (l == 3)
 			w.setBlockMetadataWithNotify(x, y, z, 4, 2);
-		}
 	}
 
 	@Override

@@ -75,11 +75,11 @@ public class LangHelper {
 		addName(ManagerFluids.lightOil,"Light Oil");
 		addName(ManagerFluids.naturalGas,"Natural Gas");
 		//fluidblocks
-		addName(ManagerFluids.steamBlock,"Steam");
-		addName(ManagerFluids.oilBlock,"Oil");
-		addName(ManagerFluids.heavyOilBlock,"Heavy Oil");
-		addName(ManagerFluids.lightOilBlock,"Light Oil");
-		addName(ManagerFluids.naturalGasBlock,"Natural Gas");
+		addName("tile.mg_steam_block","Steam");
+		addName("tile.mg_oil_block","Oil");
+		addName("tile.mg_heavy_oil_block","Heavy Oil");
+		addName("tile.mg_light_oil_block","Light Oil");
+		addName("tile.mg_natural_gas_block","Natural Gas");
 		
 		//blocks
 		addName(ManagerBlocks.oreCopper, "Copper Ore");
@@ -117,8 +117,8 @@ public class LangHelper {
 		addName(ManagerBlocks.concreted_pipe, "Concrete");
 		addName(ManagerBlocks.reactor_vessel, "Reactor Vessel");
 		addName(ManagerBlocks.thermopile, "Thermopile");
-		addName(ManagerBlocks.multi_energy, "Multiblock Energy IO");
-		addName(ManagerBlocks.reactor_control, "Reactor Control");
+		addName(ManagerBlocks.multi_energy_low, "Multiblock Energy IO Low Voltage");
+		addName(ManagerBlocks.reactor_control_rods, "Reactor Control");
 		addName(ManagerBlocks.reactor_wall, "Reactor Wall");
 		addName(ManagerBlocks.reactor_activator, "Reactor Accelerator");
 		addName(ManagerBlocks.inserter, "Inserter");
@@ -138,5 +138,11 @@ public class LangHelper {
 		addName(ManagerBlocks.air_bubble, "Air Bouble");
 		addName(ManagerBlocks.solar_tower_core, "Solar Tower Core");
 		addName(ManagerBlocks.polimerizer, "Polimerizer Control");
+		
+		addName(ManagerBlocks.reactor_controller, "Reactor Controller");
+		addName(ManagerBlocks.multi_energy_medium, "Multiblock Energy IO Madium voltage");
+		addName(ManagerBlocks.turbine, "Turbine Control");
+		addName(ManagerBlocks.combustion_engine, "Combustion Engine");
+		addName(ManagerBlocks.heat_sink, "Heat Sink");
 	}
 }

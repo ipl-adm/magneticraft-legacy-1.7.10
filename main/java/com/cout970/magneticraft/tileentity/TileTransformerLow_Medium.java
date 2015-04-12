@@ -13,7 +13,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 
 public class TileTransformerLow_Medium extends TileBase implements IElectricTile{
 
-	public IElectricConductor low = new Conductor(this, ElectricConstants.RESISTANCE_BASE){
+	public IElectricConductor low = new Conductor(this, ElectricConstants.RESISTANCE_COPPER_2X2){
 		@Override
 		public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
 			return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.CABLE_LOW;
@@ -24,7 +24,7 @@ public class TileTransformerLow_Medium extends TileBase implements IElectricTile
 			return ConnectionClass.CABLE_LOW;
 		}
 	};
-	public IElectricConductor medium = new Conductor(this,2, ElectricConstants.RESISTANCE_BASE);
+	public IElectricConductor medium = new Conductor(this,2, ElectricConstants.RESISTANCE_COPPER_2X2);
 	public double flow;
 
 	@Override

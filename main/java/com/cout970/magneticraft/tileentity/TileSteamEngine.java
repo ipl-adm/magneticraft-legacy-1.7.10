@@ -114,7 +114,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 
 	@Override

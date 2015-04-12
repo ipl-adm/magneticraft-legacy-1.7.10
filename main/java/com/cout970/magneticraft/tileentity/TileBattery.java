@@ -23,7 +23,7 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IManagerI
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 1280000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE){
+		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 1280000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE){
 			
 			public void iterate(){
 				super.iterate();

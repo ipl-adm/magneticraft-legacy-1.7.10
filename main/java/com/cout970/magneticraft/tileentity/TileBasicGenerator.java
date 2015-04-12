@@ -51,7 +51,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 16000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	@Override

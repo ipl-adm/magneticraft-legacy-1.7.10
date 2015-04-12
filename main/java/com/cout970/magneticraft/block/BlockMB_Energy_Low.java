@@ -7,21 +7,21 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.tileentity.TileMB_Energy;
+import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
-public class BlockMB_EnergyIO extends BlockMg implements MB_Block{
+public class BlockMB_Energy_Low extends BlockMg implements MB_Block{
 
-	public BlockMB_EnergyIO() {
+	public BlockMB_Energy_Low() {
 		super(Material.iron);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileMB_Energy();
+		return new TileMB_Energy_Low();
 	}
 
 	@Override

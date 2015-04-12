@@ -1,9 +1,10 @@
 package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.compact.ManagerIntegration;
-import com.cout970.magneticraft.handlers.FuelHandler;
+import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.proxy.IProxy;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 
@@ -23,7 +24,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.0.2";
+	public final static String VERSION = "0.0.3";
 	public final static String ENERGY_STORED_NAME = "J";
 	
 	@Instance(NAME)
@@ -37,7 +38,7 @@ public class Magneticraft{
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		
+		Log.info("Starting preInit");
 		ManagerConfig.init(event.getSuggestedConfigurationFile());
 		
 		ManagerBlocks.initBlocks();
@@ -51,32 +52,38 @@ public class Magneticraft{
 		ManagerFluids.registerFluidsBlocks();
 		
 		proxy.init();
-		
+
 		ManagerIntegration.searchCompatibilities();
-		
+
 		//
-		//		LangHelper.registerNames();
-		//		LangHelper.setupLangFile();
+		LangHelper.registerNames();
+		LangHelper.setupLangFile();
 		//		
 		ManagerOreDict.registerOreDict();
+		Log.info("preInit Done");
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event){
+		Log.info("Starting Init");
 		NetworkRegistry.INSTANCE.registerGuiHandler(Instance, new GuiHandler());
 		MB_Register.init();
 		registry = new ManagerMultiPart();
 		registry.init();
-		GameRegistry.registerFuelHandler(new FuelHandler());
+		GameRegistry.registerFuelHandler(new SolidFuelHandler());
 		GameRegistry.registerWorldGenerator(new WorldGenManagerMg(), 11);
 		ManagerCraft.init();
 		ManagerRecipe.registerFurnaceRecipes();
 		ManagerRecipe.registerThermopileRecipes();
 		ManagerRecipe.registerBiomassBurnerRecipes();
 		ManagerNetwork.registerMessages();
+		ManagerFluids.registerFuels();
+		Log.info("Init Done");
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
+		Log.info("Starting postInit");
+		Log.info("postInit Done");
 	}
 }

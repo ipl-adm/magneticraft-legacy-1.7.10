@@ -7,7 +7,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 
 import cpw.mods.fml.common.IFuelHandler;
 
-public class FuelHandler implements IFuelHandler{
+public class SolidFuelHandler implements IFuelHandler{
 
 	@Override
 	public int getBurnTime(ItemStack fuel) {

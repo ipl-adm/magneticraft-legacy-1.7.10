@@ -63,7 +63,7 @@ public class ItemThoriumRod extends ItemBasic implements IRadiactiveItem{
 
 	@Override
 	public double getDecayConstant(ItemStack itemStack) {
-		return 1.56E-17;//Lambda(232Th) = 4,93E-11 year = 1.5633E-18 sec -- HalfLife(232Th) = 1.405E10 years = 4.4337E17 sec //divided by 10 because is to hight
+		return 1.56E-18;//Lambda(232Th) = 4,93E-11 year = 1.5633E-18 sec -- HalfLife(232Th) = 1.405E10 years = 4.4337E17 sec //divided by 10 because is to hight
 	}
 
 	@Override

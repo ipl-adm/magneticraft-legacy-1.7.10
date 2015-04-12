@@ -9,7 +9,7 @@ import com.cout970.magneticraft.client.model.ModelTransformer_LM;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.util.RenderUtil;
 
-public class ItemRenderTransformerLM  implements IItemRenderer{
+public class ItemRenderTransformerLM implements IItemRenderer{
 
 	public ModelTransformer_LM model = new ModelTransformer_LM();
 	

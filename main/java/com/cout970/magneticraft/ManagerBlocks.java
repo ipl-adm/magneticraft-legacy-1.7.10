@@ -16,6 +16,7 @@ import com.cout970.magneticraft.block.BlockBiomassBurner;
 import com.cout970.magneticraft.block.BlockBoiler;
 import com.cout970.magneticraft.block.BlockBreaker;
 import com.cout970.magneticraft.block.BlockChasis;
+import com.cout970.magneticraft.block.BlockCombustionEngine;
 import com.cout970.magneticraft.block.BlockConcretedPipe;
 import com.cout970.magneticraft.block.BlockConveyorLow;
 import com.cout970.magneticraft.block.BlockCooler;
@@ -27,11 +28,13 @@ import com.cout970.magneticraft.block.BlockGeothermalPump;
 import com.cout970.magneticraft.block.BlockGrinder;
 import com.cout970.magneticraft.block.BlockHeatCable;
 import com.cout970.magneticraft.block.BlockHeatResistence;
+import com.cout970.magneticraft.block.BlockHeatSink;
 import com.cout970.magneticraft.block.BlockHeater;
 import com.cout970.magneticraft.block.BlockInfiniteWater;
 import com.cout970.magneticraft.block.BlockInserter;
 import com.cout970.magneticraft.block.BlockKineticGenerator;
-import com.cout970.magneticraft.block.BlockMB_EnergyIO;
+import com.cout970.magneticraft.block.BlockMB_Energy_Low;
+import com.cout970.magneticraft.block.BlockMB_Energy_Medium;
 import com.cout970.magneticraft.block.BlockMB_Inv;
 import com.cout970.magneticraft.block.BlockMachineHousing;
 import com.cout970.magneticraft.block.BlockMgTank;
@@ -44,7 +47,8 @@ import com.cout970.magneticraft.block.BlockPermanentMagnet;
 import com.cout970.magneticraft.block.BlockPolymerizer;
 import com.cout970.magneticraft.block.BlockPumpJack;
 import com.cout970.magneticraft.block.BlockReactorActivator;
-import com.cout970.magneticraft.block.BlockReactorControl;
+import com.cout970.magneticraft.block.BlockReactorControlRods;
+import com.cout970.magneticraft.block.BlockReactorController;
 import com.cout970.magneticraft.block.BlockReactorVessel;
 import com.cout970.magneticraft.block.BlockReactorWall;
 import com.cout970.magneticraft.block.BlockRefinery;
@@ -58,6 +62,7 @@ import com.cout970.magneticraft.block.BlockTeslaCoil;
 import com.cout970.magneticraft.block.BlockThermopile;
 import com.cout970.magneticraft.block.BlockTransformerLow_Medium;
 import com.cout970.magneticraft.block.BlockTransformerMedium_High;
+import com.cout970.magneticraft.block.BlockTurbine;
 import com.cout970.magneticraft.block.BlockWindTurbine;
 import com.cout970.magneticraft.tileentity.TileAirlock;
 import com.cout970.magneticraft.tileentity.TileBase;
@@ -66,6 +71,7 @@ import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileBreaker;
+import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.tileentity.TileCooler;
 import com.cout970.magneticraft.tileentity.TileCrusher;
@@ -76,12 +82,14 @@ import com.cout970.magneticraft.tileentity.TileGeothermalPump;
 import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileHeatCable;
 import com.cout970.magneticraft.tileentity.TileHeatResistance;
+import com.cout970.magneticraft.tileentity.TileHeatSink;
 import com.cout970.magneticraft.tileentity.TileHeater;
 import com.cout970.magneticraft.tileentity.TileInfiniteWater;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
-import com.cout970.magneticraft.tileentity.TileMB_Energy;
+import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
+import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMiner;
@@ -90,7 +98,8 @@ import com.cout970.magneticraft.tileentity.TilePermanentMagnet;
 import com.cout970.magneticraft.tileentity.TilePolimerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.tileentity.TileReactorActivator;
-import com.cout970.magneticraft.tileentity.TileReactorControl;
+import com.cout970.magneticraft.tileentity.TileReactorControlRods;
+import com.cout970.magneticraft.tileentity.TileReactorController;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileReactorWall;
 import com.cout970.magneticraft.tileentity.TileRefinery;
@@ -103,6 +112,7 @@ import com.cout970.magneticraft.tileentity.TileTeslaCoil;
 import com.cout970.magneticraft.tileentity.TileThermopile;
 import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
+import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.tileentity.TileWindTurbineGap;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -124,37 +134,26 @@ public class ManagerBlocks {
 	public static Block oreSalt;
 	public static Block oilSource;
 	public static Block oilSourceDrained;
-	
-	//electric
 	public static Block solarpanel;
 	public static Block furnace;
 	public static Block battery;
 	public static Block transformer_lm;
 	public static Block transformer_mh;
-	
-	//heat
 	public static Block firebox;
 	public static Block boiler;
 	public static Block heat_cable;
 	public static Block cooler;
 	public static Block heat_resist;
-	
-	//fluids
 	public static Block fluidhopper;
 	public static Block basic_gen;
 	public static Block pumpJack;
 	public static Block steamengine;
-	
-	//in progres
 	public static Block crusher;
 	public static Block chasis;
 	public static Block multi_io;
-	
 	public static Block conveyor_l;
-	
 	public static Block mirror;
 	public static Block breaker;
-	
 	public static Block kinetic;
 	public static Block windturbine;
 	public static Block geothermal;
@@ -162,8 +161,8 @@ public class ManagerBlocks {
 	public static Block concreted_pipe;
 	public static Block reactor_vessel;
 	public static Block thermopile;
-	public static Block multi_energy;
-	public static Block reactor_control;
+	public static Block multi_energy_low;
+	public static Block reactor_control_rods;
 	public static Block reactor_wall;
 	public static Block reactor_activator;
 	public static Block inserter;
@@ -183,6 +182,12 @@ public class ManagerBlocks {
 	public static Block air_bubble;
 	public static Block solar_tower_core;
 	public static Block polimerizer;
+	public static Block reactor_controller;
+	public static Block multi_energy_medium;
+	public static Block turbine;
+	public static Block combustion_engine;
+	public static Block heat_sink;
+	
 	
 	
 	
@@ -224,8 +229,8 @@ public class ManagerBlocks {
 		concreted_pipe = new BlockConcretedPipe();
 		reactor_vessel = new BlockReactorVessel();
 		thermopile = new BlockThermopile();
-		multi_energy = new BlockMB_EnergyIO();
-		reactor_control = new BlockReactorControl();
+		multi_energy_low = new BlockMB_Energy_Low();
+		reactor_control_rods = new BlockReactorControlRods();
 		reactor_wall = new BlockReactorWall();
 		inserter = new BlockInserter();
 		reactor_activator = new BlockReactorActivator();
@@ -245,6 +250,11 @@ public class ManagerBlocks {
 		air_bubble = new BlockAirBubble();
 		solar_tower_core = new BlockSolarTowerCore();
 		polimerizer = new BlockPolymerizer();
+		reactor_controller = new BlockReactorController();
+		multi_energy_medium = new BlockMB_Energy_Medium();
+		turbine = new BlockTurbine();
+		combustion_engine = new BlockCombustionEngine(); 
+		heat_sink = new BlockHeatSink();
 	}
 	
 	public static void registerBlocks(){
@@ -264,7 +274,6 @@ public class ManagerBlocks {
 		blocks.add(oreUranium);
 		blocks.add(oreThorium);
 		blocks.add(oreSalt);
-		
 		blocks.add(battery);
 		blocks.add(solarpanel);
 		blocks.add(furnace);
@@ -277,7 +286,6 @@ public class ManagerBlocks {
 		blocks.add(boiler);
 		blocks.add(cooler);
 		blocks.add(housing);
-		
 		blocks.add(crusher);
 		blocks.add(chasis);
 		blocks.add(multi_io);
@@ -294,8 +302,8 @@ public class ManagerBlocks {
 		blocks.add(concreted_pipe);
 		blocks.add(reactor_vessel);
 		blocks.add(thermopile);
-		blocks.add(multi_energy);
-		blocks.add(reactor_control);
+		blocks.add(multi_energy_low);
+		blocks.add(reactor_control_rods);
 		blocks.add(reactor_wall);
 		blocks.add(inserter);
 		blocks.add(reactor_activator);
@@ -314,6 +322,12 @@ public class ManagerBlocks {
 		blocks.add(air_bubble);
 		blocks.add(solar_tower_core);
 		blocks.add(polimerizer);
+		blocks.add(reactor_controller);
+		blocks.add(multi_energy_medium);
+		blocks.add(turbine);
+		blocks.add(combustion_engine);
+		blocks.add(heat_sink);
+		
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, b.getUnlocalizedName());
@@ -350,8 +364,8 @@ public class ManagerBlocks {
 		tileEntities.add(TileConveyorBelt.class);
 		tileEntities.add(TileReactorVessel.class);
 		tileEntities.add(TileThermopile.class);
-		tileEntities.add(TileMB_Energy.class);
-		tileEntities.add(TileReactorControl.class);
+		tileEntities.add(TileMB_Energy_Low.class);
+		tileEntities.add(TileReactorControlRods.class);
 		tileEntities.add(TileReactorWall.class);
 		tileEntities.add(TileInserter.class);
 		tileEntities.add(TileReactorActivator.class);
@@ -369,6 +383,11 @@ public class ManagerBlocks {
 		tileEntities.add(TileHeater.class);
 		tileEntities.add(TileSolarTowerCore.class);
 		tileEntities.add(TilePolimerizer.class);
+		tileEntities.add(TileReactorController.class);
+		tileEntities.add(TileTurbineControl.class);
+		tileEntities.add(TileMB_Energy_Medium.class);
+		tileEntities.add(TileCombustionEngine.class);
+		tileEntities.add(TileHeatSink.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

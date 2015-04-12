@@ -12,6 +12,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -24,11 +25,16 @@ public class TileInserter extends TileConductorLow{
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_BASE, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 
 	public MgDirection getDir(){
 		return MgDirection.getDirection(getBlockMetadata());
+	}
+	
+	public void onBlockBreaks(){
+		if(worldObj.isRemote)return;
+		BlockMg.dropItem(getInv().getStackInSlot(0), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
 	}
 
 	public void updateEntity(){

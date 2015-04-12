@@ -38,6 +38,8 @@ public class ModelTextures {
 	public static final ResourceLocation REFINERY 					= new ResourceLocation("magneticraft", "textures/misc/refinery.png");
 	public static final ResourceLocation REFINERY_TANK 				= new ResourceLocation("magneticraft", "textures/misc/refinery_tank.png");
 	public static final ResourceLocation WIRE_COPPER_CORNER 		= new ResourceLocation("magneticraft", "textures/misc/wire_copper_corners.png");
+	public static final ResourceLocation COMBUSTION_ENGINE 			= new ResourceLocation("magneticraft", "textures/misc/combustion_engine.png");
+	public static final ResourceLocation HEAT_SINK 					= new ResourceLocation("magneticraft", "textures/misc/heat_sink.png");
 	
 	
 }

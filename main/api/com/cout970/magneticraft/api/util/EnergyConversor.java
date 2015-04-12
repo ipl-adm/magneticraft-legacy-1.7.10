@@ -9,7 +9,6 @@ public class EnergyConversor {
 	private static final int CALORIE = 100;//100 calories to make 5mB steam from 1mB water 
 	private static final double EU_KW = 0.4;//1EU = 400W = 0.4KW
 	private static final double EU_W = 400;//1EU = 400W
-	private static final double CALORIE_JOULE = 4.184;// 1 Calorie = 4.18 Joules
 
 	public static double RFtoW(int rf){
 		return rf*RF_W;
@@ -69,10 +68,6 @@ public class EnergyConversor {
 
 	public static double EUtoKW(double Kw) {
 		return Kw/EU_KW;
-	}
-
-	public static double RealJOULEStoCALORIES(double j) {
-		return j/CALORIE_JOULE;
 	}
 
 	public static double STEAMtoW(int steam) {

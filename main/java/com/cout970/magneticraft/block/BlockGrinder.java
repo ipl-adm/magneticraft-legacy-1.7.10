@@ -58,7 +58,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 			TileEntity t = w.getTileEntity(x, y, z);
 			if(t instanceof TileGrinder){
 				if(!((TileGrinder) t).active){
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.Grinder, getDirection(w, new BlockPosition(x,y,z)));
+					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_GRINDER), getDirection(w, new BlockPosition(x,y,z)));
 				}else{
 					p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 				}

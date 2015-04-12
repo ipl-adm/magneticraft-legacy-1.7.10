@@ -93,7 +93,7 @@ public abstract class PartWireCopper extends ElectricPart{
 	}
 
 	public void create(){
-		cond = new Conductor(getTile(), 0, ElectricConstants.RESISTANCE_BASE){
+		cond = new Conductor(getTile(), 0, ElectricConstants.RESISTANCE_COPPER_2X2){
 			@Override
 			public VecInt[] getValidConnections() {
 				return PartWireCopper.this.getValidConnexions(getDirection());

@@ -3,14 +3,17 @@ ideas
 
 
 terminar:
-modo de obtencion del plastico
-
-arreglar bugs: conexiones slab-cable
 el miner
-reactor 
+reactor //IDN
+MB check lang check
+
+comprobaciones:
+quitar el multiblock debug
+quitar el lang helper
+cambiar la version en el archivo en gradlew y en mod.info
 
 opcional:
-
+turbina de vapor
 block harvester baseado en simples bloques debajo de los cultivos conectados a un controlado
 flower block usar flores inutiles para obtener fuel 
 añadir cables de oro y plata
@@ -18,3 +21,6 @@ arreglar todas las tile entities que no guardan todos los datos, y que no hagan 
 que el miner diga cuantos minerales va minar
 espada de descargas electricas(taser)
 bloque humidificador y calentador para cambiar el bioma, tambien un bloque de micelium para contaminacion
+
+bugs: 
+generacion de oil

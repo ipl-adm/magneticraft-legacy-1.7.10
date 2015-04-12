@@ -32,13 +32,13 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 	private boolean working;
 	
 	
-	public MgDirection getOrientation(){
+	public MgDirection getDirection(){
 		return MgDirection.getDirection(getBlockMetadata()%6);
 	}
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this,2,ElectricConstants.RESISTANCE_BASE);
+		return new Conductor(this,2,ElectricConstants.RESISTANCE_COPPER_2X2);
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 		if(VecInt.NULL_VECTOR == dir){
 			return new CableCompound(cond);
 		}
-		if(dir.toMgDirection() == getOrientation().opposite() && (tier == 2 || tier == -1))return new CableCompound(cond);
+		if(dir.toMgDirection() == getDirection().opposite() && (tier == 2 || tier == -1))return new CableCompound(cond);
 		return null;
 	}
 
@@ -82,12 +82,12 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 		}
 		
 		if(storage.getEnergyStored() > 0){
-			TileEntity t = MgUtils.getTileEntity(this, getOrientation());
+			TileEntity t = MgUtils.getTileEntity(this, getDirection());
 			if(t instanceof IEnergyReceiver){
 				IEnergyReceiver e = (IEnergyReceiver) t;
-				if(e.canConnectEnergy(getOrientation().opposite().getForgeDir())){
+				if(e.canConnectEnergy(getDirection().opposite().getForgeDir())){
 					int transfer = Math.min(400, storage.getEnergyStored());
-					int acepted = e.receiveEnergy(getOrientation().opposite().getForgeDir(), transfer, false);
+					int acepted = e.receiveEnergy(getDirection().opposite().getForgeDir(), transfer, false);
 					storage.modifyEnergyStored(-acepted);
 				}
 			}
@@ -117,7 +117,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
-		return getOrientation().getForgeDir() == from;
+		return getDirection().getForgeDir() == from;
 	}
 
 	@Override

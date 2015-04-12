@@ -8,6 +8,7 @@ import com.cout970.magneticraft.client.gui.GuiBasicGenerator;
 import com.cout970.magneticraft.client.gui.GuiBattery;
 import com.cout970.magneticraft.client.gui.GuiBiomassBurner;
 import com.cout970.magneticraft.client.gui.GuiBoiler;
+import com.cout970.magneticraft.client.gui.GuiCombustionEngine;
 import com.cout970.magneticraft.client.gui.GuiCrusher;
 import com.cout970.magneticraft.client.gui.GuiElectricFurnace;
 import com.cout970.magneticraft.client.gui.GuiFireBox;
@@ -22,11 +23,13 @@ import com.cout970.magneticraft.client.gui.GuiReactorVessel;
 import com.cout970.magneticraft.client.gui.GuiRefinery;
 import com.cout970.magneticraft.client.gui.GuiSteamEngine;
 import com.cout970.magneticraft.client.gui.GuiStirlingGenerator;
+import com.cout970.magneticraft.client.gui.GuiTurbine;
 import com.cout970.magneticraft.client.gui.GuiWindMill;
 import com.cout970.magneticraft.container.ContainerBasicGenerator;
 import com.cout970.magneticraft.container.ContainerBattery;
 import com.cout970.magneticraft.container.ContainerBiomassBurner;
 import com.cout970.magneticraft.container.ContainerBoiler;
+import com.cout970.magneticraft.container.ContainerCombustionEngine;
 import com.cout970.magneticraft.container.ContainerCrusher;
 import com.cout970.magneticraft.container.ContainerElectricFurnace;
 import com.cout970.magneticraft.container.ContainerFireBox;
@@ -41,11 +44,13 @@ import com.cout970.magneticraft.container.ContainerReactorVessel;
 import com.cout970.magneticraft.container.ContainerRefinery;
 import com.cout970.magneticraft.container.ContainerSteamEngine;
 import com.cout970.magneticraft.container.ContainerStirlingGenerator;
+import com.cout970.magneticraft.container.ContainerTurbine;
 import com.cout970.magneticraft.container.ContainerWindMill;
 import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
+import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileCrusher;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
 import com.cout970.magneticraft.tileentity.TileFireBox;
@@ -60,6 +65,7 @@ import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
+import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -128,6 +134,12 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TilePolimerizer){
 			return new ContainerPolimerizer(player.inventory, tile);
 		}
+		if(tile instanceof TileTurbineControl){
+			return new ContainerTurbine(player.inventory, tile);
+		}
+		if(tile instanceof TileCombustionEngine){
+			return new ContainerCombustionEngine(player.inventory, tile);
+		}
 		return null;
 	}
 
@@ -192,6 +204,12 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TilePolimerizer){
 			return new GuiPolimerizer(new ContainerPolimerizer(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileTurbineControl){
+			return new GuiTurbine(new ContainerTurbine(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileCombustionEngine){
+			return new GuiCombustionEngine(new ContainerCombustionEngine(player.inventory, tile), tile);
 		}
 		return null;
 	}

@@ -29,8 +29,8 @@ public class MutableComponent {
 		blocks.add(b);
 	}
 
-	public boolean isCorrect(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e) {
-		VecInt te = c.translate(x, y, z, e);
+	public boolean isCorrect(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
+		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(!blocks.contains(t)){
 //			w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), blocks.get(0));
@@ -39,8 +39,8 @@ public class MutableComponent {
 		return true;
 	}
 
-	public void establish(World w, BlockPosition p, int x, int y, int z,Multiblock c, MgDirection e) {
-		VecInt te = c.translate(x, y, z, e);
+	public void establish(World w, BlockPosition p, int x, int y, int z,Multiblock c, MgDirection e, int meta) {
+		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(t instanceof MB_Block){
 			((MB_Block) t).mutates(w,new BlockPosition(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
@@ -54,8 +54,8 @@ public class MutableComponent {
 		}
 	}
 
-	public void destroy(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e) {
-		VecInt te = c.translate(x, y, z, e);
+	public void destroy(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
+		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		TileEntity tile = w.getTileEntity(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(tile instanceof MB_Tile){
 			((MB_Tile) tile).onDestroy(w,p,c,e);
@@ -69,8 +69,9 @@ public class MutableComponent {
 		}
 	}
 
-	public String getErrorMesage() {
-		return "with the block: "+blocks.get(0).getLocalizedName();
+	public String getErrorMesage(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
+		VecInt k = c.translate(w, p, x, y, z, c, e, meta).add(p);
+		return "Error in " + k.getX() + " " + k.getY() + " " + k.getZ() +" with the block: "+blocks.get(0).getLocalizedName();
 	}
 
 }

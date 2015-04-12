@@ -4,12 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
 
 import com.cout970.magneticraft.block.fluids.BlockFluidHeavyOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidLightOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidNaturalGas;
 import com.cout970.magneticraft.block.fluids.BlockFluidOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidSteam;
+import com.cout970.magneticraft.handlers.FluidFuelHandler;
+import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -97,5 +100,17 @@ public class ManagerFluids {
 			FluidRegistry.getFluid(NATURAL_GAS).setBlock(naturalGasBlock);
 		}
 		naturalGasBlock = FluidRegistry.getFluid(NATURAL_GAS).getBlock();
+	}
+
+	public static void registerFuels() {
+		
+		if(BuildcraftFuelRegistry.fuel == null){
+			BuildcraftFuelRegistry.fuel = new FluidFuelHandler();
+			Log.info("Creating a IFuelManager");
+		}
+		BuildcraftFuelRegistry.fuel.addFuel(lightOil, 80, 25000);
+		BuildcraftFuelRegistry.fuel.addFuel(heavyOil, 60, 25000);
+		BuildcraftFuelRegistry.fuel.addFuel(naturalGas, 40, 75000);
+		BuildcraftFuelRegistry.fuel.addFuel(oil, 30, 5000);
 	}
 }

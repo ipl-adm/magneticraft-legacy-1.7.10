@@ -13,5 +13,6 @@ public class ElectricConstants {
 	public static final double GENERATOR_CHARGE 	= MAX_VOLTAGE*9/12;//90;
 	public static final double BATTERY_DISCHARGE 	= MAX_VOLTAGE*9/12;//90;
 	public static final double BATTERY_CHARGE 		= MAX_VOLTAGE*10/12;//100;
-	public static final double RESISTANCE_BASE		= 0.01D;
+	public static final double RESISTANCE_COPPER_2X2= 0.01D;
+	public static final double RESISTANCE_COPPER_4X4= 0.005D;
 }

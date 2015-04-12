@@ -98,8 +98,8 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 		}
 	}
 
-	public static final int MAX_ACCEPT = 100;
-	public static final int MAX_EXTRACT = 100;
+	public static final int MAX_ACCEPT = 300;
+	public static final int MAX_EXTRACT = 300;
 	public Map<MgDirection,TankConection> tanks = new HashMap<MgDirection,TankConection>();
 	public ConnectionMode[] side = {ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT};//sides input and output
 	public boolean[] locked = new boolean[6];

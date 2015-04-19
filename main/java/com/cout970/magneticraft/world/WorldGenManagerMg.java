@@ -67,10 +67,11 @@ public class WorldGenManagerMg implements IWorldGenerator{
 			if (GenOil) {
 				int run = 400;
 				BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);
-				if(base.getFloatRainfall() < 0.5 || base.getTempCategory() == TempCategory.WARM) run -= 200;
-				if(base.getTempCategory() == TempCategory.OCEAN) run -= 150;
-				if(base.getTempCategory() == TempCategory.COLD) run -= 100;
-				
+				if(base != null){
+					if(base.getFloatRainfall() < 0.5 || base.getTempCategory() == TempCategory.WARM) run -= 200;
+					if(base.getTempCategory() == TempCategory.OCEAN) run -= 150;
+					if(base.getTempCategory() == TempCategory.COLD) run -= 100;
+				}
 				if(random.nextInt(run) == 0){
 					for(int i = -1;i<=1;i++)
 						for(int j = -1;j<=1;j++){

@@ -21,13 +21,13 @@ import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IPartConductor;
+import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
 
-public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IPartConductor{
+public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IElectricMultiPart{
 
 	public byte connections;
 	public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
@@ -132,7 +132,7 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IP
 			}
 		}
 		for(TMultiPart t:tile().jPartList()){
-			if(t instanceof IPartConductor && ((IPartConductor) t).getCond(getTier()) != null){
+			if(t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getCond(getTier()) != null){
 				if(t instanceof PartWireCopper){
 					connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal()));
 				}

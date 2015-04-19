@@ -140,7 +140,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 		for(int i = 0;i< 4;i++){
 			if(in[i] != null){
 				if(in[i].getFluidAmount() > 0){
-					craft.sendProgressBarUpdate(cont, i*2+2, in[i].getFluid().fluidID);
+					craft.sendProgressBarUpdate(cont, i*2+2, in[i].getFluid().getFluidID());
 					craft.sendProgressBarUpdate(cont, i*2+3, in[i].getFluidAmount());
 				}else{
 					craft.sendProgressBarUpdate(cont, i*2+2, -1);
@@ -167,5 +167,10 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 				}
 			}
 		}
+	}
+	
+	@Override
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata()%6);
 	}
 }

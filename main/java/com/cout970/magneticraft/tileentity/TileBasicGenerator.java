@@ -23,12 +23,12 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IManagerInventory,IBurningTime,IHeatTile{
+public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IInventoryManaged,IBurningTime,IHeatTile{
 
 	//cook
 	public float Progres = 0;
@@ -189,7 +189,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 
 	@Override
 	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		if(resource != null && resource.fluidID == FluidRegistry.getFluidID("water"))
+		if(resource != null && resource.getFluidID() == FluidRegistry.getFluidID("water"))
 			return water.fill(resource, doFill);
 		return 0;
 	}

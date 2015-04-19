@@ -24,7 +24,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.0.4";
+	public final static String VERSION = "0.0.5";
 	public final static String ENERGY_STORED_NAME = "J";
 	
 	@Instance(NAME)
@@ -56,8 +56,8 @@ public class Magneticraft{
 		ManagerIntegration.searchCompatibilities();
 
 		//
-		//		LangHelper.registerNames();
-		//		LangHelper.setupLangFile();
+//		LangHelper.registerNames();
+//		LangHelper.setupLangFile();
 		//		
 		ManagerOreDict.registerOreDict();
 		Log.info("preInit Done");

@@ -21,13 +21,13 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 public class TileCrusher extends TileMB_Base implements IGuiSync,
-		IBurningTime, IManagerInventory, ISidedInventory {
+		IBurningTime, IInventoryManaged, ISidedInventory {
 
 	public boolean active;
 	public boolean auto;
@@ -79,15 +79,15 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IManagerInventory) {
-					in = ((IManagerInventory) c).getInv();
+				if (c instanceof IInventoryManaged) {
+					in = ((IInventoryManaged) c).getInv();
 				}
 			}else{
 				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IManagerInventory) {
-					in = ((IManagerInventory) c).getInv();
+				if (c instanceof IInventoryManaged) {
+					in = ((IInventoryManaged) c).getInv();
 				}
 			}
 		}
@@ -96,15 +96,15 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().multiply(3).getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IManagerInventory) {
-					out = ((IManagerInventory) c).getInv();
+				if (c instanceof IInventoryManaged) {
+					out = ((IInventoryManaged) c).getInv();
 				}
 			}else{
 				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().multiply(3).getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IManagerInventory) {
-					out = ((IManagerInventory) c).getInv();
+				if (c instanceof IInventoryManaged) {
+					out = ((IInventoryManaged) c).getInv();
 				}
 			}
 		}

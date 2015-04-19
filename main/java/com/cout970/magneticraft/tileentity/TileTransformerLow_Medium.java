@@ -16,6 +16,7 @@ public class TileTransformerLow_Medium extends TileBase implements IElectricTile
 	public IElectricConductor low = new Conductor(this, ElectricConstants.RESISTANCE_COPPER_2X2){
 		@Override
 		public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
+			if(v.toMgDirection() != MgDirection.getDirection(getBlockMetadata()))return false;
 			return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.CABLE_LOW;
 		}
 		

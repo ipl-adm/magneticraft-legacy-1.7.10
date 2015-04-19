@@ -138,11 +138,12 @@ public class LangHelper {
 		addName(ManagerBlocks.air_bubble, "Air Bouble");
 		addName(ManagerBlocks.solar_tower_core, "Solar Tower Core");
 		addName(ManagerBlocks.polimerizer, "Polimerizer Control");
-		
 		addName(ManagerBlocks.reactor_controller, "Reactor Controller");
 		addName(ManagerBlocks.multi_energy_medium, "Multiblock Energy IO Madium voltage");
 		addName(ManagerBlocks.turbine, "Turbine Control");
 		addName(ManagerBlocks.combustion_engine, "Combustion Engine");
 		addName(ManagerBlocks.heat_sink, "Heat Sink");
+		addName(ManagerBlocks.brickFurnace, "Brick Furnace");
+		addName(ManagerBlocks.crafter, "Crafter");
 	}
 }

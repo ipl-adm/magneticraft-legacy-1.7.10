@@ -15,11 +15,13 @@ import com.cout970.magneticraft.block.BlockBattery;
 import com.cout970.magneticraft.block.BlockBiomassBurner;
 import com.cout970.magneticraft.block.BlockBoiler;
 import com.cout970.magneticraft.block.BlockBreaker;
+import com.cout970.magneticraft.block.BlockBrickFurnace;
 import com.cout970.magneticraft.block.BlockChasis;
 import com.cout970.magneticraft.block.BlockCombustionEngine;
 import com.cout970.magneticraft.block.BlockConcretedPipe;
 import com.cout970.magneticraft.block.BlockConveyorLow;
 import com.cout970.magneticraft.block.BlockCooler;
+import com.cout970.magneticraft.block.BlockCrafter;
 import com.cout970.magneticraft.block.BlockCrusher;
 import com.cout970.magneticraft.block.BlockElectricFurnace;
 import com.cout970.magneticraft.block.BlockFireBox;
@@ -71,9 +73,11 @@ import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileBreaker;
+import com.cout970.magneticraft.tileentity.TileBrickFurnace;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.tileentity.TileCooler;
+import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrusher;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
 import com.cout970.magneticraft.tileentity.TileFireBox;
@@ -187,7 +191,8 @@ public class ManagerBlocks {
 	public static Block turbine;
 	public static Block combustion_engine;
 	public static Block heat_sink;
-	
+	public static Block brickFurnace;
+	public static Block crafter;
 	
 	
 	
@@ -255,6 +260,8 @@ public class ManagerBlocks {
 		turbine = new BlockTurbine();
 		combustion_engine = new BlockCombustionEngine(); 
 		heat_sink = new BlockHeatSink();
+		brickFurnace = new BlockBrickFurnace();
+		crafter = new BlockCrafter();
 	}
 	
 	public static void registerBlocks(){
@@ -327,7 +334,8 @@ public class ManagerBlocks {
 		blocks.add(turbine);
 		blocks.add(combustion_engine);
 		blocks.add(heat_sink);
-		
+		blocks.add(brickFurnace);
+		blocks.add(crafter);
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, b.getUnlocalizedName());
@@ -388,6 +396,8 @@ public class ManagerBlocks {
 		tileEntities.add(TileMB_Energy_Medium.class);
 		tileEntities.add(TileCombustionEngine.class);
 		tileEntities.add(TileHeatSink.class);
+		tileEntities.add(TileBrickFurnace.class);
+		tileEntities.add(TileCrafter.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

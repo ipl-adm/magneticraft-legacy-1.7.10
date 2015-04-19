@@ -8,7 +8,9 @@ import com.cout970.magneticraft.client.gui.GuiBasicGenerator;
 import com.cout970.magneticraft.client.gui.GuiBattery;
 import com.cout970.magneticraft.client.gui.GuiBiomassBurner;
 import com.cout970.magneticraft.client.gui.GuiBoiler;
+import com.cout970.magneticraft.client.gui.GuiBrickFurnace;
 import com.cout970.magneticraft.client.gui.GuiCombustionEngine;
+import com.cout970.magneticraft.client.gui.GuiCrafter;
 import com.cout970.magneticraft.client.gui.GuiCrusher;
 import com.cout970.magneticraft.client.gui.GuiElectricFurnace;
 import com.cout970.magneticraft.client.gui.GuiFireBox;
@@ -29,7 +31,9 @@ import com.cout970.magneticraft.container.ContainerBasicGenerator;
 import com.cout970.magneticraft.container.ContainerBattery;
 import com.cout970.magneticraft.container.ContainerBiomassBurner;
 import com.cout970.magneticraft.container.ContainerBoiler;
+import com.cout970.magneticraft.container.ContainerBrickFurnace;
 import com.cout970.magneticraft.container.ContainerCombustionEngine;
+import com.cout970.magneticraft.container.ContainerCrafter;
 import com.cout970.magneticraft.container.ContainerCrusher;
 import com.cout970.magneticraft.container.ContainerElectricFurnace;
 import com.cout970.magneticraft.container.ContainerFireBox;
@@ -50,7 +54,9 @@ import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
+import com.cout970.magneticraft.tileentity.TileBrickFurnace;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
+import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrusher;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
 import com.cout970.magneticraft.tileentity.TileFireBox;
@@ -140,6 +146,12 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileCombustionEngine){
 			return new ContainerCombustionEngine(player.inventory, tile);
 		}
+		if(tile instanceof TileBrickFurnace){
+			return new ContainerBrickFurnace(player.inventory, tile);
+		}
+		if(tile instanceof TileCrafter){
+			return new ContainerCrafter(player.inventory, tile);
+		}
 		return null;
 	}
 
@@ -210,6 +222,12 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TileCombustionEngine){
 			return new GuiCombustionEngine(new ContainerCombustionEngine(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileBrickFurnace){
+			return new GuiBrickFurnace(new ContainerBrickFurnace(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileCrafter){
+			return new GuiCrafter(new ContainerCrafter(player.inventory, tile), tile);
 		}
 		return null;
 	}

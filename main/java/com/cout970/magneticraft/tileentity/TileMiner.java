@@ -28,12 +28,12 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IConsumer;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 
-public class TileMiner extends TileConductorMedium implements IManagerInventory,IGuiSync,IConsumer,IBarProvider{
+public class TileMiner extends TileConductorMedium implements IInventoryManaged,IGuiSync,IConsumer,IBarProvider{
 
 	public static final int MINING_COST_PER_BLOCK = 500;
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Miner");

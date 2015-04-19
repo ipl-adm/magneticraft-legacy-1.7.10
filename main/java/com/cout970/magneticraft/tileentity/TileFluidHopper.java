@@ -155,7 +155,7 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		if(tank.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 0, tank.getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 0, tank.getFluid().getFluidID());
 		}
 		craft.sendProgressBarUpdate(cont, 1, tank.getFluidAmount());
 	}

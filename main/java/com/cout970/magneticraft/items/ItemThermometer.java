@@ -22,9 +22,8 @@ public class ItemThermometer extends ItemBasic{
 		TileEntity t = w.getTileEntity(x, y, z);
 		IHeatConductor heat = MgUtils.getHeatCond(t, VecInt.NULL_VECTOR);
 		if(heat != null){
-			p.addChatMessage(new ChatComponentText("Temperature: "+MgUtils.format(heat.getTemperature())));
+			p.addChatMessage(new ChatComponentText("Temperature: "+String.format("%.2f",heat.getTemperature())));
 		}
-//		p.addChatMessage(new ChatComponentText("Metadata: "+w.getBlockMetadata(x, y, z)));
 		return false;
 	}
 

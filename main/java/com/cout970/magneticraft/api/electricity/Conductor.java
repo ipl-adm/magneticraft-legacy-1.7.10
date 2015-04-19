@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
+import com.cout970.magneticraft.util.Log;
 
 public class Conductor implements IElectricConductor{
 
@@ -63,11 +64,13 @@ public class Conductor implements IElectricConductor{
 			con.clear();
 			int sides = 0;
 			for(VecInt f : getValidConnections()){
+				
 				TileEntity target = MgUtils.getTileEntity(tile, f);
 				CableCompound c = MgUtils.getConductor(target, f.getOpposite(), getTier());
 				ICompatibilityInterface inter = MgUtils.getInterface(target, f.getOpposite(), getTier());
 				if(c != null){
 					for(IElectricConductor e : c.list()){
+						if(e == this)continue;
 						if(this.isAbleToConnect(e, f) && e.isAbleToConnect(this, f.getOpposite())){
 							if(!MgUtils.alreadyContains(e.getConnexions(), f.getOpposite())){
 								con.add(new IndexedConnexion(f,e,sides));
@@ -106,7 +109,7 @@ public class Conductor implements IElectricConductor{
 			IElectricConductor cond = f.cond;
 			ICompatibilityInterface c = f.inter;
 			if(cond != null){
-				double resistence = this.getResistance() + cond.getResistance();
+				double resistence = (this.getResistance() + cond.getResistance());
 				double difference = this.V - cond.getVoltage();
 				double change = flow[f.side];
 				flow[f.side] += ((difference - change * resistence) * getIndScale())/getVoltageMultiplier();
@@ -134,7 +137,7 @@ public class Conductor implements IElectricConductor{
 	}
 
 	public double getIndScale() {
-		return 0.07D;
+		return 0.05D;
 	}
 
 	@Override

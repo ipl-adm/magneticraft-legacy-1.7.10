@@ -123,22 +123,22 @@ public class TileRefinery extends TileMB_Base implements IGuiSync, IBarProvider{
 		if(input == null || output0 == null || output1 == null || output2 == null || heater == null)return;
 		craft.sendProgressBarUpdate(cont, 0, (int) heater.getTemperature());
 		if(input.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 1, input.getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 1, input.getFluid().getFluidID());
 			craft.sendProgressBarUpdate(cont, 2, input.getFluidAmount());
 		}else craft.sendProgressBarUpdate(cont, 1, -1);
 		
 		if(output0.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 3, output0.getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 3, output0.getFluid().getFluidID());
 			craft.sendProgressBarUpdate(cont, 4, output0.getFluidAmount());
 		}else craft.sendProgressBarUpdate(cont, 3, -1);
 		
 		if(output1.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 5, output1.getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 5, output1.getFluid().getFluidID());
 			craft.sendProgressBarUpdate(cont, 6, output1.getFluidAmount());
 		}else craft.sendProgressBarUpdate(cont, 5, -1);
 		
 		if(output2.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 7, output2.getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 7, output2.getFluid().getFluidID());
 			craft.sendProgressBarUpdate(cont, 8, output2.getFluidAmount());
 		}else craft.sendProgressBarUpdate(cont, 7, -1);
 		

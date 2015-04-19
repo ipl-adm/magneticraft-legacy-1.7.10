@@ -20,13 +20,13 @@ import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IPartConductor;
+import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderCableMedium;
 
-public class PartCableMedium extends ElectricPart implements ISidedHollowConnect,IPartConductor{
+public class PartCableMedium extends ElectricPart implements ISidedHollowConnect,IElectricMultiPart{
 
 	public boolean[] connections = new boolean[6];
 	public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();

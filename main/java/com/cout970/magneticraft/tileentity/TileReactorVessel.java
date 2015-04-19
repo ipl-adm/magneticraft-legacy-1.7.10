@@ -12,13 +12,13 @@ import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.IReactorComponent;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
-public class TileReactorVessel extends TileHeatConductor implements IManagerInventory,IGuiSync,IBarProvider,IReactorComponent{
+public class TileReactorVessel extends TileHeatConductor implements IInventoryManaged,IGuiSync,IBarProvider,IReactorComponent{
 
 	private static final double AVOGADROS_CONSTANT = 6.022E23;
 	public InventoryComponent inv = new InventoryComponent(this,4,"ReactorVessel");

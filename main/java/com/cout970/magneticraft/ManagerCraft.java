@@ -57,6 +57,8 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(combustion_engine), new Object[]{"ivi","imi","pbp",'i',"ingotIron",'m',motor,'p',"itemPlastic",'b',battery_item}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heat_sink), new Object[]{"bbb","iii",'i',"ingotIron",'b',Blocks.iron_bars}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine), new Object[]{"ici","cmc","ihi",'i',"ingotIron",'c',"ingotCarbide",'m',motor,'h',chasis}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(brickFurnace), new Object[]{"bbb","bfb","bcb",'b',Items.brick,'c',heat_cable,'f',Blocks.furnace}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crafter), new Object[]{"bbb","bfb","bcb",'b',"ingotIron",'c',Items.redstone,'f',Blocks.crafting_table}));
 
 		//items
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(battery_item), new Object[]{"scs","sis","scs",'i',"ingotIron",'c',"ingotCopper",'s',"dustSulfur"}));

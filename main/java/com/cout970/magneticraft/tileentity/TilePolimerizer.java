@@ -19,13 +19,13 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
-public class TilePolimerizer extends TileMB_Base implements IManagerInventory, ISidedInventory, IGuiSync, IBurningTime{
+public class TilePolimerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
 
 	public boolean active;
 	public int Progres;
@@ -34,7 +34,6 @@ public class TilePolimerizer extends TileMB_Base implements IManagerInventory, I
 	public TankMg input;
 	public IHeatConductor heater;
 	public InventoryComponent in,out;
-	private boolean wasActive;
 	
 	
 	public InventoryComponent getInv(){
@@ -44,21 +43,11 @@ public class TilePolimerizer extends TileMB_Base implements IManagerInventory, I
 	public void updateEntity(){
 		super.updateEntity();
 		
-		if(!active){
-			if(wasActive){
-				input = null;
-				heater = null;
-				in = null;
-				out = null;
-				wasActive = false;
-			}
-			return;		
-		}
-		if(input == null || in == null || out == null || heater == null){
+		if(!active)return;		
+		if(input == null || in == null || out == null || heater == null || worldObj.getWorldTime() % 20 == 0){
 			searchTanks();
 			return;
 		}
-		wasActive = true;
 		if(worldObj.isRemote)return;
 		if(canCraft()){
 			if(Progres >= maxProgres){
@@ -132,12 +121,12 @@ public class TilePolimerizer extends TileMB_Base implements IManagerInventory, I
 			input = ((TileMgTank) tile).getTank();
 		}
 		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.DOWN).getVecInt().getOpposite()));
-		if(tile instanceof IManagerInventory){
-			in = ((IManagerInventory) tile).getInv();
+		if(tile instanceof IInventoryManaged){
+			in = ((IInventoryManaged) tile).getInv();
 		}
 		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.UP).getVecInt().getOpposite()));
-		if(tile instanceof IManagerInventory){
-			out = ((IManagerInventory) tile).getInv();
+		if(tile instanceof IInventoryManaged){
+			out = ((IInventoryManaged) tile).getInv();
 		}
 		tile = MgUtils.getTileEntity(this, vec.copy().multiply(3));
 		if(tile instanceof TileHeater){
@@ -183,7 +172,7 @@ public class TilePolimerizer extends TileMB_Base implements IManagerInventory, I
 		if(input == null || heater == null)return;
 		craft.sendProgressBarUpdate(cont, 0, (int) heater.getTemperature());
 		if(input.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 1, input.getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 1, input.getFluid().getFluidID());
 			craft.sendProgressBarUpdate(cont, 2, input.getFluidAmount());
 		}else craft.sendProgressBarUpdate(cont, 1, -1);
 		

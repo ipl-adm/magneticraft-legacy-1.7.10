@@ -1,7 +1,13 @@
 package com.cout970.magneticraft.util;
 
+import com.cout970.magneticraft.api.util.MgUtils;
+
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class InventoryUtils {
 
@@ -47,7 +53,7 @@ public class InventoryUtils {
 	public static int getSlotForStack(InventoryComponent in,ItemStack st) {
 		for(int i = 0; i<in.getSizeInventory();i++){
 			if(in.getStackInSlot(i) != null){
-				if(canCombine(in.getStackInSlot(i), st, 128) && in.getStackInSlot(i).stackSize < in.getStackInSlot(i).getMaxStackSize()){
+				if(canCombine(in.getStackInSlot(i), st, in.getStackInSlot(i).getMaxStackSize())){
 					return i;
 				}
 			}else return i;
@@ -82,6 +88,42 @@ public class InventoryUtils {
 			}
 		}
 		
+	}
+
+	public static void remove(IInventory inv, int slot, int amount) {
+		inv.decrStackSize(slot, amount);		
+	}
+
+	public static void saveInventory(IInventory inv,NBTTagCompound nbtTagCompound, String name) {
+		NBTTagList list = new NBTTagList();
+		for (int currentIndex = 0; currentIndex < inv.getSizeInventory(); ++currentIndex) {
+			if (inv.getStackInSlot(currentIndex) != null) {
+				NBTTagCompound nbt = new NBTTagCompound();
+				nbt.setByte("Slot", (byte) currentIndex);
+				inv.getStackInSlot(currentIndex).writeToNBT(nbt);
+				list.appendTag(nbt);
+			}
+		}
+		nbtTagCompound.setTag(name, list);
+	}
+	
+	public static void loadInventory(IInventory inv, NBTTagCompound nbtTagCompound, String name) {
+		NBTTagList tagList = nbtTagCompound.getTagList(name, 10);
+		for (int i = 0; i < tagList.tagCount(); ++i) {
+			NBTTagCompound tagCompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
+			byte slot = tagCompound.getByte("Slot");
+			if (slot >= 0 && slot < inv.getSizeInventory()) {
+				inv.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tagCompound));
+			}
+		}
+	}
+
+	public static boolean areExaticlyEqual(ItemStack a, ItemStack b){
+		if(a == null && b == null)return true;
+		if(a != null && b != null && a.getItem() != null && b.getItem() != null){
+			if(OreDictionary.itemMatches(a, b, true))return true;
+		}
+		return false;
 	}
 
 }

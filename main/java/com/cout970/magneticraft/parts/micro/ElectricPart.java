@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import codechicken.multipart.TMultiPart;
 
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IPartConductor;
+import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
 
-public abstract class ElectricPart extends MgPart implements IPartConductor{
+public abstract class ElectricPart extends MgPart implements IElectricMultiPart{
 
 	public IElectricConductor cond;
 	public boolean toUpdate = true;

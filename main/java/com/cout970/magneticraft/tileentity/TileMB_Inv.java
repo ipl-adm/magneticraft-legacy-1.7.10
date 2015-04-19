@@ -2,11 +2,12 @@ package com.cout970.magneticraft.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 
-public class TileMB_Inv extends TileMB_Base implements IManagerInventory{
+public class TileMB_Inv extends TileMB_Base implements IInventoryManaged{
 
 	public InventoryComponent inv = new InventoryComponent(this, 4, "Multiblock buffer");
 
@@ -56,5 +57,17 @@ public class TileMB_Inv extends TileMB_Base implements IManagerInventory{
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+		getInv().readFromNBT(nbt);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+		getInv().writeToNBT(nbt);
 	}
 }

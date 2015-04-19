@@ -37,7 +37,7 @@ public class FluidNetWorkManager implements IFluidHandler1_8{
 		
 		if(aceptPerPipe > 0){
 			for(IFluidTransport t : net.getPipes()){
-				FluidStack f = new FluidStack(resource.fluidID, aceptPerPipe);
+				FluidStack f = new FluidStack(resource.getFluidID(), aceptPerPipe);
 				int lSpace = t.getTank().getFluidAmount();
 				int filled = t.getTank().fill(f, doFill);
 				acepted += filled;
@@ -46,7 +46,7 @@ public class FluidNetWorkManager implements IFluidHandler1_8{
 		if(aceptPerPipe*pipes != toFill){
 			for(IFluidTransport t : net.getPipes()){
 				if(toFill - acepted > 0){
-					FluidStack f = new FluidStack(resource.fluidID, 1);
+					FluidStack f = new FluidStack(resource.getFluidID(), 1);
 					int filled = t.getTank().fill(f, doFill);
 					acepted += filled;
 				}

@@ -21,12 +21,12 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
-public class TileGrinder extends TileMB_Base implements IManagerInventory, ISidedInventory, IGuiSync, IBurningTime{
+public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
 
 	public boolean active;
 	public int speed;
@@ -106,16 +106,16 @@ public class TileGrinder extends TileMB_Base implements IManagerInventory, ISide
 			MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
 			VecInt v = d.getVecInt().add(new VecInt(0,3,0));
 			TileEntity c = MgUtils.getTileEntity(this,v);
-			if (c instanceof IManagerInventory) {
-				in = ((IManagerInventory) c).getInv();
+			if (c instanceof IInventoryManaged) {
+				in = ((IInventoryManaged) c).getInv();
 			}
 		}
 		if (out == null) {
 			MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
 			VecInt v = d.getVecInt().multiply(2);
 			TileEntity c = MgUtils.getTileEntity(this,v);
-			if (c instanceof IManagerInventory) {
-				out = ((IManagerInventory) c).getInv();
+			if (c instanceof IInventoryManaged) {
+				out = ((IInventoryManaged) c).getInv();
 			}
 		}
 	

@@ -25,14 +25,14 @@ import com.cout970.magneticraft.client.gui.component.IEfficient;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.client.gui.component.IProductor;
 import com.cout970.magneticraft.util.FractalLib;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileWindTurbine extends TileConductorLow implements IManagerInventory,IGuiSync,IEfficient,IProductor{
+public class TileWindTurbine extends TileConductorLow implements IInventoryManaged,IGuiSync,IEfficient,IProductor{
 
 	public int turbine = -1;
 	public MgDirection facing = null;

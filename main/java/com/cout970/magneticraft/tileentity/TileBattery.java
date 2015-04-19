@@ -13,11 +13,11 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileBattery extends TileConductorLow implements IGuiSync, IManagerInventory, ISidedInventory, IBlockWithData{
+public class TileBattery extends TileConductorLow implements IGuiSync, IInventoryManaged, ISidedInventory, IBlockWithData{
 
 	private InventoryComponent inv = new InventoryComponent(this, 2, "Battery");
 	public static int BATTERY_CHARGE_SPEED = 500;
@@ -165,5 +165,17 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IManagerI
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+		getInv().readFromNBT(nbt);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+		getInv().writeToNBT(nbt);
 	}
 }

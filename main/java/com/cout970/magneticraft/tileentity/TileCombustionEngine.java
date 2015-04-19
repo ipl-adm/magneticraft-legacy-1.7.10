@@ -145,7 +145,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 		craft.sendProgressBarUpdate(cont, 1,(int) cond.getStorage());
 		craft.sendProgressBarUpdate(cont, 2,(int) heat.getTemperature());
 		if(getTank().getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 3,getTank().getFluid().fluidID);
+			craft.sendProgressBarUpdate(cont, 3,getTank().getFluid().getFluidID());
 			craft.sendProgressBarUpdate(cont, 4,getTank().getFluidAmount());
 		}else{
 			craft.sendProgressBarUpdate(cont, 3, -1);

@@ -19,7 +19,7 @@ import codechicken.multipart.TileMultipart;
 import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.electricity.IPartConductor;
+import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
 import com.cout970.magneticraft.api.electricity.IndexedConnexion;
 import com.cout970.magneticraft.api.electricity.compact.InteractionHelper;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
@@ -49,11 +49,11 @@ public class MgUtils {
 		if(tile instanceof TileMultipart){
 			CableCompound cab = null;
 			for(TMultiPart m : ((TileMultipart) tile).jPartList()){
-				if(m instanceof IPartConductor && ((IPartConductor) m).getCond(tier) != null){
+				if(m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getCond(tier) != null){
 					if(cab == null){
-						cab = new CableCompound(((IPartConductor) m).getCond(tier));
+						cab = new CableCompound(((IElectricMultiPart) m).getCond(tier));
 					}else{
-						cab.add(((IPartConductor) m).getCond(tier));
+						cab.add(((IElectricMultiPart) m).getCond(tier));
 					}
 				}
 			}
@@ -67,14 +67,6 @@ public class MgUtils {
 		return InteractionHelper.processTile(t,i, tier);
 	}
 
-	public static float format(double d) {
-		long cast = (long) (d*100);
-		if((float)cast/100f <= 0 && d > 0.001f){
-			return 0.01f;
-		}
-		return (float)cast/100f;
-	}
-
 	public static boolean isConductor(TileEntity tile, int tier){
 		return getConductor(tile, VecInt.NULL_VECTOR, tier) != null;
 	}
@@ -83,22 +75,6 @@ public class MgUtils {
 		return tile.getWorldObj().getTileEntity(tile.xCoord+d.getOffsetX(), tile.yCoord+d.getOffsetY(), tile.zCoord+d.getOffsetZ());
 	}
 
-	public static boolean areEcuals(ItemStack a, ItemStack b, boolean meta){
-		if(a == null && b == null)return true;
-		if(a != null && b != null && a.getItem() != null && b.getItem() != null){
-			if(OreDictionary.itemMatches(a, b, meta))return true;
-			int[] c = OreDictionary.getOreIDs(a);
-			int[] d = OreDictionary.getOreIDs(b);
-			if(c.length > 0 && d.length > 0){
-				for(int i : c){
-					for(int j : d)
-						if(i == j)return true;
-				}
-			}
-		}
-		return false;
-	}
-	
 	public static List<TileEntity> getNeig(TileEntity t) {
 		List<TileEntity> list = new ArrayList<TileEntity>();
 		for(MgDirection d : MgDirection.values()){
@@ -124,6 +100,22 @@ public class MgUtils {
 		if(a == null && b == null)return true;
 		if(a == null || b == null)return false;
 		if(FluidRegistry.getFluidName(a).equalsIgnoreCase(FluidRegistry.getFluidName(b)))return true;
+		return false;
+	}
+	
+	public static boolean areEcuals(ItemStack a, ItemStack b, boolean meta){
+		if(a == null && b == null)return true;
+		if(a != null && b != null && a.getItem() != null && b.getItem() != null){
+			if(OreDictionary.itemMatches(a, b, meta))return true;
+			int[] c = OreDictionary.getOreIDs(a);
+			int[] d = OreDictionary.getOreIDs(b);
+			if(c.length > 0 && d.length > 0){
+				for(int i : c){
+					for(int j : d)
+						if(i == j)return true;
+				}
+			}
+		}
 		return false;
 	}
 }

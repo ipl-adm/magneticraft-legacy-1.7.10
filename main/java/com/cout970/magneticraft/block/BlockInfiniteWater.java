@@ -2,6 +2,7 @@ package com.cout970.magneticraft.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.tileentity.TileInfiniteWater;
@@ -26,4 +27,9 @@ public class BlockInfiniteWater extends BlockMg{
 	public String getName() {
 		return "InfiniteWater";
 	}
+	
+	public boolean isReplaceable(IBlockAccess world, int x, int y, int z)
+    {
+        return false;
+    }
 }

@@ -8,4 +8,5 @@ import com.cout970.magneticraft.api.util.MgDirection;
 public interface MB_ControlBlock {
 
 	public MgDirection getDirection(World w,BlockPosition p);
+	public Multiblock getStructure();
 }

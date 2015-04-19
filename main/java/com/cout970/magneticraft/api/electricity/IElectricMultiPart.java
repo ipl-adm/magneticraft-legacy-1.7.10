@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.api.electricity;
 
-public interface IPartConductor {
+public interface IElectricMultiPart {
 
 	/**used only for microparts
 	 * 

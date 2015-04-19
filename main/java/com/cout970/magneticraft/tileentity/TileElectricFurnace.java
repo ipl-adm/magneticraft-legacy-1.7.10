@@ -14,11 +14,11 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tool.IFurnaceTool;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileElectricFurnace extends TileConductorLow implements IManagerInventory, IGuiSync, IBurningTime, ISidedInventory{
+public class TileElectricFurnace extends TileConductorLow implements IInventoryManaged, IGuiSync, IBurningTime, ISidedInventory{
 
 	public InventoryComponent inv = new InventoryComponent(this, 3, "Electric Furnace");
 	public int Progres = 0;

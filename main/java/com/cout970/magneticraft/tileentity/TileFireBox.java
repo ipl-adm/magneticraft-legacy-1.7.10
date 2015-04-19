@@ -12,11 +12,11 @@ import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
-public class TileFireBox extends TileHeatConductor implements IManagerInventory,IGuiSync,IBurningTime{
+public class TileFireBox extends TileHeatConductor implements IInventoryManaged,IGuiSync,IBurningTime{
 
 	private int Progres;
 	private boolean updated;

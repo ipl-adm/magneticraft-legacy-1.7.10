@@ -91,10 +91,18 @@ public class InventoryComponent implements IInventory{
 	public boolean isItemValidForSlot(int var1, ItemStack var2) {
 		return true;
 	}
-	
-	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 
-		NBTTagList tagList = nbtTagCompound.getTagList("Inventory", 10);
+	public void readFromNBT(NBTTagCompound nbtTagCompound) {
+		readFromNBT(nbtTagCompound, "Inventory");
+	}
+
+	public void writeToNBT(NBTTagCompound nbtTagCompound) {
+		writeToNBT(nbtTagCompound, "Inventory");
+	}
+
+	public void readFromNBT(NBTTagCompound nbtTagCompound, String name) {
+
+		NBTTagList tagList = nbtTagCompound.getTagList(name, 10);
 		inventory = new ItemStack[this.getSizeInventory()];
 		for (int i = 0; i < tagList.tagCount(); ++i) {
 			NBTTagCompound tagCompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
@@ -105,8 +113,8 @@ public class InventoryComponent implements IInventory{
 		}
 	}
 
-	public void writeToNBT(NBTTagCompound nbtTagCompound) {
-		
+	public void writeToNBT(NBTTagCompound nbtTagCompound, String name) {
+
 		NBTTagList list = new NBTTagList();
 		for (int currentIndex = 0; currentIndex < inventory.length; ++currentIndex) {
 			if (inventory[currentIndex] != null) {
@@ -116,7 +124,7 @@ public class InventoryComponent implements IInventory{
 				list.appendTag(nbt);
 			}
 		}
-		nbtTagCompound.setTag("Inventory", list);
+		nbtTagCompound.setTag(name, list);
 	}
 
 	@Override

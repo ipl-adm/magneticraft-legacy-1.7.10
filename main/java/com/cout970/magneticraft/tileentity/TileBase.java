@@ -63,6 +63,4 @@ public class TileBase extends Tile1_8Updater{
 	public static RedstoneControl step(RedstoneControl state) {
 		return state == RedstoneControl.NORMAL ? RedstoneControl.INVERSE : state == RedstoneControl.INVERSE ? RedstoneControl.DISBLE : RedstoneControl.NORMAL;
 	}
-
-	
 }

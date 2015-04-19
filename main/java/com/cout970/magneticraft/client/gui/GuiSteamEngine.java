@@ -51,7 +51,7 @@ public class GuiSteamEngine extends GuiBasic{
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 			if(tile instanceof TileSteamEngine){
 				TileSteamEngine g = (TileSteamEngine) tile;
-				String s = "Steam: "+MgUtils.format(g.steamConsumitionM/20f)+"mB/t";
+				String s = "Steam: "+String.format("%.2f",g.steamConsumitionM/20f)+"mB/t";
 				gui.drawString(fontRendererObj, s, gui.xStart + pos.x, gui.yStart + pos.y+8, RenderUtil.fromRGB(255,255,255));
 				s = "Energy: "+(int)(g.electricProductionM/20f)+"W";
 				gui.drawString(fontRendererObj, s, gui.xStart + pos.x, gui.yStart + pos.y+26, RenderUtil.fromRGB(255,255,255));

@@ -72,7 +72,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 
 	@Override
 	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		if(resource != null && resource.fluidID == FluidRegistry.getFluidID("water"))
+		if(resource != null && resource.getFluidID() == FluidRegistry.getFluidID("water"))
 			return water.fill(resource, doFill);
 		return 0;
 	}
@@ -80,7 +80,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 	@Override
 	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
-		if(resource != null && resource.fluidID == FluidRegistry.getFluidID("steam"))
+		if(resource != null && resource.getFluidID() == FluidRegistry.getFluidID("steam"))
 			return steam.drain(resource.amount, doDrain);
 		return null;
 	}

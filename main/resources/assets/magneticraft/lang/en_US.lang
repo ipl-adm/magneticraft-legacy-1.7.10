@@ -134,3 +134,5 @@ MB_Energy_medium.name=Multiblock Energy IO Madium voltage
 turbine_control.name=Turbine Control
 combustion_engine.name=Combustion Engine
 heat_sink.name=Heat Sink
+brickFurnace.name=Brick Furnace
+crafter.name=Crafter

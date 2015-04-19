@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -14,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.tileentity.TilePumpJack;
+import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,16 +35,17 @@ public class BlockPumpJack extends BlockMg{
 	public boolean canPlaceBlockOnSide(World w, int x, int y, int z,int side)
     {
 		boolean clear = true;
+		Log.debug(side);
 		if(!w.getBlock(x, y, z).isReplaceable(w, x, y, z))clear = false;
 		if(!w.getBlock(x, y+1, z).isReplaceable(w, x, y, z))clear = false;
-
-		if(side == 4 || side == 5 || side == 0 || side == 1){
+		
+		if(side == 2 || side == 3 || side == 0 || side == 1){
 			if(!w.getBlock(x, y+1, z-1).isReplaceable(w, x, y, z))clear = false;
 			if(!w.getBlock(x, y+1, z+1).isReplaceable(w, x, y, z))clear = false;
 			if(!w.getBlock(x, y, z-1).isReplaceable(w, x, y, z))clear = false;
 			if(!w.getBlock(x, y, z+1).isReplaceable(w, x, y, z))clear = false;
 		}
-		if(side == 2 || side == 3 || side == 0 || side == 1){
+		if(side == 4 || side == 5 || side == 0 || side == 1){
 			if(!w.getBlock(x-1, y+1, z).isReplaceable(w, x, y, z))clear = false;
 			if(!w.getBlock(x+1, y+1, z).isReplaceable(w, x, y, z))clear = false;
 			if(!w.getBlock(x-1, y, z).isReplaceable(w, x, y, z))clear = false;

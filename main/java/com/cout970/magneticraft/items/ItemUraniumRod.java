@@ -43,7 +43,7 @@ public class ItemUraniumRod extends ItemBasic implements IRadiactiveItem{
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addInformation(ItemStack i, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(MgUtils.format(NBTUtils.getDouble(NBT_GRAMS_NAME, i))+"/"+INITIAL_NUMBER_OF_GRAMES);
+		par3List.add(String.format("%.2f",NBTUtils.getDouble(NBT_GRAMS_NAME, i))+"/"+INITIAL_NUMBER_OF_GRAMES);
 	}
 	
 	@Override

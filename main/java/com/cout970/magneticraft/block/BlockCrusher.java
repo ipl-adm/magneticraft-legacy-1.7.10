@@ -19,6 +19,7 @@ import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
+import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -126,5 +127,9 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 	public MgDirection getDirection(World w, BlockPosition p) {
 		return MgDirection.getDirection(w.getBlockMetadata(p.getX(), p.getY(), p.getZ())%6);
 	}
-
+	
+	@Override
+	public Multiblock getStructure() {
+		return MB_Register.getMBbyID(MB_Register.ID_CRUSHER);
+	}
 }

@@ -51,7 +51,7 @@ public class GuiBasicGenerator extends GuiBasic{
 				TileBasicGenerator g = (TileBasicGenerator) tile;
 				String s = "Steam";
 				gui.drawString(fontRendererObj, s, gui.xStart + pos.x, gui.yStart + pos.y, RenderUtil.fromRGB(255,255,255));
-				s = MgUtils.format(g.steamProductionM)+"mB/t";
+				s = String.format("%.2f",g.steamProductionM)+"mB/t";
 				gui.drawString(fontRendererObj, s, gui.xStart + pos.x, gui.yStart + pos.y+12, RenderUtil.fromRGB(255,255,255));
 				s = "Energy";
 				gui.drawString(fontRendererObj, s, gui.xStart + pos.x, gui.yStart + pos.y+26, RenderUtil.fromRGB(255,255,255));

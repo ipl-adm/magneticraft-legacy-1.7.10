@@ -77,4 +77,8 @@ public class EnergyConversor {
 	public static double WtoCALORIES(double w) {
 		return (w*CALORIE)/1000;
 	}
+
+	public static double CALORIEStoFuel(double heat) {
+		return heat/CALORIE;
+	}
 }

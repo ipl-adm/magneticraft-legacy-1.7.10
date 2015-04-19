@@ -17,11 +17,11 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IManagerInventory;
+import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileStirlingGenerator extends TileConductorLow implements IHeatTile,IManagerInventory,IGuiSync,IBurningTime{
+public class TileStirlingGenerator extends TileConductorLow implements IHeatTile,IInventoryManaged,IGuiSync,IBurningTime{
 
 	private static final double MAX_PRODUCTION = 1000;
 	public IHeatConductor heat = new HeatConductor(this, 1400, 1000);

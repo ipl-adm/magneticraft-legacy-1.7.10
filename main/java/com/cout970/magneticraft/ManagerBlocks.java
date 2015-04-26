@@ -16,6 +16,7 @@ import com.cout970.magneticraft.block.BlockBiomassBurner;
 import com.cout970.magneticraft.block.BlockBoiler;
 import com.cout970.magneticraft.block.BlockBreaker;
 import com.cout970.magneticraft.block.BlockBrickFurnace;
+import com.cout970.magneticraft.block.BlockCPU;
 import com.cout970.magneticraft.block.BlockChasis;
 import com.cout970.magneticraft.block.BlockCombustionEngine;
 import com.cout970.magneticraft.block.BlockConcretedPipe;
@@ -42,6 +43,7 @@ import com.cout970.magneticraft.block.BlockMachineHousing;
 import com.cout970.magneticraft.block.BlockMgTank;
 import com.cout970.magneticraft.block.BlockMiner;
 import com.cout970.magneticraft.block.BlockMirror;
+import com.cout970.magneticraft.block.BlockMonitor;
 import com.cout970.magneticraft.block.BlockOilSource;
 import com.cout970.magneticraft.block.BlockOilSourceDrained;
 import com.cout970.magneticraft.block.BlockOre;
@@ -74,6 +76,7 @@ import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileBreaker;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
+import com.cout970.magneticraft.tileentity.TileCPU;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.tileentity.TileCooler;
@@ -98,6 +101,7 @@ import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileMirror;
+import com.cout970.magneticraft.tileentity.TileMonitor;
 import com.cout970.magneticraft.tileentity.TilePermanentMagnet;
 import com.cout970.magneticraft.tileentity.TilePolimerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
@@ -129,7 +133,7 @@ public class ManagerBlocks {
 	public static List<Class> tileEntities = new ArrayList<Class>();
 	public static List<Block> blocks = new ArrayList<Block>();
 	public static Map<String, Block> ores = new HashMap<String, Block>();
-	//ores 
+
 	public static Block oreCopper;
 	public static Block oreTungsten;
 	public static Block oreUranium;
@@ -193,6 +197,8 @@ public class ManagerBlocks {
 	public static Block heat_sink;
 	public static Block brickFurnace;
 	public static Block crafter;
+	public static Block monitor;
+	public static Block cpu;
 	
 	
 	
@@ -262,6 +268,8 @@ public class ManagerBlocks {
 		heat_sink = new BlockHeatSink();
 		brickFurnace = new BlockBrickFurnace();
 		crafter = new BlockCrafter();
+		monitor = new BlockMonitor();
+		cpu = new BlockCPU();
 	}
 	
 	public static void registerBlocks(){
@@ -336,6 +344,8 @@ public class ManagerBlocks {
 		blocks.add(heat_sink);
 		blocks.add(brickFurnace);
 		blocks.add(crafter);
+		blocks.add(monitor);
+		blocks.add(cpu);
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, b.getUnlocalizedName());
@@ -398,6 +408,8 @@ public class ManagerBlocks {
 		tileEntities.add(TileHeatSink.class);
 		tileEntities.add(TileBrickFurnace.class);
 		tileEntities.add(TileCrafter.class);
+		tileEntities.add(TileMonitor.class);
+		tileEntities.add(TileCPU.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

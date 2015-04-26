@@ -145,5 +145,7 @@ public class LangHelper {
 		addName(ManagerBlocks.heat_sink, "Heat Sink");
 		addName(ManagerBlocks.brickFurnace, "Brick Furnace");
 		addName(ManagerBlocks.crafter, "Crafter");
+		addName(ManagerBlocks.monitor, "Text Monitor");
+		addName(ManagerBlocks.cpu, "CPU");
 	}
 }

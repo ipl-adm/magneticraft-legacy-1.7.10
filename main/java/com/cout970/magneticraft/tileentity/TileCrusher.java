@@ -7,6 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.acces.RecipeCrusher;
@@ -26,6 +27,9 @@ import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileCrusher extends TileMB_Base implements IGuiSync,
 		IBurningTime, IInventoryManaged, ISidedInventory {
 
@@ -39,6 +43,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	private InventoryComponent in;
 	private InventoryComponent out;
 	private int speed = 0;
+	public int drawCounter;
 
 	public InventoryComponent getInv() {
 		return inv;
@@ -46,10 +51,10 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote)
-			return;
-		if (!active)
-			return;
+		
+		if(drawCounter > 0)drawCounter--;
+		if (!active)return;
+		if (worldObj.isRemote)return;
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
 			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
@@ -133,6 +138,11 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 		}
 	}
 
+	@Override
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata()%6);
+	}
+	
 	private void craft() {
 		ItemStack a = getInv().getStackInSlot(0);
 		RecipeCrusher r = RecipeCrusher.getRecipe(a);
@@ -329,4 +339,10 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
 	}
+	
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return INFINITE_EXTENT_AABB;
+    }
 }

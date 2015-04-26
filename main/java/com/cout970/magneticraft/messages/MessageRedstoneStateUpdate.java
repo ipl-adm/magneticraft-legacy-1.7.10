@@ -17,7 +17,6 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 public class MessageRedstoneStateUpdate implements IMessage, IMessageHandler<MessageRedstoneStateUpdate, IMessage>{
 
 	public int x, y, z;
-	public NBTTagCompound nbt;
 	public Byte state = -1;
 
 	public MessageRedstoneStateUpdate(){}
@@ -51,7 +50,6 @@ public class MessageRedstoneStateUpdate implements IMessage, IMessageHandler<Mes
 	public IMessage onMessage(MessageRedstoneStateUpdate message, MessageContext ctx) {
 		TileEntity tileEntity = ctx.getServerHandler().playerEntity.worldObj.getTileEntity(message.x, message.y, message.z);
 		if(tileEntity instanceof TileCrafter){
-			Log.debug(RedstoneState.values()[message.state]);
 			((TileCrafter) tileEntity).setRedstoneState(RedstoneState.values()[message.state]);
 		}
 		return null;

@@ -37,7 +37,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 		Copper = new WorldGenMinable(ManagerBlocks.oreCopper, 0, 8, Blocks.stone);
 		Tungsten = new WorldGenMinable(ManagerBlocks.oreTungsten, 0, 1, Blocks.stone);
 		Uranium = new WorldGenMinable(ManagerBlocks.oreUranium, 0, 3, Blocks.stone);
-		Sulfur = new WorldGenMinable(ManagerBlocks.oreSulfur, 0, 12, Blocks.stone);
+		Sulfur = new WorldGenMinable(ManagerBlocks.oreSulfur, 0, 8, Blocks.stone);
 		Thorium = new WorldGenMinable(ManagerBlocks.oreThorium, 0, 6, Blocks.stone);
 		Salt = new WorldGenMinable(ManagerBlocks.oreSalt, 0, 8, Blocks.stone);
 	}
@@ -47,7 +47,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
 		if (world.provider.dimensionId != 1 && world.provider.dimensionId != -1) {
 			if (GenCopper) {
-				genChunk(random, world, chunkX, chunkZ, 6, 80, 30, Copper);
+				genChunk(random, world, chunkX, chunkZ, 10, 80, 30, Copper);
 			}
 			if (GenTungsten) {
 				genChunk(random, world, chunkX, chunkZ, 1, 10, 0, Tungsten);
@@ -68,7 +68,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 				int run = 400;
 				BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);
 				if(base != null){
-					if(base.getFloatRainfall() < 0.5 || base.getTempCategory() == TempCategory.WARM) run -= 200;
+					if(base.getIntRainfall() < 327680 || base.getTempCategory() == TempCategory.WARM) run -= 200;
 					if(base.getTempCategory() == TempCategory.OCEAN) run -= 150;
 					if(base.getTempCategory() == TempCategory.COLD) run -= 100;
 				}

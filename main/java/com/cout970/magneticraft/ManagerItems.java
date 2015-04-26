@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 
 import com.cout970.magneticraft.items.ItemBasic;
 import com.cout970.magneticraft.items.ItemBattery;
+import com.cout970.magneticraft.items.ItemChainSaw;
+import com.cout970.magneticraft.items.ItemElectricSword;
 import com.cout970.magneticraft.items.ItemGravelOre;
 import com.cout970.magneticraft.items.ItemHeatCoilCopper;
 import com.cout970.magneticraft.items.ItemHeatCoilIron;
@@ -83,6 +85,8 @@ public class ManagerItems {
 	public static Item turbine_wing;
 	public static Item plastic;
 	public static Item dustDiamond;
+	public static Item sword;
+	public static Item chainsaw;
 	
 	public static void initItems(){
 		//ores
@@ -127,6 +131,8 @@ public class ManagerItems {
 		turbine_wing = new ItemBasic("turbine_wing");
 		plastic = new ItemBasic("plastic");
 		dustDiamond = new ItemBasic("dustdiamond");
+		sword = new ItemElectricSword("electric_sword");
+		chainsaw = new ItemChainSaw("chainsaw");
 	}
 	
 	public static void registerItems(){
@@ -184,6 +190,8 @@ public class ManagerItems {
 		addItem(turbine_wing,"Wind Turbine Part");
 		addItem(plastic,"Plastic Sheet");
 		addItem(dustDiamond,"Diamond Dust");
+		addItem(sword, "Electric Sword");
+		addItem(chainsaw, "Electric Chainsaw");
 		
 		for(ItemGravelOre z : gravelOre){
 			addItem(z,z.locName+" Gravel Ore");

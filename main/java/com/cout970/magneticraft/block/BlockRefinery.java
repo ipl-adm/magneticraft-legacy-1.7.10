@@ -56,14 +56,16 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
 		if(p.isSneaking())return false;
-		if(!w.isRemote){
-			TileEntity t = w.getTileEntity(x, y, z);
-			if(t instanceof TileRefinery){
-				if(!((TileRefinery) t).isActive()){
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_REFINERY), getDirection(w, new BlockPosition(x,y,z)));
+		TileEntity t = w.getTileEntity(x, y, z);
+		if(t instanceof TileRefinery){
+			if(!((TileRefinery) t).isActive()){
+				if(!w.isRemote){
+					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_REFINERY), getDirection(w, new BlockPosition(x,y,z)),p);
 				}else{
-					p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+					((TileRefinery) t).drawCounter = 200;
 				}
+			}else{
+				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 			}
 		}
 		return true;

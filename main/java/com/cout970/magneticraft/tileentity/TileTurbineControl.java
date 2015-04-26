@@ -3,6 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -21,6 +22,9 @@ import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProvider{
 
 	private static final int MAX_STEAM = 1200;
@@ -28,6 +32,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public IElectricConductor out;
 	private double prod;
 	private double counter;
+	public int drawCounter;
 	
 	public boolean isActive() {
 		return getBlockMetadata() > 6;
@@ -35,7 +40,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 
 	public void updateEntity(){
 		super.updateEntity();
-		
+		if(drawCounter > 0)drawCounter--;
 		if (!isActive())
 			return;
 		if(in[0] == null || out == null){
@@ -173,4 +178,10 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public MgDirection getDirection() {
 		return MgDirection.getDirection(getBlockMetadata()%6);
 	}
+	
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return INFINITE_EXTENT_AABB;
+    }
 }

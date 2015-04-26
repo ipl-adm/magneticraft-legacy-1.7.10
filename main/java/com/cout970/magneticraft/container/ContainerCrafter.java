@@ -53,7 +53,14 @@ public class ContainerCrafter extends ContainerBasic{
 				});
 		for(int i = 0;i<4;i++)
 			for(int j = 0;j<4;j++)
-				addSlotToContainer(new Slot((IInventory) t, i+j*4, 98+i*18, 8+j*18));
+				addSlotToContainer(new Slot((IInventory) t, i+j*4, 98+i*18, 8+j*18){
+					public void onSlotChanged() {
+						TileCrafter comp = (TileCrafter) inventory;
+						comp.refreshItemMatches();
+						this.inventory.markDirty();
+						super.onSlotChanged();
+					}
+				});
 		bindPlayerInventory(p);
 	}
 

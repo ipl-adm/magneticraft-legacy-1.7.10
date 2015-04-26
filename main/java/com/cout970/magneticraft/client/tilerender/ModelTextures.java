@@ -40,6 +40,8 @@ public class ModelTextures {
 	public static final ResourceLocation WIRE_COPPER_CORNER 		= new ResourceLocation("magneticraft", "textures/misc/wire_copper_corners.png");
 	public static final ResourceLocation COMBUSTION_ENGINE 			= new ResourceLocation("magneticraft", "textures/misc/combustion_engine.png");
 	public static final ResourceLocation HEAT_SINK 					= new ResourceLocation("magneticraft", "textures/misc/heat_sink.png");
+	public static final ResourceLocation CHAINSAW 					= new ResourceLocation("magneticraft", "textures/misc/chainsaw.png");
+	public static final ResourceLocation SWORD 						= new ResourceLocation("magneticraft", "textures/misc/electric_sword.png");
 	
 	
 }

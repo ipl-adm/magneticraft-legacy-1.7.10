@@ -7,6 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
@@ -26,6 +27,9 @@ import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
 
 	public boolean active;
@@ -38,13 +42,13 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Grinder");
 	private InventoryComponent in;
 	private InventoryComponent out;
+	public int drawCounter;
 	
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote)
-			return;
-		if (!active)
-			return;
+		if(drawCounter > 0)drawCounter--;
+		if (!active)return;
+		if (worldObj.isRemote)return;
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
 			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
@@ -70,6 +74,11 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 
 	public InventoryComponent getInv() {
 		return inv;
+	}
+	
+	@Override
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata());
 	}
 	
 	public void updateConductor() {
@@ -306,4 +315,10 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
 	}
+	
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return INFINITE_EXTENT_AABB;
+    }
 }

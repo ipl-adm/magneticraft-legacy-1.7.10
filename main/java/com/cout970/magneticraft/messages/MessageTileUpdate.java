@@ -34,6 +34,7 @@ public class MessageTileUpdate implements IMessage, IMessageHandler<MessageTileU
 			nbt = PB.readNBTTagCompoundFromBuffer();
 		} catch (Exception e) {
 			e.printStackTrace();
+			nbt = new NBTTagCompound();
 		}
 	}
 
@@ -52,7 +53,9 @@ public class MessageTileUpdate implements IMessage, IMessageHandler<MessageTileU
 
 	@Override
 	public IMessage onMessage(MessageTileUpdate message, MessageContext ctx) {
-		TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
+		TileEntity tileEntity = null;
+		if(FMLClientHandler.instance().getClient().theWorld != null)
+			tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
 		if(tileEntity != null){
 			tileEntity.readFromNBT(message.nbt);
 		}

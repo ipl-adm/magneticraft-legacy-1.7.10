@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,10 +19,13 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.Conductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
@@ -58,11 +63,17 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 
 	public void updateEntity(){
 		super.updateEntity();
+		
+		if(!update)
+			facing = getOrientation(getBlockMetadata());
+		
+
 		if(cond.getVoltage() > ElectricConstants.MACHINE_WORK){	
 			working = true;
 		}else{
 			working = false;
 		}
+
 		if(worldObj.getWorldTime()%20 == 0){
 			if(working && !isActive()){
 				setActive(true);
@@ -70,39 +81,57 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 				setActive(false);
 			}
 		}
+		
+		if(worldObj.isRemote)return;
+
 		if(!update){
-			facing = getOrientation(getBlockMetadata());
-			if(worldObj.isRemote)return;
-			if(worldObj.provider.getWorldTime() % 40 == 0)
+			if(worldObj.provider.getWorldTime() % 80 == 0)
 				update = searchForOil();
 			export();
 			return;
 		}
-		if(worldObj.isRemote)return;
+
+		if(worldObj.getWorldTime()%80 == 0){
+			if(alt != 0){
+				pipes.clear();
+				for(int y=yCoord-1;y>0;y--){
+					Block b = worldObj.getBlock(xCoord+facing.getOffsetX(), y, zCoord+facing.getOffsetZ());
+					if(Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b, replacement)){
+						break;
+					}else if(!Block.isEqualTo(b, ManagerBlocks.concreted_pipe)){
+						pipes.add(new BlockPosition(xCoord+facing.getOffsetX(), y, zCoord+facing.getOffsetZ()));
+					} 
+				}
+			}
+			blocked = false;
+		}
+		
+
 		export();
 		if(!blocked){
 			if(cooldown > 0)cooldown--;
 			if(cooldown <= 0){
-				cooldown = 20;	
+				cooldown = 20;
 				if(pipes.size() == 0){
 					getOil();
 					blocked = true;
 				}else{
 					if(cond.getVoltage() > ElectricConstants.MACHINE_WORK){
 						BlockPosition c = pipes.get(0);
-						worldObj.setBlock(c.getX(),c.getY(),c.getZ(), ManagerBlocks.concreted_pipe);
+						ReplaceBlock(c.getX(),c.getY(),c.getZ(),ManagerBlocks.concreted_pipe);
 						cond.drainPower(1000);
 						pipes.remove(0);
 					}
 				}
 			}
-		}else{
+		}
+		if(blocked){
 			if(cond.getVoltage() > ElectricConstants.MACHINE_WORK && tank.getSpace() > 0 && buffer > 0){
 				int i =  Math.min(Speed,buffer);
 				buffer -= tank.fill(FluidRegistry.getFluidStack("oil", i), true);
 				cond.drainPower(i*100);
 			}
-			
+
 			if(buffer <= 0){
 				if(oil.size() == 0){
 					update = false;
@@ -123,6 +152,19 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 		}
 	}
 	
+	public void ReplaceBlock(int x, int y, int z, Block remplace) {
+		if(worldObj.getBlock(x,y,z).isAir(worldObj, x, y, z) || MgUtils.isMineableBlock(worldObj,new BlockInfo(worldObj.getBlock(x,y,z),worldObj.getBlockMetadata(x, y, z),x,y,z))){
+			ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+			Block id = worldObj.getBlock(x,y,z);
+			int metadata = worldObj.getBlockMetadata(x,y,z);
+			items = id.getDrops(worldObj, x, y, z, metadata, 0);
+			for(ItemStack i : items)
+				BlockMg.dropItem(i, worldObj.rand, xCoord, yCoord, zCoord, worldObj);
+
+			worldObj.setBlock(x, y, z, remplace);
+		}
+	}
+
 	private void setActive(boolean b) {
 		active = b;
 		sendUpdateToClient();

@@ -24,7 +24,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.0.5";
+	public final static String VERSION = "0.1.0";
 	public final static String ENERGY_STORED_NAME = "J";
 	
 	@Instance(NAME)

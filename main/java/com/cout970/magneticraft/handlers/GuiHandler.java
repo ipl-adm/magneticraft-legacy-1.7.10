@@ -9,6 +9,7 @@ import com.cout970.magneticraft.client.gui.GuiBattery;
 import com.cout970.magneticraft.client.gui.GuiBiomassBurner;
 import com.cout970.magneticraft.client.gui.GuiBoiler;
 import com.cout970.magneticraft.client.gui.GuiBrickFurnace;
+import com.cout970.magneticraft.client.gui.GuiCPU;
 import com.cout970.magneticraft.client.gui.GuiCombustionEngine;
 import com.cout970.magneticraft.client.gui.GuiCrafter;
 import com.cout970.magneticraft.client.gui.GuiCrusher;
@@ -20,6 +21,7 @@ import com.cout970.magneticraft.client.gui.GuiGrinder;
 import com.cout970.magneticraft.client.gui.GuiKineticGenerator;
 import com.cout970.magneticraft.client.gui.GuiMB_Inv;
 import com.cout970.magneticraft.client.gui.GuiMiner;
+import com.cout970.magneticraft.client.gui.GuiMonitor;
 import com.cout970.magneticraft.client.gui.GuiPolimerizer;
 import com.cout970.magneticraft.client.gui.GuiReactorVessel;
 import com.cout970.magneticraft.client.gui.GuiRefinery;
@@ -32,6 +34,7 @@ import com.cout970.magneticraft.container.ContainerBattery;
 import com.cout970.magneticraft.container.ContainerBiomassBurner;
 import com.cout970.magneticraft.container.ContainerBoiler;
 import com.cout970.magneticraft.container.ContainerBrickFurnace;
+import com.cout970.magneticraft.container.ContainerCPU;
 import com.cout970.magneticraft.container.ContainerCombustionEngine;
 import com.cout970.magneticraft.container.ContainerCrafter;
 import com.cout970.magneticraft.container.ContainerCrusher;
@@ -43,6 +46,7 @@ import com.cout970.magneticraft.container.ContainerGrinder;
 import com.cout970.magneticraft.container.ContainerKineticGenerator;
 import com.cout970.magneticraft.container.ContainerMB_Inv;
 import com.cout970.magneticraft.container.ContainerMiner;
+import com.cout970.magneticraft.container.ContainerMonitor;
 import com.cout970.magneticraft.container.ContainerPolimerizer;
 import com.cout970.magneticraft.container.ContainerReactorVessel;
 import com.cout970.magneticraft.container.ContainerRefinery;
@@ -55,6 +59,7 @@ import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
+import com.cout970.magneticraft.tileentity.TileCPU;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrusher;
@@ -66,6 +71,7 @@ import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMiner;
+import com.cout970.magneticraft.tileentity.TileMonitor;
 import com.cout970.magneticraft.tileentity.TilePolimerizer;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
@@ -152,6 +158,12 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileCrafter){
 			return new ContainerCrafter(player.inventory, tile);
 		}
+		if(tile instanceof TileMonitor){
+			return new ContainerMonitor(player.inventory, tile);
+		}
+		if(tile instanceof TileCPU){
+			return new ContainerCPU(player.inventory, tile);
+		}
 		return null;
 	}
 
@@ -228,6 +240,12 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TileCrafter){
 			return new GuiCrafter(new ContainerCrafter(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileMonitor){
+			return new GuiMonitor(new ContainerMonitor(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileCPU){
+			return new GuiCPU(new ContainerCPU(player.inventory, tile), tile);
 		}
 		return null;
 	}

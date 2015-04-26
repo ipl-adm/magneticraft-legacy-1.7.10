@@ -80,6 +80,8 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine_1), new Object[]{"vwv","wpw","vwv",'w',turbine_wing,'p',turbine_0}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine_2), new Object[]{"vwv","wpw","vwv",'w',turbine_wing,'p',turbine_1}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(oil_prospector), new Object[]{"b","i","d",'b',battery_item,'i',"ingotIron",'d',drill}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sword), new Object[]{"di","di","vb",'b',battery_item,'i',"ingotIron",'d',"dustDiamond"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chainsaw), new Object[]{"vii","imb",'b',battery_item,'i',"ingotIron",'m',motor}));
 		
 		//multipart
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablelow,2), new Object[]{"w","c","w",'c',"ingotCopper",'w',Blocks.wool}));

@@ -61,16 +61,16 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 			TileEntity t = w.getTileEntity(x, y, z);
 			if(!w.isRemote){
 				int meta = w.getBlockMetadata(x, y, z);
-				
+
 				if(meta > 6){
 					w.setBlockMetadataWithNotify(x, y, z, meta-6, 2);
 				}else{
 					w.setBlockMetadataWithNotify(x, y, z, meta+6, 2);
 				}
-				
+
 				if(t instanceof MB_Tile){
 					if(((MB_Tile) t).getControlPos() != null && ((MB_Tile) t).getMultiblock() != null)
-					MB_Watcher.destroyStructure(w, ((MB_Tile) t).getControlPos(), ((MB_Tile) t).getMultiblock(),((MB_Tile) t).getDirection());
+						MB_Watcher.destroyStructure(w, ((MB_Tile) t).getControlPos(), ((MB_Tile) t).getMultiblock(),((MB_Tile) t).getDirection());
 				}
 			}
 			if(t instanceof TileCrusher){
@@ -78,14 +78,13 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 			}
 			return false;
 		}
-		if(!w.isRemote){
-			TileEntity t = w.getTileEntity(x, y, z);
-			if(t instanceof TileCrusher){
-				if(!((TileCrusher) t).active){
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_CRUSHER), getDirection(w, new BlockPosition(x,y,z)));
-				}else{
-					p.openGui(Magneticraft.Instance, 0, w, x, y, z);
-				}
+		TileEntity t = w.getTileEntity(x, y, z);
+		if(t instanceof TileCrusher){
+			if(!((TileCrusher) t).active){
+				if(!w.isRemote)MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_CRUSHER), getDirection(w, new BlockPosition(x,y,z)),p);
+				else ((TileCrusher) t).drawCounter = 200;
+			}else{
+				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 			}
 		}
 		return true;

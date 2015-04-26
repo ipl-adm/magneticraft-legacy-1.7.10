@@ -8,8 +8,10 @@ import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableHigh;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableLow;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableMedium;
+import com.cout970.magneticraft.client.itemrenderer.ItemRenderChainsaw;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCombustionEngine;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCopperPipe;
+import com.cout970.magneticraft.client.itemrenderer.ItemRenderElectricSword;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderFluidHopper;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatCable;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatSink;
@@ -26,13 +28,16 @@ import com.cout970.magneticraft.client.itemrenderer.ItemRenderTransformerMH;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderWireCopper;
 import com.cout970.magneticraft.client.tilerender.TileRenderCombustionEngine;
 import com.cout970.magneticraft.client.tilerender.TileRenderConveyorBelt;
+import com.cout970.magneticraft.client.tilerender.TileRenderCrusher;
 import com.cout970.magneticraft.client.tilerender.TileRenderFluidHopper;
+import com.cout970.magneticraft.client.tilerender.TileRenderGrinder;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatCable;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatSink;
 import com.cout970.magneticraft.client.tilerender.TileRenderInserter;
 import com.cout970.magneticraft.client.tilerender.TileRenderKineticGenerator;
 import com.cout970.magneticraft.client.tilerender.TileRenderMgTank;
 import com.cout970.magneticraft.client.tilerender.TileRenderMirror;
+import com.cout970.magneticraft.client.tilerender.TileRenderPolimerizer;
 import com.cout970.magneticraft.client.tilerender.TileRenderPumpJack;
 import com.cout970.magneticraft.client.tilerender.TileRenderReactorActivator;
 import com.cout970.magneticraft.client.tilerender.TileRenderReactorControl;
@@ -42,16 +47,20 @@ import com.cout970.magneticraft.client.tilerender.TileRenderSteamEngine;
 import com.cout970.magneticraft.client.tilerender.TileRenderTeslaCoil;
 import com.cout970.magneticraft.client.tilerender.TileRenderTransformerLow_Medium;
 import com.cout970.magneticraft.client.tilerender.TileRenderTransformer_MH;
+import com.cout970.magneticraft.client.tilerender.TileRenderTurbine;
 import com.cout970.magneticraft.client.tilerender.TileRenderWindMill;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
+import com.cout970.magneticraft.tileentity.TileCrusher;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
+import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileHeatCable;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMirror;
+import com.cout970.magneticraft.tileentity.TilePolimerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.tileentity.TileReactorActivator;
 import com.cout970.magneticraft.tileentity.TileReactorControlRods;
@@ -61,6 +70,7 @@ import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.tileentity.TileTeslaCoil;
 import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
+import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -89,6 +99,8 @@ public class ClientProxy implements IProxy{
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.heat_sink), new ItemRenderHeatSink());
 		MinecraftForgeClient.registerItemRenderer(ManagerItems.wire_copper, new ItemRenderWireCopper());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.combustion_engine), new ItemRenderCombustionEngine());
+		MinecraftForgeClient.registerItemRenderer(ManagerItems.sword, new ItemRenderElectricSword());
+		MinecraftForgeClient.registerItemRenderer(ManagerItems.chainsaw, new ItemRenderChainsaw());
 
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class,new TileRenderPumpJack());
@@ -110,5 +122,9 @@ public class ClientProxy implements IProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMgTank.class,new TileRenderMgTank());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCombustionEngine.class,new TileRenderCombustionEngine());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHeatSink.class,new TileRenderHeatSink());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class,new TileRenderGrinder());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileCrusher.class,new TileRenderCrusher());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePolimerizer.class,new TileRenderPolimerizer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineControl.class,new TileRenderTurbine());
 	}
 }

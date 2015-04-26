@@ -3,6 +3,8 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
@@ -13,6 +15,7 @@ import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.messages.MessageGuiClick;
 import com.cout970.magneticraft.messages.MessageRedstoneStateUpdate;
 import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrafter.RedstoneState;
@@ -27,14 +30,14 @@ public class GuiCrafter extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/crafter.png")));
-		comp.add(new CompButtonRedstoneState(new GuiPoint(70, 10)));
+		comp.add(new CompCrafter(new GuiPoint(70, 10)));
 	}
 	
-	public class CompButtonRedstoneState implements IGuiComp{
+	public class CompCrafter implements IGuiComp{
 
 		public GuiPoint pos;
 		
-		public CompButtonRedstoneState(GuiPoint pos){
+		public CompCrafter(GuiPoint pos){
 			this.pos = pos;
 		}
 		
@@ -44,6 +47,15 @@ public class GuiCrafter extends GuiBasic{
 				int i = ((TileCrafter) tile).state == RedstoneState.NORMAL ? 0 : ((TileCrafter) tile).state == RedstoneState.INVERTED ? 18 : 36;
 				RenderUtil.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/button_states.png"));
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y, 0, i, 18, 18, 18, 54);
+				RenderUtil.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/crafter.png"));
+				GL11.glEnable(GL11.GL_BLEND);
+				for(int j = 0;j<9;j++){
+					int x = j%3;
+					int y = j/3;
+					if(!((TileCrafter) tile).found(j))
+					gui.drawTexturedModalRect(gui.xStart+8+18*x, gui.yStart+17+18*y, 176, 0, 16, 16);
+				}
+				GL11.glDisable(GL11.GL_BLEND);
 			}
 		}
 
@@ -55,6 +67,10 @@ public class GuiCrafter extends GuiBasic{
 					 state = TileCrafter.step(state);
 					 ManagerNetwork.INSTANCE.sendToServer(new MessageRedstoneStateUpdate(gui.tile, state));
 				}
+			}
+			if(gui.isIn(mx, my, gui.xStart+72, gui.yStart+36, 16, 16)){
+				MessageGuiClick msg = new MessageGuiClick(gui.tile, 0, buttom);
+				ManagerNetwork.INSTANCE.sendToServer(msg);
 			}
 		}
 

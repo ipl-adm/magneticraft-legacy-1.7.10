@@ -35,7 +35,6 @@ public class BlockPumpJack extends BlockMg{
 	public boolean canPlaceBlockOnSide(World w, int x, int y, int z,int side)
     {
 		boolean clear = true;
-		Log.debug(side);
 		if(!w.getBlock(x, y, z).isReplaceable(w, x, y, z))clear = false;
 		if(!w.getBlock(x, y+1, z).isReplaceable(w, x, y, z))clear = false;
 		

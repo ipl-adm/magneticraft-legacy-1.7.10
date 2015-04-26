@@ -7,6 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -25,6 +26,9 @@ import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TilePolimerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
 
 	public boolean active;
@@ -34,6 +38,7 @@ public class TilePolimerizer extends TileMB_Base implements IInventoryManaged, I
 	public TankMg input;
 	public IHeatConductor heater;
 	public InventoryComponent in,out;
+	public int drawCounter;
 	
 	
 	public InventoryComponent getInv(){
@@ -42,7 +47,7 @@ public class TilePolimerizer extends TileMB_Base implements IInventoryManaged, I
 	
 	public void updateEntity(){
 		super.updateEntity();
-		
+		if(drawCounter > 0)drawCounter--;
 		if(!active)return;		
 		if(input == null || in == null || out == null || heater == null || worldObj.getWorldTime() % 20 == 0){
 			searchTanks();
@@ -251,5 +256,16 @@ public class TilePolimerizer extends TileMB_Base implements IInventoryManaged, I
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+	
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return INFINITE_EXTENT_AABB;
+    }
+	
+	@Override
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata()%6);
 	}
 }

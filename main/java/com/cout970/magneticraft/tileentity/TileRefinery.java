@@ -27,10 +27,11 @@ public class TileRefinery extends TileMB_Base implements IGuiSync, IBarProvider{
 	
 	public TankMg input,output0,output1,output2;
 	public IHeatConductor heater;
+	public int drawCounter;
 	
 	public void updateEntity(){
 		super.updateEntity();
-		
+		if(drawCounter > 0)drawCounter--;
 		if(!isActive())return;
 		if(input == null){
 			searchTanks();
@@ -99,6 +100,11 @@ public class TileRefinery extends TileMB_Base implements IGuiSync, IBarProvider{
 
 	public MgDirection getDirectionMeta(){
 		return MgDirection.getDirection(getBlockMetadata() % 6); 
+	}
+	
+	@Override
+	public MgDirection getDirection() {
+		return getDirectionMeta();
 	}
 	
 	private void setActive(boolean b) {

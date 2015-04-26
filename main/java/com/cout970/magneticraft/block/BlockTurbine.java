@@ -56,19 +56,18 @@ public class BlockTurbine extends BlockMg implements MB_ControlBlock{
 	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
 		if(p.isSneaking())return false;
-		if(!w.isRemote){
-			TileEntity t = w.getTileEntity(x, y, z);
-			if(t instanceof TileTurbineControl){
-				if(!((TileTurbineControl) t).isActive()){
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_TURBINE), getDirection(w, new BlockPosition(x,y,z)));
-				}else{
-					p.openGui(Magneticraft.Instance, 0, w, x, y, z);
-				}
+		TileEntity t = w.getTileEntity(x, y, z);
+		if(t instanceof TileTurbineControl){
+			if(!((TileTurbineControl) t).isActive()){
+				if(!w.isRemote)MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_TURBINE), getDirection(w, new BlockPosition(x,y,z)),p);
+				else ((TileTurbineControl) t).drawCounter = 200;
+			}else{
+				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 			}
 		}
 		return true;
 	}
-	
+
 	public void breakBlock(World w,int x,int y,int z,Block b,int side){
 		if(!w.isRemote){
 			TileEntity t = w.getTileEntity(x, y, z);

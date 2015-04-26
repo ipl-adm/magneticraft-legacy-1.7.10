@@ -22,7 +22,6 @@ public abstract class Multiblock {
 			if(e == MgDirection.EAST)return new VecInt(-y, x, z).add(tran.getZ(),tran.getY(),tran.getX());
 			return new VecInt(z, x, y).add(tran.getX(),tran.getY(),tran.getZ());
 		}else{
-			Log.debug(x+" "+y+" "+z+" "+e);
 			if(e == MgDirection.NORTH)return new VecInt(-z, x, y).add(-tran.getX(),tran.getY(),tran.getZ());
 			if(e == MgDirection.EAST)return new VecInt(-y, x, -z).add(tran.getZ(),tran.getY(),-tran.getX());
 			if(e == MgDirection.WEST)return new VecInt(y, x, z).add(tran.getZ(),tran.getY(),tran.getX());

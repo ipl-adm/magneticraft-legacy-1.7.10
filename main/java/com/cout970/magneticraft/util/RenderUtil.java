@@ -1,12 +1,30 @@
 package com.cout970.magneticraft.util;
 
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glScalef;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+
+import org.lwjgl.opengl.GL11;
+
 import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.util.BlockPosition;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.multiblock.MB_Tile;
+import com.cout970.magneticraft.util.multiblock.Multiblock;
+import com.cout970.magneticraft.util.multiblock.MutableComponent;
 
 public class RenderUtil {
 
@@ -74,5 +92,101 @@ public class RenderUtil {
 	public static Vector3 getHeatColor(double t) {
 		double r = Math.min(0.95, t/1000);
 		return new Vector3(1, 1-r, 1-r);
+	}
+
+	public static void renderBlock(Block b, int meta, int x, int y, int z, World w){
+		renderFaceDown(b.getIcon(0, meta),x,y,z);
+		renderFaceUp(b.getIcon(1, meta),x,y,z);
+		renderFaceNorth(b.getIcon(2, meta),x,y,z);
+		renderFaceSouth(b.getIcon(3, meta),x,y,z);
+		renderFaceWest(b.getIcon(4, meta),x,y,z);
+		renderFaceEast(b.getIcon(5, meta),x,y,z);
+	}
+
+	public static void renderFaceUp(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y+1,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y+1,z+1, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y+1,z+1, i.getInterpolatedU(16), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y+1,z, i.getInterpolatedU(16), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceDown(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x+1,y,z, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y,z+1, i.getInterpolatedU(16), i.getInterpolatedV(16));
+		t.addVertexWithUV(x,y,z+1, i.getInterpolatedU(16), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceNorth(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y,z+1, i.getInterpolatedU(16), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y+1,z+1, i.getInterpolatedU(16), i.getInterpolatedV(16));	
+		t.addVertexWithUV(x,y+1,z, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x,y,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceSouth(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		
+		t.addVertexWithUV(x+1,y+1,z, i.getInterpolatedU(16), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y+1,z+1, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y,z+1, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x+1,y,z, i.getInterpolatedU(16), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceWest(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y+1,z, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y+1,z, i.getInterpolatedU(16), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y,z, i.getInterpolatedU(16), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceEast(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y,z+1, i.getInterpolatedU(16), i.getInterpolatedV(0));
+		t.addVertexWithUV(x+1,y,z+1, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x+1,y+1,z+1, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x,y+1,z+1, i.getInterpolatedU(16), i.getInterpolatedV(16));
+	}
+
+	public static void renderMultiblock(double x, double y, double z, MB_Tile tile, TileEntity t, Multiblock mb) {
+		Tessellator tess = Tessellator.instance;
+		RenderUtil.bindTexture(TextureMap.locationBlocksTexture);
+		
+		tess.setColorOpaque_F(1, 1, 1);
+		GL11.glPushMatrix();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit,  (float) 65536,  1);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4f(1, 1, 1, 1f);
+		GL11.glTranslatef((float) x, (float) y, (float) z);
+
+		float s = 0.5f,p = 1f;
+		glScalef(s,s,s);
+		int[] q = mb.getDimensions(tile.getDirection());
+		int meta = t.getWorldObj().getBlockMetadata(t.xCoord, t.yCoord, t.zCoord);
+		for (int j = 0; j < q[1]; j++) {
+			for (int k = 0; k < q[2]; k++) {
+				for (int i = 0; i < q[0]; i++) {
+					MutableComponent mut = mb.matrix[i][j][k];
+					VecInt rot = mb.translate(t.getWorldObj(), new BlockPosition(t.xCoord, t.yCoord, t.zCoord), i, j, k, mb, tile.getDirection(), meta);
+					glPushMatrix();
+					GL11.glTranslatef(0.5f+p*rot.getX(), 0.5f+p*rot.getY(), 0.5f+p*rot.getZ());
+					if(mut.blocks.get(0) != Blocks.air){
+						tess.startDrawingQuads();
+						RenderUtil.renderBlock(mut.blocks.get(0), 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
+						tess.draw();
+					}
+					glPopMatrix();
+				}
+			}
+		}
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glPopMatrix();
 	}
 }

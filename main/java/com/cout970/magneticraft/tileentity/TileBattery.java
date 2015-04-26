@@ -15,6 +15,7 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileBattery extends TileConductorLow implements IGuiSync, IInventoryManaged, ISidedInventory, IBlockWithData{
@@ -86,13 +87,15 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-		craft.sendProgressBarUpdate(cont, 1, (int) cond.getStorage());
+		craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
+		craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
 	}
 
 	@Override
 	public void getGUINetworkData(int i, int value) {
 		if(i == 0)cond.setVoltage(value);
-		if(i == 1)cond.setStorage(value);
+		if(i == 1)cond.setStorage(value & 0xFFFF);
+		if(i == 2)cond.setStorage(cond.getStorage() | (value << 16));
 	}
 
 	@Override

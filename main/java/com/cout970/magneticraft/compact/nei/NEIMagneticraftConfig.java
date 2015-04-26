@@ -4,6 +4,7 @@ import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.client.gui.GuiCrafter;
 
 public class NEIMagneticraftConfig implements IConfigureNEI{
 
@@ -25,6 +26,8 @@ public class NEIMagneticraftConfig implements IConfigureNEI{
 		API.registerUsageHandler(new CraftingGrinder());
 		API.registerRecipeHandler(new CraftingPolimerizer());
 		API.registerUsageHandler(new CraftingPolimerizer());
+		
+		API.registerGuiOverlayHandler(GuiCrafter.class, new CrafterOverlayHandler(), "crafting");
 	}
 
 }

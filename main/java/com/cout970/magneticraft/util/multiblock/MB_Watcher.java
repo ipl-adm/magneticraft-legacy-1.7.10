@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.util.multiblock;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
@@ -10,7 +11,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 
 public class MB_Watcher {
 
-	public static void watchStructure(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public static void watchStructure(World w, BlockPosition p, Multiblock c, MgDirection e, EntityPlayer player) {
 
 		int[] q = c.getDimensions(e);
 		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
@@ -20,7 +21,7 @@ public class MB_Watcher {
 					MutableComponent mut = c.matrix[x][y][z];
 					if (!mut.isCorrect(w, p, x,y,z, c, e,meta)) {
 						String s = mut.getErrorMesage(w, p, x, y, z, c, e, meta);
-						Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(s));
+						player.addChatMessage(new ChatComponentText(s));
 						return;
 					}
 				}

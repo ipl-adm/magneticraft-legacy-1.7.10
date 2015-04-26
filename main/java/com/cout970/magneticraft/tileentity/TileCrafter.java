@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryCrafting;
@@ -17,7 +19,10 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tileentity.TileCrafter.RedstoneState;
+import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryCrafterAux;
@@ -25,13 +30,13 @@ import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.RedstoneControl;
 
-public class TileCrafter extends TileBase implements IInventoryManaged{
+public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
 
 	private InventoryComponent inv = new InventoryComponent(this, 16, "Crafter");
 	private InventoryComponent invResult = new InventoryComponent(this, 1, "Result");
 	private InventoryCrafting recipe = new InventoryCrafterAux(this, 3, 3);
 	private List<InvSlot> checked = new ArrayList<InvSlot>();
-	private int itemMatches = -512;
+	private int itemMatches = -1;
 	private IRecipe craftRecipe;
 	private boolean nextCraft = false;
 	public RedstoneState state = RedstoneState.NORMAL;
@@ -47,7 +52,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged{
 	
 	public void updateEntity(){
 		super.updateEntity();
-		if(itemMatches == -512){
+		if(itemMatches == -1){
 			refreshItemMatches();
 		}
 		if(isControled()){
@@ -64,6 +69,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged{
 
 	public void refreshItemMatches(){
 		itemMatches = 0;
+		craftRecipe = null;
 		checked.clear();
 		invResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(recipe, worldObj));
 		craftRecipe = null;
@@ -111,10 +117,16 @@ public class TileCrafter extends TileBase implements IInventoryManaged{
 				int slot = InventoryUtils.getSlotForStack(getInv(), item);
 				if(slot != -1){
 					for(InvSlot s : checked){
-						InventoryUtils.remove(s.inv, s.slot, s.amount);
+						InventoryUtils.remove(s.inv, s.slot, s.amount, getInv());
 					}
-					ItemStack result = InventoryUtils.addition(getInv().getStackInSlot(slot), item);
-					getInv().setInventorySlotContents(slot, result);
+					if(InventoryUtils.canCombine(getInv().getStackInSlot(slot), item, 64)){
+						ItemStack result = InventoryUtils.addition(getInv().getStackInSlot(slot), item);
+						getInv().setInventorySlotContents(slot, result);
+					}else{
+						if (!InventoryUtils.dropIntoInventory(item, getInv())){
+							BlockMg.dropItem(item, getWorldObj().rand, xCoord, yCoord, zCoord, getWorldObj());
+						}
+					}
 					checked.clear();
 					return true;
 				}
@@ -277,5 +289,32 @@ public class TileCrafter extends TileBase implements IInventoryManaged{
 	public void setRedstoneState(RedstoneState e) {
 		state = e;
 		sendUpdateToClient();
+	}
+
+	public boolean found(int j) {
+		return  craftRecipe == null || (itemMatches & (1 << j)) > 0;
+	}
+
+	@Override
+	public void sendGUINetworkData(Container cont, ICrafting craft) {
+		craft.sendProgressBarUpdate(cont, 0, itemMatches);
+		
+	}
+
+	@Override
+	public void getGUINetworkData(int id, int value) {
+		if(id == 0)itemMatches = value;
+	}
+
+	@Override
+	public void onMessageReceive(int id, int value) {
+		if(id == 0){
+			if(value == 1){
+				for(int i = 0;i<9;i++)
+					getRecipe().setInventorySlotContents(i, null);
+			}else if(value == 0){
+				craft();
+			}
+		}
 	}
 }

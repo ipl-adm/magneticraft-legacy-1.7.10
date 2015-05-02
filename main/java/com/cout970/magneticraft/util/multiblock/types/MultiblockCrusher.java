@@ -7,6 +7,7 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
@@ -43,5 +44,19 @@ public class MultiblockCrusher extends Multiblock{
 		z = m[0][0].length;
 		matrix = m;
 		tran = p;
+	}
+	
+	public VecInt translate(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta){//yzx
+		if(meta%8 < 4){
+			if(e == MgDirection.SOUTH)return new VecInt(-z, x, -y).add(-tran.getX(),tran.getY(),tran.getZ());
+			if(e == MgDirection.WEST)return new VecInt(y, x, -z).add(tran.getZ(),tran.getY(),-tran.getX());
+			if(e == MgDirection.EAST)return new VecInt(-y, x, z).add(tran.getZ(),tran.getY(),tran.getX());
+			return new VecInt(z, x, y).add(tran.getX(),tran.getY(),tran.getZ());
+		}else{
+			if(e == MgDirection.NORTH)return new VecInt(-z, x, y).add(-tran.getX(),tran.getY(),tran.getZ());
+			if(e == MgDirection.EAST)return new VecInt(-y, x, -z).add(tran.getZ(),tran.getY(),-tran.getX());
+			if(e == MgDirection.WEST)return new VecInt(y, x, z).add(tran.getZ(),tran.getY(),tran.getX());
+			return new VecInt(z, x, -y).add(tran.getX(),tran.getY(),tran.getZ());
+		}
 	}
 }

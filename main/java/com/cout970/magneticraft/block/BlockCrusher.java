@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import buildcraft.api.tools.IToolWrench;
 
@@ -15,11 +16,13 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.tileentity.TileCrusher;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
+import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -39,6 +42,10 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 	public String[] getTextures() {
 		return new String[]{"crusher","chasis","crusher_inv"};
 	}
+	
+	public boolean isOpaqueCube(){
+		return false;
+	}
 
 	@Override
 	public String getName() {
@@ -48,10 +55,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)
     {
-		if(meta == 0){
-			return side == 3 ? icons[0] : icons[1];
-		}
-        return side == meta ? icons[0] : side == meta%6 ? icons[2] : icons[1];
+        return side == meta+2 ? icons[0] : side == meta%4+2 ? icons[2] : icons[1];
     }
 	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
@@ -61,11 +65,11 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 			TileEntity t = w.getTileEntity(x, y, z);
 			if(!w.isRemote){
 				int meta = w.getBlockMetadata(x, y, z);
-
-				if(meta > 6){
-					w.setBlockMetadataWithNotify(x, y, z, meta-6, 2);
+				
+				if(meta%8 >= 4){
+					w.setBlockMetadataWithNotify(x, y, z, meta%4, 2);
 				}else{
-					w.setBlockMetadataWithNotify(x, y, z, meta+6, 2);
+					w.setBlockMetadataWithNotify(x, y, z, meta%4+4, 2);
 				}
 
 				if(t instanceof MB_Tile){
@@ -104,31 +108,51 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i)
 	{
 		int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
 		if (l == 0){
-			w.setBlockMetadataWithNotify(x, y, z, 2, 2);
+			w.setBlockMetadataWithNotify(x, y, z, 0, 2);
 		}
 
 		if (l == 1){
-			w.setBlockMetadataWithNotify(x, y, z, 5, 2);
-		}
-
-		if (l == 2){
 			w.setBlockMetadataWithNotify(x, y, z, 3, 2);
 		}
 
+		if (l == 2){
+			w.setBlockMetadataWithNotify(x, y, z, 1, 2);
+		}
+
 		if (l == 3){
-			w.setBlockMetadataWithNotify(x, y, z, 4, 2);
+			w.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
 	}
 
 	@Override
 	public MgDirection getDirection(World w, BlockPosition p) {
-		return MgDirection.getDirection(w.getBlockMetadata(p.getX(), p.getY(), p.getZ())%6);
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		return MgDirection.getDirection(meta%4+2);
 	}
 	
 	@Override
 	public Multiblock getStructure() {
 		return MB_Register.getMBbyID(MB_Register.ID_CRUSHER);
+	}
+	
+	@SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side)
+    {
+		MgDirection d = MgDirection.getDirection(side);
+		if(w.getBlockMetadata(x-d.getOffsetX(), y-d.getOffsetY(), z-d.getOffsetZ()) >= 8)return false;
+        return super.shouldSideBeRendered(w, x, y, z, side);
+    }
+
+	@Override
+	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%8+8, 2);
+	}
+
+	@Override
+	public void destroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%8, 2);
 	}
 }

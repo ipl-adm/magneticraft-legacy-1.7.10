@@ -21,7 +21,7 @@ public class TileInserter extends TileConductorLow{
 
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Inserter");
 	public int counter = 0;
-	public int speed = 10;
+	public int speed = 20;
 	
 	@Override
 	public IElectricConductor initConductor() {
@@ -40,24 +40,30 @@ public class TileInserter extends TileConductorLow{
 	public void updateEntity(){
 		super.updateEntity();
 		
-		if(getInv().getStackInSlot(0) == null){
-			if(counter > 0)counter--;
-		}else if(counter < speed )counter++;
-		if(counter != 0 && counter != speed)return;
 		TileEntity t = MgUtils.getTileEntity(this, getDir()), o = MgUtils.getTileEntity(this, getDir().opposite());
-
-		if(counter == 0){
-			if(getInv().getStackInSlot(0) == null){
+		
+		if(getInv().getStackInSlot(0) != null){
+			if(counter == 540){
+				if(getInv().getStackInSlot(0) != null){
+					if(o instanceof IInventory)dropToInv((IInventory)o);
+					else if(o instanceof IConveyor)dropToBelt((IConveyor)o);
+					sendUpdateToClient();
+				}
+			}else if(counter < 540){
+				counter+= speed;
+			}else {
+				counter-= speed;
+			}
+		}else if(getInv().getStackInSlot(0) == null){
+			if(counter == 0){
 				if(t instanceof IInventory)suckFromInv((IInventory)t);
 				else if(t instanceof IConveyor)suckFromBelt((IConveyor)t);
 				sendUpdateToClient();
-			}
-		}
-		if(counter == speed){
-			if(getInv().getStackInSlot(0) != null){
-				if(o instanceof IInventory)dropToInv((IInventory)o);
-				else if(o instanceof IConveyor)dropToBelt((IConveyor)o);
-				sendUpdateToClient();
+			}else if(counter > 0 && counter <= 540){
+				counter -= speed;
+			}else{
+				counter += speed;
+				counter = counter % 1080;
 			}
 		}
 	}

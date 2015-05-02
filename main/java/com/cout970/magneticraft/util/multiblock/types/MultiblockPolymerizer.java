@@ -10,7 +10,7 @@ import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
 
-public class MultiblockPolimerizer extends Multiblock{
+public class MultiblockPolymerizer extends Multiblock{
 
 	@Override
 	public void init() {

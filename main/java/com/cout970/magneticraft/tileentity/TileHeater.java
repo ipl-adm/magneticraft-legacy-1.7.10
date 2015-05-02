@@ -4,9 +4,11 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.Conductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
@@ -15,14 +17,14 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileHeater extends TileConductorLow implements IHeatTile, IGuiSync{
+public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile{
 
 	public IHeatConductor heat = new HeatConductor(this, 1400, 1000);
+	public IElectricConductor cond = initConductor();
 	public static int MaxProduction = 1500;
 	public int oldHeat;
 	private boolean working;
 
-	@Override
 	public IElectricConductor initConductor() {
 		return new Conductor(this);
 	}
@@ -35,6 +37,8 @@ public class TileHeater extends TileConductorLow implements IHeatTile, IGuiSync{
 	public void updateEntity(){
 		super.updateEntity();
 		if(!this.worldObj.isRemote){
+			cond.recache();
+			cond.iterate();
 			if(worldObj.getWorldTime()%20 == 0){
 				if(working && !isActive()){
 					setActive(true);
@@ -55,12 +59,14 @@ public class TileHeater extends TileConductorLow implements IHeatTile, IGuiSync{
 			}else working = false;
 		}
 	}
-	
+
 	private void setActive(boolean b) {
-		if(b)
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 2);
-		else
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
+		if(getBlockMetadata() != 2){
+			if(b)
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 2);
+			else
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
+		}
 	}
 
 	public boolean isActive() {
@@ -70,11 +76,13 @@ public class TileHeater extends TileConductorLow implements IHeatTile, IGuiSync{
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
 		heat.load(nbt);
+		cond.load(nbt);
 	}
 	
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 		heat.save(nbt);
+		cond.save(nbt);
 	}
 
 	public int getComsumption() {
@@ -93,5 +101,11 @@ public class TileHeater extends TileConductorLow implements IHeatTile, IGuiSync{
 	public void getGUINetworkData(int id, int value) {
 		if(id == 10)cond.setVoltage(value);
 		if(id == 11)heat.setTemperature(value);
+	}
+	
+	@Override
+	public CableCompound getConds(VecInt dir, int tier) {
+		if(tier != 0 && tier !=-1)return null;
+		return new CableCompound(cond);
 	}
 }

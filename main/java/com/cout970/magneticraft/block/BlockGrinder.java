@@ -111,4 +111,14 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 		return MB_Register.getMBbyID(MB_Register.ID_GRINDER);
 	}
 
+	@Override
+	public void mutates(World w, BlockPosition blockPosition, Multiblock c,
+			MgDirection e) {
+	}
+
+	@Override
+	public void destroy(World w, BlockPosition blockPosition, Multiblock c,
+			MgDirection e) {		
+	}
+
 }

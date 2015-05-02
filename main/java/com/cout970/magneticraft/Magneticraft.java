@@ -1,6 +1,9 @@
 package com.cout970.magneticraft;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import com.cout970.magneticraft.compact.ManagerIntegration;
+import com.cout970.magneticraft.handlers.HandlerBuckets;
 import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.proxy.IProxy;
@@ -24,8 +27,9 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.1.0";
+	public final static String VERSION = "0.2.0c";
 	public final static String ENERGY_STORED_NAME = "J";
+	public static final boolean DEBUG = true;
 	
 	@Instance(NAME)
 	public static Magneticraft Instance;
@@ -78,6 +82,8 @@ public class Magneticraft{
 		ManagerRecipe.registerBiomassBurnerRecipes();
 		ManagerNetwork.registerMessages();
 		ManagerFluids.registerFuels();
+		HandlerBuckets.INSTANCE = new HandlerBuckets();
+		MinecraftForge.EVENT_BUS.register(HandlerBuckets.INSTANCE);
 		Log.info("Init Done");
 	}
 	

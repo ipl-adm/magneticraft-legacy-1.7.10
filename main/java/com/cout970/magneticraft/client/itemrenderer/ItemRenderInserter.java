@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelInserter;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.client.tilerender.TileRenderInserter;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class ItemRenderInserter implements IItemRenderer{
@@ -57,7 +58,8 @@ public class ItemRenderInserter implements IItemRenderer{
 		GL11.glTranslatef(0, -1.5f, 0);
 		RenderUtil.bindTexture(ModelTextures.INSERTER);
 		model.renderStatic(0.0625f);
-		model.renderDynamic(0.0625f, 20, 100, 0);
+		float[] a = TileRenderInserter.getAngles(100000, false);
+		model.renderDynamic(0.0625f, a[0], a[1], a[2], a[3]);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();
 	}

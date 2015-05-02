@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import com.cout970.magneticraft.items.ItemBasic;
 import com.cout970.magneticraft.items.ItemBattery;
+import com.cout970.magneticraft.items.ItemBucket;
 import com.cout970.magneticraft.items.ItemChainSaw;
 import com.cout970.magneticraft.items.ItemElectricSword;
 import com.cout970.magneticraft.items.ItemGravelOre;
@@ -88,6 +89,10 @@ public class ManagerItems {
 	public static Item sword;
 	public static Item chainsaw;
 	
+	public static Item bucket_oil;
+	public static Item bucket_light_oil;
+	public static Item bucket_heavy_oil;
+	
 	public static void initItems(){
 		//ores
 		registerGravel();
@@ -133,6 +138,9 @@ public class ManagerItems {
 		dustDiamond = new ItemBasic("dustdiamond");
 		sword = new ItemElectricSword("electric_sword");
 		chainsaw = new ItemChainSaw("chainsaw");
+		bucket_oil = new ItemBucket("bucket_oil","oil");
+		bucket_light_oil = new ItemBucket("bucket_light_oil","lightoil");
+		bucket_heavy_oil = new ItemBucket("bucket_heavy_oil","heavyoil");
 	}
 	
 	public static void registerItems(){
@@ -192,6 +200,10 @@ public class ManagerItems {
 		addItem(dustDiamond,"Diamond Dust");
 		addItem(sword, "Electric Sword");
 		addItem(chainsaw, "Electric Chainsaw");
+		
+		addItem(bucket_oil, "Oil Bucket");
+		addItem(bucket_light_oil, "Light Oil Bucket");
+		addItem(bucket_heavy_oil, "Heavy Oil Bucket");
 		
 		for(ItemGravelOre z : gravelOre){
 			addItem(z,z.locName+" Gravel Ore");

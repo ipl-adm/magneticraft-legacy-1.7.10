@@ -27,7 +27,7 @@ public class ModelTextures {
 	public static final ResourceLocation GEAR 						= new ResourceLocation("magneticraft", "textures/misc/gear.png");
 	public static final ResourceLocation REACTOR_VESSEL 			= new ResourceLocation("magneticraft", "textures/misc/reactor_vessel.png");
 	public static final ResourceLocation REACTOR_CONTROL 			= new ResourceLocation("magneticraft", "textures/misc/reactor_control.png");
-	public static final ResourceLocation INSERTER 					= new ResourceLocation("magneticraft", "textures/misc/inserter.png");
+	public static final ResourceLocation INSERTER 					= new ResourceLocation("magneticraft", "textures/misc/modelinserter.png");
 	public static final ResourceLocation TRANSFORMER_MH 			= new ResourceLocation("magneticraft", "textures/misc/transformer_mh.png");
 	public static final ResourceLocation TESLA_COIL 				= new ResourceLocation("magneticraft", "textures/misc/teslacoil.png");
 	public static final ResourceLocation WIRE_COPPER 				= new ResourceLocation("magneticraft", "textures/misc/wire.png");
@@ -42,6 +42,8 @@ public class ModelTextures {
 	public static final ResourceLocation HEAT_SINK 					= new ResourceLocation("magneticraft", "textures/misc/heat_sink.png");
 	public static final ResourceLocation CHAINSAW 					= new ResourceLocation("magneticraft", "textures/misc/chainsaw.png");
 	public static final ResourceLocation SWORD 						= new ResourceLocation("magneticraft", "textures/misc/electric_sword.png");
-	
+	public static final ResourceLocation CRUSHER 					= new ResourceLocation("magneticraft", "textures/misc/modelcrusher.png");
+	public static final ResourceLocation BELT 						= new ResourceLocation("magneticraft", "textures/misc/modelconveyorbelt.png");
+	public static final ResourceLocation POLYMERIZER 				= new ResourceLocation("magneticraft", "textures/misc/modelpolymerizer.png");
 	
 }

@@ -5,7 +5,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 
-public interface MB_ControlBlock {
+public interface MB_ControlBlock extends MB_Block{
 
 	public MgDirection getDirection(World w,BlockPosition p);
 	public Multiblock getStructure();

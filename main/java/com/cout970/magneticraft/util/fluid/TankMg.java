@@ -25,4 +25,8 @@ public class TankMg extends FluidTank{
 	public int getSpace() {
 		return getCapacity()-getFluidAmount();
 	}
+
+	public TileEntity getParent(){
+		return tile;
+	}
 }

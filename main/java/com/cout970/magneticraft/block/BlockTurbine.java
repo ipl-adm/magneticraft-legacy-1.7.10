@@ -102,4 +102,14 @@ public class BlockTurbine extends BlockMg implements MB_ControlBlock{
 	public Multiblock getStructure() {
 		return MB_Register.getMBbyID(MB_Register.ID_TURBINE);
 	}
+
+	@Override
+	public void mutates(World w, BlockPosition blockPosition, Multiblock c,
+			MgDirection e) {
+	}
+
+	@Override
+	public void destroy(World w, BlockPosition blockPosition, Multiblock c,
+			MgDirection e) {
+	}
 }

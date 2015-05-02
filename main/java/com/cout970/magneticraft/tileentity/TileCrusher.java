@@ -19,12 +19,14 @@ import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
@@ -33,6 +35,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TileCrusher extends TileMB_Base implements IGuiSync,
 		IBurningTime, IInventoryManaged, ISidedInventory {
 
+	public float animation;
 	public boolean active;
 	public boolean auto;
 	public int Progres = 0;
@@ -44,6 +47,8 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	private InventoryComponent out;
 	private int speed = 0;
 	public int drawCounter;
+	private long time;
+	public boolean working;
 
 	public InventoryComponent getInv() {
 		return inv;
@@ -55,10 +60,12 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 		if(drawCounter > 0)drawCounter--;
 		if (!active)return;
 		if (worldObj.isRemote)return;
+		if(worldObj.getWorldTime()%20 == 0)sendUpdateToClient();
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
 			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
 			if(canCraft()){
+				working = true;
 				if (speed > 0) {
 					Progres += speed;
 					cond.drainPower(speed * 1000);
@@ -67,29 +74,32 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 						markDirty();
 						Progres = 0;
 					}
+				}else{
+					working = false;
 				}
 			}else{
+				working = false;
 				Progres = 0;
 			}
+		}else{
+			working = false;
 		}
-		auto = true;
-		if (auto) {
-			distributeItems();
-		}
+		distributeItems();
 	}
 
 	private void distributeItems() {
 		if (in == null) {
-			if(getBlockMetadata() > 6){
-				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+			if(getBlockMetadata()%8 < 4){
+				MgDirection d = getDirection().opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
 				if (c instanceof IInventoryManaged) {
 					in = ((IInventoryManaged) c).getInv();
 				}
 			}else{
-				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
-				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().getOpposite());
+				
+				MgDirection d = getDirection().opposite();
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
 				if (c instanceof IInventoryManaged) {
 					in = ((IInventoryManaged) c).getInv();
@@ -97,17 +107,18 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 			}
 		}
 		if (out == null) {
-			if(getBlockMetadata() > 6){
-				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+			if(getBlockMetadata()%8 < 4){
+				MgDirection d = getDirection().opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().multiply(3).getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
 				if (c instanceof IInventoryManaged) {
 					out = ((IInventoryManaged) c).getInv();
 				}
 			}else{
-				MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
-				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().multiply(3).getOpposite());
+				MgDirection d = getDirection().opposite();
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().multiply(3).getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
+				Log.debug(v);
 				if (c instanceof IInventoryManaged) {
 					out = ((IInventoryManaged) c).getInv();
 				}
@@ -140,7 +151,8 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 
 	@Override
 	public MgDirection getDirection() {
-		return MgDirection.getDirection(getBlockMetadata()%6);
+		int meta = getBlockMetadata();
+		return MgDirection.getDirection(meta%4+2);
 	}
 	
 	private void craft() {
@@ -202,7 +214,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public void updateConductor() {
 		cond.recache();
 		cond.iterate();
-		MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
+		MgDirection d = getDirection().opposite();
 		TileEntity c = MgUtils.getTileEntity(this, d.getVecInt().multiply(3));
 		if (c instanceof IElectricTile) {
 			CableCompound comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR,-1);
@@ -233,6 +245,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		active = nbt.getBoolean("A");
+		working = nbt.getBoolean("W");
 		cond.load(nbt);
 		getInv().readFromNBT(nbt);
 	}
@@ -240,6 +253,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setBoolean("A", active);
+		nbt.setBoolean("W", working);
 		cond.save(nbt);
 		getInv().writeToNBT(nbt);
 	}
@@ -345,4 +359,10 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
     {
         return INFINITE_EXTENT_AABB;
     }
+
+	public float getDelta() {
+		long aux = time;
+		time = System.nanoTime();
+		return time - aux;
+	}
 }

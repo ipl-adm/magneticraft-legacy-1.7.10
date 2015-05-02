@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -33,7 +34,7 @@ public class MutableComponent {
 		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(!blocks.contains(t)){
-//			w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), blocks.get(0));
+			if(Magneticraft.DEBUG)w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), blocks.get(0));
 			return false;
 		}
 		return true;

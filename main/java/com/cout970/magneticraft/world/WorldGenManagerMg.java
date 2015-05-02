@@ -65,7 +65,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 				genChunk(random, world, chunkX, chunkZ, 5, 20, 0, Thorium);
 			}
 			if (GenOil) {
-				int run = 400;
+				int run = 1000;
 				BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);
 				if(base != null){
 					if(base.getIntRainfall() < 327680 || base.getTempCategory() == TempCategory.WARM) run -= 200;

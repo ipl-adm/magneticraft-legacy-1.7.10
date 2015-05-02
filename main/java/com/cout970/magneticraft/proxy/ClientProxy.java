@@ -37,7 +37,7 @@ import com.cout970.magneticraft.client.tilerender.TileRenderInserter;
 import com.cout970.magneticraft.client.tilerender.TileRenderKineticGenerator;
 import com.cout970.magneticraft.client.tilerender.TileRenderMgTank;
 import com.cout970.magneticraft.client.tilerender.TileRenderMirror;
-import com.cout970.magneticraft.client.tilerender.TileRenderPolimerizer;
+import com.cout970.magneticraft.client.tilerender.TileRenderPolymerizer;
 import com.cout970.magneticraft.client.tilerender.TileRenderPumpJack;
 import com.cout970.magneticraft.client.tilerender.TileRenderReactorActivator;
 import com.cout970.magneticraft.client.tilerender.TileRenderReactorControl;
@@ -124,7 +124,7 @@ public class ClientProxy implements IProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHeatSink.class,new TileRenderHeatSink());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class,new TileRenderGrinder());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCrusher.class,new TileRenderCrusher());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePolimerizer.class,new TileRenderPolimerizer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePolimerizer.class,new TileRenderPolymerizer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineControl.class,new TileRenderTurbine());
 	}
 }

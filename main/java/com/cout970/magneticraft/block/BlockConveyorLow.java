@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.conveyor.IConveyor;
@@ -22,7 +23,7 @@ public class BlockConveyorLow extends BlockMg{
 
 	public BlockConveyorLow() {
 		super(Material.iron);
-		setBlockBounds(0, 0, 0, 1, 1/4f, 1);
+		setBlockBounds(0, 0, 0, 1, 5/16f, 1);
 	}
 
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
@@ -37,6 +38,11 @@ public class BlockConveyorLow extends BlockMg{
 		}
 		return true;
 	}
+	
+	@SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+        return false;
+    }
 	
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
@@ -66,10 +72,6 @@ public class BlockConveyorLow extends BlockMg{
 		}if (l == 3){
 			w.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}
-	}
-
-    public void onEntityCollidedWithBlock(World w, int x, int y, int z, Entity e) {
-
 	}
 
 	@Override

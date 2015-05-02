@@ -31,7 +31,7 @@ public class BlockOre extends Block{
 	
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
     {
-        return this == ManagerBlocks.oreSulfur ? ManagerItems.dustSulfur : Item.getItemFromBlock(this);
+        return this == ManagerBlocks.oreSulfur ? ManagerItems.dustSulfur : this == ManagerBlocks.oreSalt ? ManagerItems.dustSalt : Item.getItemFromBlock(this);
     }
 
     /**
@@ -80,7 +80,7 @@ public class BlockOre extends Block{
         {
             int j1 = 0;
 
-            if (this == ManagerBlocks.oreSulfur)
+            if (this == ManagerBlocks.oreSulfur || this == ManagerBlocks.oreSalt)
             {
                 j1 = MathHelper.getRandomIntegerInRange(rand, 3, 7);
             }

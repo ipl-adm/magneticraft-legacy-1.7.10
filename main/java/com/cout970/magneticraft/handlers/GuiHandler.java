@@ -72,7 +72,7 @@ import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileMonitor;
-import com.cout970.magneticraft.tileentity.TilePolimerizer;
+import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
@@ -143,7 +143,7 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileRefinery){
 			return new ContainerRefinery(player.inventory, tile);
 		}
-		if(tile instanceof TilePolimerizer){
+		if(tile instanceof TilePolymerizer){
 			return new ContainerPolimerizer(player.inventory, tile);
 		}
 		if(tile instanceof TileTurbineControl){
@@ -226,7 +226,7 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileRefinery){
 			return new GuiRefinery(new ContainerRefinery(player.inventory, tile), tile);
 		}
-		if(tile instanceof TilePolimerizer){
+		if(tile instanceof TilePolymerizer){
 			return new GuiPolimerizer(new ContainerPolimerizer(player.inventory, tile), tile);
 		}
 		if(tile instanceof TileTurbineControl){

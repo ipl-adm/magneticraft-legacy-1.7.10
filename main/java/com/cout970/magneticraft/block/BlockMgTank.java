@@ -19,6 +19,7 @@ import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockPolymerizer;
+import com.cout970.magneticraft.util.multiblock.types.MultiblockTurbine;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -132,7 +133,7 @@ public class BlockMgTank extends BlockMg implements MB_Block{
 	
 	@Override
 	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
-		if(c instanceof MultiblockPolymerizer){
+		if(c instanceof MultiblockPolymerizer || c instanceof MultiblockTurbine){
 			w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
 		}else
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 1, 2);

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.tileentity.TilePolimerizer;
+import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
@@ -32,7 +32,7 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock{
 
 	@Override
 	public TileEntity createNewTileEntity(World w, int meta) {
-		return new TilePolimerizer();
+		return new TilePolymerizer();
 	}
 	
 	public boolean isOpaqueCube(){
@@ -61,10 +61,10 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock{
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
 		if(p.isSneaking())return false;
 		TileEntity t = w.getTileEntity(x, y, z);
-		if(t instanceof TilePolimerizer){
-			if(!((TilePolimerizer) t).active){
+		if(t instanceof TilePolymerizer){
+			if(!((TilePolymerizer) t).active){
 				if(!w.isRemote)MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_POLIMERIZER), getDirection(w, new BlockPosition(x,y,z)),p);
-				else ((TilePolimerizer) t).drawCounter = 200;
+				else ((TilePolymerizer) t).drawCounter = 200;
 			}else{
 				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 			}

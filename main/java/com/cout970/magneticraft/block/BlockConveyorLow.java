@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockConveyorLow extends BlockMg{
+	
+	public static IIcon conveyor_low;
 
 	public BlockConveyorLow() {
 		super(Material.iron);
@@ -38,9 +41,14 @@ public class BlockConveyorLow extends BlockMg{
 		}
 		return true;
 	}
-	
+
+	public int getRenderType()
+	{
+		return -1;
+	}
+
 	@SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int side) {
         return false;
     }
 	
@@ -52,14 +60,19 @@ public class BlockConveyorLow extends BlockMg{
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		if(side == 1)return meta == 2 ? icons[3] : meta == 3 ? icons[1] : meta == 4 ? icons[2] : icons[4];
-		return icons[0];
+		return conveyor_low;
 	}
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"conveyor_low","belts/conveyor_low_north","belts/conveyor_low_east","belts/conveyor_low_south","belts/conveyor_low_west"};
+		return new String[]{"belts/conveyor"};
 	}
+	
+	@SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister IR){
+		super.registerBlockIcons(IR);
+		conveyor_low = icons[0];
+    }
 	
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i){
 		int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;

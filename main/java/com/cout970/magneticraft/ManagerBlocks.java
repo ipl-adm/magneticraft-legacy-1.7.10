@@ -38,6 +38,7 @@ import com.cout970.magneticraft.block.BlockInserter;
 import com.cout970.magneticraft.block.BlockKineticGenerator;
 import com.cout970.magneticraft.block.BlockMB_Energy_Low;
 import com.cout970.magneticraft.block.BlockMB_Energy_Medium;
+import com.cout970.magneticraft.block.BlockMB_Heat;
 import com.cout970.magneticraft.block.BlockMB_Inv;
 import com.cout970.magneticraft.block.BlockMachineHousing;
 import com.cout970.magneticraft.block.BlockMgTank;
@@ -97,13 +98,14 @@ import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
+import com.cout970.magneticraft.tileentity.TileMB_Heat;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileMonitor;
 import com.cout970.magneticraft.tileentity.TilePermanentMagnet;
-import com.cout970.magneticraft.tileentity.TilePolimerizer;
+import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.tileentity.TileReactorActivator;
 import com.cout970.magneticraft.tileentity.TileReactorControlRods;
@@ -199,6 +201,7 @@ public class ManagerBlocks {
 	public static Block crafter;
 	public static Block monitor;
 	public static Block cpu;
+	public static Block multi_heat;
 	
 	
 	
@@ -270,6 +273,7 @@ public class ManagerBlocks {
 		crafter = new BlockCrafter();
 		monitor = new BlockMonitor();
 		cpu = new BlockCPU();
+		multi_heat = new BlockMB_Heat();
 	}
 	
 	public static void registerBlocks(){
@@ -346,6 +350,7 @@ public class ManagerBlocks {
 		blocks.add(crafter);
 		blocks.add(monitor);
 		blocks.add(cpu);
+		blocks.add(multi_heat);
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, b.getUnlocalizedName());
@@ -400,7 +405,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileMgTank.class);
 		tileEntities.add(TileHeater.class);
 		tileEntities.add(TileSolarTowerCore.class);
-		tileEntities.add(TilePolimerizer.class);
+		tileEntities.add(TilePolymerizer.class);
 		tileEntities.add(TileReactorController.class);
 		tileEntities.add(TileTurbineControl.class);
 		tileEntities.add(TileMB_Energy_Medium.class);
@@ -410,6 +415,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileCrafter.class);
 		tileEntities.add(TileMonitor.class);
 		tileEntities.add(TileCPU.class);
+		tileEntities.add(TileMB_Heat.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

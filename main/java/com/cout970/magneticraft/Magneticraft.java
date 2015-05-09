@@ -27,7 +27,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.2.0c";
+	public final static String VERSION = "0.2.0d";
 	public final static String ENERGY_STORED_NAME = "J";
 	public static final boolean DEBUG = true;
 	

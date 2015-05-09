@@ -1,29 +1,24 @@
 package com.cout970.magneticraft.util.multiblock.types;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockPosition;
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
 
-public class MultiblockTurbine extends Multiblock{
+public class MultiblockStirlig extends Multiblock{
 
 	@Override
 	public void init() {
-		MutableComponent c = new MutableComponent(ManagerBlocks.tank_mg);
-		MutableComponent b = new MutableComponent(ManagerBlocks.multi_energy_medium);
+		MutableComponent c = new MutableComponent(ManagerBlocks.multi_heat);
+		MutableComponent b = new MutableComponent(ManagerBlocks.multi_energy_low);
 		MutableComponent d = new MutableComponent(ManagerBlocks.chasis);
-		MutableComponent e = new MutableComponent(ManagerBlocks.turbine);
+		MutableComponent e = new MutableComponent(ManagerBlocks.stirling);
 
 		MutableComponent[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0
-				{ { d, d, d }, { d, d, d }, { d, d, d }, { d, d, d }, { d, d, d }},
-				{ { d, e, d }, { c, d, c }, { c, d, c }, { d, d, d }, { d, d, d } },
-				{ { d, d, d }, { d, b, d }, { d, d, d }, { d, d, d }, { d, d, d } },
+				{ { d, d, d }, { d, d, d }, { d, d, d } },
+				{ { d, e, d }, { d, c, d }, { d, b, d } },
 			};
 
 		BlockPosition p = new BlockPosition(-1,-1,0);
@@ -36,7 +31,7 @@ public class MultiblockTurbine extends Multiblock{
 
 	@Override
 	public int getID() {
-		return MB_Register.ID_TURBINE;
+		return MB_Register.ID_STIRLING;
 	}
 
 }

@@ -13,7 +13,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.model.ModelPolymerizer;
 import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileMgTank;
-import com.cout970.magneticraft.tileentity.TilePolimerizer;
+import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -25,7 +25,7 @@ public class TileRenderPolymerizer extends TileEntitySpecialRenderer{
 
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
-		TilePolimerizer tile = (TilePolimerizer) t;
+		TilePolymerizer tile = (TilePolymerizer) t;
 		if(!tile.active){
 			if(tile.drawCounter > 0){
 				GL11.glColor4f(1, 1, 1, 1f);

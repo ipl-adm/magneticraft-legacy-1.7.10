@@ -18,13 +18,6 @@ public class MgBeltUtils {
 	public static boolean isBelt(TileEntity t) {
 		return t instanceof IConveyor;
 	}
-
-	public static boolean injectInBelt(IConveyor t, ItemBox box, MgDirection dir) {
-		if(dir == t.getDir())return false;
-		int var = dir.isPerpendicular(t.getDir()) ? (dir == t.getDir().step(MgDirection.UP) ? (!box.isOnLeft() ? 1 : 2) : (box.isOnLeft() ? 1: 2)) : 0;
-		if(t.addItem(dir, var, box, false))return true;
-		return false;
-	}
 	
 
 	/**

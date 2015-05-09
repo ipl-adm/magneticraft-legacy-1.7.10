@@ -43,7 +43,10 @@ public class ModelTextures {
 	public static final ResourceLocation CHAINSAW 					= new ResourceLocation("magneticraft", "textures/misc/chainsaw.png");
 	public static final ResourceLocation SWORD 						= new ResourceLocation("magneticraft", "textures/misc/electric_sword.png");
 	public static final ResourceLocation CRUSHER 					= new ResourceLocation("magneticraft", "textures/misc/modelcrusher.png");
-	public static final ResourceLocation BELT 						= new ResourceLocation("magneticraft", "textures/misc/modelconveyorbelt.png");
+	public static final ResourceLocation CONVEYOR_BELT_LOW 			= new ResourceLocation("magneticraft", "textures/misc/modelconveyorbelt.png");
 	public static final ResourceLocation POLYMERIZER 				= new ResourceLocation("magneticraft", "textures/misc/modelpolymerizer.png");
-	
+	public static final ResourceLocation TURBINE 					= new ResourceLocation("magneticraft", "textures/misc/modelturbine.png");
+	public static final ResourceLocation STIRLING_ON 				= new ResourceLocation("magneticraft", "textures/misc/modelstirlinggenerator_on.png");
+	public static final ResourceLocation STIRLING_OFF 				= new ResourceLocation("magneticraft", "textures/misc/modelstirlinggenerator_off.png");
+
 }

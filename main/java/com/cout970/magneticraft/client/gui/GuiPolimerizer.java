@@ -15,7 +15,7 @@ import com.cout970.magneticraft.client.gui.component.CompFluidRender;
 import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TilePolimerizer;
+import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiPolimerizer extends GuiBasic{
@@ -28,7 +28,7 @@ public class GuiPolimerizer extends GuiBasic{
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/polimerizer.png")));
 		comp.add(new CompHeaterBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(20, 20)));
-		comp.add(new CompFluidRender(((TilePolimerizer)tile).input, new GuiPoint(41,25), new GuiPoint(59, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
+		comp.add(new CompFluidRender(((TilePolymerizer)tile).input, new GuiPoint(41,25), new GuiPoint(59, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
 		comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/progresbar1.png"), new GuiPoint(93, 35)));
 	}
 	
@@ -44,8 +44,8 @@ public class GuiPolimerizer extends GuiBasic{
 
 		@Override
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-			if(tile instanceof TilePolimerizer){
-				TilePolimerizer ref = (TilePolimerizer) tile;
+			if(tile instanceof TilePolymerizer){
+				TilePolymerizer ref = (TilePolymerizer) tile;
 				IHeatConductor c = ref.heater;
 				if(c == null)return;
 				int scale = 0;
@@ -65,8 +65,8 @@ public class GuiPolimerizer extends GuiBasic{
 
 		@Override
 		public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-			if(tile instanceof TilePolimerizer){
-				TilePolimerizer ref = (TilePolimerizer) tile;
+			if(tile instanceof TilePolymerizer){
+				TilePolymerizer ref = (TilePolymerizer) tile;
 				IHeatConductor c = ref.heater;
 				if(c == null)return;
 				if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){

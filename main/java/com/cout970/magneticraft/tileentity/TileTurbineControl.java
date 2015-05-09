@@ -32,7 +32,10 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public IElectricConductor out;
 	private double prod;
 	private double counter;
+	//render
 	public int drawCounter;
+	public float animation;
+	private long time;
 	
 	public boolean isActive() {
 		return getBlockMetadata() > 6;
@@ -43,12 +46,14 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 		if(drawCounter > 0)drawCounter--;
 		if (!isActive())
 			return;
-		if(in[0] == null || out == null){
+		if(in[0] == null || out == null || worldObj.getWorldTime() % 200 == 0){
 			search();
+			return;
 		}
 
 		if (worldObj.isRemote)return;
-		int steam = Math.min(getFluidAmount(), MAX_STEAM);
+		balanceTanks();
+		int steam = (getFluidAmount()*MAX_STEAM)/64000;
 		if(steam > 0 && out.getVoltage() < ElectricConstants.MAX_VOLTAGE*out.getVoltageMultiplier()){
 			drain(steam, true);
 			double p = EnergyConversor.STEAMtoW(steam);
@@ -58,6 +63,17 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 		if(worldObj.getWorldTime()%20 == 0){
 			prod = counter/20;
 			counter = 0;
+		}
+	}
+
+	private void balanceTanks() {
+		int sum = getFluidAmount();
+		int rest = sum%4;
+		for(TankMg t : in){
+			t.setFluid(null);
+			t.fill(FluidRegistry.getFluidStack("steam", sum/4), true);
+			if(rest > 0)
+			rest -= t.fill(FluidRegistry.getFluidStack("steam", rest), true);
 		}
 	}
 
@@ -90,15 +106,16 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 		if(t instanceof TileMgTank){
 			in[1] = ((TileMgTank) t).getTank();
 		}
-		t = MgUtils.getTileEntity(this, vec.copy().add(MgDirection.UP.getVecInt()));
+		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.UP).getVecInt()));
 		if(t instanceof TileMgTank){
 			in[2] = ((TileMgTank) t).getTank();
 		}
-		t = MgUtils.getTileEntity(this, vec.copy().add(MgDirection.DOWN.getVecInt()));
+		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.DOWN).getVecInt()));
 		if(t instanceof TileMgTank){
 			in[3] = ((TileMgTank) t).getTank();
 		}
-		t = MgUtils.getTileEntity(this, vec.multiply(4));
+		t = MgUtils.getTileEntity(this, vec.copy().add(new VecInt(0, 1, 0)));
+		
 		if(t instanceof IElectricTile){
 			out = ((IElectricTile) t).getConds(vec.getOpposite(), 2).getCond(0);
 		}
@@ -184,4 +201,10 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
     {
         return INFINITE_EXTENT_AABB;
     }
+	
+	public float getDelta() {
+		long aux = time;
+		time = System.nanoTime();
+		return time - aux;
+	}
 }

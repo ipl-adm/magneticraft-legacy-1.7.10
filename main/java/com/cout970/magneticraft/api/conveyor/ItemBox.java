@@ -1,13 +1,15 @@
 package com.cout970.magneticraft.api.conveyor;
 
+import com.cout970.magneticraft.api.util.VecDouble;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class ItemBox {
 	
 	private ItemStack content;
-	private double position;
 //	private double x,y,z;
+	private int position;
 	private boolean isOnLeft;
 
 	
@@ -20,13 +22,13 @@ public class ItemBox {
 //		this.y = y;
 //		this.z = z;
 //	}
-	
+//	
 //	public void move(VecDouble dir){
 //		x += dir.getX();
 //		y += dir.getY();
 //		z += dir.getZ();
 //	}
-	
+//	
 //	public double getX() {
 //		return x;
 //	}
@@ -47,12 +49,12 @@ public class ItemBox {
 		this.content = content;
 	}
 
-	public double getPosition() {
+	public int getPosition() {
 		return position;
 	}
 
-	public void setPosition(double position) {
-		this.position = position;
+	public void setPosition(int positions) {
+		this.position = positions;
 	}
 
 	public boolean isOnLeft() {
@@ -63,20 +65,19 @@ public class ItemBox {
 		this.isOnLeft = isLeft;
 	}
 
-	public void advances() {
-		if(position < 1)
-			position += 1/16f;
-	}
-
 	public void save(NBTTagCompound t) {
 		getContent().writeToNBT(t);
-		t.setDouble("Pos", getPosition());
+		t.setInteger("Pos", getPosition());
+//		t.setDouble("pX", getX());
+//		t.setDouble("pY", getY());
+//		t.setDouble("pZ", getZ());
 		t.setBoolean("Left", isOnLeft());
 	}
 
 	public void load(NBTTagCompound t) {
 		setContent(ItemStack.loadItemStackFromNBT(t));
-		setPosition(t.getDouble("Pos"));
+		setPosition(t.getInteger("Pos"));
+//		setPos(t.getDouble("pX"), t.getDouble("pY"), t.getDouble("pZ"));
 		setOnLeft(t.getBoolean("Left"));
 	}
 }

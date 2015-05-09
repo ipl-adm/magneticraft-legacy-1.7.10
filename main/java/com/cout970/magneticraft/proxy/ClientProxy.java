@@ -10,6 +10,7 @@ import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableLow;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableMedium;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderChainsaw;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCombustionEngine;
+import com.cout970.magneticraft.client.itemrenderer.ItemRenderConveyorLow;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCopperPipe;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderElectricSword;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderFluidHopper;
@@ -44,6 +45,7 @@ import com.cout970.magneticraft.client.tilerender.TileRenderReactorControl;
 import com.cout970.magneticraft.client.tilerender.TileRenderReactorVessel;
 import com.cout970.magneticraft.client.tilerender.TileRenderRefinery;
 import com.cout970.magneticraft.client.tilerender.TileRenderSteamEngine;
+import com.cout970.magneticraft.client.tilerender.TileRenderStirling;
 import com.cout970.magneticraft.client.tilerender.TileRenderTeslaCoil;
 import com.cout970.magneticraft.client.tilerender.TileRenderTransformerLow_Medium;
 import com.cout970.magneticraft.client.tilerender.TileRenderTransformer_MH;
@@ -60,13 +62,14 @@ import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMirror;
-import com.cout970.magneticraft.tileentity.TilePolimerizer;
+import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.tileentity.TileReactorActivator;
 import com.cout970.magneticraft.tileentity.TileReactorControlRods;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
+import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
 import com.cout970.magneticraft.tileentity.TileTeslaCoil;
 import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
@@ -101,6 +104,7 @@ public class ClientProxy implements IProxy{
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.combustion_engine), new ItemRenderCombustionEngine());
 		MinecraftForgeClient.registerItemRenderer(ManagerItems.sword, new ItemRenderElectricSword());
 		MinecraftForgeClient.registerItemRenderer(ManagerItems.chainsaw, new ItemRenderChainsaw());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.conveyor_l), new ItemRenderConveyorLow());
 
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class,new TileRenderPumpJack());
@@ -124,7 +128,8 @@ public class ClientProxy implements IProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHeatSink.class,new TileRenderHeatSink());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class,new TileRenderGrinder());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCrusher.class,new TileRenderCrusher());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePolimerizer.class,new TileRenderPolymerizer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePolymerizer.class,new TileRenderPolymerizer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileTurbineControl.class,new TileRenderTurbine());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileStirlingGenerator.class,new TileRenderStirling());
 	}
 }

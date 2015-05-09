@@ -29,7 +29,7 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TilePolimerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
+public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
 
 	public boolean active;
 	public int Progres;

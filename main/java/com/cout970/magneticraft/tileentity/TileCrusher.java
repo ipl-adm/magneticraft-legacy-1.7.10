@@ -118,7 +118,6 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 				MgDirection d = getDirection().opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().multiply(3).getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
-				Log.debug(v);
 				if (c instanceof IInventoryManaged) {
 					out = ((IInventoryManaged) c).getInv();
 				}

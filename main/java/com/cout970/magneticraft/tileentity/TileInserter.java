@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
+import com.cout970.magneticraft.api.conveyor.ConveyorSide;
 import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
 import com.cout970.magneticraft.api.electricity.BatteryConductor;
@@ -85,24 +86,18 @@ public class TileInserter extends TileConductorLow{
 	}
 
 	private void suckFromBelt(IConveyor t) {
-		ItemBox[] v = t.getContent(true);
-		int[] order = {2,1,0,3};
-		for(int i : order){
-			if(extractFromBelt(v, i, t, true))return;
-		}
-		v = t.getContent(false);
-		for(int i : order){
-			if(extractFromBelt(v, i, t, false))return;
-		}
+		ConveyorSide side = t.getSideLane(true);
+		if(extractFromBelt(side, t, true))return;
+		side = t.getSideLane(false);
+		if(extractFromBelt(side, t, false))return;
 	}
 	
-	public boolean extractFromBelt(ItemBox[] v, int pos,IConveyor t,boolean side){
-		if(v[pos] != null){
-			if(t.extract(pos,v[pos],side,true)) {
-				getInv().setInventorySlotContents(0, v[pos].getContent());
-				t.extract(pos,v[pos],side,false);
-				return true;
-			}
+	public boolean extractFromBelt(ConveyorSide side,IConveyor t,boolean left){
+		if(side.content.isEmpty())return false;
+		ItemBox b = side.content.get(0);
+		if(t.extract(b, left, false)){
+			getInv().setInventorySlotContents(0, b.getContent());
+			return true;
 		}
 		return false;
 	}

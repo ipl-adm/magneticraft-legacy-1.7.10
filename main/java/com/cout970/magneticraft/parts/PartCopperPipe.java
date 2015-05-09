@@ -163,7 +163,7 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 					TankConection t = tanks.get(d);//get tank
 					if(t != null){
 						FluidStack f = t.drain(t.side, MAX_EXTRACT, false);//simulated extraction 
-						if(f != null && (getNetwork().getFluid() == null || getNetwork().getFluid().getID() == f.getFluidID())){
+						if(f != null && f.getFluid() != null && (getNetwork().getFluid() == null || getNetwork().getFluid().getName() == f.getFluid().getName())){
 							int space = getNetwork().getCapacity()-getNetwork().getFluidAmount();//space for fluid in the network
 							int toD = Math.min(f.amount, space);//min space, fluid
 							if(toD > 0){

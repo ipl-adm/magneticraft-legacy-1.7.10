@@ -1,9 +1,11 @@
 package com.cout970.magneticraft.api.util;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.google.common.base.Objects;
 
 /**
@@ -33,6 +35,10 @@ public class VecInt {
 		this(ar[0],ar[1],ar[2]);
 	}
 
+
+	public VecInt(TileEntity tile) {
+		this(tile.xCoord, tile.yCoord, tile.zCoord);
+	}
 
 	public static VecInt getConnexion(MgDirection d) {
 		return new VecInt(d.getOffsetX(), d.getOffsetY(), d.getOffsetZ());

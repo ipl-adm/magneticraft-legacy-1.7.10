@@ -11,6 +11,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -26,15 +27,16 @@ import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileStirlingGenerator extends TileMB_Base implements IInventoryManaged,IGuiSync,IBurningTime{
+public class TileStirlingGenerator extends TileMB_Base implements IInventoryManaged,IGuiSync,IBurningTime, IElectricTile,IHeatTile{
 
-	private static final double MAX_PRODUCTION = 1000;
+	private static final double MAX_PRODUCTION = 4000;
 	public IHeatConductor heat;
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Stirling generator");
 	public IElectricConductor cond;
@@ -49,11 +51,11 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 	public void updateEntity(){
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if(this.worldObj.isRemote)return;
 		if(!activate)return;
 		if(cond == null || heat == null){
 			search();
 		}
+		if(this.worldObj.isRemote)return;
 		if(worldObj.getWorldTime()%20 == 0){
 			if(working && !isActive()){
 				setActive(true);
@@ -111,16 +113,17 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		VecInt dir = getDirection().opposite().getVecInt();
 		TileEntity tile = MgUtils.getTileEntity(this, dir);
 		if(tile instanceof IHeatTile){
-			heat = ((IHeatTile) tile).getHeatCond(dir.getOpposite());
+			heat = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
 		}
 		tile = MgUtils.getTileEntity(this, dir.copy().multiply(2));
 		if(tile instanceof IElectricTile){
-			cond = ((IElectricTile) tile).getConds(dir.copy().multiply(2).getOpposite(), 0).getCond(0);
+			cond = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
 		}
 	}
 
 	private void setActive(boolean b) {
 		burning = b;
+		sendUpdateToClient();
 	}
 
 	public boolean isActive() {
@@ -245,4 +248,16 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
     {
         return INFINITE_EXTENT_AABB;
     }
+
+	@Override
+	public CableCompound getConds(VecInt dir, int Vtier) {
+		if(VecInt.NULL_VECTOR.equals(dir))return new CableCompound(cond);
+		return null;
+	}
+
+	@Override
+	public IHeatConductor getHeatCond(VecInt c) {
+		if(VecInt.NULL_VECTOR.equals(c))return heat;
+		return null;
+	}
 }

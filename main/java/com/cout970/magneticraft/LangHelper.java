@@ -70,13 +70,13 @@ public class LangHelper {
 		
 		//fluids
 		addName(ManagerFluids.steam,"Steam");
-		addName(ManagerFluids.oil,"Oil");
+		addName(ManagerFluids.oil,"Crude Oil");
 		addName(ManagerFluids.heavyOil,"Heavy Oil");
 		addName(ManagerFluids.lightOil,"Light Oil");
 		addName(ManagerFluids.naturalGas,"Natural Gas");
 		//fluidblocks
 		addName("tile.mg_steam_block","Steam");
-		addName("tile.mg_oil_block","Oil");
+		addName("tile.mg_oil_block","Crude Oil");
 		addName("tile.mg_heavy_oil_block","Heavy Oil");
 		addName("tile.mg_light_oil_block","Light Oil");
 		addName("tile.mg_natural_gas_block","Natural Gas");
@@ -147,5 +147,6 @@ public class LangHelper {
 		addName(ManagerBlocks.crafter, "Crafter");
 		addName(ManagerBlocks.monitor, "Text Monitor");
 		addName(ManagerBlocks.cpu, "CPU");
+		addName(ManagerBlocks.multi_heat, "Multiblock Heat IO");
 	}
 }

@@ -1,8 +1,11 @@
 package com.cout970.magneticraft.block.fluids;
 
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -15,6 +18,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockFluidClasicMg extends BlockFluidClassic{
 
+	public static Material fluidMaterial = Material.water;
+	
 	@SideOnly(Side.CLIENT)
     protected IIcon stillIcon;
     @SideOnly(Side.CLIENT)
@@ -37,6 +42,14 @@ public abstract class BlockFluidClasicMg extends BlockFluidClassic{
 		stillIcon = register.registerIcon(BlockMg.base+"fluids/"+getName()+"_still");
 		flowingIcon = register.registerIcon(BlockMg.base+"fluids/"+getName()+"_flow");
 		FluidRegistry.getFluid(fluidName).setIcons(stillIcon, flowingIcon);
+	}
+	
+	@Override
+	public boolean displaceIfPossible(World world, int x, int y, int z) {
+		if (world.getBlock(x, y, z).getMaterial().isLiquid()) {
+			return false;
+		}
+		return super.displaceIfPossible(world, x, y, z);
 	}
 
 	public abstract String getName();

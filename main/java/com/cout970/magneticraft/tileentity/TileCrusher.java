@@ -109,7 +109,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 		if (out == null) {
 			if(getBlockMetadata()%8 < 4){
 				MgDirection d = getDirection().opposite();
-				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().multiply(3).getOpposite());
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().multiply(3).getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
 				if (c instanceof IInventoryManaged) {
 					out = ((IInventoryManaged) c).getInv();

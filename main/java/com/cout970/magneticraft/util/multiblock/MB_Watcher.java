@@ -27,10 +27,10 @@ public class MB_Watcher {
 				}
 			}
 		}
-		
+
 		establishStructure(w, p, c, e);
 		String s = "Successful activation";
-		Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(s));
+		player.addChatMessage(new ChatComponentText(s));
 	}
 
 	public static void establishStructure(World w, BlockPosition p, Multiblock c, MgDirection e) {

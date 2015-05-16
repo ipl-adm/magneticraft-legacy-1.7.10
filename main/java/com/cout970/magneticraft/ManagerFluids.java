@@ -6,6 +6,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 
+import com.cout970.magneticraft.block.fluids.BlockFluidClasicMg;
 import com.cout970.magneticraft.block.fluids.BlockFluidHeavyOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidLightOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidNaturalGas;
@@ -38,68 +39,45 @@ public class ManagerFluids {
 	public static final String NATURAL_GAS = "naturalgas";
 
 	public static void initFluids(){
-
+		//steam
 		steam = new Fluid(STEAM_NAME).setDensity(-5000).setViscosity(1000).setTemperature(373).setGaseous(true);
 		FluidRegistry.registerFluid(steam);
-		steam = FluidRegistry.getFluid(STEAM_NAME);
-
-		oil = new Fluid(OIL_NAME).setDensity(800).setViscosity(1500);
-		FluidRegistry.registerFluid(oil);
-		oil = FluidRegistry.getFluid(OIL_NAME);
-
-		heavyOil = new Fluid(HEAVY_OIL).setDensity(800).setViscosity(1500);
-		FluidRegistry.registerFluid(heavyOil);
-		heavyOil = FluidRegistry.getFluid(HEAVY_OIL);
+		steamBlock = new BlockFluidSteam(steam, BlockFluidClasicMg.fluidMaterial);
+		GameRegistry.registerBlock(steamBlock, "block"+STEAM_NAME);
+		steam.setBlock(steamBlock);
 		
-		lightOil = new Fluid(LIGHT_OIL).setDensity(500).setViscosity(1200);
-		FluidRegistry.registerFluid(lightOil);
-		lightOil = FluidRegistry.getFluid(LIGHT_OIL);
-		
-		naturalGas = new Fluid(NATURAL_GAS).setDensity(-1000).setViscosity(1000).setGaseous(true);
-		FluidRegistry.registerFluid(naturalGas);
-		naturalGas = FluidRegistry.getFluid(NATURAL_GAS);
-	}
-
-	public static void registerFluidsBlocks(){
-		//steam
-		if(FluidRegistry.getFluid(STEAM_NAME).getBlock() == null){
-			steamBlock = new BlockFluidSteam(steam, Material.water);
-			GameRegistry.registerBlock(steamBlock, "block"+STEAM_NAME);
-			FluidRegistry.getFluid(STEAM_NAME).setBlock(steamBlock);
-		}
-		steamBlock = FluidRegistry.getFluid(STEAM_NAME).getBlock();
 
 		//oil
-		if(FluidRegistry.getFluid(OIL_NAME).getBlock() == null){
-			oilBlock = new BlockFluidOil(oil,Material.water);
-			GameRegistry.registerBlock(oilBlock, "block"+OIL_NAME);
-			FluidRegistry.getFluid(OIL_NAME).setBlock(oilBlock);
-		}
-		oilBlock = FluidRegistry.getFluid(OIL_NAME).getBlock();
+		oil = new Fluid(OIL_NAME).setDensity(800).setViscosity(1500);
+		FluidRegistry.registerFluid(oil);
+		oilBlock = new BlockFluidOil(oil,BlockFluidClasicMg.fluidMaterial);
+		GameRegistry.registerBlock(oilBlock, "block"+OIL_NAME);
+		oil.setBlock(oilBlock);
 		
-		//light oil
-		if(FluidRegistry.getFluid(LIGHT_OIL).getBlock() == null){
-			lightOilBlock = new BlockFluidLightOil(lightOil,Material.water);
-			GameRegistry.registerBlock(lightOilBlock, "block"+LIGHT_OIL);
-			FluidRegistry.getFluid(LIGHT_OIL).setBlock(lightOilBlock);
-		}
-		lightOilBlock = FluidRegistry.getFluid(LIGHT_OIL).getBlock();
-		
+
 		//heavy oil
-		if(FluidRegistry.getFluid(HEAVY_OIL).getBlock() == null){
-			heavyOilBlock = new BlockFluidHeavyOil(heavyOil,Material.water);
-			GameRegistry.registerBlock(heavyOilBlock, "block"+HEAVY_OIL);
-			FluidRegistry.getFluid(HEAVY_OIL).setBlock(heavyOilBlock);
-		}
-		heavyOilBlock = FluidRegistry.getFluid(HEAVY_OIL).getBlock();
+		heavyOil = new Fluid(HEAVY_OIL).setDensity(600).setViscosity(2000);
+		FluidRegistry.registerFluid(heavyOil);
+		heavyOilBlock = new BlockFluidHeavyOil(heavyOil,BlockFluidClasicMg.fluidMaterial);
+		GameRegistry.registerBlock(heavyOilBlock, "block"+HEAVY_OIL);
+		heavyOil.setBlock(heavyOilBlock);
 		
+
+		//light oil
+		lightOil = new Fluid(LIGHT_OIL).setDensity(300).setViscosity(1200);
+		FluidRegistry.registerFluid(lightOil);
+		lightOilBlock = new BlockFluidLightOil(lightOil,BlockFluidClasicMg.fluidMaterial);
+		GameRegistry.registerBlock(lightOilBlock, "block"+LIGHT_OIL);
+		lightOil.setBlock(lightOilBlock);
+		
+
 		//natural gas
-		if(FluidRegistry.getFluid(NATURAL_GAS).getBlock() == null){
-			naturalGasBlock = new BlockFluidNaturalGas(naturalGas,Material.water);
-			GameRegistry.registerBlock(naturalGasBlock, "block"+NATURAL_GAS);
-			FluidRegistry.getFluid(NATURAL_GAS).setBlock(naturalGasBlock);
-		}
-		naturalGasBlock = FluidRegistry.getFluid(NATURAL_GAS).getBlock();
+		naturalGas = new Fluid(NATURAL_GAS).setDensity(-1000).setViscosity(1000).setGaseous(true);
+		FluidRegistry.registerFluid(naturalGas);
+		naturalGasBlock = new BlockFluidNaturalGas(naturalGas,BlockFluidClasicMg.fluidMaterial);
+		GameRegistry.registerBlock(naturalGasBlock, "block"+NATURAL_GAS);
+		naturalGas.setBlock(naturalGasBlock);
+		
 	}
 
 	public static void registerFuels() {

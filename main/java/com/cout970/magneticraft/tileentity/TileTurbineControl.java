@@ -35,6 +35,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	//render
 	public int drawCounter;
 	public float animation;
+	public float speed;
 	private long time;
 	
 	public boolean isActive() {
@@ -50,7 +51,15 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 			search();
 			return;
 		}
-
+		if(worldObj.isRemote){
+			float activity = 0.5f*(getFluidAmount()*1200/64000)/1200f;
+			if(activity < 0.01f)activity = 0;
+			if(speed < activity){
+				speed += 1/32f;
+			}else if(speed > activity){
+				speed -= 1/32f;
+			}
+		}
 		if (worldObj.isRemote)return;
 		balanceTanks();
 		int steam = (getFluidAmount()*MAX_STEAM)/64000;
@@ -90,7 +99,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public int getFluidAmount() {
 		int steam = 0;
 		for(int i =0;i<4;i++){
-			if(in[i] != null && in[i].getFluid() != null && in[i].getFluid().getFluid().getID() == FluidRegistry.getFluidID("steam"))
+			if(in[i] != null && in[i].getFluid() != null && in[i].getFluid().getFluid() != null && in[i].getFluid().getFluid().getID() == FluidRegistry.getFluidID("steam"))
 				steam += in[i].getFluidAmount();
 		}
 		return steam;

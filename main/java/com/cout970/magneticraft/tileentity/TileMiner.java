@@ -45,7 +45,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	public float Consume;
 	public int minedLastSecond;
 	public int hole = 0;
-	public int dim = 18;
+	public int dim = 36;
 	public int mined;
 	
 

@@ -9,29 +9,18 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.cout970.magneticraft.api.computer.ComponentCPU;
+import com.cout970.magneticraft.api.computer.IComputerBus;
+import com.cout970.magneticraft.api.computer.IPeripheralBus;
+import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IGuiListener;
 
-public class TileCPU extends TileBase implements IGuiListener,IGuiSync{
+public class TileCPU extends TileBase implements IGuiListener,IGuiSync, IComputerBus{
 
 	private ComponentCPU procesor = new ComponentCPU();
+	public int addres = 0;
 	
-	public TileCPU(){
-//		File archive;
-//		FileInputStream stream = null;
-//		try{
-//			archive = new File("I:/Development/test.bin");
-//			stream = new FileInputStream(archive);
-//			stream.read(procesor.memory, 0x00080000, 0x00020000);
-//			stream.close();
-//			archive = new File("I:/Development/test_data.bin");
-//			stream = new FileInputStream(archive);
-//			stream.read(procesor.memory, 0x00040001, 0x1FFFF);
-//			stream.close();
-//		}catch(IOException e){
-//			e.printStackTrace();
-//		}
-	}
+	public TileCPU(){}
 	
 	public void updateEntity(){
 		if(worldObj.isRemote)return;
@@ -55,7 +44,7 @@ public class TileCPU extends TileBase implements IGuiListener,IGuiSync{
 	@Override
 	public void onMessageReceive(int id, int dato) {
 		if(id == 0){
-			if(!procesor.isRunning()) procesor.startPC();
+			if(!procesor.isRunning())procesor.startPC();
 		}else if(id == 1){
 			if(!procesor.isRunning())procesor.stopPC();
 			procesor.startPC();
@@ -78,5 +67,40 @@ public class TileCPU extends TileBase implements IGuiListener,IGuiSync{
 		if(id >=1 && id <= 33){
 			getProcesor().setRegister(id-1, value);
 		}
+	}
+
+	@Override
+	public int getAddress(MgDirection side) {
+		return addres;
+	}
+
+	@Override
+	public void setAddress(int address, MgDirection side) {
+		addres = address;
+	}
+
+	@Override
+	public int readWord(int pointer) {
+		return procesor.readWord(pointer);
+	}
+
+	@Override
+	public void writeWord(int b, int pointer) {
+		procesor.writeWord(pointer, b);
+	}
+
+	@Override
+	public boolean isOnline() {
+		return procesor.isRunning();
+	}
+
+	@Override
+	public byte readByte(int pointer) {
+		return procesor.readByte(pointer);
+	}
+
+	@Override
+	public void writeByte(byte b, int pointer) {
+		procesor.writeByte(pointer, b);
 	}
 }

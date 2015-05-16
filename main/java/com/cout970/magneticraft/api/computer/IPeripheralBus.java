@@ -7,6 +7,5 @@ public interface IPeripheralBus {
 	public int getAddress(MgDirection side);
 	public void setAddress(int address,MgDirection side);
 	
-	public int read(int pointer);
-	public void write(int b,int pointer);
+	public boolean isOnline();
 }

@@ -46,7 +46,7 @@ public class GuiMonitor extends GuiBasic{
 			TileMonitor t = (TileMonitor) tile;
 			for(int line = 0; line < 50; line++){
 				for(int desp = 0;desp < 80; desp++){
-					int character = t.text[line*80+desp] & 255;
+					int character = t.getText(line*80+desp) & 255;
 					if(character != 32){
 						drawDoubledRect(gui.xStart + 15 + desp * 4, gui.yStart + 15 + line * 4, 4, 4, 350 + (character & 15) * 8, (character >> 4) * 8, 8, 8);
 					}

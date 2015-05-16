@@ -3,8 +3,10 @@ package com.cout970.magneticraft.api.computer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.util.Log;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ComponentCPU {
 
-	public IPeripheralBus[] peripherals = new IPeripheralBus[8];
 	public byte[] memory = new byte[0x100000];//1Mb
 	public int regPC = 0;
 	public int[] registes = new int[32];
@@ -97,7 +98,7 @@ public class ComponentCPU {
 	
 	public void iterate(){
 		if(cpuCicles >= 0){
-			cpuCicles += 1;//speed
+			cpuCicles += 1000;//speed
 			
 			if (cpuCicles > 100000){
 				cpuCicles = 100000;
@@ -513,13 +514,25 @@ public class ComponentCPU {
 
 	public void startPC() {
 		cpuCicles = 0;
-		regPC = 0x00400000;
+		regPC = 0x00080000;
 		setRegister(28, 0x10000000);//gp
 		setRegister(29, 0x00020000);//sp
 		setRegister(30, 0x00040000);//fp
 		setRegister(31, 0x00000000);//ra
+		loadROM();
 	}
 	
+	private void loadROM() {
+		InputStream archive;
+		try{
+			archive = Magneticraft.class.getResourceAsStream("/assets/magneticraft/cpu/bios.bin");
+			archive.read(memory, 0x00080000, 0x00010000);
+			archive.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+
 	public void loadMemory(NBTTagCompound nbt) {
 		
 		registes = nbt.getIntArray("Regs");

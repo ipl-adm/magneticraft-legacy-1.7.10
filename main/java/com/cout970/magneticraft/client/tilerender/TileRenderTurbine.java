@@ -58,7 +58,7 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer{
 			default: break;
 			}
 			if(tile.getFluidAmount() > 0){
-				tile.animation += (tile.getDelta()/1E8)*0.5*(((int) Math.ceil(tile.getFluidAmount()*1200/64000))/1200f);
+				tile.animation += (tile.getDelta()/1E8)*tile.speed;
 			}
 
 			if(tile.animation > 1000)tile.animation = 0;

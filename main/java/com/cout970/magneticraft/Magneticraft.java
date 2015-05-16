@@ -27,7 +27,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.2.0e";
+	public final static String VERSION = "0.2.0f";
 	public final static String ENERGY_STORED_NAME = "J";
 	public static final boolean DEBUG = false;
 	
@@ -51,18 +51,18 @@ public class Magneticraft{
 		
 		ManagerItems.initItems();
 		ManagerItems.registerItems();
-		
+
 		ManagerFluids.initFluids();
-		ManagerFluids.registerFluidsBlocks();
 
 		proxy.init();
 
 		ManagerIntegration.searchCompatibilities();
 
-		//
-//		LangHelper.registerNames();
-//		LangHelper.setupLangFile();
-		//		
+		if(DEBUG){
+			LangHelper.registerNames();
+			LangHelper.setupLangFile();
+		}
+
 		ManagerOreDict.registerOreDict();
 		Log.info("preInit Done");
 	}

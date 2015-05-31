@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
-import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 

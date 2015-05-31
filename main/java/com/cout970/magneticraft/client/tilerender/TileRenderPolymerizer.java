@@ -8,10 +8,7 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.util.VecDouble;
-import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.model.ModelPolymerizer;
-import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.util.CubeRenderer_Util;

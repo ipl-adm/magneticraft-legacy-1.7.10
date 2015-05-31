@@ -5,6 +5,11 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.api.util.VecInt;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public interface IElectricConductor {
 
 	//basic energy utility

@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class CableCompound{
 	
 	private LinkedList<IElectricConductor> conds = new LinkedList<IElectricConductor>();

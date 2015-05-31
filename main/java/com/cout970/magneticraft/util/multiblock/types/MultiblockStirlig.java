@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.util.multiblock.types;
 
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.util.BlockPosition;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
@@ -21,7 +21,7 @@ public class MultiblockStirlig extends Multiblock{
 				{ { d, e, d }, { d, c, d }, { d, b, d } },
 			};
 
-		BlockPosition p = new BlockPosition(-1,-1,0);
+		VecInt p = new VecInt(-1,-1,0);
 		x = m.length;
 		y = m[0].length;
 		z = m[0][0].length;

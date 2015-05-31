@@ -6,15 +6,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
-import com.cout970.magneticraft.util.multiblock.types.MultiblockPolymerizer;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockTurbine;
 
 import cpw.mods.fml.relauncher.Side;
@@ -42,7 +40,7 @@ public class BlockMB_Energy_Medium extends BlockMg implements MB_Block{
 	}
 
 	@Override
-	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
 		if(c instanceof MultiblockTurbine){
 			w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
 		}else
@@ -58,7 +56,7 @@ public class BlockMB_Energy_Medium extends BlockMg implements MB_Block{
     }
 
 	@Override
-	public void destroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 0, 2);
 	}
 	

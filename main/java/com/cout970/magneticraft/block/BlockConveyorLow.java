@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -12,10 +12,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
+import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.Orientation;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,11 +35,16 @@ public class BlockConveyorLow extends BlockMg{
 
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
 		if(p.isSneaking())return false;
-		if(p.getCurrentEquippedItem() != null){
-			TileEntity t  = w.getTileEntity(x, y, z);
-			if(t instanceof IConveyor){
-				if(((IConveyor) t).addItem(MgDirection.SOUTH, 0, new ItemBox(p.getCurrentEquippedItem()), false)){
-					p.setCurrentItemOrArmor(0, null);
+		if(p.getCurrentEquippedItem() != null && Block.getBlockFromItem(p.getCurrentEquippedItem().getItem()) != this){
+			if(p.getCurrentEquippedItem().getItem() == ManagerItems.wrench){
+				Orientation or = Orientation.fromMeta(w.getBlockMetadata(x, y, z)+1);
+				w.setBlockMetadataWithNotify(x, y, z, or.toMeta(), 2);
+			}else{
+				TileEntity t  = w.getTileEntity(x, y, z);
+				if(t instanceof IConveyor){
+					if(((IConveyor) t).addItem(MgDirection.SOUTH, 0, new ItemBox(p.getCurrentEquippedItem()), false)){
+						p.setCurrentItemOrArmor(0, null);
+					}
 				}
 			}
 		}
@@ -76,15 +85,48 @@ public class BlockConveyorLow extends BlockMg{
 	
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i){
 		int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		MgDirection dir = null;
 		if (l == 0){
-			w.setBlockMetadataWithNotify(x, y, z, 2, 2);
+			dir = MgDirection.SOUTH;
 		}if (l == 1){
-			w.setBlockMetadataWithNotify(x, y, z, 5, 2);
+			dir = MgDirection.WEST;
 		}if (l == 2){
-			w.setBlockMetadataWithNotify(x, y, z, 3, 2);
+			dir = MgDirection.NORTH;
 		}if (l == 3){
-			w.setBlockMetadataWithNotify(x, y, z, 4, 2);
+			dir = MgDirection.EAST;
 		}
+		Orientation or = null;
+		VecInt vec = new VecInt(x, y, z).add(dir.getVecInt());
+		VecInt opp = new VecInt(x, y, z).add(dir.getVecInt().getOpposite());
+
+		if(w.getBlock(vec.getX(), vec.getY()+1, vec.getZ()) == this){
+			or = Orientation.find(1, dir);
+		}else if(w.getBlock(opp.getX(), opp.getY()+1, opp.getZ()) == this){
+			or = Orientation.find(-1, dir);
+		}else{
+			if(w.getBlock(opp.getX(), opp.getY()-1, opp.getZ()) == this){
+				TileEntity t = w.getTileEntity(opp.getX(), opp.getY()-1, opp.getZ());
+				if(t instanceof IConveyor){
+					Orientation fac = ((IConveyor) t).getOrientation();
+					if(fac.getDirection() == dir && fac.getLevel() == 0){
+						fac = Orientation.find(1, fac.getDirection());
+						w.setBlockMetadataWithNotify(opp.getX(), opp.getY()-1, opp.getZ(), fac.toMeta(), 2);
+					}
+				}
+			}
+			if(w.getBlock(vec.getX(), vec.getY()-1, vec.getZ()) == this){
+				TileEntity t = w.getTileEntity(vec.getX(), vec.getY()-1, vec.getZ());
+				if(t instanceof IConveyor){
+					Orientation fac = ((IConveyor) t).getOrientation();
+					if(fac.getDirection() == dir && fac.getLevel() == 0){
+						fac = Orientation.find(-1, fac.getDirection());
+						w.setBlockMetadataWithNotify(vec.getX(), vec.getY()-1, vec.getZ(), fac.toMeta(), 2);
+					}
+				}
+			}
+			or = Orientation.find(0, dir);
+		}
+		w.setBlockMetadataWithNotify(x, y, z, or.toMeta(), 2);
 	}
 
 	@Override

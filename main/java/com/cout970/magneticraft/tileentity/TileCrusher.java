@@ -11,22 +11,19 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.acces.RecipeCrusher;
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
@@ -40,7 +37,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public boolean auto;
 	public int Progres = 0;
 	public int maxProgres = 100;
-	public BatteryConductor cond = new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
 	private InventoryComponent in;
@@ -89,7 +86,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 
 	private void distributeItems() {
 		if (in == null) {
-			if(getBlockMetadata()%8 < 4){
+			if(getBlockMetadata()%8 >= 4){
 				MgDirection d = getDirection().opposite();
 				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
@@ -97,9 +94,8 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 					in = ((IInventoryManaged) c).getInv();
 				}
 			}else{
-				
 				MgDirection d = getDirection().opposite();
-				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.UP).getVecInt().getOpposite());
+				VecInt v = d.getVecInt().multiply(2).add(d.step(MgDirection.DOWN).getVecInt().getOpposite());
 				TileEntity c = MgUtils.getTileEntity(this,v);
 				if (c instanceof IInventoryManaged) {
 					in = ((IInventoryManaged) c).getInv();
@@ -275,12 +271,12 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	}
 
 	@Override
-	public void onDestroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = false;
 	}
 
 	@Override
-	public void onActivate(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = true;
 	}
 

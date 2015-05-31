@@ -4,6 +4,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import com.google.common.base.Objects;
 
+/**
+ * Simple implementation a 3D vector with doubles
+ * @author Cout970
+ *
+ */
 public class VecDouble {
 
 	public static final VecDouble NULL_VECTOR = new VecDouble(0, 0, 0);

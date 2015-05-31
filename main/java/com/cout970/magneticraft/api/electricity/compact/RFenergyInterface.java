@@ -4,11 +4,16 @@ import net.minecraft.tileentity.TileEntity;
 import cofh.api.energy.IEnergyHandler;
 
 import com.cout970.magneticraft.api.electricity.EnumAcces;
-import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 
-public class RFenergyInterface implements ICompatibilityInterface{
+/**
+ * 
+ * @author Cout970
+ *
+ */
+public class RFenergyInterface implements IEnergyInterface{
 
 	private IEnergyHandler tile;
 	private MgDirection dir;

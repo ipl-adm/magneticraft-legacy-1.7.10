@@ -14,7 +14,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -140,13 +139,13 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 	}
 
 	@Override
-	public void onDestroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = false;
 		sendUpdateToClient();
 	}
 
 	@Override
-	public void onActivate(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = true;
 	}
 	

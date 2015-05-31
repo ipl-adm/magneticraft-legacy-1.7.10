@@ -9,10 +9,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.api.fuels.IFuel;
-import buildcraft.api.fuels.IFuelManager;
 
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.heat.HeatConductor;
@@ -24,7 +22,6 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
@@ -115,7 +112,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this,ElectricConstants.RESISTANCE_COPPER_2X2,8000,ElectricConstants.GENERATOR_DISCHARGE,ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_2X2,8000,ElectricConstants.GENERATOR_DISCHARGE,ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	@Override

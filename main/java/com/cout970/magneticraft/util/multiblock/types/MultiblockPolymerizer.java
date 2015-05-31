@@ -4,8 +4,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
@@ -15,7 +15,7 @@ public class MultiblockPolymerizer extends Multiblock{
 	@Override
 	public void init() {
 		MutableComponent a = new MutableComponent(Blocks.air){
-			public boolean isCorrect(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e) {
+			public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e) {
 				return true;
 			}
 		};
@@ -33,7 +33,7 @@ public class MultiblockPolymerizer extends Multiblock{
 				{ { b, b, b }, { b, b, b }, { b, b, b }, { b, b, b }, { b, b, b } }
 			};
 
-		BlockPosition p = new BlockPosition(-1,-1,0);
+		VecInt p = new VecInt(-1,-1,0);
 		x = m.length;
 		y = m[0].length;
 		z = m[0][0].length;

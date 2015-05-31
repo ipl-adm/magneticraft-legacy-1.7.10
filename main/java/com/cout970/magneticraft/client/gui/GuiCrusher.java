@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
@@ -89,8 +89,8 @@ public class GuiCrusher extends GuiBasic{
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 			if(tile instanceof TileCrusher){
 				IElectricConductor c = ((TileCrusher) tile).cond;
-				if(c instanceof BatteryConductor){
-					int scale = (int) (((BatteryConductor) c).Storage * 50 / ((BatteryConductor) c).maxStorage);
+				if(c instanceof BufferedConductor){
+					int scale = (int) (((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage);
 					gui.mc.renderEngine.bindTexture(texture);
 					RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 59, 50-scale, 11, scale, 70, 50);
 				}

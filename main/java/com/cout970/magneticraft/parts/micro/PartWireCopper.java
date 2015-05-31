@@ -15,11 +15,11 @@ import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.Conductor;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -93,7 +93,7 @@ public abstract class PartWireCopper extends ElectricPart{
 	}
 
 	public void create(){
-		cond = new Conductor(getTile(), 0, ElectricConstants.RESISTANCE_COPPER_2X2){
+		cond = new ElectricConductor(getTile(), 0, ElectricConstants.RESISTANCE_COPPER_2X2){
 			@Override
 			public VecInt[] getValidConnections() {
 				return PartWireCopper.this.getValidConnexions(getDirection());
@@ -174,8 +174,8 @@ public abstract class PartWireCopper extends ElectricPart{
 		Conn = 0;
 		for(MgDirection f : MgDirection.values()){
 			TileEntity target = MgUtils.getTileEntity(tile(), f.getVecInt());
-			CableCompound c = MgUtils.getConductor(target, f.getVecInt().getOpposite(), getTier());
-			ICompatibilityInterface inter = MgUtils.getInterface(target, f.getVecInt().getOpposite(), getTier());
+			CableCompound c = MgUtils.getElectricCond(target, f.getVecInt().getOpposite(), getTier());
+			IEnergyInterface inter = MgUtils.getInterface(target, f.getVecInt().getOpposite(), getTier());
 			if(c != null){
 				for(IElectricConductor e : c.list()){
 					if(cond.isAbleToConnect(e, f.getVecInt()) && e.isAbleToConnect(cond, f.getVecInt().getOpposite())){
@@ -197,8 +197,8 @@ public abstract class PartWireCopper extends ElectricPart{
 		for(MgDirection d : MgDirection.values()){
 			VecInt f = d.getVecInt().add(getDirection().getVecInt());
 			TileEntity target = MgUtils.getTileEntity(tile(), f);
-			CableCompound c = MgUtils.getConductor(target, f.getOpposite(), getTier());
-			ICompatibilityInterface inter = MgUtils.getInterface(target, f.getOpposite(), getTier());
+			CableCompound c = MgUtils.getElectricCond(target, f.getOpposite(), getTier());
+			IEnergyInterface inter = MgUtils.getInterface(target, f.getOpposite(), getTier());
 			if(c != null || inter != null){
 				VecInt g = d.getVecInt().copy().add(X(), Y(), Z());
 				Block b = W().getBlock(g.getX(), g.getY(), g.getZ());

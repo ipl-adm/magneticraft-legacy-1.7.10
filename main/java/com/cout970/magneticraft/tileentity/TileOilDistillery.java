@@ -1,0 +1,141 @@
+package com.cout970.magneticraft.tileentity;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+
+import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
+import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.fluid.TankMg;
+import com.cout970.magneticraft.util.multiblock.MB_Register;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class TileOilDistillery extends TileMB_Base implements IGuiSync{
+
+	public int drawCounter;
+	private TankMg input;
+	private TankMg output;
+	private IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE);
+	private double[] flow = new double[3];
+	
+	public void updateEntity() {
+		super.updateEntity();
+		if(drawCounter > 0)drawCounter--;
+		if(worldObj.isRemote)return;
+		if(!isActive())return;
+		if(input == null || output == null || side1 == null || side2 == null){
+			search();
+		}else{
+			valance(side1, side2, 0);
+			valance(side1, own, 1);
+			valance(own, side2, 2);
+			own.recache();
+			own.iterate();
+			if(own.getVoltage() > ElectricConstants.MACHINE_WORK && input.getFluidAmount() > 0 && output.getSpace() > 0){
+				RecipeOilDistillery recipe = RecipeOilDistillery.getRecipe(input.getFluid());
+				if(recipe != null && (MgUtils.areEcuals(recipe.getOutput(), output.getFluid()) || output.getFluid() == null) && output.getSpace() >= recipe.getOutput().amount){
+					input.drain(recipe.getInput().amount, true);
+					output.fill(recipe.getOutput(), true);
+					own.drainPower(recipe.getEnergyCost());
+				}
+			}
+		}
+	}
+	
+	private void valance(IElectricConductor a, IElectricConductor b, int i) {
+		double resistence = a.getResistance() + b.getResistance();
+		double difference = a.getVoltage() - b.getVoltage();
+		double change = flow[i];
+		double slow = change * resistence;
+		flow [i] += ((difference - slow) * a.getIndScale()) / a.getVoltageMultiplier();
+		change += (difference * a.getCondParallel()) / a.getVoltageMultiplier();
+		a.applyCurrent(-change);
+		b.applyCurrent(change);
+	}
+
+	private void search() {
+		VecInt vec = getDirection().opposite().getVecInt().multiply(2);
+		TileEntity t = MgUtils.getTileEntity(this, vec);
+		if(t instanceof TileRefineryTank){
+			input = ((TileRefineryTank) t).getTank();
+		}
+		vec = getDirection().opposite().getVecInt().add(0,1,0);
+		t = MgUtils.getTileEntity(this, vec);
+		if(t instanceof TileRefineryTank){
+			output = ((TileRefineryTank) t).getTank();
+		}
+		vec = getDirection().opposite().getVecInt().multiply(2).add(0,-1, 0);
+		vec.add(getDirection().opposite().step(MgDirection.UP).getVecInt());
+		t = MgUtils.getTileEntity(this, vec);
+		if(t instanceof TileMB_Energy_Low){
+			side1 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
+		}
+		vec = getDirection().opposite().getVecInt().multiply(2).add(0,-1, 0);
+		vec.add(getDirection().opposite().step(MgDirection.DOWN).getVecInt());
+		t = MgUtils.getTileEntity(this, vec);
+		if(t instanceof TileMB_Energy_Low){
+			side2 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
+		}
+	}
+
+	@Override
+	public void sendGUINetworkData(Container cont, ICrafting craft) {
+		
+	}
+
+	@Override
+	public void getGUINetworkData(int id, int value) {
+		
+	}
+	
+	@Override
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata()%6);
+	}
+
+	private void setActive(boolean b) {
+		if(b)
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6 + 6, 2);
+		else
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata()%6, 2);
+	}
+	
+	public boolean isActive() {
+		return getBlockMetadata() > 5;
+	}
+	
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+		own.load(nbt);
+		flow[0] = nbt.getDouble("Conn1");
+		flow[1] = nbt.getDouble("Conn2");
+		flow[2] = nbt.getDouble("Conn3");
+	}
+
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+		own.save(nbt);
+		nbt.setDouble("Conn1", flow[0]);
+		nbt.setDouble("Conn2", flow[1]);
+		nbt.setDouble("Conn3", flow[2]);
+	}
+	
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return INFINITE_EXTENT_AABB;
+    }
+}

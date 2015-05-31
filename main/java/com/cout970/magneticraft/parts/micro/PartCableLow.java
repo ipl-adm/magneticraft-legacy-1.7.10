@@ -16,12 +16,12 @@ import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.Conductor;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -81,17 +81,17 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 	}
 
 	public void create(){
-		cond = new Conductor(getTile(), ElectricConstants.RESISTANCE_COPPER_2X2){
+		cond = new ElectricConductor(getTile(), ElectricConstants.RESISTANCE_COPPER_2X2){
 			
 			@Override
 			public VecInt[] getValidConnections() {
 				VecInt[] FORGE_DIRECTIONS = {
-						VecInt.getConnexion(MgDirection.DOWN),
-						VecInt.getConnexion(MgDirection.UP),
-						VecInt.getConnexion(MgDirection.NORTH),
-						VecInt.getConnexion(MgDirection.SOUTH),
-						VecInt.getConnexion(MgDirection.WEST),
-						VecInt.getConnexion(MgDirection.EAST),
+						VecInt.fromDirection(MgDirection.DOWN),
+						VecInt.fromDirection(MgDirection.UP),
+						VecInt.fromDirection(MgDirection.NORTH),
+						VecInt.fromDirection(MgDirection.SOUTH),
+						VecInt.fromDirection(MgDirection.WEST),
+						VecInt.fromDirection(MgDirection.EAST),
 						VecInt.NULL_VECTOR};
 				return FORGE_DIRECTIONS;
 			}
@@ -117,15 +117,15 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 		connections = 0;
 		for(MgDirection d : MgDirection.values()){
 			TileEntity t = MgUtils.getTileEntity(getTile(), d);
-			CableCompound c = MgUtils.getConductor(t, VecInt.getConnexion(d).getOpposite(), getTier());
+			CableCompound c = MgUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
 			if(c != null && cond != null){
 				for(IElectricConductor e : c.list()){
-					if(e.isAbleToConnect(cond, VecInt.getConnexion(d.opposite())) && cond.isAbleToConnect(e, VecInt.getConnexion(d))){
+					if(e.isAbleToConnect(cond, VecInt.fromDirection(d.opposite())) && cond.isAbleToConnect(e, VecInt.fromDirection(d))){
 						connections = (byte) (connections | (1 << d.ordinal()));
 					}
 				}
 			}
-			ICompatibilityInterface inter = MgUtils.getInterface(t, d.getVecInt().getOpposite(), getTier());
+			IEnergyInterface inter = MgUtils.getInterface(t, d.getVecInt().getOpposite(), getTier());
 			if(inter != null){
 				if(((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.ordinal()))))
 					connections = (byte) (connections | (1 << d.ordinal()));

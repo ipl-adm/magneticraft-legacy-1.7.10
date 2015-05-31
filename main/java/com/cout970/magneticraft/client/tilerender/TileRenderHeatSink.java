@@ -5,12 +5,8 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.client.model.ModelHeatCable;
 import com.cout970.magneticraft.client.model.ModelHeatSink;
-import com.cout970.magneticraft.tileentity.TileHeatCable;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
 import com.cout970.magneticraft.util.RenderUtil;
 

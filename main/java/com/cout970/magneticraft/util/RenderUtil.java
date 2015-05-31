@@ -20,7 +20,6 @@ import org.lwjgl.opengl.GL11;
 import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -173,7 +172,7 @@ public class RenderUtil {
 			for (int k = 0; k < q[2]; k++) {
 				for (int i = 0; i < q[0]; i++) {
 					MutableComponent mut = mb.matrix[i][j][k];
-					VecInt rot = mb.translate(t.getWorldObj(), new BlockPosition(t.xCoord, t.yCoord, t.zCoord), i, j, k, mb, tile.getDirection(), meta);
+					VecInt rot = mb.translate(t.getWorldObj(), new VecInt(t.xCoord, t.yCoord, t.zCoord), i, j, k, mb, tile.getDirection(), meta);
 					glPushMatrix();
 					GL11.glTranslatef(0.5f+p*rot.getX(), 0.5f+p*rot.getY(), 0.5f+p*rot.getZ());
 					if(mut.blocks.get(0) != Blocks.air){

@@ -108,7 +108,8 @@ public class InventoryComponent implements IInventory{
 			NBTTagCompound tagCompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
 			byte slot = tagCompound.getByte("Slot");
 			if (slot >= 0 && slot < inventory.length) {
-				inventory[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
+				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tagCompound));
+//				inventory[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
 			}
 		}
 	}

@@ -7,7 +7,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
@@ -25,25 +25,25 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 1280000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE){
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 1280000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE){
 			
 			public void iterate(){
 				super.iterate();
 				
-				if (getVoltage() > max && Storage < maxStorage){
+				if (getVoltage() > max && storage < maxStorage){
 					int change;
 					change = (int) Math.min((getVoltage() - max)*10, 200);
-					change = Math.min(change, maxStorage - Storage);
+					change = Math.min(change, maxStorage - storage);
 					drainPower((double)(change * 100));
-					Storage += change;
+					storage += change;
 				}else{
 					if(!isControled())return;
-					if(getVoltage() < min && Storage > 0){
+					if(getVoltage() < min && storage > 0){
 						int change;
 						change = (int) Math.min((min - getVoltage())*10, 200);
-						change = Math.min(change, Storage);
+						change = Math.min(change, storage);
 						applyPower((double)(change * 100));
-						Storage -= change;
+						storage -= change;
 					}
 				}
 			}

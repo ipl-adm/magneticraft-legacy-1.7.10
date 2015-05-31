@@ -24,7 +24,7 @@ public class ItemVoltmeter extends ItemBasic{
 	{
 		if(w.isRemote)return false;
 		TileEntity t = w.getTileEntity(x, y, z);
-		CableCompound comp = MgUtils.getConductor(t, MgDirection.getDirection(side).getVecInt(), -1);
+		CableCompound comp = MgUtils.getElectricCond(t, MgDirection.getDirection(side).getVecInt(), -1);
 		if(comp != null){
 			for(IElectricConductor cond:comp.list()){
 				double I = cond.getIntensity()*0.5;
@@ -34,7 +34,7 @@ public class ItemVoltmeter extends ItemBasic{
 			}
 		}
 		
-		comp = MgUtils.getConductor(t, VecInt.NULL_VECTOR, -1);
+		comp = MgUtils.getElectricCond(t, VecInt.NULL_VECTOR, -1);
 		if(comp != null){
 			IElectricConductor cond = comp.getCond(0);
 			double I = cond.getIntensity()*0.5;

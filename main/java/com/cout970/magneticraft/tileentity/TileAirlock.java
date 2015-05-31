@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -15,7 +15,7 @@ public class TileAirlock extends TileConductorLow{
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this);
+		return new ElectricConductor(this);
 	}
 
 	public void updateEntity(){

@@ -15,12 +15,12 @@ import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.Conductor;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -98,7 +98,7 @@ public class PartCableMedium extends ElectricPart implements ISidedHollowConnect
 	}
 	
 	public void create(){
-		cond = new Conductor(getTile(), getTier(), ElectricConstants.RESISTANCE_COPPER_2X2){
+		cond = new ElectricConductor(getTile(), getTier(), ElectricConstants.RESISTANCE_COPPER_2X2){
 			public boolean isAbleToConnect(IElectricConductor c, VecInt d){
 				if(c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK || c.getConnectionClass(d.getOpposite()) == ConnectionClass.Cable_MEDIUM){
 					if(d.toMgDirection() == null)return false;
@@ -118,15 +118,15 @@ public class PartCableMedium extends ElectricPart implements ISidedHollowConnect
 		Arrays.fill(connections, false);
 		for(MgDirection d : MgDirection.values()){
 			TileEntity t = MgUtils.getTileEntity(getTile(), d);
-			CableCompound c = MgUtils.getConductor(t, VecInt.getConnexion(d).getOpposite(), getTier());
+			CableCompound c = MgUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
 			if(c != null){
 				for(IElectricConductor e : c.list()){
-					if(e.isAbleToConnect(cond, VecInt.getConnexion(d.opposite())) && cond.isAbleToConnect(e, VecInt.getConnexion(d))){
+					if(e.isAbleToConnect(cond, VecInt.fromDirection(d.opposite())) && cond.isAbleToConnect(e, VecInt.fromDirection(d))){
 						connections[d.ordinal()] = true;
 					}
 				}
 			}
-			ICompatibilityInterface inter = MgUtils.getInterface(t, d.getVecInt().getOpposite(), getTier());
+			IEnergyInterface inter = MgUtils.getInterface(t, d.getVecInt().getOpposite(), getTier());
 			if(inter != null){
 				if(((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.ordinal()))))
 				connections[d.ordinal()] = true;

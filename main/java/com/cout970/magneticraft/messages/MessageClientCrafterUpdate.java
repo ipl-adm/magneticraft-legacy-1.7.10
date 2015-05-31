@@ -1,15 +1,15 @@
 package com.cout970.magneticraft.messages;
 
+import io.netty.buffer.ByteBuf;
+
 import java.io.IOException;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.tileentity.TileCrafter;
-import com.cout970.magneticraft.tileentity.TileCrafter.RedstoneState;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

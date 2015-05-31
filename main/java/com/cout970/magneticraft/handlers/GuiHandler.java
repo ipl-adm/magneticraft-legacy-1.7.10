@@ -9,10 +9,11 @@ import com.cout970.magneticraft.client.gui.GuiBattery;
 import com.cout970.magneticraft.client.gui.GuiBiomassBurner;
 import com.cout970.magneticraft.client.gui.GuiBoiler;
 import com.cout970.magneticraft.client.gui.GuiBrickFurnace;
-import com.cout970.magneticraft.client.gui.GuiCPU;
 import com.cout970.magneticraft.client.gui.GuiCombustionEngine;
+import com.cout970.magneticraft.client.gui.GuiComputer;
 import com.cout970.magneticraft.client.gui.GuiCrafter;
 import com.cout970.magneticraft.client.gui.GuiCrusher;
+import com.cout970.magneticraft.client.gui.GuiDroidRED;
 import com.cout970.magneticraft.client.gui.GuiElectricFurnace;
 import com.cout970.magneticraft.client.gui.GuiFireBox;
 import com.cout970.magneticraft.client.gui.GuiFluidHopper;
@@ -34,10 +35,11 @@ import com.cout970.magneticraft.container.ContainerBattery;
 import com.cout970.magneticraft.container.ContainerBiomassBurner;
 import com.cout970.magneticraft.container.ContainerBoiler;
 import com.cout970.magneticraft.container.ContainerBrickFurnace;
-import com.cout970.magneticraft.container.ContainerCPU;
 import com.cout970.magneticraft.container.ContainerCombustionEngine;
+import com.cout970.magneticraft.container.ContainerComputer;
 import com.cout970.magneticraft.container.ContainerCrafter;
 import com.cout970.magneticraft.container.ContainerCrusher;
+import com.cout970.magneticraft.container.ContainerDroidRED;
 import com.cout970.magneticraft.container.ContainerElectricFurnace;
 import com.cout970.magneticraft.container.ContainerFireBox;
 import com.cout970.magneticraft.container.ContainerFluidHopper;
@@ -59,10 +61,11 @@ import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
-import com.cout970.magneticraft.tileentity.TileCPU;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
+import com.cout970.magneticraft.tileentity.TileComputer;
 import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrusher;
+import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
 import com.cout970.magneticraft.tileentity.TileFireBox;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
@@ -71,12 +74,12 @@ import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMiner;
-import com.cout970.magneticraft.tileentity.TileMonitor;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
+import com.cout970.magneticraft.tileentity.TileTextMonitor;
 import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 
@@ -158,11 +161,14 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileCrafter){
 			return new ContainerCrafter(player.inventory, tile);
 		}
-		if(tile instanceof TileMonitor){
+		if(tile instanceof TileTextMonitor){
 			return new ContainerMonitor(player.inventory, tile);
 		}
-		if(tile instanceof TileCPU){
-			return new ContainerCPU(player.inventory, tile);
+		if(tile instanceof TileComputer){
+			return new ContainerComputer(player.inventory, tile);
+		}
+		if(tile instanceof TileDroidRED){
+			return new ContainerDroidRED(player.inventory, tile);
 		}
 		return null;
 	}
@@ -241,11 +247,14 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileCrafter){
 			return new GuiCrafter(new ContainerCrafter(player.inventory, tile), tile);
 		}
-		if(tile instanceof TileMonitor){
+		if(tile instanceof TileTextMonitor){
 			return new GuiMonitor(new ContainerMonitor(player.inventory, tile), tile);
 		}
-		if(tile instanceof TileCPU){
-			return new GuiCPU(new ContainerCPU(player.inventory, tile), tile);
+		if(tile instanceof TileComputer){
+			return new GuiComputer(new ContainerComputer(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileDroidRED){
+			return new GuiDroidRED(new ContainerDroidRED(player.inventory, tile), tile);
 		}
 		return null;
 	}

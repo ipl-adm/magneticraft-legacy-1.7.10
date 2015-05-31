@@ -12,24 +12,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.GuiCrusher.CompEnergyBar;
-import com.cout970.magneticraft.client.gui.GuiCrusher.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
-import com.cout970.magneticraft.client.gui.component.CompEnergyBarMediumVoltage;
-import com.cout970.magneticraft.client.gui.component.CompFluidRender;
 import com.cout970.magneticraft.client.gui.component.CompGenericBar;
-import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.util.RenderUtil;
-import com.cout970.magneticraft.util.fluid.TankMg;
 
 public class GuiTurbine extends GuiBasic{
 

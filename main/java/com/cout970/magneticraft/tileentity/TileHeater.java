@@ -5,7 +5,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -15,7 +15,6 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile{
 
@@ -26,7 +25,7 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 	private boolean working;
 
 	public IElectricConductor initConductor() {
-		return new Conductor(this);
+		return new ElectricConductor(this);
 	}
 	
 	@Override

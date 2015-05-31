@@ -3,8 +3,13 @@ package com.cout970.magneticraft.api.conveyor;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.Orientation;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public interface IConveyor {
 
 	public enum BeltInteraction{
@@ -13,8 +18,8 @@ public interface IConveyor {
 		public static BeltInteraction InterBelt(MgDirection a, MgDirection b){
 			if(a == b)return BeltInteraction.DIRECT;
 			if(a == b.opposite())return BeltInteraction.INVERSE;
-			if(a == b.step(MgDirection.UP))return BeltInteraction.LEFT_T;
-			if(a == b.step(MgDirection.DOWN))return BeltInteraction.RIGHT_T;
+			if(a == b.step(MgDirection.DOWN))return BeltInteraction.LEFT_T;
+			if(a == b.step(MgDirection.UP))return BeltInteraction.RIGHT_T;
 			return BeltInteraction.NOTHING;
 		}
 	}
@@ -30,5 +35,5 @@ public interface IConveyor {
 
 	public TileEntity getParent();
 
-
+	public Orientation getOrientation();
 }

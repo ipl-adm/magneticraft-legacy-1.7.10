@@ -10,12 +10,15 @@ import net.minecraftforge.fluids.IFluidHandler;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.fluid.TankMg;
 
 
 public class TileRefineryTank extends TileMB_Base implements IFluidHandler1_8{
 
 	private TankMg tank = new TankMg(this, 4000);
+	public CubeRenderer_Util CubeRenderer;
+	private int oldAmount;
 	
 	public TankMg getTank(){
 		return tank;
@@ -23,21 +26,9 @@ public class TileRefineryTank extends TileMB_Base implements IFluidHandler1_8{
 	
 	public void updateEntity(){
 		super.updateEntity();
-		if(worldObj.isRemote)return;
-		if(getTank().getFluidAmount() > 0){
-			for(MgDirection dir : MgDirection.values()){
-				TileEntity t = MgUtils.getTileEntity(this, dir);
-				if(t instanceof IFluidHandler){
-					IFluidHandler f = (IFluidHandler) t;
-					if(f.canFill(dir.opposite().getForgeDir(), getTank().getFluid().getFluid()) && getTank().getFluidAmount() > 0){
-						int accepted = f.fill(dir.opposite().getForgeDir(), getTank().getFluid(), false);
-						if(accepted > 0){
-							accepted = f.fill(dir.opposite().getForgeDir(), getTank().getFluid(), true);
-							getTank().drain(accepted, true);
-						}
-					}
-				}
-			}
+		if(worldObj.getTotalWorldTime()%20 == 0 && (oldAmount != getTank().getFluidAmount() || worldObj.getTotalWorldTime()%2000 == 0)){
+			oldAmount = getTank().getFluidAmount();
+			sendUpdateToClient();
 		}
 	}
 	

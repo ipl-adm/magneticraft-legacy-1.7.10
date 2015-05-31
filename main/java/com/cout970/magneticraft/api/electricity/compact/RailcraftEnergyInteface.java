@@ -5,10 +5,15 @@ import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.api.electricity.EnumAcces;
-import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 
-public class RailcraftEnergyInteface implements ICompatibilityInterface{
+/**
+ * 
+ * @author Cout970
+ *
+ */
+public class RailcraftEnergyInteface implements IEnergyInterface{
 
 	public ChargeHandler c;
 	public IElectricGrid grid;

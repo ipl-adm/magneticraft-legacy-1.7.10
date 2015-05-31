@@ -14,7 +14,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.items.ItemBucket;

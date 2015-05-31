@@ -3,25 +3,25 @@ package com.cout970.magneticraft.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 public class TileMB_Base extends TileBase implements MB_Tile{
 
-	public BlockPosition control;
+	public VecInt control;
 	public Multiblock multi;
 	public MgDirection dire;
 
 	@Override
-	public void setControlPos(BlockPosition blockPosition) {
+	public void setControlPos(VecInt blockPosition) {
 		control = blockPosition;
 	}
 
 	@Override
-	public BlockPosition getControlPos() {
+	public VecInt getControlPos() {
 		return control;
 	}
 	
@@ -29,7 +29,7 @@ public class TileMB_Base extends TileBase implements MB_Tile{
 		super.readFromNBT(nbt);
 		int[] i = nbt.getIntArray("core");
 		if(i != null && i.length == 3)
-			control = new BlockPosition(i);
+			control = new VecInt(i);
 		multi = MB_Register.getMBbyID(nbt.getInteger("multi"));
 		dire = MgDirection.getDirection(nbt.getByte("Dire"));
 	}
@@ -48,10 +48,10 @@ public class TileMB_Base extends TileBase implements MB_Tile{
 	}
 
 	@Override
-	public void onDestroy(World w, BlockPosition p, Multiblock c, MgDirection e) {}
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {}
 
 	@Override
-	public void onActivate(World w, BlockPosition p, Multiblock c, MgDirection e) {}
+	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {}
 
 	@Override
 	public Multiblock getMultiblock() {

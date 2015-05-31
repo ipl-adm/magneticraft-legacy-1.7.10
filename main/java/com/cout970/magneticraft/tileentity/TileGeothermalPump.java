@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -12,18 +13,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 
-	private List<BlockPosition> pipes = new ArrayList<BlockPosition>();
-	private List<BlockPosition> lava = new ArrayList<BlockPosition>();
-	private List<BlockPosition> finder = new ArrayList<BlockPosition>();
-	private List<BlockPosition> Visited = new ArrayList<BlockPosition>();
+	private List<VecInt> pipes = new LinkedList<VecInt>();
+	private List<VecInt> lava = new LinkedList<VecInt>();
+	private List<VecInt> finder = new LinkedList<VecInt>();
+	private List<VecInt> Visited = new LinkedList<VecInt>();
 	private int alt;
 	private boolean update;
 	private boolean working;
@@ -59,7 +60,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 						getLava();
 						blocked = true;
 					}else{
-						BlockPosition c = pipes.get(0);
+						VecInt c = pipes.get(0);
 						worldObj.setBlock(c.getX(),c.getY(),c.getZ(), ManagerBlocks.concreted_pipe);
 						pipes.remove(0);
 					}
@@ -81,7 +82,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 						working = false;
 						return;
 					}else{
-						BlockPosition b = lava.get(0);
+						VecInt b = lava.get(0);
 						Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());
 						if(Block.isEqualTo(bl, Blocks.lava)){
 							worldObj.setBlock(b.getX(), b.getY(), b.getZ(), Blocks.obsidian);
@@ -108,7 +109,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 
 	private void getLava() {
 		lava.clear();
-		BlockPosition bc = new BlockPosition(xCoord, alt, zCoord);
+		VecInt bc = new VecInt(xCoord, alt, zCoord);
 		Block b = worldObj.getBlock(bc.getX(), bc.getY(), bc.getZ());
 		int m = worldObj.getBlockMetadata(bc.getX(), bc.getY(), bc.getZ());
 
@@ -124,14 +125,14 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 		finder.clear();
 	}
 
-	public void pathFinder(BlockPosition c){
+	public void pathFinder(VecInt c){
 		if(lava.size() > 20)return;
 		if(Visited.size() > 4000){
 			alt--;
 			return;
 		}
 		for(MgDirection d : sides){
-			BlockPosition bc = new BlockPosition(c.getX()+d.getOffsetX(), c.getY()+d.getOffsetY(), c.getZ()+d.getOffsetZ());
+			VecInt bc = new VecInt(c.getX()+d.getOffsetX(), c.getY()+d.getOffsetY(), c.getZ()+d.getOffsetZ());
 			if(Visited.contains(bc))continue;
 			Visited.add(bc);
 			
@@ -146,9 +147,9 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 				if(!finder.contains(bc))finder.add(bc);
 			}
 		}
-		List<BlockPosition> temp = new ArrayList<BlockPosition>();
+		List<VecInt> temp = new ArrayList<VecInt>();
 		temp.addAll(finder);
-		for(BlockPosition cc : temp){
+		for(VecInt cc : temp){
 			finder.remove(cc);
 			pathFinder(cc);
 		}
@@ -167,7 +168,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 					return true;
 				}
 			}else if(!Block.isEqualTo(b, ManagerBlocks.concreted_pipe)){
-				pipes.add(new BlockPosition(xCoord, y, zCoord));
+				pipes.add(new VecInt(xCoord, y, zCoord));
 			} 
 		}
 		return false;

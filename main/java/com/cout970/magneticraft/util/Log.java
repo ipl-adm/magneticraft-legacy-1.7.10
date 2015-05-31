@@ -21,6 +21,7 @@ public class Log {
 	}
 
 	public static void debug(Object i) {
+		if(Magneticraft.DEBUG)
 		info(String.valueOf(i));
 	}
 }

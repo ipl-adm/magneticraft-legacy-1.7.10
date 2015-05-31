@@ -10,7 +10,7 @@ import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyReceiver;
 
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
@@ -38,7 +38,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this,2,ElectricConstants.RESISTANCE_COPPER_2X2);
+		return new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_2X2);
 	}
 	
 	@Override

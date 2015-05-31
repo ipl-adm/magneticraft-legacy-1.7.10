@@ -6,14 +6,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
+import com.cout970.magneticraft.util.multiblock.types.MultiblockOilDistillery;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockPolymerizer;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockStirlig;
 
@@ -46,8 +47,8 @@ public class BlockMB_Energy_Low extends BlockMg implements MB_Block{
 	}
 
 	@Override
-	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
-		if(c instanceof MultiblockCrusher || c instanceof MultiblockPolymerizer || c instanceof MultiblockStirlig){
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
+		if(c instanceof MultiblockCrusher || c instanceof MultiblockPolymerizer || c instanceof MultiblockStirlig || c instanceof MultiblockOilDistillery){
 			w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
 		}else
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 1, 2);
@@ -62,7 +63,7 @@ public class BlockMB_Energy_Low extends BlockMg implements MB_Block{
     }
 
 	@Override
-	public void destroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 0, 2);
 	}
 	

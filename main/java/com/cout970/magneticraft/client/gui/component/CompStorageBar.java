@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -33,8 +33,8 @@ public class CompStorageBar implements IGuiComp{
 			if(j == null)return;
 			IElectricConductor c = j.getCond(0);
 			if(c == null)return;
-			if(c instanceof BatteryConductor){
-				int scale = (int) (((BatteryConductor) c).Storage * 50 / ((BatteryConductor) c).maxStorage);
+			if(c instanceof BufferedConductor){
+				int scale = (int) (((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage);
 				gui.mc.renderEngine.bindTexture(texture);
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 59, 50-scale, 11, scale, 70, 50);
 			}

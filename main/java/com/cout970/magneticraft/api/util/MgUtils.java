@@ -17,21 +17,27 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.ICompatibilityInterface;
-import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
+import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IndexedConnexion;
 import com.cout970.magneticraft.api.electricity.compact.InteractionHelper;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class MgUtils {
-	
-	public static IHeatConductor getHeatCond(TileEntity tile, VecInt d) {
-		if(tile instanceof IHeatTile)return ((IHeatTile) tile).getHeatCond(d.getOpposite());
-		return null;
-	}
 
+	/**
+	 * Checks if a connection is already formed and should not repeat, used for Electric conductors connections 
+	 * @param con
+	 * @param opp
+	 * @return
+	 */
 	public static boolean alreadyContains(IndexedConnexion[] con, VecInt opp) {
 		if(con == null)return false;
 		if(opp == null)return false;
@@ -40,12 +46,46 @@ public class MgUtils {
 		return false;
 	}
 
+	/**
+	 * Usefull method to get an adjacent TileEntity
+	 * @param tile
+	 * @param d
+	 * @return
+	 */
 	public static TileEntity getTileEntity(TileEntity tile, VecInt d) {
 		if(tile == null)return null;
 		return tile.getWorldObj().getTileEntity(tile.xCoord+d.getX(), tile.yCoord+d.getY(), tile.zCoord+d.getZ());
 	}
+	
+	/**
+	 * Usefull method to get an adjacent TileEntity
+	 * @param tile
+	 * @param d
+	 * @return
+	 */
+	public static TileEntity getTileEntity(TileEntity tile, MgDirection d){
+		return tile.getWorldObj().getTileEntity(tile.xCoord+d.getOffsetX(), tile.yCoord+d.getOffsetY(), tile.zCoord+d.getOffsetZ());
+	}
+	
+	/**
+	 * Created to implement ForgeMultipart HeatConductors in the future
+	 * @param tile tile entity to get the conductor 
+	 * @param d vector from the method caller
+	 * @return the coductor is exist
+	 */
+	public static IHeatConductor getHeatCond(TileEntity tile, VecInt d) {
+		if(tile instanceof IHeatTile)return ((IHeatTile) tile).getHeatCond(d.getOpposite());
+		return null;
+	}
 
-	public static CableCompound getConductor(TileEntity tile, VecInt f, int tier) {
+	/**
+	 * Return the CableCompound in a Block, allowing multipart detection
+	 * @param tile
+	 * @param f
+	 * @param tier
+	 * @return
+	 */
+	public static CableCompound getElectricCond(TileEntity tile, VecInt f, int tier) {
 		if(tile instanceof TileMultipart){
 			CableCompound cab = null;
 			for(TMultiPart m : ((TileMultipart) tile).jPartList()){
@@ -63,18 +103,32 @@ public class MgUtils {
 		return null;
 	}
 	
-	public static ICompatibilityInterface getInterface(TileEntity t,VecInt i,int tier){
+	/**
+	 * Find a Interface between to energy systems like railcraft change or RF 
+	 * @param t
+	 * @param i
+	 * @param tier
+	 * @return
+	 */
+	public static IEnergyInterface getInterface(TileEntity t,VecInt i,int tier){
 		return InteractionHelper.processTile(t,i, tier);
 	}
 
+	/**
+	 * checks if the tileEntity is a Conductor
+	 * @param tile
+	 * @param tier
+	 * @return
+	 */
 	public static boolean isConductor(TileEntity tile, int tier){
-		return getConductor(tile, VecInt.NULL_VECTOR, tier) != null;
+		return getElectricCond(tile, VecInt.NULL_VECTOR, tier) != null;
 	}
 
-	public static TileEntity getTileEntity(TileEntity tile, MgDirection d){
-		return tile.getWorldObj().getTileEntity(tile.xCoord+d.getOffsetX(), tile.yCoord+d.getOffsetY(), tile.zCoord+d.getOffsetZ());
-	}
-
+	/**
+	 * Return the TileEntities adjacent to a Blocks
+	 * @param t
+	 * @return
+	 */
 	public static List<TileEntity> getNeig(TileEntity t) {
 		List<TileEntity> list = new ArrayList<TileEntity>();
 		for(MgDirection d : MgDirection.values()){
@@ -84,6 +138,12 @@ public class MgUtils {
 		return list;
 	}
 
+	/**
+	 * checks if an Expecific Block can be mined by a miner or by a BlockBreaker
+	 * @param w
+	 * @param info
+	 * @return
+	 */
 	public static boolean isMineableBlock(World w, BlockInfo info) {
 		if(info.getBlock() == Blocks.air)return false;
 		if(info.getBlock() instanceof BlockLiquid)return false;
@@ -96,6 +156,12 @@ public class MgUtils {
 		return true;
 	}
 
+	/**
+	 * Checks if two fluidStacks are equal
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public static boolean areEcuals(FluidStack a, FluidStack b) {
 		if(a == null && b == null)return true;
 		if(a == null || b == null)return false;
@@ -103,6 +169,13 @@ public class MgUtils {
 		return false;
 	}
 	
+	/**
+	 * checks if two itemStacks are equal or has the same id in OreDictionary
+	 * @param a
+	 * @param b
+	 * @param meta
+	 * @return
+	 */
 	public static boolean areEcuals(ItemStack a, ItemStack b, boolean meta){
 		if(a == null && b == null)return true;
 		if(a != null && b != null && a.getItem() != null && b.getItem() != null){

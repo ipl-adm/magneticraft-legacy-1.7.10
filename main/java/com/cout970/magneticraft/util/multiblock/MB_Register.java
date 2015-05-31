@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockGrinder;
+import com.cout970.magneticraft.util.multiblock.types.MultiblockOilDistillery;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockPolymerizer;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockRefinery;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockStirlig;
@@ -19,6 +20,7 @@ public class MB_Register {
 	public static final int ID_POLIMERIZER = 3;
 	public static final int ID_TURBINE = 4;
 	public static final int ID_STIRLING = 5;
+	public static final int ID_OIL_DISTILLERY = 6;
 	
 	
 	
@@ -29,6 +31,7 @@ public class MB_Register {
 		mb.add(new MultiblockPolymerizer());
 		mb.add(new MultiblockTurbine());
 		mb.add(new MultiblockStirlig());
+		mb.add(new MultiblockOilDistillery());
 	
 		for(Multiblock b : mb)
 			b.init();

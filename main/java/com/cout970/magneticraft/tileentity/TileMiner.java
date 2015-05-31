@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
@@ -51,7 +51,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this, 2, ElectricConstants.RESISTANCE_COPPER_2X2);
+		return new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_2X2);
 	}
 
 	public void updateEntity() {

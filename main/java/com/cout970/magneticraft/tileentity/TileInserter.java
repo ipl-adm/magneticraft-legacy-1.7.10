@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import com.cout970.magneticraft.api.conveyor.ConveyorSide;
 import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -26,7 +26,7 @@ public class TileInserter extends TileConductorLow{
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 
 	public MgDirection getDir(){
@@ -47,8 +47,9 @@ public class TileInserter extends TileConductorLow{
 			if(counter == 540){
 				if(getInv().getStackInSlot(0) != null){
 					if(o instanceof IInventory)dropToInv((IInventory)o);
-					else if(o instanceof IConveyor)dropToBelt((IConveyor)o);
+					else if(o instanceof IConveyor && ((IConveyor) o).getOrientation().getLevel() == 0)dropToBelt((IConveyor)o);
 					sendUpdateToClient();
+					
 				}
 			}else if(counter < 540){
 				counter+= speed;
@@ -58,7 +59,7 @@ public class TileInserter extends TileConductorLow{
 		}else if(getInv().getStackInSlot(0) == null){
 			if(counter == 0){
 				if(t instanceof IInventory)suckFromInv((IInventory)t);
-				else if(t instanceof IConveyor)suckFromBelt((IConveyor)t);
+				else if(t instanceof IConveyor && ((IConveyor) t).getOrientation().getLevel() == 0)suckFromBelt((IConveyor)t);
 				sendUpdateToClient();
 			}else if(counter > 0 && counter <= 540){
 				counter -= speed;

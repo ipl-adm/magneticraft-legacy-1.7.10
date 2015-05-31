@@ -2,6 +2,11 @@ package com.cout970.magneticraft.api.acces;
 
 import net.minecraft.item.ItemStack;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class RecipeBiomassBurner {
 
 	private final ItemStack fuel;

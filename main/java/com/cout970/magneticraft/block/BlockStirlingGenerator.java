@@ -12,10 +12,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
-import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
@@ -79,7 +78,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TileStirlingGenerator){
 			if(!((TileStirlingGenerator) t).activate){
-				if(!w.isRemote)MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_STIRLING), getDirection(w, new BlockPosition(x,y,z)),p);
+				if(!w.isRemote)MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_STIRLING), getDirection(w, new VecInt(x,y,z)),p);
 				else ((TileStirlingGenerator) t).drawCounter = 200;
 			}else{
 				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
@@ -100,7 +99,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 	}
 	
 	@Override
-	public MgDirection getDirection(World w, BlockPosition p) {
+	public MgDirection getDirection(World w, VecInt p) {
 		return MgDirection.getDirection(w.getBlockMetadata(p.getX(), p.getY(), p.getZ()) % 6);
 	}
 	
@@ -110,13 +109,13 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 	}
 
 	@Override
-	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
 		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%6+6, 2);
 	}
 
 	@Override
-	public void destroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%6, 2);
 	}

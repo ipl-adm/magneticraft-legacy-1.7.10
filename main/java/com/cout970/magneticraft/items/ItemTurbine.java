@@ -1,6 +1,13 @@
 package com.cout970.magneticraft.items;
 
+import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.api.util.IWindTurbine;
+import com.cout970.magneticraft.client.model.ModelWindMillBig;
+import com.cout970.magneticraft.client.tilerender.ModelTextures;
 
 public class ItemTurbine extends ItemBasic implements IWindTurbine{
 
@@ -42,6 +49,29 @@ public class ItemTurbine extends ItemBasic implements IWindTurbine{
 	@Override
 	public float getScale() {
 		return scale;
+	}
+
+	@Override
+	public IRenderizable initRender() {
+		return new IRenderizable() {
+			
+			private ModelWindMillBig big = new ModelWindMillBig();
+			
+			@Override
+			public void renderStatic(float f5) {}
+			
+			@Override
+			public void renderDynamic(float f5, float additionalData) {
+				float p = getScale();
+				GL11.glScalef(p, 1, p);
+				big.renderStatic(f5);
+			}
+			
+			@Override
+			public ResourceLocation getTexture() {
+				return ModelTextures.WIND_TURBINE_ITEM;
+			}
+		};
 	}
 
 }

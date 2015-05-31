@@ -3,6 +3,11 @@ package com.cout970.magneticraft.api.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+/**
+ * Some basic Utilities for NBTTagCompounds
+ * @author Cout970
+ *
+ */
 public class NBTUtils {
 
 	public static void sanityCheck(ItemStack i){
@@ -29,5 +34,15 @@ public class NBTUtils {
 	public static void setInteger(String string, ItemStack stack, int n) {
 		sanityCheck(stack);
 		stack.stackTagCompound.setInteger(string, n);
+	}
+
+	public static String getString(String string, ItemStack stack) {
+		sanityCheck(stack);
+		return stack.stackTagCompound.getString(string);
+	}
+
+	public static void setString(String string, ItemStack stack, String label) {
+		sanityCheck(stack);
+		stack.stackTagCompound.setString(string, label);
 	}
 }

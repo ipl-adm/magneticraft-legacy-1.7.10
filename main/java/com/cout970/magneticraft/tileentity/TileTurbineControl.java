@@ -11,14 +11,12 @@ import net.minecraftforge.fluids.FluidStack;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
@@ -131,14 +129,14 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	}
 
 	@Override
-	public void onDestroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		setActive(false);
 		in = new TankMg[4];
 		out = null;
 	}
 
 	@Override
-	public void onActivate(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
 		setActive(true);
 	}
 	

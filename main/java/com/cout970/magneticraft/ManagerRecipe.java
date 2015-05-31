@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.acces.MgRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.items.ItemGravelOre;
 import com.cout970.magneticraft.util.ThermopileDecay;
 
@@ -43,6 +44,7 @@ public class ManagerRecipe {
 
 		for(String g : new String[]{"Copper","Tungsten"}){
 			GameRegistry.addSmelting(getOre(g, 1), getIngot(g,1), 1.0f);
+			GameRegistry.addSmelting(getDust(g, 1), getIngot(g,1), 1.0f);
 		}
 
 		for(ItemGravelOre z : gravelOre){
@@ -63,7 +65,8 @@ public class ManagerRecipe {
 		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.quartz_ore,1),new ItemStack(Items.quartz,2),new ItemStack(Items.quartz,1),40,new ItemStack(dustQuartz,1),5);
 		MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSalt,1),new ItemStack(dustSalt,2),new ItemStack(dustSalt,1),40,null,0);
 		
-		MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("oil", 10), FluidRegistry.getFluidStack("lightoil", 5), FluidRegistry.getFluidStack("heavyoil", 3), FluidRegistry.getFluidStack("naturalgas", 2));
+		MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.CALORIEStoW(2000));
+		MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("hotcrude", 20), FluidRegistry.getFluidStack("lightoil", 7), FluidRegistry.getFluidStack("heavyoil", 6), FluidRegistry.getFluidStack("naturalgas", 7));
 	}
 
 	public static void registerThermopileRecipes() {

@@ -7,7 +7,7 @@ import net.minecraft.block.Block;
 
 import com.cout970.magneticraft.api.acces.IThermopileDecay;
 import com.cout970.magneticraft.api.acces.MgRegister;
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
@@ -22,7 +22,7 @@ public class TileThermopile extends TileConductorLow{
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this);
+		return new ElectricConductor(this);
 	}
 
 	public void updateEntity(){

@@ -8,11 +8,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -60,7 +61,7 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 		if(t instanceof TileRefinery){
 			if(!((TileRefinery) t).isActive()){
 				if(!w.isRemote){
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_REFINERY), getDirection(w, new BlockPosition(x,y,z)),p);
+					MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_REFINERY), getDirection(w, new VecInt(x,y,z)),p);
 				}else{
 					((TileRefinery) t).drawCounter = 200;
 				}
@@ -97,7 +98,7 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 	}
 
 	@Override
-	public MgDirection getDirection(World w, BlockPosition p) {
+	public MgDirection getDirection(World w, VecInt p) {
 		return MgDirection.getDirection(w.getBlockMetadata(p.getX(), p.getY(), p.getZ()) % 6);
 	}
 	
@@ -107,13 +108,22 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 	}
 
 	@Override
-	public void mutates(World w, BlockPosition blockPosition, Multiblock c,
-			MgDirection e) {
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%6+6, 2);
 	}
 
 	@Override
-	public void destroy(World w, BlockPosition blockPosition, Multiblock c,
-			MgDirection e) {
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%6, 2);
 	}
 
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side)
+	{
+		MgDirection d = MgDirection.getDirection(side);
+		if(w.getBlockMetadata(x-d.getOffsetX(), y-d.getOffsetY(), z-d.getOffsetZ()) >= 6)return false;
+		return super.shouldSideBeRendered(w, x, y, z, side);
+	}
 }

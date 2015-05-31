@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
+import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -10,26 +12,22 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
 import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -54,6 +52,22 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		if(!activate)return;
 		if(cond == null || heat == null){
 			search();
+		}
+		if(isActive()){
+			if(worldObj.getWorldTime() % 2 == 0){
+				for(int i = 0; i < 2; i++){
+					VecDouble vec = new VecDouble(xCoord+0.5, yCoord-0.2, zCoord+0.5);
+					MgDirection dir = getDirection();
+					vec.add(dir.getOffsetX()*0.3, 0, dir.getOffsetZ()*0.3);
+					Random r = worldObj.rand;
+					dir = dir.step(MgDirection.UP);
+					vec.add(dir.getOffsetX()*(0.5-r.nextDouble()), 0, dir.getOffsetZ()*(0.5-r.nextDouble()));
+					if(r.nextBoolean())
+						worldObj.spawnParticle("flame", vec.getX(), vec.getY(), vec.getZ(), 0.003125-0.00625*r.nextDouble(), 0.003125*r.nextInt(15), 0.003125-0.00625*r.nextDouble());
+					else
+						worldObj.spawnParticle("smoke", vec.getX(), vec.getY(), vec.getZ(), 0.003125-0.00625*r.nextDouble(), 0.003125*r.nextInt(15), 0.003125-0.00625*r.nextDouble());
+				}
+			}
 		}
 		if(this.worldObj.isRemote)return;
 		if(worldObj.getWorldTime()%20 == 0){
@@ -178,14 +192,14 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 	}
 	
 	@Override
-	public void onDestroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		activate = false;
 		heat = null;
 		cond = null;
 	}
 
 	@Override
-	public void onActivate(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
 		activate = true;
 	}
 

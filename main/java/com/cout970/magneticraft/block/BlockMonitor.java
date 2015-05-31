@@ -7,10 +7,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.tileentity.TileMonitor;
+import com.cout970.magneticraft.tileentity.TileTextMonitor;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,7 +24,7 @@ public class BlockMonitor extends BlockMg{
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileMonitor();
+		return new TileTextMonitor();
 	}
 	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
@@ -34,7 +35,7 @@ public class BlockMonitor extends BlockMg{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"monitor","monitor_head"};
+		return new String[]{"void"};
 	}
 
 	@Override
@@ -45,9 +46,24 @@ public class BlockMonitor extends BlockMg{
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)
     {
-		if(meta == 0) return side == 3 ? icons[1] : icons[0];
-        return side == meta ? icons[1] : icons[0];
+        return icons[0];
     }
+	
+	@SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_)
+    {
+        return false;
+    }
+	
+	public boolean renderAsNormalBlock()
+	{
+		return false;
+	}
+
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
 	
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i){
 		int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;

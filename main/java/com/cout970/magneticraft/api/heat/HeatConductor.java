@@ -8,10 +8,15 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class HeatConductor implements IHeatConductor{
 
 	private TileEntity parent;
-	private double temperature = 25;
+	private double temperature = 25;//temperature in celsius degrees
 	private double mass;
 	private double thermalResistance;
 	private double maxHeat;

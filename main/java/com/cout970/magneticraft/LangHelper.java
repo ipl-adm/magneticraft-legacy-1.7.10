@@ -80,6 +80,7 @@ public class LangHelper {
 		addName("tile.mg_heavy_oil_block","Heavy Oil");
 		addName("tile.mg_light_oil_block","Light Oil");
 		addName("tile.mg_natural_gas_block","Natural Gas");
+		addName("tile.mg_hot_crude_block","Hot Crude");
 		
 		//blocks
 		addName(ManagerBlocks.oreCopper, "Copper Ore");
@@ -139,7 +140,7 @@ public class LangHelper {
 		addName(ManagerBlocks.solar_tower_core, "Solar Tower Core");
 		addName(ManagerBlocks.polimerizer, "Polimerizer Control");
 		addName(ManagerBlocks.reactor_controller, "Reactor Controller");
-		addName(ManagerBlocks.multi_energy_medium, "Multiblock Energy IO Madium voltage");
+		addName(ManagerBlocks.multi_energy_medium, "Multiblock Energy IO Medium voltage");
 		addName(ManagerBlocks.turbine, "Turbine Control");
 		addName(ManagerBlocks.combustion_engine, "Combustion Engine");
 		addName(ManagerBlocks.heat_sink, "Heat Sink");
@@ -148,5 +149,8 @@ public class LangHelper {
 		addName(ManagerBlocks.monitor, "Text Monitor");
 		addName(ManagerBlocks.cpu, "CPU");
 		addName(ManagerBlocks.multi_heat, "Multiblock Heat IO");
+		addName(ManagerBlocks.droid_red, "R.E.D.");
+		addName(ManagerBlocks.oil_distillery, "Oil Distillery Control");
+		addName(ManagerBlocks.pole_tier1, "Electrical Wooden Pole");
 	}
 }

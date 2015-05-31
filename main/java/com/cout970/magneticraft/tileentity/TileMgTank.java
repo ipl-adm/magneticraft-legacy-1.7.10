@@ -21,6 +21,7 @@ public class TileMgTank extends TileMB_Base implements IFluidHandler1_8{
 	}
 	
 	public void updateEntity(){
+		super.updateEntity();
 		if(worldObj.getTotalWorldTime()%20 == 0 && (oldAmount != getTank().getFluidAmount() || worldObj.getTotalWorldTime()%2000 == 0)){
 			oldAmount = getTank().getFluidAmount();
 			sendUpdateToClient();

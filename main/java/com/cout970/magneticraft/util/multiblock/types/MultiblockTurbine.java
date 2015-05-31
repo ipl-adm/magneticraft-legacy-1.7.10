@@ -1,11 +1,7 @@
 package com.cout970.magneticraft.util.multiblock.types;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.util.BlockPosition;
-import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
@@ -26,7 +22,7 @@ public class MultiblockTurbine extends Multiblock{
 				{ { d, d, d }, { d, b, d }, { d, d, d }, { d, d, d }, { d, d, d } },
 			};
 
-		BlockPosition p = new BlockPosition(-1,-1,0);
+		VecInt p = new VecInt(-1,-1,0);
 		x = m.length;
 		y = m[0].length;
 		z = m[0][0].length;

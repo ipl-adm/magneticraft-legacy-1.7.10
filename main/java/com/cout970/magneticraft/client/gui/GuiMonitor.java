@@ -1,23 +1,18 @@
 package com.cout970.magneticraft.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
-import scala.actors.threadpool.Arrays;
-
-import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.ManagerNetwork;
-import com.cout970.magneticraft.client.gui.component.CompBackground;
-import com.cout970.magneticraft.client.gui.component.GuiPoint;
-import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.messages.MessageUpdateMonitor;
-import com.cout970.magneticraft.tileentity.TileMonitor;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.RenderUtil;
-
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.ManagerNetwork;
+import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.messages.MessageClientStream;
+import com.cout970.magneticraft.tileentity.TileTextMonitor;
+import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiMonitor extends GuiBasic{
 
@@ -43,37 +38,42 @@ public class GuiMonitor extends GuiBasic{
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			gui.mc.renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/monitor.png"));
-			TileMonitor t = (TileMonitor) tile;
+			TileTextMonitor t = (TileTextMonitor) tile;
+			GL11.glColor4f(0.0F, 1.0F, 0.0F, 1.0F);
+			int cursor = (t.readByte(0x8) & 255) | (t.readByte(0x9) << 8) | (t.readByte(0xa) << 16) | (t.readByte(0xb) << 24);
 			for(int line = 0; line < 50; line++){
 				for(int desp = 0;desp < 80; desp++){
 					int character = t.getText(line*80+desp) & 255;
-					if(character != 32){
-						drawDoubledRect(gui.xStart + 15 + desp * 4, gui.yStart + 15 + line * 4, 4, 4, 350 + (character & 15) * 8, (character >> 4) * 8, 8, 8);
+					if(line*80+desp == cursor && t.getWorldObj().getWorldTime() % 20 >= 10){
+						character ^= 128;
 					}
+					if(character != 32)
+						drawDoubledRect(gui.xStart + 15 + desp * 4, gui.yStart + 15 + line * 4, 4, 4, 350 + (character & 15) * 8, (character >> 4) * 8, 8, 8);
 				}
 			}
+			GL11.glColor3f(1,1,1);
 		}
 		
-		 public void drawDoubledRect(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8)
+		public void drawDoubledRect(int x, int y, int tamX, int tamY, int u, int v, int width, int height)
 		    {
-		        float var9 = 0.001953125F;
-		        float var10 = 0.00390625F;
-		        Tessellator var11 = Tessellator.instance;
-		        var11.startDrawingQuads();
-		        var11.addVertexWithUV((double)var1, (double)(var2 + var4), (double)this.zLevel, (double)((float)var5 * var9), (double)((float)(var6 + var8) * var10));
-		        var11.addVertexWithUV((double)(var1 + var3), (double)(var2 + var4), (double)this.zLevel, (double)((float)(var5 + var7) * var9), (double)((float)(var6 + var8) * var10));
-		        var11.addVertexWithUV((double)(var1 + var3), (double)var2, (double)this.zLevel, (double)((float)(var5 + var7) * var9), (double)((float)var6 * var10));
-		        var11.addVertexWithUV((double)var1, (double)var2, (double)this.zLevel, (double)((float)var5 * var9), (double)((float)var6 * var10));
-		        var11.draw();
+		        float aux = 0.001953125F;
+		        float aux2 = 0.00390625F;
+		        Tessellator tes = Tessellator.instance;
+		        tes.startDrawingQuads();
+		        tes.addVertexWithUV((double)x, 			(double)(y + tamY), 	(double)this.zLevel, (double)((float)u * aux), 			 (double)((float)(v + height) * aux2));
+		        tes.addVertexWithUV((double)(x + tamX), (double)(y + tamY), 	(double)this.zLevel, (double)((float)(u + width) * aux), (double)((float)(v + height) * aux2));
+		        tes.addVertexWithUV((double)(x + tamX), (double)y, 				(double)this.zLevel, (double)((float)(u + width) * aux), (double)((float)v * aux2));
+		        tes.addVertexWithUV((double)x, 			(double)y,				(double)this.zLevel, (double)((float)u * aux), 			 (double)((float)v * aux2));
+		        tes.draw();
 		    }
 
 		@Override
 		public void onClick(int mx, int my, int buttom, GuiBasic gui) {}
 
 		@Override
-		public boolean onKey(int n, char key, GuiBasic gui) {
-			if(n == 1) return false;
-			if (n == 10) n = 13;
+		public boolean onKey(int num, char key, GuiBasic gui) {
+			int n = key;
+			if(n == 27) return false;
             int shift = 0;
             if (isShiftKeyDown()) shift |= 64;
             if (isCtrlKeyDown()) shift |= 32;
@@ -111,14 +111,20 @@ public class GuiMonitor extends GuiBasic{
                     break;
                 case 210:
                     this.sendKey(134 | shift, gui);
+                    break;
+                case 0: 
+                	if(num != 54 && num != 42 && num != 56 && num != 184 && num != 29 && num != 221 && num != 157 && (num <59 || num > 70) && num != 87 && num != 88 && num != 197 && num != 183 && num != 0){
+                		this.sendKey(num, gui);
+                	}
+                	break;
             }
 			return true;
 		}
 
 		private void sendKey(int key, GuiBasic gui) {
-			TileMonitor mon = (TileMonitor) gui.tile;
+			TileTextMonitor mon = (TileTextMonitor) gui.tile;
 			mon.keyPresed(key);
-			MessageUpdateMonitor msg = new MessageUpdateMonitor(mon);
+			MessageClientStream msg = new MessageClientStream(mon);
 			ManagerNetwork.INSTANCE.sendToServer(msg);
 		}
 

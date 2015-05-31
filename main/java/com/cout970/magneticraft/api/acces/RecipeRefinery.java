@@ -4,6 +4,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.api.util.MgUtils;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class RecipeRefinery {
 	
 	private FluidStack input;

@@ -6,11 +6,17 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class MgRecipeRegister {
 
 	public static List<RecipeRefinery> refinery = new ArrayList<RecipeRefinery>();
 	public static List<RecipeCrusher> crusher = new ArrayList<RecipeCrusher>();
 	public static List<RecipeGrinder> grinder = new ArrayList<RecipeGrinder>();
+	public static List<RecipeOilDistillery> oil_distillery = new ArrayList<RecipeOilDistillery>();
 	
 	public static boolean registerCrusherRecipe(ItemStack in, ItemStack out0, ItemStack out1, int prob1, ItemStack out2, int prob2){
 		if(in == null || out0 == null)return false;
@@ -37,6 +43,16 @@ public class MgRecipeRegister {
 		RecipeRefinery recipe = new RecipeRefinery(in, a, b, c);
 		if(!refinery.contains(recipe)){
 			refinery.add(recipe);
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean registerOilDistilleryRecipe(FluidStack in, FluidStack out, double cost){
+		if(in == null || out == null)return false;
+		RecipeOilDistillery recipe = new RecipeOilDistillery(in, out, cost);
+		if(!oil_distillery.contains(recipe)){
+			oil_distillery.add(recipe);
 			return true;
 		}
 		return false;

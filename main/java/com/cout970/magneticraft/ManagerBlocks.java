@@ -1,7 +1,7 @@
 package com.cout970.magneticraft;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,15 +16,18 @@ import com.cout970.magneticraft.block.BlockBiomassBurner;
 import com.cout970.magneticraft.block.BlockBoiler;
 import com.cout970.magneticraft.block.BlockBreaker;
 import com.cout970.magneticraft.block.BlockBrickFurnace;
-import com.cout970.magneticraft.block.BlockCPU;
 import com.cout970.magneticraft.block.BlockChasis;
 import com.cout970.magneticraft.block.BlockCombustionEngine;
+import com.cout970.magneticraft.block.BlockComputer;
 import com.cout970.magneticraft.block.BlockConcretedPipe;
 import com.cout970.magneticraft.block.BlockConveyorLow;
 import com.cout970.magneticraft.block.BlockCooler;
 import com.cout970.magneticraft.block.BlockCrafter;
 import com.cout970.magneticraft.block.BlockCrusher;
+import com.cout970.magneticraft.block.BlockOilDistillery;
+import com.cout970.magneticraft.block.BlockDroidRED;
 import com.cout970.magneticraft.block.BlockElectricFurnace;
+import com.cout970.magneticraft.block.BlockElectricPoleTier1;
 import com.cout970.magneticraft.block.BlockFireBox;
 import com.cout970.magneticraft.block.BlockFluidHopper;
 import com.cout970.magneticraft.block.BlockGeothermalPump;
@@ -77,13 +80,15 @@ import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileBreaker;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
-import com.cout970.magneticraft.tileentity.TileCPU;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
+import com.cout970.magneticraft.tileentity.TileComputer;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.tileentity.TileCooler;
 import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrusher;
+import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
+import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.TileFireBox;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
 import com.cout970.magneticraft.tileentity.TileGeothermalPump;
@@ -103,7 +108,7 @@ import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileMirror;
-import com.cout970.magneticraft.tileentity.TileMonitor;
+import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TilePermanentMagnet;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
@@ -119,6 +124,7 @@ import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
 import com.cout970.magneticraft.tileentity.TileTeslaCoil;
+import com.cout970.magneticraft.tileentity.TileTextMonitor;
 import com.cout970.magneticraft.tileentity.TileThermopile;
 import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
@@ -132,8 +138,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ManagerBlocks {
 
-	public static List<Class> tileEntities = new ArrayList<Class>();
-	public static List<Block> blocks = new ArrayList<Block>();
+	public static List<Class> tileEntities = new LinkedList<Class>();
+	public static List<Block> blocks = new LinkedList<Block>();
 	public static Map<String, Block> ores = new HashMap<String, Block>();
 
 	public static Block oreCopper;
@@ -202,7 +208,9 @@ public class ManagerBlocks {
 	public static Block monitor;
 	public static Block cpu;
 	public static Block multi_heat;
-	
+	public static Block pole_tier1;
+	public static Block droid_red;
+	public static Block oil_distillery;
 	
 	
 	public static void initBlocks(){
@@ -272,8 +280,11 @@ public class ManagerBlocks {
 		brickFurnace = new BlockBrickFurnace();
 		crafter = new BlockCrafter();
 		monitor = new BlockMonitor();
-		cpu = new BlockCPU();
+		cpu = new BlockComputer();
 		multi_heat = new BlockMB_Heat();
+		pole_tier1 = new BlockElectricPoleTier1();
+		droid_red = new BlockDroidRED();
+		oil_distillery = new BlockOilDistillery();
 	}
 	
 	public static void registerBlocks(){
@@ -351,6 +362,9 @@ public class ManagerBlocks {
 		blocks.add(monitor);
 		blocks.add(cpu);
 		blocks.add(multi_heat);
+		blocks.add(pole_tier1);
+		blocks.add(droid_red);
+		blocks.add(oil_distillery);
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, b.getUnlocalizedName());
@@ -413,9 +427,12 @@ public class ManagerBlocks {
 		tileEntities.add(TileHeatSink.class);
 		tileEntities.add(TileBrickFurnace.class);
 		tileEntities.add(TileCrafter.class);
-		tileEntities.add(TileMonitor.class);
-		tileEntities.add(TileCPU.class);
+		tileEntities.add(TileTextMonitor.class);
+		tileEntities.add(TileComputer.class);
 		tileEntities.add(TileMB_Heat.class);
+		tileEntities.add(TileElectricPoleTier1.class);
+		tileEntities.add(TileDroidRED.class);
+		tileEntities.add(TileOilDistillery.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

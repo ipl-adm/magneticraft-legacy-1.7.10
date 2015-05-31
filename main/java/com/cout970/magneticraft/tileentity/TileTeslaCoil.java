@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -25,10 +25,10 @@ public class TileTeslaCoil extends TileConductorLow{
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this,ElectricConstants.RESISTANCE_COPPER_2X2,16000,ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
+		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_2X2,16000,ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
 			@Override
 			public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
-				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.getConnexion(MgDirection.DOWN).equals(v);
+				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.fromDirection(MgDirection.DOWN).equals(v);
 			}
 			
 			@Override

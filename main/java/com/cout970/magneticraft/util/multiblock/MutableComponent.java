@@ -8,7 +8,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 
@@ -30,7 +29,7 @@ public class MutableComponent {
 		blocks.add(b);
 	}
 
-	public boolean isCorrect(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
+	public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(!blocks.contains(t)){
@@ -40,11 +39,11 @@ public class MutableComponent {
 		return true;
 	}
 
-	public void establish(World w, BlockPosition p, int x, int y, int z,Multiblock c, MgDirection e, int meta) {
+	public void establish(World w, VecInt p, int x, int y, int z,Multiblock c, MgDirection e, int meta) {
 		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(t instanceof MB_Block){
-			((MB_Block) t).mutates(w,new BlockPosition(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
+			((MB_Block) t).mutates(w,new VecInt(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
 		}
 		TileEntity tile = w.getTileEntity(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(tile instanceof MB_Tile){
@@ -55,7 +54,7 @@ public class MutableComponent {
 		}
 	}
 
-	public void destroy(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
+	public void destroy(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		TileEntity tile = w.getTileEntity(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(tile instanceof MB_Tile){
@@ -66,11 +65,11 @@ public class MutableComponent {
 		}
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(t instanceof MB_Block){
-			((MB_Block) t).destroy(w,new BlockPosition(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
+			((MB_Block) t).destroy(w,new VecInt(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
 		}
 	}
 
-	public String getErrorMesage(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
+	public String getErrorMesage(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 		VecInt k = c.translate(w, p, x, y, z, c, e, meta).add(p);
 		return "Error in " + k.getX() + " " + k.getY() + " " + k.getZ() +" with the block: "+blocks.get(0).getLocalizedName();
 	}

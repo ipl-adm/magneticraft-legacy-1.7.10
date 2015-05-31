@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.electricity.Conductor;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -32,10 +32,10 @@ public class TileSolarPanel extends TileConductorLow{
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this){			
+		return new ElectricConductor(this){			
 			@Override
 			public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
-				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.getConnexion(MgDirection.DOWN).equals(v);
+				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.fromDirection(MgDirection.DOWN).equals(v);
 			}
 			
 			@Override

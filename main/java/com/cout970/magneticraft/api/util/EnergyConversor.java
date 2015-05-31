@@ -1,14 +1,19 @@
 package com.cout970.magneticraft.api.util;
 
+/**
+ * Some Basic Utility to exchange bewtween equivalent energy forms
+ * @author Cout970
+ *
+ */
 public class EnergyConversor {
 
-	private static final int RF_W = 100;//conversion from Watts to RF, 1RF = 100W, 1KW = 10RF = 1MJ
-	private static final double RF_KW = 0.1;//1RF = 100W = 0.1 KW
-	private static final double STEAM_KW = 5;//amount of steam equivalent to 1KW
-	private static final int WATER_STEAM = 5;//steam generated from 1mB of water
-	private static final int CALORIE = 100;//100 calories to make 5mB steam from 1mB water 
-	private static final double EU_KW = 0.4;//1EU = 400W = 0.4KW
-	private static final double EU_W = 400;//1EU = 400W
+	private static final int RF_W = 100;		//conversion from Watts to RF, 1RF = 100W, 1KW = 10RF = 1MJ
+	private static final double RF_KW = 0.1;	//1RF = 100W = 0.1 KW
+	private static final double STEAM_KW = 5;	//amount of steam equivalent to 1KW = 5mB
+	private static final int WATER_STEAM = 5;	//steam generated from 1mB of water
+	private static final int CALORIE = 100;		//100 calories to make 5mB steam from 1mB water 
+	private static final double EU_KW = 0.4;	//1EU = 400W = 0.4KW
+	private static final double EU_W = 400;		//1EU = 400W
 
 	public static double RFtoW(int rf){
 		return rf*RF_W;

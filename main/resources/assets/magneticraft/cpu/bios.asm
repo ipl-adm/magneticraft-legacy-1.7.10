@@ -1,56 +1,57 @@
-.text
+.include "macros.asm"
 .globl main
 
+.text
 main:
-	la $t0, 0xfffe0000 
-	j loop
+	jal clearScreen
+	li $a0, 0
+	jal setCursorPosition
+	jal loadDisk
+	jal jumpLine
 	
 loop:
-	addi $t0,$t0,4
-	add $t1,$t1,$t0
-	sw $t1,($t0)
+	jal isKeyPressed
+	beq $v0, $zero, loop
+	jal resetPressedKeyFlag
+	jal getKeyPresed
+
+	beq $v0, 13, jumpL
+	beq $v0, 8, suprm
+	
+	addi $a0, $v0, 0
+	jal putChar
 	j loop
-save_all:
-	addi $sp, $sp, -4
-	sw $t0,($sp)
-	addi $sp, $sp, -4
-	sw $t1,($sp)
-	addi $sp, $sp, -4
-	sw $t2,($sp)
-	addi $sp, $sp, -4
-	sw $t3,($sp)
-	addi $sp, $sp, -4
-	sw $t4,($sp)
-	addi $sp, $sp, -4
-	sw $t5,($sp)
-	addi $sp, $sp, -4
-	sw $t6,($sp)
-	addi $sp, $sp, -4
-	sw $t7,($sp)
-	addi $sp, $sp, -4
-	sw $t8,($sp)
-	addi $sp, $sp, -4
-	sw $t9,($sp)
-	jr $31
-load_all:
-	lw $t9,($sp)
-	addi $sp, $sp, 4
-	lw $t8,($sp)
-	addi $sp, $sp, 4
-	lw $t7,($sp)
-	addi $sp, $sp, 4
-	lw $t6,($sp)
-	addi $sp, $sp, 4
-	lw $t5,($sp)
-	addi $sp, $sp, 4
-	lw $t4,($sp)
-	addi $sp, $sp, 4
-	lw $t3,($sp)
-	addi $sp, $sp, 4
-	lw $t2,($sp)
-	addi $sp, $sp, 4
-	lw $t1,($sp)
-	addi $sp, $sp, 4
-	lw $t0,($sp)
-	addi $sp, $sp, 4
-	jr $31
+jumpL:	
+	jal jumpLine
+	j loop
+suprm:
+	jal removeChar
+	j loop
+	jal shutdown # shoutdown the machine
+	
+loadDisk:
+	save_ra
+	li $a0,2 # disk drive address
+	jal getBufferPointer
+	addi $a0, $v0, 0
+	addi $s0, $v0, 0
+	#li $a1,0
+	#jal setSector
+	jal loadSerialNumber # change for load sector
+waitloop:
+	li $a0, 46
+	jal putChar
+	jal wait
+	addi $a0, $s0, 0
+	jal isBufferReady
+	beq $v0, $zero, waitloop
+	li $a0, 47
+	jal putChar
+	addi $a0, $s0, 0
+	jal printString
+	load_ra
+	return
+	
+.include "computer_driver.asm"
+.include "disk_driver.asm"
+.include "monitor_driver.asm"

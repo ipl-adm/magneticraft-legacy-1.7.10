@@ -15,12 +15,13 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.util.BlockPosition;
+import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.api.util.IWindTurbine;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IEfficient;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.client.gui.component.IProductor;
@@ -38,8 +39,10 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 	public MgDirection facing = null;
 	public float rotation;
 	public long time;
-	public InventoryComponent inv = new InventoryComponent(this,1,"Wind mill");
+	public InventoryComponent inv = new InventoryComponent(this,1,"Wind Turbine");
 	public boolean isDisplayed;
+	public IRenderizable rend;
+	public int oldTurbine = -2; 
 	
 	private int tracer;
 	private byte[] rayTrace;
@@ -59,7 +62,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         int yHeight = this.tracer / 17;
         int var2 = this.tracer % 17;
         MgDirection rightHand = facing.step(MgDirection.UP);
-        BlockPosition pos = new BlockPosition(this);
+        VecInt pos = new VecInt(this);
         pos.add(facing.getVecInt().multiply(2));
         pos.add(rightHand.getVecInt().multiply(var2 - 8));
         pos.add(0,yHeight,0);
@@ -291,7 +294,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	public InventoryComponent getInv() {

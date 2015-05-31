@@ -48,5 +48,11 @@ public class ModelTextures {
 	public static final ResourceLocation TURBINE 					= new ResourceLocation("magneticraft", "textures/misc/modelturbine.png");
 	public static final ResourceLocation STIRLING_ON 				= new ResourceLocation("magneticraft", "textures/misc/modelstirlinggenerator_on.png");
 	public static final ResourceLocation STIRLING_OFF 				= new ResourceLocation("magneticraft", "textures/misc/modelstirlinggenerator_off.png");
+	public static final ResourceLocation MONITOR 					= new ResourceLocation("magneticraft", "textures/misc/modelmonitor.png");
+	public static final ResourceLocation POLE_TIER1					= new ResourceLocation("magneticraft", "textures/misc/modelpowerpoletier1.png");
+	public static final ResourceLocation DROID_RED					= new ResourceLocation("magneticraft", "textures/misc/modeldrone.png");
+	public static final ResourceLocation WIND_TURBINE_ITEM 			= new ResourceLocation("magneticraft", "textures/misc/windturbine.png");
+	public static final ResourceLocation CONVEYOR_BELT_LOW_ADD 		= new ResourceLocation("magneticraft", "textures/misc/modelconveyorbelt_add.png");
+	public static final ResourceLocation OIL_DISTILLERY 			= new ResourceLocation("magneticraft", "textures/misc/modeloildistillery.png");
 
 }

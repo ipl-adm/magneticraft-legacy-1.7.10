@@ -8,6 +8,11 @@ import net.minecraft.item.ItemStack;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.ThermopileFuel;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class MgRegister {
 
 	public static List<ThermopileFuel> ThermopileSources = new ArrayList<ThermopileFuel>();

@@ -13,18 +13,22 @@ import com.cout970.magneticraft.items.ItemBattery;
 import com.cout970.magneticraft.items.ItemBucket;
 import com.cout970.magneticraft.items.ItemChainSaw;
 import com.cout970.magneticraft.items.ItemElectricSword;
+import com.cout970.magneticraft.items.ItemFloppyDisk;
 import com.cout970.magneticraft.items.ItemGravelOre;
+import com.cout970.magneticraft.items.ItemHardDrive;
 import com.cout970.magneticraft.items.ItemHeatCoilCopper;
 import com.cout970.magneticraft.items.ItemHeatCoilIron;
 import com.cout970.magneticraft.items.ItemHeatCoilTungsten;
 import com.cout970.magneticraft.items.ItemMapPositioner;
+import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
+import com.cout970.magneticraft.items.ItemModuleROM;
+import com.cout970.magneticraft.items.ItemModuleRam64K;
 import com.cout970.magneticraft.items.ItemOilProspector;
 import com.cout970.magneticraft.items.ItemPartCableHigh;
 import com.cout970.magneticraft.items.ItemPartCableLow;
 import com.cout970.magneticraft.items.ItemPartCableMedium;
 import com.cout970.magneticraft.items.ItemPartCopperWire;
 import com.cout970.magneticraft.items.ItemPartPipe;
-import com.cout970.magneticraft.items.ItemResource;
 import com.cout970.magneticraft.items.ItemSandOre;
 import com.cout970.magneticraft.items.ItemThermometer;
 import com.cout970.magneticraft.items.ItemThoriumRod;
@@ -88,10 +92,15 @@ public class ManagerItems {
 	public static Item dustDiamond;
 	public static Item sword;
 	public static Item chainsaw;
-	
 	public static Item bucket_oil;
 	public static Item bucket_light_oil;
 	public static Item bucket_heavy_oil;
+	public static Item bucket_hot_crude;
+	public static Item chip_cpu_mips;
+	public static Item chip_ram;
+	public static Item chip_rom;
+	public static Item drive_floppy;
+	public static Item drive_hard;
 	
 	public static void initItems(){
 		//ores
@@ -141,6 +150,12 @@ public class ManagerItems {
 		bucket_oil = new ItemBucket("bucket_oil","oil");
 		bucket_light_oil = new ItemBucket("bucket_light_oil","lightoil");
 		bucket_heavy_oil = new ItemBucket("bucket_heavy_oil","heavyoil");
+		bucket_hot_crude = new ItemBucket("bucket_hot_crude", "hotcrude");
+		chip_cpu_mips = new ItemModuleCPU_MIPS("mips_cpu");
+		chip_ram = new ItemModuleRam64K("ram");
+		chip_rom = new ItemModuleROM("rom");
+		drive_floppy = new ItemFloppyDisk("floppydisk");
+		drive_hard = new ItemHardDrive("harddrive");
 	}
 	
 	public static void registerItems(){
@@ -204,6 +219,13 @@ public class ManagerItems {
 		addItem(bucket_oil, "Oil Bucket");
 		addItem(bucket_light_oil, "Light Oil Bucket");
 		addItem(bucket_heavy_oil, "Heavy Oil Bucket");
+		addItem(bucket_hot_crude, "Hot Crude Bucket");
+		
+		addItem(chip_cpu_mips, "Mips CPU");
+		addItem(chip_ram, "RAM Module");
+		addItem(chip_rom, "ROM Module");
+		addItem(drive_floppy, "Floppy Disk");
+		addItem(drive_hard, "Hard Drive");
 		
 		for(ItemGravelOre z : gravelOre){
 			addItem(z,z.locName+" Gravel Ore");

@@ -11,6 +11,7 @@ import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tileentity.TileRefineryTank;
 
 public class HUDMagneticraft implements IWailaDataProvider{
 
@@ -40,6 +41,14 @@ public class HUDMagneticraft implements IWailaDataProvider{
 		if(accessor.getTileEntity() instanceof TileMgTank){
 			String s = "Tank empty";
 			TileMgTank t = (TileMgTank) accessor.getTileEntity();
+			if(t.getTank().getFluidAmount() > 0){
+				s = "Fluid: "+t.getTank().getFluid().getLocalizedName()+" Amount: "+t.getTank().getFluid().amount;
+			}
+			currenttip.add(s);
+		}
+		if(accessor.getTileEntity() instanceof TileRefineryTank){
+			String s = "Tank empty";
+			TileRefineryTank t = (TileRefineryTank) accessor.getTileEntity();
 			if(t.getTank().getFluidAmount() > 0){
 				s = "Fluid: "+t.getTank().getFluid().getLocalizedName()+" Amount: "+t.getTank().getFluid().amount;
 			}

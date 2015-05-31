@@ -5,8 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.client.gui.GuiTurbine.CompEnergyBarMediumVoltage_Turbine;
-import com.cout970.magneticraft.client.gui.GuiTurbine.CompFluidRender_Turbine;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
@@ -16,7 +14,6 @@ import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
-import com.cout970.magneticraft.tileentity.TileTurbineControl;
 
 public class GuiCombustionEngine extends GuiBasic{
 

@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.util.IReactorComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -9,7 +9,7 @@ public class TileReactorController extends TileConductorLow implements IReactorC
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new Conductor(this);
+		return new ElectricConductor(this);
 	}
 
 	public void updateEntity(){

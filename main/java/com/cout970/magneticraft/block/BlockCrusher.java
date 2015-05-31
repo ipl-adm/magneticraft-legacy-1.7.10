@@ -13,16 +13,14 @@ import net.minecraft.world.World;
 import buildcraft.api.tools.IToolWrench;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileCrusher;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -85,7 +83,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TileCrusher){
 			if(!((TileCrusher) t).active){
-				if(!w.isRemote)MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_CRUSHER), getDirection(w, new BlockPosition(x,y,z)),p);
+				if(!w.isRemote)MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_CRUSHER), getDirection(w, new VecInt(x,y,z)),p);
 				else ((TileCrusher) t).drawCounter = 200;
 			}else{
 				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
@@ -126,7 +124,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 	}
 
 	@Override
-	public MgDirection getDirection(World w, BlockPosition p) {
+	public MgDirection getDirection(World w, VecInt p) {
 		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
 		return MgDirection.getDirection(meta%4+2);
 	}
@@ -145,13 +143,13 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
     }
 
 	@Override
-	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
 		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%8+8, 2);
 	}
 
 	@Override
-	public void destroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%8, 2);
 	}

@@ -1,17 +1,14 @@
 package com.cout970.magneticraft.items;
 
-import com.cout970.magneticraft.handlers.HandlerBuckets;
-import com.cout970.magneticraft.util.Log;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.cout970.magneticraft.handlers.HandlerBuckets;
 
 
 public class ItemBucket extends ItemBasic{

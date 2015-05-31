@@ -11,9 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelInserter;
-import com.cout970.magneticraft.client.model.ModelInserter;
 import com.cout970.magneticraft.tileentity.TileInserter;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderInserter extends TileEntitySpecialRenderer{

@@ -5,7 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.google.common.base.Objects;
 
 /**
@@ -40,7 +39,7 @@ public class VecInt {
 		this(tile.xCoord, tile.yCoord, tile.zCoord);
 	}
 
-	public static VecInt getConnexion(MgDirection d) {
+	public static VecInt fromDirection(MgDirection d) {
 		return new VecInt(d.getOffsetX(), d.getOffsetY(), d.getOffsetZ());
 	}
 	
@@ -132,5 +131,9 @@ public class VecInt {
 
 	public static VecInt load(NBTTagCompound nbt) {
 		return new VecInt(nbt.getInteger("X"),nbt.getInteger("Y"),nbt.getInteger("Z"));
+	}
+
+	public int[] intArray() {
+		return new int[]{x,y,z};
 	}
 }

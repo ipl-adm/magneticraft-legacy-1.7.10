@@ -11,12 +11,11 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
-import com.cout970.magneticraft.api.electricity.BatteryConductor;
+import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.CableCompound;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -35,7 +34,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public boolean active;
 	public int speed;
 	public int maxProgres = 100;
-	public BatteryConductor cond = new BatteryConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private int Progres;
 	private boolean auto;
 	private double flow;
@@ -240,12 +239,12 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	}
 	
 	@Override
-	public void onDestroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = false;
 	}
 
 	@Override
-	public void onActivate(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = true;
 	}
 

@@ -14,7 +14,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.IWorldGenerator;
 

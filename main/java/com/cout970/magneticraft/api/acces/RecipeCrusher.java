@@ -4,6 +4,11 @@ import net.minecraft.item.ItemStack;
 
 import com.cout970.magneticraft.api.util.MgUtils;
 
+/**
+ * 
+ * @author Cout970
+ *
+ */
 public class RecipeCrusher {
 
 	public final ItemStack input;

@@ -4,10 +4,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.MutableComponent;
@@ -22,7 +20,7 @@ public class MultiblockCrusher extends Multiblock{
 	@Override
 	public void init() {
 		MutableComponent a = new MutableComponent(Blocks.air){
-			public boolean isCorrect(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e) {
+			public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 				return true;
 			}
 		};
@@ -38,7 +36,7 @@ public class MultiblockCrusher extends Multiblock{
 				{ { a, a, b, b, b }, { b, b, b, b, b }, { b, b, b, b, b }, { b, b, b, b, b } }
 			};
 
-		BlockPosition p = new BlockPosition(-3,-1,0);
+		VecInt p = new VecInt(-3,-1,0);
 		x = m.length;
 		y = m[0].length;
 		z = m[0][0].length;
@@ -46,7 +44,7 @@ public class MultiblockCrusher extends Multiblock{
 		tran = p;
 	}
 	
-	public VecInt translate(World w, BlockPosition p, int x, int y, int z, Multiblock c, MgDirection e, int meta){//yzx
+	public VecInt translate(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta){//yzx
 		if(meta%8 < 4){
 			if(e == MgDirection.SOUTH)return new VecInt(-z, x, -y).add(-tran.getX(),tran.getY(),tran.getZ());
 			if(e == MgDirection.WEST)return new VecInt(y, x, -z).add(tran.getZ(),tran.getY(),-tran.getX());

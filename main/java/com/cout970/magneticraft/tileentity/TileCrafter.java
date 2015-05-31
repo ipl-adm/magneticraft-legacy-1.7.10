@@ -21,14 +21,11 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.tileentity.TileCrafter.RedstoneState;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryCrafterAux;
 import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.tile.RedstoneControl;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
 

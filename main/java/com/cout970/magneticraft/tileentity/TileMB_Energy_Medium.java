@@ -3,16 +3,15 @@ package com.cout970.magneticraft.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.cout970.magneticraft.api.electricity.CableCompound;
-import com.cout970.magneticraft.api.electricity.Conductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.tile.TileConductorMedium;
 
 public class TileMB_Energy_Medium extends TileMB_Base implements IElectricTile{
 	
-	public IElectricConductor cond = new Conductor(this,2,ElectricConstants.RESISTANCE_COPPER_2X2);
+	public IElectricConductor cond = new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_2X2);
 	
 	@Override
 	public CableCompound getConds(VecInt dir, int tier) {

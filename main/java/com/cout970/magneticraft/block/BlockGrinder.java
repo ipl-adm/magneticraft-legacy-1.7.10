@@ -11,8 +11,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -59,7 +59,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 		if(t instanceof TileGrinder){
 			if(!((TileGrinder) t).active){
 				if(!w.isRemote)
-					MB_Watcher.watchStructure(w, new BlockPosition(x,y,z),MB_Register.getMBbyID(MB_Register.ID_GRINDER), getDirection(w, new BlockPosition(x,y,z)),p);
+					MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_GRINDER), getDirection(w, new VecInt(x,y,z)),p);
 				else
 					((TileGrinder) t).drawCounter = 200;
 			}else{
@@ -102,7 +102,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 	}
 
 	@Override
-	public MgDirection getDirection(World w, BlockPosition p) {
+	public MgDirection getDirection(World w, VecInt p) {
 		return MgDirection.getDirection(w.getBlockMetadata(p.getX(), p.getY(), p.getZ()));
 	}
 
@@ -112,12 +112,12 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 	}
 
 	@Override
-	public void mutates(World w, BlockPosition blockPosition, Multiblock c,
+	public void mutates(World w, VecInt blockPosition, Multiblock c,
 			MgDirection e) {
 	}
 
 	@Override
-	public void destroy(World w, BlockPosition blockPosition, Multiblock c,
+	public void destroy(World w, VecInt blockPosition, Multiblock c,
 			MgDirection e) {		
 	}
 

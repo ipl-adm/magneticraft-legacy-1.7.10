@@ -3,9 +3,9 @@ package com.cout970.magneticraft;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.cout970.magneticraft.compact.ManagerIntegration;
+import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.handlers.HandlerBuckets;
 import com.cout970.magneticraft.handlers.SolidFuelHandler;
-import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.proxy.IProxy;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -27,9 +27,9 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.2.0f";
+	public final static String VERSION = "0.2.10";
 	public final static String ENERGY_STORED_NAME = "J";
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	@Instance(NAME)
 	public static Magneticraft Instance;

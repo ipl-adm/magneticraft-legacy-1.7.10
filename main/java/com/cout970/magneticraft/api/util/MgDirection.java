@@ -2,6 +2,11 @@ package com.cout970.magneticraft.api.util;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
+/**
+ * Own Implementation of ForgeDirection to be able to update to 1.8 faster
+ * @author Cout970
+ *
+ */
 public enum MgDirection {
  
 	DOWN	(0,-1,0),

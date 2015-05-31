@@ -6,8 +6,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.util.BlockPosition;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileHeater;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -44,7 +44,7 @@ public class BlockHeater extends BlockMg implements MB_Block{
 	}
 	
 	@Override
-	public void mutates(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
 		if(c instanceof MultiblockPolymerizer){
 			w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
 		}else
@@ -60,7 +60,7 @@ public class BlockHeater extends BlockMg implements MB_Block{
     }
 
 	@Override
-	public void destroy(World w, BlockPosition p, Multiblock c, MgDirection e) {
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 0, 2);
 	}
 }

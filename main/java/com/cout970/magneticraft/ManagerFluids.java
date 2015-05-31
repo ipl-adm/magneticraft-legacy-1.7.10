@@ -1,13 +1,13 @@
 package com.cout970.magneticraft;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 
 import com.cout970.magneticraft.block.fluids.BlockFluidClasicMg;
 import com.cout970.magneticraft.block.fluids.BlockFluidHeavyOil;
+import com.cout970.magneticraft.block.fluids.BlockFluidHotCrude;
 import com.cout970.magneticraft.block.fluids.BlockFluidLightOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidNaturalGas;
 import com.cout970.magneticraft.block.fluids.BlockFluidOil;
@@ -24,12 +24,14 @@ public class ManagerFluids {
 	public static Fluid heavyOil;
 	public static Fluid lightOil;
 	public static Fluid naturalGas;
+	public static Fluid hotCrude;
 	
 	public static Block steamBlock;
 	public static Block oilBlock;
 	public static Block lightOilBlock;
 	public static Block heavyOilBlock;
 	public static Block naturalGasBlock;
+	public static Block hotCrudeBlock;
 	
 	//names
 	public static final String STEAM_NAME = "steam";
@@ -37,6 +39,7 @@ public class ManagerFluids {
 	public static final String HEAVY_OIL = "heavyoil";
 	public static final String LIGHT_OIL = "lightoil";
 	public static final String NATURAL_GAS = "naturalgas";
+	public static final String HOT_CRUDE = "hotcrude";
 
 	public static void initFluids(){
 		//steam
@@ -78,6 +81,12 @@ public class ManagerFluids {
 		GameRegistry.registerBlock(naturalGasBlock, "block"+NATURAL_GAS);
 		naturalGas.setBlock(naturalGasBlock);
 		
+		//hot crude
+		hotCrude = new Fluid(HOT_CRUDE).setDensity(800).setViscosity(1000).setTemperature(450);
+		FluidRegistry.registerFluid(hotCrude);
+		hotCrudeBlock = new BlockFluidHotCrude(hotCrude,BlockFluidClasicMg.fluidMaterial);
+		GameRegistry.registerBlock(hotCrudeBlock, "block"+HOT_CRUDE);
+		hotCrude.setBlock(hotCrudeBlock);
 	}
 
 	public static void registerFuels() {

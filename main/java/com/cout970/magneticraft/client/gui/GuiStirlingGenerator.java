@@ -10,7 +10,6 @@ import com.cout970.magneticraft.client.gui.component.CompBurningTime;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
-import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 
 public class GuiStirlingGenerator extends GuiBasic{

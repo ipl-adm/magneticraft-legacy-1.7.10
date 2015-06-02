@@ -81,7 +81,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		if(Progres > 0){
 			//fuel to heat
 			if(heat.getTemperature() < heat.getMaxTemp()-200 && isControled()){
-				int i = 1;//burning speed
+				int i = 4;//burning speed
 				if(Progres - i < 0){
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(Progres));
 					Progres = 0;

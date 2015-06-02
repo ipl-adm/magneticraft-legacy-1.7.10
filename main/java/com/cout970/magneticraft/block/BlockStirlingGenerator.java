@@ -37,7 +37,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"stirling_generator","stirling_generator_head","stirling_generator_on"};
+		return new String[]{"stirling_generator","stirling_generator_head"};
 	}
 
 	@Override
@@ -50,8 +50,6 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
     {
 		if(meta == 0){
 			return side == 3 ? icons[1] : icons[0];
-		}else if(meta > 5){
-			return side == 1 ? this.icons[0] : (side == 0 ? this.icons[0] : (side != meta%6 ? this.icons[0] : this.icons[2]));
 		}
         return side == 1 ? this.icons[0] : (side == 0 ? this.icons[0] : (side != meta ? this.icons[0] : this.icons[1]));
     }

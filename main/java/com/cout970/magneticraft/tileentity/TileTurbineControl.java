@@ -17,6 +17,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
@@ -49,18 +50,16 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 			search();
 			return;
 		}
-		if(worldObj.isRemote){
-			float activity = 0.5f*(getFluidAmount()*1200/64000)/1200f;
-			if(activity < 0.01f)activity = 0;
-			if(speed < activity){
-				speed += 1/32f;
-			}else if(speed > activity){
-				speed -= 1/32f;
-			}
+		float activity = 0.5f*(getFluidAmount()*1200/64000)/1200f;
+		if(activity < 0.01f)activity = 0;
+		if(speed < activity){
+			speed += 1/32f;
+		}else if(speed > activity){
+			speed -= 1/32f;
 		}
 		if (worldObj.isRemote)return;
 		balanceTanks();
-		int steam = (getFluidAmount()*MAX_STEAM)/64000;
+		int steam = (int) (Math.min(speed, 0.5)*2*MAX_STEAM);
 		if(steam > 0 && out.getVoltage() < ElectricConstants.MAX_VOLTAGE*out.getVoltageMultiplier()){
 			drain(steam, true);
 			double p = EnergyConversor.STEAMtoW(steam);

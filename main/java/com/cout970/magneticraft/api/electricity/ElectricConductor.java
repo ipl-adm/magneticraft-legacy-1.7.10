@@ -142,7 +142,7 @@ public class ElectricConductor implements IElectricConductor{
 	@Override
 	public void computeVoltage() {
 		V += 0.05d * I * getVoltageMultiplier();
-		if(V < 0)V = 0;
+		if(V < 0 || V == Double.NaN)V = 0;
 		I = 0;
 		Iabs = 0;
 	}

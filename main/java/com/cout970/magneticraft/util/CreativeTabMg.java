@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.util;
 
+import com.cout970.magneticraft.ManagerItems;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -16,7 +18,7 @@ public class CreativeTabMg extends CreativeTabs{
 
 	@Override
 	public Item getTabIconItem() {
-		return Items.diamond;
+		return ManagerItems.volt;
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
+import java.util.Arrays;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -42,9 +44,15 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
 		moveCole(left);
 		moveCole(right);
 		time = System.currentTimeMillis();
+		if(worldObj.getWorldTime() % 200 == 0)
+			sendUpdateToClient();
 	}
 
 	private void moveCole(ConveyorSide side) {
+		if(worldObj.getWorldTime() % 20 == 0){
+			Arrays.fill(side.spaces, false);
+		}
+		
 //		for (int i = side.content.size()-1; i >= 0 ; i--) {
 		for (int i = 0; i<side.content.size() ; i++) {
 			ItemBox b = side.content.get(i);

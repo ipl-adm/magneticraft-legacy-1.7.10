@@ -54,5 +54,6 @@ public class ModelTextures {
 	public static final ResourceLocation WIND_TURBINE_ITEM 			= new ResourceLocation("magneticraft", "textures/misc/windturbine.png");
 	public static final ResourceLocation CONVEYOR_BELT_LOW_ADD 		= new ResourceLocation("magneticraft", "textures/misc/modelconveyorbelt_add.png");
 	public static final ResourceLocation OIL_DISTILLERY 			= new ResourceLocation("magneticraft", "textures/misc/modeloildistillery.png");
+	public static final ResourceLocation GRINDER 					= new ResourceLocation("magneticraft", "textures/misc/modelgrinder.png");
 
 }

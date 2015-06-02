@@ -14,9 +14,11 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.items.ItemBucket;
+import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -50,6 +52,11 @@ public class HandlerBuckets {
     @SubscribeEvent
     public void onBucketFill(FillBucketEvent event) {
 
+    	Block block = event.world.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
+    	if(block == ManagerBlocks.infinite_water){
+    		event.setResult(Result.ALLOW);
+    		return;
+    	}
             ItemStack result = fillCustomBucket(event.world, event.target);
 
             if (result == null) return;

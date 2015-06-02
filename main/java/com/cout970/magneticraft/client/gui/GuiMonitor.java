@@ -47,7 +47,7 @@ public class GuiMonitor extends GuiBasic{
 					if(line*80+desp == cursor && t.getWorldObj().getWorldTime() % 20 >= 10){
 						character ^= 128;
 					}
-					if(character != 32)
+					if(character != 32 && character != 0)
 						drawDoubledRect(gui.xStart + 15 + desp * 4, gui.yStart + 15 + line * 4, 4, 4, 350 + (character & 15) * 8, (character >> 4) * 8, 8, 8);
 				}
 			}

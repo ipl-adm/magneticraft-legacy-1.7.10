@@ -18,16 +18,16 @@ import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileInserter extends TileConductorLow{
+public class TileInserter extends TileBase{
 
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Inserter");
 	public int counter = 0;
 	public int speed = 20;
 	
-	@Override
-	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
-	}
+//	@Override
+//	public IElectricConductor initConductor() {
+//		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+//	}
 
 	public MgDirection getDir(){
 		return MgDirection.getDirection(getBlockMetadata());
@@ -49,7 +49,6 @@ public class TileInserter extends TileConductorLow{
 					if(o instanceof IInventory)dropToInv((IInventory)o);
 					else if(o instanceof IConveyor && ((IConveyor) o).getOrientation().getLevel() == 0)dropToBelt((IConveyor)o);
 					sendUpdateToClient();
-					
 				}
 			}else if(counter < 540){
 				counter+= speed;
@@ -58,8 +57,12 @@ public class TileInserter extends TileConductorLow{
 			}
 		}else if(getInv().getStackInSlot(0) == null){
 			if(counter == 0){
-				if(t instanceof IInventory)suckFromInv((IInventory)t);
-				else if(t instanceof IConveyor && ((IConveyor) t).getOrientation().getLevel() == 0)suckFromBelt((IConveyor)t);
+				if(t instanceof IInventory){
+					suckFromInv((IInventory)t, o);
+				}
+				else if(t instanceof IConveyor && ((IConveyor) t).getOrientation().getLevel() == 0){
+					suckFromBelt((IConveyor)t, o);
+				}
 				sendUpdateToClient();
 			}else if(counter > 0 && counter <= 540){
 				counter -= speed;
@@ -86,29 +89,45 @@ public class TileInserter extends TileConductorLow{
 		}
 	}
 
-	private void suckFromBelt(IConveyor t) {
+	private void suckFromBelt(IConveyor t, Object obj) {
 		ConveyorSide side = t.getSideLane(true);
-		if(extractFromBelt(side, t, true))return;
+		if(extractFromBelt(side, t, true, obj))return;
 		side = t.getSideLane(false);
-		if(extractFromBelt(side, t, false))return;
+		if(extractFromBelt(side, t, false, obj))return;
 	}
 	
-	public boolean extractFromBelt(ConveyorSide side,IConveyor t,boolean left){
+	public boolean extractFromBelt(ConveyorSide side,IConveyor t,boolean left, Object obj){
 		if(side.content.isEmpty())return false;
 		ItemBox b = side.content.get(0);
-		if(t.extract(b, left, false)){
-			getInv().setInventorySlotContents(0, b.getContent());
-			return true;
+		if(t.extract(b, left, true)){
+			if(canInject(obj, b.getContent())){
+				t.extract(b, left, false);
+				getInv().setInventorySlotContents(0, b.getContent());
+				return true;
+			}
 		}
 		return false;
 	}
 
-	private void suckFromInv(IInventory t) {
+	private void suckFromInv(IInventory t, Object obj) {
 		int slot = MgBeltUtils.getSlotWithItemStack(t, MgDirection.UP);
 		if(slot != -1){
-			getInv().setInventorySlotContents(0,t.getStackInSlot(slot));
-			t.setInventorySlotContents(slot, null);
+			ItemStack s = t.getStackInSlot(slot);
+			if(canInject(obj, s)){
+				getInv().setInventorySlotContents(0,s);
+				t.setInventorySlotContents(slot, null);
+			}
 		}
+	}
+	
+	public boolean canInject(Object obj, ItemStack s){
+//		if(obj instanceof IInventory){
+//			return MgBeltUtils.dropItemStackIntoInventory((IInventory)obj, s, MgDirection.UP, true) == 0;
+//		}else if(obj instanceof IConveyor){
+//			return ((IConveyor) obj).addItem(getDir(), 2, new ItemBox(s), true);
+//		}
+//		return false;
+		return true;
 	}
 
 	public InventoryComponent getInv() {
@@ -127,5 +146,9 @@ public class TileInserter extends TileConductorLow{
 		super.writeToNBT(nbt);
 		getInv().writeToNBT(nbt);
 		nbt.setInteger("Stage", counter);
+	}
+	
+	public enum InserterAnimation{
+		Default,Rotated
 	}
 }

@@ -36,18 +36,28 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public int maxProgres = 100;
 	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private int Progres;
-	private boolean auto;
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Grinder");
 	private InventoryComponent in;
 	private InventoryComponent out;
 	public int drawCounter;
+	public float rotation;
+	private long time;
+	private boolean working;
+	private boolean active_w;
 	
 	public void updateEntity() {
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
 		if (!active)return;
 		if (worldObj.isRemote)return;
+		if(worldObj.getWorldTime()%20 == 0){
+			if(working && !isActive()){
+				setActive(true);
+			}else if(!working && isActive()){
+				setActive(false);
+			}
+		}
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
 			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
@@ -60,15 +70,23 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 						markDirty();
 						Progres = 0;
 					}
+					working = true;
 				}
 			}else{
 				Progres = 0;
+				working = false;
 			}
 		}
-		auto = true;
-		if (auto) {
-			distributeItems();
-		}
+		distributeItems();
+	}
+
+	private void setActive(boolean b) {
+		active_w = b;
+		sendUpdateToClient();
+	}
+
+	public boolean isActive() {
+		return active_w;
 	}
 
 	public InventoryComponent getInv() {
@@ -210,6 +228,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		active = nbt.getBoolean("A");
+		active_w = nbt.getBoolean("Act");
 		cond.load(nbt);
 		getInv().readFromNBT(nbt);
 	}
@@ -217,6 +236,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setBoolean("A", active);
+		nbt.setBoolean("Act", active_w);
 		cond.save(nbt);
 		getInv().writeToNBT(nbt);
 	}
@@ -320,4 +340,10 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
     {
         return INFINITE_EXTENT_AABB;
     }
+
+	public float getDelta() {
+		long aux = time;
+		time = System.nanoTime();
+		return time - aux;
+	}
 }

@@ -5,6 +5,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
@@ -23,22 +25,22 @@ import com.cout970.magneticraft.util.multiblock.MB_Register;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileOilDistillery extends TileMB_Base implements IGuiSync{
+public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectricTile{
 
 	public int drawCounter;
 	private TankMg input;
 	private TankMg output;
-	private IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE);
+	private IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private double[] flow = new double[3];
 	
 	public void updateEntity() {
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if(worldObj.isRemote)return;
 		if(!isActive())return;
 		if(input == null || output == null || side1 == null || side2 == null){
 			search();
 		}else{
+			if(worldObj.isRemote)return;
 			valance(side1, side2, 0);
 			valance(side1, own, 1);
 			valance(own, side2, 2);
@@ -93,12 +95,35 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync{
 
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
-		
+		craft.sendProgressBarUpdate(cont, 0, (int) own.getVoltage());
+		craft.sendProgressBarUpdate(cont, 1, own.getStorage());
+		if(input != null && output != null){
+			if(input.getFluidAmount() > 0){
+				craft.sendProgressBarUpdate(cont, 2, input.getFluid().getFluidID());
+				craft.sendProgressBarUpdate(cont, 3, input.getFluidAmount());
+			}else craft.sendProgressBarUpdate(cont, 2, -1);
+
+			if(output.getFluidAmount() > 0){
+				craft.sendProgressBarUpdate(cont, 4, output.getFluid().getFluidID());
+				craft.sendProgressBarUpdate(cont, 5, output.getFluidAmount());
+			}else craft.sendProgressBarUpdate(cont, 4, -1);
+		}
 	}
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
-		
+		if(id == 0)own.setVoltage(value);
+		else if(id == 1)own.setStorage(value);
+		if(input == null || output == null)return;
+		if(id == 2)
+			if(value == -1) input.setFluid(null);
+			else input.setFluid(new FluidStack(FluidRegistry.getFluid(value),1));
+		if(id == 3) input.getFluid().amount = value;
+
+		if(id == 4)
+			if(value == -1) output.setFluid(null);
+			else output.setFluid(new FluidStack(FluidRegistry.getFluid(value),1));
+		if(id == 5) output.getFluid().amount = value;
 	}
 	
 	@Override
@@ -138,4 +163,18 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync{
     {
         return INFINITE_EXTENT_AABB;
     }
+
+	public TankMg getInput() {
+		return input;
+	}
+
+	public TankMg getOutput() {
+		return output;
+	}
+
+	@Override
+	public CableCompound getConds(VecInt dir, int Vtier) {
+		if(dir == VecInt.NULL_VECTOR)return new CableCompound(own);
+		return null;
+	}
 }

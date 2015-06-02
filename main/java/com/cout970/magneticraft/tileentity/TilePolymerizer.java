@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -104,7 +105,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 	}
 
 	private boolean canCraft() {
-		if(input.getFluidAmount() >= 500 && isControled() && heater.getTemperature() > 250){
+		if(input.getFluidAmount() >= 500 && MgUtils.areEcuals(input.getFluid(), FluidRegistry.getFluidStack(ManagerFluids.NATURAL_GAS, 1)) && isControled() && heater.getTemperature() > 250){
 			ItemStack stack = getInv().getStackInSlot(0);
 			if(stack != null && MgUtils.areEcuals(stack, new ItemStack(ManagerItems.dustSulfur), true)){
 				ItemStack output = getInv().getStackInSlot(1);

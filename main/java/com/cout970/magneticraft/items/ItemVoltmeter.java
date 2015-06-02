@@ -28,7 +28,7 @@ public class ItemVoltmeter extends ItemBasic{
 		if(comp != null){
 			for(IElectricConductor cond:comp.list()){
 				double I = cond.getIntensity()*0.5;
-				String s = String.format("Reading %.2fV %.3fA (%.2fW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I)});
+				String s = String.format("Reading %.2fV %.3fA (%.2fkW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
 				p.addChatMessage(new ChatComponentText(s));
 				return false;
 			}
@@ -38,7 +38,7 @@ public class ItemVoltmeter extends ItemBasic{
 		if(comp != null){
 			IElectricConductor cond = comp.getCond(0);
 			double I = cond.getIntensity()*0.5;
-			String s = String.format("Reading %.2fV %.2fA (%.2fW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I)});
+			String s = String.format("Reading %.2fV %.2fA (%.2fkW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
 			p.addChatMessage(new ChatComponentText(s));
 			return false;
 		}

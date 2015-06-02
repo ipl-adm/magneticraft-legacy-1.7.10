@@ -32,6 +32,7 @@ import static com.cout970.magneticraft.ManagerBlocks.multi_energy_low;
 import static com.cout970.magneticraft.ManagerBlocks.multi_energy_medium;
 import static com.cout970.magneticraft.ManagerBlocks.multi_heat;
 import static com.cout970.magneticraft.ManagerBlocks.multi_io;
+import static com.cout970.magneticraft.ManagerBlocks.oil_distillery;
 import static com.cout970.magneticraft.ManagerBlocks.permagnet;
 import static com.cout970.magneticraft.ManagerBlocks.polimerizer;
 import static com.cout970.magneticraft.ManagerBlocks.pumpJack;
@@ -119,8 +120,8 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(biomass_burner), new Object[]{"bbb","fhf","bbb",'b',"ingotCarbide",'f',Blocks.furnace,'h',heat_cable}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stirling), new Object[]{"ibi","ihi","ici",'i',"ingotIron",'h',housing,'c',heat_cable,'b',battery_item}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(infinite_water), new Object[]{"gbg","bhb","gbg",'g',"blockGlass",'h',housing,'b',Items.bucket}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery), new Object[]{"ctc","tht","ctc",'c',"ingotCopper",'h',chasis,'t',"ingotTungsten"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery_gap,9), new Object[]{"vcv","chc","vcv",'c',"ingotCopper",'h',chasis}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery), new Object[]{"ctc","tht","ctc",'c',"ingotCopper",'h',chasis,'t',"ingotCarbide"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery_gap,9), new Object[]{"viv","chc","viv",'c',"ingotCopper",'h',chasis,'i',"ingotIron"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery_tank,3), new Object[]{"rrr","vtv",'r',refinery_gap,'t',tank_mg}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tank_mg,2), new Object[]{"cgc","gvg","cgc",'c',"ingotCopper",'g',"blockGlass"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heater), new Object[]{"iti","tht","iti",'t',"ingotTungsten",'h',housing,'i',"ingotIron"}));
@@ -134,6 +135,7 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(brickFurnace), new Object[]{"bbb","bfb","bcb",'b',Items.brick,'c',heat_cable,'f',Blocks.furnace}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crafter), new Object[]{"bbb","bfb","bcb",'b',"ingotIron",'c',Items.redstone,'f',Blocks.crafting_table}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_heat), new Object[]{"bbb","bfb","bbb",'b',Items.brick,'f', chasis}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(oil_distillery), new Object[]{"ihi","iti","ici",'t',refinery_gap,'i',"ingotIron",'c', chasis, 'h', heater}));
 
 		//items
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(battery_item), new Object[]{"scs","sis","scs",'i',"ingotIron",'c',"ingotCopper",'s',"dustSulfur"}));
@@ -144,7 +146,7 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heatCoilIron), new Object[]{"cc","cc",'c',"ingotIron"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heatCoilTungsten), new Object[]{"cc","cc",'c',"ingotTungsten"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(photoelectricDust,9), new Object[]{"ccc","cdc","ccc",'c',"dustQuartz",'d',"dustDiamond"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotCarbide,4), new Object[]{"vcv","ctc","vcv",'c',Items.coal,'t',"ingotTungsten"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotCarbide,8), new Object[]{"ccc","ctc","ccc",'c',Items.coal,'t',"ingotTungsten"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(volt), new Object[]{"cgc","cgc","lmh",'c',"itemPlastic",'g',"paneGlass",'l',cablelow,'m',cablemedium,'h',cablehigh}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(therm), new Object[]{"cgc","cgc","crc",'c',"itemPlastic",'g',"paneGlass",'r',"dustRedstone"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(map), new Object[]{"vpv","ptp","vpv",'p',Items.paper,'t',new ItemStack(Items.dye,1,0)}));

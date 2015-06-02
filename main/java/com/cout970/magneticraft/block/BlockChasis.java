@@ -69,10 +69,7 @@ public class BlockChasis extends BlockMg implements MB_Block{
 
 	@Override
 	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
-		if(c instanceof MultiblockCrusher || c instanceof MultiblockPolymerizer || c instanceof MultiblockTurbine || c instanceof MultiblockStirlig || c instanceof MultiblockRefinery || c instanceof MultiblockOilDistillery){
-			w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
-		}else
-		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 1, 2);
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
 	}
 	
 	@SideOnly(Side.CLIENT)

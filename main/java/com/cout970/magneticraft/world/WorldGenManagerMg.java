@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -62,9 +63,9 @@ public class WorldGenManagerMg implements IWorldGenerator{
 				int run = GenOilProbability;
 				BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);
 				if(base != null){
-					if(base.getIntRainfall() < 327680 || base.getTempCategory() == TempCategory.WARM) run *= 0.5;
-					if(base.getTempCategory() == TempCategory.OCEAN) run *= 0.8;
-					if(base.getTempCategory() == TempCategory.COLD) run *= 0.5;
+					if(base.getIntRainfall() < 327680 || base.getTempCategory() == TempCategory.WARM) run *= 0.75;
+					if(base.getTempCategory() == TempCategory.OCEAN) run *= 0.85;
+					if(base.getTempCategory() == TempCategory.COLD) run *= 0.75;
 				}
 				if(random.nextInt(run) == 0){
 					for(int d = 0; d < GenOilMaxAmount;d++){
@@ -165,7 +166,8 @@ public class WorldGenManagerMg implements IWorldGenerator{
 		float rad_square = rad*rad;
 		float rad_square_2 = (rad+1)*(rad+1);
 		LinkedList<BlockInfo> list = new LinkedList<BlockInfo>();
-
+		int count = 0,water = 0;
+		
 		for(int j = -max_it; j<= max_it; j++){
 			for(int i = -max_it; i<= max_it; i++){
 				for(int k = -max_it; k<= max_it; k++){
@@ -174,6 +176,9 @@ public class WorldGenManagerMg implements IWorldGenerator{
 						if(!Block.isEqualTo(bl, Blocks.air) || flag){
 							if(canRemplace(bl)){
 								list.add(new BlockInfo(b, meta, i, j, k));
+								count++;
+							}else if(Block.isEqualTo(bl, Blocks.water)){
+								water++;
 							}
 						}
 					}else if(i*i+j*j+k*k < rad_square_2){//exterior
@@ -182,7 +187,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 				}
 			}
 		}
-
+		if(water >= count)return;
 		for(BlockInfo pos : list){
 			world.setBlock(x+pos.getX()+8, y+pos.getY(), z+pos.getZ()+8, pos.getBlock(), pos.getMeta(), 2);
 		}

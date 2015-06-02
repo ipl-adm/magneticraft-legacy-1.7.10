@@ -49,7 +49,11 @@ public class LangHelper {
 		try {
 			w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
 			for(String s : unloc){
-				w.write(s+".name="+name.get(unloc.indexOf(s))+"\n");
+				if(s.contains("fluid.")){
+					w.write(s+"="+name.get(unloc.indexOf(s))+"\n");
+				}else{
+					w.write(s+".name="+name.get(unloc.indexOf(s))+"\n");
+				}
 			}
 			w.close();
 		} catch (UnsupportedEncodingException e) {
@@ -69,11 +73,12 @@ public class LangHelper {
 		addName("itemGroup","Magneticraft");
 		
 		//fluids
-		addName(ManagerFluids.steam,"Steam");
-		addName(ManagerFluids.oil,"Crude Oil");
-		addName(ManagerFluids.heavyOil,"Heavy Oil");
-		addName(ManagerFluids.lightOil,"Light Oil");
-		addName(ManagerFluids.naturalGas,"Natural Gas");
+		addName("fluid."+ManagerFluids.STEAM_NAME,"Steam");
+		addName("fluid."+ManagerFluids.OIL_NAME,"Crude Oil");
+		addName("fluid."+ManagerFluids.HEAVY_OIL,"Heavy Oil");
+		addName("fluid."+ManagerFluids.LIGHT_OIL,"Light Oil");
+		addName("fluid."+ManagerFluids.NATURAL_GAS,"Natural Gas");
+		addName("fluid."+ManagerFluids.HOT_CRUDE,"Hot Crude");
 		//fluidblocks
 		addName("tile.mg_steam_block","Steam");
 		addName("tile.mg_oil_block","Crude Oil");

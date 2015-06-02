@@ -37,6 +37,11 @@ public class BlockRefineryGap extends BlockMg implements MB_Block{
 		return new TileMB_Base();
 	}
 
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+
 	public void breakBlock(World w,int x,int y,int z,Block b,int side){
 		if(!w.isRemote){
 			TileEntity t = w.getTileEntity(x, y, z);

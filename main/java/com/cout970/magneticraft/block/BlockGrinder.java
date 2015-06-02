@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
@@ -27,6 +28,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 
 	public BlockGrinder() {
 		super(Material.iron);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -111,14 +113,23 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 		return MB_Register.getMBbyID(MB_Register.ID_GRINDER);
 	}
 
-	@Override
-	public void mutates(World w, VecInt blockPosition, Multiblock c,
-			MgDirection e) {
+	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%6+6, 2);
 	}
 
 	@Override
-	public void destroy(World w, VecInt blockPosition, Multiblock c,
-			MgDirection e) {		
+	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
+		int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), meta%6, 2);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side)
+	{
+		MgDirection d = MgDirection.getDirection(side);
+		if(w.getBlockMetadata(x-d.getOffsetX(), y-d.getOffsetY(), z-d.getOffsetZ()) >= 6)return false;
+		return super.shouldSideBeRendered(w, x, y, z, side);
 	}
 
 }

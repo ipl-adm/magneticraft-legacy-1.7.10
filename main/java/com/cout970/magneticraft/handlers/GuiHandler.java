@@ -23,6 +23,7 @@ import com.cout970.magneticraft.client.gui.GuiKineticGenerator;
 import com.cout970.magneticraft.client.gui.GuiMB_Inv;
 import com.cout970.magneticraft.client.gui.GuiMiner;
 import com.cout970.magneticraft.client.gui.GuiMonitor;
+import com.cout970.magneticraft.client.gui.GuiOilDistillery;
 import com.cout970.magneticraft.client.gui.GuiPolimerizer;
 import com.cout970.magneticraft.client.gui.GuiReactorVessel;
 import com.cout970.magneticraft.client.gui.GuiRefinery;
@@ -49,6 +50,7 @@ import com.cout970.magneticraft.container.ContainerKineticGenerator;
 import com.cout970.magneticraft.container.ContainerMB_Inv;
 import com.cout970.magneticraft.container.ContainerMiner;
 import com.cout970.magneticraft.container.ContainerMonitor;
+import com.cout970.magneticraft.container.ContainerOilDistillery;
 import com.cout970.magneticraft.container.ContainerPolimerizer;
 import com.cout970.magneticraft.container.ContainerReactorVessel;
 import com.cout970.magneticraft.container.ContainerRefinery;
@@ -74,6 +76,7 @@ import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMiner;
+import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
@@ -170,6 +173,9 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileDroidRED){
 			return new ContainerDroidRED(player.inventory, tile);
 		}
+		if(tile instanceof TileOilDistillery){
+			return new ContainerOilDistillery(player.inventory, tile);
+		}
 		return null;
 	}
 
@@ -255,6 +261,9 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TileDroidRED){
 			return new GuiDroidRED(new ContainerDroidRED(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileOilDistillery){
+			return new GuiOilDistillery(new ContainerOilDistillery(player.inventory, tile), tile);
 		}
 		return null;
 	}

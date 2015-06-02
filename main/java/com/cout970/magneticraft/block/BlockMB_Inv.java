@@ -65,12 +65,9 @@ public class BlockMB_Inv extends BlockMg implements MB_Block{
 
 	@Override
 	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
-		if(c instanceof MultiblockCrusher || c instanceof MultiblockPolymerizer){
-			w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
-		}else
-		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 1, 2);
+		w.setBlockMetadataWithNotify(p.getX(), p.getY(), p.getZ(), 2, 2);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side)
     {

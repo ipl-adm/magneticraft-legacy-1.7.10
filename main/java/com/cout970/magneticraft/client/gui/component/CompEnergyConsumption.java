@@ -45,7 +45,7 @@ public class CompEnergyConsumption implements IGuiComp{
 			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){
 				List<String> data = new ArrayList<String>();
 				float prod = c.getConsumptionInTheLastSecond() <= 0 ? c.getConsumptionInTheLastTick() : c.getConsumptionInTheLastSecond()/20;
-				data.add("Consumption "+((int)prod)+"W");
+				data.add(String.format("Consumption %.2f kW", Float.valueOf(((int)prod)/1000f)));
 				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 				RenderHelper.enableGUIStandardItemLighting();
 			}

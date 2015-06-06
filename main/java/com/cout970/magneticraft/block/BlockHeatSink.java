@@ -6,6 +6,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
 
 import cpw.mods.fml.relauncher.Side;
@@ -15,6 +16,7 @@ public class BlockHeatSink extends BlockMg{
 	
 	public BlockHeatSink() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 	
 	public String[] getTextures() {

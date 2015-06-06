@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileHeater;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -20,6 +21,7 @@ public class BlockHeater extends BlockMg implements MB_Block{
 
 	public BlockHeater() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

@@ -4,12 +4,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileReactorWall;
 
 public class BlockReactorWall extends BlockMg{
 
 	public BlockReactorWall() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

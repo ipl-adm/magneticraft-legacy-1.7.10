@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 
@@ -23,6 +24,7 @@ public class BlockBasicGenerator extends BlockMg{
 
 	public BlockBasicGenerator() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

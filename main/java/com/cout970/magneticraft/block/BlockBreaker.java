@@ -9,6 +9,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBreaker;
 
 import cpw.mods.fml.relauncher.Side;
@@ -18,6 +19,7 @@ public class BlockBreaker extends BlockMg{
 	
 	public BlockBreaker() {
 		super(Material.rock);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 	
 	@SideOnly(Side.CLIENT)

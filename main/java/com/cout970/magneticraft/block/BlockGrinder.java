@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -29,12 +30,18 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 	public BlockGrinder() {
 		super(Material.iron);
 		setLightOpacity(0);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World w, int meta) {
 		return new TileGrinder();
 	}
+	
+	public boolean isOpaqueCube()
+    {
+        return false;
+    }
 
 	@Override
 	public String[] getTextures() {
@@ -85,19 +92,15 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i)
 	{
 		int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
 		if (l == 0){
 			w.setBlockMetadataWithNotify(x, y, z, 2, 2);
 		}
-
 		if (l == 1){
 			w.setBlockMetadataWithNotify(x, y, z, 5, 2);
 		}
-
 		if (l == 2){
 			w.setBlockMetadataWithNotify(x, y, z, 3, 2);
 		}
-
 		if (l == 3){
 			w.setBlockMetadataWithNotify(x, y, z, 4, 2);
 		}

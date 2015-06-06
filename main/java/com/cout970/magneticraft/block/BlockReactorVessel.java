@@ -7,6 +7,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,6 +17,7 @@ public class BlockReactorVessel extends BlockMg{
 
 	public BlockReactorVessel() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){

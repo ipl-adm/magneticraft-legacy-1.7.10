@@ -2,6 +2,8 @@ package com.cout970.magneticraft.block;
 
 import java.util.ArrayList;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EnumCreatureType;

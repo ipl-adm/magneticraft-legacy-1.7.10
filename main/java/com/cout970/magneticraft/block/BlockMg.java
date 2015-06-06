@@ -14,8 +14,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.util.CreativeTabMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,7 +27,7 @@ public abstract class BlockMg extends BlockContainer{
 	
 	public BlockMg(Material m) {
 		super(m);
-		setCreativeTab(CreativeTabMg.MgTab);
+		setCreativeTab(CreativeTabsMg.MainTab);
 		setHardness(2.0f);
 	}
 	

@@ -11,6 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.util.Orientation;
 
@@ -21,6 +22,7 @@ public class BlockDroidRED extends BlockMg{
 
 	public BlockDroidRED() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

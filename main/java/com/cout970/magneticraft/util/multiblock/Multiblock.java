@@ -9,7 +9,7 @@ public abstract class Multiblock {
 
 	public int x,y,z;//legths
 	public VecInt tran;
-	public MutableComponent[][][] matrix;
+	public Mg_Component[][][] matrix;
 	
 	public abstract void init();
 	

@@ -17,6 +17,7 @@ import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.Orientation;
@@ -31,6 +32,7 @@ public class BlockConveyorLow extends BlockMg{
 	public BlockConveyorLow() {
 		super(Material.iron);
 		setBlockBounds(0, 0, 0, 1, 5/16f, 1);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){

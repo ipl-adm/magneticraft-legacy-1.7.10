@@ -24,6 +24,7 @@ import com.cout970.magneticraft.api.electricity.IndexedConnexion;
 import com.cout970.magneticraft.api.electricity.compact.InteractionHelper;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
+import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 
 /**
  * 
@@ -188,6 +189,17 @@ public class MgUtils {
 						if(i == j)return true;
 				}
 			}
+		}
+		return false;
+	}
+
+	public static TileEntity getTileEntity(World w, VecInt v) {
+		return w.getTileEntity(v.getX(), v.getY(), v.getZ());
+	}
+
+	public static boolean contains(MgDirection[] vec, MgDirection d) {
+		for(MgDirection dir: vec){
+			if(dir == d)return true;
 		}
 		return false;
 	}

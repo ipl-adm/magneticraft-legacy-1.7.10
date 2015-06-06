@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;

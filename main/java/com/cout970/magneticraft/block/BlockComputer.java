@@ -10,6 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileComputer;
 
 import cpw.mods.fml.relauncher.Side;
@@ -19,6 +20,7 @@ public class BlockComputer extends BlockMg{
 
 	public BlockComputer() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

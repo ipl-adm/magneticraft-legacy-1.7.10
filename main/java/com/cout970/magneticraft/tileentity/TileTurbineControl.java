@@ -105,20 +105,20 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	private void search() {
 		VecInt vec = getDirection().getVecInt().getOpposite();
 		TileEntity t = MgUtils.getTileEntity(this, vec.copy().add(getDirection().opposite().step(MgDirection.UP).getVecInt()));
-		if(t instanceof TileMgTank){
-			in[0] = ((TileMgTank) t).getTank();
+		if(t instanceof TileCopperTank){
+			in[0] = ((TileCopperTank) t).getTank();
 		}
 		t = MgUtils.getTileEntity(this, vec.copy().add(getDirection().opposite().step(MgDirection.DOWN).getVecInt()));
-		if(t instanceof TileMgTank){
-			in[1] = ((TileMgTank) t).getTank();
+		if(t instanceof TileCopperTank){
+			in[1] = ((TileCopperTank) t).getTank();
 		}
 		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.UP).getVecInt()));
-		if(t instanceof TileMgTank){
-			in[2] = ((TileMgTank) t).getTank();
+		if(t instanceof TileCopperTank){
+			in[2] = ((TileCopperTank) t).getTank();
 		}
 		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.DOWN).getVecInt()));
-		if(t instanceof TileMgTank){
-			in[3] = ((TileMgTank) t).getTank();
+		if(t instanceof TileCopperTank){
+			in[3] = ((TileCopperTank) t).getTank();
 		}
 		t = MgUtils.getTileEntity(this, vec.copy().add(new VecInt(0, 1, 0)));
 		

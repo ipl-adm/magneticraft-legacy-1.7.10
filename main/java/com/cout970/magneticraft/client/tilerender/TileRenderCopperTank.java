@@ -8,10 +8,10 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 
-public class TileRenderMgTank extends TileEntitySpecialRenderer{
+public class TileRenderCopperTank extends TileEntitySpecialRenderer{
 
 	public float k = 0.002f;
 	
@@ -26,13 +26,13 @@ public class TileRenderMgTank extends TileEntitySpecialRenderer{
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
 			GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-			renderFluid((TileMgTank)te);
+			renderFluid((TileCopperTank)te);
 			GL11.glPopAttrib();
 			GL11.glPopMatrix();
 		}
 	}
 
-	private void renderFluid(TileMgTank te) {
+	private void renderFluid(TileCopperTank te) {
 		if(te.getTank() == null || te.getTank().getFluid() == null)return;
 		
 		IIcon i = te.getTank().getFluid().getFluid().getIcon();

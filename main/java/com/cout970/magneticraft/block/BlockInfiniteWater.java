@@ -5,12 +5,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileInfiniteWater;
 
 public class BlockInfiniteWater extends BlockMg{
 
 	public BlockInfiniteWater() {
 		super(Material.water);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override

@@ -122,8 +122,8 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 		VecInt vec = d.getVecInt();
 		TileEntity tile = MgUtils.getTileEntity(this, vec.copy().multiply(4));
 		
-		if(tile instanceof TileMgTank){
-			input = ((TileMgTank) tile).getTank();
+		if(tile instanceof TileCopperTank){
+			input = ((TileCopperTank) tile).getTank();
 		}
 		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.DOWN).getVecInt().getOpposite()));
 		if(tile instanceof IInventoryManaged){

@@ -10,7 +10,7 @@ import codechicken.multipart.JItemMultiPart;
 import codechicken.multipart.TMultiPart;
 
 import com.cout970.magneticraft.parts.micro.PartCableLow;
-import com.cout970.magneticraft.util.CreativeTabMg;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,7 +22,7 @@ public static final String Base = "magneticraft:";
 	public ItemPartCableLow(String unlocalizedname){
 		super();
 		setUnlocalizedName(unlocalizedname);
-		setCreativeTab(CreativeTabMg.MgTab);
+		setCreativeTab(CreativeTabsMg.MainTab);
 		setTextureName(Base+"void");
 	}
 

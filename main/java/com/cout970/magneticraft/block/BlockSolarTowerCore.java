@@ -4,12 +4,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
 
 public class BlockSolarTowerCore extends BlockMg{
 
 	public BlockSolarTowerCore() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

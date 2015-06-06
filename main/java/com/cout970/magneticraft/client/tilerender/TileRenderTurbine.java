@@ -18,7 +18,7 @@ import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelTurbine;
-import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;
@@ -100,25 +100,25 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer{
 				glPushMatrix();
 				glTranslated(0.0f, 1.5f, 2.0f);
 				if(tile.in[2] != null)
-				renderFluid((TileMgTank) tile.in[2].getParent());
+				renderFluid((TileCopperTank) tile.in[2].getParent());
 				glPopMatrix();
 
 				glPushMatrix();
 				glTranslated(0.0f, 1.5f, 0.0f);
 				if(tile.in[3] != null)
-				renderFluid((TileMgTank) tile.in[3].getParent());
+				renderFluid((TileCopperTank) tile.in[3].getParent());
 				glPopMatrix();
 
 				glPushMatrix();
 				glTranslated(1.0f, 1.5f, 2.0f);
 				if(tile.in[0] != null)
-				renderFluid((TileMgTank) tile.in[0].getParent());
+				renderFluid((TileCopperTank) tile.in[0].getParent());
 				glPopMatrix();
 
 				glPushMatrix();
 				glTranslated(1.0f, 1.5f, 0.0f);
 				if(tile.in[1] != null)
-				renderFluid((TileMgTank) tile.in[1].getParent());
+				renderFluid((TileCopperTank) tile.in[1].getParent());
 				glPopMatrix();
 
 				glDisable(GL_BLEND);
@@ -127,7 +127,7 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer{
 		}
 	}
 
-	private void renderFluid(TileMgTank te) {
+	private void renderFluid(TileCopperTank te) {
 		if(te.getTank() == null || te.getTank().getFluid() == null)return;
 		float k = 0.002f;
 		IIcon i = te.getTank().getFluid().getFluid().getIcon();

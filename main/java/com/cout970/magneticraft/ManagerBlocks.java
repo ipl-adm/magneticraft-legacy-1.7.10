@@ -24,7 +24,6 @@ import com.cout970.magneticraft.block.BlockConveyorLow;
 import com.cout970.magneticraft.block.BlockCooler;
 import com.cout970.magneticraft.block.BlockCrafter;
 import com.cout970.magneticraft.block.BlockCrusher;
-import com.cout970.magneticraft.block.BlockOilDistillery;
 import com.cout970.magneticraft.block.BlockDroidRED;
 import com.cout970.magneticraft.block.BlockElectricFurnace;
 import com.cout970.magneticraft.block.BlockElectricPoleTier1;
@@ -32,6 +31,9 @@ import com.cout970.magneticraft.block.BlockFireBox;
 import com.cout970.magneticraft.block.BlockFluidHopper;
 import com.cout970.magneticraft.block.BlockGeothermalPump;
 import com.cout970.magneticraft.block.BlockGrinder;
+import com.cout970.magneticraft.block.BlockGrindingMill;
+import com.cout970.magneticraft.block.BlockGrindingMillGap;
+import com.cout970.magneticraft.block.BlockHandCrankGenerator;
 import com.cout970.magneticraft.block.BlockHeatCable;
 import com.cout970.magneticraft.block.BlockHeatResistence;
 import com.cout970.magneticraft.block.BlockHeatSink;
@@ -43,11 +45,13 @@ import com.cout970.magneticraft.block.BlockMB_Energy_Low;
 import com.cout970.magneticraft.block.BlockMB_Energy_Medium;
 import com.cout970.magneticraft.block.BlockMB_Heat;
 import com.cout970.magneticraft.block.BlockMB_Inv;
+import com.cout970.magneticraft.block.BlockMB_Kinetic;
 import com.cout970.magneticraft.block.BlockMachineHousing;
-import com.cout970.magneticraft.block.BlockMgTank;
+import com.cout970.magneticraft.block.BlockCopperTank;
 import com.cout970.magneticraft.block.BlockMiner;
 import com.cout970.magneticraft.block.BlockMirror;
 import com.cout970.magneticraft.block.BlockMonitor;
+import com.cout970.magneticraft.block.BlockOilDistillery;
 import com.cout970.magneticraft.block.BlockOilSource;
 import com.cout970.magneticraft.block.BlockOilSourceDrained;
 import com.cout970.magneticraft.block.BlockOre;
@@ -72,6 +76,7 @@ import com.cout970.magneticraft.block.BlockTransformerLow_Medium;
 import com.cout970.magneticraft.block.BlockTransformerMedium_High;
 import com.cout970.magneticraft.block.BlockTurbine;
 import com.cout970.magneticraft.block.BlockWindTurbine;
+import com.cout970.magneticraft.block.BlockWoodenShaft;
 import com.cout970.magneticraft.tileentity.TileAirlock;
 import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.tileentity.TileBasicGenerator;
@@ -93,6 +98,8 @@ import com.cout970.magneticraft.tileentity.TileFireBox;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
 import com.cout970.magneticraft.tileentity.TileGeothermalPump;
 import com.cout970.magneticraft.tileentity.TileGrinder;
+import com.cout970.magneticraft.tileentity.TileGrindingMill;
+import com.cout970.magneticraft.tileentity.TileHandCrankGenerator;
 import com.cout970.magneticraft.tileentity.TileHeatCable;
 import com.cout970.magneticraft.tileentity.TileHeatResistance;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
@@ -105,7 +112,9 @@ import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
 import com.cout970.magneticraft.tileentity.TileMB_Heat;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
-import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tileentity.TileMB_Kinetic;
+import com.cout970.magneticraft.tileentity.TileMB_Remplaced;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
@@ -131,6 +140,7 @@ import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
 import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.tileentity.TileWindTurbineGap;
+import com.cout970.magneticraft.tileentity.TileWoodenShaft;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
@@ -211,6 +221,11 @@ public class ManagerBlocks {
 	public static Block pole_tier1;
 	public static Block droid_red;
 	public static Block oil_distillery;
+	public static Block stone_mill;
+	public static Block multi_kinetic;
+	public static Block stone_mill_gap;
+	public static Block wooden_shaft;
+	public static Block hand_crank_gen;
 	
 	
 	public static void initBlocks(){
@@ -267,7 +282,7 @@ public class ManagerBlocks {
 		refinery = new BlockRefinery();
 		refinery_gap = new BlockRefineryGap();
 		refinery_tank = new BlockRefineryTank();
-		tank_mg = new BlockMgTank();
+		tank_mg = new BlockCopperTank();
 		heater = new BlockHeater();
 		air_bubble = new BlockAirBubble();
 		solar_tower_core = new BlockSolarTowerCore();
@@ -285,6 +300,11 @@ public class ManagerBlocks {
 		pole_tier1 = new BlockElectricPoleTier1();
 		droid_red = new BlockDroidRED();
 		oil_distillery = new BlockOilDistillery();
+		stone_mill = new BlockGrindingMill();
+		stone_mill_gap = new BlockGrindingMillGap();
+		wooden_shaft = new BlockWoodenShaft();
+		hand_crank_gen = new BlockHandCrankGenerator();
+		multi_kinetic = new BlockMB_Kinetic();
 	}
 	
 	public static void registerBlocks(){
@@ -365,6 +385,11 @@ public class ManagerBlocks {
 		blocks.add(pole_tier1);
 		blocks.add(droid_red);
 		blocks.add(oil_distillery);
+		blocks.add(stone_mill);
+		blocks.add(stone_mill_gap);
+		blocks.add(wooden_shaft);
+		blocks.add(hand_crank_gen);
+		blocks.add(multi_kinetic);
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, b.getUnlocalizedName());
@@ -416,7 +441,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileInfiniteWater.class);
 		tileEntities.add(TileRefinery.class);
 		tileEntities.add(TileRefineryTank.class);
-		tileEntities.add(TileMgTank.class);
+		tileEntities.add(TileCopperTank.class);
 		tileEntities.add(TileHeater.class);
 		tileEntities.add(TileSolarTowerCore.class);
 		tileEntities.add(TilePolymerizer.class);
@@ -433,6 +458,11 @@ public class ManagerBlocks {
 		tileEntities.add(TileElectricPoleTier1.class);
 		tileEntities.add(TileDroidRED.class);
 		tileEntities.add(TileOilDistillery.class);
+		tileEntities.add(TileGrindingMill.class);
+		tileEntities.add(TileMB_Remplaced.class);
+		tileEntities.add(TileWoodenShaft.class);
+		tileEntities.add(TileHandCrankGenerator.class);
+		tileEntities.add(TileMB_Kinetic.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

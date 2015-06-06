@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import com.cout970.magneticraft.util.CreativeTabMg;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -16,7 +16,7 @@ public class ItemBasic extends Item{
 	public ItemBasic(String unlocalizedname){
 		super();
 		setUnlocalizedName(unlocalizedname);
-		setCreativeTab(CreativeTabMg.MgTab);
+		setCreativeTab(CreativeTabsMg.MainTab);
 		setTextureName(Base+unlocalizedname.toLowerCase());
 	}
 

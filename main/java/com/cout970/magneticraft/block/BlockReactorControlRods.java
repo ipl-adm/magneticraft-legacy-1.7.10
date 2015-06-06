@@ -5,6 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileReactorControlRods;
 
 import cpw.mods.fml.relauncher.Side;
@@ -14,6 +15,7 @@ public class BlockReactorControlRods extends BlockMg{
 
 	public BlockReactorControlRods() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

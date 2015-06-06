@@ -101,4 +101,20 @@ jumpLine:
 	jal setCursorPosition
 	load_ra
 	return
+	
+printInt:#args: a0 int to print
+	save_ra
+	save_s0
+	li $t0, 10
+	addi $s0, $a0, 0
+intloop:
+	divu  $s0, $t0
+	mfhi $a0
+	mflo $s0
+	addi $a0 $a0, 48
+	jal putChar
+	bne $s0, $zero, intloop
+	load_so
+	load_ra
+	return
 

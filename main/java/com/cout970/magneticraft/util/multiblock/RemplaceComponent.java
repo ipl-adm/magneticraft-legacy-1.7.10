@@ -1,39 +1,34 @@
 package com.cout970.magneticraft.util.multiblock;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.block.BlockMg;
 
-public class MutableComponent {
+public class RemplaceComponent extends Mg_Component{
+	
+	public Block origin;
+	private Block remplace;
 
-	public List<Block> blocks = new ArrayList<Block>();
-	
-	public MutableComponent(Block b){
-		blocks.add(b);
-	}
-	
-	public MutableComponent(Block a, Block b) {
-		blocks.add(a);
-		blocks.add(b);
-	}
-	
-	public MutableComponent(Block... a) {
-		for(Block b : a)
-		blocks.add(b);
+	public RemplaceComponent(Block or, Block re) {
+		origin = or;
+		remplace = re;
 	}
 
 	public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
-		if(!blocks.contains(t)){
-			if(Magneticraft.DEBUG)w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), blocks.get(0));
+		if(!Block.isEqualTo(origin, t)){
+			if(Magneticraft.DEBUG)w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), origin);
 			return false;
 		}
 		return true;
@@ -42,6 +37,10 @@ public class MutableComponent {
 	public void establish(World w, VecInt p, int x, int y, int z,Multiblock c, MgDirection e, int meta) {
 		VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 		Block t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
+		int metadata = w.getBlockMetadata(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
+		ArrayList<ItemStack> drops = t.getDrops(w, te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), metadata, 0);
+		w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), remplace);
+		t = w.getBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ());
 		if(t instanceof MB_Block){
 			((MB_Block) t).mutates(w,new VecInt(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
 		}
@@ -51,6 +50,9 @@ public class MutableComponent {
 			((MB_Tile) tile).setDirection(e);
 			((MB_Tile) tile).setMultiblock(c);
 			((MB_Tile) tile).onActivate(w,p,c,e);
+		}
+		if(tile instanceof MB_Tile_Remplaced){
+			((MB_Tile_Remplaced) tile).setDrops(drops);
 		}
 	}
 
@@ -67,11 +69,14 @@ public class MutableComponent {
 		if(t instanceof MB_Block){
 			((MB_Block) t).destroy(w,new VecInt(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ()),c,e);
 		}
+		if(!Block.isEqualTo(t, Blocks.air)){
+			w.setBlock(te.getX()+p.getX(), te.getY()+p.getY(), te.getZ()+p.getZ(), origin);
+		}
 	}
 
 	public String getErrorMesage(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 		VecInt k = c.translate(w, p, x, y, z, c, e, meta).add(p);
-		return "Error in " + k.getX() + " " + k.getY() + " " + k.getZ() +" with the block: "+blocks.get(0).getLocalizedName();
+		return "Error in " + k.getX() + " " + k.getY() + " " + k.getZ() +" with the block: "+origin.getLocalizedName();
 	}
 
 }

@@ -21,9 +21,12 @@ import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
+import com.cout970.magneticraft.util.multiblock.Mg_Component;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.MutableComponent;
+import com.cout970.magneticraft.util.multiblock.RemplaceComponent;
+import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
 public class RenderUtil {
 
@@ -171,21 +174,94 @@ public class RenderUtil {
 		for (int j = 0; j < q[1]; j++) {
 			for (int k = 0; k < q[2]; k++) {
 				for (int i = 0; i < q[0]; i++) {
-					MutableComponent mut = mb.matrix[i][j][k];
+					Mg_Component mut = mb.matrix[i][j][k];
 					VecInt rot = mb.translate(t.getWorldObj(), new VecInt(t.xCoord, t.yCoord, t.zCoord), i, j, k, mb, tile.getDirection(), meta);
-					glPushMatrix();
-					GL11.glTranslatef(0.5f+p*rot.getX(), 0.5f+p*rot.getY(), 0.5f+p*rot.getZ());
-					if(mut.blocks.get(0) != Blocks.air){
-						tess.startDrawingQuads();
-						RenderUtil.renderBlock(mut.blocks.get(0), 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
-						tess.draw();
+					if(mut instanceof SimpleComponent){
+						SimpleComponent comp = (SimpleComponent) mut;
+						glPushMatrix();
+						GL11.glTranslatef(0.5f+p*rot.getX(), 0.5f+p*rot.getY(), 0.5f+p*rot.getZ());
+						if(comp.blocks.get(0) != Blocks.air){
+							tess.startDrawingQuads();
+							RenderUtil.renderBlock(comp.blocks.get(0), 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
+							tess.draw();
+						}
+						glPopMatrix();
+					}else if(mut instanceof RemplaceComponent){
+						RemplaceComponent comp = (RemplaceComponent) mut;
+						glPushMatrix();
+						GL11.glTranslatef(0.5f+p*rot.getX(), 0.5f+p*rot.getY(), 0.5f+p*rot.getZ());
+						if(comp.origin != Blocks.air){
+							tess.startDrawingQuads();
+							if(isSlab(comp.origin)){
+								RenderUtil.renderSlab(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
+							}else{
+								RenderUtil.renderBlock(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
+							}
+							tess.draw();
+						}
+						glPopMatrix();
 					}
-					glPopMatrix();
 				}
 			}
 		}
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPopMatrix();
+	}
+
+	private static void renderSlab(Block b, int meta, int x, int y, int z, World worldObj) {
+		renderFaceDown(b.getIcon(0, meta),x,y,z);
+		renderFaceUp_Slab(b.getIcon(0, meta),x,y,z);
+		renderFaceNorth_Slab(b.getIcon(2, meta),x,y,z);
+		renderFaceSouth_Slab(b.getIcon(3, meta),x,y,z);
+		renderFaceWest_Slab(b.getIcon(4, meta),x,y,z);
+		renderFaceEast_Slab(b.getIcon(5, meta),x,y,z);
+	}
+
+	private static void renderFaceUp_Slab(IIcon i, int x, int y, int z) {
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y+0.5,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y+0.5,z+1, i.getInterpolatedU(0), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y+0.5,z+1, i.getInterpolatedU(16), i.getInterpolatedV(16));
+		t.addVertexWithUV(x+1,y+0.5,z, i.getInterpolatedU(16), i.getInterpolatedV(0));
+	}
+	
+	public static void renderFaceNorth_Slab(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y,z+1, i.getInterpolatedU(8), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y+0.5,z+1, i.getInterpolatedU(8), i.getInterpolatedV(8));	
+		t.addVertexWithUV(x,y+0.5,z, i.getInterpolatedU(0), i.getInterpolatedV(8));
+		t.addVertexWithUV(x,y,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceSouth_Slab(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		
+		t.addVertexWithUV(x+1,y+0.5,z, i.getInterpolatedU(8), i.getInterpolatedV(8));
+		t.addVertexWithUV(x+1,y+0.5,z+1, i.getInterpolatedU(0), i.getInterpolatedV(8));
+		t.addVertexWithUV(x+1,y,z+1, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x+1,y,z, i.getInterpolatedU(8), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceWest_Slab(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y,z, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x,y+0.5,z, i.getInterpolatedU(0), i.getInterpolatedV(8));
+		t.addVertexWithUV(x+1,y+0.5,z, i.getInterpolatedU(8), i.getInterpolatedV(8));
+		t.addVertexWithUV(x+1,y,z, i.getInterpolatedU(8), i.getInterpolatedV(0));
+	}
+
+	public static void renderFaceEast_Slab(IIcon i, int x, int y, int z){
+		Tessellator t = Tessellator.instance;
+		t.addVertexWithUV(x,y,z+1, i.getInterpolatedU(8), i.getInterpolatedV(0));
+		t.addVertexWithUV(x+1,y,z+1, i.getInterpolatedU(0), i.getInterpolatedV(0));
+		t.addVertexWithUV(x+1,y+0.5,z+1, i.getInterpolatedU(0), i.getInterpolatedV(8));
+		t.addVertexWithUV(x,y+0.5,z+1, i.getInterpolatedU(8), i.getInterpolatedV(8));
+	}
+
+	private static boolean isSlab(Block b) {
+		if(b == Blocks.stone_slab)return true;
+		if(b == Blocks.wooden_slab)return true;
+		return false;
 	}
 }

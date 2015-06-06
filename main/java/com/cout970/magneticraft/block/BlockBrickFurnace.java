@@ -10,6 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
 
 import cpw.mods.fml.relauncher.Side;
@@ -19,6 +20,7 @@ public class BlockBrickFurnace extends BlockMg{
 
 	public BlockBrickFurnace() {
 		super(Material.rock);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 
 	@Override

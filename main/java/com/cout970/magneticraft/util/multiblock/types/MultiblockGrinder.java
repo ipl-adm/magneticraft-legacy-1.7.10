@@ -7,24 +7,25 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
+import com.cout970.magneticraft.util.multiblock.Mg_Component;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.MutableComponent;
+import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
 public class MultiblockGrinder extends Multiblock{
 
 	@Override
 	public void init() {
-		MutableComponent a = new MutableComponent(Blocks.air){
+		SimpleComponent a = new SimpleComponent(Blocks.air){
 			public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e) {
 				return true;
 			}
 		};
-		MutableComponent i = new MutableComponent(ManagerBlocks.multi_io);
-		MutableComponent e = new MutableComponent(ManagerBlocks.multi_energy_low);
-		MutableComponent b = new MutableComponent(ManagerBlocks.chasis);
-		MutableComponent gc = new MutableComponent(ManagerBlocks.grinder);
+		SimpleComponent i = new SimpleComponent(ManagerBlocks.multi_io);
+		SimpleComponent e = new SimpleComponent(ManagerBlocks.multi_energy_low);
+		SimpleComponent b = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent gc = new SimpleComponent(ManagerBlocks.grinder);
 
-		MutableComponent[][][] m = 
+		Mg_Component[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0
 				{ { b, b, b }, { b, b, b }, { b, b, b } },
 				{ { b, gc, b}, { e, a, e }, { b, i, b } },

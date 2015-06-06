@@ -12,7 +12,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
@@ -23,15 +24,16 @@ import com.cout970.magneticraft.util.multiblock.types.MultiblockTurbine;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMgTank extends BlockMg implements MB_Block{
+public class BlockCopperTank extends BlockMg implements MB_Block{
 
-	public BlockMgTank() {
+	public BlockCopperTank() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World w, int m) {
-		return new TileMgTank();
+		return new TileCopperTank();
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class BlockMgTank extends BlockMg implements MB_Block{
 
 			FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
 
-			TileMgTank tank = (TileMgTank) world.getTileEntity(i, j, k);
+			TileCopperTank tank = (TileCopperTank) world.getTileEntity(i, j, k);
 
 			// Handle filled containers
 			if (liquid != null) {

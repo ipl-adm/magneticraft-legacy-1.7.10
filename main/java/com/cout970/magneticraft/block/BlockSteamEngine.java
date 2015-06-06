@@ -10,6 +10,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 
 import cpw.mods.fml.relauncher.Side;
@@ -19,6 +20,7 @@ public class BlockSteamEngine extends BlockMg{
 
 	public BlockSteamEngine() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

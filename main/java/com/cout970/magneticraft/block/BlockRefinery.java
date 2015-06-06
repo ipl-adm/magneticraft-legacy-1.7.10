@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -29,6 +30,7 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 	public BlockRefinery() {
 		super(Material.iron);
 		setLightOpacity(0);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override

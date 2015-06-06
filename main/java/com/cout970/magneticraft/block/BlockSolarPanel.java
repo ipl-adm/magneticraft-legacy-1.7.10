@@ -5,6 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileSolarPanel;
 
 import cpw.mods.fml.relauncher.Side;
@@ -15,6 +16,7 @@ public class BlockSolarPanel extends BlockMg{
 	public BlockSolarPanel() {
 		super(Material.iron);
 		setBlockBounds(0, 0, 0, 1f, 4/16f, 1f);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	public boolean renderAsNormalBlock()

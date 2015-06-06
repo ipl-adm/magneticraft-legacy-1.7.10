@@ -32,16 +32,17 @@ import com.cout970.magneticraft.client.itemrenderer.ItemRenderTransformerMH;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderWireCopper;
 import com.cout970.magneticraft.client.tilerender.TileRenderCombustionEngine;
 import com.cout970.magneticraft.client.tilerender.TileRenderConveyorBelt;
+import com.cout970.magneticraft.client.tilerender.TileRenderCopperTank;
 import com.cout970.magneticraft.client.tilerender.TileRenderCrusher;
 import com.cout970.magneticraft.client.tilerender.TileRenderDroidRED;
 import com.cout970.magneticraft.client.tilerender.TileRenderElectricPolrTier1;
 import com.cout970.magneticraft.client.tilerender.TileRenderFluidHopper;
 import com.cout970.magneticraft.client.tilerender.TileRenderGrinder;
+import com.cout970.magneticraft.client.tilerender.TileRenderGrindingMill;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatCable;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatSink;
 import com.cout970.magneticraft.client.tilerender.TileRenderInserter;
 import com.cout970.magneticraft.client.tilerender.TileRenderKineticGenerator;
-import com.cout970.magneticraft.client.tilerender.TileRenderMgTank;
 import com.cout970.magneticraft.client.tilerender.TileRenderMirror;
 import com.cout970.magneticraft.client.tilerender.TileRenderMonitor;
 import com.cout970.magneticraft.client.tilerender.TileRenderOilDistillery;
@@ -58,18 +59,20 @@ import com.cout970.magneticraft.client.tilerender.TileRenderTransformerLow_Mediu
 import com.cout970.magneticraft.client.tilerender.TileRenderTransformer_MH;
 import com.cout970.magneticraft.client.tilerender.TileRenderTurbine;
 import com.cout970.magneticraft.client.tilerender.TileRenderWindTurbine;
+import com.cout970.magneticraft.client.tilerender.TileRenderWoodenShaft;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.tileentity.TileCrusher;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
 import com.cout970.magneticraft.tileentity.TileGrinder;
+import com.cout970.magneticraft.tileentity.TileGrindingMill;
 import com.cout970.magneticraft.tileentity.TileHeatCable;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
-import com.cout970.magneticraft.tileentity.TileMgTank;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
@@ -86,6 +89,7 @@ import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
 import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
+import com.cout970.magneticraft.tileentity.TileWoodenShaft;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 
@@ -137,7 +141,7 @@ public class ClientProxy implements IProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHeatCable.class,new TileRenderHeatCable());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileConveyorBelt.class,new TileRenderConveyorBelt());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRefinery.class,new TileRenderRefinery());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileMgTank.class,new TileRenderMgTank());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileCopperTank.class,new TileRenderCopperTank());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCombustionEngine.class,new TileRenderCombustionEngine());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileHeatSink.class,new TileRenderHeatSink());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class,new TileRenderGrinder());
@@ -149,5 +153,7 @@ public class ClientProxy implements IProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleTier1.class,new TileRenderElectricPolrTier1());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileDroidRED.class,new TileRenderDroidRED());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileOilDistillery.class,new TileRenderOilDistillery());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileGrindingMill.class,new TileRenderGrindingMill());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileWoodenShaft.class,new TileRenderWoodenShaft());
 	}
 }

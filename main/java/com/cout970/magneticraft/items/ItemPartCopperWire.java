@@ -18,7 +18,7 @@ import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_North;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_South;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Up;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_West;
-import com.cout970.magneticraft.util.CreativeTabMg;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,7 +30,7 @@ public static final String Base = "magneticraft:";
 	public ItemPartCopperWire(String unlocalizedname){
 		super();
 		setUnlocalizedName(unlocalizedname);
-		setCreativeTab(CreativeTabMg.MgTab);
+		setCreativeTab(CreativeTabsMg.MainTab);
 		setTextureName(Base+"void");
 	}
 

@@ -11,6 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 
 import cpw.mods.fml.relauncher.Side;
@@ -20,6 +21,7 @@ public class BlockKineticGenerator extends BlockMg{
 
 	public BlockKineticGenerator() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
@@ -64,21 +66,17 @@ public class BlockKineticGenerator extends BlockMg{
     }
 	
 	public static int determineOrientation(World w, int x, int y, int z, EntityLivingBase p){
-        if (MathHelper.abs((float)p.posX - (float)x) < 2.0F && MathHelper.abs((float)p.posZ - (float)z) < 2.0F)
-        {
+        if (MathHelper.abs((float)p.posX - (float)x) < 2.0F && MathHelper.abs((float)p.posZ - (float)z) < 2.0F) {
             double d0 = p.posY + 1.82D - (double)p.yOffset;
 
-            if (d0 - (double)y > 2.0D)
-            {
+            if (d0 - (double)y > 2.0D){
                 return 1;
             }
 
-            if ((double)y - d0 > 0.0D)
-            {
+            if ((double)y - d0 > 0.0D){
                 return 0;
             }
         }
-
         int l = MathHelper.floor_double((double)(p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         return l == 0 ? 2 : (l == 1 ? 5 : (l == 2 ? 3 : (l == 3 ? 4 : 0)));
     }

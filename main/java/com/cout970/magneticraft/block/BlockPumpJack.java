@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 
 import cpw.mods.fml.relauncher.Side;
@@ -22,6 +23,7 @@ public class BlockPumpJack extends BlockMg{
 
 	public BlockPumpJack() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 	
 	@SideOnly(Side.CLIENT)

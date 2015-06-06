@@ -7,6 +7,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileGeothermalPump;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,6 +17,7 @@ public class BlockGeothermalPump extends BlockMg{
 
 	public BlockGeothermalPump() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){

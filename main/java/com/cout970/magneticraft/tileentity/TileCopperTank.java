@@ -10,7 +10,7 @@ import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.fluid.TankMg;
 
-public class TileMgTank extends TileMB_Base implements IFluidHandler1_8{
+public class TileCopperTank extends TileMB_Base implements IFluidHandler1_8{
 
 	private TankMg tank = new TankMg(this, 16000);
 	public CubeRenderer_Util CubeRenderer;

@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.util.CreativeTabMg;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -25,7 +25,7 @@ public abstract class BlockFluidClasicMg extends BlockFluidClassic{
 	
 	public BlockFluidClasicMg(Fluid fluid, Material material) {
 		super(fluid, material);
-		setCreativeTab(CreativeTabMg.MgTab);
+		setCreativeTab(CreativeTabsMg.MainTab);
 		setBlockName("mg_"+getName()+"_block");
 	}
 	

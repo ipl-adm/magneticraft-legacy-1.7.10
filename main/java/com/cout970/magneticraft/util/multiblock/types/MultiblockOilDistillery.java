@@ -4,7 +4,7 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.MutableComponent;
+import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
 public class MultiblockOilDistillery  extends Multiblock{
 
@@ -15,13 +15,13 @@ public class MultiblockOilDistillery  extends Multiblock{
 
 	@Override
 	public void init() {
-		MutableComponent r = new MutableComponent(ManagerBlocks.oil_distillery);
-		MutableComponent v = new MutableComponent(ManagerBlocks.refinery_gap);
-		MutableComponent h = new MutableComponent(ManagerBlocks.refinery_tank);
-		MutableComponent c = new MutableComponent(ManagerBlocks.multi_energy_low);
-		MutableComponent b = new MutableComponent(ManagerBlocks.chasis);
+		SimpleComponent r = new SimpleComponent(ManagerBlocks.oil_distillery);
+		SimpleComponent v = new SimpleComponent(ManagerBlocks.refinery_gap);
+		SimpleComponent h = new SimpleComponent(ManagerBlocks.refinery_tank);
+		SimpleComponent c = new SimpleComponent(ManagerBlocks.multi_energy_low);
+		SimpleComponent b = new SimpleComponent(ManagerBlocks.chasis);
 		
-		MutableComponent[][][] m = 
+		SimpleComponent[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0
 				{ { b, b, b }, { b, b, b }, { c, b, c } },
 				{ { b, r, b }, { v, v, v }, { v, h, v } },

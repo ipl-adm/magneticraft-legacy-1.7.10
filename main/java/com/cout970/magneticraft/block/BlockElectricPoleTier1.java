@@ -9,12 +9,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 
 public class BlockElectricPoleTier1 extends BlockMg{
 
 	public BlockElectricPoleTier1() {
 		super(Material.wood);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override

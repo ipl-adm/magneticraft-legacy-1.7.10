@@ -15,6 +15,7 @@ import buildcraft.api.tools.IToolWrench;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileCrusher;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -29,6 +30,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 
 	public BlockCrusher() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override

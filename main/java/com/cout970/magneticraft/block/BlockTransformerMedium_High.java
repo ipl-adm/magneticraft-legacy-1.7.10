@@ -8,6 +8,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
 
 import cpw.mods.fml.relauncher.Side;
@@ -17,6 +18,7 @@ public class BlockTransformerMedium_High extends BlockMg{
 
 	public BlockTransformerMedium_High() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

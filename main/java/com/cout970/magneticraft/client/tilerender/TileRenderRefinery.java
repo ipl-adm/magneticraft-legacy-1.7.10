@@ -12,7 +12,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.model.ModelRefinery;
 import com.cout970.magneticraft.client.model.ModelRefineryTank;
-import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import com.cout970.magneticraft.util.CubeRenderer_Util;

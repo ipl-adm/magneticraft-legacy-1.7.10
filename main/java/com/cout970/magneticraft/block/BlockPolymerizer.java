@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -28,6 +29,7 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock{
 
 	public BlockPolymerizer() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override

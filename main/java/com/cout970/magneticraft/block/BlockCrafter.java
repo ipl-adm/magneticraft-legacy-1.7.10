@@ -7,6 +7,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileCrafter;
 
 import cpw.mods.fml.relauncher.Side;
@@ -16,6 +17,7 @@ public class BlockCrafter extends BlockMg{
 
 	public BlockCrafter() {
 		super(Material.iron);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

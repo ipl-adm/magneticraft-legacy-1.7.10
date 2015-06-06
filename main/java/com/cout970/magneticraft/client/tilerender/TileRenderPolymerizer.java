@@ -9,7 +9,7 @@ import net.minecraft.util.IIcon;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelPolymerizer;
-import com.cout970.magneticraft.tileentity.TileMgTank;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;
@@ -61,14 +61,14 @@ public class TileRenderPolymerizer extends TileEntitySpecialRenderer{
 				GL11.glDisable(GL11.GL_LIGHTING);
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				renderFluid((TileMgTank)tile.input.getParent());
+				renderFluid((TileCopperTank)tile.input.getParent());
 				GL11.glPopAttrib();
 			}
 			GL11.glPopMatrix();
 		}
 	}
 	
-	private void renderFluid(TileMgTank te) {
+	private void renderFluid(TileCopperTank te) {
 		if(te.getTank() == null || te.getTank().getFluid() == null)return;
 		float k = 0.002f;
 		IIcon i = te.getTank().getFluid().getFluid().getIcon();

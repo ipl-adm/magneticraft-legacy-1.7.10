@@ -8,25 +8,25 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.MutableComponent;
+import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
 public class MultiblockPolymerizer extends Multiblock{
 
 	@Override
 	public void init() {
-		MutableComponent a = new MutableComponent(Blocks.air){
+		SimpleComponent a = new SimpleComponent(Blocks.air){
 			public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e) {
 				return true;
 			}
 		};
-		MutableComponent i = new MutableComponent(ManagerBlocks.multi_io);
-		MutableComponent e = new MutableComponent(ManagerBlocks.multi_energy_low);
-		MutableComponent b = new MutableComponent(ManagerBlocks.chasis);
-		MutableComponent t = new MutableComponent(ManagerBlocks.tank_mg);
-		MutableComponent ht = new MutableComponent(ManagerBlocks.heater);
-		MutableComponent d = new MutableComponent(ManagerBlocks.polimerizer);
+		SimpleComponent i = new SimpleComponent(ManagerBlocks.multi_io);
+		SimpleComponent e = new SimpleComponent(ManagerBlocks.multi_energy_low);
+		SimpleComponent b = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent t = new SimpleComponent(ManagerBlocks.tank_mg);
+		SimpleComponent ht = new SimpleComponent(ManagerBlocks.heater);
+		SimpleComponent d = new SimpleComponent(ManagerBlocks.polimerizer);
 
-		MutableComponent[][][] m =
+		SimpleComponent[][][] m =
 			{
 				{ { b, b, b }, { b, b, b }, { b, b, b }, { b, b, b }, { b, b, b } },
 				{ { b, d, b }, { i, a, i }, { b, a, b }, { e, ht,e }, { b, t, b } },

@@ -4,18 +4,18 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.MutableComponent;
+import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
 public class MultiblockTurbine extends Multiblock{
 
 	@Override
 	public void init() {
-		MutableComponent c = new MutableComponent(ManagerBlocks.tank_mg);
-		MutableComponent b = new MutableComponent(ManagerBlocks.multi_energy_medium);
-		MutableComponent d = new MutableComponent(ManagerBlocks.chasis);
-		MutableComponent e = new MutableComponent(ManagerBlocks.turbine);
+		SimpleComponent c = new SimpleComponent(ManagerBlocks.tank_mg);
+		SimpleComponent b = new SimpleComponent(ManagerBlocks.multi_energy_medium);
+		SimpleComponent d = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent e = new SimpleComponent(ManagerBlocks.turbine);
 
-		MutableComponent[][][] m = 
+		SimpleComponent[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0
 				{ { d, d, d }, { d, d, d }, { d, d, d }, { d, d, d }, { d, d, d }},
 				{ { d, e, d }, { c, d, c }, { c, d, c }, { d, d, d }, { d, d, d } },

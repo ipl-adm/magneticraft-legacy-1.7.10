@@ -6,7 +6,7 @@ main:
 	jal clearScreen
 	li $a0, 0
 	jal setCursorPosition
-	jal loadDisk
+	#jal loadDisk
 	jal jumpLine
 	
 loop:

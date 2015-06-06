@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.util;
+package com.cout970.magneticraft.tabs;
 
 import com.cout970.magneticraft.ManagerItems;
 
@@ -8,22 +8,20 @@ import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class CreativeTabMg extends CreativeTabs{
-	
-	public static final CreativeTabMg MgTab = new CreativeTabMg("Magneticraft");
+public class CreativeTabSteam extends CreativeTabs{
 
-	public CreativeTabMg(String s) {
+	public CreativeTabSteam(String s) {
 		super(s);
 	}
 
 	@Override
 	public Item getTabIconItem() {
-		return ManagerItems.volt;
+		return ManagerItems.wrench;
 	}
 
 	@SideOnly(Side.CLIENT)
-    public String getTranslatedTabLabel()
-    {
-        return "Magneticraft";
-    }
+	public String getTranslatedTabLabel()
+	{
+		return "Magneticraft Steam Age";
+	}
 }

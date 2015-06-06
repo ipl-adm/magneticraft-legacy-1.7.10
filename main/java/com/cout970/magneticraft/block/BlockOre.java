@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.util.CreativeTabMg;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class BlockOre extends Block{
 
@@ -22,7 +22,7 @@ public class BlockOre extends Block{
 		name = n;
 		setHardness(1.5f);
 		setBlockTextureName("magneticraft:"+name);
-		setCreativeTab(CreativeTabMg.MgTab);
+		setCreativeTab(CreativeTabsMg.MainTab);
 	}
 	
 	public String getUnlocalizedName(){

@@ -2,8 +2,10 @@ package com.cout970.magneticraft.api.kinetic;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class KineticGenerator extends KineticConductor{
+public class KineticGenerator extends KineticConductor implements IKineticController{
 
+	private boolean update = false;
+	
 	public KineticGenerator(TileEntity p) {
 		super(p);
 		type = KineticType.Generator;
@@ -16,8 +18,17 @@ public class KineticGenerator extends KineticConductor{
 			net = new KineticNetwork(this);
 			net.findComponents();
 		}
-		if(net.world.getWorldTime() % 20 == 0){
-			net.findComponents();
-		}
+		if(!update){
+			if(net.world.getWorldTime() % 20 == 0){
+				net.findComponents();
+				net.ajustRotation(rotation);
+				net.preventUpdates();
+			}
+		}else update = false;
+	}
+
+	@Override
+	public void preventUpdate() {
+		update = true;
 	}
 }

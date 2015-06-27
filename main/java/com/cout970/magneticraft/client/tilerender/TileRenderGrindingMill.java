@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelGrindingMill;
 import com.cout970.magneticraft.tileentity.TileGrindingMill;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -57,15 +58,13 @@ public class TileRenderGrindingMill extends TileEntitySpecialRenderer{
 			default: break;
 			}
 			if(tile.kinetic != null){
-				float var0 = (float) (tile.kinetic.getSpeed()/60);
-				int var1 = (int) (var0 != 0 ? 1000f/var0 : 0);
-				if(var1 != 0){
-					tile.rotation = (float) (System.currentTimeMillis()%var1)*var0;
-				}
+				float f = (float) (tile.kinetic.getRotation() + (tile.kinetic.getSpeed()/60)*tile.kinetic.getDelta());
+				if(f > 1000)f %= 1000;
+				tile.kinetic.setRotation(f);
 			}
 			RenderUtil.bindTexture(ModelTextures.GRINDING_MILL);
 			model.renderStatic(0.0625f);
-			model.renderDynamic(0.0625f, (float) Math.toRadians(tile.rotation*360/1000f));
+			model.renderDynamic(0.0625f, (float) Math.toRadians(tile.kinetic == null ? 0 : tile.kinetic.getRotation()*0.36));
 			glPopMatrix();
 		}
 	}

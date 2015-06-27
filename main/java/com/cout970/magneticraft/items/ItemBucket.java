@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.handlers.HandlerBuckets;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 
 public class ItemBucket extends ItemBasic{
@@ -19,6 +20,7 @@ public class ItemBucket extends ItemBasic{
 		super(unlocalizedname);
 		this.fluid = fluid;
 		setMaxStackSize(1);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 	
 	public ItemStack onItemRightClick(ItemStack i, World w, EntityPlayer p)

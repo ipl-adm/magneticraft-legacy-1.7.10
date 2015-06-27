@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 
 import com.cout970.magneticraft.api.acces.IThermopileDecay;
-import com.cout970.magneticraft.api.acces.MgRegister;
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.ThermopileFuel;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileThermopile extends TileConductorLow{
+public class TileThermopile extends TileConductorLow implements IGuiSync{
 
-	private int ticks;
-	private double diff;
+	public int ticks;
+	public double diff;
+	public int tempHot;
+	public int tempCold;
 
 	@Override
 	public IElectricConductor initConductor() {
@@ -29,7 +34,7 @@ public class TileThermopile extends TileConductorLow{
 		super.updateEntity();
 		
 		if(worldObj.isRemote)return;
-		if (this.cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE){
+		if (this.cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()){
 
 			++this.ticks;
 			if (this.ticks > 20)
@@ -37,12 +42,17 @@ public class TileThermopile extends TileConductorLow{
 				this.ticks = 0;
 				this.updateTemps();
 			}
-			this.cond.applyPower(diff);
+			this.cond.applyPower(getCurrentFromDiff());
 		}
+	}
+	
+	public double getCurrentFromDiff(){
+		return diff;
 	}
 
 	private void updateTemps() {
-		double tempHot = 0,tempCold = 0;
+		tempHot = 0;
+		tempCold = 0;
 		List<BlockInfo> list = new ArrayList<BlockInfo>();
 		for(MgDirection d : MgDirection.VALID_DIRECTIONS){
 			Block bl = worldObj.getBlock(xCoord+d.getOffsetX(), yCoord+d.getOffsetY(), zCoord+d.getOffsetZ());
@@ -53,20 +63,38 @@ public class TileThermopile extends TileConductorLow{
 			tempCold += getCold(b);		
 		}
 		diff = Math.min(tempHot, tempCold);
-		for(IThermopileDecay t : MgRegister.ThermopileDecais){
+		for(IThermopileDecay t : MgRecipeRegister.thermopileDecais){
 			t.onCheck(worldObj, list, tempHot, tempCold);
 		}
 	}
 
 	public double getHeat(BlockInfo b){
-		for(ThermopileFuel f : MgRegister.ThermopileSources)
+		for(ThermopileFuel f : MgRecipeRegister.thermopileSources)
 			if(f.heat && f.source.equals(b))return f.temp;
 		return 0;
 	}
 
 	public double getCold(BlockInfo b){
-		for(ThermopileFuel f : MgRegister.ThermopileSources)
+		for(ThermopileFuel f : MgRecipeRegister.thermopileSources)
 			if(!f.heat && f.source.equals(b))return f.temp;
 		return 0;
+	}
+
+	@Override
+	public void sendGUINetworkData(Container cont, ICrafting craft) {
+		craft.sendProgressBarUpdate(cont, 0, (int)diff*1000);
+		craft.sendProgressBarUpdate(cont, 1, tempHot);
+		craft.sendProgressBarUpdate(cont, 2, tempCold);
+	}
+
+	@Override
+	public void getGUINetworkData(int id, int value) {
+		if(id == 0)diff = value/1000d; 
+		else if(id == 1)tempHot = value; 
+		else if(id == 2)tempCold = value;
+	}
+
+	public double getMaxCurrentFromDiff() {
+		return 200;
 	}
 }

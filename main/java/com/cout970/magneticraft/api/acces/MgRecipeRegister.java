@@ -3,6 +3,9 @@ package com.cout970.magneticraft.api.acces;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.ThermopileFuel;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -13,10 +16,17 @@ import net.minecraftforge.fluids.FluidStack;
  */
 public class MgRecipeRegister {
 
-	public static List<RecipeRefinery> refinery = new ArrayList<RecipeRefinery>();
+	//solids
 	public static List<RecipeCrusher> crusher = new ArrayList<RecipeCrusher>();
 	public static List<RecipeGrinder> grinder = new ArrayList<RecipeGrinder>();
-	public static List<RecipeOilDistillery> oil_distillery = new ArrayList<RecipeOilDistillery>();
+	public static List<ThermopileFuel> thermopileSources = new ArrayList<ThermopileFuel>();
+	public static List<IThermopileDecay> thermopileDecais = new ArrayList<IThermopileDecay>();
+	public static List<RecipeBiomassBurner> biomassBurner = new ArrayList<RecipeBiomassBurner>();
+	//fluids
+	public static List<RecipeRefinery> refinery = new ArrayList<RecipeRefinery>();
+	public static List<RecipeOilDistillery> oilDistillery = new ArrayList<RecipeOilDistillery>();
+	
+	
 	
 	public static boolean registerCrusherRecipe(ItemStack in, ItemStack out0, ItemStack out1, int prob1, ItemStack out2, int prob2){
 		if(in == null || out0 == null)return false;
@@ -51,10 +61,48 @@ public class MgRecipeRegister {
 	public static boolean registerOilDistilleryRecipe(FluidStack in, FluidStack out, double cost){
 		if(in == null || out == null)return false;
 		RecipeOilDistillery recipe = new RecipeOilDistillery(in, out, cost);
-		if(!oil_distillery.contains(recipe)){
-			oil_distillery.add(recipe);
+		if(!oilDistillery.contains(recipe)){
+			oilDistillery.add(recipe);
 			return true;
 		}
 		return false;
+	}
+
+	
+
+	public static boolean addBiomassBurnerRecipe(ItemStack item,int burnTime, boolean ignoreNBT){
+		if(item == null && burnTime <= 0)return false;
+		RecipeBiomassBurner r = new RecipeBiomassBurner(item, burnTime, !ignoreNBT);
+		if(!biomassBurner.contains(r)){
+			biomassBurner.add(r);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @param b block that interact
+	 * @param temp heat or cold value, negatives values are not allowed
+	 * @param heat true if is heat registration or false if is cold
+	 * @return true if the register work
+	 */
+	public static boolean addThermopileSource(BlockInfo b,double temp,boolean heat){
+		if(b == null || temp == 0)return false;
+		if(temp < 0)return false;
+		ThermopileFuel f = new ThermopileFuel(b, temp, heat);
+		if(!thermopileSources.contains(f)){
+			thermopileSources.add(f);
+		}
+		return true;
+	}
+
+	/**
+	 * @param t thermopile listener 
+	 * @return false if the registry fails
+	 */
+	public static boolean addThermopileDecay(IThermopileDecay t){
+		if(t == null || thermopileDecais.contains(t))return false;
+		thermopileDecais.add(t);
+		return true;
 	}
 }

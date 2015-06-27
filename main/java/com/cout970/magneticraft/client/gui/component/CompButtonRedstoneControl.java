@@ -3,6 +3,8 @@ package com.cout970.magneticraft.client.gui.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -26,6 +28,7 @@ public class CompButtonRedstoneControl implements IGuiComp{
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 		if(tile instanceof TileBase){
+			GL11.glColor4f(1, 1, 1, 1);
 			int i = ((TileBase) tile).redstone == RedstoneControl.DISBLE ? 0 : ((TileBase) tile).redstone == RedstoneControl.INVERSE ? 18 : 36;
 			RenderUtil.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/button_rs.png"));
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y, 0, i, 18, 18, 18, 54);

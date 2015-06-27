@@ -12,6 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.google.common.collect.Multimap;
 
 import cpw.mods.fml.relauncher.Side;
@@ -22,8 +23,9 @@ public class ItemElectricSword extends ItemCharged{
 	public static int CHARGE_PER_HIT = 1000;
 
 	public ItemElectricSword(String unlocalizedname) {
-		super(unlocalizedname,120000);
+		super(unlocalizedname,200000);
 		setMaxStackSize(1);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

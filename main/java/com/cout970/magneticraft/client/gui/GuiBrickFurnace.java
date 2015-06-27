@@ -10,6 +10,8 @@ import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
+import com.cout970.magneticraft.tileentity.TileBiomassBurner;
+import com.cout970.magneticraft.tileentity.TileBrickFurnace;
 
 public class GuiBrickFurnace extends GuiBasic{
 
@@ -21,7 +23,7 @@ public class GuiBrickFurnace extends GuiBasic{
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/brick_furnace.png")));
 		comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/progresbar1.png"), new GuiPoint(87, 31)));
-		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(43, 16)));
+		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(43, 16), ((TileBrickFurnace)tile).heat));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}
 }

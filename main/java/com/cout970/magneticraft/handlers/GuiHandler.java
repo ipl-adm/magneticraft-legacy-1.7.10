@@ -19,6 +19,7 @@ import com.cout970.magneticraft.client.gui.GuiFireBox;
 import com.cout970.magneticraft.client.gui.GuiFluidHopper;
 import com.cout970.magneticraft.client.gui.GuiGeothermalPump;
 import com.cout970.magneticraft.client.gui.GuiGrinder;
+import com.cout970.magneticraft.client.gui.GuiInserter;
 import com.cout970.magneticraft.client.gui.GuiKineticGenerator;
 import com.cout970.magneticraft.client.gui.GuiMB_Inv;
 import com.cout970.magneticraft.client.gui.GuiMiner;
@@ -27,8 +28,10 @@ import com.cout970.magneticraft.client.gui.GuiOilDistillery;
 import com.cout970.magneticraft.client.gui.GuiPolimerizer;
 import com.cout970.magneticraft.client.gui.GuiReactorVessel;
 import com.cout970.magneticraft.client.gui.GuiRefinery;
+import com.cout970.magneticraft.client.gui.GuiResistance;
 import com.cout970.magneticraft.client.gui.GuiSteamEngine;
 import com.cout970.magneticraft.client.gui.GuiStirlingGenerator;
+import com.cout970.magneticraft.client.gui.GuiThermopile;
 import com.cout970.magneticraft.client.gui.GuiTurbine;
 import com.cout970.magneticraft.client.gui.GuiWindMill;
 import com.cout970.magneticraft.container.ContainerBasicGenerator;
@@ -46,6 +49,7 @@ import com.cout970.magneticraft.container.ContainerFireBox;
 import com.cout970.magneticraft.container.ContainerFluidHopper;
 import com.cout970.magneticraft.container.ContainerGeothermalPump;
 import com.cout970.magneticraft.container.ContainerGrinder;
+import com.cout970.magneticraft.container.ContainerInserter;
 import com.cout970.magneticraft.container.ContainerKineticGenerator;
 import com.cout970.magneticraft.container.ContainerMB_Inv;
 import com.cout970.magneticraft.container.ContainerMiner;
@@ -54,8 +58,10 @@ import com.cout970.magneticraft.container.ContainerOilDistillery;
 import com.cout970.magneticraft.container.ContainerPolimerizer;
 import com.cout970.magneticraft.container.ContainerReactorVessel;
 import com.cout970.magneticraft.container.ContainerRefinery;
+import com.cout970.magneticraft.container.ContainerResistance;
 import com.cout970.magneticraft.container.ContainerSteamEngine;
 import com.cout970.magneticraft.container.ContainerStirlingGenerator;
+import com.cout970.magneticraft.container.ContainerThermopile;
 import com.cout970.magneticraft.container.ContainerTurbine;
 import com.cout970.magneticraft.container.ContainerWindMill;
 import com.cout970.magneticraft.tileentity.TileBasicGenerator;
@@ -73,6 +79,7 @@ import com.cout970.magneticraft.tileentity.TileFireBox;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
 import com.cout970.magneticraft.tileentity.TileGeothermalPump;
 import com.cout970.magneticraft.tileentity.TileGrinder;
+import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import com.cout970.magneticraft.tileentity.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.TileMiner;
@@ -80,9 +87,11 @@ import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 import com.cout970.magneticraft.tileentity.TileRefinery;
+import com.cout970.magneticraft.tileentity.TileResistance;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
 import com.cout970.magneticraft.tileentity.TileTextMonitor;
+import com.cout970.magneticraft.tileentity.TileThermopile;
 import com.cout970.magneticraft.tileentity.TileTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 
@@ -176,6 +185,15 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileOilDistillery){
 			return new ContainerOilDistillery(player.inventory, tile);
 		}
+		if(tile instanceof TileInserter){
+			return new ContainerInserter(player.inventory, tile);
+		}
+		if(tile instanceof TileResistance){
+			return new ContainerResistance(player.inventory, tile);
+		}
+		if(tile instanceof TileThermopile){
+			return new ContainerThermopile(player.inventory, tile);
+		}
 		return null;
 	}
 
@@ -264,6 +282,15 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TileOilDistillery){
 			return new GuiOilDistillery(new ContainerOilDistillery(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileInserter){
+			return new GuiInserter(new ContainerInserter(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileResistance){
+			return new GuiResistance(new ContainerResistance(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileThermopile){
+			return new GuiThermopile(new ContainerThermopile(player.inventory, tile), tile);
 		}
 		return null;
 	}

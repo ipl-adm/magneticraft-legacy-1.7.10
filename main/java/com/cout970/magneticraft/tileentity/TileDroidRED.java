@@ -32,7 +32,7 @@ import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.Orientation;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IBusConnectable, IElectricTile{
+public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IBusConnectable{
 
 	private IModuleMemoryController memory;
 	private IModuleDiskDrive floppyDisk;
@@ -303,6 +303,6 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 50000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 50000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 }

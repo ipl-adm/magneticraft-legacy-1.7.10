@@ -98,8 +98,8 @@ public class BlockConveyorLow extends BlockMg{
 			dir = MgDirection.EAST;
 		}
 		Orientation or = null;
-		VecInt vec = new VecInt(x, y, z).add(dir.getVecInt());
-		VecInt opp = new VecInt(x, y, z).add(dir.getVecInt().getOpposite());
+		VecInt vec = new VecInt(x, y, z).add(dir.toVecInt());
+		VecInt opp = new VecInt(x, y, z).add(dir.toVecInt().getOpposite());
 
 		if(w.getBlock(vec.getX(), vec.getY()+1, vec.getZ()) == this){
 			or = Orientation.find(1, dir);

@@ -5,11 +5,13 @@ import net.minecraft.item.ItemStack;
 import com.cout970.magneticraft.api.computer.IHardwareModule;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
 import com.cout970.magneticraft.api.computer.impl.ModuleMemoryController;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemModuleRam64K extends ItemBasic implements IHardwareProvider{
 
 	public ItemModuleRam64K(String unlocalizedname) {
 		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

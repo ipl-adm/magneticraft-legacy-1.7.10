@@ -23,5 +23,10 @@ public abstract class TileKineticConductor extends TileBase implements IKineticT
 	public void updateEntity(){
 		super.updateEntity();
 		kinetic.iterate();
+		if(worldObj.isRemote){
+			float f = (float) (this.kinetic.getRotation() + (this.kinetic.getSpeed()/60)*kinetic.getDelta()/1E6);
+			if(f > 1000)f %= 1000;
+			this.kinetic.setRotation(f);
+		}
 	}
 }

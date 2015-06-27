@@ -15,7 +15,7 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
@@ -27,7 +27,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
 
-public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IElectricMultiPart{
+public class PartCableLow extends PartElectric implements ISidedHollowConnect,IElectricMultiPart{
 
 	public byte connections;
 	public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
@@ -81,7 +81,7 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 	}
 
 	public void create(){
-		cond = new ElectricConductor(getTile(), ElectricConstants.RESISTANCE_COPPER_2X2){
+		cond = new ElectricConductor(getTile(), ElectricConstants.RESISTANCE_COPPER_LOW){
 			
 			@Override
 			public VecInt[] getValidConnections() {
@@ -96,6 +96,7 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 				return FORGE_DIRECTIONS;
 			}
 			
+			@Override
 			public boolean isAbleToConnect(IElectricConductor c, VecInt d){
 				if(d.equals(VecInt.NULL_VECTOR))return true;
 				if(d.toMgDirection() == null)return false;
@@ -106,6 +107,7 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 				}
 				return false;
 			}
+			
 			@Override
 			public ConnectionClass getConnectionClass(VecInt v) {
 				return ConnectionClass.CABLE_LOW;
@@ -117,7 +119,7 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 		connections = 0;
 		for(MgDirection d : MgDirection.values()){
 			TileEntity t = MgUtils.getTileEntity(getTile(), d);
-			CableCompound c = MgUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
+			CompoundElectricCables c = MgUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
 			if(c != null && cond != null){
 				for(IElectricConductor e : c.list()){
 					if(e.isAbleToConnect(cond, VecInt.fromDirection(d.opposite())) && cond.isAbleToConnect(e, VecInt.fromDirection(d))){
@@ -125,14 +127,14 @@ public class PartCableLow extends ElectricPart implements ISidedHollowConnect,IE
 					}
 				}
 			}
-			IEnergyInterface inter = MgUtils.getInterface(t, d.getVecInt().getOpposite(), getTier());
-			if(inter != null){
+			IEnergyInterface inter = MgUtils.getInterface(t, d.toVecInt().getOpposite(), getTier());
+			if(inter != null && inter.canConnect(d.toVecInt())){
 				if(((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.ordinal()))))
 					connections = (byte) (connections | (1 << d.ordinal()));
 			}
 		}
 		for(TMultiPart t:tile().jPartList()){
-			if(t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getCond(getTier()) != null){
+			if(t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getElectricConductor(getTier()) != null){
 				if(t instanceof PartWireCopper){
 					connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal()));
 				}

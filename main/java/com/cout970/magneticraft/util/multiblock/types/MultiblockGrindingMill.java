@@ -22,7 +22,7 @@ public class MultiblockGrindingMill extends Multiblock{
 				return true;
 			}
 		};
-		Mg_Component i = new RemplaceComponent(Blocks.log, ManagerBlocks.multi_kinetic);
+		Mg_Component i = new SimpleComponent(ManagerBlocks.multi_kinetic);
 		Mg_Component b = new RemplaceComponent(Blocks.wooden_slab, ManagerBlocks.stone_mill_gap);
 		Mg_Component e = new RemplaceComponent(Blocks.stone_slab, ManagerBlocks.stone_mill_gap);
 		Mg_Component g = new SimpleComponent(ManagerBlocks.stone_mill);

@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemThoriumRod extends ItemBasic implements IRadiactiveItem{
 
@@ -21,6 +22,7 @@ public class ItemThoriumRod extends ItemBasic implements IRadiactiveItem{
 		super(unlocalizedname);
 		setMaxDamage(1000);
 		setMaxStackSize(1);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 	
 	@SuppressWarnings("unchecked")

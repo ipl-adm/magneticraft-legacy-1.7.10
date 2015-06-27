@@ -38,4 +38,11 @@ public class RecipeCrusher {
 		if(MgUtils.areEcuals(input, i, true))return true;
 		return false;
 	}
+
+	public String toString(){
+		String s = "Crusher Recipe, Input: "+input.getDisplayName()+", Main Output: "+output.getDisplayName();
+		if(output2 != null) s += ", Primary Output: "+output2.getDisplayName()+" with "+prob2+"%";
+		if(output3 != null) s += ", Secondary Output: "+output3.getDisplayName()+" with "+prob3+"%";
+		return s;
+	}
 }

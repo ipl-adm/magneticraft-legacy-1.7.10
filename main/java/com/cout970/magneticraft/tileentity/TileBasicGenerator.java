@@ -6,6 +6,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -14,6 +15,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
@@ -52,7 +54,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 16000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	@Override
@@ -231,8 +233,8 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	}
 
 	@Override
-	public IHeatConductor getHeatCond(VecInt c){
-		return heat;
+	public CompoundHeatCables getHeatCond(VecInt c) {
+		return new CompoundHeatCables(heat);
 	}
 	
 	public InventoryComponent getInv() {
@@ -281,5 +283,36 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+	
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+		return 0;
+	}
+
+	public FluidStack drain(ForgeDirection from, FluidStack resource,
+			boolean doDrain) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
+		return null;
+	}
+
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
+		return null;
+	}
+
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
+		return false;
+	}
+
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
+		return false;
+	}
+
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+		return null;
 	}
 }

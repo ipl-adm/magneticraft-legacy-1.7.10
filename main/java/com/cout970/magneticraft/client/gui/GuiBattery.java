@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -48,7 +48,7 @@ public class GuiBattery extends GuiBasic{
 		@Override
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 			if(tile instanceof IElectricTile){
-				CableCompound j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
+				CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
 				if(j == null)return;
 				IElectricConductor c = j.getCond(0);
 				if(c == null)return;
@@ -76,11 +76,11 @@ public class GuiBattery extends GuiBasic{
 		@Override
 		public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
 			if(tile instanceof IElectricTile){
-				CableCompound j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
+				CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
 				if(j == null)return;
 				IElectricConductor c = j.getCond(0);
 				if(c == null)return;
-				if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 16, 44)){
+				if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 16, 50)){
 					List<String> data = new ArrayList<String>();
 					data.add(c.getStorage()+Magneticraft.ENERGY_STORED_NAME);
 					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);

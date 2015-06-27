@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GL11;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelInserter;
 import com.cout970.magneticraft.tileentity.TileInserter;
+import com.cout970.magneticraft.tileentity.TileInserter.InserterAnimation;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderInserter extends TileEntitySpecialRenderer{
@@ -56,7 +58,7 @@ public class TileRenderInserter extends TileEntitySpecialRenderer{
 		RenderUtil.bindTexture(ModelTextures.INSERTER);
 		model.renderStatic(0.0625f);
 		boolean large = true;
-		float[] array = getAngles(tile.counter, large);
+		float[] array = getAngles(tile.counter, tile.anim);
 
 		model.renderDynamic(0.0625f, array[0], array[1], array[2], array[3],RenderItemMG,itemEntity,item);
 		
@@ -67,48 +69,71 @@ public class TileRenderInserter extends TileEntitySpecialRenderer{
 	// 45;-45;100 rotagte and standart 
 	//-45;-90;135 catch far
 
-	public static float[] getAngles(float counter, boolean large) {
+	public static float[] getAngles(float counter, InserterAnimation anim) {
 		float a = 0,b=0,c=0,d0;
 		float[] result = new float[4];
 		result[3] = 0;
-		if(counter <= 180){
+		if(anim == InserterAnimation.Retracting_Short){//bring the itm from the belt/inv
 			d0 = (counter)/180f;
 			result[0] = 45*d0;
 			result[1] = -85+40*d0;
 			result[2] = 90+10*d0;
-		}else if(counter <= 360){
+		}else if (anim == InserterAnimation.Rotating){//rotating from default to rotated
 			result[0] = 45;
 			result[1] = -45;
 			result[2] = 100;
-			d0 = (counter-180);
+			d0 = counter;
 			GL11.glRotatef(d0, 0, 1, 0);
-		}else if(counter <= 540){
-			d0 = (counter-360)/180f;
+		}else if(anim == InserterAnimation.Extending_INV_Short){
+			d0 = counter/180f;
 			result[0] = 45-45*d0;
 			result[1] = -45-40*d0;
 			result[2] = 100-10*d0;
 			GL11.glRotatef(180, 0, 1, 0);
-		}else if(counter <= 720){
-			d0 = (counter-540)/180f;
+		}else if(anim == InserterAnimation.Retracting_INV_Short){
+			d0 = 1-(counter/180f);
+			result[0] = 45-45*d0;
+			result[1] = -45-40*d0;
+			result[2] = 100-10*d0;
+			GL11.glRotatef(180, 0, 1, 0);
+		}else if (anim == InserterAnimation.Rotating_INV){//rotating from inveted to default
+			result[0] = 45;
+			result[1] = -45;
+			result[2] = 100;
+			d0 = 180-counter;
+			GL11.glRotatef(d0, 0, 1, 0);
+		}else if(anim == InserterAnimation.Extending_Short){
+			d0 = 1-(counter/180f);
 			result[0] = 45*d0;
 			result[1] = -85+40*d0;
 			result[2] = 90+10*d0;
-			GL11.glRotatef(180, 0, 1, 0);
-		}else if(counter <= 900){
-			result[0] = 45;
-			result[1] = -45;
+		}else if(anim == InserterAnimation.Extending_INV_Large){
+			d0 = counter/180f;
+			result[0] = 45-105*d0;
+			result[1] = -45-35*d0;
 			result[2] = 100;
-			d0 = (counter-720);
-			GL11.glRotatef(180+d0, 0, 1, 0);
-		}else if(counter <= 1080){
-			d0 = (counter-900)/180f;
-			result[0] = 45-45*d0;
-			result[1] = -45-40*d0;
-			result[2] = 100-10*d0;
+			GL11.glRotatef(180, 0, 1, 0);
+		}else if(anim == InserterAnimation.Retracting_INV_Large){
+			d0 = 1-(counter/180f);
+			result[0] = 45-105*d0;
+			result[1] = -45-35*d0;
+			result[2] = 100;
+			GL11.glRotatef(180, 0, 1, 0);
+		}else if(anim == InserterAnimation.Extending_Large){
+			d0 = counter/180f;
+			result[0] = 45-105*d0;
+			result[1] = -45-35*d0;
+			result[2] = 100;
+		}else if(anim == InserterAnimation.Retracting_Large){
+			d0 = 1-(counter/180f);
+			result[0] = 45-105*d0;
+			result[1] = -45-35*d0;
+			result[2] = 100;
 		}else{
 			result[0] = 45;
 			result[1] = -45;
 			result[2] = 100;
+			return result;
 		}
 		return result;
 	}

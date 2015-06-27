@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.MgRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.items.ItemGravelOre;
@@ -70,60 +69,60 @@ public class ManagerRecipe {
 	}
 
 	public static void registerThermopileRecipes() {
-		MgRegister.addThermopileDecay(new ThermopileDecay());
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.air,-1),1,false);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.snow,-1),100,false);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.ice,-1),100,false);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.snow_layer,-1),50,false);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.torch,-1),5,true);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.lit_pumpkin,-1),3,true);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.water,-1),25,false);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.lava,-1),100,true);
-		MgRegister.addThermopileSource(new BlockInfo(Blocks.fire,-1),25,true);
+		MgRecipeRegister.addThermopileDecay(new ThermopileDecay());
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.air,-1),1,false);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow,-1),100,false);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.ice,-1),100,false);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow_layer,-1),50,false);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.torch,-1),5,true);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.lit_pumpkin,-1),3,true);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.water,-1),25,false);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.lava,-1),100,true);
+		MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.fire,-1),25,true);
 	}
 	
 	public static void registerBiomassBurnerRecipes() {
 		for(int i = 0; i < 4;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.log,1,i), 1600, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.log,1,i), 1600, true);
 		for(int i = 0; i < 6;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.sapling,1,i), 200, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.sapling,1,i), 200, true);
 		for(int i = 0; i < 4;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.leaves,1,i), 20, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.web,1,0), 50, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.leaves,1,i), 20, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.web,1,0), 50, true);
 		for(int i = 1; i < 3;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.tallgrass,1,i), 50, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.deadbush,1,0), 50, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.yellow_flower,1,0), 50, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.tallgrass,1,i), 50, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.deadbush,1,0), 50, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.yellow_flower,1,0), 50, true);
 		for(int i = 0; i < 9;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.red_flower,1,i), 50, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.red_mushroom,1,0), 100, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.brown_mushroom,1,0), 100, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.vine,1,0), 100, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.waterlily,1,0), 50, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.red_flower,1,i), 50, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.red_mushroom,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.brown_mushroom,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.vine,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.waterlily,1,0), 50, true);
 		for(int i = 0; i < 2;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.log2,1,i), 1600, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.log2,1,i), 1600, true);
 		for(int i = 0; i < 2;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.leaves2,1,i), 20, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.cactus,1,0), 150, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.pumpkin,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.lit_pumpkin,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.melon_block,1,0), 800, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.melon,1,0), 80, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.hay_block,1,0), 1800, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.leaves2,1,i), 20, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.cactus,1,0), 150, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.pumpkin,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.lit_pumpkin,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.melon_block,1,0), 800, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.melon,1,0), 80, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.hay_block,1,0), 1800, true);
 		for(int i = 0; i < 6;i++)
-			MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.double_plant,1,i), 20, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.wheat,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.reeds,1,0), 50, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.carrots,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.potatoes,1,0), 200, true);
+			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.double_plant,1,i), 20, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.wheat,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.reeds,1,0), 50, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.carrots,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.potatoes,1,0), 200, true);
 		
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.carrot,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.potato,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.wheat,1,0), 200, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.wheat_seeds,1,0), 100, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.pumpkin_seeds,1,0), 100, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.melon_seeds,1,0), 100, true);
-		MgRegister.addBiomassBurnerRecipe(new ItemStack(Items.reeds,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.carrot,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.potato,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.wheat,1,0), 200, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.wheat_seeds,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.pumpkin_seeds,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.melon_seeds,1,0), 100, true);
+		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.reeds,1,0), 100, true);
 	}
 	
 	public static ItemStack getDustExtra(String name, int amount, int num){

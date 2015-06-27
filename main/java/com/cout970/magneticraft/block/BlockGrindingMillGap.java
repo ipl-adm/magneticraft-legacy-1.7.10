@@ -29,7 +29,7 @@ public class BlockGrindingMillGap extends BlockMg implements MB_Block{
 
 	public BlockGrindingMillGap() {
 		super(Material.iron);
-		setCreativeTab(CreativeTabsMg.MedievalAgeTab);
+		setCreativeTab(null);
 		setLightOpacity(0);
 	}
 
@@ -49,6 +49,11 @@ public class BlockGrindingMillGap extends BlockMg implements MB_Block{
 		super.breakBlock(w, x, y, z, b, side);
 	}
 
+	public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+	
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune){
 		
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();

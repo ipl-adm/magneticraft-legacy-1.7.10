@@ -6,13 +6,14 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.cout970.magneticraft.api.acces.MgRegister;
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.acces.RecipeBiomassBurner;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.compact.minetweaker.BiomassBurner;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
@@ -44,7 +45,7 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
 				updated = true;
 			}
 			//fuel to heat
-			if(heat.getTemperature() < heat.getMaxTemp() && isControled()){
+			if(heat.getTemperature() < 1200 && isControled()){
 				int i = 8;//burning speed
 				if(Progres - i < 0){
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(Progres));
@@ -79,11 +80,8 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
 	}
 	
 	private int getItemBurnTime(ItemStack stackInSlot) {
-		for(RecipeBiomassBurner r : MgRegister.BiomassBurner){
-			if(r.matches(stackInSlot)){
-				return r.getBurnTime();
-			}
-		}
+		RecipeBiomassBurner r = RecipeBiomassBurner.getRecipe(stackInSlot);
+		if(r != null)return r.getBurnTime();
 		return 0;
 	}
 

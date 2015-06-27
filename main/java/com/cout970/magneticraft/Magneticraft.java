@@ -3,6 +3,7 @@ package com.cout970.magneticraft;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.cout970.magneticraft.compact.ManagerIntegration;
+import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.handlers.HandlerBuckets;
 import com.cout970.magneticraft.handlers.SolidFuelHandler;
@@ -11,6 +12,7 @@ import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -90,6 +92,10 @@ public class Magneticraft{
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
 		Log.info("Starting postInit");
+		if(Loader.isModLoaded("MineTweaker3")){
+			Log.info("Seting up minetweaker compatibility");
+			MgMinetweaker.init();
+		}
 		Log.info("postInit Done");
 	}
 }

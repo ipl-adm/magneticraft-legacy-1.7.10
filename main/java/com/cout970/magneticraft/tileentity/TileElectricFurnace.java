@@ -11,9 +11,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.tool.IFurnaceCoil;
 import com.cout970.magneticraft.client.gui.component.IBurningTime;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.tool.IFurnaceTool;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -21,7 +21,7 @@ import com.cout970.magneticraft.util.tile.TileConductorLow;
 public class TileElectricFurnace extends TileConductorLow implements IInventoryManaged, IGuiSync, IBurningTime, ISidedInventory{
 
 	public InventoryComponent inv = new InventoryComponent(this, 3, "Electric Furnace");
-	public int Progres = 0;
+	public int progress = 0;
 	private boolean working;
 	
 	public TileElectricFurnace(){}
@@ -38,16 +38,16 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 		}
 		if(cond.getVoltage() >= ElectricConstants.MACHINE_WORK && isControled()){
 			if(canSmelt()){
-				Progres ++;
+				progress++;
 				cond.drainPower(1000*getConsumption());
-				if(Progres >= getMaxProgres()){
+				if(progress >= getMaxProgres()){
 					smelt();
-					Progres = 0;
+					progress = 0;
 				}
 				working = true;
 			}else{
 				working = false;
-				Progres = 0;
+				progress = 0;
 			}
 		}else{
 			working = false;
@@ -67,8 +67,8 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 	
 	public double getConsumption() {
 		if(getInv().getStackInSlot(2) == null)return 0;
-		if(!(getInv().getStackInSlot(2).getItem() instanceof IFurnaceTool))return 0;
-		return ((IFurnaceTool) getInv().getStackInSlot(2).getItem()).getElectricConsumption();
+		if(!(getInv().getStackInSlot(2).getItem() instanceof IFurnaceCoil))return 0;
+		return ((IFurnaceCoil) getInv().getStackInSlot(2).getItem()).getElectricConsumption();
 	}
 
 	private void smelt() {
@@ -92,7 +92,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 	private boolean canSmelt() {
 		ItemStack a = getInv().getStackInSlot(2);
 		if(a == null)return false;
-		if(!(a.getItem() instanceof IFurnaceTool))return false;
+		if(!(a.getItem() instanceof IFurnaceCoil))return false;
 		if (getInv().getStackInSlot(0) == null){
 			return false;
 		}else{
@@ -114,46 +114,46 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
 		getInv().readFromNBT(nbtTagCompound);
-		Progres = nbtTagCompound.getInteger("P");
+		progress = nbtTagCompound.getInteger("P");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeToNBT(nbtTagCompound);
 		getInv().writeToNBT(nbtTagCompound);
-		nbtTagCompound.setInteger("P", Progres);
+		nbtTagCompound.setInteger("P", progress);
 	}
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		//0 => V
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-		craft.sendProgressBarUpdate(cont, 1, (int) Progres);
+		craft.sendProgressBarUpdate(cont, 1, (int) progress);
 		craft.sendProgressBarUpdate(cont, 2, cond.getStorage());
 	}
 
 	@Override
 	public void getGUINetworkData(int i, int value) {
 		if(i == 0)cond.setVoltage(value);
-		if(i == 1)Progres = value;
+		if(i == 1)progress = value;
 		if(i == 2)cond.setStorage(value);
 	}
 
 	@Override
 	public int getProgres() {
-		return (int) Progres;
+		return (int) progress;
 	}
 
 	@Override
 	public int getMaxProgres(){
 		if(getInv().getStackInSlot(2) == null)return -1;
-		if(!(getInv().getStackInSlot(2).getItem() instanceof IFurnaceTool))return -1;
-		return ((IFurnaceTool) getInv().getStackInSlot(2).getItem()).getCookTime();
+		if(!(getInv().getStackInSlot(2).getItem() instanceof IFurnaceCoil))return -1;
+		return ((IFurnaceCoil) getInv().getStackInSlot(2).getItem()).getCookTime();
 	}
 
 	@Override

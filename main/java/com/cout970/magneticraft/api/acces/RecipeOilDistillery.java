@@ -37,7 +37,7 @@ public class RecipeOilDistillery {
 	}
 	
 	public static RecipeOilDistillery getRecipe(FluidStack f){
-		for(RecipeOilDistillery r : MgRecipeRegister.oil_distillery){
+		for(RecipeOilDistillery r : MgRecipeRegister.oilDistillery){
 			if(r.matches(f))return r;
 		}
 		return null;

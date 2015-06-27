@@ -25,6 +25,22 @@ public class BlockBattery extends BlockMg{
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
+	
+	public boolean hasComparatorInputOverride()
+    {
+        return true;
+    }
+	
+	
+    public int getComparatorInputOverride(World w, int x, int y, int z, int side)
+    {
+    	TileEntity t = w.getTileEntity(x, y, z);
+    	if(t instanceof TileBattery){
+    		TileBattery b = (TileBattery) t;
+    		return Math.min(b.cond.getStorage()*16/b.cond.getMaxStorage(), 15);
+    	}
+        return 0;
+    }
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {

@@ -12,7 +12,7 @@ public class MultiblockTurbine extends Multiblock{
 	public void init() {
 		SimpleComponent c = new SimpleComponent(ManagerBlocks.tank_mg);
 		SimpleComponent b = new SimpleComponent(ManagerBlocks.multi_energy_medium);
-		SimpleComponent d = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent d = new SimpleComponent(ManagerBlocks.chassis);
 		SimpleComponent e = new SimpleComponent(ManagerBlocks.turbine);
 
 		SimpleComponent[][][] m = 

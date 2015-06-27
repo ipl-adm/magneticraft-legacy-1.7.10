@@ -23,32 +23,20 @@ import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPartCopperWire extends JItemMultiPart{
+public class ItemPartCopperWire extends ItemPartBase{
 	
-public static final String Base = "magneticraft:";
 	
 	public ItemPartCopperWire(String unlocalizedname){
-		super();
-		setUnlocalizedName(unlocalizedname);
-		setCreativeTab(CreativeTabsMg.MainTab);
-		setTextureName(Base+"void");
+		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
-
-	public String getUnlocalizedName(ItemStack i){
-		return getUnlocalizedName();
-	}
-	
-	@SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister IR){
-        this.itemIcon = IR.registerIcon(this.getIconString());
-    }
 
 	@Override
 	public TMultiPart newPart(ItemStack i, EntityPlayer p, World w,
 			BlockCoord pos, int side, Vector3 hit) {
 		
 		VecInt base = new VecInt(pos.intArray());
-		base.add(MgDirection.getDirection(side).opposite().getVecInt());
+		base.add(MgDirection.getDirection(side).opposite().toVecInt());
 		if(!w.isSideSolid(base.getX(), base.getY(), base.getZ(), ForgeDirection.getOrientation(side), false)){
 			return null;
 		}

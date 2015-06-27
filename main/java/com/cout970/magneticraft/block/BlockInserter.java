@@ -1,15 +1,23 @@
 package com.cout970.magneticraft.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.conveyor.IConveyor;
+import com.cout970.magneticraft.api.conveyor.ItemBox;
+import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileInserter;
+import com.cout970.magneticraft.util.Orientation;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,6 +42,18 @@ public class BlockInserter extends BlockMg{
 	@Override
 	public String getName() {
 		return "inserter";
+	}
+	
+	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
+		if(p.isSneaking())return false;
+		if(p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() == ManagerItems.wrench){
+			int i = w.getBlockMetadata(x, y, z)-2;
+			MgDirection or = MgDirection.getDirection(((i+1)%4)+2);
+			w.setBlockMetadataWithNotify(x, y, z, or.ordinal(), 2);
+		}else{
+			p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+		}
+		return true;
 	}
 
 	@SideOnly(Side.CLIENT)

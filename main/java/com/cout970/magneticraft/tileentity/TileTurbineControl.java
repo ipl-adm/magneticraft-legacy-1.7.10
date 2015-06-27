@@ -2,12 +2,16 @@ package com.cout970.magneticraft.tileentity;
 
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -37,6 +41,43 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public float speed;
 	private long time;
 	
+	public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED){
+		@Override
+		public void computeVoltage() {
+			V += 0.05d * I;
+			if(V < 0 || Double.isNaN(V))V = 0;
+			if(V > ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2)V = ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2;
+			I = 0;
+			Iabs = 0;
+		}
+		 
+		@Override
+		public double getVoltageMultiplier() {
+			return 100;
+		}
+		
+		@Override
+		public void applyPower(double power) {
+			power = power * getVoltageMultiplier();
+			//sqrt(V^2+(power))-V
+			double square = Math.sqrt(this.V * this.V + Q1 * power) - this.V;
+	        this.applyCurrent(Q2 * square);
+		}
+	};
+	private double flow;
+	
+	private void updateConductor() {
+		if(out == null)return;
+		double resistence = out.getResistance() + capacity.getResistance();
+		double difference = out.getVoltage() - capacity.getVoltage();
+		double change = flow;
+		double slow = change * resistence;
+		flow += ((difference - change * resistence) * out.getIndScale())/out.getVoltageMultiplier();
+		change += (difference * out.getCondParallel())/out.getVoltageMultiplier();
+		out.applyCurrent(-change);
+		capacity.applyCurrent(change);
+	}
+	
 	public boolean isActive() {
 		return getBlockMetadata() > 6;
 	}
@@ -50,7 +91,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 			search();
 			return;
 		}
-		float activity = 0.5f*(getFluidAmount()*1200/64000)/1200f;
+		float activity = 0.5f*(getFluidAmount()/64000f);
 		if(activity < 0.01f)activity = 0;
 		if(speed < activity){
 			speed += 1/32f;
@@ -58,15 +99,18 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 			speed -= 1/32f;
 		}
 		if (worldObj.isRemote)return;
+		updateConductor();
 		balanceTanks();
-		int steam = (int) (Math.min(speed, 0.5)*2*MAX_STEAM);
-		if(steam > 0 && out.getVoltage() < ElectricConstants.MAX_VOLTAGE*out.getVoltageMultiplier()){
+		double miss = (ElectricConstants.MAX_VOLTAGE - capacity.getVoltage()/100)*100;
+		int steam = (int) Math.min(Math.min(getFluidAmount(), miss), MAX_STEAM);
+		steam = (int) Math.min(steam, ((getFluidAmount()+100)/64000f)*MAX_STEAM);
+		if(steam > 0 && capacity.getVoltage() < ElectricConstants.MAX_VOLTAGE*100){
 			drain(steam, true);
 			double p = EnergyConversor.STEAMtoW(steam);
-			out.applyPower(p);
+			capacity.applyPower(p);
 			counter += p;
 		}
-		if(worldObj.getWorldTime()%20 == 0){
+		if(worldObj.getWorldTime() % 20 == 1){
 			prod = counter/20;
 			counter = 0;
 		}
@@ -85,7 +129,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 
 	public void drain(int steam, boolean b) {
 		for(int i =0;i<4;i++){
-			if(in[i].getFluid() != null && in[i].getFluid().getFluid().getID() == FluidRegistry.getFluidID("steam")){
+			if(in[i].getFluid() != null && in[i].getFluid().getFluid() == FluidRegistry.getFluid("steam")){
 				int extract = Math.min(in[i].getFluidAmount(), steam);
 				in[i].drain(extract,b);
 				steam -= extract;
@@ -96,27 +140,27 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public int getFluidAmount() {
 		int steam = 0;
 		for(int i =0;i<4;i++){
-			if(in[i] != null && in[i].getFluid() != null && in[i].getFluid().getFluid() != null && in[i].getFluid().getFluid().getID() == FluidRegistry.getFluidID("steam"))
+			if(in[i] != null && in[i].getFluid() != null && in[i].getFluid().getFluid() == FluidRegistry.getFluid("steam"))
 				steam += in[i].getFluidAmount();
 		}
 		return steam;
 	}
 
 	private void search() {
-		VecInt vec = getDirection().getVecInt().getOpposite();
-		TileEntity t = MgUtils.getTileEntity(this, vec.copy().add(getDirection().opposite().step(MgDirection.UP).getVecInt()));
+		VecInt vec = getDirection().toVecInt().getOpposite();
+		TileEntity t = MgUtils.getTileEntity(this, vec.copy().add(getDirection().opposite().step(MgDirection.UP).toVecInt()));
 		if(t instanceof TileCopperTank){
 			in[0] = ((TileCopperTank) t).getTank();
 		}
-		t = MgUtils.getTileEntity(this, vec.copy().add(getDirection().opposite().step(MgDirection.DOWN).getVecInt()));
+		t = MgUtils.getTileEntity(this, vec.copy().add(getDirection().opposite().step(MgDirection.DOWN).toVecInt()));
 		if(t instanceof TileCopperTank){
 			in[1] = ((TileCopperTank) t).getTank();
 		}
-		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.UP).getVecInt()));
+		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.UP).toVecInt()));
 		if(t instanceof TileCopperTank){
 			in[2] = ((TileCopperTank) t).getTank();
 		}
-		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.DOWN).getVecInt()));
+		t = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(getDirection().opposite().step(MgDirection.DOWN).toVecInt()));
 		if(t instanceof TileCopperTank){
 			in[3] = ((TileCopperTank) t).getTank();
 		}
@@ -152,7 +196,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 
 	@Override
 	public String getMessage() {
-		return "Generating: "+prod+"W";
+		return String.format("Generating: %.2f kW",prod/1000d);
 	}
 
 	@Override
@@ -163,7 +207,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		if(out != null)
-			craft.sendProgressBarUpdate(cont, 0, (int)out.getVoltage());
+			craft.sendProgressBarUpdate(cont, 0, (int)capacity.getVoltage());
 		craft.sendProgressBarUpdate(cont, 1, (int)prod);
 		for(int i = 0;i< 4;i++){
 			if(in[i] != null){
@@ -179,7 +223,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
-		if(id == 0)out.setVoltage(value);
+		if(id == 0)capacity.setVoltage(value);
 		if(id == 1)prod = value;
 		if(id >= 2 && id <= 9){
 			int i = (id-2)/2;
@@ -212,5 +256,25 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 		long aux = time;
 		time = System.nanoTime();
 		return time - aux;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+		
+		NBTTagList conduit = nbt.getTagList("Capacity_cond", 11);
+		NBTTagCompound conduit_nbt = conduit.getCompoundTagAt(0);
+		capacity.load(conduit_nbt);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+		
+		NBTTagList conduit = new NBTTagList();
+		NBTTagCompound conduit_nbt = new NBTTagCompound();
+		capacity.save(conduit_nbt);
+		conduit.appendTag(conduit_nbt);
+		nbt.setTag("Capacity_cond", conduit);
 	}
 }

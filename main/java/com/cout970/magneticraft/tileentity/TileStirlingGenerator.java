@@ -12,10 +12,11 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
@@ -81,7 +82,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		if(Progres > 0){
 			//fuel to heat
 			if(heat.getTemperature() < heat.getMaxTemp()-200 && isControled()){
-				int i = 4;//burning speed
+				int i = 12;//burning speed
 				if(Progres - i < 0){
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(Progres));
 					Progres = 0;
@@ -124,10 +125,11 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 	}
 
 	private void search() {
-		VecInt dir = getDirection().opposite().getVecInt();
+		VecInt dir = getDirection().opposite().toVecInt();
 		TileEntity tile = MgUtils.getTileEntity(this, dir);
 		if(tile instanceof IHeatTile){
-			heat = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
+			CompoundHeatCables comp = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
+			heat = comp.getCond(0);
 		}
 		tile = MgUtils.getTileEntity(this, dir.copy().multiply(2));
 		if(tile instanceof IElectricTile){
@@ -150,6 +152,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		maxProgres = nbt.getInteger("maxProgres");
 		burning = nbt.getBoolean("Burning");
 		activate = nbt.getBoolean("Active");
+		working = nbt.getBoolean("Working");
 		getInv().readFromNBT(nbt);
 	}
 
@@ -159,6 +162,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		nbt.setInteger("maxProgres", maxProgres);
 		nbt.setBoolean("Burning", burning);
 		nbt.setBoolean("Active", activate);
+		nbt.setBoolean("Working", working);
 		getInv().writeToNBT(nbt);
 	}
 
@@ -264,14 +268,14 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
     }
 
 	@Override
-	public CableCompound getConds(VecInt dir, int Vtier) {
-		if(VecInt.NULL_VECTOR.equals(dir))return new CableCompound(cond);
+	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
+		if(VecInt.NULL_VECTOR.equals(dir))return new CompoundElectricCables(cond);
 		return null;
 	}
 
 	@Override
-	public IHeatConductor getHeatCond(VecInt c) {
-		if(VecInt.NULL_VECTOR.equals(c))return heat;
+	public CompoundHeatCables getHeatCond(VecInt c) {
+		if(VecInt.NULL_VECTOR.equals(c))return new CompoundHeatCables(heat);
 		return null;
 	}
 }

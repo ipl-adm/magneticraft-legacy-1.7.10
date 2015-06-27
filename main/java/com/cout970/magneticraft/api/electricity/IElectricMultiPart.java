@@ -11,5 +11,5 @@ public interface IElectricMultiPart {
 	 * 
 	 * @return
 	 */
-	public IElectricConductor getCond(int tier);
+	public IElectricConductor getElectricConductor(int tier);
 }

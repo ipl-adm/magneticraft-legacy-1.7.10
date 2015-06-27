@@ -31,8 +31,21 @@ public class RecipeBiomassBurner {
 		return useNBT;
 	}
 	
+	public static RecipeBiomassBurner getRecipe(ItemStack i){
+		for(RecipeBiomassBurner r : MgRecipeRegister.biomassBurner){
+			if(r.matches(i)){
+				return r;
+			}
+		}
+		return null;
+	}
+	
 	public boolean matches(ItemStack item){
 		if(item.isItemEqual(getFuel()) && (!useNBT || ItemStack.areItemStackTagsEqual(item, getFuel()))) return true;
 		return false;
+	}
+	
+	public String toString(){
+		return "Biomass Burner Recipe, Fuel: "+fuel.getDisplayName()+", Fuel value: "+burnTime;
 	}
 }

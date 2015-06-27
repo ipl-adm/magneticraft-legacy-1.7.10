@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -20,8 +21,8 @@ public class TileInfiniteWater extends TileBase implements IFluidHandler1_8{
 			TileEntity t = MgUtils.getTileEntity(this, d);
 			if(t instanceof IFluidHandler){
 				IFluidHandler f = (IFluidHandler) t;
-				if(f.canFill(d.getForgeDir(), FluidRegistry.WATER)){
-					f.fill(d.getForgeDir().getOpposite(), FluidRegistry.getFluidStack("water", 50) ,true);
+				if(f.canFill(d.toForgeDir(), FluidRegistry.WATER)){
+					f.fill(d.toForgeDir().getOpposite(), FluidRegistry.getFluidStack("water", 50) ,true);
 				}
 			}
 		}
@@ -57,4 +58,34 @@ public class TileInfiniteWater extends TileBase implements IFluidHandler1_8{
 		return new FluidTankInfo[0];
 	}
 	
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+		return 0;
+	}
+
+	public FluidStack drain(ForgeDirection from, FluidStack resource,
+			boolean doDrain) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
+		return null;
+	}
+
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
+		return null;
+	}
+
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
+		return false;
+	}
+
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
+		return false;
+	}
+
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+		return null;
+	}
 }

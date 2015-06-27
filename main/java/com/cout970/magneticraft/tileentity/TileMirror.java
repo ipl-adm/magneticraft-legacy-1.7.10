@@ -7,8 +7,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Vector3;
+import codechicken.multipart.BlockMultipart;
 
 import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -31,9 +33,12 @@ public class TileMirror extends TileBase{
 			if(!worldObj.isRemote && worldObj.isDaytime() && !worldObj.isRaining() && worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord) && !this.worldObj.provider.hasNoSky){
 				TileEntity t = worldObj.getTileEntity(target.x, target.y, target.z);
 				if(t instanceof TileSolarTowerCore){
-					IHeatConductor heat = MgUtils.getHeatCond(t, VecInt.NULL_VECTOR);
-					if(heat != null)
-						heat.applyCalories(10);
+					CompoundHeatCables comp = MgUtils.getHeatCond(t, VecInt.NULL_VECTOR);
+					if(comp != null){
+						IHeatConductor heat = comp.getCond(0);
+						if(heat != null)
+							heat.applyCalories(10);
+					}
 				}
 			}
 		}
@@ -95,7 +100,7 @@ public class TileMirror extends TileBase{
 		if(block.getMaterial() == Material.air)return true;
 		if(Block.isEqualTo(block, Blocks.glass))return true;
 		if(Block.isEqualTo(block, Blocks.stained_glass))return true;
-		if(Block.isEqualTo(block, ManagerBlocks.heat_cable))return true;
+		if(block instanceof BlockMultipart)return true;
 		return false;
 	}
 	

@@ -2,6 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
@@ -13,8 +14,8 @@ public class TileMB_Heat extends TileMB_Base implements IHeatTile{
 	public int oldHeat;
 	
 	@Override
-	public IHeatConductor getHeatCond(VecInt c) {
-		return heat;
+	public CompoundHeatCables getHeatCond(VecInt c) {
+		return new CompoundHeatCables(heat);
 	}
 	
 	public IHeatConductor initHeatCond(){

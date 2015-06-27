@@ -9,6 +9,7 @@ import com.cout970.magneticraft.api.kinetic.IKineticTile;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
@@ -18,29 +19,28 @@ public class TileGrindingMill extends TileMB_Base{
 
 	public boolean active;
 	public int drawCounter;
-	public float rotation;
-	private long time;
 	public IKineticConductor kinetic;
 
 	public void updateEntity() {
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if(kinetic == null){
+		if(kinetic == null || worldObj.getWorldTime() % 40 == 0){
 			search();
 		}
 	}
 	
 	private void search() {
-		VecInt vec = getDirection().getVecInt().add(0, -2, 0);
+		VecInt vec = getDirection().opposite().toVecInt().add(0, -2, 0);
 		TileEntity t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof IKineticTile){
-			((IKineticTile) t).getKineticConductor(MgDirection.UP);
+			kinetic = ((IKineticTile) t).getKineticConductor(MgDirection.UP);
 		}
 	}
 
 	@Override
 	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
 		active = false;
+		kinetic = null;
 	}
 
 	@Override
@@ -62,11 +62,4 @@ public class TileGrindingMill extends TileMB_Base{
     {
         return INFINITE_EXTENT_AABB;
     }
-
-	public float getDelta() {
-		long aux = time;
-		time = System.nanoTime();
-		return time - aux;
-	}
-	
 }

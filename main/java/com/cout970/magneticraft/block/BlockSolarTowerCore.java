@@ -11,7 +11,7 @@ public class BlockSolarTowerCore extends BlockMg{
 
 	public BlockSolarTowerCore() {
 		super(Material.iron);
-		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 
 	@Override

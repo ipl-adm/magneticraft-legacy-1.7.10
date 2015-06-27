@@ -16,7 +16,7 @@ public class BlockHeatSink extends BlockMg{
 	
 	public BlockHeatSink() {
 		super(Material.iron);
-		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 	
 	public String[] getTextures() {

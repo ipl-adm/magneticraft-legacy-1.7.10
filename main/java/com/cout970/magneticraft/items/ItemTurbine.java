@@ -8,6 +8,7 @@ import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.api.util.IWindTurbine;
 import com.cout970.magneticraft.client.model.ModelWindMillBig;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemTurbine extends ItemBasic implements IWindTurbine{
 
@@ -24,6 +25,7 @@ public class ItemTurbine extends ItemBasic implements IWindTurbine{
 		lenght = l;
 		potency = p;
 		scale = s;
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class ItemRenderInserter implements IItemRenderer{
 		GL11.glTranslatef(0, -1.5f, 0);
 		RenderUtil.bindTexture(ModelTextures.INSERTER);
 		model.renderStatic(0.0625f);
-		float[] a = TileRenderInserter.getAngles(100000, false);
+		float[] a = TileRenderInserter.getAngles(100000, null);
 		model.renderDynamic(0.0625f, a[0], a[1], a[2], a[3]);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();

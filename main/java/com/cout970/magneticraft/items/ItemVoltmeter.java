@@ -1,5 +1,8 @@
 package com.cout970.magneticraft.items;
 
+import ic2.api.tile.IEnergyStorage;
+import mods.railcraft.api.electricity.IElectricGrid;
+import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -8,39 +11,48 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
 
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemVoltmeter extends ItemBasic{
 
 	public ItemVoltmeter(String unlocalizedname) {
 		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	{
 		if(w.isRemote)return false;
 		TileEntity t = w.getTileEntity(x, y, z);
-		CableCompound comp = MgUtils.getElectricCond(t, MgDirection.getDirection(side).getVecInt(), -1);
-		if(comp != null){
-			for(IElectricConductor cond:comp.list()){
-				double I = cond.getIntensity()*0.5;
-				String s = String.format("Reading %.2fV %.3fA (%.2fkW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
-				p.addChatMessage(new ChatComponentText(s));
-				return false;
+		CompoundElectricCables comp = null;
+		for(int i = 0; i < 5 ; i++){
+			comp = MgUtils.getElectricCond(t, VecInt.NULL_VECTOR, i);
+			if(comp != null){
+				for(IElectricConductor cond : comp.list()){
+					double I = cond.getIntensity();
+					String s = String.format("Reading %.2fV %.3fA (%.3fkW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
+					p.addChatMessage(new ChatComponentText(s));
+				}
 			}
 		}
 		
-		comp = MgUtils.getElectricCond(t, VecInt.NULL_VECTOR, -1);
-		if(comp != null){
-			IElectricConductor cond = comp.getCond(0);
-			double I = cond.getIntensity()*0.5;
-			String s = String.format("Reading %.2fV %.2fA (%.2fkW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
+		if(t instanceof IElectricGrid){
+			IElectricGrid h = (IElectricGrid) t;
+			ChargeHandler handler = h.getChargeHandler();
+			String s = String.format("Charge: %.2fc | Draw: %.2fc/t | Loss: %.2fc/t", new Object[] {Double.valueOf(handler.getCharge()), Double.valueOf(handler.getDraw()), Double.valueOf(handler.getLosses())});
 			p.addChatMessage(new ChatComponentText(s));
-			return false;
+		}
+		
+		if(t instanceof IEnergyStorage){
+			IEnergyStorage h = (IEnergyStorage) t;
+			int stored = h.getStored();
+			int max = h.getCapacity();
+			String s = "Energy Stored: "+stored+"/"+max+"EU";
+			p.addChatMessage(new ChatComponentText(s));
 		}
 		
 		if(t instanceof IEnergyHandler){
@@ -49,7 +61,6 @@ public class ItemVoltmeter extends ItemBasic{
 			int max = h.getMaxEnergyStored(ForgeDirection.getOrientation(side));
 			String s = "Energy Stored: "+stored+"/"+max+"RF";
 			p.addChatMessage(new ChatComponentText(s));
-			return false;
 		}
 		return false;
 	}

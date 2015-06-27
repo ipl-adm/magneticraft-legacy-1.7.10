@@ -29,7 +29,7 @@ public class GuiBasicGenerator extends GuiBasic{
 		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(15,19)));
 		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,19)));
 		comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/fire.png"),new GuiPoint(41, 32)));
-		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(60,23)));
+		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(60,23), ((TileBasicGenerator)tile).heat));
 		comp.add(new CompInfoDisplay(new GuiPoint(124, 16)));
 		comp.add(new CompFluidRender(((TileBasicGenerator)tile).water, new GuiPoint(72,28), new GuiPoint(90, 67),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
 		comp.add(new CompFluidRender(((TileBasicGenerator)tile).steam, new GuiPoint(97,28), new GuiPoint(115, 67),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));

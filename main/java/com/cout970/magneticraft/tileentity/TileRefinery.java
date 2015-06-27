@@ -57,7 +57,7 @@ public class TileRefinery extends TileMB_Base implements IGuiSync{
 	}
 
 	public void searchTanks(){
-		VecInt vec = MgDirection.getDirection(getBlockMetadata()%6).opposite().getVecInt();
+		VecInt vec = MgDirection.getDirection(getBlockMetadata()%6).opposite().toVecInt();
 		TileEntity tile = MgUtils.getTileEntity(this, vec.copy().multiply(2));
 		
 		if(tile instanceof TileRefineryTank){

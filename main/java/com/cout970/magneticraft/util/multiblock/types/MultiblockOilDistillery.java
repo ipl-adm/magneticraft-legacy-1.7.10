@@ -19,7 +19,7 @@ public class MultiblockOilDistillery  extends Multiblock{
 		SimpleComponent v = new SimpleComponent(ManagerBlocks.refinery_gap);
 		SimpleComponent h = new SimpleComponent(ManagerBlocks.refinery_tank);
 		SimpleComponent c = new SimpleComponent(ManagerBlocks.multi_energy_low);
-		SimpleComponent b = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent b = new SimpleComponent(ManagerBlocks.chassis);
 		
 		SimpleComponent[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0

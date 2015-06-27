@@ -22,7 +22,7 @@ public class MultiblockGrinder extends Multiblock{
 		};
 		SimpleComponent i = new SimpleComponent(ManagerBlocks.multi_io);
 		SimpleComponent e = new SimpleComponent(ManagerBlocks.multi_energy_low);
-		SimpleComponent b = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent b = new SimpleComponent(ManagerBlocks.chassis);
 		SimpleComponent gc = new SimpleComponent(ManagerBlocks.grinder);
 
 		Mg_Component[][][] m = 

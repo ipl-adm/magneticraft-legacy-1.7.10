@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.api.util;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
@@ -37,6 +38,10 @@ public class VecInt {
 
 	public VecInt(TileEntity tile) {
 		this(tile.xCoord, tile.yCoord, tile.zCoord);
+	}
+
+	public VecInt(EntityPlayerMP pl) {
+		this(pl.posX, pl.posY, pl.posZ);
 	}
 
 	public static VecInt fromDirection(MgDirection d) {
@@ -135,5 +140,9 @@ public class VecInt {
 
 	public int[] intArray() {
 		return new int[]{x,y,z};
+	}
+
+	public int squareDistance() {
+		return x*x+y*y+z*z;
 	}
 }

@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -14,8 +15,8 @@ public class TileHeatSink extends TileHeatConductor{
 	}
 	
 	@Override
-	public IHeatConductor getHeatCond(VecInt c) {
-		return c.toMgDirection() == getDirection().opposite() || c == VecInt.NULL_VECTOR ? heat : null;
+	public CompoundHeatCables getHeatCond(VecInt c) {
+		return new CompoundHeatCables(heat);
 	}
 	
 	public void updateEntity(){

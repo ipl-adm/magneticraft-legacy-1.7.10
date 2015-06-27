@@ -15,6 +15,7 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
+import com.cout970.magneticraft.client.gui.component.CompEnergyBarMediumVoltage;
 import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
@@ -32,50 +33,7 @@ public class GuiTurbine extends GuiBasic{
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/turbine.png")));
 		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(29, 20)));
 		comp.add(new CompFluidRender_Turbine((TileTurbineControl)tile, new GuiPoint(41,25), new GuiPoint(59, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
-		comp.add(new CompEnergyBarMediumVoltage_Turbine(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar2.png"),new GuiPoint(19,16)));
-	}
-	
-	public class CompEnergyBarMediumVoltage_Turbine implements IGuiComp{
-
-		public ResourceLocation texture;
-		public GuiPoint pos;
-
-		public CompEnergyBarMediumVoltage_Turbine(ResourceLocation tex, GuiPoint p){
-			texture = tex;
-			pos = p;
-		}
-
-		@Override
-		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-			if(tile instanceof TileTurbineControl){
-				IElectricConductor c = ((TileTurbineControl) tile).out;
-				if(c == null)return;
-				int scale = (int) (c.getVoltage() >= ElectricConstants.MAX_VOLTAGE*100 ? 50 : 50*(c.getVoltage()/(ElectricConstants.MAX_VOLTAGE*100)));
-				gui.mc.renderEngine.bindTexture(texture);
-				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 25, 50-scale, 5, scale, 70, 50);
-			}
-		}
-
-		@Override
-		public void onClick(int mx, int my, int buttom, GuiBasic gui) {}
-
-		@Override
-		public boolean onKey(int n, char key, GuiBasic gui) {return false;}
-
-		@Override
-		public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-			if(tile instanceof TileTurbineControl){
-				IElectricConductor c = ((TileTurbineControl) tile).out;
-				if(c == null)return;
-				if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 50)){
-					List<String> data = new ArrayList<String>();
-					data.add(((int)c.getVoltage())+"V");
-					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
-					RenderHelper.enableGUIStandardItemLighting();
-				}
-			}
-		}
-
+		comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar2.png"),new GuiPoint(19,16), ((TileTurbineControl)tile).capacity));
 	}
 	
 	public class CompFluidRender_Turbine implements IGuiComp{

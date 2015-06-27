@@ -22,7 +22,7 @@ public abstract class PathFinder {
 	
 	public void addNeigBlocks(VecInt pos){
 		for(MgDirection d : MgDirection.values()){
-			addBlock(d.getVecInt().add(pos));
+			addBlock(d.toVecInt().add(pos));
 		}
 	}
 	

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.cout970.magneticraft.api.computer.IHardDrive;
 import com.cout970.magneticraft.api.computer.impl.ComputerUtils;
 import com.cout970.magneticraft.api.util.NBTUtils;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemHardDrive extends ItemBasic implements IHardDrive{
 
@@ -14,6 +15,7 @@ public class ItemHardDrive extends ItemBasic implements IHardDrive{
 	
 	public ItemHardDrive(String unlocalizedname) {
 		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

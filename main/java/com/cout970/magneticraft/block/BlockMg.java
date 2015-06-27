@@ -35,6 +35,7 @@ public abstract class BlockMg extends BlockContainer{
     	TileEntity t = w.getTileEntity(x, y, z);
     	if(t instanceof TileBase){
     		((TileBase) t).onNeigChange();
+    		((TileBase) t).sendUpdateToClient();
     	}
     }
     

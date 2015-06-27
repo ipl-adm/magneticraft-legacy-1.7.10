@@ -15,25 +15,12 @@ import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemPartCableHigh extends JItemMultiPart{
+public class ItemPartCableHigh extends ItemPartBase{
 
-	public static final String Base = "magneticraft:";
 
 	public ItemPartCableHigh(String unlocalizedname){
-		super();
-		setUnlocalizedName(unlocalizedname);
-		setCreativeTab(CreativeTabsMg.MainTab);
-		setTextureName(Base+"void");
-	}
-
-	public String getUnlocalizedName(ItemStack i){
-		return getUnlocalizedName();
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister IR)
-	{
-		this.itemIcon = IR.registerIcon(this.getIconString());
+		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

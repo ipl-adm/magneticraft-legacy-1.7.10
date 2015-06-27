@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 
 public class ItemGravelOre extends ItemBasic{
 

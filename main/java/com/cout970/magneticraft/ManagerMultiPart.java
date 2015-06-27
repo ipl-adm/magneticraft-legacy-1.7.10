@@ -5,10 +5,12 @@ import codechicken.multipart.MultiPartRegistry.IPartFactory;
 import codechicken.multipart.TMultiPart;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.parts.PartCopperPipe;
+import com.cout970.magneticraft.parts.micro.PartBroncePipe;
 import com.cout970.magneticraft.parts.micro.PartCableHigh;
 import com.cout970.magneticraft.parts.micro.PartCableLow;
 import com.cout970.magneticraft.parts.micro.PartCableMedium;
+import com.cout970.magneticraft.parts.micro.PartCopperPipe;
+import com.cout970.magneticraft.parts.micro.PartHeatCable;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Down;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_East;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_North;
@@ -23,6 +25,8 @@ public class ManagerMultiPart {
 		MultiPartRegistry.registerParts(new CableMediumFactory(), new String[]{ManagerItems.cablemedium.getUnlocalizedName()});
 		MultiPartRegistry.registerParts(new CableHighFactory(), new String[]{ManagerItems.cablehigh.getUnlocalizedName()});
 		MultiPartRegistry.registerParts(new CopperPipeFactory(), new String[]{ManagerItems.partcopperpipe.getUnlocalizedName()});
+		MultiPartRegistry.registerParts(new BroncePipeFactory(), new String[]{ManagerItems.partbroncepipe.getUnlocalizedName()});
+		MultiPartRegistry.registerParts(new HeatCableFactory(), new String[]{ManagerItems.partheatcable.getUnlocalizedName()});
 		for(MgDirection d : MgDirection.values())
 		MultiPartRegistry.registerParts(new CopperWireFactory(), new String[]{ManagerItems.wire_copper.getUnlocalizedName()+"_"+d.name()});
 	}
@@ -52,6 +56,20 @@ public class ManagerMultiPart {
 		@Override
 		public TMultiPart createPart(String arg0, boolean arg1) {
 			return new PartCopperPipe();
+		}
+	}
+	
+	public class BroncePipeFactory implements IPartFactory{
+		@Override
+		public TMultiPart createPart(String arg0, boolean arg1) {
+			return new PartBroncePipe();
+		}
+	}
+	
+	public class HeatCableFactory implements IPartFactory{
+		@Override
+		public TMultiPart createPart(String arg0, boolean arg1) {
+			return new PartHeatCable();
 		}
 	}
 	

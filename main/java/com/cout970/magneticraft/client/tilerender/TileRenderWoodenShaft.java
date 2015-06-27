@@ -41,16 +41,11 @@ public class TileRenderWoodenShaft extends TileEntitySpecialRenderer{
 		default:
 			break;
 		}
-		
-		float var0 = (float) (tile.kinetic.getSpeed()/60);
-		int var1 = (int) (var0 != 0 ? 1000f/var0 : 0);
-		if(var1 != 0){
-			tile.rotation = (float) (System.currentTimeMillis()%var1)*var0;
-		}
-		
-		if(tile.rotation > 1000)tile.rotation %= 1000;
+		float f = (float) (tile.kinetic.getRotation() + (tile.kinetic.getSpeed()/60)*tile.kinetic.getDelta());
+		if(f > 1000)f %= 1000;
+		tile.kinetic.setRotation(f);
 		RenderUtil.bindTexture(ModelTextures.WOODEN_SHAFT);
-		model.renderDynamic(0.0625f, (float) Math.toRadians(tile.rotation*0.36));
+		model.renderDynamic(0.0625f, (float) Math.toRadians(tile.kinetic.getRotation()*0.36));
 		GL11.glPopMatrix();
 	}
 }

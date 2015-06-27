@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import codechicken.lib.vec.BlockCoord;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
 
@@ -14,6 +15,7 @@ public class ItemMapPositioner extends ItemBasic{
 
 	public ItemMapPositioner(String unlocalizedname) {
 		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 
 	public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_)

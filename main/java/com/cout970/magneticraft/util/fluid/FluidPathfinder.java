@@ -12,10 +12,12 @@ public class FluidPathfinder {
 
 	private List<IFluidTransport> visited = new ArrayList<IFluidTransport>();
 	
+	private IFluidTransport from;
 	private IFluidTransport to;
 	
 	public FluidPathfinder(IFluidTransport from, IFluidTransport to) {
 		visited.add(from);
+		this.from = from;
 		list(from);
 		this.to = to;
 	}
@@ -27,10 +29,12 @@ public class FluidPathfinder {
 			if(tile != null){
 				if(FluidUtils.isPipe(tile)){
 					IFluidTransport e = FluidUtils.getFluidTransport(tile);
-					if(e.canConectOnSide(dir.opposite()) && f.canConectOnSide(dir)){
-						if(!visited.contains(e)){
-							visited.add(e);
-							list(e);
+					if(this.from.isComaptible(e)){
+						if(e.canConectOnSide(dir.opposite()) && f.canConectOnSide(dir)){
+							if(!visited.contains(e)){
+								visited.add(e);
+								list(e);
+							}
 						}
 					}
 				}
@@ -38,7 +42,7 @@ public class FluidPathfinder {
 		}
 	}
 
-	public boolean canEnergyGoToEnd(){
+	public boolean canFluidGoToEnd(){
 		if(to == null)return false;
 		return visited.contains(to);
 	}

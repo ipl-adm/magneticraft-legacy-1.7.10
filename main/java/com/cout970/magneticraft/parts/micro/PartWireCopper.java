@@ -14,7 +14,7 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
@@ -25,7 +25,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderWireCopper;
 
-public abstract class PartWireCopper extends ElectricPart{
+public abstract class PartWireCopper extends PartElectric{
 	
 	public static List<Cuboid6> Down_Boxes = new ArrayList<Cuboid6>();
 	public static List<Cuboid6> Up_Boxes = new ArrayList<Cuboid6>();
@@ -93,7 +93,7 @@ public abstract class PartWireCopper extends ElectricPart{
 	}
 
 	public void create(){
-		cond = new ElectricConductor(getTile(), 0, ElectricConstants.RESISTANCE_COPPER_2X2){
+		cond = new ElectricConductor(getTile(), 0, ElectricConstants.RESISTANCE_COPPER_LOW){
 			@Override
 			public VecInt[] getValidConnections() {
 				return PartWireCopper.this.getValidConnexions(getDirection());
@@ -102,19 +102,19 @@ public abstract class PartWireCopper extends ElectricPart{
 			@Override
 			public boolean isAbleToConnect(IElectricConductor c, VecInt d){
 				if(d.equals(VecInt.NULL_VECTOR))return true;
-				if(d.equals(getDirection().getVecInt()))return true;
-				if(d.equals(getDirection().opposite().getVecInt()))return false;
+				if(d.equals(getDirection().toVecInt()))return true;
+				if(d.equals(getDirection().opposite().toVecInt()))return false;
 				MgDirection dir = d.toMgDirection();
 				if(dir != null){
 					//FORGE_DIRECTIONS
 					return ((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(getBoxes().get(getBoxBySide(dir))))
 							&& (c.getConnectionClass(d.getOpposite()) == this.getConnectionClass(d) || c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK);
 				}else{
-					dir = (d.copy().add(getDirection().getVecInt().getOpposite())).toMgDirection();
+					dir = (d.copy().add(getDirection().toVecInt().getOpposite())).toMgDirection();
 				}
 				if(dir != null){
 					//EXTENDED_DIRECTIONS
-					VecInt g = dir.getVecInt().add(X(),Y(),Z());
+					VecInt g = dir.toVecInt().add(X(),Y(),Z());
 					Block b = W().getBlock(g.getX(), g.getY(), g.getZ());
 					return ((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(getBoxes().get(getBoxBySide(dir))))
 							&& isTranspasable(b) 
@@ -147,18 +147,18 @@ public abstract class PartWireCopper extends ElectricPart{
 		if(validCon == null){
 			validCon = new VecInt[10];
 			validCon[0] = VecInt.NULL_VECTOR;
-			validCon[1] = dir.getVecInt();
+			validCon[1] = dir.toVecInt();
 			byte i = 2;
 			
 			for(MgDirection d : MgDirection.values()){
 				if(d != dir && d != dir.opposite()){
-					validCon[i] = d.getVecInt();
+					validCon[i] = d.toVecInt();
 					i++;
 				}
 			}
 			for(MgDirection d : MgDirection.values()){
 				if(d != dir && d != dir.opposite()){
-					validCon[i] = d.getVecInt().copy().add(dir.getVecInt());
+					validCon[i] = d.toVecInt().copy().add(dir.toVecInt());
 					i++;
 				}
 			}
@@ -173,12 +173,12 @@ public abstract class PartWireCopper extends ElectricPart{
 	public void updateConnections() {
 		Conn = 0;
 		for(MgDirection f : MgDirection.values()){
-			TileEntity target = MgUtils.getTileEntity(tile(), f.getVecInt());
-			CableCompound c = MgUtils.getElectricCond(target, f.getVecInt().getOpposite(), getTier());
-			IEnergyInterface inter = MgUtils.getInterface(target, f.getVecInt().getOpposite(), getTier());
+			TileEntity target = MgUtils.getTileEntity(tile(), f.toVecInt());
+			CompoundElectricCables c = MgUtils.getElectricCond(target, f.toVecInt().getOpposite(), getTier());
+			IEnergyInterface inter = MgUtils.getInterface(target, f.toVecInt().getOpposite(), getTier());
 			if(c != null){
 				for(IElectricConductor e : c.list()){
-					if(cond.isAbleToConnect(e, f.getVecInt()) && e.isAbleToConnect(cond, f.getVecInt().getOpposite())){
+					if(cond.isAbleToConnect(e, f.toVecInt()) && e.isAbleToConnect(cond, f.toVecInt().getOpposite())){
 						Conn |= 1 << f.ordinal();
 					}
 				}
@@ -195,12 +195,12 @@ public abstract class PartWireCopper extends ElectricPart{
 			}
 		}
 		for(MgDirection d : MgDirection.values()){
-			VecInt f = d.getVecInt().add(getDirection().getVecInt());
+			VecInt f = d.toVecInt().add(getDirection().toVecInt());
 			TileEntity target = MgUtils.getTileEntity(tile(), f);
-			CableCompound c = MgUtils.getElectricCond(target, f.getOpposite(), getTier());
+			CompoundElectricCables c = MgUtils.getElectricCond(target, f.getOpposite(), getTier());
 			IEnergyInterface inter = MgUtils.getInterface(target, f.getOpposite(), getTier());
 			if(c != null || inter != null){
-				VecInt g = d.getVecInt().copy().add(X(), Y(), Z());
+				VecInt g = d.toVecInt().copy().add(X(), Y(), Z());
 				Block b = W().getBlock(g.getX(), g.getY(), g.getZ());
 				if(isTranspasable(b)){
 					if(c != null){
@@ -224,7 +224,7 @@ public abstract class PartWireCopper extends ElectricPart{
 	public void onNeighborChanged() {
 		super.onNeighborChanged();
 		MgDirection d = getDirection();
-		if(!world().isRemote && !world().isSideSolid(X()+d.getOffsetX(), Y()+d.getOffsetY(), Z()+d.getOffsetZ(), d.getForgeDir(), false)){
+		if(!world().isRemote && !world().isSideSolid(X()+d.getOffsetX(), Y()+d.getOffsetY(), Z()+d.getOffsetZ(), d.toForgeDir(), false)){
 			tile().dropItems(this.getDrops());
 			tile().remPart(this);
 		}

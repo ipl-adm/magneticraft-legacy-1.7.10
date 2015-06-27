@@ -63,13 +63,13 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         int var2 = this.tracer % 17;
         MgDirection rightHand = facing.step(MgDirection.UP);
         VecInt pos = new VecInt(this);
-        pos.add(facing.getVecInt().multiply(2));
-        pos.add(rightHand.getVecInt().multiply(var2 - 8));
+        pos.add(facing.toVecInt().multiply(2));
+        pos.add(rightHand.toVecInt().multiply(var2 - 8));
         pos.add(0,yHeight,0);
         int air;
 
         for (air = 0; air < 20 && Block.isEqualTo(worldObj.getBlock(pos.getX(), pos.getY(), pos.getZ()), Blocks.air); ++air){
-        	pos.add(facing.getVecInt());
+        	pos.add(facing.toVecInt());
         }
         
         if (this.rayTrace == null)
@@ -294,7 +294,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	public InventoryComponent getInv() {

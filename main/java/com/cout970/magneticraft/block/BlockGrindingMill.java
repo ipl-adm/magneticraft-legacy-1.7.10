@@ -47,11 +47,16 @@ public class BlockGrindingMill extends BlockMg implements MB_ControlBlock{
 		return "grinding_mill";
 	}
 	
+	public boolean renderAsNormalBlock()
+    {
+        return false;
+    }
+	
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
 		if(p.isSneaking())return false;
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TileGrindingMill){
-			if(!((TileGrindingMill) t).active){
+			if(!((TileGrindingMill) t).isActive()){
 				if(!w.isRemote)
 					MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_GRINDING_MILL), getDirection(w, new VecInt(x,y,z)),p);
 				else

@@ -103,7 +103,6 @@ public class LangHelper {
 		addName(ManagerBlocks.transformer_mh, "Transformer Medium to High");
 		addName(ManagerBlocks.firebox, "Firebox");
 		addName(ManagerBlocks.boiler, "Boiler");
-		addName(ManagerBlocks.heat_cable, "Heat Conductor");
 		addName(ManagerBlocks.cooler, "Cooler");
 		addName(ManagerBlocks.heat_resist, "Heat Resistance");
 		addName(ManagerBlocks.fluidhopper, "Fluid Hopper");
@@ -111,7 +110,7 @@ public class LangHelper {
 		addName(ManagerBlocks.pumpJack, "Pumpjack");
 		addName(ManagerBlocks.steamengine, "Steam Engine");
 		addName(ManagerBlocks.crusher, "Crusher Control");
-		addName(ManagerBlocks.chasis, "Multiblock Chasis");
+		addName(ManagerBlocks.chassis, "Multiblock Chassis");
 		addName(ManagerBlocks.multi_io, "Multiblock IO");
 		addName(ManagerBlocks.conveyor_l, "Conveyor Belt");
 		addName(ManagerBlocks.mirror, "Mirror");
@@ -141,11 +140,11 @@ public class LangHelper {
 		addName(ManagerBlocks.refinery_tank, "Refinery Tank");
 		addName(ManagerBlocks.tank_mg, "Fluid Tank");
 		addName(ManagerBlocks.heater, "Heater");
-		addName(ManagerBlocks.air_bubble, "Air Bouble");
+		addName(ManagerBlocks.air_bubble, "Air Bubble");
 		addName(ManagerBlocks.solar_tower_core, "Solar Tower Core");
-		addName(ManagerBlocks.polimerizer, "Polimerizer Control");
+		addName(ManagerBlocks.polimerizer, "Polymerizer Control");
 		addName(ManagerBlocks.reactor_controller, "Reactor Controller");
-		addName(ManagerBlocks.multi_energy_medium, "Multiblock Energy IO Medium voltage");
+		addName(ManagerBlocks.multi_energy_medium, "Multiblock Energy IO Medium Voltage");
 		addName(ManagerBlocks.turbine, "Turbine Control");
 		addName(ManagerBlocks.combustion_engine, "Combustion Engine");
 		addName(ManagerBlocks.heat_sink, "Heat Sink");

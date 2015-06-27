@@ -14,6 +14,7 @@ import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileGeothermalPump;
 import com.cout970.magneticraft.util.RenderUtil;
 
@@ -26,7 +27,7 @@ public class GuiGeothermalPump extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation("magneticraft:textures/gui/geothermal.png")));
-		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20)));
+		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileGeothermalPump)tile).heat));
 		comp.add(new CompLavaStorage(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/lavabar.png"), new GuiPoint(98, 20)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

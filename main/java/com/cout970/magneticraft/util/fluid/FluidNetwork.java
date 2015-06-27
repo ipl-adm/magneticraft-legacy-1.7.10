@@ -40,7 +40,7 @@ public class FluidNetwork{
 			if(e != null){
 				TileEntity t = e.getTileEntity();
 				if(t != null && t.getWorldObj().getTileEntity(t.xCoord, t.yCoord, t.zCoord) != null){
-						base = e;
+					base = e;
 				}
 			}
 		}

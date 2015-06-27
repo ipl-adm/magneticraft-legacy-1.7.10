@@ -4,12 +4,22 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelTextures {
 
+
+	public static final ResourceLocation NO_TEXTURE 				= new ResourceLocation("magneticraft", "textures/misc/no_texture.png");
+	
+	//copper pipe
 	public static final ResourceLocation PIPE_BASE_COPPER 			= new ResourceLocation("magneticraft", "textures/misc/pipe/copper/base.png");
 	public static final ResourceLocation PIPE_IN_COPPER 			= new ResourceLocation("magneticraft", "textures/misc/pipe/copper/in.png");
 	public static final ResourceLocation PIPE_BASE_2_COPPER 		= new ResourceLocation("magneticraft", "textures/misc/pipe/copper/base2.png");
 	public static final ResourceLocation PIPE_CONECTION_1_COPPER 	= new ResourceLocation("magneticraft", "textures/misc/pipe/copper/conection1.png");
 	public static final ResourceLocation PIPE_CONECTION_2_COPPER 	= new ResourceLocation("magneticraft", "textures/misc/pipe/copper/conection2.png");
-	
+	//bronce pipe
+	public static final ResourceLocation PIPE_BASE_BRONCE 			= new ResourceLocation("magneticraft", "textures/misc/pipe/bronce/base.png");
+	public static final ResourceLocation PIPE_IN_BRONCE				= new ResourceLocation("magneticraft", "textures/misc/pipe/bronce/in.png");
+	public static final ResourceLocation PIPE_BASE_2_BRONCE 		= new ResourceLocation("magneticraft", "textures/misc/pipe/bronce/base2.png");
+	public static final ResourceLocation PIPE_CONECTION_1_BRONCE 	= new ResourceLocation("magneticraft", "textures/misc/pipe/bronce/conection1.png");
+	public static final ResourceLocation PIPE_CONECTION_2_BRONCE 	= new ResourceLocation("magneticraft", "textures/misc/pipe/bronce/conection2.png");
+	//electric cables
 	public static final ResourceLocation CABLE_LOW 					= new ResourceLocation("magneticraft", "textures/misc/modelcablelow.png");
 	public static final ResourceLocation CABLE_MEDIUM 				= new ResourceLocation("magneticraft", "textures/misc/modelcablemedium.png");
 	public static final ResourceLocation CABLE_HIGH 				= new ResourceLocation("magneticraft", "textures/misc/modelcablehigh.png");
@@ -17,7 +27,6 @@ public class ModelTextures {
 	public static final ResourceLocation PUMP_HEAD 					= new ResourceLocation("magneticraft", "textures/misc/head.png");
 	public static final ResourceLocation PUMP_PISTON 				= new ResourceLocation("magneticraft", "textures/misc/piston.png");
 	public static final ResourceLocation PUMP_MOTOR 				= new ResourceLocation("magneticraft", "textures/misc/motor.png");
-	
 	public static final ResourceLocation MIRROR 					= new ResourceLocation("magneticraft", "textures/misc/mirror.png");
 	public static final ResourceLocation HOPPER 					= new ResourceLocation("magneticraft", "textures/misc/hopper.png");
 	public static final ResourceLocation STEAM_ENGINE 				= new ResourceLocation("magneticraft", "textures/misc/steam_engine.png");
@@ -57,5 +66,9 @@ public class ModelTextures {
 	public static final ResourceLocation GRINDER 					= new ResourceLocation("magneticraft", "textures/misc/modelgrinder.png");
 	public static final ResourceLocation GRINDING_MILL				= new ResourceLocation("magneticraft", "textures/misc/modelgrindingmill.png");
 	public static final ResourceLocation WOODEN_SHAFT 				= new ResourceLocation("magneticraft", "textures/misc/modelwoodenshaft.png");
+	public static final ResourceLocation HAND_CRANK 				= new ResourceLocation("magneticraft", "textures/misc/modelhandcrank.png");
+	public static final ResourceLocation JACK_HAMMER				= new ResourceLocation("magneticraft", "textures/misc/modeljackhammer.png");
+	public static final ResourceLocation DIODE 						= new ResourceLocation("magneticraft", "textures/misc/modeldiode.png");
+	public static final ResourceLocation RESISTANCE 				= new ResourceLocation("magneticraft", "textures/misc/modelresistance.png");
 
 }

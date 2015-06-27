@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.cout970.magneticraft.api.computer.IFloppyDisk;
 import com.cout970.magneticraft.api.computer.impl.ComputerUtils;
 import com.cout970.magneticraft.api.util.NBTUtils;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemFloppyDisk extends ItemBasic implements IFloppyDisk{
 
@@ -14,6 +15,7 @@ public class ItemFloppyDisk extends ItemBasic implements IFloppyDisk{
 	
 	public ItemFloppyDisk(String unlocalizedname) {
 		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.InformationAgeTab);
 	}
 
 	@Override

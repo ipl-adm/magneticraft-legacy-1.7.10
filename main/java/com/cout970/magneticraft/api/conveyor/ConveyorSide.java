@@ -164,10 +164,10 @@ public class ConveyorSide {
 	public static TileEntity getFrontConveyor(IConveyor c){
 		TileEntity t = c.getParent();
 		if(c.getOrientation().getLevel() == 1)
-			return MgUtils.getTileEntity(t, c.getDir().getVecInt().add(0, 1, 0));
+			return MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, 1, 0));
 		TileEntity retval = MgUtils.getTileEntity(t, c.getDir());
 		if(!MgBeltUtils.isBelt(retval)){
-			retval = MgUtils.getTileEntity(t, c.getDir().getVecInt().add(0, -1, 0));
+			retval = MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, -1, 0));
 		}
 		return retval;
 	}

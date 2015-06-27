@@ -34,7 +34,7 @@ public class BlockMB_Kinetic extends BlockMg implements MB_Block{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"void"};
+		return new String[]{"mb_kinetic"};
 	}
 
 	@Override

@@ -53,11 +53,11 @@ public enum MgDirection {
 		return values()[i % VALID_DIRECTIONS.length];
 	}
 
-	public VecInt getVecInt() {
+	public VecInt toVecInt() {
 		return offsets.copy();
 	}
 
-	public ForgeDirection getForgeDir() {
+	public ForgeDirection toForgeDir() {
 		return ForgeDirection.getOrientation(ordinal());
 	}
 	

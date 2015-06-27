@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.api.util;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.google.common.base.Objects;
@@ -40,6 +41,10 @@ public class VecDouble {
 
 	public VecDouble(VecInt vec) {
 		this(vec.getX(),vec.getY(),vec.getZ());
+	}
+
+	public VecDouble(TileEntity t) {
+		this(t.xCoord, t.yCoord, t.zCoord);
 	}
 
 	public static VecDouble getConnexion(MgDirection d) {

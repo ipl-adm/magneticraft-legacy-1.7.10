@@ -9,6 +9,8 @@ import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
+import com.cout970.magneticraft.tileentity.TileBiomassBurner;
+import com.cout970.magneticraft.tileentity.TileReactorVessel;
 
 public class GuiReactorVessel extends GuiBasic{
 
@@ -19,7 +21,7 @@ public class GuiReactorVessel extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/reactor_vessel.png")));
-		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20)));
+		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileReactorVessel)tile).heat));
 		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(116,20)));
 	}
 

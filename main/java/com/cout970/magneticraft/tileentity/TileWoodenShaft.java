@@ -11,8 +11,6 @@ import com.cout970.magneticraft.util.tile.TileKineticConductor;
 
 public class TileWoodenShaft extends TileKineticConductor{
 
-	public float rotation;
-	private long time;
 
 	@Override
 	public MgDirection[] getValidSides() {
@@ -30,12 +28,10 @@ public class TileWoodenShaft extends TileKineticConductor{
 
 	public void updateEntity(){
 		super.updateEntity();
-//		Log.debug(kinetic.getWork());
-	}
-
-	public float getDelta() {
-		long aux = time;
-		time = System.nanoTime();
-		return time - aux;
+		if(worldObj.isRemote){
+			float f = (float) (kinetic.getRotation() + (kinetic.getSpeed()/60)*kinetic.getDelta()/1E6);
+			if(f > 1000)f %= 1000;
+			kinetic.setRotation(f);
+		}
 	}
 }

@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemOilProspector extends ItemCharged{
 	
@@ -16,6 +17,7 @@ public class ItemOilProspector extends ItemCharged{
 	public ItemOilProspector(String unlocalizedname) {
 		super(unlocalizedname,80000);
 		setMaxStackSize(1);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 	
 	public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float offsetx, float offsety, float offsetz){

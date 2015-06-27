@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -19,23 +19,20 @@ public class CompEnergyBarMediumVoltage implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IElectricConductor cond;
 
-	public CompEnergyBarMediumVoltage(ResourceLocation tex, GuiPoint p){
+	public CompEnergyBarMediumVoltage(ResourceLocation tex, GuiPoint p, IElectricConductor cond){
 		texture = tex;
 		pos = p;
+		this.cond = cond;
 	}
 
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IElectricTile){
-			CableCompound j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,-1);
-			if(j == null)return;
-			IElectricConductor c = j.getCond(0);
-			if(c == null)return;
-			int scale = (int) (c.getVoltage() >= ElectricConstants.MAX_VOLTAGE*100 ? 50 : 50*(c.getVoltage()/(ElectricConstants.MAX_VOLTAGE*100)));
-			gui.mc.renderEngine.bindTexture(texture);
-			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 25, 50-scale, 5, scale, 70, 50);
-		}
+		if(cond == null)return;
+		int scale = (int) (cond.getVoltage() >= ElectricConstants.MAX_VOLTAGE*100 ? 50 : 50*(cond.getVoltage()/(ElectricConstants.MAX_VOLTAGE*100)));
+		gui.mc.renderEngine.bindTexture(texture);
+		RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 25, 50-scale, 5, scale, 70, 50);
 	}
 
 	@Override
@@ -46,17 +43,12 @@ public class CompEnergyBarMediumVoltage implements IGuiComp{
 
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IElectricTile){
-			CableCompound j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,-1);
-			if(j == null)return;
-			IElectricConductor c = j.getCond(0);
-			if(c == null)return;
-			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 50)){
-				List<String> data = new ArrayList<String>();
-				data.add(((int)c.getVoltage())+"V");
-				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
-				RenderHelper.enableGUIStandardItemLighting();
-			}
+		if(cond == null)return;
+		if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 50)){
+			List<String> data = new ArrayList<String>();
+			data.add(((int)cond.getVoltage())+"V");
+			gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
+			RenderHelper.enableGUIStandardItemLighting();
 		}
 	}
 

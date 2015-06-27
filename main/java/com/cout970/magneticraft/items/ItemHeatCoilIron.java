@@ -1,11 +1,13 @@
 package com.cout970.magneticraft.items;
 
-import com.cout970.magneticraft.tool.IFurnaceTool;
+import com.cout970.magneticraft.api.tool.IFurnaceCoil;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
-public class ItemHeatCoilIron extends ItemBasic implements IFurnaceTool{
+public class ItemHeatCoilIron extends ItemBasic implements IFurnaceCoil{
 
 	public ItemHeatCoilIron(String unlocalizedname) {
 		super(unlocalizedname);
+		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 
 	@Override

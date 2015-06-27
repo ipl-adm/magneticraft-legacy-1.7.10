@@ -50,7 +50,7 @@ public class TileReactorActivator extends TileHeatConductor{
 	private void search() {
 		vessels.clear();
 		for(int i = 0;i<5;i++){
-			TileEntity t = MgUtils.getTileEntity(this, MgDirection.DOWN.getVecInt().add(0, -i, 0));
+			TileEntity t = MgUtils.getTileEntity(this, MgDirection.DOWN.toVecInt().add(0, -i, 0));
 			if(t instanceof TileReactorVessel){
 				vessels.add((TileReactorVessel) t);
 			}else{

@@ -9,7 +9,7 @@ import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyReceiver;
 
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -38,15 +38,15 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_2X2);
+		return new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_MED);
 	}
 	
 	@Override
-	public CableCompound getConds(VecInt dir, int tier) {
+	public CompoundElectricCables getConds(VecInt dir, int tier) {
 		if(VecInt.NULL_VECTOR == dir){
-			return new CableCompound(cond);
+			return new CompoundElectricCables(cond);
 		}
-		if(dir.toMgDirection() == getDirection().opposite() && (tier == 2 || tier == -1))return new CableCompound(cond);
+		if(dir.toMgDirection() == getDirection().opposite() && tier == 2)return new CompoundElectricCables(cond);
 		return null;
 	}
 
@@ -85,9 +85,9 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 			TileEntity t = MgUtils.getTileEntity(this, getDirection());
 			if(t instanceof IEnergyReceiver){
 				IEnergyReceiver e = (IEnergyReceiver) t;
-				if(e.canConnectEnergy(getDirection().opposite().getForgeDir())){
+				if(e.canConnectEnergy(getDirection().opposite().toForgeDir())){
 					int transfer = Math.min(400, storage.getEnergyStored());
-					int acepted = e.receiveEnergy(getDirection().opposite().getForgeDir(), transfer, false);
+					int acepted = e.receiveEnergy(getDirection().opposite().toForgeDir(), transfer, false);
 					storage.modifyEnergyStored(-acepted);
 				}
 			}
@@ -117,7 +117,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
-		return getDirection().getForgeDir() == from;
+		return getDirection().toForgeDir() == from;
 	}
 
 	@Override

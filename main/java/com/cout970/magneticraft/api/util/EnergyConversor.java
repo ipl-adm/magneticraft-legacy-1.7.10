@@ -14,6 +14,7 @@ public class EnergyConversor {
 	private static final int CALORIE = 100;		//100 calories to make 5mB steam from 1mB water 
 	private static final double EU_KW = 0.4;	//1EU = 400W = 0.4KW
 	private static final double EU_W = 400;		//1EU = 400W
+	private static final int RF_J = 1;			//1 RF = 1 J
 
 	public static double RFtoW(int rf){
 		return rf*RF_W;
@@ -85,5 +86,21 @@ public class EnergyConversor {
 
 	public static double CALORIEStoFuel(double heat) {
 		return heat/CALORIE;
+	}
+
+	public static int RFtoJ(int rf) {
+		return rf*RF_J;
+	}
+	
+	public static int JtoRF(int j) {
+		return j/RF_J;
+	}
+
+	public static double EUtoJ(int eu) {
+		return WtoJ(EUtoW(eu));
+	}
+
+	public static double WtoJ(double w) {
+		return w;
 	}
 }

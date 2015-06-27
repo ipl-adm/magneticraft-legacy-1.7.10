@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -30,7 +30,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 	public int drawCounter;
 	private TankMg input;
 	private TankMg output;
-	private IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	private IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private double[] flow = new double[3];
 	
 	public void updateEntity() {
@@ -69,24 +69,24 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 	}
 
 	private void search() {
-		VecInt vec = getDirection().opposite().getVecInt().multiply(2);
+		VecInt vec = getDirection().opposite().toVecInt().multiply(2);
 		TileEntity t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof TileRefineryTank){
 			input = ((TileRefineryTank) t).getTank();
 		}
-		vec = getDirection().opposite().getVecInt().add(0,1,0);
+		vec = getDirection().opposite().toVecInt().add(0,1,0);
 		t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof TileRefineryTank){
 			output = ((TileRefineryTank) t).getTank();
 		}
-		vec = getDirection().opposite().getVecInt().multiply(2).add(0,-1, 0);
-		vec.add(getDirection().opposite().step(MgDirection.UP).getVecInt());
+		vec = getDirection().opposite().toVecInt().multiply(2).add(0,-1, 0);
+		vec.add(getDirection().opposite().step(MgDirection.UP).toVecInt());
 		t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof TileMB_Energy_Low){
 			side1 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
 		}
-		vec = getDirection().opposite().getVecInt().multiply(2).add(0,-1, 0);
-		vec.add(getDirection().opposite().step(MgDirection.DOWN).getVecInt());
+		vec = getDirection().opposite().toVecInt().multiply(2).add(0,-1, 0);
+		vec.add(getDirection().opposite().step(MgDirection.DOWN).toVecInt());
 		t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof TileMB_Energy_Low){
 			side2 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
@@ -173,8 +173,8 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 	}
 
 	@Override
-	public CableCompound getConds(VecInt dir, int Vtier) {
-		if(dir == VecInt.NULL_VECTOR)return new CableCompound(own);
+	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
+		if(dir == VecInt.NULL_VECTOR)return new CompoundElectricCables(own);
 		return null;
 	}
 }

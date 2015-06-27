@@ -79,7 +79,7 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 		if(tile.getOrientation().getLevel() == 0){
 			int sides = 3;
 			for(int h = -1; h <=1 ; h++){
-				VecInt vec = tile.getDir().step(MgDirection.UP).getVecInt();
+				VecInt vec = tile.getDir().step(MgDirection.UP).toVecInt();
 				vec.add(new VecInt(tile));
 				TileEntity conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY()+h, vec.getZ());
 				if(conveyor instanceof IConveyor){
@@ -88,7 +88,7 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 					}
 				}
 
-				vec = tile.getDir().step(MgDirection.DOWN).getVecInt();
+				vec = tile.getDir().step(MgDirection.DOWN).toVecInt();
 				vec.add(new VecInt(tile));
 				conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY()+h, vec.getZ());
 				if(conveyor instanceof IConveyor){
@@ -289,7 +289,7 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 		float renderScale = 0.7f;
 		float h = 0;
 		
-		VecDouble v = new VecDouble(c.getDir().step(MgDirection.DOWN).getVecInt());
+		VecDouble v = new VecDouble(c.getDir().step(MgDirection.DOWN).toVecInt());
 		if(c.getOrientation().getLevel() == 1){
 			h = pos/16f;
 		}else if(c.getOrientation().getLevel() == -1){

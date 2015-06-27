@@ -17,24 +17,23 @@ public class CompHeatBar implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IHeatConductor cond;
 	
-	public CompHeatBar(ResourceLocation tex, GuiPoint p){
+	public CompHeatBar(ResourceLocation tex, GuiPoint p, IHeatConductor cond){
 		texture = tex;
 		pos = p;
+		this.cond = cond;
 	}
 
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IHeatTile){
-			IHeatConductor c = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
-			if(c == null)return;
-			int scale = 0;
-			if(c.getMaxTemp() > 0)
-			scale = (int) (c.getTemperature() * 44 / c.getMaxTemp());
-			if(scale > 44)scale = 44;
-			gui.mc.renderEngine.bindTexture(texture);
-			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
-		}
+		if(cond == null)return;
+		int scale = 0;
+		if(cond.getMaxTemp() > 0)
+			scale = (int) (cond.getTemperature() * 44 / cond.getMaxTemp());
+		if(scale > 44)scale = 44;
+		gui.mc.renderEngine.bindTexture(texture);
+		RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
 	}
 
 	@Override
@@ -45,15 +44,12 @@ public class CompHeatBar implements IGuiComp{
 
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IHeatTile){
-			IHeatConductor c = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
-			if(c == null)return;
-			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){
-				List<String> data = new ArrayList<String>();
-				data.add((int)c.getTemperature()+"C");
-				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
-				RenderHelper.enableGUIStandardItemLighting();
-			}
+		if(cond == null)return;
+		if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){
+			List<String> data = new ArrayList<String>();
+			data.add((int)cond.getTemperature()+"C");
+			gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
+			RenderHelper.enableGUIStandardItemLighting();
 		}
 	}
 

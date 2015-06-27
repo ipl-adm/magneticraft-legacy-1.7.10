@@ -101,14 +101,14 @@ public class FluidNetWorkManager implements IFluidHandler1_8{
 	public boolean canFillMg(MgDirection from, Fluid fluid) {
 		if(fluid == null)return false;
 		if(net.fluid == null)return true;
-		if(net.fluid.equals(fluid.getID()))return true;
+		if(net.fluid.equals(fluid))return true;
 		return false;
 	}
 
 	@Override
 	public boolean canDrainMg(MgDirection from, Fluid fluid) {
 		if(net.fluid == null)return false;
-		if(net.fluid == fluid)return true;
+		if(net.fluid.equals(fluid))return true;
 		return false;
 	}
 

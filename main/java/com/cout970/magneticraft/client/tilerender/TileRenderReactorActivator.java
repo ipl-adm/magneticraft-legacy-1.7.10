@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 import com.cout970.magneticraft.client.model.ModelReactorControl;
 import com.cout970.magneticraft.util.RenderUtil;
 
-public class TileRenderReactorActivator  extends TileEntitySpecialRenderer{
+public class TileRenderReactorActivator extends TileEntitySpecialRenderer{
 	
 	private ModelReactorControl model;
 	

@@ -6,10 +6,15 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
+import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
@@ -21,32 +26,74 @@ import com.cout970.magneticraft.util.tile.TileConductorLow;
 public class TileBattery extends TileConductorLow implements IGuiSync, IInventoryManaged, ISidedInventory, IBlockWithData{
 
 	private InventoryComponent inv = new InventoryComponent(this, 2, "Battery");
-	public static int BATTERY_CHARGE_SPEED = 500;
+	public static int BATTERY_CHARGE_SPEED = 1000;
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 1280000, ElectricConstants.BATTERY_DISCHARGE, ElectricConstants.BATTERY_CHARGE){
-			
+		return new ElectricConductor(this){
+
+			public int storage = 0;
+			public int maxStorage = 2000000;
+			public double min = ElectricConstants.BATTERY_DISCHARGE;
+			public double max = ElectricConstants.BATTERY_CHARGE;
+
 			public void iterate(){
 				super.iterate();
-				
+				if(!isControled())return;
 				if (getVoltage() > max && storage < maxStorage){
 					int change;
-					change = (int) Math.min((getVoltage() - max)*10, 200);
+					change = (int) Math.min((getVoltage() - max)*10, 1000);
 					change = Math.min(change, maxStorage - storage);
 					drainPower((double)(change * 100));
 					storage += change;
-				}else{
-					if(!isControled())return;
-					if(getVoltage() < min && storage > 0){
-						int change;
-						change = (int) Math.min((min - getVoltage())*10, 200);
-						change = Math.min(change, storage);
-						applyPower((double)(change * 100));
-						storage -= change;
-					}
+				}else if(getVoltage() < min && storage > 0){
+					int change;
+					change = (int) Math.min((min - getVoltage())*10, 1000);
+					change = Math.min(change, storage);
+					applyPower((double)(change * 100));
+					storage -= change;
 				}
 			}
+
+			@Override
+			public int getStorage() {
+				return storage;
+			}
+
+			@Override
+			public int getMaxStorage() {
+				return maxStorage;
+			}
+
+			@Override
+			public void setStorage(int charge) {
+				storage = charge;
+			}
+
+			@Override
+			public void applyCharge(int charge) {
+				storage += charge;
+				if(storage > maxStorage)
+					storage = maxStorage;
+			}
+
+			@Override
+			public void drainCharge(int charge){
+				storage -= charge;
+				if(storage < 0)storage = 0;
+			}
+
+			@Override
+			public void save(NBTTagCompound nbt) {
+				super.save(nbt);
+				nbt.setInteger("Storage", storage);
+			}
+
+			@Override
+			public void load(NBTTagCompound nbt) {
+				super.load(nbt);
+				storage = nbt.getInteger("Storage");
+			}	
 		};
 	}
 	

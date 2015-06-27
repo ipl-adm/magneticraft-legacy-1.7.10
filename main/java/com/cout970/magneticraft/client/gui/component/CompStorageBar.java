@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -29,7 +29,7 @@ public class CompStorageBar implements IGuiComp{
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 		if(tile instanceof IElectricTile){
-			CableCompound j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
+			CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
 			if(j == null)return;
 			IElectricConductor c = j.getCond(0);
 			if(c == null)return;
@@ -50,7 +50,7 @@ public class CompStorageBar implements IGuiComp{
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
 		if(tile instanceof IElectricTile){
-			CableCompound j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
+			CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
 			if(j == null)return;
 			IElectricConductor c = j.getCond(0);
 			if(c == null)return;

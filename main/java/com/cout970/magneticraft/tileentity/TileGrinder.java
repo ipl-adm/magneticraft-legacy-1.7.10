@@ -1,5 +1,10 @@
 package com.cout970.magneticraft.tileentity;
 
+import java.util.List;
+
+import net.minecraft.command.IEntitySelector;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -10,9 +15,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -24,6 +30,8 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
+import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
@@ -34,7 +42,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public boolean active;
 	public int speed;
 	public int maxProgres = 100;
-	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_2X2, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private int Progres;
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Grinder");
@@ -58,6 +66,9 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 				setActive(false);
 			}
 		}
+		if(worldObj.getWorldTime() % 10 == 0){
+			catchDrops();
+		}
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
 			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
@@ -78,6 +89,29 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 			}
 		}
 		distributeItems();
+	}
+
+	private void catchDrops() {
+		if(in == null)return;
+		MgDirection dir = getDirection().opposite();
+		VecInt vec1, vec2;
+		vec1 = new VecInt(this).add(0,4,0).add(dir.toVecInt());
+		vec2 = vec1.copy();
+		vec1.add(-1, 0, -1);
+		vec2.add(2, 1, 2);
+		List l = worldObj.getEntitiesWithinAABB(EntityItem.class, 
+				AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec2.getX(), vec2.getY(), vec2.getZ()));
+		if(l.isEmpty())return;
+		for(int i =0; i < l.size(); i++){
+			EntityItem e = (EntityItem) l.get(i);
+			ItemStack item = e.getEntityItem();
+			if(InventoryUtils.dropIntoInventory(item, in)){
+				worldObj.removeEntity(e);
+				e.setDead();
+			}else{
+				break;	
+			}
+		}
 	}
 
 	private void setActive(boolean b) {
@@ -102,12 +136,12 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		cond.recache();
 		cond.iterate();
 		MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
-		VecInt vec = d.getVecInt().add(d.step(MgDirection.UP).getVecInt());
+		VecInt vec = d.toVecInt().add(d.step(MgDirection.UP).toVecInt());
 		TileEntity c = MgUtils.getTileEntity(this, vec);
 		if (c instanceof IElectricTile) {
 			valance((IElectricTile) c);
 		}
-		vec = d.getVecInt().add(d.step(MgDirection.DOWN).getVecInt());
+		vec = d.toVecInt().add(d.step(MgDirection.DOWN).toVecInt());
 		c = MgUtils.getTileEntity(this, vec);
 		if (c instanceof IElectricTile) {
 			valance((IElectricTile) c);
@@ -115,7 +149,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	}
 	
 	public void valance(IElectricTile c){
-		CableCompound comp = c.getConds(VecInt.NULL_VECTOR,-1);
+		CompoundElectricCables comp = c.getConds(VecInt.NULL_VECTOR,0);
 		IElectricConductor cond2 = comp.getCond(0);
 		double resistence = cond.getResistance() + cond2.getResistance();
 		double difference = cond.getVoltage() - cond2.getVoltage();
@@ -130,7 +164,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	private void distributeItems() {
 		if (in == null) {
 			MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
-			VecInt v = d.getVecInt().add(new VecInt(0,3,0));
+			VecInt v = d.toVecInt().add(new VecInt(0,3,0));
 			TileEntity c = MgUtils.getTileEntity(this,v);
 			if (c instanceof IInventoryManaged) {
 				in = ((IInventoryManaged) c).getInv();
@@ -138,7 +172,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		}
 		if (out == null) {
 			MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();
-			VecInt v = d.getVecInt().multiply(2);
+			VecInt v = d.toVecInt().multiply(2);
 			TileEntity c = MgUtils.getTileEntity(this,v);
 			if (c instanceof IInventoryManaged) {
 				out = ((IInventoryManaged) c).getInv();

@@ -19,16 +19,20 @@ import com.cout970.magneticraft.items.ItemHardDrive;
 import com.cout970.magneticraft.items.ItemHeatCoilCopper;
 import com.cout970.magneticraft.items.ItemHeatCoilIron;
 import com.cout970.magneticraft.items.ItemHeatCoilTungsten;
+import com.cout970.magneticraft.items.ItemHeavyCopperCoil;
+import com.cout970.magneticraft.items.ItemJackHammer;
 import com.cout970.magneticraft.items.ItemMapPositioner;
 import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
 import com.cout970.magneticraft.items.ItemModuleROM;
 import com.cout970.magneticraft.items.ItemModuleRam64K;
 import com.cout970.magneticraft.items.ItemOilProspector;
+import com.cout970.magneticraft.items.ItemPartBroncePipe;
 import com.cout970.magneticraft.items.ItemPartCableHigh;
 import com.cout970.magneticraft.items.ItemPartCableLow;
 import com.cout970.magneticraft.items.ItemPartCableMedium;
 import com.cout970.magneticraft.items.ItemPartCopperWire;
-import com.cout970.magneticraft.items.ItemPartPipe;
+import com.cout970.magneticraft.items.ItemPartCopperPipe;
+import com.cout970.magneticraft.items.ItemPartHeatCable;
 import com.cout970.magneticraft.items.ItemSandOre;
 import com.cout970.magneticraft.items.ItemThermometer;
 import com.cout970.magneticraft.items.ItemThoriumRod;
@@ -90,8 +94,8 @@ public class ManagerItems {
 	public static Item turbine_wing;
 	public static Item plastic;
 	public static Item dustDiamond;
-	public static Item sword;
-	public static Item chainsaw;
+	public static Item tool_sword;
+	public static Item tool_chainsaw;
 	public static Item bucket_oil;
 	public static Item bucket_light_oil;
 	public static Item bucket_heavy_oil;
@@ -101,6 +105,10 @@ public class ManagerItems {
 	public static Item chip_rom;
 	public static Item drive_floppy;
 	public static Item drive_hard;
+	public static Item partbroncepipe;
+	public static Item partheatcable;
+	public static Item tool_jackhammer;
+	public static Item heavy_copper_coil;
 	
 	public static void initItems(){
 		//ores
@@ -127,7 +135,8 @@ public class ManagerItems {
 		therm = new ItemThermometer("thermometer");
 		battery_item = new ItemBattery("battery");
 		map = new ItemMapPositioner("map_pos");
-		partcopperpipe = new ItemPartPipe("copper_pipe");
+		partcopperpipe = new ItemPartCopperPipe("copper_pipe");
+		partbroncepipe = new ItemPartBroncePipe("bronce_pipe");
 		wrench = new ItemWrench("wrench");
 		turbine_0 = new ItemTurbine("turbine_0",0,3,3,0.33d,0.70f);
 		turbine_1 = new ItemTurbine("turbine_1",1,5,5,1d,1.25f);
@@ -145,8 +154,8 @@ public class ManagerItems {
 		turbine_wing = new ItemBasic("turbine_wing");
 		plastic = new ItemBasic("plastic");
 		dustDiamond = new ItemBasic("dustdiamond");
-		sword = new ItemElectricSword("electric_sword");
-		chainsaw = new ItemChainSaw("chainsaw");
+		tool_sword = new ItemElectricSword("electric_sword");
+		tool_chainsaw = new ItemChainSaw("chainsaw");
 		bucket_oil = new ItemBucket("bucket_oil","oil");
 		bucket_light_oil = new ItemBucket("bucket_light_oil","lightoil");
 		bucket_heavy_oil = new ItemBucket("bucket_heavy_oil","heavyoil");
@@ -156,6 +165,9 @@ public class ManagerItems {
 		chip_rom = new ItemModuleROM("rom");
 		drive_floppy = new ItemFloppyDisk("floppydisk");
 		drive_hard = new ItemHardDrive("harddrive");
+		partheatcable = new ItemPartHeatCable("heat_cable");
+		tool_jackhammer = new ItemJackHammer("jack_hammer");
+		heavy_copper_coil = new ItemHeavyCopperCoil("heavy_copper_coil");
 	}
 	
 	public static void registerItems(){
@@ -182,7 +194,7 @@ public class ManagerItems {
 		addItem(dustCopper, "Copper Dust");
 		addItem(dustTungsten, "Tungsten Dust");
 		addItem(dustThorium, "Thorium Dust");
-		addItem(dustSalt, "Salt Dust");
+		addItem(dustSalt, "Salt");
 		
 		addItem(heatCoilCopper,"Copper Heat Coil");
 		addItem(heatCoilIron,"Iron Heat Coil");
@@ -204,7 +216,7 @@ public class ManagerItems {
 		addItem(motor, "Electric Motor");
 		addItem(copper_coil,"Copper Coil");
 		addItem(drill,"Diamond Drill");
-		addItem(wire_copper,"Copper Wire");
+		addItem(wire_copper,"Fine Copper Wire");
 		addItem(ingotCarbide,"Carbide Ingot");
 		addItem(oil_prospector,"Oil Prospector");
 		
@@ -213,8 +225,8 @@ public class ManagerItems {
 		addItem(turbine_wing,"Wind Turbine Part");
 		addItem(plastic,"Plastic Sheet");
 		addItem(dustDiamond,"Diamond Dust");
-		addItem(sword, "Electric Sword");
-		addItem(chainsaw, "Electric Chainsaw");
+		addItem(tool_sword, "Electric Sword");
+		addItem(tool_chainsaw, "Electric Chainsaw");
 		
 		addItem(bucket_oil, "Oil Bucket");
 		addItem(bucket_light_oil, "Light Oil Bucket");
@@ -226,6 +238,10 @@ public class ManagerItems {
 		addItem(chip_rom, "ROM Module");
 		addItem(drive_floppy, "Floppy Disk");
 		addItem(drive_hard, "Hard Drive");
+		addItem(partbroncepipe, "Bronce Pipe");
+		addItem(partheatcable, "Heat Cable");
+		addItem(tool_jackhammer, "Jackhammer");
+		addItem(heavy_copper_coil, "Heavy Copper Coil");
 		
 		for(ItemGravelOre z : gravelOre){
 			addItem(z,z.locName+" Gravel Ore");

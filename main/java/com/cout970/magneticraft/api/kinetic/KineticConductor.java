@@ -10,14 +10,24 @@ public class KineticConductor implements IKineticConductor{
 	public TileEntity tile;
 	public KineticType type;
 	public double lose = 0.1;
+	public float rotation;
+	public double mass = 1;
 	public double speed;
 	public double lastSpeed;
+	public long time;
 	
 	public KineticNetwork net;
 	
 	public KineticConductor(TileEntity p) {
 		tile = p;
 		type = KineticType.Transport;
+	}
+	
+	public KineticConductor(TileEntity p, double lose, double mass) {
+		tile = p;
+		this.lose = lose;
+		this.mass = mass;
+		type = KineticType.Consumer;
 	}
 	
 	public KineticConductor(TileEntity p, double lose) {
@@ -69,7 +79,7 @@ public class KineticConductor implements IKineticConductor{
 
 	@Override
 	public double getMass() {
-		return 5;
+		return mass;
 	}
 
 	@Override
@@ -82,4 +92,31 @@ public class KineticConductor implements IKineticConductor{
 		this.speed += speed;
 	}
 
+	@Override
+	public void setLose(double lose) {
+		this.lose = lose;
+	}
+
+	@Override
+	public void setMass(double mass) {
+		this.mass = mass;
+	}
+
+	@Override
+	public float getRotation() {
+		return rotation;
+	}
+
+	@Override
+	public void setRotation(float angle) {
+		rotation = angle;
+	}
+
+	@Override
+	public double getDelta() {
+		long aux = time;
+		time = System.nanoTime();
+		return (double)((time-aux)*1E-6);
+	}
+	
 }

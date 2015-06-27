@@ -53,4 +53,25 @@ public class KineticNetwork {
 			cond.setSpeed(speed);
 		}
 	}
+
+	public void ajustRotation(float rotation) {
+		for(IKineticConductor cond : componets){
+			cond.setRotation(rotation);
+		}
+	}
+
+	public void preventUpdates() {
+		for(IKineticConductor cond : componets){
+			if(cond instanceof IKineticController){
+				((IKineticController)cond).preventUpdate();
+			}
+		}
+	}
+
+	public void stop(IKineticConductor kinetic) {
+		for(IKineticConductor cond : componets){
+			cond.setRotation(kinetic.getRotation());
+			cond.setSpeed(0);
+		}
+	}
 }

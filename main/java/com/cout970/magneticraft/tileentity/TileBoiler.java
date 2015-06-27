@@ -4,6 +4,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -72,7 +73,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 
 	@Override
 	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		if(resource != null && resource.getFluidID() == FluidRegistry.getFluidID("water"))
+		if(resource != null && resource.getFluid() == FluidRegistry.getFluid("water"))
 			return water.fill(resource, doFill);
 		return 0;
 	}
@@ -80,7 +81,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 	@Override
 	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
 			boolean doDrain) {
-		if(resource != null && resource.getFluidID() == FluidRegistry.getFluidID("steam"))
+		if(resource != null && resource.getFluid() == FluidRegistry.getFluid("steam"))
 			return steam.drain(resource.amount, doDrain);
 		return null;
 	}
@@ -153,4 +154,34 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 		return produce/40f;
 	}
 
+	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+		return 0;
+	}
+
+	public FluidStack drain(ForgeDirection from, FluidStack resource,
+			boolean doDrain) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
+		return null;
+	}
+
+	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
+		return null;
+	}
+
+	public boolean canFill(ForgeDirection from, Fluid fluid) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
+		return false;
+	}
+
+	public boolean canDrain(ForgeDirection from, Fluid fluid) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
+		return false;
+	}
+
+	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+		return null;
+	}
 }

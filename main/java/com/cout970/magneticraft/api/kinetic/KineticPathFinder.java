@@ -27,7 +27,7 @@ public class KineticPathFinder{
 		conds.addLast(cond);
 		scanMap.add(new VecInt(cond.getParent()));
 		for(MgDirection dir : cond.getValidSides()){
-			addBlock(new ExtendedVec(new VecInt(cond.getParent()).add(dir.getVecInt()), dir));
+			addBlock(new ExtendedVec(new VecInt(cond.getParent()).add(dir.toVecInt()), dir));
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class KineticPathFinder{
 			if(cond != null){
 				conds.add(cond);
 				for(MgDirection d : k.getValidSides()){
-					addBlock(new ExtendedVec(vec.vec.copy().add(d.getVecInt()), d.opposite()));
+					addBlock(new ExtendedVec(vec.vec.copy().add(d.toVecInt()), d.opposite()));
 				}
 			}
 		}

@@ -1,5 +1,8 @@
 package com.cout970.magneticraft.api.electricity;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+
 import net.minecraft.tileentity.TileEntity;
 
 /**
@@ -13,13 +16,7 @@ public interface IEnergyInterface{
 	 * @param wats
 	 * @return energy accepted from the other energy system
 	 */
-	public double applyWatts(double watts);
-	
-	/**
-	 * @param watts
-	 * @return energy extracted from the other energy system
-	 */
-	public double drainWatts(double watts);
+	public double applyEnergy(double watts);
 	
 	/**
 	 * the capacity to store energy
@@ -40,15 +37,18 @@ public interface IEnergyInterface{
 	public double getMaxFlow();
 
 	/**
-	 * if the block can accept, emit both or nothing
+	 * 
+	 * @param f
 	 * @return
 	 */
-	public EnumAcces getBehavior();
+	public boolean canConnect(VecInt f);
 	
 	/**
 	 * the tileEntity that has the block 
 	 * @return
 	 */
 	public TileEntity getParent();
+
+	public boolean canAcceptEnergy(IndexedConnection f);
 	
 }

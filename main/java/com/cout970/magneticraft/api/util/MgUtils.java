@@ -16,13 +16,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
-import com.cout970.magneticraft.api.electricity.IndexedConnexion;
+import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.electricity.compact.InteractionHelper;
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.IHeatMultipart;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 
@@ -39,11 +41,11 @@ public class MgUtils {
 	 * @param opp
 	 * @return
 	 */
-	public static boolean alreadyContains(IndexedConnexion[] con, VecInt opp) {
+	public static boolean alreadyContains(IndexedConnection[] con, VecInt opp) {
 		if(con == null)return false;
 		if(opp == null)return false;
-		for(IndexedConnexion i : con)
-			if(opp == i.con)return true;
+		for(IndexedConnection i : con)
+			if(opp == i.vecDir)return true;
 		return false;
 	}
 
@@ -74,8 +76,21 @@ public class MgUtils {
 	 * @param d vector from the method caller
 	 * @return the coductor is exist
 	 */
-	public static IHeatConductor getHeatCond(TileEntity tile, VecInt d) {
+	public static CompoundHeatCables getHeatCond(TileEntity tile, VecInt d) {
 		if(tile instanceof IHeatTile)return ((IHeatTile) tile).getHeatCond(d.getOpposite());
+		if(tile instanceof TileMultipart){
+			CompoundHeatCables comp = null;
+			for(TMultiPart m : ((TileMultipart) tile).jPartList()){
+				if(m instanceof IHeatMultipart){
+					if(comp == null){
+						comp = new CompoundHeatCables(((IHeatMultipart) m).getHeatConductor());
+					}else{
+						comp.add(((IHeatMultipart) m).getHeatConductor());
+					}
+				}
+			}
+			return comp;
+		}
 		return null;
 	}
 
@@ -86,15 +101,15 @@ public class MgUtils {
 	 * @param tier
 	 * @return
 	 */
-	public static CableCompound getElectricCond(TileEntity tile, VecInt f, int tier) {
+	public static CompoundElectricCables getElectricCond(TileEntity tile, VecInt f, int tier) {
 		if(tile instanceof TileMultipart){
-			CableCompound cab = null;
+			CompoundElectricCables cab = null;
 			for(TMultiPart m : ((TileMultipart) tile).jPartList()){
-				if(m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getCond(tier) != null){
+				if(m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getElectricConductor(tier) != null){
 					if(cab == null){
-						cab = new CableCompound(((IElectricMultiPart) m).getCond(tier));
+						cab = new CompoundElectricCables(((IElectricMultiPart) m).getElectricConductor(tier));
 					}else{
-						cab.add(((IElectricMultiPart) m).getCond(tier));
+						cab.add(((IElectricMultiPart) m).getElectricConductor(tier));
 					}
 				}
 			}

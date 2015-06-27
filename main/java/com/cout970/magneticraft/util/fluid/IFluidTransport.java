@@ -18,5 +18,7 @@ public interface IFluidTransport {
 	IFluidTank getTank();
 	
 	boolean canConectOnSide(MgDirection dir);
+	
+	boolean isComaptible(IFluidTransport a);
 
 }

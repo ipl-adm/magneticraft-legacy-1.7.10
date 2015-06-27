@@ -38,7 +38,7 @@ public class CompFluidRender implements IGuiComp{
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 		if(tank != null && tank.getFluid() != null){
-			IIcon i = FluidRegistry.getFluid(tank.getFluid().getFluidID()).getStillIcon();
+			IIcon i = FluidRegistry.getFluid(tank.getFluid().getFluid().getName()).getStillIcon();
 			if(i == null){
 				i = FluidRegistry.WATER.getIcon();
 			}

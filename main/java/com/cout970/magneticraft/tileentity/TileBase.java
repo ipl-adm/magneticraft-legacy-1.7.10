@@ -1,21 +1,27 @@
 package com.cout970.magneticraft.tileentity;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 import com.cout970.magneticraft.ManagerNetwork;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.messages.MessageTileUpdate;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.RedstoneControl;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileBase extends Tile1_8Updater{
 	
-	public boolean Powered;
+	public boolean powered;
 	public RedstoneControl redstone = RedstoneControl.NORMAL;
 	
 	public void onNeigChange(){
-		Powered = isPowered();
+		powered = isPowered();
 	}
 	
 	public void onBlockBreaks(){}
@@ -23,9 +29,28 @@ public class TileBase extends Tile1_8Updater{
 	public void sendUpdateToClient(){
 		if(worldObj.isRemote)return;
 		MessageTileUpdate message = new MessageTileUpdate(this);
-		ManagerNetwork.INSTANCE.sendToAll(message);
+		for(Object obj : worldObj.playerEntities){
+			if(obj instanceof EntityPlayerMP){
+				EntityPlayerMP player = (EntityPlayerMP) obj;
+				if(getDistanceSquaredFrom(player, this) <= 16384){
+					ManagerNetwork.INSTANCE.sendTo(message, player);
+				}
+			}
+		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+    public double getMaxRenderDistanceSquared()
+    {
+        return 16384.0D;
+    }
+	
+	private int getDistanceSquaredFrom(EntityPlayerMP pl, TileBase tile) {
+		VecInt vecPl = new VecInt(pl);
+		VecInt vecTE = new VecInt(tile);
+		return vecPl.add(vecTE.getOpposite()).squareDistance();
+	}
+
 	public void setRedstoneControl(RedstoneControl newState){
 		redstone = newState;
 		onNeigChange();
@@ -33,19 +58,21 @@ public class TileBase extends Tile1_8Updater{
 	}
 	
 	public boolean isControled(){
-		if(redstone == RedstoneControl.NORMAL)return !Powered;
-		if(redstone == RedstoneControl.INVERSE)return Powered;
+		if(redstone == RedstoneControl.NORMAL)return !powered;
+		if(redstone == RedstoneControl.INVERSE)return powered;
 		return true;
 	}
 	
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
 		redstone = RedstoneControl.values()[nbt.getByte("RedstoneControl")];
+		powered = nbt.getBoolean("Powered");
 	}
 	
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 		nbt.setByte("RedstoneControl", (byte) redstone.ordinal());
+		nbt.setBoolean("Powered", powered);
 	}
 	
 	public Packet getDescriptionPacket(){

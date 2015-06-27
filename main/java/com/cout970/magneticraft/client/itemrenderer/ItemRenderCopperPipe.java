@@ -5,17 +5,17 @@ import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.client.model.ModelPipeCopper;
-import com.cout970.magneticraft.client.model.ModelPipeCopper_Center;
-import com.cout970.magneticraft.client.model.ModelPipeCopper_In;
+import com.cout970.magneticraft.client.model.ModelFluidPipe;
+import com.cout970.magneticraft.client.model.ModelFluidPipe_Center;
+import com.cout970.magneticraft.client.model.ModelFluidPipe_In;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class ItemRenderCopperPipe implements IItemRenderer{
 
-	public ModelPipeCopper model_0 = new ModelPipeCopper();
-	public ModelPipeCopper_Center model_1 = new ModelPipeCopper_Center();
-	public ModelPipeCopper_In model_2 = new ModelPipeCopper_In();
+	public ModelFluidPipe model_0 = new ModelFluidPipe();
+	public ModelFluidPipe_Center model_1 = new ModelFluidPipe_Center();
+	public ModelFluidPipe_In model_2 = new ModelFluidPipe_In();
 	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {

@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -10,6 +12,7 @@ public class ItemWrench extends ItemBasic implements IToolWrench{
 	public ItemWrench(String unlocalizedname) {
 		super(unlocalizedname);
 		this.setMaxStackSize(1);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 	
 	@Override

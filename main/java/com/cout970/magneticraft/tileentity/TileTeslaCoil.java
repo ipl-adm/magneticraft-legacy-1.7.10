@@ -25,7 +25,7 @@ public class TileTeslaCoil extends TileConductorLow{
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_2X2,16000,ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
+		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW, 32000, ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
 			@Override
 			public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
 				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.fromDirection(MgDirection.DOWN).equals(v);
@@ -60,7 +60,7 @@ public class TileTeslaCoil extends TileConductorLow{
 						IBatteryItem batteryItem = (IBatteryItem) stack.getItem();
 						int space = batteryItem.getMaxCharge() - batteryItem.getCharge(stack);
 						if(space > 0){
-							int change = (int)Math.min(space, (cond.getVoltage()-ElectricConstants.MACHINE_WORK)*2);
+							int change = (int)Math.min(space, (cond.getVoltage()-ElectricConstants.MACHINE_WORK)*4);
 							if(change > 0){
 								batteryItem.charge(stack, change);
 								cond.drainPower(change*100);

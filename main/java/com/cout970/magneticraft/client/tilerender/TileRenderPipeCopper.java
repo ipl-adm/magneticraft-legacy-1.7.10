@@ -5,24 +5,24 @@ import org.lwjgl.opengl.GL11;
 import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.client.model.ModelPipeCopper;
-import com.cout970.magneticraft.client.model.ModelPipeCopper_Center;
-import com.cout970.magneticraft.client.model.ModelPipeCopper_In;
-import com.cout970.magneticraft.parts.PartCopperPipe;
-import com.cout970.magneticraft.parts.PartCopperPipe.ConnectionMode;
+import com.cout970.magneticraft.client.model.ModelFluidPipe;
+import com.cout970.magneticraft.client.model.ModelFluidPipe_Center;
+import com.cout970.magneticraft.client.model.ModelFluidPipe_In;
+import com.cout970.magneticraft.parts.micro.PartCopperPipe;
+import com.cout970.magneticraft.parts.micro.PartPipe.ConnectionMode;
 import com.cout970.magneticraft.util.RenderUtil;
 
 
 public class TileRenderPipeCopper {
 
-	private ModelPipeCopper model;
-	private ModelPipeCopper_In in;
-	private ModelPipeCopper_Center base;
+	private ModelFluidPipe model;
+	private ModelFluidPipe_In in;
+	private ModelFluidPipe_Center base;
 
 	public TileRenderPipeCopper(){
-		model = new ModelPipeCopper();
-		in = new ModelPipeCopper_In();
-		base = new ModelPipeCopper_Center();
+		model = new ModelFluidPipe();
+		in = new ModelFluidPipe_In();
+		base = new ModelFluidPipe_Center();
 	}
 	
 	public void render(PartCopperPipe mc, Vector3 pos) {

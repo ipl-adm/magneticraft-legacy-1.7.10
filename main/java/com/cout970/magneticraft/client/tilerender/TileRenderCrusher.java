@@ -97,7 +97,7 @@ public class TileRenderCrusher extends TileEntitySpecialRenderer{
 				GL11.glPushMatrix();
 				GL11.glTranslated(x+0.5, y+1.4f, z+0.5);
 				MgDirection d = tile.getDirection().opposite();
-				vec = new VecDouble(d.getVecInt());
+				vec = new VecDouble(d.toVecInt());
 				vec.multiply(0.45);
 				GL11.glTranslated(vec.getX(),vec.getY(),vec.getZ());
 				item = item.copy();

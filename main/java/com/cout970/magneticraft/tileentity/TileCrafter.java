@@ -26,6 +26,7 @@ import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryCrafterAux;
 import com.cout970.magneticraft.util.InventoryUtils;
+import com.cout970.magneticraft.util.Log;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
 
@@ -49,6 +50,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	
 	public void updateEntity(){
 		super.updateEntity();
+		if(worldObj.isRemote)return;
+		
 		if(itemMatches == -1){
 			refreshItemMatches();
 		}
@@ -59,8 +62,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	}
 	
 	public boolean isControled(){
-		if(state == RedstoneState.NORMAL)return !Powered;
-		if(state == RedstoneState.INVERTED)return Powered;
+		if(state == RedstoneState.NORMAL)return !powered;
+		if(state == RedstoneState.INVERTED)return powered;
 		return nextCraft;
 	}
 

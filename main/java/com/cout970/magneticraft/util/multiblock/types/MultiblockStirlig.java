@@ -12,7 +12,7 @@ public class MultiblockStirlig extends Multiblock{
 	public void init() {
 		SimpleComponent c = new SimpleComponent(ManagerBlocks.multi_heat);
 		SimpleComponent b = new SimpleComponent(ManagerBlocks.multi_energy_low);
-		SimpleComponent d = new SimpleComponent(ManagerBlocks.chasis);
+		SimpleComponent d = new SimpleComponent(ManagerBlocks.chassis);
 		SimpleComponent e = new SimpleComponent(ManagerBlocks.stirling);
 
 		SimpleComponent[][][] m = 

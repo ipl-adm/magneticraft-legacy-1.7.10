@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.electricity.CableCompound;
+import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -24,11 +24,12 @@ public class TileMB_Energy_Low extends TileMB_Base implements IElectricTile{
 	};
 	
 	@Override
-	public CableCompound getConds(VecInt dir, int Vtier) {
+	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
+		if(Vtier != 0)return null;
 		if(this.multi instanceof MultiblockOilDistillery && !VecInt.NULL_VECTOR.equals(dir)){
-			if(dire != null && !dire.opposite().getVecInt().equals(dir))return null;
+			if(dire != null && !dire.opposite().toVecInt().equals(dir))return null;
 		}
-		return new CableCompound(cond);
+		return new CompoundElectricCables(cond);
 	}
 
 }

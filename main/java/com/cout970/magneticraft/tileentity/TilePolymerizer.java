@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -119,23 +120,26 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 
 	private void searchTanks() {
 		MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
-		VecInt vec = d.getVecInt();
+		VecInt vec = d.toVecInt();
 		TileEntity tile = MgUtils.getTileEntity(this, vec.copy().multiply(4));
 		
 		if(tile instanceof TileCopperTank){
 			input = ((TileCopperTank) tile).getTank();
 		}
-		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.DOWN).getVecInt().getOpposite()));
+		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.DOWN).toVecInt().getOpposite()));
 		if(tile instanceof IInventoryManaged){
 			in = ((IInventoryManaged) tile).getInv();
 		}
-		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.UP).getVecInt().getOpposite()));
+		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.UP).toVecInt().getOpposite()));
 		if(tile instanceof IInventoryManaged){
 			out = ((IInventoryManaged) tile).getInv();
 		}
 		tile = MgUtils.getTileEntity(this, vec.copy().multiply(3));
 		if(tile instanceof TileHeater){
-			heater = ((TileHeater) tile).getHeatCond(vec.getOpposite());
+			CompoundHeatCables comp = ((TileHeater) tile).getHeatCond(vec.getOpposite());
+			if(comp != null){
+				heater = comp.getCond(0);
+			}
 		}
 	}
 

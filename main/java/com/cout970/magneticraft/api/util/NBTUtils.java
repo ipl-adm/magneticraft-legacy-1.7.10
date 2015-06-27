@@ -45,4 +45,14 @@ public class NBTUtils {
 		sanityCheck(stack);
 		stack.stackTagCompound.setString(string, label);
 	}
+
+	public static boolean getBoolean(String string, ItemStack stack) {
+		sanityCheck(stack);
+		return stack.stackTagCompound.getBoolean(string);
+	}
+	
+	public static void setBoolean(String string, ItemStack stack, boolean label) {
+		sanityCheck(stack);
+		stack.stackTagCompound.setBoolean(string, label);
+	}
 }

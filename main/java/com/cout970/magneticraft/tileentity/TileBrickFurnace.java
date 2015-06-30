@@ -42,7 +42,7 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 			if(canSmelt()){
 				double speed = getSpeed();
 				heat.drainCalories(speed);
-				Progres += EnergyConversor.CALORIEStoFuel(speed);
+				Progres += EnergyConversor.CALORIEStoFUEL(speed);
 				if(Progres >= getMaxProgres()){
 					smelt();
 					Progres -= getMaxProgres();
@@ -58,7 +58,7 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 	}
 	
 	private double getSpeed() {
-		return Math.min(heat.getTemperature()/100d, 300)*100;
+		return EnergyConversor.FUELtoCALORIES(heat.getTemperature()/100d);
 	}
 
 	public int getMaxProgres() {

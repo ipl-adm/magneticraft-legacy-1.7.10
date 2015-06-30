@@ -38,14 +38,17 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 		return new TileGrinder();
 	}
 	
-	public boolean isOpaqueCube()
-    {
+	public boolean isOpaqueCube() {
         return false;
     }
 
 	@Override
 	public String[] getTextures() {
 		return new String[]{"grinder","chasis"};
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 
 	@Override

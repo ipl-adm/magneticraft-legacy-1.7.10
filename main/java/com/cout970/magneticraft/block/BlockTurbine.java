@@ -30,6 +30,7 @@ public class BlockTurbine extends BlockMg implements MB_ControlBlock{
 	public BlockTurbine() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -40,6 +41,10 @@ public class BlockTurbine extends BlockMg implements MB_ControlBlock{
 	@Override
 	public String[] getTextures() {
 		return new String[]{"turbine","turbine_head"};
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 
 	@Override

@@ -8,14 +8,15 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemOilProspector extends ItemCharged{
 	
-	public static int CONSUMPTION = 400;
+	public static int CONSUMPTION = 500;
 	
 	public ItemOilProspector(String unlocalizedname) {
-		super(unlocalizedname,80000);
+		super(unlocalizedname, (int)EnergyConversor.RFtoW(25000));
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}

@@ -1,15 +1,15 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeCrusher;
-
-import net.minecraft.item.ItemStack;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
+import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.acces.RecipeCrusher;
 
 @ZenClass("mods.magneticraft.Crusher")
 public class Crusher {

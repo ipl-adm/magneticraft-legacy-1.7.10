@@ -16,6 +16,7 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -26,14 +27,14 @@ import com.cout970.magneticraft.util.tile.TileConductorLow;
 public class TileBattery extends TileConductorLow implements IGuiSync, IInventoryManaged, ISidedInventory, IBlockWithData{
 
 	private InventoryComponent inv = new InventoryComponent(this, 2, "Battery");
-	public static int BATTERY_CHARGE_SPEED = 1000;
+	public static int BATTERY_CHARGE_SPEED = (int) EnergyConversor.RFtoW(400);//RF
 
 	@Override
 	public IElectricConductor initConductor() {
 		return new ElectricConductor(this){
 
 			public int storage = 0;
-			public int maxStorage = 2000000;
+			public int maxStorage = (int) EnergyConversor.RFtoW(2000000);
 			public double min = ElectricConstants.BATTERY_DISCHARGE;
 			public double max = ElectricConstants.BATTERY_CHARGE;
 
@@ -42,15 +43,15 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 				if(!isControled())return;
 				if (getVoltage() > max && storage < maxStorage){
 					int change;
-					change = (int) Math.min((getVoltage() - max)*10, 1000);
+					change = (int) Math.min((getVoltage() - max)*80, EnergyConversor.RFtoW(400));
 					change = Math.min(change, maxStorage - storage);
-					drainPower((double)(change * 100));
+					drainPower(change);
 					storage += change;
 				}else if(getVoltage() < min && storage > 0){
 					int change;
-					change = (int) Math.min((min - getVoltage())*10, 1000);
+					change = (int) Math.min((min - getVoltage())*80, EnergyConversor.RFtoW(400));
 					change = Math.min(change, storage);
-					applyPower((double)(change * 100));
+					applyPower(change);
 					storage -= change;
 				}
 			}

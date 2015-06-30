@@ -47,11 +47,11 @@ public class VecDouble {
 		this(t.xCoord, t.yCoord, t.zCoord);
 	}
 
-	public static VecDouble getConnexion(MgDirection d) {
+	public static VecDouble getConnection(MgDirection d) {
 		return new VecDouble(d.getOffsetX(), d.getOffsetY(), d.getOffsetZ());
 	}
 	
-	public static VecDouble getConnexion(ForgeDirection d) {
+	public static VecDouble getConnection(ForgeDirection d) {
 		return new VecDouble(d.offsetX, d.offsetY, d.offsetZ);
 	}
 
@@ -122,5 +122,9 @@ public class VecDouble {
 
 	public VecDouble copy() {
 		return new VecDouble(x,y,z);
+	}
+
+	public double mag() {
+		return Math.sqrt(x*x+y*y+z*z);
 	}
 }

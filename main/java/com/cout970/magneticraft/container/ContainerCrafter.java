@@ -47,6 +47,7 @@ public class ContainerCrafter extends ContainerBasic{
 
 					public void onSlotChanged() {
 						InventoryCrafterAux comp = (InventoryCrafterAux) inventory;
+						comp.tile.refreshRecipe();
 						comp.tile.refreshItemMatches();
 						this.inventory.markDirty();
 					}

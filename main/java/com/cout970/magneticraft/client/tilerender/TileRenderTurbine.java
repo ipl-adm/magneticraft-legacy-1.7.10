@@ -1,14 +1,6 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTranslated;
-import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.*;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -43,6 +35,7 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer{
 			glTranslated(x, y, z);
 			glRotatef(180, 1, 0, 0);
 			glRotatef(-90, 0, 1, 0);
+			glEnable(GL_CULL_FACE);
 			switch(tile.getDirection()){
 			case NORTH: 
 				GL11.glRotatef(-90, 0, 1, 0); 

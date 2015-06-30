@@ -64,7 +64,7 @@ public class ManagerRecipe {
 		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.quartz_ore,1),new ItemStack(Items.quartz,2),new ItemStack(Items.quartz,1),40,new ItemStack(dustQuartz,1),5);
 		MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSalt,1),new ItemStack(dustSalt,2),new ItemStack(dustSalt,1),40,null,0);
 		
-		MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.CALORIEStoW(2000));
+		MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.RFtoW(160));
 		MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("hotcrude", 20), FluidRegistry.getFluidStack("lightoil", 7), FluidRegistry.getFluidStack("heavyoil", 6), FluidRegistry.getFluidStack("naturalgas", 7));
 	}
 

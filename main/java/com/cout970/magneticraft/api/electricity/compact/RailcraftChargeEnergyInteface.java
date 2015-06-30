@@ -28,24 +28,24 @@ public class RailcraftChargeEnergyInteface implements IEnergyInterface{
 	
 	@Override
 	public double applyEnergy(double watts) {
-		double energy = Math.min(c.getCapacity()-c.getCharge(), EnergyConversor.WtoEU(watts));
+		double energy = Math.min(c.getCapacity()-c.getCharge(), EnergyConversor.WtoRC(watts));
 		c.addCharge(energy);
-		return EnergyConversor.EUtoW(energy);
+		return EnergyConversor.RCtoW(energy);
 	}
 
 	@Override
 	public double getCapacity() {
-		return EnergyConversor.EUtoW(c.getCapacity());
+		return EnergyConversor.RCtoW(c.getCapacity());
 	}
 
 	@Override
 	public double getEnergyStored() {
-		return EnergyConversor.EUtoW(c.getCharge());
+		return EnergyConversor.RCtoW(c.getCharge());
 	}
 
 	@Override
 	public double getMaxFlow() {
-		return EnergyConversor.EUtoW(512);
+		return EnergyConversor.RCtoW(512);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import cofh.api.energy.IEnergyHandler;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.Log;
 /**
  * 
  * @author Cout970
@@ -28,20 +29,13 @@ public class InteractionHelper {
 					return getEnergyHandler((IEnergyHandler)tile,f.toMgDirection());
 				}
 			}
-			if(tile instanceof IEnergySink){
-				if(f.toMgDirection() != null){
+			if(tile instanceof IEnergySink && f.toMgDirection() != null){
+				if(((IEnergySink)tile).acceptsEnergyFrom(null, f.toMgDirection().toForgeDir())){
 				return getEnergySink((IEnergySink) tile, f.toMgDirection());
 				}
 			}
-			if(tile instanceof IEnergyStorage){
-				return getEnergyStorage((IEnergyStorage) tile);
-			}
 		}
 		return null;
-	}
-	
-	public static IEnergyInterface getEnergyStorage(IEnergyStorage tile) {
-		return new EU_EnergyInterfaceStorage(tile);
 	}
 
 	public static IEnergyInterface getEnergySink(IEnergySink tile, MgDirection dir) {

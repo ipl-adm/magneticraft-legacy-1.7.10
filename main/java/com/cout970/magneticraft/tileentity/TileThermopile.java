@@ -13,6 +13,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.ThermopileFuel;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -36,18 +37,17 @@ public class TileThermopile extends TileConductorLow implements IGuiSync{
 		if(worldObj.isRemote)return;
 		if (this.cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()){
 
-			++this.ticks;
-			if (this.ticks > 20)
-			{
-				this.ticks = 0;
-				this.updateTemps();
+			ticks++;
+			if (ticks > 20){
+				ticks = 0;
+				updateTemps();
 			}
-			this.cond.applyPower(getCurrentFromDiff());
+			cond.applyPower(getCurrentFromDiff());
 		}
 	}
 	
 	public double getCurrentFromDiff(){
-		return diff;
+		return EnergyConversor.RFtoW(diff*0.05);
 	}
 
 	private void updateTemps() {
@@ -85,6 +85,7 @@ public class TileThermopile extends TileConductorLow implements IGuiSync{
 		craft.sendProgressBarUpdate(cont, 0, (int)diff*1000);
 		craft.sendProgressBarUpdate(cont, 1, tempHot);
 		craft.sendProgressBarUpdate(cont, 2, tempCold);
+		craft.sendProgressBarUpdate(cont, 3, (int)cond.getVoltage());
 	}
 
 	@Override
@@ -92,9 +93,10 @@ public class TileThermopile extends TileConductorLow implements IGuiSync{
 		if(id == 0)diff = value/1000d; 
 		else if(id == 1)tempHot = value; 
 		else if(id == 2)tempCold = value;
+		else if(id == 3)cond.setVoltage(value);
 	}
 
 	public double getMaxCurrentFromDiff() {
-		return 200;
+		return EnergyConversor.RFtoW(10);
 	}
 }

@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemChainSaw extends ItemCharged{
 
-	public static int CHARGE_PER_WORK = 500;
+	public static int CHARGE_PER_WORK = 5000;
 
 	public ItemChainSaw(String unlocalizedname) {
 		super(unlocalizedname, 500000);

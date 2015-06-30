@@ -27,9 +27,14 @@ public interface IElectricConductor {
 	 */
 	public double getVoltageMultiplier();
 	/**
-	 * @return the flow generated when energy pass through, should be contant
+	 * @return the flow generated when energy pass through, should be constant
 	 */
 	public double getIndScale();
+	/**
+	 * 
+	 * @return the inverse of the capacity of the block, voltge capacity, no storage capacity
+	 */
+	public double getInvCapacity();
 	/**
 	 * this method should prepare the basic things for the iteration, like the connexions
 	 */

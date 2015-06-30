@@ -21,6 +21,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -52,7 +53,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 	private MgDirection[] sides = {MgDirection.NORTH,MgDirection.EAST,MgDirection.SOUTH,MgDirection.WEST,MgDirection.DOWN,MgDirection.UP};
 	private int buffer;
 	public static Block replacement = ManagerBlocks.oilSourceDrained;
-	private int Speed = 50;
+	private int speed = 50;
 	private boolean working;
 	
 
@@ -119,7 +120,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 					if(cond.getVoltage() > ElectricConstants.MACHINE_WORK){
 						VecInt c = pipes.get(0);
 						ReplaceBlock(c.getX(),c.getY(),c.getZ(),ManagerBlocks.concreted_pipe);
-						cond.drainPower(1000);
+						cond.drainPower(EnergyConversor.RFtoW(80));
 						pipes.remove(0);
 					}
 				}
@@ -127,9 +128,9 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 		}
 		if(blocked){
 			if(cond.getVoltage() > ElectricConstants.MACHINE_WORK && tank.getSpace() > 0 && buffer > 0){
-				int i =  Math.min(Speed,buffer);
+				int i =  Math.min(speed,buffer);
 				buffer -= tank.fill(FluidRegistry.getFluidStack("oil", i), true);
-				cond.drainPower(i*100);
+				cond.drainPower(EnergyConversor.RFtoW(i));
 			}
 
 			if(buffer <= 0){

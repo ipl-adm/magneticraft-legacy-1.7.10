@@ -12,7 +12,7 @@ public class BlockInfiniteWater extends BlockMg{
 
 	public BlockInfiniteWater() {
 		super(Material.water);
-		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 
 	@Override

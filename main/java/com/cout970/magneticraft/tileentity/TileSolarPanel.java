@@ -4,6 +4,7 @@ import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -15,15 +16,10 @@ public class TileSolarPanel extends TileConductorLow{
 		super.updateEntity();
 		if(worldObj.isRemote)return;
 		if (this.cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE){
-			
             if (this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord)){
-            	
                 if (this.worldObj.isDaytime()){
-                	
                     if (!this.worldObj.provider.hasNoSky){
-                    	
-                        this.cond.applyCurrent(2);
-                        
+                        this.cond.applyPower(EnergyConversor.RFtoW(5));
                     }
                 }
             }

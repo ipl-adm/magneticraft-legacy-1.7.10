@@ -70,5 +70,6 @@ public class ModelTextures {
 	public static final ResourceLocation JACK_HAMMER				= new ResourceLocation("magneticraft", "textures/misc/modeljackhammer.png");
 	public static final ResourceLocation DIODE 						= new ResourceLocation("magneticraft", "textures/misc/modeldiode.png");
 	public static final ResourceLocation RESISTANCE 				= new ResourceLocation("magneticraft", "textures/misc/modelresistance.png");
+	public static final ResourceLocation RF_ALTERNATOR 				= new ResourceLocation("magneticraft", "textures/misc/modelrf_alternator.png");
 
 }

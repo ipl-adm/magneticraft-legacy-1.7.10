@@ -24,6 +24,7 @@ public class BlockRefineryGap extends BlockMg implements MB_Block{
 	public BlockRefineryGap() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
+		setLightOpacity(0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -39,8 +40,11 @@ public class BlockRefineryGap extends BlockMg implements MB_Block{
 		return new TileMB_Base();
 	}
 
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube(){
+		return false;
+	}
+	
+	public boolean renderAsNormalBlock(){
 		return false;
 	}
 

@@ -39,7 +39,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 		if(cond.getVoltage() >= ElectricConstants.MACHINE_WORK && isControled()){
 			if(canSmelt()){
 				progress++;
-				cond.drainPower(1000*getConsumption());
+				cond.drainPower(getConsumption());
 				if(progress >= getMaxProgres()){
 					smelt();
 					progress = 0;
@@ -126,7 +126,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 80000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 
 	@Override

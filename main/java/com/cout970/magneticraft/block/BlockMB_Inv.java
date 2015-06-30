@@ -26,6 +26,7 @@ public class BlockMB_Inv extends BlockMg implements MB_Block{
 
 	public BlockMB_Inv() {
 		super(Material.iron);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -37,6 +38,10 @@ public class BlockMB_Inv extends BlockMg implements MB_Block{
 		if(p.isSneaking())return false;
 		p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 		return true;
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 	
 	public void breakBlock(World w,int x,int y,int z,Block b,int side){

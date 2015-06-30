@@ -27,13 +27,14 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IInventoryManaged,IBurningTime,IHeatTile{
 
 	//cook
-	public float Progres = 0;
+	public float progress = 0;
 	public int maxProgres;
 	//heat values 25-120
 	public int maxHeat = 500;
@@ -48,13 +49,15 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	public TankMg steam = new TankMg(this, 4000);
 	public TankMg water = new TankMg(this, 2000);
 	
+	public static final int speed = 4;
+	
 	private InventoryComponent inv = new InventoryComponent(this, 1, "Basic Generator");
 	private int oldHeat;
 	private boolean working;
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 16000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	@Override
@@ -75,24 +78,22 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 				setActive(false);
 			}
 		}
-		if(Progres > 0){
+		if(progress > 0){
 			//fuel to temp
-			int extract = 2;
 			if(heat.getTemperature() < maxHeat && isControled()){
-				heat.applyCalories(EnergyConversor.FUELtoCALORIES(extract));
-				if(Progres - extract < 0){
-					Progres = 0;
+				heat.applyCalories(EnergyConversor.FUELtoCALORIES(speed));
+				if(progress - speed < 0){
+					progress = 0;
 					working = false;
 				}else{
-					Progres -= extract;
+					progress -= speed;
 				}
 			}
-
 		}
 		//temp to steam
 		if(heat.getTemperature() > 100){
-			int change = Math.min(water.getFluidAmount(),EnergyConversor.STEAMtoWATER( steam.getCapacity()-steam.getFluidAmount()));
-			change = Math.min(change,2);
+			int change = Math.min(water.getFluidAmount(), EnergyConversor.STEAMtoWATER(steam.getCapacity()-steam.getFluidAmount()));
+			change = Math.min(change, speed);
 			if(change > 0){
 				heat.drainCalories(EnergyConversor.WATERtoSTEAM_HEAT(change));
 				water.drain(change, true);
@@ -101,19 +102,21 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 			}
 		}
 			//steam to power
-		int gas = Math.min(steam.getFluidAmount(),(int)EnergyConversor.KWtoSTEAM(2));
+		int gas = Math.min(steam.getFluidAmount(),(int)EnergyConversor.WtoSTEAM(2000));
 		if(gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControled()){
 			cond.applyPower(EnergyConversor.STEAMtoW(gas));
-			electricProduction += EnergyConversor.STEAMtoKW(gas);
+			electricProduction += EnergyConversor.STEAMtoW(gas);
 			steam.drain(gas, true);
 		}
-		if(Progres <= 0){
+		
+		if(progress <= 0){
 			ItemStack a = getInv().getStackInSlot(0);
 			if(a != null && isControled()){
 				int fuel = TileEntityFurnace.getItemBurnTime(a);
-				if(fuel > 0 && cond.getVoltage() < 120 && steam.getFluidAmount() < 1){
-					Progres = fuel;
+				if(fuel > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && steam.getFluidAmount() < 1){
+					progress = fuel;
 					maxProgres = fuel;
+					
 					if(a != null){
 						a.stackSize--;
 						if(a.stackSize <= 0){
@@ -144,7 +147,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		Progres = nbt.getFloat("progres");
+		progress = nbt.getFloat("progres");
 		heat.load(nbt);
 		water.readFromNBT(nbt,"water");
 		steam.readFromNBT(nbt,"steam");
@@ -154,7 +157,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		nbt.setFloat("progres", Progres);
+		nbt.setFloat("progres", progress);
 		heat.save(nbt);
 		water.writeToNBT(nbt,"water");
 		steam.writeToNBT(nbt,"steam");
@@ -165,7 +168,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	public void sendGUINetworkData(Container cont, ICrafting c) {
 		c.sendProgressBarUpdate(cont, 0, (int)cond.getVoltage());
 		c.sendProgressBarUpdate(cont, 1, (int)cond.getStorage());
-		c.sendProgressBarUpdate(cont, 2, (int)Progres);
+		c.sendProgressBarUpdate(cont, 2, (int)progress);
 		c.sendProgressBarUpdate(cont, 3, maxProgres);
 		c.sendProgressBarUpdate(cont, 4, (int)Math.ceil(heat.getTemperature()));
 		c.sendProgressBarUpdate(cont, 5, steam.getFluidAmount());
@@ -180,7 +183,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	public void getGUINetworkData(int id, int value) {
 		if(id == 0)cond.setVoltage(value);
 		if(id == 1)cond.setStorage(value);
-		if(id == 2)Progres = value;
+		if(id == 2)progress = value;
 		if(id == 3)maxProgres = value;
 		if(id == 4)heat.setTemperature(value);
 		if(id == 5)steam.setFluid(FluidRegistry.getFluidStack("steam", value));
@@ -224,7 +227,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 
 	@Override
 	public int getProgres() {
-		return (int) Progres;
+		return (int) progress;
 	}
 
 	@Override

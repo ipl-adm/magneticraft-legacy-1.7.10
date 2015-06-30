@@ -29,6 +29,7 @@ public class BlockCopperTank extends BlockMg implements MB_Block{
 	public BlockCopperTank() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.SteamAgeTab);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -115,8 +116,7 @@ public class BlockCopperTank extends BlockMg implements MB_Block{
 		return false;
 	}
 
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock(){
 		return false;
 	}
 	

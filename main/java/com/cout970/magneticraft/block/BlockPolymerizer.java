@@ -30,6 +30,7 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock{
 	public BlockPolymerizer() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -38,6 +39,10 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock{
 	}
 	
 	public boolean isOpaqueCube(){
+		return false;
+	}
+	
+	public boolean renderAsNormalBlock(){
 		return false;
 	}
 

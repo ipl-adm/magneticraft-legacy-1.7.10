@@ -30,7 +30,14 @@ import com.cout970.magneticraft.util.Log;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
 
-	private InventoryComponent inv = new InventoryComponent(this, 16, "Crafter");
+	private InventoryComponent inv = new InventoryComponent(this, 16, "Crafter"){
+		@Override
+		public void setInventorySlotContents(int slot, ItemStack itemStack) {
+			super.setInventorySlotContents(slot, itemStack);
+			if(worldObj == null || worldObj.isRemote)return;
+			itemMatches = -1;
+		}
+	};
 	private InventoryComponent invResult = new InventoryComponent(this, 1, "Result");
 	private InventoryCrafting recipe = new InventoryCrafterAux(this, 3, 3);
 	private List<InvSlot> checked = new ArrayList<InvSlot>();
@@ -51,12 +58,12 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		
 		if(itemMatches == -1){
 			refreshItemMatches();
 		}
 		if(isControled()){
-			craft();
+			if(craft())
+			refreshItemMatches();
 			nextCraft = false;
 		}
 	}
@@ -67,11 +74,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 		return nextCraft;
 	}
 
-	public void refreshItemMatches(){
-		itemMatches = 0;
-		craftRecipe = null;
-		checked.clear();
-		invResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(recipe, worldObj));
+	public void refreshRecipe(){
 		craftRecipe = null;
 		for(Object rec : CraftingManager.getInstance().getRecipeList()){
 			if(rec instanceof IRecipe){
@@ -81,16 +84,31 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 				}
 			}
 		}
-		if(craftRecipe == null)return;
+		if(craftRecipe != null){
+			ItemStack result = craftRecipe.getCraftingResult(recipe);
+			if(result == null){
+				craftRecipe = null;
+			}else{
+				invResult.setInventorySlotContents(0, result);
+			}
+		}
+	}
+	
+	public void refreshItemMatches(){
+		itemMatches = 0;
+		checked.clear();
+		if(craftRecipe == null){
+			refreshRecipe();
+			if(craftRecipe == null){
+				return;
+			}
+		}
 		ItemStack result = craftRecipe.getCraftingResult(recipe);
-		if(result == null)return;
-		
 		for(int slot=0; slot < 9; slot++){
 			if(recipe.getStackInSlot(slot) == null){
 				itemMatches |= 1 << slot;
 				continue;
 			}
-			
 			if(findItemsFromInventory(slot, this, checked, result, MgDirection.UP)){
 				itemMatches |= 1 << slot;
 			}else{
@@ -106,11 +124,10 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 				}
 			}
 		}
+		
 	}
 
 	public boolean craft(){
-		if(worldObj.isRemote)return false;
-		refreshItemMatches();
 		if(itemMatches == 0x1FF && craftRecipe != null){
 			ItemStack item = craftRecipe.getCraftingResult(recipe);
 			if(item != null){
@@ -292,7 +309,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	}
 
 	public boolean found(int j) {
-		return  craftRecipe == null || (itemMatches & (1 << j)) > 0;
+		if(itemMatches == -1)return false;
+		return craftRecipe == null || (itemMatches & (1 << j)) > 0;
 	}
 
 	@Override
@@ -312,8 +330,9 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 			if(value == 1){
 				for(int i = 0;i<9;i++)
 					getRecipe().setInventorySlotContents(i, null);
+					refreshRecipe();
 			}else if(value == 0){
-				craft();
+				nextCraft = true;
 			}
 		}
 	}

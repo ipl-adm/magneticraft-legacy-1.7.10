@@ -24,6 +24,7 @@ public class BlockRefineryTank extends BlockMg implements MB_Block{
 	public BlockRefineryTank() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
+		setLightOpacity(0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -37,6 +38,10 @@ public class BlockRefineryTank extends BlockMg implements MB_Block{
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileRefineryTank();
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 
 	public void breakBlock(World w,int x,int y,int z,Block b,int side){
@@ -64,6 +69,10 @@ public class BlockRefineryTank extends BlockMg implements MB_Block{
     public IIcon getIcon(int side, int meta)
     {
         return icons[0];
+    }
+	
+	public boolean isOpaqueCube() {
+        return false;
     }
 
 	@Override

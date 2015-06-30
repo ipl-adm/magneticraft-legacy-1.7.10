@@ -56,10 +56,10 @@ public class GuiThermopile extends GuiBasic{
 				int scale = (int) (44d*Math.min(t.getCurrentFromDiff()/t.getMaxCurrentFromDiff(), 1d));
 				gui.mc.renderEngine.bindTexture(texture0);
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
-				scale = (int) (44d*Math.min(t.tempHot/t.getMaxCurrentFromDiff(), 1d));
+				scale = (int) (44d*Math.min(t.tempHot/200f, 1d));
 				gui.mc.renderEngine.bindTexture(texture1);
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x+9, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
-				scale = (int) (44d*Math.min(t.tempCold/t.getMaxCurrentFromDiff(), 1d));
+				scale = (int) (44d*Math.min(t.tempCold/200f, 1d));
 				gui.mc.renderEngine.bindTexture(texture2);
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x+18, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
 			}	

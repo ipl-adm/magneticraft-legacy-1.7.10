@@ -8,6 +8,7 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
@@ -38,7 +39,10 @@ public class TileAirlock extends TileConductorLow{
 								Block b = worldObj.getBlock(xCoord+i+dir.getOffsetX(), yCoord+j+dir.getOffsetY(), zCoord+k+dir.getOffsetZ());
 								if(b.getMaterial() == Material.water) water = true;
 							}
-							if(!water)worldObj.setBlockToAir(xCoord+i, yCoord+j, zCoord+k);
+							if(!water){
+								worldObj.setBlockToAir(xCoord+i, yCoord+j, zCoord+k);
+								cond.drainPower(EnergyConversor.RFtoW(10));
+							}
 						}
 		}
 	}
@@ -46,7 +50,7 @@ public class TileAirlock extends TileConductorLow{
 	public void setAir(int x,int y,int z) {
 		if(Block.isEqualTo(worldObj.getBlock(x, y, z),Blocks.water) || Block.isEqualTo(worldObj.getBlock(x, y, z),Blocks.flowing_water)){
 			worldObj.setBlock(x, y, z, ManagerBlocks.air_bubble);
-			cond.drainPower(1000);
+			cond.drainPower(EnergyConversor.RFtoW(10));
 		}
 	}
 }

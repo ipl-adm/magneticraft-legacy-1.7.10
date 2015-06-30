@@ -9,13 +9,15 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileRFAlternator extends TileConductorLow implements IEnergyHandler{
 
 	public int storage = 0;
-	public int maxStorage = 100000;
+	public int maxStorage = 32000;
 	public double min = ElectricConstants.ALTERNATOR_DISCHARGE;
 	
 	@Override
@@ -26,8 +28,7 @@ public class TileRFAlternator extends TileConductorLow implements IEnergyHandler
 				super.iterate();
 				if(!isControled())return;
 				if(getVoltage() < min && storage > 0){
-					int change;
-					change = (int) Math.min((min - getVoltage())*10, 500);
+					int change = (int) Math.min((min - getVoltage())*80, 400);
 					change = Math.min(change, storage);
 					applyPower(EnergyConversor.RFtoW(change));
 					storage -= change;
@@ -72,6 +73,16 @@ public class TileRFAlternator extends TileConductorLow implements IEnergyHandler
 			public void load(NBTTagCompound nbt) {
 				super.load(nbt);
 				storage = nbt.getInteger("Storage");
+			}
+			
+			@Override
+			public VecInt[] getValidConnections() {
+				return new VecInt[]{getDirection().opposite().toVecInt()};
+			}
+			
+			@Override
+			public boolean isAbleToConnect(IElectricConductor c, VecInt d) {
+				return getDirection().opposite().toVecInt().equals(d);
 			}
 		};
 	}

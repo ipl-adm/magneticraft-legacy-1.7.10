@@ -24,7 +24,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 public class TileEUAlternator extends TileConductorLow implements IEnergySink, IEnergyStorage{
 
 	public int storage = 0;
-	public int maxStorage = 100000;
+	public int maxStorage = 32000;
 	public double min = ElectricConstants.ALTERNATOR_DISCHARGE;
 	private boolean addedToEnet;
 	
@@ -41,11 +41,10 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 				super.iterate();
 				if(!isControled())return;
 				if(getVoltage() < min && storage > 0){
-					int change;
-					change = (int) Math.min((min - getVoltage())*10, 500);
+					int change = (int) Math.min((min - getVoltage())*80, 512);
 					change = Math.min(change, storage);
 					applyPower(EnergyConversor.EUtoW(change));
-					storage -= change;
+					storage -= change;//storage in EU
 				}
 			}
 			
@@ -114,7 +113,7 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 
 	@Override
 	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-		return true;
+		return direction == MgDirection.UP.toForgeDir();
 	}
 
 	@Override

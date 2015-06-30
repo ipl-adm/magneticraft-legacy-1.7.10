@@ -56,7 +56,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 			buffer -= speed;
 			counter += p;
 			cond.applyPower(p);
-			heat.applyCalories(10);
+			heat.applyCalories(EnergyConversor.RFtoCALORIES(0.2));
 		}
 
 		if(buffer <= 0 || (fuel == null && getTank().getFluidAmount() >= 10)){
@@ -114,7 +114,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW,8000,ElectricConstants.GENERATOR_DISCHARGE,ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW, 80000,ElectricConstants.GENERATOR_DISCHARGE,ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	@Override

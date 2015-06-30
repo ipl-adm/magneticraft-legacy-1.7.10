@@ -30,6 +30,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 	public BlockStirlingGenerator() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -40,6 +41,10 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 	@Override
 	public String[] getTextures() {
 		return new String[]{"stirling_generator","stirling_generator_head"};
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 
 	@Override

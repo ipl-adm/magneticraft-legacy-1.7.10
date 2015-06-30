@@ -16,6 +16,7 @@ import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -35,14 +36,14 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public float animation;
 	public boolean active;
 	public boolean auto;
-	public int Progres = 0;
+	public float progress = 0;
 	public int maxProgres = 100;
-	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
 	private InventoryComponent in;
 	private InventoryComponent out;
-	private int speed = 0;
+	private float speed = 0;
 	public int drawCounter;
 	private long time;
 	public boolean working;
@@ -60,23 +61,23 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 		if(worldObj.getWorldTime()%20 == 0)sendUpdateToClient();
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
-			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
+			speed = cond.getStorage()*10f/cond.getMaxStorage();
 			if(canCraft()){
 				working = true;
 				if (speed > 0) {
-					Progres += speed;
-					cond.drainPower(speed * 1000);
-					if (Progres >= getMaxProgres()) {
+					progress += speed;
+					cond.drainPower(EnergyConversor.RFtoW(speed * 10));
+					if (progress >= getMaxProgres()) {
 						craft();
 						markDirty();
-						Progres = 0;
+						progress %= getMaxProgres();
 					}
 				}else{
 					working = false;
 				}
 			}else{
 				working = false;
-				Progres = 0;
+				progress = 0;
 			}
 		}else{
 			working = false;
@@ -229,7 +230,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 
 	@Override
 	public int getProgres() {
-		return Progres;
+		return (int)progress;
 	}
 
 	@Override
@@ -257,7 +258,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
 		craft.sendProgressBarUpdate(cont, 1, cond.getStorage());
-		craft.sendProgressBarUpdate(cont, 2, Progres);
+		craft.sendProgressBarUpdate(cont, 2, (int)progress);
 	}
 
 	@Override
@@ -267,7 +268,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync,
 		if (id == 1)
 			cond.setStorage(value);
 		if (id == 2)
-			Progres = value;
+			progress = value;
 	}
 
 	@Override

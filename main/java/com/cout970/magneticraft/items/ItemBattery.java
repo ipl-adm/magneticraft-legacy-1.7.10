@@ -14,13 +14,13 @@ import cofh.api.energy.IEnergyContainerItem;
 public class ItemBattery extends ItemCharged{
 	
 	public ItemBattery(String unlocalizedname) {
-		super(unlocalizedname,1000000);
+		super(unlocalizedname, (int)EnergyConversor.RFtoW(1000000));
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 	
-	public ItemStack onItemRightClick(ItemStack stack, World w, EntityPlayer p)
-    {
+	public ItemStack onItemRightClick(ItemStack stack, World w, EntityPlayer p){
+		
 		if(!p.isSneaking()){
 			ItemStack[] i = p.inventory.mainInventory;
 			for(ItemStack s : i){
@@ -34,13 +34,13 @@ public class ItemBattery extends ItemCharged{
 							st.charge(s, toMove);
 							discharge(stack, toMove);
 						}
-					}else if(it instanceof IEnergyContainerItem){//calcs in J
+					}else if(it instanceof IEnergyContainerItem){//calcs in RF
 						IEnergyContainerItem st = (IEnergyContainerItem)it;
 						int space = (int) (st.getMaxEnergyStored(s)-st.getEnergyStored(s));
-						int toMove = (int) Math.min(EnergyConversor.RFtoJ(space), getCharge(stack));
+						int toMove = (int) Math.min(space, EnergyConversor.WtoRF(getCharge(stack)));
 						if(toMove > 0){
-							st.receiveEnergy(s, EnergyConversor.JtoRF(toMove), false);
-							discharge(stack, toMove);
+							st.receiveEnergy(s, toMove, false);
+							discharge(stack, (int)EnergyConversor.RFtoW(toMove));
 						}
 					}
 						

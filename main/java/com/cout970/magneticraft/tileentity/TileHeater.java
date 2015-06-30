@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import ic2.core.init.Energy;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,12 +17,13 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.Log;
 
 public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile{
 
 	public IHeatConductor heat = new HeatConductor(this, 1400, 1000);
 	public IElectricConductor cond = initConductor();
-	public static int MaxProduction = 1500;
+	public static int MaxProduction = 120;//RF
 	public int oldHeat;
 	private boolean working;
 
@@ -51,7 +53,8 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 				sendUpdateToClient();
 				oldHeat = (int) heat.getTemperature();
 			}
-			int i = getComsumption();
+			double i = EnergyConversor.RFtoCALORIES(getComsumption());
+			
 			if(i > 0){
 				cond.drainPower(EnergyConversor.CALORIEStoW(i));
 				heat.applyCalories(i);
@@ -86,8 +89,9 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 	}
 
 	public int getComsumption() {
-		if(cond.getVoltage() > ElectricConstants.MACHINE_WORK && heat.getTemperature() < 1200)
-			return (int) (MaxProduction*((cond.getVoltage()-ElectricConstants.MACHINE_WORK)/(ElectricConstants.MAX_VOLTAGE-ElectricConstants.MACHINE_WORK)));
+		if(cond.getVoltage() > ElectricConstants.MACHINE_WORK && heat.getTemperature() < 1200){
+			return (int) (MaxProduction*(cond.getVoltage()/240));
+		}
 		return 0;
 	}
 

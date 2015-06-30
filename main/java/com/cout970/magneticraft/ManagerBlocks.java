@@ -16,7 +16,7 @@ import com.cout970.magneticraft.block.BlockBiomassBurner;
 import com.cout970.magneticraft.block.BlockBoiler;
 import com.cout970.magneticraft.block.BlockBreaker;
 import com.cout970.magneticraft.block.BlockBrickFurnace;
-import com.cout970.magneticraft.block.BlockChasis;
+import com.cout970.magneticraft.block.BlockMB_Chassis;
 import com.cout970.magneticraft.block.BlockCombustionEngine;
 import com.cout970.magneticraft.block.BlockComputer;
 import com.cout970.magneticraft.block.BlockConcretedPipe;
@@ -273,7 +273,7 @@ public class ManagerBlocks {
 		pumpJack = new BlockPumpJack();
 		cooler = new BlockCooler();
 		crusher = new BlockCrusher();
-		chassis = new BlockChasis();
+		chassis = new BlockMB_Chassis();
 		multi_io = new BlockMB_Inv();
 		mirror = new BlockMirror();
 		windturbine = new BlockWindTurbine();

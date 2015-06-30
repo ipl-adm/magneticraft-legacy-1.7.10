@@ -1,4 +1,6 @@
-package com.cout970.magneticraft.api.util;
+package com.cout970.magneticraft.api.tool;
+
+import com.cout970.magneticraft.api.util.IRenderizable;
 
 /**
  * Interface to implement in an Item to be able to work in the Wind Turbine

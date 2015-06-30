@@ -32,6 +32,7 @@ public class CompProductionBar implements IGuiComp{
 		if(tile instanceof IProductor){
 			IProductor c = (IProductor) tile;
 			float prod = c.getProductionInTheLastSecond() <= 0 ? c.getProductionInTheLastTick()/c.getMaxProduction() : c.getProductionInTheLastSecond()/(c.getMaxProduction()*20);
+			if(prod > 1)prod = 1;
 			int scale = (int) (44*prod);
 			gui.mc.renderEngine.bindTexture(texture);
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);

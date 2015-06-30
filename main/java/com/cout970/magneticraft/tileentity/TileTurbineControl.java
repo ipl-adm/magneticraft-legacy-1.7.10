@@ -43,25 +43,13 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	
 	public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED){
 		@Override
-		public void computeVoltage() {
-			V += 0.05d * I;
-			if(V < 0 || Double.isNaN(V))V = 0;
-			if(V > ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2)V = ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2;
-			I = 0;
-			Iabs = 0;
+		public double getInvCapacity() {
+			return EnergyConversor.RFtoW(1);
 		}
 		 
 		@Override
 		public double getVoltageMultiplier() {
 			return 100;
-		}
-		
-		@Override
-		public void applyPower(double power) {
-			power = power * getVoltageMultiplier();
-			//sqrt(V^2+(power))-V
-			double square = Math.sqrt(this.V * this.V + Q1 * power) - this.V;
-	        this.applyCurrent(Q2 * square);
 		}
 	};
 	private double flow;

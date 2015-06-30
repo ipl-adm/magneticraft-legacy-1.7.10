@@ -14,6 +14,7 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
@@ -25,7 +26,7 @@ public class TileTeslaCoil extends TileConductorLow{
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW, 32000, ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
+		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW, 320000, ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
 			@Override
 			public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
 				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.fromDirection(MgDirection.DOWN).equals(v);
@@ -59,11 +60,11 @@ public class TileTeslaCoil extends TileConductorLow{
 					if(stack != null && stack.getItem() instanceof IBatteryItem){
 						IBatteryItem batteryItem = (IBatteryItem) stack.getItem();
 						int space = batteryItem.getMaxCharge() - batteryItem.getCharge(stack);
-						if(space > 0){
-							int change = (int)Math.min(space, (cond.getVoltage()-ElectricConstants.MACHINE_WORK)*4);
+						if(space > 0 && cond.getVoltage() > ElectricConstants.MACHINE_WORK){
+							int change = (int)Math.min(space, cond.getVoltage()*12);
 							if(change > 0){
 								batteryItem.charge(stack, change);
-								cond.drainPower(change*100);
+								cond.drainPower(change);
 							}
 						}
 					}

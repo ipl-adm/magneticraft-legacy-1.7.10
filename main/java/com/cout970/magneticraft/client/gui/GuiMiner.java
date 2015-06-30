@@ -63,32 +63,7 @@ public class GuiMiner extends GuiBasic{
 				gui.mc.renderEngine.bindTexture(texture);
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
 				gui.drawString(getFontRenderer(), c.dim+"x"+c.dim, gui.xStart+60, gui.yStart+40, RenderUtil.fromRGB(255, 255, 255));
-
-				for(int i = 0; i < c.counter-1; i++){
-					drawLine(gui.xStart+90+i, gui.yStart+70-c.graf[i]*60, gui.xStart+91+i, gui.yStart+70-c.graf[i+1]*60, RenderUtil.fromRGB(255, 255, 255));//-c.graf[i+1]*100
-				}
 			}
-		}
-
-		private void drawLine(int i, float j, int x, float y, int color) {
-			Tessellator t = Tessellator.instance;
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-			GL11.glShadeModel(GL11.GL_SMOOTH);
-			GL11.glColor3ub((byte)color, (byte)(color >> 8), (byte)(color >> 16));
-			GL11.glLineWidth(2);
-			t.startDrawing(GL11.GL_LINES);
-			t.addVertex(i, j, 0);
-			t.addVertex(x, y, 0);
-			t.addVertex(i, j, 0);
-			t.addVertex(x, y, 0);
-			t.draw();
-			GL11.glShadeModel(GL11.GL_FLAT);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
 		}
 
 		@Override

@@ -5,6 +5,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.Log;
@@ -16,6 +17,7 @@ import com.cout970.magneticraft.util.Log;
  */
 public class HeatConductor implements IHeatConductor{
 
+	public static final double SPECIFIC_HEAT = 0.2D;
 	private TileEntity parent;
 	private double temperature = 25;//temperature in celsius degrees
 	private double mass;
@@ -69,8 +71,8 @@ public class HeatConductor implements IHeatConductor{
 					if(h == null)continue;
 					double diff = this.getTemperature()-h.getTemperature();
 					double resistance = this.getResistance()+h.getResistance();
-					double change = ((diff * 0.5D)/resistance)*100;
-					this.applyCalories(-change);
+					double change = ((diff * 0.5D)/resistance)*EnergyConversor.FUELtoCALORIES(1);
+					drainCalories(change);
 					h.applyCalories(change);
 				}
 			}
@@ -83,12 +85,12 @@ public class HeatConductor implements IHeatConductor{
 
 	@Override
 	public void applyCalories(double j) {
-		temperature += j/(getMass());
+		temperature += j/(getMass())*SPECIFIC_HEAT;
 	}
 
 	@Override
 	public void drainCalories(double j) {
-		temperature -= j/(getMass());
+		temperature -= j/(getMass())*SPECIFIC_HEAT;
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class TileRenderRFAlternator extends TileEntitySpecialRenderer{
 			GL11.glRotatef(-90, 0, 1, 0);
 		}
 		
-		RenderUtil.bindTexture(ModelTextures.NO_TEXTURE);
+		RenderUtil.bindTexture(ModelTextures.RF_ALTERNATOR);
 		model.renderStatic(0.0625f);
 		GL11.glPopMatrix();
 	}

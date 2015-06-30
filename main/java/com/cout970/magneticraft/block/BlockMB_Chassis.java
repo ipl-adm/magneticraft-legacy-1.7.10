@@ -25,10 +25,11 @@ import com.cout970.magneticraft.util.multiblock.types.MultiblockTurbine;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockChasis extends BlockMg implements MB_Block{
+public class BlockMB_Chassis extends BlockMg implements MB_Block{
 
-	public BlockChasis() {
+	public BlockMB_Chassis() {
 		super(Material.iron);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -45,6 +46,10 @@ public class BlockChasis extends BlockMg implements MB_Block{
 			}
 		}
 		super.breakBlock(w, x, y, z, b, side);
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 
 	@Override

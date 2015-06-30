@@ -57,7 +57,7 @@ public class ItemRenderRFAlternator implements IItemRenderer{
 		GL11.glTranslatef(x, y, z);
 		GL11.glRotatef(180F, 0, 0, 1);
 		GL11.glTranslatef(0, -1.5f, 0);
-		RenderUtil.bindTexture(ModelTextures.NO_TEXTURE);
+		RenderUtil.bindTexture(ModelTextures.RF_ALTERNATOR);
 		model.renderStatic(0.0625f);
 		GL11.glPopMatrix();
 	}

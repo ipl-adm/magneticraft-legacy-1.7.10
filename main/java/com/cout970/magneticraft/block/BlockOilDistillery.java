@@ -37,6 +37,10 @@ public class BlockOilDistillery extends BlockMg implements MB_ControlBlock{
 	public TileEntity createNewTileEntity(World w, int meta) {
 		return new TileOilDistillery();
 	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
+	}
 
 	@Override
 	public String[] getTextures() {
@@ -47,6 +51,10 @@ public class BlockOilDistillery extends BlockMg implements MB_ControlBlock{
 	public String getName() {
 		return "distillery_control";
 	}
+	
+	public boolean isOpaqueCube() {
+        return false;
+    }
 	
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)

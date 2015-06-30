@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -55,7 +56,7 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
 					double prod = ((initialMass-NewMass)*AVOGADROS_CONSTANT*item.getEnergyPerFision(g));
 					prod *= 1E-9;
 					g.setItemDamage(g.getItem().getDamage(g));
-					heat.applyCalories(prod);
+					heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
 					production += prod;
 //					System.out.println(prod+"             "+desintegration+"                 "+(initialMass-NewMass));
 				}

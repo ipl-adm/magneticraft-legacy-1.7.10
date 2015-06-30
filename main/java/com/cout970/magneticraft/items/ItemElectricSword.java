@@ -20,10 +20,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemElectricSword extends ItemCharged{
 
-	public static int CHARGE_PER_HIT = 1000;
+	public static int CHARGE_PER_HIT = 10000;
 
 	public ItemElectricSword(String unlocalizedname) {
-		super(unlocalizedname,200000);
+		super(unlocalizedname,500000);
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}

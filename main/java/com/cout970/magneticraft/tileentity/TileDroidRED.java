@@ -23,6 +23,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
@@ -74,6 +75,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 					validate();
 					worldObj.setTileEntity(xCoord, yCoord, zCoord, this);
 					setOrientation(ori);
+					cond.drainPower(EnergyConversor.RFtoW(10));
 					markDirty();
 					onNeigChange();
 					sendUpdateToClient();
@@ -93,6 +95,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 					validate();
 					worldObj.setTileEntity(xCoord, yCoord, zCoord, this);
 					setOrientation(ori);
+					cond.drainPower(EnergyConversor.RFtoW(10));
 					markDirty();
 					onNeigChange();
 					sendUpdateToClient();
@@ -121,7 +124,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 			droidProgress = -1;
 		}
 		if(worldObj.isRemote)return;
-		cond.drainPower(50);
+		cond.drainPower(EnergyConversor.RFtoW(0.5D));
 	}
 	
 	//axis == true rotate from y, else from x, dir == true, left or top, else right or bottom 
@@ -303,6 +306,6 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 50000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 500000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	}
 }

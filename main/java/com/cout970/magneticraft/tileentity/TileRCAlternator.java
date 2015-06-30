@@ -30,13 +30,13 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid{
 					int change;
 					change = (int) Math.min((level - getVoltage())*10, 512);
 					change = (int) Math.min(change, charge.getCharge());
-					applyPower(EnergyConversor.EUtoW(change));
+					applyPower(EnergyConversor.RCtoW(change));
 					charge.addCharge(-change);
 				}else if (getVoltage() > level && charge.getCharge() < maxStorage){
 					int change;
 					change = (int) Math.min((getVoltage() - level)*10, 512);
 					change = (int) Math.min(change, maxStorage - charge.getCharge());
-					drainPower(EnergyConversor.EUtoW(change));
+					drainPower(EnergyConversor.RCtoW(change));
 					charge.addCharge(change);
 				}
 			}

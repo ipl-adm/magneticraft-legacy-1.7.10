@@ -42,11 +42,19 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock{
 	public String[] getTextures() {
 		return new String[]{"refinery","chasis"};
 	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
+	}
 
 	@Override
 	public String getName() {
 		return "refinery_control";
 	}
+	
+	public boolean isOpaqueCube() {
+        return false;
+    }
 	
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta)

@@ -44,6 +44,10 @@ public class RecipeRefinery {
 		return out2;
 	}
 	
+	public String toString(){
+		return "Refinery Recipe, Input: "+input.getLocalizedName()+", Amount:"+input.amount+", Outputs 1: "+out0.getLocalizedName()+", Amount:"+input.amount+", 2: "+out1.getLocalizedName()+", Amount:"+input.amount+", 3: "+out2.getLocalizedName()+", Amount:"+input.amount;
+	}
+	
 	public boolean matches(FluidStack f){
 		if(MgUtils.areEcuals(f, input))return true;
 		return false;

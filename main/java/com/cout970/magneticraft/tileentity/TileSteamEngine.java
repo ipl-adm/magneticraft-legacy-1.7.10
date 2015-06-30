@@ -56,8 +56,8 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 			int steam = Math.min(tank.getFluidAmount(), STEAM_LIMIT);
 			if(steam > 0){
 				tank.drain(steam, true);
-				cond.applyPower(EnergyConversor.STEAMtoKW(steam)*1000);
-				electricProduction += EnergyConversor.STEAMtoKW(steam);
+				cond.applyPower(EnergyConversor.STEAMtoW(steam));
+				electricProduction += EnergyConversor.STEAMtoW(steam);
 				steamConsumition += steam;
 				working = true;
 			}else{
@@ -115,7 +115,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 80000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 		c.sendProgressBarUpdate(cont, 1, (int)cond.getStorage());
 		c.sendProgressBarUpdate(cont, 3, tank.getFluidAmount());
 		c.sendProgressBarUpdate(cont, 4, (int) steamConsumitionM);
-		c.sendProgressBarUpdate(cont, 5, (int) (electricProductionM*1000));
+		c.sendProgressBarUpdate(cont, 5, (int) (electricProductionM));
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 
 	@Override
 	public float getMaxProduction() {
-		return (float) (EnergyConversor.STEAMtoKW(STEAM_LIMIT)*1000);
+		return (float) (EnergyConversor.STEAMtoW(STEAM_LIMIT));
 	}
 	
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

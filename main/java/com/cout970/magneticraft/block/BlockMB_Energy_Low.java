@@ -26,6 +26,7 @@ public class BlockMB_Energy_Low extends BlockMg implements MB_Block{
 
 	public BlockMB_Energy_Low() {
 		super(Material.iron);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -44,6 +45,10 @@ public class BlockMB_Energy_Low extends BlockMg implements MB_Block{
 	}
 	
 	public boolean isOpaqueCube(){
+		return false;
+	}
+	
+	public boolean renderAsNormalBlock(){
 		return false;
 	}
 

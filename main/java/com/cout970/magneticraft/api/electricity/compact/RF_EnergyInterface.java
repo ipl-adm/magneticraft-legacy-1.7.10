@@ -32,12 +32,12 @@ public class RF_EnergyInterface implements IEnergyInterface{
 
 	@Override
 	public double getCapacity() {
-		return EnergyConversor.RFtoJ(tile.getMaxEnergyStored(dir.toForgeDir()));
+		return EnergyConversor.RFtoW(tile.getMaxEnergyStored(dir.toForgeDir()));
 	}
 
 	@Override
 	public double getEnergyStored() {
-		return EnergyConversor.RFtoJ(tile.getEnergyStored(dir.toForgeDir()));
+		return EnergyConversor.RFtoW(tile.getEnergyStored(dir.toForgeDir()));
 	}
 
 	@Override

@@ -23,6 +23,7 @@ public class BlockMB_Energy_Medium extends BlockMg implements MB_Block{
 
 	public BlockMB_Energy_Medium() {
 		super(Material.iron);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -40,6 +41,14 @@ public class BlockMB_Energy_Medium extends BlockMg implements MB_Block{
 		return "MB_Energy_medium";
 	}
 
+	public boolean isOpaqueCube() {
+        return false;
+    }
+	
+	public boolean renderAsNormalBlock(){
+		return false;
+	}
+	
 	@Override
 	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
 		if(c instanceof MultiblockTurbine){

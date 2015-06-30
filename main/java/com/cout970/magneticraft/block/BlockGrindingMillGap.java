@@ -49,8 +49,7 @@ public class BlockGrindingMillGap extends BlockMg implements MB_Block{
 		super.breakBlock(w, x, y, z, b, side);
 	}
 
-	public boolean renderAsNormalBlock()
-    {
+	public boolean renderAsNormalBlock(){
         return false;
     }
 	

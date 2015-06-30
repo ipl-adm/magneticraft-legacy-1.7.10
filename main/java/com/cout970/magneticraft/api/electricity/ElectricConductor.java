@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
@@ -164,12 +165,16 @@ public class ElectricConductor implements IElectricConductor{
 
 	@Override
 	public void computeVoltage() {
-		V += 0.05d * I * getVoltageMultiplier();
+		V += 0.05d * I * getInvCapacity();
 		if(V < 0 || Double.isNaN(V))V = 0;
 		if(V > ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2)V = ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2;
 		I = 0;
 		Itot = Iabs*0.5;
 		Iabs = 0;
+	}
+
+	public double getInvCapacity(){
+		return getVoltageMultiplier()*EnergyConversor.RFtoW(1);
 	}
 
 	@Override
@@ -194,24 +199,22 @@ public class ElectricConductor implements IElectricConductor{
 		Iabs += Math.abs(amps/getVoltageMultiplier());
 	}
 
-	public static final double Q1 = 0.1D,Q2 = 20.0D;
+	public static final double Q1 = 0.1D, Q2 = 20.0D;
 	
 	@Override
 	public void drainPower(double power) {
 		power = power * getVoltageMultiplier();
-		//sqrt(V^2-(power))-V
-		double square = this.V * this.V - Q1 * power;
-        double draining = square < 0.0D ? 0.0D : Math.sqrt(square) - this.V;
-        this.applyCurrent(Q2 * draining);
+		double square = V * V - Q1 * power;
+        double draining = (square < 0.0D ? 0.0D : Math.sqrt(square)) - V;
+        applyCurrent(Q2 * draining);
 	}
 	
 	@Override
 	public void applyPower(double power) {
 		power = power * getVoltageMultiplier();
-		//sqrt(V^2+(power))-V
-		double square = Math.sqrt(this.V * this.V + Q1 * power) - this.V;
-        this.applyCurrent(Q2 * square);
-	}
+		double applying = Math.sqrt(V * V + Q1 * power) - V;
+        applyCurrent(Q2 * applying);
+    }
 
 	@Override
 	public void save(NBTTagCompound nbt) {

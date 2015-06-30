@@ -216,7 +216,7 @@ public class ManagerItems {
 		addItem(motor, "Electric Motor");
 		addItem(copper_coil,"Copper Coil");
 		addItem(drill,"Diamond Drill");
-		addItem(wire_copper,"Fine Copper Wire");
+		addItem(wire_copper,"Copper Wire");
 		addItem(ingotCarbide,"Carbide Ingot");
 		addItem(oil_prospector,"Oil Prospector");
 		

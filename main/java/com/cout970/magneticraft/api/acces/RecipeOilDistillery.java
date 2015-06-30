@@ -36,6 +36,10 @@ public class RecipeOilDistillery {
 		return MgUtils.areEcuals(f, input);
 	}
 	
+	public String toString(){
+		return "Oil Distillery Recipe, Input: "+input.getLocalizedName()+", Amount:"+input.amount+", Output: "+output.getLocalizedName()+", Amount:"+input.amount+", Energy Cost: "+cost+"W";
+	}
+	
 	public static RecipeOilDistillery getRecipe(FluidStack f){
 		for(RecipeOilDistillery r : MgRecipeRegister.oilDistillery){
 			if(r.matches(f))return r;

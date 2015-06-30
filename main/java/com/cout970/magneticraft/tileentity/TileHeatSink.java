@@ -3,6 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
@@ -24,7 +25,7 @@ public class TileHeatSink extends TileHeatConductor{
 		if(worldObj.isRemote)return;
 		if(heat.getTemperature() > 25){
 			double diff = Math.min(heat.getTemperature()-25, 125);
-			heat.drainCalories(diff*0.5);
+			heat.drainCalories(EnergyConversor.RFtoCALORIES(diff*0.05));
 		}
 	}
 

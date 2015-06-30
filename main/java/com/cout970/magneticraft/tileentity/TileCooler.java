@@ -2,6 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileCooler extends TileHeatConductor{
@@ -17,8 +18,8 @@ public class TileCooler extends TileHeatConductor{
 		if(heat.getTemperature() > 25){
 			double a = heat.getTemperature()-25;
 			a *= a; 
-			a *= 0.002;
-			this.heat.drainCalories(a);
+			a *= 0.0002;
+			this.heat.drainCalories(EnergyConversor.RFtoCALORIES(a));
 		}
 	}
 

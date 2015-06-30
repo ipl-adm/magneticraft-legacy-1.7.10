@@ -22,6 +22,7 @@ import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -40,10 +41,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
 
 	public boolean active;
-	public int speed;
+	public float speed;
 	public int maxProgres = 100;
-	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 16000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
-	private int Progres;
+	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	private float Progres;
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Grinder");
 	private InventoryComponent in;
@@ -71,15 +72,15 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		}
 		updateConductor();
 		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
-			speed = (int) Math.ceil(cond.getStorage()*10f/cond.getMaxStorage());
+			speed = cond.getStorage()*10f/cond.getMaxStorage();
 			if(canCraft()){
 				if (speed > 0) {
 					Progres += speed;
-					cond.drainPower(speed * 1000);
+					cond.drainPower(EnergyConversor.RFtoW(speed * 10));
 					if (Progres >= getMaxProgres()) {
 						craft();
 						markDirty();
-						Progres = 0;
+						Progres %= getMaxProgres();
 					}
 					working = true;
 				}
@@ -251,7 +252,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 
 	@Override
 	public int getProgres() {
-		return Progres;
+		return (int)Progres;
 	}
 
 	@Override
@@ -279,7 +280,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
 		craft.sendProgressBarUpdate(cont, 1, cond.getStorage());
-		craft.sendProgressBarUpdate(cont, 2, Progres);
+		craft.sendProgressBarUpdate(cont, 2, (int)Progres);
 	}
 
 	@Override

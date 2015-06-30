@@ -42,7 +42,7 @@ import com.cout970.magneticraft.util.tile.TileConductorMedium;
 
 public class TileMiner extends TileConductorMedium implements IInventoryManaged,IGuiSync,IConsumer,IBarProvider, IGuiListener{
 
-	public static final int MINING_COST_PER_BLOCK = 500;//500
+	public static final int MINING_COST_PER_BLOCK = 500;//500 RF
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Miner");
 	public WorkState state = WorkState.UNREADY;
 	public List<BlockInfo> well = new ArrayList<BlockInfo>();
@@ -53,32 +53,17 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	public int minedLastSecond;
 	public int hole = 0;
 	public int dim = 11;
-	public int lag,counter;
-	public float[] graf = new float[60];
 	public int mined;
 	
 	public IElectricConductor capacity = new ElectricConductor(this,2, ElectricConstants.RESISTANCE_COPPER_MED){
 		@Override
-		public void computeVoltage() {
-			V += 0.05d * I;
-			if(V < 0 || Double.isNaN(V))V = 0;
-			if(V > ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2)V = ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier()*2;
-			I = 0;
-			Iabs = 0;
+		public double getInvCapacity() {
+			return EnergyConversor.RFtoW(1);
 		}
 		
 		@Override
 		public double getVoltageMultiplier() {
 			return 100;
-		}
-		
-		@Override
-		public void drainPower(double power) {
-			power = power * getVoltageMultiplier();
-			//sqrt(V^2-(power))-V
-			double square = this.V * this.V - Q1 * power;
-	        double draining = square < 0.0D ? 0.0D : Math.sqrt(square) - this.V;
-	        this.applyCurrent(Q2 * draining);
 		}
 	};
 	private double flow;
@@ -90,14 +75,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
 	public void updateEntity() {
 		super.updateEntity();
-		if(worldObj.isRemote){
-			counter++;
-			if(counter >= graf.length){
-				counter = 0;
-				Arrays.fill(graf, 0f);
-			}
-			graf[counter] = (float)(lag/1E6);
-		}
 		if(worldObj.isRemote)return;
 		long time = System.nanoTime();
 		updateConductor();
@@ -113,8 +90,8 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		if(state == WorkState.WORKING) {
 			
 			if(items.isEmpty()){
-				double p = (capacity.getVoltage()-ElectricConstants.MACHINE_WORK*100);
-				p = (p*p/90);
+				double p = (capacity.getVoltage()-ElectricConstants.MACHINE_WORK*100);//in J
+				p = (p*p/9);
 				if(coolDown > 0){
 					if(capacity.getVoltage() > ElectricConstants.MACHINE_WORK*100){
 						coolDown -= EnergyConversor.WtoRF(p);
@@ -142,7 +119,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 			ConsumptionCounter = 0;
 			mined = 0;
 		}
-		lag = (int)(System.nanoTime()-time);
 	}
 
 	private void updateConductor() {
@@ -309,7 +285,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		craft.sendProgressBarUpdate(cont, 4, minedLastSecond);
 		craft.sendProgressBarUpdate(cont, 5, hole);
 		craft.sendProgressBarUpdate(cont, 6, dim);
-		craft.sendProgressBarUpdate(cont, 7, lag);
 	}
 
 	@Override
@@ -321,7 +296,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		if(id == 4)minedLastSecond = value;
 		if(id == 5)hole = value;
 		if(id == 6)dim = value;
-		if(id == 7)lag = value;
 	}
 
 	@Override

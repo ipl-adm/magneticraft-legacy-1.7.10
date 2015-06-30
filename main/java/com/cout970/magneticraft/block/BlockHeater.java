@@ -22,6 +22,7 @@ public class BlockHeater extends BlockMg implements MB_Block{
 	public BlockHeater() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -39,11 +40,19 @@ public class BlockHeater extends BlockMg implements MB_Block{
 	public String[] getTextures() {
 		return new String[]{"heater_off","heater_on"};
 	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
+	}
 
 	@Override
 	public String getName() {
 		return "heater";
 	}
+	
+	public boolean isOpaqueCube() {
+        return false;
+    }
 	
 	@Override
 	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {

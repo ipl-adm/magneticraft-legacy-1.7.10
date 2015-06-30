@@ -25,6 +25,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 
 	public TankMg water = new TankMg(this, 2000);
 	public TankMg steam = new TankMg(this, 8000);
+	public static final int MAX_STEAM = 80;
 	public int produce;
 	
 	@Override
@@ -36,8 +37,8 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 		super.updateEntity();
 		if(worldObj.isRemote)return;
 		if(heat.getTemperature() > 100) {
-			int cs = Math.min(water.getFluidAmount() , EnergyConversor.STEAMtoWATER(steam.getCapacity()-steam.getFluidAmount()));
-			int boil = Math.min(Math.min(cs, (int)EnergyConversor.STEAMtoWATER(40)), ((int)heat.getTemperature()-100));
+			int cs = Math.min(water.getFluidAmount() , EnergyConversor.STEAMtoWATER(steam.getCapacity()-steam.getFluidAmount()));//calcs in water mount
+			int boil = Math.min(Math.min(cs, (int)EnergyConversor.STEAMtoWATER(MAX_STEAM)), ((int)heat.getTemperature()-100));
 			produce = EnergyConversor.WATERtoSTEAM(boil);
 			if(boil > 0){
 				water.drain(boil, true);
@@ -151,7 +152,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 
 	@Override
 	public float getLevel() {
-		return produce/40f;
+		return produce/80f;
 	}
 
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

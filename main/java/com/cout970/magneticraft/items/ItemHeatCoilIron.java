@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.api.tool.IFurnaceCoil;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemHeatCoilIron extends ItemBasic implements IFurnaceCoil{
@@ -12,12 +13,12 @@ public class ItemHeatCoilIron extends ItemBasic implements IFurnaceCoil{
 
 	@Override
 	public int getCookTime() {
-		return 60;
+		return 50;
 	}
 
 	@Override
 	public double getElectricConsumption() {
-		return 3.4D;
+		return EnergyConversor.RFtoW(40);
 	}
 
 }

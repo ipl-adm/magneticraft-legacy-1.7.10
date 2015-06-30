@@ -46,7 +46,7 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
 			}
 			//fuel to heat
 			if(heat.getTemperature() < 1200 && isControled()){
-				int i = 8;//burning speed
+				int i = 4;//burning speed
 				if(Progres - i < 0){
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(Progres));
 					Progres = 0;

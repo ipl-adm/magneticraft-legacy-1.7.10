@@ -16,6 +16,7 @@ import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -62,7 +63,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 			}else{
 				Progres++;
 			}
-			heater.drainCalories(100);
+			heater.drainCalories(EnergyConversor.RFtoCALORIES(40));
 		}
 		distributeItems();
 	}
@@ -101,7 +102,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 			i.stackSize++;
 			getInv().setInventorySlotContents(1, i);
 		}
-		heater.drainCalories(500);
+		heater.drainCalories(EnergyConversor.RFtoCALORIES(100));
 		input.drain(500, true);
 	}
 

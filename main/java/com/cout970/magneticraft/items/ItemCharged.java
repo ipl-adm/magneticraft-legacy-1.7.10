@@ -62,7 +62,7 @@ public class ItemCharged extends ItemBasic implements IBatteryItem{
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addInformation(ItemStack i, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(getCharge(i)+"/"+MAX_CHARGE+""+Magneticraft.ENERGY_STORED_NAME);
+		par3List.add((getCharge(i)/1000f)+"k"+Magneticraft.ENERGY_STORED_NAME+" / "+(MAX_CHARGE/1000f)+"k"+Magneticraft.ENERGY_STORED_NAME);
 	}
 
 

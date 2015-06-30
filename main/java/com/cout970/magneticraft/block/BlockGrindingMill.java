@@ -47,8 +47,7 @@ public class BlockGrindingMill extends BlockMg implements MB_ControlBlock{
 		return "grinding_mill";
 	}
 	
-	public boolean renderAsNormalBlock()
-    {
+	public boolean renderAsNormalBlock(){
         return false;
     }
 	
@@ -79,8 +78,7 @@ public class BlockGrindingMill extends BlockMg implements MB_ControlBlock{
 		super.breakBlock(w, x, y, z, b, side);
 	}
 	
-	public boolean isOpaqueCube()
-    {
+	public boolean isOpaqueCube() {
         return false;
     }
 	

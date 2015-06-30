@@ -110,7 +110,7 @@ public class GuiGrinder extends GuiBasic{
 				if(c == null)return;
 				if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 11, 44)){
 					List<String> data = new ArrayList<String>();
-					data.add(c.getStorage()+Magneticraft.ENERGY_STORED_NAME);
+					data.add(String.format("%.3fk"+Magneticraft.ENERGY_STORED_NAME, c.getStorage()/1000f));
 					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 					RenderHelper.enableGUIStandardItemLighting();
 				}

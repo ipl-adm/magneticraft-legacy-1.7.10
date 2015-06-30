@@ -25,6 +25,7 @@ public class BlockMB_Kinetic extends BlockMg implements MB_Block{
 
 	public BlockMB_Kinetic() {
 		super(Material.wood);
+		setLightOpacity(0);
 	}
 
 	@Override
@@ -40,6 +41,10 @@ public class BlockMB_Kinetic extends BlockMg implements MB_Block{
 	@Override
 	public String getName() {
 		return "mb_kinetic";
+	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
 	}
 	
 	public boolean isOpaqueCube(){

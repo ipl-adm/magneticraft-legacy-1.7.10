@@ -2,43 +2,47 @@ package com.cout970.magneticraft.compact.minetweaker;
 
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IItemStack;
-import net.minecraft.item.ItemStack;
+import minetweaker.api.liquid.ILiquidStack;
+import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeBiomassBurner;
+import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
 
-@ZenClass("mods.magneticraft.BiomassBurner")
-public class BiomassBurner {
+@ZenClass("mods.magneticraft.OilDistillery")
+public class OilDistillery {
 
 	@ZenMethod
-	public static void addFuel(IItemStack fuel, int burningTime){
-		ItemStack a = MgMinetweaker.toStack(fuel);
-		if(a == null && burningTime <= 0)return;
-		RecipeBiomassBurner r = new RecipeBiomassBurner(a, burningTime, true);
-		MineTweakerAPI.apply(new AddRecipe(r));
+	public static void addRecipe(ILiquidStack in, ILiquidStack out, double cost){
+		FluidStack a = MgMinetweaker.toFluid(in),
+				b = MgMinetweaker.toFluid(out);
+		if(a != null && b != null){
+			RecipeOilDistillery r = new RecipeOilDistillery(a, b, cost);
+			MineTweakerAPI.apply(new AddRecipe(r));
+		}
 	}
-
+	
 	@ZenMethod
-	public static void removeFuel(IItemStack fuel){
-		ItemStack a = MgMinetweaker.toStack(fuel);
-		RecipeBiomassBurner r = RecipeBiomassBurner.getRecipe(a);
+	public static void removeRecipe(ILiquidStack in){
+		FluidStack f = MgMinetweaker.toFluid(in);
+		if(f == null)return;
+		RecipeOilDistillery r = RecipeOilDistillery.getRecipe(f);
+		if(r == null)return;
 		MineTweakerAPI.apply(new RemoveRecipe(r));
 	}
-
+	
 	public static class AddRecipe implements IUndoableAction{
 
-		private final RecipeBiomassBurner r;
-
-		public AddRecipe(RecipeBiomassBurner r) {
+		private final RecipeOilDistillery r;
+		
+		public AddRecipe(RecipeOilDistillery r) {
 			this.r = r;
 		}
 
 		@Override
 		public void apply() {
-			MgRecipeRegister.biomassBurner.add(r);
+			MgRecipeRegister.oilDistillery.add(r);
 		}
 
 		@Override
@@ -63,21 +67,21 @@ public class BiomassBurner {
 
 		@Override
 		public void undo() {
-			MgRecipeRegister.biomassBurner.remove(r);
+			MgRecipeRegister.oilDistillery.remove(r);
 		}
 	}
 
 	public static class RemoveRecipe implements IUndoableAction{
 
-		private final RecipeBiomassBurner r;
+		private final RecipeOilDistillery r;
 
-		public RemoveRecipe(RecipeBiomassBurner r) {
+		public RemoveRecipe(RecipeOilDistillery r) {
 			this.r = r;
 		}
 
 		@Override
 		public void apply() {
-			MgRecipeRegister.biomassBurner.remove(r);
+			MgRecipeRegister.oilDistillery.remove(r);
 		}
 
 		@Override
@@ -102,7 +106,7 @@ public class BiomassBurner {
 
 		@Override
 		public void undo() {
-			MgRecipeRegister.biomassBurner.add(r);
+			MgRecipeRegister.oilDistillery.add(r);
 		}
 	}
 }

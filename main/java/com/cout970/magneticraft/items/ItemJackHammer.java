@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemJackHammer extends ItemCharged{
 	
-	public static int CHARGE_PER_WORK = 500;
+	public static int CHARGE_PER_WORK = 5000;
 	public static int HARVEST_LEVEL = 3;
 	private static final Set vanilla_minable_blocks = Sets.newHashSet(new Block[] {Blocks.cobblestone, Blocks.double_stone_slab, Blocks.stone_slab, Blocks.stone, Blocks.sandstone, Blocks.mossy_cobblestone, Blocks.iron_ore, Blocks.iron_block, Blocks.coal_ore, Blocks.gold_block, Blocks.gold_ore, Blocks.diamond_ore, Blocks.diamond_block, Blocks.ice, Blocks.netherrack, Blocks.lapis_ore, Blocks.lapis_block, Blocks.redstone_ore, Blocks.lit_redstone_ore, Blocks.rail, Blocks.detector_rail, Blocks.golden_rail, Blocks.activator_rail});
 

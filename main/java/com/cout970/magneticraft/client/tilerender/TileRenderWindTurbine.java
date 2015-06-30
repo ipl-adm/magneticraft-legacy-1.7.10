@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.util.IWindTurbine;
+import com.cout970.magneticraft.api.tool.IWindTurbine;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.util.RenderUtil;

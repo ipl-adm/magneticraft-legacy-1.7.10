@@ -18,8 +18,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.tool.IWindTurbine;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.IRenderizable;
-import com.cout970.magneticraft.api.util.IWindTurbine;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IEfficient;
@@ -28,6 +29,7 @@ import com.cout970.magneticraft.client.gui.component.IProductor;
 import com.cout970.magneticraft.util.FractalLib;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
@@ -114,8 +116,8 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 				production = 0;
 				productionPerSecond = 0;
 			}else if(cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()){
-				cond.applyPower(power*turbinePotency);
-				production = (float) (power*turbinePotency);
+				cond.applyPower(EnergyConversor.RFtoW(power*turbinePotency/100));
+				production = (float) EnergyConversor.RFtoW(power*turbinePotency/100);
 			}else{
 				production = 0;
 			}
@@ -170,6 +172,8 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 		if(a != null){
 			if(a.getItem() instanceof IWindTurbine && turbine != ((IWindTurbine) a.getItem()).getID()){
 				if(hasSpace((IWindTurbine)a.getItem())){
+					turbine = -1;
+					desactivateTurbine();
 					turbine = ((IWindTurbine) a.getItem()).getID();
 					activateTurbine((IWindTurbine) a.getItem());
 					sendUpdateToClient();
@@ -294,7 +298,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 80000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
 	}
 	
 	public InventoryComponent getInv() {
@@ -350,12 +354,13 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
 	@Override
 	public float getMaxProduction() {
-		if(turbinePotency != 0)return (float) (13333 * turbinePotency);
+		if(turbinePotency != 0)return (float) (1333 * turbinePotency);
 		return 1;
 	}
 
 	public void onTurbineBreaks() {
 		desactivateTurbine();
+		if(turbine == -1)return;
 		Random rand = worldObj.rand;
 		ItemStack i = getInv().getStackInSlot(0);
 		getInv().setInventorySlotContents(0, null);

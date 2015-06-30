@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 public class ContainerBiomassBurner extends ContainerBasic{
@@ -14,9 +15,7 @@ public class ContainerBiomassBurner extends ContainerBasic{
 		this.bindPlayerInventory(inventory);
 	}
 	
-	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_) {
-		return true;
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
+		return transfer(player, slot, new int[]{3});
 	}
-
 }

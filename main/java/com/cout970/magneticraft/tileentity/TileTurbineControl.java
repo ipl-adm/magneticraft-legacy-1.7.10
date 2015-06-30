@@ -44,7 +44,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 	public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED){
 		@Override
 		public double getInvCapacity() {
-			return EnergyConversor.RFtoW(1);
+			return EnergyConversor.RFtoW(0.1D);
 		}
 		 
 		@Override
@@ -90,8 +90,8 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 		updateConductor();
 		balanceTanks();
 		double miss = (ElectricConstants.MAX_VOLTAGE - capacity.getVoltage()/100)*100;
-		int steam = (int) Math.min(Math.min(getFluidAmount(), miss), MAX_STEAM);
-		steam = (int) Math.min(steam, ((getFluidAmount()+100)/64000f)*MAX_STEAM);
+		int steam = (int) Math.min(Math.min(getFluidAmount() > 1000 ? getFluidAmount()+1000 : getFluidAmount(), miss), MAX_STEAM);
+		steam = (int) Math.min(steam, ((getFluidAmount()+1000)/64000f)*MAX_STEAM);
 		if(steam > 0 && capacity.getVoltage() < ElectricConstants.MAX_VOLTAGE*100){
 			drain(steam, true);
 			double p = EnergyConversor.STEAMtoW(steam);
@@ -184,7 +184,7 @@ public class TileTurbineControl extends TileMB_Base implements IGuiSync,IBarProv
 
 	@Override
 	public String getMessage() {
-		return String.format("Generating: %.2f kW",prod/1000d);
+		return String.format("Generating: %.3f kW",prod/1000d);
 	}
 
 	@Override

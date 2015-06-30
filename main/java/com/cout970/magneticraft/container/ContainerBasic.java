@@ -22,7 +22,43 @@ public class ContainerBasic extends Container{
 	
 	public ItemStack transferStackInSlot(EntityPlayer p, int s){return null;};
 	
-	public ItemStack transfer(EntityPlayer player, int slot,int inv) {return null;}
+	/**
+	 * io 1 = accept, 2 = can move, 3 both 
+	 */
+	public ItemStack transfer(EntityPlayer player, int slotIndex, int[] io) {
+		ItemStack copy = null;
+        Slot slot = (Slot)inventorySlots.get(slotIndex);
+
+        if (slot != null && slot.getHasStack()){
+            ItemStack item = slot.getStack();
+            copy = item.copy();
+            if (slotIndex < io.length){//special slots
+            	if((io[slotIndex] & 2) > 0){
+            		if (!mergeItemStack(item, io.length, inventorySlots.size(), true)){
+            			return null;
+            		}
+            	}
+            }else{//player slots
+            	boolean placed = false;
+            	for(int i = 0; i < io.length; i++){
+            		if((io[i] & 1) > 0){
+            			if (mergeItemStack(item, i, i+1, true)){
+            				placed = true;
+            				break;
+            			}
+            		}
+            	}
+            	if(!placed)return null;
+            }
+
+            if (item.stackSize == 0){
+                slot.putStack((ItemStack)null);
+            }else{
+                slot.onSlotChanged();
+            }
+        }
+        return copy;
+	}
 	
 	public void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
 		for (int i = 0; i < 3; i++) {

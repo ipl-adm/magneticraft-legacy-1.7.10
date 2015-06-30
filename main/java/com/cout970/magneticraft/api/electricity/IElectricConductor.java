@@ -113,7 +113,7 @@ public interface IElectricConductor {
 	/**
 	 * @return can conect with other conductor, used for microblocks with covers and for non full blocks like solar panels
 	 */
-	public boolean isAbleToConnect(IElectricConductor c, VecInt enumFacing);
+	public boolean isAbleToConnect(IElectricConductor c, VecInt vec);
 	
 	/**
 	 * @return the type of cable

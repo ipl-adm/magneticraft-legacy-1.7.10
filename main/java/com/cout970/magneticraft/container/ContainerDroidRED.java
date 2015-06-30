@@ -1,7 +1,9 @@
 package com.cout970.magneticraft.container;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.tileentity.TileBase;
@@ -28,5 +30,9 @@ public class ContainerDroidRED extends ContainerBasic{
 		for (int i = 0; i < 9; i++) {
 			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18+87, 142+151));
 		}
+	}
+	
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
+		return transfer(player, slot, new int[]{3,3,3,3, 3,3,3,3, 3,3,3,3, 3,3,3,3});
 	}
 }

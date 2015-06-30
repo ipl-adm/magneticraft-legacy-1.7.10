@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.api.heat;
 
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -66,6 +67,8 @@ public interface IHeatConductor {
 	public void onBlockOverHeat();
 	
 	public MgDirection[] getValidConnections();
+	
+	public boolean isAbleToconnect(IHeatConductor cond, VecInt dir);
 
 	//save and load data 
 	public void save(NBTTagCompound nbt);

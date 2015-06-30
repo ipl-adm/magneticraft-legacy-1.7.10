@@ -58,7 +58,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	public IElectricConductor capacity = new ElectricConductor(this,2, ElectricConstants.RESISTANCE_COPPER_MED){
 		@Override
 		public double getInvCapacity() {
-			return EnergyConversor.RFtoW(1);
+			return EnergyConversor.RFtoW(0.1D);
 		}
 		
 		@Override
@@ -91,7 +91,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 			
 			if(items.isEmpty()){
 				double p = (capacity.getVoltage()-ElectricConstants.MACHINE_WORK*100);//in J
-				p = (p*p/9);
+				p = (p*p/500);
 				if(coolDown > 0){
 					if(capacity.getVoltage() > ElectricConstants.MACHINE_WORK*100){
 						coolDown -= EnergyConversor.WtoRF(p);
@@ -142,7 +142,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 			if(f0.getBlock() != Blocks.air && MgUtils.isMineableBlock(getWorldObj(), f0)){
 				//break block
 				items.addAll(f.getBlock().getDrops(worldObj, f.getX(), f.getY(), f.getZ(), f.getMeta(), 0));
-				worldObj.setBlock(f.getX(), f.getY(), f.getZ(), ManagerBlocks.concreted_pipe, 0, 2);
+				worldObj.setBlock(f.getX(), f.getY(), f.getZ(), Blocks.air, 0, 2);
 				mined++;
 				return true;
 			}else{
@@ -310,7 +310,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
 	@Override
 	public float getMaxConsumption() {
-		return 700000;
+		return 70000;
 	}
 
 	@Override

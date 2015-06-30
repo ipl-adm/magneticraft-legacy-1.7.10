@@ -19,6 +19,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.client.gui.component.IProductor;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 
 public class TileKineticGenerator extends TileConductorMedium implements IEnergyHandler,IGuiSync,IProductor{
@@ -38,15 +39,20 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 	
 	@Override
 	public IElectricConductor initConductor() {
-		return new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_MED);
+		return new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_MED){
+			public double getInvCapacity(){
+				return EnergyConversor.RFtoW(0.1D);
+			}
+		};
 	}
 	
 	@Override
 	public CompoundElectricCables getConds(VecInt dir, int tier) {
+		if(tier != 2)return null;
 		if(VecInt.NULL_VECTOR == dir){
 			return new CompoundElectricCables(cond);
 		}
-		if(dir.toMgDirection() == getDirection().opposite() && tier == 2)return new CompoundElectricCables(cond);
+		if(dir.toMgDirection() == getDirection().opposite())return new CompoundElectricCables(cond);
 		return null;
 	}
 

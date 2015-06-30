@@ -13,6 +13,7 @@ public class ContainerInserter extends ContainerBasic{
 
 	public ContainerInserter(InventoryPlayer p, TileEntity t) {
 		super(p, t);
+		addSlotToContainer(new Slot(((TileInserter)t).getInv(),0,92,17));
 		for(int i = 0;i<3;i++)
 			for(int j = 0;j<3;j++)
 				addSlotToContainer(new Slot(((TileInserter)t).filter, i+j*3, 17+i*18, 17+j*18){
@@ -30,7 +31,11 @@ public class ContainerInserter extends ContainerBasic{
 				        return false;
 					}
 				});
-		addSlotToContainer(new Slot(((TileInserter)t).getInv(),0,92,17));
+		
 		bindPlayerInventory(p);
+	}
+	
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
+		return transfer(player, slot, new int[]{3, 0,0,0, 0,0,0, 0,0,0,});
 	}
 }

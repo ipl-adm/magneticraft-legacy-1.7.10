@@ -14,7 +14,7 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart{
 
 	public IHeatConductor heat;
 	public boolean toUpdate = true;
-	public int oldHeat;
+	public int oldHeat = -1;
 	public NBTTagCompound tempNBT;
 	
 	public PartHeat(Item i) {
@@ -36,6 +36,7 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart{
 				create();
 			toUpdate = false;
 			updateConnections();
+			oldHeat = -1;
 		}
 		if(world().isRemote && world().getWorldTime() % 10 == 0){
 			updateConnections();

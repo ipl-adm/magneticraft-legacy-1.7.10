@@ -64,5 +64,9 @@ public class ContainerCrafter extends ContainerBasic{
 				});
 		bindPlayerInventory(p);
 	}
+	
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
+		return transfer(player, slot, new int[]{0,0,0,0, 0,0,0, 0,0,0, 3,3,3,3, 3,3,3,3, 3,3,3,3, 3,3,3,3});
+	}
 
 }

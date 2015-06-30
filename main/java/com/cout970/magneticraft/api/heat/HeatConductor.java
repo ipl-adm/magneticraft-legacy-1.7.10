@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.Log;
 
 /**
@@ -46,6 +47,12 @@ public class HeatConductor implements IHeatConductor{
 
 	@Override
 	public double getTemperature() {
+		if(Double.isNaN(temperature)){
+			temperature = 25;
+		}
+		if(temperature < -273.15){
+			temperature = -273.15;
+		}
 		return temperature;
 	}
 
@@ -69,11 +76,13 @@ public class HeatConductor implements IHeatConductor{
 			if(comp != null){
 				for(IHeatConductor h : comp.list()){
 					if(h == null)continue;
-					double diff = this.getTemperature()-h.getTemperature();
-					double resistance = this.getResistance()+h.getResistance();
-					double change = ((diff * 0.5D)/resistance)*EnergyConversor.FUELtoCALORIES(1);
-					drainCalories(change);
-					h.applyCalories(change);
+					if(h.isAbleToconnect(this, d.opposite().toVecInt()) && this.isAbleToconnect(h, d.toVecInt())){
+						double diff = this.getTemperature()-h.getTemperature();
+						double resistance = this.getResistance()+h.getResistance();
+						double change = ((diff * 0.5D)/resistance)*EnergyConversor.FUELtoCALORIES(1);
+						drainCalories(change);
+						h.applyCalories(change);
+					}
 				}
 			}
 		}
@@ -128,5 +137,10 @@ public class HeatConductor implements IHeatConductor{
 	@Override
 	public MgDirection[] getValidConnections() {
 		return MgDirection.values();
+	}
+
+	@Override
+	public boolean isAbleToconnect(IHeatConductor cond, VecInt dir) {
+		return true;
 	}
 }

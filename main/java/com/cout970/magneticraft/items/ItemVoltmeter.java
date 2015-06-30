@@ -22,6 +22,7 @@ public class ItemVoltmeter extends ItemBasic{
 	public ItemVoltmeter(String unlocalizedname) {
 		super(unlocalizedname);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setMaxStackSize(1);
 	}
 
 	public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_)

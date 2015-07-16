@@ -18,9 +18,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
-import com.cout970.magneticraft.util.multiblock.MB_Register;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -30,7 +28,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 	public int drawCounter;
 	private TankMg input;
 	private TankMg output;
-	private IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	public IElectricConductor side1,side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
 	private double[] flow = new double[3];
 	
 	public void updateEntity() {

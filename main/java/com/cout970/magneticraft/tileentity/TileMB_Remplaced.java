@@ -7,10 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile_Remplaced;
 
 public class TileMB_Remplaced extends TileMB_Base implements MB_Tile_Remplaced{

@@ -53,9 +53,9 @@ public class CraftingGrinder extends TemplateRecipeHandler{
 	public void loadCraftingRecipes(ItemStack result)
 	{
 		for (RecipeGrinder recipe : MgRecipeRegister.grinder){
-			if(MgUtils.areEcuals(recipe.output, result, true))recipes.add(recipe);
-			else if(MgUtils.areEcuals(recipe.output2, result, true))recipes.add(recipe);
-			else if(MgUtils.areEcuals(recipe.output3, result, true))recipes.add(recipe);
+			if(MgUtils.areEcuals(recipe.getOutput(), result, true))recipes.add(recipe);
+			else if(MgUtils.areEcuals(recipe.getOutput2(), result, true))recipes.add(recipe);
+			else if(MgUtils.areEcuals(recipe.getOutput3(), result, true))recipes.add(recipe);
 		}
 	}
 
@@ -70,22 +70,22 @@ public class CraftingGrinder extends TemplateRecipeHandler{
 	@Override
 	public PositionedStack getResultStack(int recipe)
 	{
-		return new PositionedStack(recipes.get(recipe).output,96,20);
+		return new PositionedStack(recipes.get(recipe).getOutput(),96,20);
 	}
 	
 	@Override
 	public List<PositionedStack> getOtherStacks(int recipe)
 	{
 		List<PositionedStack> a = new ArrayList<PositionedStack>();
-		if(recipes.get(recipe).output2 != null) a.add(new PositionedStack(recipes.get(recipe).output2, 114, 20));
-		if(recipes.get(recipe).output3 != null) a.add(new PositionedStack(recipes.get(recipe).output3, 132, 20));
+		if(recipes.get(recipe).getOutput2() != null) a.add(new PositionedStack(recipes.get(recipe).getOutput2(), 114, 20));
+		if(recipes.get(recipe).getOutput3() != null) a.add(new PositionedStack(recipes.get(recipe).getOutput3(), 132, 20));
 		return a;
 	}
 	@Override
 	public List<PositionedStack> getIngredientStacks(int recipe)
 	{
 		List<PositionedStack> need = new ArrayList<PositionedStack>();
-		need.add(new PositionedStack(recipes.get(recipe).input, 46, 20));
+		need.add(new PositionedStack(recipes.get(recipe).getInput(), 46, 20));
 		return need;
 	}
 
@@ -101,12 +101,12 @@ public class CraftingGrinder extends TemplateRecipeHandler{
 		int ticks = 100;
 		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/progresbar1.png"));
 		RenderUtil.drawTexturedModalRectScaled(69, 20, 0, 0, (int)(22*((cycleticks % ticks / (float)ticks))), 16, 22*2, 16);
-		if(recipes.get(recipe).output2 != null){
-			String s = (int)(recipes.get(recipe).prob2*100)+"%";
+		if(recipes.get(recipe).getOutput2() != null){
+			String s = (int)(recipes.get(recipe).getProb2()*100)+"%";
 			RenderUtil.drawString(s, 122, 44, RenderUtil.fromRGB(255, 255, 255), true);
 		}
-		if(recipes.get(recipe).output3 != null){
-			String s = (int)(recipes.get(recipe).prob3*100)+"%";
+		if(recipes.get(recipe).getOutput3() != null){
+			String s = (int)(recipes.get(recipe).getProb3()*100)+"%";
 			RenderUtil.drawString(s, 144, 44, RenderUtil.fromRGB(255, 255, 255), true);
 		}
 	}

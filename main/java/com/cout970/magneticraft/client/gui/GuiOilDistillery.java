@@ -10,6 +10,7 @@ import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
 import com.cout970.magneticraft.client.gui.component.CompFluidRender;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 
@@ -24,7 +25,7 @@ public class GuiOilDistillery extends GuiBasic{
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/distillery.png")));
 		comp.add(new CompFluidRender(((TileOilDistillery)tile).getInput(), new GuiPoint(63,25), new GuiPoint(81, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
 		comp.add(new CompFluidRender(((TileOilDistillery)tile).getOutput(), new GuiPoint(96,25), new GuiPoint(114, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16)));
-		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16), ((TileOilDistillery)tile).own));
+		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16), ((TileOilDistillery)tile).own));
 	}
 }

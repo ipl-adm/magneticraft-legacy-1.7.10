@@ -15,12 +15,13 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.IReactorComponent;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileReactorVessel extends TileHeatConductor implements IInventoryManaged,IGuiSync,IBarProvider,IReactorComponent{
 
 	private static final double AVOGADROS_CONSTANT = 6.022E23;
-	public InventoryComponent inv = new InventoryComponent(this,4,"ReactorVessel");
+	public InventoryComponent inv = new InventoryComponent(this,1,"ReactorVessel");
 	private double neutrons;
 	private double production;
 	
@@ -43,25 +44,23 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
 		if(worldObj.isRemote)return;
 		production = 0;
 		double desintegration = 0;
-		for(int l = 0; l< 4;l++){
-			ItemStack g = inv.getStackInSlot(l);
+			ItemStack g = inv.getStackInSlot(0);
 			if(g != null){
 				if(g.getItem() instanceof IRadiactiveItem){
 					IRadiactiveItem item = (IRadiactiveItem) g.getItem();
 					double initialMass = item.getGrams(g);//mass
 					double NewMass = initialMass*Math.exp(-item.getDecayConstant(g)*5E11);//natural decay
-					NewMass -= getRadiation()/AVOGADROS_CONSTANT;//radiation of other atoms
+//					NewMass -= getRadiation()/AVOGADROS_CONSTANT;//radiation of other atoms
 					item.setGrams(g,NewMass);
-					desintegration += ((initialMass-NewMass)*AVOGADROS_CONSTANT*getSpeed());//neutrons emited
+//					desintegration += ((initialMass-NewMass)*AVOGADROS_CONSTANT*getSpeed());//neutrons emited
 					double prod = ((initialMass-NewMass)*AVOGADROS_CONSTANT*item.getEnergyPerFision(g));
-					prod *= 1E-9;
+//					prod *= 1E-9;
 					g.setItemDamage(g.getItem().getDamage(g));
-					heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
-					production += prod;
-//					System.out.println(prod+"             "+desintegration+"                 "+(initialMass-NewMass));
+					Log.debug(prod);
+//					heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
+//					production += EnergyConversor.RFtoCALORIES(prod);
 				}
 			}
-		}
 		neutrons = 0;
 		addRadiation(desintegration);
 	}
@@ -165,5 +164,11 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+
+	@Override
+	public float getMaxLevel() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

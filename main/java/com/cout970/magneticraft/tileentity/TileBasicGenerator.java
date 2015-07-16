@@ -22,16 +22,15 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IInventoryManaged,IBurningTime,IHeatTile{
+public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IInventoryManaged,IHeatTile{
 
 	//cook
 	public float progress = 0;
@@ -226,16 +225,6 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	}
 
 	@Override
-	public int getProgres() {
-		return (int) progress;
-	}
-
-	@Override
-	public int getMaxProgres() {
-		return maxProgres;
-	}
-
-	@Override
 	public CompoundHeatCables getHeatCond(VecInt c) {
 		return new CompoundHeatCables(heat);
 	}
@@ -317,5 +306,25 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 		return null;
+	}
+
+	public IBarProvider getBurningTimeBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return maxProgres;
+			}
+			
+			@Override
+			public float getLevel() {
+				return progress;
+			}
+		};
 	}
 }

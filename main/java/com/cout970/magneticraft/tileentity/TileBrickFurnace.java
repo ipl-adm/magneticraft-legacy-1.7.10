@@ -11,16 +11,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
-public class TileBrickFurnace extends TileHeatConductor implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
+public class TileBrickFurnace extends TileHeatConductor implements IInventoryManaged, ISidedInventory, IGuiSync{
 
+	private static final float MAX_PROGRESS = 100;
 	private InventoryComponent inv = new InventoryComponent(this, 2, "Brick Furnace");
-	private float Progres;
+	private float progress;
 	private boolean working;
 	
 	@Override
@@ -31,7 +32,7 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		if(worldObj.getWorldTime()%20 == 0){
+		if(worldObj.getTotalWorldTime()%20 == 0){
 			if(working && !isActive()){
 				setActive(true);
 			}else if(!working && isActive()){
@@ -42,15 +43,15 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 			if(canSmelt()){
 				double speed = getSpeed();
 				heat.drainCalories(speed);
-				Progres += EnergyConversor.CALORIEStoFUEL(speed);
-				if(Progres >= getMaxProgres()){
+				progress += EnergyConversor.CALORIEStoFUEL(speed);
+				if(progress >= MAX_PROGRESS){
 					smelt();
-					Progres -= getMaxProgres();
+					progress -= MAX_PROGRESS;
 				}
 				working = true;
 			}else{
 				working = false;
-				Progres = 0;
+				progress = 0;
 			}
 		}else{
 			working = false;
@@ -61,25 +62,16 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 		return EnergyConversor.FUELtoCALORIES(heat.getTemperature()/100d);
 	}
 
-	public int getMaxProgres() {
-		return 100;
-	}
-	
-	@Override
-	public int getProgres() {
-		return (int) Progres;
-	}
-
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		craft.sendProgressBarUpdate(cont, 0, (int) heat.getTemperature());
-		craft.sendProgressBarUpdate(cont, 1, (int) Progres);
+		craft.sendProgressBarUpdate(cont, 1, (int) progress);
 	}
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		if(id == 0)heat.setTemperature(value);
-		if(id == 1)Progres = value;
+		if(id == 1)progress = value;
 	}
 
 	private void smelt() {
@@ -128,14 +120,14 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
 		getInv().readFromNBT(nbtTagCompound);
-		Progres = nbtTagCompound.getFloat("P");
+		progress = nbtTagCompound.getFloat("P");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeToNBT(nbtTagCompound);
 		getInv().writeToNBT(nbtTagCompound);
-		nbtTagCompound.setFloat("P", Progres);
+		nbtTagCompound.setFloat("P", progress);
 	}
 
 	public InventoryComponent getInv() {
@@ -199,5 +191,25 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
 	@Override
 	public boolean canExtractItem(int slot, ItemStack item, int side) {
 		return slot == 1;
+	}
+
+	public IBarProvider getProgresBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return MAX_PROGRESS;
+			}
+			
+			@Override
+			public float getLevel() {
+				return progress;
+			}
+		};
 	}
 }

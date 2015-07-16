@@ -23,7 +23,7 @@ public class TileRenderPolymerizer extends TileEntitySpecialRenderer{
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
 		TilePolymerizer tile = (TilePolymerizer) t;
-		if(!tile.active){
+		if(!tile.isActive()){
 			if(tile.drawCounter > 0){
 				GL11.glColor4f(1, 1, 1, 1f);
 				Multiblock mb = MB_Register.getMBbyID(MB_Register.ID_POLIMERIZER);

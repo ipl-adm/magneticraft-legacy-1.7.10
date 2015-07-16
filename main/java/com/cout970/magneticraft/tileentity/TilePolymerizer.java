@@ -20,7 +20,7 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
@@ -31,10 +31,9 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
+public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync{
 
-	public boolean active;
-	public int Progres;
+	public int progress;
 	public int maxProgres = 200;
 	public InventoryComponent inv = new InventoryComponent(this, 2, "Polimerizer");
 	public TankMg input;
@@ -50,18 +49,18 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 	public void updateEntity(){
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if(!active)return;		
-		if(input == null || in == null || out == null || heater == null || worldObj.getWorldTime() % 20 == 0){
+		if(!isActive())return;		
+		if(input == null || in == null || out == null || heater == null || worldObj.getTotalWorldTime() % 20 == 0){
 			searchTanks();
 			return;
 		}
 		if(worldObj.isRemote)return;
 		if(canCraft()){
-			if(Progres >= maxProgres){
+			if(progress >= maxProgres){
 				craft();
-				Progres = 0;
+				progress = 0;
 			}else{
-				Progres++;
+				progress++;
 			}
 			heater.drainCalories(EnergyConversor.RFtoCALORIES(40));
 		}
@@ -143,38 +142,15 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 			}
 		}
 	}
-
-	@Override
-	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
-		active = false;
-		sendUpdateToClient();
-	}
-
-	@Override
-	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
-		active = true;
-	}
 	
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		active = nbt.getBoolean("A");
 		getInv().readFromNBT(nbt);
 	}
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		nbt.setBoolean("A", active);
 		getInv().writeToNBT(nbt);
-	}
-	
-	@Override
-	public int getProgres() {
-		return Progres;
-	}
-
-	@Override
-	public int getMaxProgres() {
-		return maxProgres;
 	}
 
 	@Override
@@ -186,7 +162,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 			craft.sendProgressBarUpdate(cont, 2, input.getFluidAmount());
 		}else craft.sendProgressBarUpdate(cont, 1, -1);
 		
-		craft.sendProgressBarUpdate(cont, 3, Progres);
+		craft.sendProgressBarUpdate(cont, 3, progress);
 		((TileHeater)heater.getParent()).sendGUINetworkData(cont, craft);
 	}
 
@@ -198,7 +174,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 			if(value == -1) input.setFluid(null);
 			else input.setFluid(new FluidStack(FluidRegistry.getFluid(value),1));
 		if(id == 2) input.getFluid().amount = value;
-		if(id == 3)Progres = value;
+		if(id == 3)progress = value;
 		((TileHeater)heater.getParent()).getGUINetworkData(id, value);
 	}
 
@@ -272,5 +248,29 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 	@Override
 	public MgDirection getDirection() {
 		return MgDirection.getDirection(getBlockMetadata()%6);
+	}
+
+	public IBarProvider getProgresBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return maxProgres;
+			}
+			
+			@Override
+			public float getLevel() {
+				return progress;
+			}
+		};
+	}
+
+	public boolean isActive() {
+		return getBlockMetadata() > 5;
 	}
 }

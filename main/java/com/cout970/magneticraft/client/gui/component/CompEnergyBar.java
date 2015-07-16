@@ -19,20 +19,18 @@ public class CompEnergyBar implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IElectricConductor cond;
 	
-	public CompEnergyBar(ResourceLocation tex, GuiPoint p){
+	public CompEnergyBar(ResourceLocation tex, GuiPoint p, IElectricConductor cond){
 		texture = tex;
 		pos = p;
+		this.cond = cond;
 	}
 
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IElectricTile){
-			CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
-			if(j == null)return;
-			IElectricConductor c = j.getCond(0);
-			if(c == null)return;
-			int scale = (int) (c.getVoltage() >= ElectricConstants.MAX_VOLTAGE ? 50 : 50*(c.getVoltage()/ElectricConstants.MAX_VOLTAGE));
+		if(cond != null){
+			int scale = (int) (cond.getVoltage() >= ElectricConstants.MAX_VOLTAGE ? 50 : 50*(cond.getVoltage()/ElectricConstants.MAX_VOLTAGE));
 			gui.mc.renderEngine.bindTexture(texture);
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 25, 50-scale, 5, scale, 70, 50);
 		}
@@ -46,18 +44,13 @@ public class CompEnergyBar implements IGuiComp{
 
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IElectricTile){
-			CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
-			if(j == null)return;
-			IElectricConductor c = j.getCond(0);
-			if(c == null)return;
+		if(cond != null){
 			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 50)){
 				List<String> data = new ArrayList<String>();
-				data.add(((int)c.getVoltage())+"V");
+				data.add(((int)cond.getVoltage())+"V");
 				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 				RenderHelper.enableGUIStandardItemLighting();
 			}
 		}
 	}
-
 }

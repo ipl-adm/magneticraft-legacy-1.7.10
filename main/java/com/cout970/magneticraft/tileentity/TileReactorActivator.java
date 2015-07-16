@@ -29,7 +29,7 @@ public class TileReactorActivator extends TileHeatConductor{
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		if(worldObj.getWorldTime() % 20 == 0){
+		if(worldObj.getTotalWorldTime() % 20 == 0){
 			search();
 		}
 		if(level > 0){

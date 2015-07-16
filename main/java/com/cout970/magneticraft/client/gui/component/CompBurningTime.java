@@ -10,19 +10,20 @@ public class CompBurningTime implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IBarProvider bar;
 	
-	public CompBurningTime(ResourceLocation tex, GuiPoint p){
+	public CompBurningTime(ResourceLocation tex, GuiPoint p, IBarProvider bar){
 		texture = tex;
 		pos = p;
+		this.bar = bar;
 	}
 	
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IBurningTime){
-			IBurningTime c = ((IBurningTime) tile);
-			if(c.getMaxProgres() <= 0)return;
-			int scale = c.getProgres() * 13 / c.getMaxProgres();
-			if(c.getProgres() > 0 && scale == 0)scale = 1;
+		if(bar != null){
+			if(bar.getMaxLevel() <= 0)return;
+			int scale = (int) (bar.getLevel() * 13 / bar.getMaxLevel());
+			if(bar.getLevel() > 0 && scale == 0)scale = 1;
 			gui.mc.renderEngine.bindTexture(texture);
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (13-scale), 0, 13-scale, 13, scale, 26, 13);
 		}

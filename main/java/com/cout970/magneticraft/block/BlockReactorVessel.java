@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.IModelCustom;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;

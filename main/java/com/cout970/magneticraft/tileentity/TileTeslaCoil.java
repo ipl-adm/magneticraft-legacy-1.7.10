@@ -14,7 +14,6 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
@@ -44,7 +43,7 @@ public class TileTeslaCoil extends TileConductorLow{
 		super.updateEntity();
 		if(worldObj.isRemote)return;
 		if(cond.getVoltage() > ElectricConstants.MACHINE_WORK){
-			if(worldObj.getWorldTime() % 20 == 0){
+			if(worldObj.getTotalWorldTime() % 20 == 0){
 				nearPlayers.clear();
 				List e = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord-10, yCoord-10, zCoord-10, xCoord+10, yCoord+10, zCoord+10));
 				for(Object o : e){
@@ -59,12 +58,14 @@ public class TileTeslaCoil extends TileConductorLow{
 					ItemStack stack = p.inventory.getStackInSlot(i);
 					if(stack != null && stack.getItem() instanceof IBatteryItem){
 						IBatteryItem batteryItem = (IBatteryItem) stack.getItem();
-						int space = batteryItem.getMaxCharge() - batteryItem.getCharge(stack);
-						if(space > 0 && cond.getVoltage() > ElectricConstants.MACHINE_WORK){
-							int change = (int)Math.min(space, cond.getVoltage()*12);
-							if(change > 0){
-								batteryItem.charge(stack, change);
-								cond.drainPower(change);
+						if(batteryItem.getInteraction(stack).canAccept()){
+							int space = batteryItem.getMaxCharge(stack) - batteryItem.getCharge(stack);
+							if(space > 0 && cond.getVoltage() > ElectricConstants.MACHINE_WORK){
+								int change = (int)Math.min(space, cond.getVoltage()*12);
+								if(change > 0){
+									batteryItem.charge(stack, change);
+									cond.drainPower(change);
+								}
 							}
 						}
 					}

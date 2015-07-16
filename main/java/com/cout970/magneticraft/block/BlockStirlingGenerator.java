@@ -82,7 +82,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock{
 		if(p.isSneaking())return false;
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TileStirlingGenerator){
-			if(!((TileStirlingGenerator) t).activate){
+			if(!((TileStirlingGenerator) t).isActive()){
 				if(!w.isRemote)MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_STIRLING), getDirection(w, new VecInt(x,y,z)),p);
 				else ((TileStirlingGenerator) t).drawCounter = 200;
 			}else{

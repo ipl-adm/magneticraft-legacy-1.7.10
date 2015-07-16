@@ -1,9 +1,13 @@
 package com.cout970.magneticraft.block;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -14,6 +18,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileCopperTank;
+import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
@@ -131,6 +136,40 @@ public class BlockCopperTank extends BlockMg implements MB_Block{
 		super.breakBlock(w, x, y, z, b, side);
 	}
 	
+	public void onBlockHarvested(World w, int x, int y, int z, int meta, EntityPlayer p) {
+		if(!p.capabilities.isCreativeMode)
+			dropBlockAsItem(w, x, y, z, meta, 0);
+		super.onBlockHarvested(w, x, y, z, meta, p);
+	}
+	
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune){
+		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+		if(world.isRemote)return ret;
+		if(!world.isRemote){
+			TileEntity b = world.getTileEntity(x, y, z);
+			if(b instanceof IBlockWithData){
+				IBlockWithData d = (IBlockWithData) b;
+				ItemStack drop = new ItemStack(this, 1, metadata);
+				NBTTagCompound nbt = new NBTTagCompound();
+				nbt.setBoolean(IBlockWithData.KEY, true);
+				d.saveData(nbt);
+				drop.stackTagCompound = nbt;
+				ret.add(drop);
+			}
+		}
+		return ret;
+	}
+	
+	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack item) {
+		if(item.stackTagCompound != null){
+			if(item.stackTagCompound.hasKey(IBlockWithData.KEY)){
+				TileEntity b =  w.getTileEntity(x, y, z);
+				if(b instanceof IBlockWithData){
+					((IBlockWithData) b).loadData(item.stackTagCompound);
+				}
+			}
+		}
+	}
 	
 	@Override
 	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {

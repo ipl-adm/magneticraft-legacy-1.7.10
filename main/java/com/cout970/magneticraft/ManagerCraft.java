@@ -34,7 +34,7 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(fluidhopper), new Object[]{"igi","igi","viv",'i',"ingotIron",'g',"blockGlass"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heat_resist), new Object[]{"iii","iti","iii",'i',Items.clay_ball,'t',partheatcable}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(breaker), new Object[]{"iii","iti","idi",'i',"ingotIron",'t',housing,'d',drill}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(steamengine), new Object[]{"tgt","cjc","iii",'i',"ingotIron",'t',"ingotCarbide",'c',"ingotCopper",'g',"blockGlass",'j',motor}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(steam_engine), new Object[]{"tgt","cjc","iii",'i',"ingotIron",'t',"ingotCarbide",'c',"ingotCopper",'g',"blockGlass",'j',motor}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(geothermal), new Object[]{"ttt","tht","tdt",'t',"ingotCarbide",'h',partheatcable,'d',drill}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(thermopile), new Object[]{"ici","ivi","isi",'i',"ingotIron",'c',heatCoilCopper,'s',heatCoilIron}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_energy_low), new Object[]{"mc",'m',chassis,'c',cablelow}));
@@ -48,8 +48,8 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(infinite_water), new Object[]{"gbg","bhb","gbg",'g',"blockGlass",'h',housing,'b',Items.bucket}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery), new Object[]{"ctc","tht","ctc",'c',"ingotCopper",'h',chassis,'t',"ingotCarbide"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery_gap,9), new Object[]{"viv","chc","viv",'c',"ingotCopper",'h',chassis,'i',"ingotIron"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery_tank,3), new Object[]{"rrr","vtv",'r',refinery_gap,'t',tank_mg}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tank_mg,2), new Object[]{"cgc","gvg","cgc",'c',"ingotCopper",'g',"blockGlass"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(refinery_tank,3), new Object[]{"rrr","vtv",'r',refinery_gap,'t',copper_tank}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(copper_tank,2), new Object[]{"cgc","gvg","cgc",'c',"ingotCopper",'g',"blockGlass"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heater), new Object[]{"iti","tht","iti",'t',"ingotTungsten",'h',housing,'i',"ingotIron"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(solar_tower_core), new Object[]{"ttt","tht","ttt",'h',partheatcable,'t',"ingotTungsten"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(solarpanel), new Object[]{"qqq","iii","ccc",'q',"dustQuartz",'i',photoelectricDust,'c',"ingotIron"}));
@@ -57,7 +57,7 @@ public class ManagerCraft {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_energy_medium), new Object[]{"mc",'m',chassis,'c',cablemedium}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(combustion_engine), new Object[]{"ivi","imi","pbp",'i',"ingotIron",'m',motor,'p',"itemPlastic",'b',battery_item}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heat_sink), new Object[]{"bbb","iii",'i',"ingotIron",'b',Blocks.iron_bars}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine), new Object[]{"ici","cmc","ihi",'i',"ingotIron",'c',"ingotCarbide",'m',motor,'h',chassis}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(steam_turbine), new Object[]{"ici","cmc","ihi",'i',"ingotIron",'c',"ingotCarbide",'m',motor,'h',chassis}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(brickFurnace), new Object[]{"bbb","bfb","bcb",'b',Items.brick,'c',partheatcable,'f',Blocks.furnace}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crafter), new Object[]{"bbb","bfb","bcb",'b',"ingotIron",'c',Items.redstone,'f',Blocks.crafting_table}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_heat), new Object[]{"bbb","bfb","bbb",'b',Items.brick,'f', chassis}));

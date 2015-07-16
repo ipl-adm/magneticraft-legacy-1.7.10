@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.api.util;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -33,6 +34,10 @@ public class VecDouble {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public VecDouble(NBTTagCompound nbt, String name) {
+		this(nbt.getDouble(name+"_x"), nbt.getDouble(name+"_y"), nbt.getDouble(name+"_z"));
 	}
 
 	public VecDouble(double[] ar) {
@@ -126,5 +131,11 @@ public class VecDouble {
 
 	public double mag() {
 		return Math.sqrt(x*x+y*y+z*z);
+	}
+
+	public void save(NBTTagCompound nbt, String name) {
+		nbt.setDouble(name+"_x", x);
+		nbt.setDouble(name+"_y", y);
+		nbt.setDouble(name+"_z", x);
 	}
 }

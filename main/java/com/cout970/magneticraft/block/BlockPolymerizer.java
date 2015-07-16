@@ -69,7 +69,7 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock{
 		if(p.isSneaking())return false;
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TilePolymerizer){
-			if(!((TilePolymerizer) t).active){
+			if(!((TilePolymerizer) t).isActive()){
 				if(!w.isRemote)MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_POLIMERIZER), getDirection(w, new VecInt(x,y,z)),p);
 				else ((TilePolymerizer) t).drawCounter = 200;
 			}else{

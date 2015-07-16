@@ -11,18 +11,21 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
+import com.cout970.magneticraft.tileentity.TileElectricPoleGap;
 
 public class BlockElectricPoleTier1 extends BlockMg{
 
 	public BlockElectricPoleTier1() {
 		super(Material.wood);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
+		float tam = 5f*0.0625f;
+		setBlockBounds(tam, 0, tam, 1-tam, 1, 1-tam);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int meta) {
 		if(meta >= 6)return new TileElectricPoleTier1();
-		return null;
+		return new TileElectricPoleGap();
 	}
 
 	@Override

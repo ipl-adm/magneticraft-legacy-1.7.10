@@ -26,6 +26,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
+import com.cout970.magneticraft.util.Log;
 
 public class PartCableLow extends PartElectric implements ISidedHollowConnect,IElectricMultiPart{
 
@@ -34,9 +35,9 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect,IE
 
 	static{
 		double w = 2/16d;
-
-		boxes.add(new Cuboid6(0.5-w, 0, 0.5-w, 0.5+w, 0.5-w, 0.5+w));//up
-		boxes.add(new Cuboid6(0.5-w, 0.5+w, 0.5-w, 0.5+w, 1, 0.5+w));//down
+		Log.debug(boxes.size()+" init low cable boxes");
+		boxes.add(new Cuboid6(0.5-w, 0, 0.5-w, 0.5+w, 0.5-w, 0.5+w));//down
+		boxes.add(new Cuboid6(0.5-w, 0.5+w, 0.5-w, 0.5+w, 1, 0.5+w));//up
 		boxes.add(new Cuboid6(0.5-w, 0.5-w, 0, 0.5+w, 0.5+w, 0.5-w));//north
 		boxes.add(new Cuboid6(0.5-w, 0.5-w, 0.5+w, 0.5+w, 0.5+w, 1));//south
 		boxes.add(new Cuboid6(0, 0.5-w, 0.5-w, 0.5-w, 0.5+w, 0.5+w));//west
@@ -51,16 +52,6 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect,IE
 	@Override
 	public List<Cuboid6> getOcclusionCubes() {
 		return Arrays.asList(new Cuboid6[] { boxes.get(6) });
-	}
-	
-	@Override
-	public Iterable<IndexedCuboid6> getSubParts() {
-		Iterable<Cuboid6> boxList = getCollisionBoxes();
-		LinkedList<IndexedCuboid6> partList = new LinkedList<IndexedCuboid6>();
-		for (Cuboid6 c : boxList)
-			partList.add(new IndexedCuboid6(0, c));
-		((ArrayList<Cuboid6>) boxList).clear();
-		return partList;
 	}
 	
 	@Override

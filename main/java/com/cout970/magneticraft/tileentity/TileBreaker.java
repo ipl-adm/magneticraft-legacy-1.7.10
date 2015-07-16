@@ -10,31 +10,30 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.api.electricity.ElectricConductor;
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.MgBeltUtils;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileBreaker extends TileBase{
+public class TileBreaker extends TileConductorLow{
 
 	public boolean signal;
 	
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		if(worldObj.provider.getWorldTime() % 20 == 0 && isControled())BreakBlock();
+		if(worldObj.provider.getWorldTime() % 20 == 0 && isControled() && cond.getVoltage() > ElectricConstants.MACHINE_WORK)
+			BreakBlock();
 	}
 
 	public void onNeigChange(){
 		super.onNeigChange();
-//		if(signal && !Powered)signal = false;
-//		if(!signal && Powered){
-//			signal = true;
-//			if(!worldObj.isRemote){
-//				BreakBlock();
-//			}
-//		}
 	}
 
 
@@ -50,7 +49,8 @@ public class TileBreaker extends TileBase{
 					ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 					Block id = worldObj.getBlock(x,y,z);
 					int metadata = worldObj.getBlockMetadata(x,y,z);
-
+					
+					cond.drainPower(EnergyConversor.RFtoW(500));
 					items = id.getDrops(worldObj, x, y, z, metadata, 0);
 					for(ItemStack i : items)
 						ejectItems(i);
@@ -76,5 +76,10 @@ public class TileBreaker extends TileBase{
 		if (i.stackSize > 0) {
 			BlockMg.dropItem(i, rand, xCoord, yCoord, zCoord, worldObj);
 		}
+	}
+
+	@Override
+	public IElectricConductor initConductor() {
+		return new ElectricConductor(this);
 	}
 }

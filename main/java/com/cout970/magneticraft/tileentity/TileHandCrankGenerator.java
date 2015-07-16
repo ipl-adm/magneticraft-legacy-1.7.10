@@ -3,7 +3,6 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 import com.cout970.magneticraft.api.kinetic.KineticGenerator;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileKineticConductor;
 
 public class TileHandCrankGenerator extends TileKineticConductor{

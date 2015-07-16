@@ -1,12 +1,10 @@
 package com.cout970.magneticraft.tileentity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
@@ -17,10 +15,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeChunkManager.Type;
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
-import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -30,19 +32,21 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
-import com.cout970.magneticraft.client.gui.component.IConsumer;
+import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IClientInformer;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
+import com.google.common.collect.Sets;
 
-public class TileMiner extends TileConductorMedium implements IInventoryManaged,IGuiSync,IConsumer,IBarProvider, IGuiListener{
+public class TileMiner extends TileConductorMedium implements IInventoryManaged,IGuiSync, IGuiListener{
 
 	public static final int MINING_COST_PER_BLOCK = 500;//500 RF
+	private static final int MAX_DIMENSION = 80;
+	private static final int MIN_DIMENSION = 10;
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Miner");
 	public WorkState state = WorkState.UNREADY;
 	public List<BlockInfo> well = new ArrayList<BlockInfo>();
@@ -54,11 +58,14 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	public int hole = 0;
 	public int dim = 11;
 	public int mined;
+	public boolean removeWater = false;
+	public boolean remplaceWithDirt = true;
+	public boolean scheduleUpdate = false;
 	
 	public IElectricConductor capacity = new ElectricConductor(this,2, ElectricConstants.RESISTANCE_COPPER_MED){
 		@Override
 		public double getInvCapacity() {
-			return EnergyConversor.RFtoW(0.1D);
+			return EnergyConversor.RFtoW(1D);
 		}
 		
 		@Override
@@ -67,6 +74,8 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		}
 	};
 	private double flow;
+	private boolean isFirstTime = false;
+	private Ticket chunkTicket;
 
 	@Override
 	public IElectricConductor initConductor() {
@@ -76,7 +85,12 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	public void updateEntity() {
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		long time = System.nanoTime();
+		if(!isFirstTime)loadChunk();
+		if(scheduleUpdate && worldObj.getTotalWorldTime() % 80 == 0){
+			updateTicket();
+			scheduleUpdate = false;
+		}
+//		long time = System.nanoTime();
 		updateConductor();
 		if (state == WorkState.UNREADY) {
 			scanWell();
@@ -113,12 +127,13 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 				}else break;
 			}
 		}
-		if(worldObj.getWorldTime() % 20 == 0){
+		if(worldObj.getTotalWorldTime() % 20 == 0){
 			Consume = ConsumptionCounter;
 			minedLastSecond = mined;
 			ConsumptionCounter = 0;
 			mined = 0;
 		}
+//		Log.debug((System.nanoTime()-time)/1E6);
 	}
 
 	private void updateConductor() {
@@ -139,10 +154,22 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 			Block b = worldObj.getBlock(f.getX(), f.getY(), f.getZ());
 			int meta = worldObj.getBlockMetadata(f.getX(), f.getY(), f.getZ());
 			BlockInfo f0 = new BlockInfo(b, meta);
-			if(f0.getBlock() != Blocks.air && MgUtils.isMineableBlock(getWorldObj(), f0)){
+			if(f0.getBlock() != Blocks.air && (MgUtils.isMineableBlock(getWorldObj(), f0)) || (Block.isEqualTo(b, Blocks.water) || Block.isEqualTo(b, Blocks.lava) || Block.isEqualTo(b, Blocks.flowing_lava) || Block.isEqualTo(b, Blocks.flowing_water))){
 				//break block
 				items.addAll(f.getBlock().getDrops(worldObj, f.getX(), f.getY(), f.getZ(), f.getMeta(), 0));
-				worldObj.setBlock(f.getX(), f.getY(), f.getZ(), Blocks.air, 0, 2);
+				if(remplaceWithDirt){
+					worldObj.setBlock(f.getX(), f.getY(), f.getZ(), Blocks.dirt);
+				}else{
+					worldObj.setBlockToAir(f.getX(), f.getY(), f.getZ());
+				}
+				if(removeWater && !remplaceWithDirt){
+					for(MgDirection dir : MgDirection.values()){
+						Block ba = worldObj.getBlock(f.getX()+dir.getOffsetX(), f.getY()+dir.getOffsetY(), f.getZ()+dir.getOffsetZ());
+						if(Block.isEqualTo(ba, Blocks.water) || Block.isEqualTo(ba, Blocks.lava) || Block.isEqualTo(ba, Blocks.flowing_lava) || Block.isEqualTo(ba, Blocks.flowing_water)){
+							worldObj.setBlock(f.getX()+dir.getOffsetX(), f.getY()+dir.getOffsetY(), f.getZ()+dir.getOffsetZ(), Blocks.dirt);
+						}
+					}
+				}
 				mined++;
 				return true;
 			}else{
@@ -172,11 +199,12 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		}
 		VecInt pos = new VecInt(xCoord+x, 0, zCoord+z);
 		well.clear();
-		for (int i = yCoord + 5; i >= 0; i--) {
+		for (int i = yCoord + 5;  i>= 0; i--) {
 			Block b = worldObj.getBlock(pos.getX(), i, pos.getZ());
 			int meta = worldObj.getBlockMetadata(pos.getX(), i, pos.getZ());
 			BlockInfo info = new BlockInfo(b, meta, pos.copy().add(0, i, 0));
-			if(MgUtils.isMineableBlock(worldObj,info)){
+			if(remplaceWithDirt && Block.isEqualTo(b, Blocks.dirt))continue;
+			if(MgUtils.isMineableBlock(worldObj,info) || (removeWater && (Block.isEqualTo(b, Blocks.water) || Block.isEqualTo(b, Blocks.lava) || Block.isEqualTo(b, Blocks.flowing_lava) || Block.isEqualTo(b, Blocks.flowing_water)))){
 				well.add(info);
 			}
 		}
@@ -235,14 +263,17 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		super.readFromNBT(nbt);
 		inv.readFromNBT(nbt);
 		
-		NBTTagList conduit = nbt.getTagList("Capacity_cond", 11);
+		NBTTagList conduit = nbt.getTagList("Capacity_cond", 10);
 		NBTTagCompound conduit_nbt = conduit.getCompoundTagAt(0);
 		capacity.load(conduit_nbt);
 		dim = nbt.getInteger("Dimension");
+		hole = nbt.getInteger("Hole");
+		remplaceWithDirt = nbt.getBoolean("Remplace");
+		removeWater = nbt.getBoolean("Remove");
 		
 		items.clear();
 		int size = nbt.getInteger("BufferSize");
-		NBTTagList list = nbt.getTagList("BufferData", 11);
+		NBTTagList list = nbt.getTagList("BufferData", 10);
 		for(int i=0;i<size;i++){
 			NBTTagCompound t = list.getCompoundTagAt(i);
 			ItemStack it = ItemStack.loadItemStackFromNBT(t);
@@ -261,6 +292,9 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		conduit.appendTag(conduit_nbt);
 		nbt.setTag("Capacity_cond", conduit);
 		nbt.setInteger("Dimension", dim);
+		nbt.setInteger("Hole", hole);
+		nbt.setBoolean("Remplace", remplaceWithDirt);
+		nbt.setBoolean("Remove", removeWater);
 		
 		if(!items.isEmpty()){
 			nbt.setInteger("BufferSize", items.size());
@@ -296,31 +330,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		if(id == 4)minedLastSecond = value;
 		if(id == 5)hole = value;
 		if(id == 6)dim = value;
-	}
-
-	@Override
-	public float getConsumptionInTheLastTick() {
-		return ConsumptionCounter;
-	}
-
-	@Override
-	public float getConsumptionInTheLastSecond() {
-		return Consume;
-	}
-
-	@Override
-	public float getMaxConsumption() {
-		return 70000;
-	}
-
-	@Override
-	public String getMessage() {
-		return "Blocks mined in the last second: "+minedLastSecond;
-	}
-
-	@Override
-	public float getLevel() {
-		return Math.min(minedLastSecond/280f, 1);
 	}
 	
 	public int getSizeInventory() {
@@ -370,15 +379,142 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	@Override
 	public void onMessageReceive(int id, int dato) {
 		if(id == 0){
-			dim+=dato;
-			hole = 0;
-			state = WorkState.UNREADY;
+			int old = dim;
+			dim = Math.min(MAX_DIMENSION, dim+dato);
+			if(old != dim){
+				hole = 0;
+				state = WorkState.UNREADY;
+				scheduleUpdate = true;
+				sendUpdateToClient();
+			}
+		}else if(id == 1){
+			int old = dim;
+			dim = Math.max(MIN_DIMENSION, dim-dato);
+			if(old != dim){
+				hole = 0;
+				state = WorkState.UNREADY;
+				scheduleUpdate = true;
+				sendUpdateToClient();
+			}
+		}else if(id == 2){
+			remplaceWithDirt = dato == 1;
 			sendUpdateToClient();
-		}else if(id == 1 && dim-dato >= 10){
-			dim-=dato;
-			hole = 0;
-			state = WorkState.UNREADY;
+		}else if(id == 3){
+			removeWater = dato == 1;
 			sendUpdateToClient();
 		}
+	}
+
+	public IEnergyTracker getEnergyTracker() {
+		return new IEnergyTracker() {
+			
+			@Override
+			public boolean isConsume() {
+				return true;
+			}
+			
+			@Override
+			public float getMaxChange() {
+				return 70000;
+			}
+			
+			@Override
+			public float getChangeInTheLastTick() {
+				return ConsumptionCounter;
+			}
+			
+			@Override
+			public float getChangeInTheLastSecond() {
+				return Consume;
+			}
+		};
+	}
+
+	public IBarProvider getBlocksMinedLastSecondBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return "Blocks mined in the last second: "+minedLastSecond;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return 280;
+			}
+			
+			@Override
+			public float getLevel() {
+				return Math.min(minedLastSecond, 280);
+			}
+		};
+	}
+	
+	//chunk loading
+	
+	public void updateTicket(){
+		if (chunkTicket == null)return;
+		ForgeChunkManager.releaseTicket(chunkTicket);
+		chunkTicket = null;
+		loadChunk();
+	}
+	
+	public void loadChunk(){
+		isFirstTime = true;
+		if (chunkTicket == null) {
+			chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.Instance, worldObj, Type.NORMAL);
+		}
+		chunkTicket.getModData().setInteger("quarryX", xCoord);
+		chunkTicket.getModData().setInteger("quarryY", yCoord);
+		chunkTicket.getModData().setInteger("quarryZ", zCoord);
+		forceChunkLoading(chunkTicket);
+//		ForgeChunkManager.forceChunk(chunkTicket, new ChunkCoordIntPair(xCoord >> 4, zCoord >> 4));
+	}
+	
+	public void forceChunkLoading(Ticket ticket) {
+		if (chunkTicket == null) {
+			chunkTicket = ticket;
+		}
+		Set<ChunkCoordIntPair> chunks = Sets.newHashSet();
+		ChunkCoordIntPair quarryChunk = new ChunkCoordIntPair(xCoord >> 4, zCoord >> 4);
+		chunks.add(quarryChunk);
+		ForgeChunkManager.forceChunk(ticket, quarryChunk);
+
+		MgDirection d = getDirection();
+		Log.debug(d);
+		int xMax,xMin,zMax,zMin;
+		if(d == MgDirection.NORTH){
+			xMin = -dim/2;
+			xMax = 	dim/2;
+			zMin = -dim;
+			zMax = -1;
+		}else if(d == MgDirection.SOUTH){
+			xMin = -dim/2;
+			xMax = 	dim/2;
+			zMin = 1;
+			zMax = dim;
+		}else if(d == MgDirection.EAST){
+			xMin =  1;
+			xMax =  dim;
+			zMin = -dim/2;
+			zMax = 	dim/2;
+		}else{
+			xMin = -dim;
+			xMax = -1;
+			zMin = -dim/2;
+			zMax = 	dim/2;
+		}
+		
+		for (int chunkX = (xMin+xCoord) >> 4; chunkX <= (xMax+xCoord) >> 4; chunkX++) {
+			for (int chunkZ = (zMin+zCoord) >> 4; chunkZ <= (zMax+zCoord) >> 4; chunkZ++) {
+				ChunkCoordIntPair chunk = new ChunkCoordIntPair(chunkX, chunkZ);
+				ForgeChunkManager.forceChunk(ticket, chunk);
+				chunks.add(chunk);
+			}
+		}
+		for(ChunkCoordIntPair p : chunks){
+			Log.debug(p);
+		}
+		Log.info("Miner at "+xCoord+" "+yCoord+" "+zCoord+" will keep "+chunks.size()+" chunks loaded");
 	}
 }

@@ -275,7 +275,9 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 	private void renderItemBox(ItemBox b, TileConveyorBelt c) {
 		GL11.glPushMatrix();
 		float delta = (int) (System.currentTimeMillis()-c.time);
-		if(delta > 50)delta %= 50;
+		if(delta > 50){
+			delta = 50;
+		}
 		ConveyorSide lane = c.getSideLane(b.isOnLeft());
 		
 		lane.setSpace(b.getPosition(),false);

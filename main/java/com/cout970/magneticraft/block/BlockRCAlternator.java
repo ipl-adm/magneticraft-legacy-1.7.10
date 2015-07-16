@@ -26,5 +26,4 @@ public class BlockRCAlternator extends BlockMg{
 	public String getName() {
 		return "rc_alternator";
 	}
-
 }

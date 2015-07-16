@@ -16,12 +16,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 
+import com.cout970.magneticraft.api.computer.IOpticFiber;
 import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.electricity.compact.InteractionHelper;
+import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
+import com.cout970.magneticraft.api.electricity.wires.ITileElectricPole;
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatMultipart;
@@ -217,5 +220,28 @@ public class MgUtils {
 			if(dir == d)return true;
 		}
 		return false;
+	}
+
+	public static IElectricPole getElectricPole(TileEntity tile) {
+		if(tile instanceof ITileElectricPole){
+			if(((ITileElectricPole) tile).getMainTile() == null)return null;
+			if(((ITileElectricPole) tile).getMainTile() == tile){
+				return ((ITileElectricPole) tile).getPoleConnection();
+			}else{
+				return ((ITileElectricPole) tile).getMainTile().getPoleConnection();
+			}
+		}
+		return null;
+	}
+
+	public static IOpticFiber getOpticFiber(TileEntity tile, MgDirection dir) {
+		if(tile instanceof TileMultipart){
+			for(TMultiPart p : ((TileMultipart) tile).jPartList()){
+				if(p instanceof IOpticFiber){
+					return (IOpticFiber) p;
+				}
+			}
+		}
+		return null;
 	}
 }

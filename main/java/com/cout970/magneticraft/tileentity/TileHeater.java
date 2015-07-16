@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import ic2.core.init.Energy;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,7 +16,6 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.Log;
 
 public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile{
 
@@ -41,7 +39,7 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 		if(!this.worldObj.isRemote){
 			cond.recache();
 			cond.iterate();
-			if(worldObj.getWorldTime()%20 == 0){
+			if(worldObj.getTotalWorldTime()%20 == 0){
 				if(working && !isActive()){
 					setActive(true);
 				}else if(!working && isActive()){

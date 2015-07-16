@@ -1,21 +1,10 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-
 import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 import com.cout970.magneticraft.api.kinetic.IKineticTile;
 import com.cout970.magneticraft.api.kinetic.KineticConductor;
-import com.cout970.magneticraft.api.kinetic.KineticType;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.multiblock.MB_Tile_Remplaced;
-import com.cout970.magneticraft.util.tile.TileKineticConductor;
 
 public class TileMB_Kinetic extends TileMB_Base implements IKineticTile{
 

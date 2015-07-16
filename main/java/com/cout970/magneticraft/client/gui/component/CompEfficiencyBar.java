@@ -14,17 +14,18 @@ public class CompEfficiencyBar implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IBarProvider bar;
 
-	public CompEfficiencyBar(ResourceLocation tex, GuiPoint p){
+	public CompEfficiencyBar(ResourceLocation tex, GuiPoint p, IBarProvider bar){
 		texture = tex;
 		pos = p;
+		this.bar = bar;
 	}
 
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IEfficient){
-			IEfficient c = (IEfficient) tile;
-			int scale = (int) (44*c.getEfficiency());
+		if(bar != null){
+			int scale = (int) (44*(bar.getLevel()/bar.getMaxLevel()));
 			gui.mc.renderEngine.bindTexture(texture);
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
 		}
@@ -38,11 +39,10 @@ public class CompEfficiencyBar implements IGuiComp{
 
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IEfficient){
-			IEfficient c = (IEfficient) tile;
+		if(bar != null){
 			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){
 				List<String> data = new ArrayList<String>();
-				data.add("Efficiency "+((int)(c.getEfficiency()*1000))/10f+"%");
+				data.add(String.format("Efficiency %.1f", (float)((bar.getLevel()/bar.getMaxLevel())*100))+"%");
 				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 				RenderHelper.enableGUIStandardItemLighting();
 			}

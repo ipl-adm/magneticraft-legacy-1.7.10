@@ -2,8 +2,6 @@ package com.cout970.magneticraft.tileentity;
 
 import java.util.List;
 
-import net.minecraft.command.IEntitySelector;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -15,7 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
@@ -26,25 +23,22 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync, IBurningTime{
+public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync{
 
-	public boolean active;
 	public float speed;
 	public int maxProgres = 100;
 	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
-	private float Progres;
+	private float progress;
 	private double flow;
 	private InventoryComponent inv = new InventoryComponent(this, 4, "Grinder");
 	private InventoryComponent in;
@@ -58,16 +52,16 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public void updateEntity() {
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if (!active)return;
+		if (!isActive())return;
 		if (worldObj.isRemote)return;
-		if(worldObj.getWorldTime()%20 == 0){
-			if(working && !isActive()){
+		if(worldObj.getTotalWorldTime()%20 == 0){
+			if(working && !isWorking()){
 				setActive(true);
-			}else if(!working && isActive()){
+			}else if(!working && isWorking()){
 				setActive(false);
 			}
 		}
-		if(worldObj.getWorldTime() % 10 == 0){
+		if(worldObj.getTotalWorldTime() % 10 == 0){
 			catchDrops();
 		}
 		updateConductor();
@@ -75,17 +69,17 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 			speed = cond.getStorage()*10f/cond.getMaxStorage();
 			if(canCraft()){
 				if (speed > 0) {
-					Progres += speed;
+					progress += speed;
 					cond.drainPower(EnergyConversor.RFtoW(speed * 10));
-					if (Progres >= getMaxProgres()) {
+					if (progress >= maxProgres) {
 						craft();
 						markDirty();
-						Progres %= getMaxProgres();
+						progress %= maxProgres;
 					}
 					working = true;
 				}
 			}else{
-				Progres = 0;
+				progress = 0;
 				working = false;
 			}
 		}
@@ -120,8 +114,12 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		sendUpdateToClient();
 	}
 
-	public boolean isActive() {
+	public boolean isWorking() {
 		return active_w;
+	}
+	
+	public boolean isActive(){
+		return getBlockMetadata() > 5;
 	}
 
 	public InventoryComponent getInv() {
@@ -209,19 +207,19 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		RecipeGrinder r = RecipeGrinder.getRecipe(a);
 
 		getInv().setInventorySlotContents(1,
-				InventoryUtils.addition(r.output, getInv().getStackInSlot(1)));
+				InventoryUtils.addition(r.getOutput(), getInv().getStackInSlot(1)));
 
-		int intents = ((int) (r.prob2 / 100)) + 1;
+		int intents = ((int) r.getProb2()) + 1;
 		for (int i = 0; i < intents; i++) {
-			if (worldObj.rand.nextFloat() <= (r.prob2 - i * 100)) {
-				getInv().setInventorySlotContents(2,InventoryUtils.addition(r.output2, getInv().getStackInSlot(2)));
+			if (worldObj.rand.nextFloat() <= r.getProb2() - i) {
+				getInv().setInventorySlotContents(2,InventoryUtils.addition(r.getOutput2(), getInv().getStackInSlot(2)));
 			}
 		}
 
-		intents = ((int) (r.prob3 / 100)) + 1;
+		intents = ((int) (r.getProb3() / 100)) + 1;
 		for (int i = 0; i < intents; i++) {
-			if (worldObj.rand.nextFloat() <= (r.prob3 - i * 100)) {
-				getInv().setInventorySlotContents(3,InventoryUtils.addition(r.output3, getInv().getStackInSlot(3)));
+			if (worldObj.rand.nextFloat() <= r.getProb3() - i) {
+				getInv().setInventorySlotContents(3,InventoryUtils.addition(r.getOutput3(), getInv().getStackInSlot(3)));
 			}
 		}
 
@@ -239,30 +237,19 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		if (r == null)
 			return false;
 		if (getInv().getStackInSlot(1) != null)
-			if (!InventoryUtils.canCombine(r.output,getInv().getStackInSlot(1), getInv().getInventoryStackLimit()))
+			if (!InventoryUtils.canCombine(r.getOutput(),getInv().getStackInSlot(1), getInv().getInventoryStackLimit()))
 				return false;
 		if (getInv().getStackInSlot(2) != null)
-			if (!InventoryUtils.canCombine(r.output2, getInv().getStackInSlot(2), getInv().getInventoryStackLimit()))
+			if (!InventoryUtils.canCombine(r.getOutput2(), getInv().getStackInSlot(2), getInv().getInventoryStackLimit()))
 				return false;
 		if (getInv().getStackInSlot(3) != null)
-			if (!InventoryUtils.canCombine(r.output3, getInv().getStackInSlot(3), getInv().getInventoryStackLimit()))
+			if (!InventoryUtils.canCombine(r.getOutput3(), getInv().getStackInSlot(3), getInv().getInventoryStackLimit()))
 				return false;
 		return true;
 	}
 
-	@Override
-	public int getProgres() {
-		return (int)Progres;
-	}
-
-	@Override
-	public int getMaxProgres() {
-		return maxProgres;
-	}
-
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		active = nbt.getBoolean("A");
 		active_w = nbt.getBoolean("Act");
 		cond.load(nbt);
 		getInv().readFromNBT(nbt);
@@ -270,7 +257,6 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		nbt.setBoolean("A", active);
 		nbt.setBoolean("Act", active_w);
 		cond.save(nbt);
 		getInv().writeToNBT(nbt);
@@ -280,7 +266,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
 		craft.sendProgressBarUpdate(cont, 1, cond.getStorage());
-		craft.sendProgressBarUpdate(cont, 2, (int)Progres);
+		craft.sendProgressBarUpdate(cont, 2, (int)progress);
 	}
 
 	@Override
@@ -290,17 +276,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		if (id == 1)
 			cond.setStorage(value);
 		if (id == 2)
-			Progres = value;
-	}
-	
-	@Override
-	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
-		active = false;
-	}
-
-	@Override
-	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
-		active = true;
+			progress = value;
 	}
 
 	@Override
@@ -371,8 +347,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox()
-    {
+    public AxisAlignedBB getRenderBoundingBox(){
         return INFINITE_EXTENT_AABB;
     }
 
@@ -380,5 +355,25 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		long aux = time;
 		time = System.nanoTime();
 		return time - aux;
+	}
+
+	public IBarProvider getProgresBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return maxProgres;
+			}
+			
+			@Override
+			public float getLevel() {
+				return progress;
+			}
+		};
 	}
 }

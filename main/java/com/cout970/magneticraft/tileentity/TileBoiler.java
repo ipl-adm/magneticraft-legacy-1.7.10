@@ -21,7 +21,7 @@ import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
-public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IGuiSync,IBarProvider{
+public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IGuiSync{
 
 	public TankMg water = new TankMg(this, 2000);
 	public TankMg steam = new TankMg(this, 8000);
@@ -145,16 +145,6 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 		if(id == 3)produce = value;
 	}
 
-	@Override
-	public String getMessage() {
-		return "Steam produced: "+produce+"mB/t";
-	}
-
-	@Override
-	public float getLevel() {
-		return produce/80f;
-	}
-
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
 		return 0;
@@ -184,5 +174,25 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IG
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 		return null;
+	}
+
+	public IBarProvider getProductionBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return "Steam produced: "+produce+"mB/t";
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return MAX_STEAM;
+			}
+			
+			@Override
+			public float getLevel() {
+				return produce;
+			}
+		};
 	}
 }

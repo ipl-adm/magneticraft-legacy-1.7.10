@@ -110,7 +110,6 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect{
 
 	@Override
 	public int getHollowSize(int side) {
-		Log.debug(side);
 		return 12;
 	}
 }

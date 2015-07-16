@@ -81,7 +81,6 @@ public class BlockDiode extends BlockMg{
         return false;
     }
     
-    @SideOnly(Side.CLIENT)
    	public AxisAlignedBB getSelectedBoundingBoxFromPool(World w, int x, int y, int z)
    	{
    		double desp = 0.0625*4;

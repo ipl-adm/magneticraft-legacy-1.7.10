@@ -38,7 +38,7 @@ public class GuiInserter extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/inserter.png")));
-		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
+		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 52)));
 		comp.add(new CompInseterGui(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/inserter.png"),new GuiPoint(74, 53)));
 	}
 	
@@ -70,6 +70,11 @@ public class GuiInserter extends GuiBasic{
 					RenderUtil.bindTexture(texture);
 					gui.drawTexturedModalRect(gui.xStart+pos.x+38, gui.yStart+pos.y, 193, 34, 17, 17);
 				}
+				
+				if(t.ignoreDict){
+					RenderUtil.bindTexture(texture);
+					gui.drawTexturedModalRect(gui.xStart+pos.x+57, gui.yStart+pos.y, 193, 51, 17, 17);
+				}
 			}
 		}
 
@@ -82,7 +87,9 @@ public class GuiInserter extends GuiBasic{
 					ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 1, ((TileInserter)gui.tile).ignoreMeta ? 0 : 1));
 				}else if(gui.isIn(mx, my, pos.x+gui.xStart+38, pos.y+gui.yStart, 17, 17)){
 						ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 2, ((TileInserter)gui.tile).ignoreNBT ? 0 : 1));
-				}
+				}else if(gui.isIn(mx, my, pos.x+gui.xStart+57, pos.y+gui.yStart, 17, 17)){
+					ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 3, ((TileInserter)gui.tile).ignoreDict ? 0 : 1));
+			}
 			}
 		}
 
@@ -108,6 +115,11 @@ public class GuiInserter extends GuiBasic{
 				}else if(gui.isIn(mx, my, pos.x+gui.xStart+38, pos.y+gui.yStart, 17, 17)){
 					List<String> data = new ArrayList<String>();
 					data.add(t.ignoreNBT ? "Ignore NBT" : "Check NBT");
+					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
+					RenderHelper.enableGUIStandardItemLighting();
+				}else if(gui.isIn(mx, my, pos.x+gui.xStart+57, pos.y+gui.yStart, 17, 17)){
+					List<String> data = new ArrayList<String>();
+					data.add(t.ignoreDict ? "Ignore Ore Dictionary" : "Check Ore Dictionary");
 					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 					RenderHelper.enableGUIStandardItemLighting();
 				}

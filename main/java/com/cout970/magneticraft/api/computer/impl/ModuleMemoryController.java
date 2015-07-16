@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.cout970.magneticraft.api.computer.IBusConnectable;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
+import com.cout970.magneticraft.util.Log;
 
 public class ModuleMemoryController implements IModuleMemoryController {
 
@@ -144,8 +145,10 @@ public class ModuleMemoryController implements IModuleMemoryController {
 
 	public static int getRealAddress(IModuleMemoryController ram, int address) {
 		int mask = ComputerUtils.getBitsFromInt(address, 16, 31, false);
-		if(mask == 0x0040)return (address - 0x00400000 + 0x00000700) & 0xFFFF;//Program Code Space
-		if(mask == 0x7FFF)return (address & 0x3FF);//Stack		
+		if(mask == 0x0040){
+			return (address - 0x00400000) & 0xFFFF;//Program Code Space
+		}
+		if(mask == 0x1001)return ((address - 0x10010000) + 0x3000) & 0xFFFF;//Stack		
 		return address & 0xFFFF;
 	}
 

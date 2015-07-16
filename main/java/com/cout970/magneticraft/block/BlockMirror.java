@@ -15,7 +15,7 @@ public class BlockMirror extends BlockMg{
 
 	public BlockMirror() {
 		super(Material.iron);
-		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setCreativeTab(CreativeTabsMg.SteamAgeTab);
 	}
 	
 	public int getRenderType()

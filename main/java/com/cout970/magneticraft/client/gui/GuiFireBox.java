@@ -22,7 +22,7 @@ public class GuiFireBox extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/firebox.png")));
-		comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/fire.png"),new GuiPoint(80, 28)));
+		comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/fire.png"),new GuiPoint(80, 28), ((TileFireBox)tile).getBurningTimeBar()));
 		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileFireBox)tile).heat));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

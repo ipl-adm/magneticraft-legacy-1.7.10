@@ -54,7 +54,7 @@ public class ElectricConductor implements IElectricConductor{
 	 * return the voltage on this conductor
 	 */
 	public double getVoltage() {
-		long worldTime = this.getParent().getWorldObj().getWorldTime();
+		long worldTime = this.getParent().getWorldObj().getTotalWorldTime();
 		if ((worldTime & 65535L) == (long)this.lastTick){
             return this.V;
         }else{

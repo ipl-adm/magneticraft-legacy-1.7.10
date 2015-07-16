@@ -35,5 +35,29 @@ public interface IBatteryItem {
 	 * the max amount of charge that the battery can store
 	 * @return
 	 */
-	public int getMaxCharge();
+	public int getMaxCharge(ItemStack stack);
+	
+	public BatteryInteraction getInteraction(ItemStack stack);
+	
+	public enum BatteryInteraction{
+		ACCEPT	(true, false),
+		EXTRACT	(false, true),
+		BOTH	(true, true),
+		NOTHING	(false, false);
+
+		private boolean accept,extract;
+		
+		private BatteryInteraction(boolean accept, boolean extract){
+			this.accept = accept;
+			this.extract = extract;
+		}
+		
+		public boolean canAccept() {
+			return accept;
+		}
+		
+		public boolean canExtract() {
+			return extract;
+		}
+	}
 }

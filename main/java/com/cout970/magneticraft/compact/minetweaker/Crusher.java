@@ -15,7 +15,7 @@ import com.cout970.magneticraft.api.acces.RecipeCrusher;
 public class Crusher {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, int prob1, IItemStack out2, int prob2){
+	public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1, IItemStack out2, float prob2){
 		
 		ItemStack a = MgMinetweaker.toStack(in)
 		,b = MgMinetweaker.toStack(out0)

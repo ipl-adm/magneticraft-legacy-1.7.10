@@ -38,14 +38,9 @@ public class ItemCharged extends ItemBasic implements IBatteryItem{
 	@Override
 	public int charge(ItemStack stack, int energy) {
 		int old = getCharge(stack);
-		int c = Math.min(old+energy, getMaxCharge());
+		int c = Math.min(old+energy, getMaxCharge(stack));
 		NBTUtils.setInteger("Charge", stack, c);
 		return getCharge(stack)-old;
-	}
-
-	@Override
-	public int getMaxCharge() {
-		return MAX_CHARGE;
 	}
 
 	public int getMetadataByPercent(int energy,int capacity){//inveted for the durability display 
@@ -69,5 +64,15 @@ public class ItemCharged extends ItemBasic implements IBatteryItem{
 	@Override
 	public int getDamage(ItemStack stack) {
 		return getMetadataByPercent(getCharge(stack), MAX_CHARGE);
+	}
+
+	@Override
+	public int getMaxCharge(ItemStack stack) {
+		return MAX_CHARGE;
+	}
+
+	@Override
+	public BatteryInteraction getInteraction(ItemStack stack) {
+		return BatteryInteraction.BOTH;
 	}
 }

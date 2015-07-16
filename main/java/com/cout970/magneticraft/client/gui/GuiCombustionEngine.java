@@ -13,7 +13,9 @@ import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
+import com.cout970.magneticraft.tileentity.TileBoiler;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 
 public class GuiCombustionEngine extends GuiBasic{
@@ -26,10 +28,10 @@ public class GuiCombustionEngine extends GuiBasic{
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/combustion_engine.png")));
 		comp.add(new CompFluidRender(((TileCombustionEngine)tile).getTank(), new GuiPoint(47,25), new GuiPoint(65, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16)));
-		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16), ((TileCombustionEngine)tile).cond));
+		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16), ((TileCombustionEngine)tile).cond));
 		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(69, 20), ((TileCombustionEngine)tile).heat));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
-		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(78, 20)));
+		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(78, 20), ((TileCombustionEngine)tile).getProductionBar()));
 	}
 }

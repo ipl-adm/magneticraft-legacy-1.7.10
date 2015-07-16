@@ -38,10 +38,10 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart{
 			updateConnections();
 			oldHeat = -1;
 		}
-		if(world().isRemote && world().getWorldTime() % 10 == 0){
+		if(world().isRemote && world().getTotalWorldTime() % 10 == 0){
 			updateConnections();
 		}
-		if(!world().isRemote && world().getWorldTime() % 20 == 0){
+		if(!world().isRemote && world().getTotalWorldTime() % 20 == 0){
 			if(((int)heat.getTemperature()) != oldHeat){
 				oldHeat = (int) heat.getTemperature();
 				sendDescUpdate();

@@ -68,11 +68,11 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 	public void updateEntity(){
 		if(worldObj.isRemote)return;
 		if(isActive()){
-			memory.writeWord(4, (int)worldObj.getWorldTime());
+//			memory.writeWord(4, (int)worldObj.getTotalWorldTime());
 			procesor.iterate();
 			hardDrive.iterate();
 			floppyDrive.iterate();
-			if(worldObj.getWorldTime() % 200 == 0){
+			if(worldObj.getTotalWorldTime() % 200 == 0){
 				chechHardware();
 				sendUpdateToClient();
 			}

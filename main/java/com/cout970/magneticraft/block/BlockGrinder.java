@@ -69,7 +69,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock{
 		if(p.isSneaking())return false;
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TileGrinder){
-			if(!((TileGrinder) t).active){
+			if(!((TileGrinder) t).isActive()){
 				if(!w.isRemote)
 					MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_GRINDER), getDirection(w, new VecInt(x,y,z)),p);
 				else

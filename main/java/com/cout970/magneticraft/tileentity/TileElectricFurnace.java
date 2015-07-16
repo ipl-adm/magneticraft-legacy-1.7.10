@@ -12,13 +12,13 @@ import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.tool.IFurnaceCoil;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileElectricFurnace extends TileConductorLow implements IInventoryManaged, IGuiSync, IBurningTime, ISidedInventory{
+public class TileElectricFurnace extends TileConductorLow implements IInventoryManaged, IGuiSync, ISidedInventory{
 
 	public InventoryComponent inv = new InventoryComponent(this, 3, "Electric Furnace");
 	public int progress = 0;
@@ -29,7 +29,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		if(worldObj.getWorldTime()%20 == 0){
+		if(worldObj.getTotalWorldTime()%20 == 0){
 			if(working && !isActive()){
 				setActive(true);
 			}else if(!working && isActive()){
@@ -143,13 +143,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 		if(i == 1)progress = value;
 		if(i == 2)cond.setStorage(value);
 	}
-
-	@Override
-	public int getProgres() {
-		return (int) progress;
-	}
-
-	@Override
+	
 	public int getMaxProgres(){
 		if(getInv().getStackInSlot(2) == null)return -1;
 		if(!(getInv().getStackInSlot(2).getItem() instanceof IFurnaceCoil))return -1;
@@ -214,4 +208,24 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 	public void openInventory() {}
 
 	public void closeInventory() {}
+
+	public IBarProvider getProgresBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return getMaxProgres();
+			}
+			
+			@Override
+			public float getLevel() {
+				return 0;
+			}
+		};
+	}
 }

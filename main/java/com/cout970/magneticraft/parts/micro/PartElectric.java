@@ -33,7 +33,7 @@ public abstract class PartElectric extends MgPart implements IElectricMultiPart{
 			toUpdate = false;
 			updateConnections();
 		}
-		if(world().isRemote && world().getWorldTime() % 10 == 0){
+		if(world().isRemote && world().getTotalWorldTime() % 10 == 0){
 			updateConnections();
 		}
 		if(tempNBT != null){

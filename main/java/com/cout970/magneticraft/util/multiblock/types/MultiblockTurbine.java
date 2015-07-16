@@ -10,10 +10,10 @@ public class MultiblockTurbine extends Multiblock{
 
 	@Override
 	public void init() {
-		SimpleComponent c = new SimpleComponent(ManagerBlocks.tank_mg);
+		SimpleComponent c = new SimpleComponent(ManagerBlocks.copper_tank);
 		SimpleComponent b = new SimpleComponent(ManagerBlocks.multi_energy_medium);
 		SimpleComponent d = new SimpleComponent(ManagerBlocks.chassis);
-		SimpleComponent e = new SimpleComponent(ManagerBlocks.turbine);
+		SimpleComponent e = new SimpleComponent(ManagerBlocks.steam_turbine);
 
 		SimpleComponent[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0

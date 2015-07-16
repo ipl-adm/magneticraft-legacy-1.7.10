@@ -89,7 +89,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock{
 		}
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof TileCrusher){
-			if(!((TileCrusher) t).active){
+			if(!((TileCrusher) t).isActive()){
 				if(!w.isRemote)MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_CRUSHER), getDirection(w, new VecInt(x,y,z)),p);
 				else ((TileCrusher) t).drawCounter = 200;
 			}else{

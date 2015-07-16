@@ -1,12 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.kinetic.IKineticConductor;
-import com.cout970.magneticraft.api.kinetic.IKineticTile;
 import com.cout970.magneticraft.api.kinetic.KineticConductor;
-import com.cout970.magneticraft.api.kinetic.KineticType;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileKineticConductor;
 
 public class TileWoodenShaft extends TileKineticConductor{

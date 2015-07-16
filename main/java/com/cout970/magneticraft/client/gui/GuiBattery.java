@@ -19,6 +19,8 @@ import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
+import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiBattery extends GuiBasic{
@@ -30,7 +32,7 @@ public class GuiBattery extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/battery.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(47,16)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(47,16), ((TileBattery)tile).cond));
 		comp.add(new CompBatteryBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(69,16)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

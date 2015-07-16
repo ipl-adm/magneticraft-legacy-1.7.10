@@ -1,11 +1,9 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
@@ -13,12 +11,9 @@ import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IGuiListener;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileResistance extends TileBase implements IGuiListener, IGuiSync, IElectricTile{
 
@@ -153,7 +148,7 @@ public class TileResistance extends TileBase implements IGuiListener, IGuiSync, 
 		line2 = Math.abs(nbt.getInteger("Line_2") % color_array.length);
 		line3 = Math.abs(nbt.getInteger("Line_3") % color_array.length);
 		select = nbt.getInteger("Select");
-		NBTTagList list = nbt.getTagList("Conductors", 11);
+		NBTTagList list = nbt.getTagList("Conductors", 10);
 		cond1.load(list.getCompoundTagAt(0));
 		cond2.load(list.getCompoundTagAt(1));
 		updateResistance();

@@ -5,5 +5,6 @@ public interface IBarProvider {
 	public String getMessage();
 
 	public float getLevel();
-
+	
+	public float getMaxLevel();
 }

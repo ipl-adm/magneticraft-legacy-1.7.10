@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.client.itemrenderer;
 
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -48,7 +49,8 @@ public class ItemRenderCableLow implements IItemRenderer{
 		}
 	}
 	
-	public void render(float x, float y, float z, float scale, ItemStack i){
+	public void render(float x, float y, float z, float scale, ItemStack i){		
+		
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glScalef(scale, scale, scale);

@@ -27,7 +27,7 @@ import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileCombustionEngine extends TileConductorLow implements IFluidHandler1_8, IHeatTile, IGuiSync, IBarProvider{
+public class TileCombustionEngine extends TileConductorLow implements IFluidHandler1_8, IHeatTile, IGuiSync{
 
 	private TankMg tank = new TankMg(this, 4000);
 	public IHeatConductor heat = new HeatConductor(this, 600, 800);
@@ -72,7 +72,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 			}
 		}
 		
-		if(worldObj.getWorldTime() % 20 == 0){
+		if(worldObj.getTotalWorldTime() % 20 == 0){
 			prod = counter/20;
 			counter = 0;
 		}
@@ -171,16 +171,6 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 		if(id == 5)prod = value/100f;
 		if(id == 6)maxProd = value;
 	}
-
-	@Override
-	public String getMessage() {
-		return "Generating: "+prod+"W";
-	}
-
-	@Override
-	public float getLevel() {
-		return Math.min(1, maxProd == 0 ? 0 : prod/maxProd);
-	}
 	
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
@@ -211,5 +201,25 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 		return null;
+	}
+
+	public IBarProvider getProductionBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return "Generating: "+prod+"W";
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return Math.max(maxProd,1);
+			}
+			
+			@Override
+			public float getLevel() {
+				return prod;
+			}
+		};
 	}
 }

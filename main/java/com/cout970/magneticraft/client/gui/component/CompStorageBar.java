@@ -20,24 +20,20 @@ public class CompStorageBar implements IGuiComp{
 	
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IElectricConductor cond;
 	
-	public CompStorageBar(ResourceLocation tex, GuiPoint p){
+	public CompStorageBar(ResourceLocation tex, GuiPoint p, IElectricConductor cond){
 		texture = tex;
 		pos = p;
+		this.cond = cond;
 	}
 	
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IElectricTile){
-			CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
-			if(j == null)return;
-			IElectricConductor c = j.getCond(0);
-			if(c == null)return;
-			if(c instanceof BufferedConductor){
-				int scale = (int) (((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage);
-				gui.mc.renderEngine.bindTexture(texture);
-				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 59, 50-scale, 11, scale, 70, 50);
-			}
+		if(cond != null){
+			int scale = cond.getMaxStorage() > 0 ? (int) (cond.getStorage() * 50 / cond.getMaxStorage()) : 0;
+			gui.mc.renderEngine.bindTexture(texture);
+			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(50-scale), 59, 50-scale, 11, scale, 70, 50);
 		}
 	}
 
@@ -49,14 +45,10 @@ public class CompStorageBar implements IGuiComp{
 
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IElectricTile){
-			CompoundElectricCables j = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR,0);
-			if(j == null)return;
-			IElectricConductor c = j.getCond(0);
-			if(c == null)return;
+		if(cond != null){
 			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 11, 50)){
 				List<String> data = new ArrayList<String>();
-				data.add(String.format("%.3fk"+Magneticraft.ENERGY_STORED_NAME, c.getStorage()/1000f));
+				data.add(String.format("%.3fk"+Magneticraft.ENERGY_STORED_NAME, cond.getStorage()/1000f));
 				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 				RenderHelper.enableGUIStandardItemLighting();
 			}

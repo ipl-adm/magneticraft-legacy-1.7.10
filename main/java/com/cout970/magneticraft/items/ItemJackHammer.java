@@ -24,6 +24,7 @@ public class ItemJackHammer extends ItemCharged{
 	public static int CHARGE_PER_WORK = 5000;
 	public static int HARVEST_LEVEL = 3;
 	private static final Set vanilla_minable_blocks = Sets.newHashSet(new Block[] {Blocks.cobblestone, Blocks.double_stone_slab, Blocks.stone_slab, Blocks.stone, Blocks.sandstone, Blocks.mossy_cobblestone, Blocks.iron_ore, Blocks.iron_block, Blocks.coal_ore, Blocks.gold_block, Blocks.gold_ore, Blocks.diamond_ore, Blocks.diamond_block, Blocks.ice, Blocks.netherrack, Blocks.lapis_ore, Blocks.lapis_block, Blocks.redstone_ore, Blocks.lit_redstone_ore, Blocks.rail, Blocks.detector_rail, Blocks.golden_rail, Blocks.activator_rail});
+	private static final Set vanilla_diggable_blocks = Sets.newHashSet(new Block[] {Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.gravel, Blocks.snow_layer, Blocks.snow, Blocks.clay, Blocks.farmland, Blocks.soul_sand, Blocks.mycelium});
 
 	public ItemJackHammer(String unlocalizedname) {
 		super(unlocalizedname, 500000);
@@ -62,43 +63,44 @@ public class ItemJackHammer extends ItemCharged{
 		return true;
 	}
 	
-	public int getMaxItemUseDuration(ItemStack p_77626_1_)
-	{
+	public int getMaxItemUseDuration(ItemStack p_77626_1_){
 		return 0;
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public boolean isFull3D()
-	{
+	public boolean isFull3D(){
 		return true;
 	}
 	
-	public float func_150893_a(ItemStack item, Block block)
-    {
-		if(((IBatteryItem)item.getItem()).getCharge(item) < CHARGE_PER_WORK)return 0;
+	public float func_150893_a(ItemStack item, Block block){
+		
+		if(((IBatteryItem)item.getItem()).getCharge(item) < CHARGE_PER_WORK)return 0.5f;
+		if(block.getMaterial() == Material.ground || vanilla_diggable_blocks.contains(block)){
+			return 14.999f;
+		}
         return block.getMaterial() != Material.iron && block.getMaterial() != Material.anvil && block.getMaterial() != Material.rock ?  !vanilla_minable_blocks.contains(block) ? 1F : 44.9F: 44.9F;
     }
 	
 	@Override
-    public int getHarvestLevel(ItemStack stack, String toolClass)
-    {
+    public int getHarvestLevel(ItemStack stack, String toolClass){
+		
         int level = super.getHarvestLevel(stack, toolClass);
-        if (level == -1)
-        {
+        if (level == -1){
             return HARVEST_LEVEL;
-        }
-        else
-        {
+        }else{
             return level;
         }
     }
 	
-	public boolean func_150897_b(Block p_150897_1_)
-    {
-        return p_150897_1_ == Blocks.obsidian ? HARVEST_LEVEL == 3 : (p_150897_1_ != Blocks.diamond_block && p_150897_1_ != Blocks.diamond_ore ? (p_150897_1_ != Blocks.emerald_ore && p_150897_1_ != Blocks.emerald_block ?
-        		(p_150897_1_ != Blocks.gold_block && p_150897_1_ != Blocks.gold_ore ? (p_150897_1_ != Blocks.iron_block && p_150897_1_ != Blocks.iron_ore ? (p_150897_1_ != Blocks.lapis_block && p_150897_1_ != Blocks.lapis_ore ?
-        				(p_150897_1_ != Blocks.redstone_ore && p_150897_1_ != Blocks.lit_redstone_ore ? (p_150897_1_.getMaterial() == Material.rock ? true : (p_150897_1_.getMaterial() == Material.iron ? 
-        						true : p_150897_1_.getMaterial() == Material.anvil)) : HARVEST_LEVEL >= 2) : HARVEST_LEVEL >= 1) : HARVEST_LEVEL >= 1) : HARVEST_LEVEL >= 2) :
+	public boolean func_150897_b(Block block){
+        return block == Blocks.obsidian ? HARVEST_LEVEL == 3 : (block != Blocks.diamond_block && block != Blocks.diamond_ore ? (block != Blocks.emerald_ore && block != Blocks.emerald_block ?
+        		(block != Blocks.gold_block && block != Blocks.gold_ore ? (block != Blocks.iron_block && block != Blocks.iron_ore ? (block != Blocks.lapis_block && block != Blocks.lapis_ore ?
+        				(block != Blocks.redstone_ore && block != Blocks.lit_redstone_ore ? (block.getMaterial() == Material.rock ? true : (block.getMaterial() == Material.iron ? 
+        						true : block.getMaterial() == Material.anvil)) : HARVEST_LEVEL >= 2) : HARVEST_LEVEL >= 1) : HARVEST_LEVEL >= 1) : HARVEST_LEVEL >= 2) :
         							HARVEST_LEVEL >= 2) : HARVEST_LEVEL >= 2);
     }
+	
+	public BatteryInteraction getInteraction(ItemStack stack){
+		return BatteryInteraction.ACCEPT;
+	}
 }

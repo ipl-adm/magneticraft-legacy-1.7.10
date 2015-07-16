@@ -44,7 +44,7 @@ public class GuiMonitor extends GuiBasic{
 			for(int line = 0; line < 50; line++){
 				for(int desp = 0;desp < 80; desp++){
 					int character = t.getText(line*80+desp) & 255;
-					if(line*80+desp == cursor && t.getWorldObj().getWorldTime() % 20 >= 10){
+					if(line*80+desp == cursor && t.getWorldObj().getTotalWorldTime() % 20 >= 10){
 						character ^= 128;
 					}
 					if(character != 32 && character != 0)

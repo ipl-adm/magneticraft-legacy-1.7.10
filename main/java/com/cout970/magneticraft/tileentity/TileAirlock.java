@@ -23,7 +23,7 @@ public class TileAirlock extends TileConductorLow{
 		super.updateEntity();
 		int radsquared = 49;
 		if(worldObj.isRemote)return;
-		if(cond.getVoltage() > ElectricConstants.MACHINE_WORK && worldObj.getWorldTime() % 200 == 0){
+		if(cond.getVoltage() > ElectricConstants.MACHINE_WORK && worldObj.getTotalWorldTime() % 200 == 0){
 			for(int i=-8;i<9;i++)
 				for(int j=-8;j<9;j++)
 					for(int k=-8;k<9;k++)

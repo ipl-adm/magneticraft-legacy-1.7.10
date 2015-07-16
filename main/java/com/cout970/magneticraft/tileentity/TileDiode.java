@@ -2,7 +2,6 @@ package com.cout970.magneticraft.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import akka.event.Logging.Debug;
 
 import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ConnectionClass;
@@ -14,8 +13,6 @@ import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VecIntUtil;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileDiode extends TileConductorLow{
@@ -59,7 +56,6 @@ public class TileDiode extends TileConductorLow{
 							currents = temp;
 						}
 					}
-					Log.debug(con.size());
 				}
 			}
 			

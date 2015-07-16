@@ -17,12 +17,11 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.client.gui.component.IProductor;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 
-public class TileKineticGenerator extends TileConductorMedium implements IEnergyHandler,IGuiSync,IProductor{
+public class TileKineticGenerator extends TileConductorMedium implements IEnergyHandler,IGuiSync{
 
 	protected EnergyStorage storage = new EnergyStorage(32000);
 	public float rotation = 0;
@@ -41,7 +40,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 	public IElectricConductor initConductor() {
 		return new ElectricConductor(this,2,ElectricConstants.RESISTANCE_COPPER_MED){
 			public double getInvCapacity(){
-				return EnergyConversor.RFtoW(0.1D);
+				return EnergyConversor.RFtoW(1D);
 			}
 		};
 	}
@@ -77,7 +76,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 			working = false;
 		}
 		
-		if(worldObj.getWorldTime() % 20 == 0){
+		if(worldObj.getTotalWorldTime() % 20 == 0){
 			prodLastSec = prodCount;
 			prodCount = 0;
 			if(working && !isActive()){
@@ -174,18 +173,28 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 		if(id == 3)prodLastSec = value;
 	}
 
-	@Override
-	public float getProductionInTheLastTick() {
-		return lastProd;
-	}
-
-	@Override
-	public float getProductionInTheLastSecond() {
-		return prodLastSec;
-	}
-
-	@Override
-	public float getMaxProduction() {
-		return 400;
+	public IEnergyTracker getEnergyTracker() {
+		return new IEnergyTracker() {
+			
+			@Override
+			public boolean isConsume() {
+				return false;
+			}
+			
+			@Override
+			public float getMaxChange() {
+				return 400;
+			}
+			
+			@Override
+			public float getChangeInTheLastTick() {
+				return lastProd;
+			}
+			
+			@Override
+			public float getChangeInTheLastSecond() {
+				return prodLastSec;
+			}
+		};
 	}
 }

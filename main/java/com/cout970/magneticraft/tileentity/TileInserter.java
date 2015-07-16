@@ -11,13 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.oredict.OreDictionary;
 
 import com.cout970.magneticraft.api.conveyor.ConveyorSide;
 import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecDouble;
@@ -25,9 +23,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.MgBeltUtils;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileInserter extends TileBase implements IGuiListener{
 
@@ -36,6 +32,7 @@ public class TileInserter extends TileBase implements IGuiListener{
 	public boolean whiteList;
 	public boolean ignoreNBT;
 	public boolean ignoreMeta;
+	public boolean ignoreDict;
 	public byte valid_dirs = 0xF;
 	public int counter = 0;
 	public InserterAnimation anim = null;
@@ -99,7 +96,7 @@ public class TileInserter extends TileBase implements IGuiListener{
 					dropToInv((IInventory)o);
 				else if(o instanceof IConveyor && ((IConveyor) o).getOrientation().getLevel() == 0){
 					dropToBelt((IConveyor)o);
-				}else if(canDropItems() && worldObj.getWorldTime() % 10 == 0){
+				}else if(canDropItems() && worldObj.getTotalWorldTime() % 10 == 0){
 					dropItem();
 				}
 				if(getInv().getStackInSlot(0) == null){
@@ -187,8 +184,6 @@ public class TileInserter extends TileBase implements IGuiListener{
 		if(t.addItem(getDir(), 2, new ItemBox(s), true)){
 			getInv().setInventorySlotContents(0, null);
 			t.addItem(getDir(), 2, new ItemBox(s), false);
-			if(t instanceof TileBase)
-			((TileBase) t).sendUpdateToClient();
 		}
 	}
 
@@ -210,12 +205,10 @@ public class TileInserter extends TileBase implements IGuiListener{
 	public boolean extractFromBelt(ConveyorSide side, IConveyor t, boolean left, Object obj){
 		if(side.content.isEmpty())return false;
 		ItemBox b = side.content.get(0);
-		if(t.extract(b, left, true)){
+		if(t.removeItem(b, left, true)){
 			if(canInject(obj, b.getContent()) && canExtract(t, b.getContent())){
-				t.extract(b, left, false);
+				t.removeItem(b, left, false);
 				getInv().setInventorySlotContents(0, b.getContent());
-				if(t instanceof TileBase)
-					((TileBase) t).sendUpdateToClient();
 				return true;
 			}
 		}
@@ -266,6 +259,16 @@ public class TileInserter extends TileBase implements IGuiListener{
 	public boolean checkFilter(int slot, ItemStack i){
 		ItemStack f = filter.getStackInSlot(slot);
 		if(f == null)return false;
+		if(!ignoreDict){
+			int[] c = OreDictionary.getOreIDs(i);
+			int[] d = OreDictionary.getOreIDs(f);
+			if(c.length > 0 && d.length > 0){
+				for(int k : c){
+					for(int j : d)
+						if(k == j)return true;
+				}
+			}
+		}
 		if(f.getItem() != i.getItem())return false;
 		if(!ignoreMeta)
 			if(f.getItemDamage() != i.getItemDamage())return false;
@@ -297,6 +300,7 @@ public class TileInserter extends TileBase implements IGuiListener{
 		whiteList = nbt.getBoolean("WhiteList");
 		ignoreMeta = nbt.getBoolean("IgnoreMeta");
 		ignoreNBT= nbt.getBoolean("IgnoreNBT");
+		ignoreDict= nbt.getBoolean("IgnoreDict");
 		valid_dirs = nbt.getByte("ValidDirs");
 	}
 	
@@ -309,6 +313,7 @@ public class TileInserter extends TileBase implements IGuiListener{
 		nbt.setBoolean("WhiteList", whiteList);
 		nbt.setBoolean("IgnoreMeta", ignoreMeta);
 		nbt.setBoolean("IgnoreNBT", ignoreNBT);
+		nbt.setBoolean("IgnoreDict", ignoreDict);
 		nbt.setByte("ValidDirs", valid_dirs);
 	}
 	
@@ -326,6 +331,9 @@ public class TileInserter extends TileBase implements IGuiListener{
 			sendUpdateToClient();
 		}else if(id == 2){
 			ignoreNBT = dato == 1;
+			sendUpdateToClient();
+		}else if(id == 3){
+			ignoreDict = dato == 1;
 			sendUpdateToClient();
 		}
 	}

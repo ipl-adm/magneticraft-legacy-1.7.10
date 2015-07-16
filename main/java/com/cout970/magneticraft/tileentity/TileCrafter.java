@@ -26,7 +26,6 @@ import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryCrafterAux;
 import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.Log;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
 

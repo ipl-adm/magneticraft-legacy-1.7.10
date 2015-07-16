@@ -22,7 +22,7 @@ public class MultiblockPolymerizer extends Multiblock{
 		SimpleComponent i = new SimpleComponent(ManagerBlocks.multi_io);
 		SimpleComponent e = new SimpleComponent(ManagerBlocks.multi_energy_low);
 		SimpleComponent b = new SimpleComponent(ManagerBlocks.chassis);
-		SimpleComponent t = new SimpleComponent(ManagerBlocks.tank_mg);
+		SimpleComponent t = new SimpleComponent(ManagerBlocks.copper_tank);
 		SimpleComponent ht = new SimpleComponent(ManagerBlocks.heater);
 		SimpleComponent d = new SimpleComponent(ManagerBlocks.polimerizer);
 

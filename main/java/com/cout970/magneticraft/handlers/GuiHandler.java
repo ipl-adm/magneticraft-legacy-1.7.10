@@ -32,8 +32,8 @@ import com.cout970.magneticraft.client.gui.GuiResistance;
 import com.cout970.magneticraft.client.gui.GuiSteamEngine;
 import com.cout970.magneticraft.client.gui.GuiStirlingGenerator;
 import com.cout970.magneticraft.client.gui.GuiThermopile;
-import com.cout970.magneticraft.client.gui.GuiTurbine;
-import com.cout970.magneticraft.client.gui.GuiWindMill;
+import com.cout970.magneticraft.client.gui.GuiSteamTurbine;
+import com.cout970.magneticraft.client.gui.GuiWindTurbine;
 import com.cout970.magneticraft.container.ContainerBasicGenerator;
 import com.cout970.magneticraft.container.ContainerBattery;
 import com.cout970.magneticraft.container.ContainerBiomassBurner;
@@ -92,7 +92,7 @@ import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
 import com.cout970.magneticraft.tileentity.TileTextMonitor;
 import com.cout970.magneticraft.tileentity.TileThermopile;
-import com.cout970.magneticraft.tileentity.TileTurbineControl;
+import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -161,7 +161,7 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TilePolymerizer){
 			return new ContainerPolimerizer(player.inventory, tile);
 		}
-		if(tile instanceof TileTurbineControl){
+		if(tile instanceof TileSteamTurbineControl){
 			return new ContainerTurbine(player.inventory, tile);
 		}
 		if(tile instanceof TileCombustionEngine){
@@ -221,7 +221,7 @@ public class GuiHandler implements IGuiHandler{
 			return new GuiFluidHopper(new ContainerFluidHopper(player.inventory, tile), tile);
 		}
 		if(tile instanceof TileWindTurbine){
-			return new GuiWindMill(new ContainerWindMill(player.inventory, tile), tile);
+			return new GuiWindTurbine(new ContainerWindMill(player.inventory, tile), tile);
 		}
 		if(tile instanceof TileGeothermalPump){
 			return new GuiGeothermalPump(new ContainerGeothermalPump(player.inventory, tile), tile);
@@ -259,8 +259,8 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TilePolymerizer){
 			return new GuiPolimerizer(new ContainerPolimerizer(player.inventory, tile), tile);
 		}
-		if(tile instanceof TileTurbineControl){
-			return new GuiTurbine(new ContainerTurbine(player.inventory, tile), tile);
+		if(tile instanceof TileSteamTurbineControl){
+			return new GuiSteamTurbine(new ContainerTurbine(player.inventory, tile), tile);
 		}
 		if(tile instanceof TileCombustionEngine){
 			return new GuiCombustionEngine(new ContainerCombustionEngine(player.inventory, tile), tile);

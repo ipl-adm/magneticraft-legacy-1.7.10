@@ -1,17 +1,7 @@
 package com.cout970.magneticraft;
 
-import static com.cout970.magneticraft.ManagerBlocks.getOre;
-import static com.cout970.magneticraft.ManagerBlocks.oreSalt;
-import static com.cout970.magneticraft.ManagerBlocks.oreSulfur;
-import static com.cout970.magneticraft.ManagerItems.dustDiamond;
-import static com.cout970.magneticraft.ManagerItems.dustObsidian;
-import static com.cout970.magneticraft.ManagerItems.dustQuartz;
-import static com.cout970.magneticraft.ManagerItems.dustSalt;
-import static com.cout970.magneticraft.ManagerItems.dustSulfur;
-import static com.cout970.magneticraft.ManagerItems.getDust;
-import static com.cout970.magneticraft.ManagerItems.getIngot;
-import static com.cout970.magneticraft.ManagerItems.getSand;
-import static com.cout970.magneticraft.ManagerItems.gravelOre;
+import static com.cout970.magneticraft.ManagerBlocks.*;
+import static com.cout970.magneticraft.ManagerItems.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,7 +10,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.items.ItemGravelOre;
+import com.cout970.magneticraft.items.ItemProduct;
 import com.cout970.magneticraft.util.ThermopileDecay;
 
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -29,26 +19,39 @@ public class ManagerRecipe {
 
 	public static void registerFurnaceRecipes(){
 
-		for(ItemGravelOre i : gravelOre){
-			ItemStack ingot = ManagerOreDict.getOre("ingot"+i.locName);
+		for(int i = 0; i < oreNames.length; i++){
+			//Crusher Recipes
+			MgRecipeRegister.registerCrusherRecipe(ManagerOreDict.getOre("ore"+oreNames[i]), new ItemStack(chunks.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			//Grinder Recipes
+			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+//			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks_clean.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			//Grinder Recipes
+			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+//			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble_clean.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			
+//			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles_clean.get(i)), new ItemStack(dust.get(i), 2), ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			ItemStack ingot = ManagerOreDict.getOre("ingot"+oreNames[i]);
+			if(ingot != null){
+				ingot = ingot.copy();
+				ingot.stackSize = 2;
+				GameRegistry.addSmelting(new ItemStack(chunks.get(i)), ingot, 1.0F);
+//				GameRegistry.addSmelting(new ItemStack(chunks_clean.get(i)), ingot, 1.0F);
+				GameRegistry.addSmelting(new ItemStack(rubble.get(i)), ingot, 1.0F);
+//				GameRegistry.addSmelting(new ItemStack(rubble_clean.get(i)), ingot, 1.0F);
+				GameRegistry.addSmelting(new ItemStack(pebbles.get(i)), ingot, 1.0F);
+//				GameRegistry.addSmelting(new ItemStack(pebbles_clean.get(i)), ingot, 1.0F);
+			}
+		}
+		GameRegistry.addSmelting(new ItemStack(oreCopper), new ItemStack(ingotCopper), 1.0F);
+		GameRegistry.addSmelting(new ItemStack(oreTungsten), new ItemStack(ingotTungsten), 1.0F);
+		
+		for(ItemProduct i : dust){
+			ItemStack ingot = ManagerOreDict.getOre("ingot"+i.getBaseName());
 			if(ingot != null){
 				ingot = ingot.copy();
 				ingot.stackSize = 1;
-				GameRegistry.addSmelting(i, ingot, 1.0f);
-				ingot = ingot.copy();
-				ingot.stackSize = 2;
-				GameRegistry.addSmelting(getSand(i.locName,1), ingot, 1.0f);
+				GameRegistry.addSmelting(new ItemStack(i), ingot, 1.0F);
 			}
-		}
-
-		for(String g : new String[]{"Copper","Tungsten"}){
-			GameRegistry.addSmelting(getOre(g, 1), getIngot(g,1), 1.0f);
-			GameRegistry.addSmelting(getDust(g, 1), getIngot(g,1), 1.0f);
-		}
-
-		for(ItemGravelOre z : gravelOre){
-			MgRecipeRegister.registerCrusherRecipe(getOre(z.locName,1), new ItemStack(z,1), getDust(z.locName, 1), 5, null, 0);
-			MgRecipeRegister.registerGrinderRecipe(new ItemStack(z,1), getSand(z.locName,1), getDustExtra(z.locName, 1,0), 0.15f, getDustExtra(z.locName, 1,1), 0.05f);
 		}
 		
 		MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.diamond),new ItemStack(dustDiamond),null,0,null,0);
@@ -111,10 +114,6 @@ public class ManagerRecipe {
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.hay_block,1,0), 1800, true);
 		for(int i = 0; i < 6;i++)
 			MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.double_plant,1,i), 20, true);
-		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.wheat,1,0), 200, true);
-		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.reeds,1,0), 50, true);
-		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.carrots,1,0), 200, true);
-		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Blocks.potatoes,1,0), 200, true);
 		
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.carrot,1,0), 200, true);
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.potato,1,0), 200, true);
@@ -124,74 +123,4 @@ public class ManagerRecipe {
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.melon_seeds,1,0), 100, true);
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.reeds,1,0), 100, true);
 	}
-	
-	public static ItemStack getDustExtra(String name, int amount, int num){
-
-		if(name.equalsIgnoreCase("Copper")){
-			if(num == 0)return getDust("Gold", amount);
-			else return getDust("Iron", amount);
-
-		}else if(name.equalsIgnoreCase("Iron")){
-			if(num == 0)return getDust("Niquel", amount);
-			else return getDust("Aluminium", amount);
-
-		}else if(name.equalsIgnoreCase("Gold")){
-			if(num == 0)return getDust("Copper", amount);
-			else return getDust("Silver", amount);
-
-		}else if(name.equalsIgnoreCase("Tungsten")){
-			if(num == 0)return getDust("Iron", amount);
-
-		}else if(name.equalsIgnoreCase("Uranium")){
-			if(num == 0)return getDust("Thorium", amount);
-			else return getDust("Plutonium", amount);
-			
-		}else if(name.equalsIgnoreCase("Thorium")){
-			if(num == 0)return getDust("Uranium", amount);
-			else return getDust("Plutonium", amount);
-			
-		}else if(name.equalsIgnoreCase("Aluminium")){
-			if(num == 0)return getDust("Iron", amount);
-			else return getDust("Titanium", amount);
-			
-		}else if(name.equalsIgnoreCase("Lead")){
-			if(num == 0)return getDust("Silver", amount);
-			else return getDust("Thorium", amount);
-			
-		}else if(name.equalsIgnoreCase("Silver")){
-			if(num == 0)return getDust("Lead", amount);
-			else return getDust("Copper", amount);
-			
-		}else if(name.equalsIgnoreCase("Nickel")){
-			if(num == 0)return getDust("Iron", amount);
-			else return getDust("Titanium", amount);
-			
-		}else if(name.equalsIgnoreCase("Tin")){
-			if(num == 0)return getDust("Iron", amount);
-			
-		}else if(name.equalsIgnoreCase("Titanium")){
-			if(num == 0)return getDust("Iron", amount);
-			else return getDust("Niquel", amount);
-			
-		}else if(name.equalsIgnoreCase("Zinc")){
-			if(num == 0)return getDust("Iron", amount);
-			else return getDust("Niquel", amount);
-		}
-		return null;
-	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

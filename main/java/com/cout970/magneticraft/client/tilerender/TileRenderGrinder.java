@@ -56,7 +56,7 @@ public class TileRenderGrinder extends TileEntitySpecialRenderer{
 			default: break;
 			}
 
-			if(tile.isActive()){
+			if(tile.isWorking()){
 			tile.rotation += (tile.getDelta()/1E6)*0.5;
 			if(tile.rotation > 1000)tile.rotation %= 1000;
 			}else{

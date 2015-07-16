@@ -45,5 +45,4 @@ public abstract class TileConductorLow extends TileBase implements IElectricTile
 		super.writeToNBT(nbt);
 		cond.save(nbt);
 	}
-
 }

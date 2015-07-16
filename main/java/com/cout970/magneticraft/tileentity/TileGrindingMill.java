@@ -9,7 +9,6 @@ import com.cout970.magneticraft.api.kinetic.IKineticTile;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
@@ -24,7 +23,7 @@ public class TileGrindingMill extends TileMB_Base{
 	public void updateEntity() {
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if(kinetic == null || worldObj.getWorldTime() % 40 == 0){
+		if(kinetic == null || worldObj.getTotalWorldTime() % 40 == 0){
 			search();
 		}
 	}

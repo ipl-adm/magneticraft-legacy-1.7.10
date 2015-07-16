@@ -14,17 +14,18 @@ public class CompGenericBar implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IBarProvider bar;
 
-	public CompGenericBar(ResourceLocation tex, GuiPoint p){
+	public CompGenericBar(ResourceLocation tex, GuiPoint p, IBarProvider bar){
 		texture = tex;
 		pos = p;
+		this.bar = bar;
 	}
 
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IBarProvider){
-			IBarProvider c = (IBarProvider) tile;
-			int scale = (int) (44*c.getLevel());
+		if(bar != null){
+			int scale = (int) (44*bar.getLevel()/bar.getMaxLevel());
 			gui.mc.renderEngine.bindTexture(texture);
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
 		}
@@ -38,11 +39,10 @@ public class CompGenericBar implements IGuiComp{
 
 	@Override
 	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IBarProvider){
-			IBarProvider c = (IBarProvider) tile;
+		if(bar != null){
 			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){
 				List<String> data = new ArrayList<String>();
-				data.add(c.getMessage());
+				data.add(bar.getMessage());
 				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
 				RenderHelper.enableGUIStandardItemLighting();
 			}

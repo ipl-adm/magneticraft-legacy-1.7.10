@@ -23,10 +23,10 @@ public class MultiblockGrindingMill extends Multiblock{
 			}
 		};
 		Mg_Component i = new SimpleComponent(ManagerBlocks.multi_kinetic);
-		Mg_Component b = new RemplaceComponent(Blocks.wooden_slab, ManagerBlocks.stone_mill_gap);
-		Mg_Component e = new RemplaceComponent(Blocks.stone_slab, ManagerBlocks.stone_mill_gap);
-		Mg_Component g = new SimpleComponent(ManagerBlocks.stone_mill);
-		Mg_Component v = new RemplaceComponent(Blocks.air, ManagerBlocks.stone_mill_gap);
+		Mg_Component b = new RemplaceComponent(Blocks.wooden_slab, ManagerBlocks.grinding_mill_gap);
+		Mg_Component e = new RemplaceComponent(Blocks.stone_slab, ManagerBlocks.grinding_mill_gap);
+		Mg_Component g = new SimpleComponent(ManagerBlocks.grinding_mill);
+		Mg_Component v = new RemplaceComponent(Blocks.air, ManagerBlocks.grinding_mill_gap);
 
 		Mg_Component[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0

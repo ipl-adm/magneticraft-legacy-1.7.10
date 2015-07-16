@@ -23,19 +23,18 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IEfficient;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
+import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.client.gui.component.IProductor;
 import com.cout970.magneticraft.util.FractalLib;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileWindTurbine extends TileConductorLow implements IInventoryManaged,IGuiSync,IEfficient,IProductor{
+public class TileWindTurbine extends TileConductorLow implements IInventoryManaged,IGuiSync{
 
 	public int turbine = -1;
 	public MgDirection facing = null;
@@ -107,7 +106,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 				traceAir1();
 			}
 			if(worldObj.isRemote)return;
-			if(worldObj.getWorldTime() % 20 == 0){
+			if(worldObj.getTotalWorldTime() % 20 == 0){
 				productionPerSecond = averageProdCalc;
 				averageProdCalc = 0;
 			}
@@ -129,7 +128,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 		if(worldObj.provider.isHellWorld){
 			return 0.5d;
 		}else{
-			double tot = FractalLib.noise1D(2576710L, (double)worldObj.getWorldTime() * 1.0E-4D, 0.6F, 5);
+			double tot = FractalLib.noise1D(2576710L, (double)worldObj.getTotalWorldTime() * 1.0E-4D, 0.6F, 5);
 			tot = Math.max(0.0D, 1.6D * (tot - 0.5D) + 0.5D);
 
             if (worldObj.getWorldInfo().getTerrainType() != WorldType.FLAT){
@@ -334,28 +333,33 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 		}
 		return 1;
 	}
+	
+	public IEnergyTracker getEnergyTracker(){
+		return new IEnergyTracker() {
+			
+			@Override
+			public float getMaxChange() {
+				if(turbinePotency != 0)return (float) (1333 * turbinePotency);
+				return 1;
+			}
+			
+			@Override
+			public float getChangeInTheLastTick() {
+				if(turbinePotency != 0)return production;
+				return 0;
+			}
+			
+			@Override
+			public float getChangeInTheLastSecond() {
+				if(turbinePotency != 0)return productionPerSecond;
+				return 0;
+			}
 
-	@Override
-	public float getEfficiency() {
-		return efficiency/5780f;
-	}
-
-	@Override
-	public float getProductionInTheLastTick() {
-		if(turbinePotency != 0)return production;
-		return 0;
-	}
-
-	@Override
-	public float getProductionInTheLastSecond() {
-		if(turbinePotency != 0)return productionPerSecond;
-		return 0;
-	}
-
-	@Override
-	public float getMaxProduction() {
-		if(turbinePotency != 0)return (float) (1333 * turbinePotency);
-		return 1;
+			@Override
+			public boolean isConsume() {
+				return false;
+			}
+		};
 	}
 
 	public void onTurbineBreaks() {
@@ -424,5 +428,25 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+
+	public IBarProvider getEfficiencyBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return 1;
+			}
+			
+			@Override
+			public float getLevel() {
+				return efficiency/5780f;
+			}
+		};
 	}
 }

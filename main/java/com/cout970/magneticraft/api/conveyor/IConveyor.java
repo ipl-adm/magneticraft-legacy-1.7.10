@@ -25,6 +25,7 @@ public interface IConveyor {
 	}
 
 	public boolean addItem(MgDirection in, int pos, ItemBox it, boolean simulated);
+	public boolean removeItem(ItemBox it, boolean isLeft, boolean simulated);
 
 	public ConveyorSide getSideLane(boolean left);//array of 16 booleans
 

@@ -9,9 +9,10 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
+import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.fluid.TankMg;
 
-public class TileCopperTank extends TileMB_Base implements IFluidHandler1_8{
+public class TileCopperTank extends TileMB_Base implements IFluidHandler1_8, IBlockWithData{
 
 	private TankMg tank = new TankMg(this, 16000);
 	public CubeRenderer_Util CubeRenderer;
@@ -100,5 +101,15 @@ public class TileCopperTank extends TileMB_Base implements IFluidHandler1_8{
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 		return null;
+	}
+	
+	@Override
+	public void saveData(NBTTagCompound nbt) {
+		getTank().writeToNBT(nbt, "fluid");
+	}
+
+	@Override
+	public void loadData(NBTTagCompound nbt) {
+		getTank().readFromNBT(nbt, "fluid");
 	}
 }

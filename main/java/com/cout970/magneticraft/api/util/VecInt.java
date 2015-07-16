@@ -4,8 +4,10 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
 import com.google.common.base.Objects;
 
 /**
@@ -42,6 +44,10 @@ public class VecInt {
 
 	public VecInt(EntityPlayerMP pl) {
 		this(pl.posX, pl.posY, pl.posZ);
+	}
+	
+	public VecInt(NBTTagCompound nbt, String name) {
+		this(nbt.getInteger(name+"_x"), nbt.getInteger(name+"_y"), nbt.getInteger(name+"_z"));
 	}
 
 	public static VecInt fromDirection(MgDirection d) {
@@ -144,5 +150,15 @@ public class VecInt {
 
 	public int squareDistance() {
 		return x*x+y*y+z*z;
+	}
+
+	public void save(NBTTagCompound nbt, String name) {
+		nbt.setInteger(name+"_x", x);
+		nbt.setInteger(name+"_y", y);
+		nbt.setInteger(name+"_z", z);
+	}
+
+	public TileEntity getTileEntity(World w) {
+		return w.getTileEntity(x, y, z);
 	}
 }

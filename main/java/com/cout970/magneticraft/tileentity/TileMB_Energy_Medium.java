@@ -44,5 +44,4 @@ public class TileMB_Energy_Medium extends TileMB_Base implements IElectricTile{
 		super.writeToNBT(nbt);
 		cond.save(nbt);
 	}
-
 }

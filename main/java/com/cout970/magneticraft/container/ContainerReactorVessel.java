@@ -12,13 +12,10 @@ public class ContainerReactorVessel extends ContainerBasic{
 	public ContainerReactorVessel(InventoryPlayer p, TileEntity t) {
 		super(p, t);
 		addSlotToContainer(new Slot((IInventory) t, 0, 66, 30));
-		addSlotToContainer(new Slot((IInventory) t, 1, 84, 30));
-		addSlotToContainer(new Slot((IInventory) t, 2, 66, 48));
-		addSlotToContainer(new Slot((IInventory) t, 3, 84, 48));
 		bindPlayerInventory(p);
 	}
 
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
-		return transfer(player, slot, new int[]{3,3,3,3});
+		return transfer(player, slot, new int[]{3});
 	}
 }

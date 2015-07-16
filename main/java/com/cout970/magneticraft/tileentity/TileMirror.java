@@ -9,7 +9,6 @@ import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Vector3;
 import codechicken.multipart.BlockMultipart;
 
-import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
@@ -38,7 +37,7 @@ public class TileMirror extends TileBase{
 					if(comp != null){
 						IHeatConductor heat = comp.getCond(0);
 						if(heat != null && heat.getTemperature() < 1200)
-							heat.applyCalories(EnergyConversor.WtoCALORIES(EnergyConversor.RFtoW(2)));
+							heat.applyCalories(EnergyConversor.RFtoCALORIES(2));
 					}
 				}
 			}

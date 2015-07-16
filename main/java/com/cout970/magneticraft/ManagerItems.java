@@ -33,9 +33,12 @@ import com.cout970.magneticraft.items.ItemPartCableMedium;
 import com.cout970.magneticraft.items.ItemPartCopperWire;
 import com.cout970.magneticraft.items.ItemPartCopperPipe;
 import com.cout970.magneticraft.items.ItemPartHeatCable;
+import com.cout970.magneticraft.items.ItemPartOpticFiber;
+import com.cout970.magneticraft.items.ItemProduct;
 import com.cout970.magneticraft.items.ItemSandOre;
 import com.cout970.magneticraft.items.ItemThermometer;
 import com.cout970.magneticraft.items.ItemThoriumRod;
+import com.cout970.magneticraft.items.ItemToolCharger;
 import com.cout970.magneticraft.items.ItemTurbine;
 import com.cout970.magneticraft.items.ItemUraniumRod;
 import com.cout970.magneticraft.items.ItemVoltmeter;
@@ -49,21 +52,25 @@ public class ManagerItems {
 	
 	public static List<Item> items = new ArrayList<Item>();
 	public static List<NamedItem> named = new ArrayList<NamedItem>();
-	public static Map<String, Item> dusts = new HashMap<String, Item>();
-	public static Map<String, Item> ingots = new HashMap<String, Item>();
-	public static List<ItemGravelOre> gravelOre = new ArrayList<ItemGravelOre>();
-	public static List<ItemSandOre> sandOre = new ArrayList<ItemSandOre>();
+	
+	public static String[] oreNames = new String[]{"Iron", "Gold", "Copper", "Tin", "Tungsten", "Lead", "Silver", "Uranium", "Thorium", "Nickel", "Ardite", "Cobalt", "Zinc", "Aluminium", "Platinum", "Titanium", "Osmium", "Bismuth", "Chromium", "Mithril", "Lithium", "Iridium", "Manganese"};
+	public static String[][] extraNames = new String[][]{{"Nickel", "Aluminium"}, {"Copper", "Silver"}, {"Gold", "Iron"}, {"Iron", "Silver"}, {"Iron", "Aluminium"}, {"Silver", "Thorium"}, {"Lead", "Copper"}, {"Thorium", "Plutonium"}, {"Uranium", "Plutonium"}, {"Iron", "Zinc"}, {"Cobalt", null},
+		{"Ardite", null}, {"Iron", "Nickel"}, {"Iron", "Titanium"}, {"Nickel", "Silver"}, {"Iron", "Nickel"}, {null, "Iron"}, {null, "Zinc"}, {null, "Nickel"}, {null, "Zinc"}, {null, "Iron"}, {null, "Iron"}, {"Iron", null}};
+	public static List<ItemProduct> chunks = new ArrayList<ItemProduct>();
+//	public static List<ItemProduct> chunks_clean = new ArrayList<ItemProduct>();
+	public static List<ItemProduct> rubble = new ArrayList<ItemProduct>();
+//	public static List<ItemProduct> rubble_clean = new ArrayList<ItemProduct>();
+	public static List<ItemProduct> pebbles = new ArrayList<ItemProduct>();
+//	public static List<ItemProduct> pebbles_clean = new ArrayList<ItemProduct>();
+	public static List<ItemProduct> dust = new ArrayList<ItemProduct>();
+	
 	
 	public static Item ingotCopper;
 	public static Item ingotTungsten;
 	public static Item dustSulfur;
-	public static Item dustUranium;
 	public static Item dustQuartz;
 	public static Item dustObsidian;
-	public static Item dustCopper;
-	public static Item dustTungsten;
 	public static Item dustSalt;
-	public static Item dustThorium;
 	
 	public static Item cablelow;
 	public static Item cablemedium;
@@ -109,20 +116,18 @@ public class ManagerItems {
 	public static Item partheatcable;
 	public static Item tool_jackhammer;
 	public static Item heavy_copper_coil;
+	public static Item tool_charger;
+	public static Item part_optic_fiber;
 	
 	public static void initItems(){
-		//ores
-		registerGravel();
-		registerSand();
+		
+		registerProducts();
+		
 		ingotCopper = new ItemBasic("ingotCopper");
 		ingotTungsten = new ItemBasic("ingotTungsten");
 		dustSulfur = new ItemBasic("dustSulfur");
-		dustUranium = new ItemBasic("dustUranium");
 		dustQuartz = new ItemBasic("dustQuartz");
 		dustObsidian = new ItemBasic("dustObsidian");
-		dustCopper = new ItemBasic("dustCopper");
-		dustTungsten = new ItemBasic("dustTungsten");
-		dustThorium = new ItemBasic("dustThorium");
 		dustSalt = new ItemBasic("dustSalt");
 		
 		heatCoilCopper = new ItemHeatCoilCopper("heatcoil_copper");
@@ -168,32 +173,17 @@ public class ManagerItems {
 		partheatcable = new ItemPartHeatCable("heat_cable");
 		tool_jackhammer = new ItemJackHammer("jack_hammer");
 		heavy_copper_coil = new ItemHeavyCopperCoil("heavy_copper_coil");
+		tool_charger = new ItemToolCharger("tool_charger");
+		part_optic_fiber = new ItemPartOpticFiber("optic_fiber");
 	}
 	
 	public static void registerItems(){
-		//dusts
-		dusts.put("Sulfur", dustSulfur);
-		dusts.put("Uranium", dustUranium);
-		dusts.put("Quartz", dustQuartz);
-		dusts.put("Obsidian", dustObsidian);
-		dusts.put("Copper", dustCopper);
-		dusts.put("Tungsten", dustTungsten);
-		dusts.put("Thorium", dustThorium);
-		dusts.put("Salt", dustSalt);
-		//ingots
-		ingots.put("Copper", ingotCopper);
-		ingots.put("Tungsten", ingotTungsten);
-		ingots.put("TungstenCarbide", ingotCarbide);
 		
 		addItem(ingotCopper, "Copper Ingot");
 		addItem(ingotTungsten, "Tungsten Ingot");
 		addItem(dustSulfur, "Sulfur Dust");
-		addItem(dustUranium, "Uranium Dust");
 		addItem(dustQuartz, "Quartz Dust");
 		addItem(dustObsidian, "Obsidian Dust");
-		addItem(dustCopper, "Copper Dust");
-		addItem(dustTungsten, "Tungsten Dust");
-		addItem(dustThorium, "Thorium Dust");
 		addItem(dustSalt, "Salt");
 		
 		addItem(heatCoilCopper,"Copper Heat Coil");
@@ -242,84 +232,35 @@ public class ManagerItems {
 		addItem(partheatcable, "Heat Cable");
 		addItem(tool_jackhammer, "Jackhammer");
 		addItem(heavy_copper_coil, "Heavy Copper Coil");
-		
-		for(ItemGravelOre z : gravelOre){
-			addItem(z,z.locName+" Gravel Ore");
-		}
-		
-		for(ItemSandOre z : sandOre){
-			addItem(z,z.locName+" Sand Ore");
-		}
+		addItem(tool_charger, "Tool Charger");
+		addItem(part_optic_fiber, "Optic Fiber");
 		
 		for(Item i : items){
 			GameRegistry.registerItem(i, i.getUnlocalizedName());
 		}
 	}
 	
-	private static void registerGravel() {
-		gravelOre.add(new ItemGravelOre("coppergravel","Copper"));
-		gravelOre.add(new ItemGravelOre("irongravel","Iron"));
-		gravelOre.add(new ItemGravelOre("goldgravel","Gold"));
-		gravelOre.add(new ItemGravelOre("tungstengravel","Tungsten"));
-		gravelOre.add(new ItemGravelOre("uraniumgravel","Uranium"));
-		gravelOre.add(new ItemGravelOre("thoriumgravel","Thorium"));
-		gravelOre.add(new ItemGravelOre("aluminiumgravel","Aluminium"));
-		gravelOre.add(new ItemGravelOre("leadgravel","Lead"));
-		gravelOre.add(new ItemGravelOre("nickelgravel","Nickel"));
-		gravelOre.add(new ItemGravelOre("silvergravel","Silver"));
-		gravelOre.add(new ItemGravelOre("tingravel","Tin"));
-		gravelOre.add(new ItemGravelOre("titaniumgravel","Titanium"));
-		gravelOre.add(new ItemGravelOre("zincgravel","Zinc"));
-	}
-	
-	private static void registerSand() {
-		sandOre.add(new ItemSandOre("coppersand","Copper"));
-		sandOre.add(new ItemSandOre("ironsand","Iron"));
-		sandOre.add(new ItemSandOre("goldsand","Gold"));
-		sandOre.add(new ItemSandOre("tungstensand","Tungsten"));
-		sandOre.add(new ItemSandOre("uraniumsand","Uranium"));
-		sandOre.add(new ItemSandOre("thoriumsand","Thorium"));
-		sandOre.add(new ItemSandOre("aluminiumsand","Aluminium"));
-		sandOre.add(new ItemSandOre("leadsand","Lead"));
-		sandOre.add(new ItemSandOre("nickelsand","Nickel"));
-		sandOre.add(new ItemSandOre("silversand","Silver"));
-		sandOre.add(new ItemSandOre("tinsand","Tin"));
-		sandOre.add(new ItemSandOre("titaniumsand","Titanium"));
-		sandOre.add(new ItemSandOre("zincsand","Zinc"));
+	private static void registerProducts(){
+		for(String name : oreNames){
+			chunks.add(new ItemProduct("chunk_"+name.toLowerCase(), "chunk"+name, name));
+//			chunks_clean.add(new ItemProduct("chunk_clean_"+name.toLowerCase(), "cleanChunk"+name, name));
+			rubble.add(new ItemProduct("rubble_"+name.toLowerCase(), "rubble"+name, name));
+//			rubble_clean.add(new ItemProduct("rubble_clean_"+name.toLowerCase(), "cleanRubble"+name, name));
+			pebbles.add(new ItemProduct("pebbles_"+name.toLowerCase(), "pebbles"+name, name));
+//			pebbles_clean.add(new ItemProduct("pebbles_clean_"+name.toLowerCase(), "cleanPebbles"+name, name));
+			dust.add(new ItemProduct("dust_"+name.toLowerCase(), "dust"+name, name));
+		}
+		for(ItemProduct i : chunks)addItem(i, i.getBaseName()+" Chunk");
+//		for(ItemProduct i : chunks_clean)addItem(i, i.getBaseName()+" Clean Chunk");
+		for(ItemProduct i : rubble)addItem(i, i.getBaseName()+" Rubble");
+//		for(ItemProduct i : rubble_clean)addItem(i, i.getBaseName()+" Clean Rubble");
+		for(ItemProduct i : pebbles)addItem(i, i.getBaseName()+" Pebbles");
+//		for(ItemProduct i : pebbles_clean)addItem(i, i.getBaseName()+" Clean Pebbles");
+		for(ItemProduct i : dust)addItem(i, i.getBaseName()+" Dust");
 	}
 	
 	public static void addItem(Item i,String name){
 		items.add(i);
 		named.add(new NamedItem(i, name));
-	}
-	
-	public static ItemStack getDust(String g,int amount){
-		if(dusts.containsKey(g))return new ItemStack(dusts.get(g),amount);
-		ItemStack a = ManagerOreDict.getOre("dust"+g);
-		if(a == null)return null;
-		a = a.copy();
-		a.stackSize = amount;
-		return a;
-	}
-	
-	public static ItemStack getSand(String g,int amount){
-		for(ItemSandOre s : sandOre){
-			if(s.locName.equalsIgnoreCase(g))
-				return new ItemStack(s,amount);
-		}
-		ItemStack a = ManagerOreDict.getOre("sand"+g);
-		if(a == null)return null;
-		a = a.copy();
-		a.stackSize = amount;
-		return a;
-	}
-	
-	public static ItemStack getIngot(String g,int amount){
-		if(ingots.containsKey(g))return new ItemStack(ingots.get(g),amount);
-		ItemStack a = ManagerOreDict.getOre("ingot"+g);
-		if(a == null)return null;
-		a = a.copy();
-		a.stackSize = amount;
-		return a;
 	}
 }

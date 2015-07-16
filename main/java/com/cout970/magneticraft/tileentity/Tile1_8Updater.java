@@ -1,13 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.InventoryComponent;
 
 public class Tile1_8Updater extends TileEntity{

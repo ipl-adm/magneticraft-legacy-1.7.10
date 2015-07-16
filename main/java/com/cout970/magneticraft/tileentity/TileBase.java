@@ -9,7 +9,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.messages.MessageTileUpdate;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.RedstoneControl;
 
 import cpw.mods.fml.relauncher.Side;

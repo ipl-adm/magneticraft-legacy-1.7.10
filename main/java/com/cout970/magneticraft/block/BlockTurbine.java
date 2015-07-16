@@ -15,7 +15,7 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileTurbineControl;
+import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
@@ -35,7 +35,7 @@ public class BlockTurbine extends BlockMg implements MB_ControlBlock{
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileTurbineControl();
+		return new TileSteamTurbineControl();
 	}
 
 	@Override
@@ -64,10 +64,10 @@ public class BlockTurbine extends BlockMg implements MB_ControlBlock{
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
 		if(p.isSneaking())return false;
 		TileEntity t = w.getTileEntity(x, y, z);
-		if(t instanceof TileTurbineControl){
-			if(!((TileTurbineControl) t).isActive()){
+		if(t instanceof TileSteamTurbineControl){
+			if(!((TileSteamTurbineControl) t).isActive()){
 				if(!w.isRemote)MB_Watcher.watchStructure(w, new VecInt(x,y,z),MB_Register.getMBbyID(MB_Register.ID_TURBINE), getDirection(w, new VecInt(x,y,z)),p);
-				else ((TileTurbineControl) t).drawCounter = 200;
+				else ((TileSteamTurbineControl) t).drawCounter = 200;
 			}else{
 				p.openGui(Magneticraft.Instance, 0, w, x, y, z);
 			}

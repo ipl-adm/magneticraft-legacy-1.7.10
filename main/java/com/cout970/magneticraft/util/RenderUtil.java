@@ -20,6 +20,7 @@ import org.lwjgl.opengl.GL11;
 import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
@@ -263,5 +264,51 @@ public class RenderUtil {
 		if(b == Blocks.stone_slab)return true;
 		if(b == Blocks.wooden_slab)return true;
 		return false;
+	}
+
+	public static double interpolate(double fa, double fb, double fc, double x) {
+		double a = 0, b = 0.5, c = 1;
+		double L0 = ((x - b)/(a-b))*((x - c)/(a-c));
+		double L1 = ((x - a)/(b-a))*((x - c)/(b-c));
+		double L2 = ((x - a)/(c-a))*((x - b)/(c-b));
+		return fa*L0+fb*L1+fc*L2;
+	}
+	
+	public static void drawLine(VecDouble a, VecDouble b, float f) {
+		Tessellator t = Tessellator.instance;
+		float w = f/2;
+//		GL11.glEnable(GL11.GL_CULL_FACE);
+		t.startDrawing(GL11.GL_QUADS);
+		t.addVertex(a.getX(), a.getY()-w, a.getZ());
+		t.addVertex(a.getX(), a.getY()+w, a.getZ());
+		t.addVertex(b.getX(), b.getY()+w, b.getZ());
+		t.addVertex(b.getX(), b.getY()-w, b.getZ());
+		
+		t.addVertex(a.getX(), a.getY(), a.getZ()-w);
+		t.addVertex(a.getX(), a.getY(), a.getZ()+w);
+		t.addVertex(b.getX(), b.getY(), b.getZ()+w);
+		t.addVertex(b.getX(), b.getY(), b.getZ()-w);
+		
+		t.addVertex(a.getX()-w, a.getY(), a.getZ());
+		t.addVertex(a.getX()+w, a.getY(), a.getZ());
+		t.addVertex(b.getX()+w, b.getY(), b.getZ());
+		t.addVertex(b.getX()-w, b.getY(), b.getZ());
+		//inverted
+		t.addVertex(a.getX(), a.getY()+w, a.getZ());
+		t.addVertex(a.getX(), a.getY()-w, a.getZ());
+		t.addVertex(b.getX(), b.getY()-w, b.getZ());
+		t.addVertex(b.getX(), b.getY()+w, b.getZ());
+		
+		t.addVertex(a.getX(), a.getY(), a.getZ()+w);
+		t.addVertex(a.getX(), a.getY(), a.getZ()-w);
+		t.addVertex(b.getX(), b.getY(), b.getZ()-w);
+		t.addVertex(b.getX(), b.getY(), b.getZ()+w);
+		
+		t.addVertex(a.getX()+w, a.getY(), a.getZ());
+		t.addVertex(a.getX()-w, a.getY(), a.getZ());
+		t.addVertex(b.getX()-w, b.getY(), b.getZ());
+		t.addVertex(b.getX()+w, b.getY(), b.getZ());
+		t.draw();
+//		GL11.glDisable(GL11.GL_CULL_FACE);
 	}
 }

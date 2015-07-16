@@ -34,8 +34,8 @@ public class PartCableMedium extends PartElectric implements ISidedHollowConnect
 	static{
 		double w = 3/16d;
 
-		boxes.add(new Cuboid6(0.5-w, 0, 0.5-w, 0.5+w, 0.5-w, 0.5+w));//up
-		boxes.add(new Cuboid6(0.5-w, 0.5+w, 0.5-w, 0.5+w, 1, 0.5+w));//down
+		boxes.add(new Cuboid6(0.5-w, 0, 0.5-w, 0.5+w, 0.5-w, 0.5+w));//down
+		boxes.add(new Cuboid6(0.5-w, 0.5+w, 0.5-w, 0.5+w, 1, 0.5+w));//up
 		boxes.add(new Cuboid6(0.5-w, 0.5-w, 0, 0.5+w, 0.5+w, 0.5-w));//north
 		boxes.add(new Cuboid6(0.5-w, 0.5-w, 0.5+w, 0.5+w, 0.5+w, 1));//south
 		boxes.add(new Cuboid6(0, 0.5-w, 0.5-w, 0.5-w, 0.5+w, 0.5+w));//west
@@ -50,16 +50,6 @@ public class PartCableMedium extends PartElectric implements ISidedHollowConnect
 	@Override
 	public List<Cuboid6> getOcclusionCubes() {
 		return Arrays.asList(new Cuboid6[] { boxes.get(6) });
-	}
-	
-	@Override
-	public Iterable<IndexedCuboid6> getSubParts() {
-		Iterable<Cuboid6> boxList = getCollisionBoxes();
-		LinkedList<IndexedCuboid6> partList = new LinkedList<IndexedCuboid6>();
-		for (Cuboid6 c : boxList)
-			partList.add(new IndexedCuboid6(0, c));
-		((ArrayList<Cuboid6>) boxList).clear();
-		return partList;
 	}
 	
 	@Override

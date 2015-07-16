@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.api.electricity.item.IBatteryItem.BatteryInteraction;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.util.Log;
 import com.google.common.collect.Multimap;
@@ -94,5 +95,9 @@ public class ItemChainSaw extends ItemCharged{
 	{
 		if("axe".equals(toolClass))return 3;
 		return -1;
+	}
+	
+	public BatteryInteraction getInteraction(ItemStack stack){
+		return BatteryInteraction.ACCEPT;
 	}
 }

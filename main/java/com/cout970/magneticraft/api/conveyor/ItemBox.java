@@ -13,7 +13,7 @@ public class ItemBox {
 	private ItemStack content;
 	private int position;
 	private boolean isOnLeft;
-
+	public long lastTick;
 	
 	public ItemBox(ItemStack it) {
 		content = it;

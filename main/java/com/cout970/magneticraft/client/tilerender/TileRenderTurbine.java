@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelTurbine;
 import com.cout970.magneticraft.tileentity.TileCopperTank;
-import com.cout970.magneticraft.tileentity.TileTurbineControl;
+import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -23,7 +23,7 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer{
 
 	@Override
 	public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
-		TileTurbineControl tile = (TileTurbineControl) t;
+		TileSteamTurbineControl tile = (TileSteamTurbineControl) t;
 		if(tile.getBlockMetadata() < 6){
 			if(tile.drawCounter > 0){
 				GL11.glColor4f(1, 1, 1, 1f);

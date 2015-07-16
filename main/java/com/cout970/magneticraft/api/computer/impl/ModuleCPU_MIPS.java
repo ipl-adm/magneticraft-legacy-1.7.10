@@ -1,10 +1,13 @@
 package com.cout970.magneticraft.api.computer.impl;
 
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.cout970.magneticraft.api.computer.IModuleCPU;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
 import com.cout970.magneticraft.util.Log;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class ModuleCPU_MIPS implements IModuleCPU{
 
@@ -35,25 +38,18 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 	public void start() {
 		cpuCicles = 0;
 		memory.clear();
-		memory.writeByte(0, (byte)1);
-		memory.writeWord(8, memory.getMemorySize());
 		regPC = 0x00400000;
 		regStatus = 0x0000FFFF;
 		regCause = 0;
 		regEPC = 0;
-		for(int i = 0;i< 28;i++){
+		for(int i = 0; i < 32; i++){
 			setRegister(i, 0);
 		}
-		setRegister(28, 0x00000000);//gp
-		setRegister(29, 0x7fffeffc);//sp
-		setRegister(30, 0x00000000);//fp
-		setRegister(31, 0x00000000);//ra
 	}
 
 	@Override
 	public void stop() {
 		cpuCicles = -1;
-		memory.writeByte(0, (byte)0);
 	}
 
 	@Override
@@ -68,9 +64,6 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 			while (cpuCicles > 0){
 				--cpuCicles;
 				executeInsntruction();
-				if(memory.readByte(1) == 1){ stop(); memory.writeByte(1, (byte)0); break;}
-				if(memory.readByte(2) == 1){ stop(); start(); break;}
-				if(memory.readByte(3) == 1){ memory.writeByte(3, (byte)0); break;}
 			}
 		}
 	}
@@ -152,13 +145,17 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 		case 0x7://srav
 			setRegister(rd, rs >>> rt);
 			break;
-			
 		case 0x8://jr
-			if(getRegister(rs) == -1)return;
+			if(getRegister(rs) == 0 || getRegister(rs) == -1){
+				throwException(4);
+				return;
+			}
 			regPC = getRegister(rs);
 			break;
 		case 0x9://jalr
-			if(getRegister(rs) == -1)return;
+			if(getRegister(rs) == -1 || getRegister(rs) == 0){
+				throwException(4);
+			}
 			setRegister(31, regPC);
 			regPC = getRegister(rs);
 			break;
@@ -229,9 +226,10 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 		case 0x23://subu
 			m1 = getRegister(rs);
 			m2 = getRegister(rt);
-			m1 = (m1 << 32) >>> 32;
-			m2 = (m2 << 32) >>> 32;
+			m1 &= 0xFFFFFFFF;
+			m2 &= 0xFFFFFFFF;
 			mt = m1 - m2;
+			mt &= 0xFFFFFFFF;
 			setRegister(rd , (int) mt);
 			break;
 		case 0x24://and
@@ -334,7 +332,8 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 			setRegister(rt, getRegister(rs) + inmed);
 			break;
 		case 0x9://addiu
-			setRegister(rt, getRegister(rs) + inmedU);
+			//#BUG unsinged sum not added
+			setRegister(rt, getRegister(rs) + inmed);
 			break;
 		case 0xa://slti
 			if(getRegister(rs) < inmed)
@@ -370,10 +369,8 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 		case 0x19://lhi
 			setRegister(rt, (getRegister(rt) & 0x0000FFFF) | (inmedU << 16));
 			break;
-			
 		case 0x1a://trap
 			break;
-			
 		case 0x20://lb
 			setRegister(rt, memory.readByte(getRegister(rs)+inmed));
 			break;
@@ -381,6 +378,10 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 			setRegister(rt, (short)(memory.readWord(getRegister(rs)+inmed)));
 			break;
 		case 0x23://lw
+			if(((getRegister(rs)+inmed) & 0x3) != 0){
+				throwException(5);
+				break;
+			}
 			setRegister(rt, memory.readWord(getRegister(rs)+inmed));
 			break;
 		case 0x24://lbu
@@ -397,6 +398,10 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 			memory.writeByte( getRegister(rs)+inmed+1, (byte)(getRegister(rt) & 0xFF00));
 			break;
 		case 0x2b://sw
+			if(((getRegister(rs)+inmed) & 0x3) != 0){
+				throwException(5);
+				break;
+			}
 			memory.writeWord(getRegister(rs)+inmed, getRegister(rt));
 			break;
 		default :
@@ -435,12 +440,24 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 		throwException(1);
 	}
 	
-	 // 3: syscall, 2: aritmatic, 1: invalid instuction, 0: external 
+	 // 5: not aligned with word boundry, 4: invalid addres jump, 3: syscall, 2: aritmatic, 1: invalid instuction, 0: external 
 	public void throwException(int flag){
-		if(flag == 1){
-//			Log.debug("Unknow Instruction: 0x"+Integer.toHexString(memory.readWord(regPC-4)));
-		}
-		
+//		Log.debug("Exception: "+flag);
+//		Log.debug("FP: 0x"+Integer.toHexString(getRegister(30)));
+//		Log.debug("SP: 0x"+Integer.toHexString(getRegister(29)));
+//		Log.debug("$t0: 0x"+Integer.toHexString(getRegister(8)));
+//		Log.debug("$t1: 0x"+Integer.toHexString(getRegister(9)));
+//		Log.debug("PC: 0x"+Integer.toHexString(regPC-4));
+		stop();
+//
+//		if(flag == 1){
+//			Log.debug("Unknow Instruction - 3: 0x"+Integer.toHexString(memory.readWord(regPC-16)));
+//			Log.debug("Unknow Instruction - 2: 0x"+Integer.toHexString(memory.readWord(regPC-12)));
+//			Log.debug("Unknow Instruction - 1: 0x"+Integer.toHexString(memory.readWord(regPC-8)));
+//			Log.debug("Unknow Instruction:     0x"+Integer.toHexString(memory.readWord(regPC-4)));
+//			Log.debug("Unknow Instruction + 1: 0x"+Integer.toHexString(memory.readWord(regPC)));
+//		}
+//		
 //		if((regStatus & (flag+1)) == 0){
 //			return;
 //		}

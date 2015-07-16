@@ -52,7 +52,7 @@ public class TileRenderStirling extends TileEntitySpecialRenderer{
 			default: break;
 			}
 
-			if(tile.isActive()) RenderUtil.bindTexture(ModelTextures.STIRLING_ON);
+			if(tile.isWorking()) RenderUtil.bindTexture(ModelTextures.STIRLING_ON);
 			else RenderUtil.bindTexture(ModelTextures.STIRLING_OFF);
 			model.renderStatic(0.0625f);
 			glPopMatrix();

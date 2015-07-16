@@ -24,7 +24,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
@@ -33,29 +33,30 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileStirlingGenerator extends TileMB_Base implements IInventoryManaged,IGuiSync,IBurningTime, IElectricTile,IHeatTile{
+public class TileStirlingGenerator extends TileMB_Base implements IInventoryManaged,IGuiSync, IElectricTile,IHeatTile{
 
-	private static final double MAX_PRODUCTION = 4000;
+	private static final double MAX_PRODUCTION = 1200;
 	public IHeatConductor heat;
 	public InventoryComponent inv = new InventoryComponent(this, 1, "Stirling generator");
 	public IElectricConductor cond;
 	public int oldHeat;
-	private int Progres;
+	private int progress;
 	private boolean working;
-	public boolean activate = false;
 	private int maxProgres;
 	public int drawCounter = 0;
 	private boolean burning;
+	private double prodCounter;
+	private double prodSecond;
 
 	public void updateEntity(){
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
-		if(!activate)return;
+		if(!isActive())return;
 		if(cond == null || heat == null){
 			search();
 		}
-		if(isActive()){
-			if(worldObj.getWorldTime() % 2 == 0){
+		if(isWorking()){
+			if(worldObj.getTotalWorldTime() % 2 == 0){
 				for(int i = 0; i < 2; i++){
 					VecDouble vec = new VecDouble(xCoord+0.5, yCoord-0.2, zCoord+0.5);
 					MgDirection dir = getDirection();
@@ -71,34 +72,34 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 			}
 		}
 		if(this.worldObj.isRemote)return;
-		if(worldObj.getWorldTime()%20 == 0){
-			if(working && !isActive()){
+		if(worldObj.getTotalWorldTime()%20 == 0){
+			if(working && !isWorking()){
 				setActive(true);
-			}else if(!working && isActive()){
+			}else if(!working && isWorking()){
 				setActive(false);
 			}
 		}
 		if(cond == null || heat == null)return;
-		if(Progres > 0){
+		if(progress > 0){
 			//fuel to heat
 			if(heat.getTemperature() < heat.getMaxTemp()-200 && isControled()){
 				int i = 12;//burning speed
-				if(Progres - i < 0){
-					heat.applyCalories(EnergyConversor.FUELtoCALORIES(Progres));
-					Progres = 0;
+				if(progress - i < 0){
+					heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
+					progress = 0;
 				}else{
-					Progres -= i;
+					progress -= i;
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
 				}
 
 			}
 		}
-		if(Progres <= 0){
+		if(progress <= 0){
 			working = false;
 			if(getInv().getStackInSlot(0) != null && isControled()){
 				int fuel = TileEntityFurnace.getItemBurnTime(getInv().getStackInSlot(0));
 				if(fuel > 0 && heat.getTemperature() < heat.getMaxTemp()){
-					Progres = fuel;
+					progress = fuel;
 					maxProgres = fuel;
 					if(getInv().getStackInSlot(0) != null){
 						getInv().getStackInSlot(0).stackSize--;
@@ -116,6 +117,12 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 			int prod = (int) Math.min(MAX_PRODUCTION, (heat.getTemperature()-30)*10);
 			heat.drainCalories(EnergyConversor.WtoCALORIES(prod));
 			cond.applyPower(prod);
+			prodCounter += prod;
+		}
+		
+		if(worldObj.getTotalWorldTime() % 20 == 0){
+			prodSecond = prodCounter;
+			prodCounter = 0;
 		}
 
 		if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0){
@@ -142,26 +149,24 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		sendUpdateToClient();
 	}
 
-	public boolean isActive() {
+	public boolean isWorking() {
 		return burning;
 	}
 
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
-		Progres = nbt.getInteger("Progres");
+		progress = nbt.getInteger("Progres");
 		maxProgres = nbt.getInteger("maxProgres");
 		burning = nbt.getBoolean("Burning");
-		activate = nbt.getBoolean("Active");
 		working = nbt.getBoolean("Working");
 		getInv().readFromNBT(nbt);
 	}
 
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
-		nbt.setInteger("Progres", Progres);
+		nbt.setInteger("Progres", progress);
 		nbt.setInteger("maxProgres", maxProgres);
 		nbt.setBoolean("Burning", burning);
-		nbt.setBoolean("Active", activate);
 		nbt.setBoolean("Working", working);
 		getInv().writeToNBT(nbt);
 	}
@@ -174,42 +179,28 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		if(cond == null || heat == null)return;
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-		craft.sendProgressBarUpdate(cont, 1, (int) Progres);
+		craft.sendProgressBarUpdate(cont, 1, (int) progress);
 		craft.sendProgressBarUpdate(cont, 2, cond.getStorage());
 		craft.sendProgressBarUpdate(cont, 3, maxProgres);
 		craft.sendProgressBarUpdate(cont, 4, (int)heat.getTemperature()*10);
+		craft.sendProgressBarUpdate(cont, 5, (int)prodSecond);
 	}
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		if(cond == null || heat == null)return;
 		if(id == 0)cond.setVoltage(value);
-		if(id == 1)Progres = value;
+		if(id == 1)progress = value;
 		if(id == 2)cond.setStorage(value);
 		if(id == 3)maxProgres = value;
 		if(id == 4)heat.setTemperature(value/10);
-	}
-
-	@Override
-	public int getProgres() {
-		return Progres;
+		if(id == 5)prodSecond = value/20D;
 	}
 	
 	@Override
 	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {
-		activate = false;
 		heat = null;
 		cond = null;
-	}
-
-	@Override
-	public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
-		activate = true;
-	}
-
-	@Override
-	public int getMaxProgres() {
-		return Math.max(maxProgres, 1);
 	}
 
 	public int getSizeInventory() {
@@ -262,8 +253,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox()
-    {
+    public AxisAlignedBB getRenderBoundingBox(){
         return INFINITE_EXTENT_AABB;
     }
 
@@ -277,5 +267,49 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 	public CompoundHeatCables getHeatCond(VecInt c) {
 		if(VecInt.NULL_VECTOR.equals(c))return new CompoundHeatCables(heat);
 		return null;
+	}
+
+	public IBarProvider getBurningTimeBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return Math.max(maxProgres, 1);
+			}
+			
+			@Override
+			public float getLevel() {
+				return progress;
+			}
+		};
+	}
+	
+	public IBarProvider getProductionBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return "Production "+(int)prodSecond+"W";
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return (float) Math.max(MAX_PRODUCTION, 1);
+			}
+			
+			@Override
+			public float getLevel() {
+				return (float) prodSecond;
+			}
+		};
+	}
+
+	public boolean isActive() {
+		return getBlockMetadata() > 5;
 	}
 }

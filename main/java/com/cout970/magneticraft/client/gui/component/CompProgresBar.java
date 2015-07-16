@@ -10,17 +10,18 @@ public class CompProgresBar implements IGuiComp{
 
 	public ResourceLocation texture;
 	public GuiPoint pos;
+	public IBarProvider bar;
 	
-	public CompProgresBar(ResourceLocation tex, GuiPoint p){
+	public CompProgresBar(ResourceLocation tex, GuiPoint p, IBarProvider bar){
 		texture = tex;
 		pos = p;
+		this.bar = bar;
 	}
 	
 	@Override
 	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(tile instanceof IBurningTime){
-			IBurningTime c = ((IBurningTime) tile);
-			int scale = c.getProgres() * 22 / c.getMaxProgres();
+		if(bar != null){
+			int scale = (int) (bar.getLevel() * 22 / bar.getMaxLevel());
 			scale = Math.min(scale, 21);
 			gui.mc.renderEngine.bindTexture(texture);
 			RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y, 1, 0, scale, 16, 22*2, 16);

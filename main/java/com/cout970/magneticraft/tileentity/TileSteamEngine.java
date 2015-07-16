@@ -13,13 +13,13 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.client.gui.component.IProductor;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IProductor{
+public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_8,IGuiSync{
 
 	public static final int STEAM_LIMIT = 40;
 	public float animation;
@@ -135,21 +135,6 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 		if(id == 4)steamConsumitionM = value;
 		if(id == 5)electricProductionM = value;
 	}
-
-	@Override
-	public float getProductionInTheLastTick() {
-		return 0;
-	}
-
-	@Override
-	public float getProductionInTheLastSecond() {
-		return electricProductionM;
-	}
-
-	@Override
-	public float getMaxProduction() {
-		return (float) (EnergyConversor.STEAMtoW(STEAM_LIMIT));
-	}
 	
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
@@ -180,6 +165,31 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
 		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 		return null;
+	}
+
+	public IEnergyTracker getEnergyTracker() {
+		return new IEnergyTracker() {
+			
+			@Override
+			public boolean isConsume() {
+				return false;
+			}
+			
+			@Override
+			public float getMaxChange() {
+				return (float) (EnergyConversor.STEAMtoW(STEAM_LIMIT));
+			}
+			
+			@Override
+			public float getChangeInTheLastTick() {
+				return 0;
+			}
+			
+			@Override
+			public float getChangeInTheLastSecond() {
+				return electricProductionM;
+			}
+		};
 	}
 
 }

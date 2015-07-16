@@ -12,6 +12,9 @@ import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
+import com.cout970.magneticraft.tileentity.TileCrusher;
+import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
 import com.cout970.magneticraft.util.RenderUtil;
 
@@ -24,9 +27,9 @@ public class GuiElectricFurnace extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/electric_furnace.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16)));
-		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16)));
-		comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/progresbar1.png"), new GuiPoint(87, 31)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16), ((TileElectricFurnace)tile).cond));
+		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16), ((TileElectricFurnace)tile).cond));
+		comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/progresbar1.png"), new GuiPoint(87, 31), ((TileElectricFurnace)tile).getProgresBar()));
 		comp.add(new CompHeaterBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatcoil.png"), new GuiPoint(64, 38)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

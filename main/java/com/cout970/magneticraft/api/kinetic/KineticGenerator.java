@@ -19,7 +19,7 @@ public class KineticGenerator extends KineticConductor implements IKineticContro
 			net.findComponents();
 		}
 		if(!update){
-			if(net.world.getWorldTime() % 20 == 0){
+			if(net.world.getTotalWorldTime() % 20 == 0){
 				net.findComponents();
 				net.ajustRotation(rotation);
 				net.preventUpdates();

@@ -10,15 +10,15 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.client.gui.component.IBurningTime;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
-public class TileFireBox extends TileHeatConductor implements IInventoryManaged,IGuiSync,IBurningTime{
+public class TileFireBox extends TileHeatConductor implements IInventoryManaged,IGuiSync{
 
-	private int Progres;
+	private int progress;
 	private boolean updated;
 	private int maxProgres;
 	private InventoryComponent inv = new InventoryComponent(this, 1, "Fire Box");
@@ -28,7 +28,7 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 		super.updateEntity();
 		if(worldObj.isRemote)return;
 
-		if(Progres > 0){
+		if(progress > 0){
 			if(!updated){
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 2);
 				updated = true;
@@ -36,21 +36,21 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 			//fuel to heat
 			if(heat.getTemperature() < heat.getMaxTemp()-200){
 				int i = 6;//burning speed
-				if(Progres - i < 0){
-					heat.applyCalories(EnergyConversor.FUELtoCALORIES(Progres));
-					Progres = 0;
+				if(progress - i < 0){
+					heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
+					progress = 0;
 				}else{
-					Progres -= i;
+					progress -= i;
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
 				}
 			}
 		}
 
-		if(Progres <= 0){
+		if(progress <= 0){
 			if(getInv().getStackInSlot(0) != null && isControled()){
 				int fuel = TileEntityFurnace.getItemBurnTime(getInv().getStackInSlot(0));
 				if(fuel > 0 && heat.getTemperature() < heat.getMaxTemp()){
-					Progres = fuel;
+					progress = fuel;
 					maxProgres = fuel;
 					if(getInv().getStackInSlot(0) != null){
 						getInv().getStackInSlot(0).stackSize--;
@@ -61,7 +61,7 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 					markDirty();
 				}
 			}
-			if(Progres <= 0){
+			if(progress <= 0){
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
 				updated = false;
 			}
@@ -72,26 +72,16 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
-		craft.sendProgressBarUpdate(cont, 0, Progres);
+		craft.sendProgressBarUpdate(cont, 0, progress);
 		craft.sendProgressBarUpdate(cont, 1, maxProgres);
 		craft.sendProgressBarUpdate(cont, 2, (int) heat.getTemperature());
 	}
 
 	@Override
 	public void getGUINetworkData(int i, int value) {
-		if(i == 0)Progres = value;
+		if(i == 0)progress = value;
 		if(i == 1)maxProgres = value;
 		if(i == 2)heat.setTemperature(value);
-	}
-
-	@Override
-	public int getProgres() {
-		return Progres;
-	}
-
-	@Override
-	public int getMaxProgres() {
-		return maxProgres;
 	}
 
 	@Override
@@ -102,7 +92,7 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
-		Progres = nbt.getInteger("Progres");
+		progress = nbt.getInteger("Progres");
 		maxProgres = nbt.getInteger("maxProgres");
 		getInv().readFromNBT(nbt);
 	}
@@ -110,7 +100,7 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 	@Override
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
-		nbt.setInteger("Progres", Progres);
+		nbt.setInteger("Progres", progress);
 		nbt.setInteger("maxProgres", maxProgres);
 		getInv().writeToNBT(nbt);
 	}
@@ -161,5 +151,25 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 
 	public boolean isItemValidForSlot(int a, ItemStack b) {
 		return getInv().isItemValidForSlot(a, b);
+	}
+	
+	public IBarProvider getBurningTimeBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return null;
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return maxProgres;
+			}
+			
+			@Override
+			public float getLevel() {
+				return progress;
+			}
+		};
 	}
 }

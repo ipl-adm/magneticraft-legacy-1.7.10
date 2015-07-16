@@ -3,28 +3,25 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerNetwork;
+import com.cout970.magneticraft.client.gui.GuiInserter.CompInseterGui;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBarMediumVoltage;
-import com.cout970.magneticraft.client.gui.component.CompEnergyConsumption;
+import com.cout970.magneticraft.client.gui.component.CompEnergyTrackerBar;
 import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.messages.MessageGuiClick;
+import com.cout970.magneticraft.tileentity.TileCombustionEngine;
+import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileMiner;
-import com.cout970.magneticraft.tileentity.TileMiner.WorkState;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiMiner extends GuiBasic{
@@ -37,9 +34,10 @@ public class GuiMiner extends GuiBasic{
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/miner.png")));
 		comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar2.png"),new GuiPoint(23,16),((TileMiner)tile).capacity));
-		comp.add(new CompEnergyConsumption(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/consumptionbar.png"),new GuiPoint(32,19)));
-		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(41,19)));
+		comp.add(new CompEnergyTrackerBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/consumptionbar.png"),new GuiPoint(32,19), ((TileMiner)tile).getEnergyTracker()));
+		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(41,19), ((TileMiner)tile).getBlocksMinedLastSecondBar()));
 		comp.add(new CompMiningBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/windbar.png"),new GuiPoint(50,19)));
+		comp.add(new CompMinerGui(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/miner.png"),new GuiPoint(104, 47)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}
 	
@@ -95,4 +93,64 @@ public class GuiMiner extends GuiBasic{
 		}
 	}
 
+	public class CompMinerGui implements IGuiComp{
+
+		public GuiPoint pos;
+		public ResourceLocation texture;
+		
+		public CompMinerGui(ResourceLocation resourceLocation, GuiPoint guiPoint) {
+			texture = resourceLocation;
+			pos = guiPoint;
+		}
+		
+		@Override
+		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
+			if(tile instanceof TileMiner){
+				TileMiner t = (TileMiner) tile;
+				if(!t.remplaceWithDirt){
+					RenderUtil.bindTexture(texture);
+					gui.drawTexturedModalRect(gui.xStart+pos.x, gui.yStart+pos.y, 176, 0, 17, 17);
+				}
+				
+				if(!t.removeWater){
+					RenderUtil.bindTexture(texture);
+					gui.drawTexturedModalRect(gui.xStart+pos.x+21, gui.yStart+pos.y, 193, 0, 17, 17);
+				}
+			}
+		}
+
+		@Override
+		public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+			if(gui.tile instanceof TileMiner){
+				if(gui.isIn(mx, my, pos.x+gui.xStart, pos.y+gui.yStart, 17, 17)){
+					ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 2, ((TileMiner)gui.tile).remplaceWithDirt ? 0 : 1));
+				}else if(gui.isIn(mx, my, pos.x+gui.xStart+21, pos.y+gui.yStart, 17, 17)){
+					ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 3, ((TileMiner)gui.tile).removeWater ? 0 : 1));
+				}
+			}
+		}
+
+		@Override
+		public boolean onKey(int n, char key, GuiBasic gui) {
+			return false;
+		}
+
+		@Override
+		public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
+			if(gui.tile instanceof TileMiner){
+				TileMiner t = (TileMiner) gui.tile;
+				if(gui.isIn(mx, my, pos.x+gui.xStart, pos.y+gui.yStart, 17, 17)){
+					List<String> data = new ArrayList<String>();
+					data.add(t.remplaceWithDirt ? "Remplace Blocks with Dirt" : "Leave Spaces");
+					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
+					RenderHelper.enableGUIStandardItemLighting();
+				}else if(gui.isIn(mx, my, pos.x+gui.xStart+21, pos.y+gui.yStart, 17, 17)){
+					List<String> data = new ArrayList<String>();
+					data.add(t.removeWater ? "Remove Water and Lava" : "Leave Water and Lava");
+					gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
+					RenderHelper.enableGUIStandardItemLighting();
+				}
+			}
+		}
+	}
 }

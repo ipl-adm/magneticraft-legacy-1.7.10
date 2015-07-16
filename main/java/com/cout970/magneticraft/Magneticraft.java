@@ -1,6 +1,13 @@
 package com.cout970.magneticraft;
 
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
 
 import com.cout970.magneticraft.compact.ManagerIntegration;
 import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
@@ -8,9 +15,11 @@ import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.handlers.HandlerBuckets;
 import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.proxy.IProxy;
+import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
+import com.google.common.collect.Lists;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -29,7 +38,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.2.12";
+	public final static String VERSION = "0.3.0";
 	public final static String ENERGY_STORED_NAME = "J";
 	public static final boolean DEBUG = true;
 	
@@ -96,6 +105,39 @@ public class Magneticraft{
 			Log.info("Seting up minetweaker compatibility");
 			MgMinetweaker.init();
 		}
+		ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());
 		Log.info("postInit Done");
+	}
+	
+	public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {
+
+		@Override
+		public void ticketsLoaded(List<Ticket> tickets, World world) {
+			for (Ticket ticket : tickets) {
+				int x = ticket.getModData().getInteger("quarryX");
+				int y = ticket.getModData().getInteger("quarryY");
+				int z = ticket.getModData().getInteger("quarryZ");
+				TileEntity tq = world.getTileEntity(x, y, z);
+				if(tq instanceof TileMiner){
+					((TileMiner)tq).forceChunkLoading(ticket);
+				}
+			}
+		}
+
+		@Override
+		public List<Ticket> ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount) {
+			List<Ticket> validTickets = Lists.newArrayList();
+			for (Ticket ticket : tickets) {
+				int x = ticket.getModData().getInteger("quarryX");
+				int y = ticket.getModData().getInteger("quarryY");
+				int z = ticket.getModData().getInteger("quarryZ");
+
+				Block block = world.getBlock(x, y, z);
+				if (block == ManagerBlocks.miner) {
+					validTickets.add(ticket);
+				}
+			}
+			return validTickets;
+		}
 	}
 }

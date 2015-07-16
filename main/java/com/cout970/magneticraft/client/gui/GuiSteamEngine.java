@@ -12,11 +12,12 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
+import com.cout970.magneticraft.client.gui.component.CompEnergyTrackerBar;
 import com.cout970.magneticraft.client.gui.component.CompFluidRender;
-import com.cout970.magneticraft.client.gui.component.CompProductionBar;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.util.RenderUtil;
 
@@ -29,11 +30,11 @@ public class GuiSteamEngine extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation("magneticraft:textures/gui/steam_engine.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16)));
-		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16), ((TileSteamEngine)tile).cond));
+		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(31,16), ((TileSteamEngine)tile).cond));
 		comp.add(new CompFluidRender(((TileSteamEngine)tile).tank, new GuiPoint(66,25), new GuiPoint(84, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
 		comp.add(new CompInfoDisplay(new GuiPoint(90, 25)));
-		comp.add(new CompProductionBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/productionbar.png"),new GuiPoint(47,20)));
+		comp.add(new CompEnergyTrackerBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/productionbar.png"),new GuiPoint(47,20), ((TileSteamEngine)tile).getEnergyTracker()));
 		comp.add(new CompSteamEngine(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/consumptionbar.png"),new GuiPoint(56,20)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

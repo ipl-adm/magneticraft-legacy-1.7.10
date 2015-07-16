@@ -71,5 +71,7 @@ public class ModelTextures {
 	public static final ResourceLocation DIODE 						= new ResourceLocation("magneticraft", "textures/misc/modeldiode.png");
 	public static final ResourceLocation RESISTANCE 				= new ResourceLocation("magneticraft", "textures/misc/modelresistance.png");
 	public static final ResourceLocation RF_ALTERNATOR 				= new ResourceLocation("magneticraft", "textures/misc/modelrf_alternator.png");
-
+	public static final ResourceLocation POLE_CABLE_WIRE 			= new ResourceLocation("magneticraft", "textures/misc/modelpolecablewire.png");
+	public static final ResourceLocation SIFTER			 			= new ResourceLocation("magneticraft", "textures/misc/modelsifter.png");
+	public static final ResourceLocation OPTIC_FIBER 				= new ResourceLocation("magneticraft", "textures/misc/opticfiber.png");
 }

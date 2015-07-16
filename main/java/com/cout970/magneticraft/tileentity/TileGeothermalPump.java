@@ -17,6 +17,7 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
@@ -68,7 +69,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 			}else if(isControled()){
 				
 				if(heat.getTemperature() < 1200 && buffer > 0){
-					int i =  Math.min(10,buffer);
+					int i =  Math.min(12,buffer);
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
 					buffer -= i;
 					working = true;
@@ -97,14 +98,15 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{
 	}
 	
 	private void setActive(boolean b) {
+		int m = getBlockMetadata();
 		if(b)
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 2);
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, m%6 + 6, 3);
 		else
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, m%6, 3);
 	}
 
 	public boolean isActive() {
-		return getBlockMetadata() != 0;
+		return getBlockMetadata() > 5;
 	}
 
 	private void getLava() {

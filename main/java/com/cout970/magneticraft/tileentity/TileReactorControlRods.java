@@ -31,7 +31,7 @@ public class TileReactorControlRods extends TileHeatConductor implements IReacto
 	public void updateEntity(){
 		super.updateEntity();
 		
-		if(worldObj.getWorldTime() % 20 == 0){
+		if(worldObj.getTotalWorldTime() % 20 == 0){
 			search();
 		}
 		if(worldObj.isRemote)return;

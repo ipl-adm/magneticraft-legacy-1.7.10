@@ -6,22 +6,16 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IEnergyInterface;
-import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileBattery extends TileConductorLow implements IGuiSync, IInventoryManaged, ISidedInventory, IBlockWithData{
@@ -34,7 +28,7 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 		return new ElectricConductor(this){
 
 			public int storage = 0;
-			public int maxStorage = (int) EnergyConversor.RFtoW(2000000);
+			public int maxStorage = (int) EnergyConversor.RFtoW(4000000);
 			public double min = ElectricConstants.BATTERY_DISCHARGE;
 			public double max = ElectricConstants.BATTERY_CHARGE;
 
@@ -105,11 +99,13 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 			if(i != null){
 				if(i.getItem() instanceof IBatteryItem){
 					IBatteryItem b = (IBatteryItem) i.getItem();
-					int canFill = Math.min(b.getMaxCharge()-b.getCharge(i), cond.getStorage());
-					canFill = Math.min(canFill, BATTERY_CHARGE_SPEED);
-					if(canFill > 0){
-						b.charge(i, canFill);
-						cond.drainCharge(canFill);
+					if(b.getInteraction(i).canAccept()){
+						int canFill = Math.min(b.getMaxCharge(i)-b.getCharge(i), cond.getStorage());
+						canFill = Math.min(canFill, BATTERY_CHARGE_SPEED);
+						if(canFill > 0){
+							b.charge(i, canFill);
+							cond.drainCharge(canFill);
+						}
 					}
 				}
 			}
@@ -117,11 +113,13 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 			if(i != null){
 				if(i.getItem() instanceof IBatteryItem){
 					IBatteryItem b = (IBatteryItem) i.getItem();
-					int canDrain = Math.min(b.getCharge(i), cond.getMaxStorage()-cond.getStorage());
-					canDrain = Math.min(canDrain, BATTERY_CHARGE_SPEED);
-					if(canDrain > 0){
-						b.discharge(i, canDrain);
-						cond.applyCharge(canDrain);
+					if(b.getInteraction(i).canExtract()){
+						int canDrain = Math.min(b.getCharge(i), cond.getMaxStorage()-cond.getStorage());
+						canDrain = Math.min(canDrain, BATTERY_CHARGE_SPEED);
+						if(canDrain > 0){
+							b.discharge(i, canDrain);
+							cond.applyCharge(canDrain);
+						}
 					}
 				}
 			}

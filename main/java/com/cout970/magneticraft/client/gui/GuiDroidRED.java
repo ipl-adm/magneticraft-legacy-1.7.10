@@ -11,6 +11,9 @@ import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
+import com.cout970.magneticraft.tileentity.TileCombustionEngine;
+import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiDroidRED extends GuiBasic {
@@ -24,8 +27,8 @@ public class GuiDroidRED extends GuiBasic {
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/droid_red.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(10,238)));
-		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(19,238)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(10,238), ((TileDroidRED)tile).cond));
+		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(19,238), ((TileDroidRED)tile).cond));
 	}
 	
 	public class CompBackground implements IGuiComp{

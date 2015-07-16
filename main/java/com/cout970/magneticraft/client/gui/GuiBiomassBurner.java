@@ -22,7 +22,7 @@ public class GuiBiomassBurner extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/biomass_burner.png")));
-		comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/fire.png"),new GuiPoint(80, 28)));
+		comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/fire.png"),new GuiPoint(80, 28), ((TileBiomassBurner)tile).getBurningTimeBar()));
 		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileBiomassBurner)tile).heat));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

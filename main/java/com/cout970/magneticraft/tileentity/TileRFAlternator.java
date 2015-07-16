@@ -10,8 +10,6 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VecIntUtil;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileRFAlternator extends TileConductorLow implements IEnergyHandler{

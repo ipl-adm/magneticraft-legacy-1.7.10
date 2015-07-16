@@ -25,7 +25,7 @@ public class GuiBoiler extends GuiBasic{
 		comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileBoiler)tile).heat));
 		comp.add(new CompFluidRender(((TileBoiler)tile).water, new GuiPoint(54, 25), new GuiPoint(72, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
 		comp.add(new CompFluidRender(((TileBoiler)tile).steam, new GuiPoint(81, 25), new GuiPoint(99, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
-		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(116,20)));
+		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(116,20), ((TileBoiler)tile).getProductionBar()));
 	}
 
 }

@@ -19,6 +19,7 @@ import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
+import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileThermopile;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
@@ -32,7 +33,7 @@ public class GuiThermopile extends GuiBasic{
 	@Override
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation("magneticraft:textures/gui/thermopile.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16)));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(23,16), ((TileThermopile)tile).cond));
 		comp.add(new CompHeatDifference(new GuiPoint(32,20)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}

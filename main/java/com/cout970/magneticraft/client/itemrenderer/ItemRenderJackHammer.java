@@ -72,7 +72,7 @@ public class ItemRenderJackHammer implements IItemRenderer{
 		RenderUtil.bindTexture(ModelTextures.JACK_HAMMER);
 		float mot = 0;
 		if(((IBatteryItem)i.getItem()).getCharge(i) > 0){
-			long time = Minecraft.getMinecraft().theWorld.getWorldTime();
+			long time = Minecraft.getMinecraft().theWorld.getTotalWorldTime();
 			mot = (time % 3)/16f;
 		}
 		model.renderDynamic(0.0625f, mot);

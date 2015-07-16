@@ -75,7 +75,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 			working = false;
 		}
 
-		if(worldObj.getWorldTime()%20 == 0){
+		if(worldObj.getTotalWorldTime()%20 == 0){
 			if(working && !isActive()){
 				setActive(true);
 			}else if(!working && isActive()){
@@ -92,7 +92,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 			return;
 		}
 
-		if(worldObj.getWorldTime()%80 == 0){
+		if(worldObj.getTotalWorldTime()%80 == 0){
 			if(alt != 0){
 				pipes.clear();
 				for(int y=yCoord-1;y>0;y--){

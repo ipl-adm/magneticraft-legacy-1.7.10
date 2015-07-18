@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -36,18 +37,21 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-
-		if(progress > 0){
-			if(!updated){
+		if(!updated){
+			if(progress > 0)
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 2);
-				updated = true;
-			}
+			else
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
+			updated = true;
+		}
+		if(progress > 0){
 			//fuel to heat
 			if(heat.getTemperature() < 1200 && isControled()){
 				int i = 4;//burning speed
 				if(progress - i < 0){
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
 					progress = 0;
+					updated = false;
 				}else{
 					progress -= i;
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
@@ -70,10 +74,7 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
 					markDirty();
 				}
 			}
-			if(progress <= 0){
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
-				updated = false;
-			}
+			updated = false;
 		}			
 	}
 	

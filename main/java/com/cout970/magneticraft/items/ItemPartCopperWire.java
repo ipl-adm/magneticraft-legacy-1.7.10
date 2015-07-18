@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,6 +12,7 @@ import codechicken.lib.vec.Vector3;
 import codechicken.multipart.JItemMultiPart;
 import codechicken.multipart.TMultiPart;
 
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Down;
@@ -50,4 +53,9 @@ public class ItemPartCopperWire extends ItemPartBase{
 		return null;
 	}
 
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+		super.addInformation(item, player, list, flag);
+		list.add(ItemBlockMg.format+"Has a resistance of "+ElectricConstants.RESISTANCE_COPPER_LOW+" Omhs");
+	}
 }

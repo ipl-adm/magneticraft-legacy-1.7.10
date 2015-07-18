@@ -28,7 +28,7 @@ public class ItemRenderTeslaCoil implements IItemRenderer{
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch (type) {
 		case ENTITY: {
-			render(0.0F, -0.5F, 0.0F, 0.5F,item);
+			render(0.0F, -1.5F, 0.0F, 0.5F,item);
 			return;
 		}
 		case EQUIPPED: {

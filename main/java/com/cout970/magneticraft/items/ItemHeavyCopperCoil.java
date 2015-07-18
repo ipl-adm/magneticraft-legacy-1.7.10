@@ -84,6 +84,7 @@ public class ItemHeavyCopperCoil extends ItemBasic{
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer p, List info, boolean flag) {
 		super.addInformation(item, p, info, flag);
+		info.add(ItemBlockMg.format+"Allow to connect manually two poles");
 		if(NBTUtils.getBoolean("Connected", item)){
 			int x,y,z;
 			x = NBTUtils.getInteger("xCoord", item);

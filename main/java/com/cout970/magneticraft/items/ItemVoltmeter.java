@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import ic2.api.tile.IEnergyStorage;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
@@ -16,6 +18,9 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemVoltmeter extends ItemBasic{
 
@@ -64,5 +69,11 @@ public class ItemVoltmeter extends ItemBasic{
 			p.addChatMessage(new ChatComponentText(s));
 		}
 		return false;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+		super.addInformation(item, player, list, flag);
+		list.add(ItemBlockMg.format+"Allow the player to see the voltage and the currnte in a cable or wire");
 	}
 }

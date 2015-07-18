@@ -9,7 +9,7 @@ import cpw.mods.fml.common.FMLLog;
 public class Log {
 
 	public static void log(Object o){
-		FMLLog.log(Magneticraft.ID,Level.INFO,String.valueOf(o));
+		FMLLog.log(Magneticraft.ID,Level.INFO, String.valueOf(o));
 	}
 
 	public static void info(String string) {

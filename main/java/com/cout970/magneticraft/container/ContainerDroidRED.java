@@ -7,11 +7,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.tileentity.TileBase;
+import com.cout970.magneticraft.tileentity.TileDroidRED;
 
 public class ContainerDroidRED extends ContainerBasic{
 
 	public ContainerDroidRED(InventoryPlayer p, TileEntity t) {
 		super(p, t);
+		addSlotToContainer(new Slot(((TileDroidRED) t).extras, 0, 12, 292));
+		addSlotToContainer(new Slot(((TileDroidRED) t).extras, 1, 35, 292));
+		
 		for(int i = 0; i< 4;i++){
 			for(int j = 0; j< 4;j++){
 				addSlotToContainer(new Slot(((TileBase) t).getInv(), i*4+j, 18*j+268, 18*i+235));
@@ -33,6 +37,6 @@ public class ContainerDroidRED extends ContainerBasic{
 	}
 	
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
-		return transfer(player, slot, new int[]{3,3,3,3, 3,3,3,3, 3,3,3,3, 3,3,3,3});
+		return transfer(player, slot, new int[]{2,2, 3,3,3,3, 3,3,3,3, 3,3,3,3, 3,3,3,3});
 	}
 }

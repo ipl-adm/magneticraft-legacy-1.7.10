@@ -9,6 +9,8 @@ import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileRCAlternator extends TileConductorLow implements IElectricGrid{
@@ -66,6 +68,16 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid{
 				charge.addCharge(-charg);
 				if(charge.getCharge() < 0)charge.setCharge(0);
 			}
+			
+			@Override
+			public VecInt[] getValidConnections() {
+				return new VecInt[]{getDirection().opposite().toVecInt()};
+			}
+			
+			@Override
+			public boolean isAbleToConnect(IElectricConductor c, VecInt d) {
+				return getDirection().opposite().toVecInt().equals(d);
+			}
 		};
 	}
 
@@ -96,6 +108,10 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid{
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 		charge.writeToNBT(nbt);
+	}
+
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata());
 	}
 
 }

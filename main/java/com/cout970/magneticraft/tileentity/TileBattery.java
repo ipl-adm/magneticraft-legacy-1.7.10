@@ -28,7 +28,7 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 		return new ElectricConductor(this){
 
 			public int storage = 0;
-			public int maxStorage = (int) EnergyConversor.RFtoW(4000000);
+			public int maxStorage = (int) EnergyConversor.RFtoW(2000000);
 			public double min = ElectricConstants.BATTERY_DISCHARGE;
 			public double max = ElectricConstants.BATTERY_CHARGE;
 
@@ -99,7 +99,7 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 			if(i != null){
 				if(i.getItem() instanceof IBatteryItem){
 					IBatteryItem b = (IBatteryItem) i.getItem();
-					if(b.getInteraction(i).canAccept()){
+					if(b.canAcceptCharge(i)){
 						int canFill = Math.min(b.getMaxCharge(i)-b.getCharge(i), cond.getStorage());
 						canFill = Math.min(canFill, BATTERY_CHARGE_SPEED);
 						if(canFill > 0){
@@ -113,7 +113,7 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 			if(i != null){
 				if(i.getItem() instanceof IBatteryItem){
 					IBatteryItem b = (IBatteryItem) i.getItem();
-					if(b.getInteraction(i).canExtract()){
+					if(b.canExtractCharge(i)){
 						int canDrain = Math.min(b.getCharge(i), cond.getMaxStorage()-cond.getStorage());
 						canDrain = Math.min(canDrain, BATTERY_CHARGE_SPEED);
 						if(canDrain > 0){

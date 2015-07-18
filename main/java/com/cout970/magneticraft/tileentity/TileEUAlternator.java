@@ -15,6 +15,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -85,6 +86,16 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 				super.load(nbt);
 				storage = nbt.getInteger("Storage");
 			}
+			
+			@Override
+			public VecInt[] getValidConnections() {
+				return new VecInt[]{getDirection().opposite().toVecInt()};
+			}
+			
+			@Override
+			public boolean isAbleToConnect(IElectricConductor c, VecInt d) {
+				return getDirection().opposite().toVecInt().equals(d);
+			}
 		};
 	}
 	
@@ -111,7 +122,7 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 
 	@Override
 	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-		return direction == MgDirection.UP.toForgeDir();
+		return direction == getDirection().toForgeDir();
 	}
 
 	@Override
@@ -125,10 +136,13 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 	}
 
 	@Override
-	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-		double move = Math.min(amount, maxStorage-storage);
-		storage += move;
-		return amount-move;
+	public double injectEnergy(ForgeDirection dir, double amount, double voltage) {
+		if(dir == getDirection().toForgeDir()){
+			double move = Math.min(amount, maxStorage-storage);
+			storage += move;
+			return amount-move;
+		}
+		return amount;
 	}
 
 	@Override
@@ -165,5 +179,9 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 	@Override
 	public boolean isTeleporterCompatible(ForgeDirection side) {
 		return false;
+	}
+
+	public MgDirection getDirection() {
+		return MgDirection.getDirection(getBlockMetadata());
 	}
 }

@@ -31,7 +31,7 @@ public class ItemRenderPoleCableWire implements IItemRenderer{
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch (type) {
 		case ENTITY: {
-			render(0.0F, -0.5F, 0.0F, 0.5F,item);
+			render(0.0F, -2F, 0.0F, 0.315F,item);
 			return;
 		}
 		case EQUIPPED: {
@@ -57,6 +57,7 @@ public class ItemRenderPoleCableWire implements IItemRenderer{
 		GL11.glScalef(scale, scale, scale);
 		GL11.glTranslatef(x, y, z);
 		GL11.glRotatef(180F, 0, 0, 1);
+		GL11.glRotatef(180F, 0, 1, 0);
 		GL11.glTranslatef(0, -1.5f, 0);
 		RenderUtil.bindTexture(ModelTextures.POLE_CABLE_WIRE);
 		model.renderStatic(0.0625f);

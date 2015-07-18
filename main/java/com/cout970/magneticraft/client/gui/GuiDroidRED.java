@@ -7,12 +7,13 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
+import com.cout970.magneticraft.client.gui.component.CompScreen;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TileBasicGenerator;
-import com.cout970.magneticraft.tileentity.TileCombustionEngine;
+import com.cout970.magneticraft.messages.MessageGuiClick;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.util.RenderUtil;
 
@@ -29,6 +30,8 @@ public class GuiDroidRED extends GuiBasic {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/droid_red.png")));
 		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(10,238), ((TileDroidRED)tile).cond));
 		comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(19,238), ((TileDroidRED)tile).cond));
+		comp.add(new CompScreen(((TileDroidRED)tile).monitor));
+		comp.add(new CompDroid(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/droid_red.png")));
 	}
 	
 	public class CompBackground implements IGuiComp{
@@ -56,5 +59,51 @@ public class GuiDroidRED extends GuiBasic {
 		public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {}
 
 	}
+	
+	public class CompDroid implements IGuiComp{
 
+		public ResourceLocation texture;
+
+		public CompDroid(ResourceLocation tex){
+			texture = tex;
+		}
+
+		@Override
+		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
+			TileDroidRED t = (TileDroidRED) tile;
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			
+			String s = null;
+			if(t.isRunning()){
+				gui.drawTexturedModalRect(gui.xStart+60, gui.yStart+61+235 , 0, 177, 9, 9);
+			}else{
+				gui.drawTexturedModalRect(gui.xStart+60, gui.yStart+61+235 , 9, 177, 9, 9);
+			}
+			
+			gui.drawString(getFontRenderer(), "Start", gui.xStart+50, gui.yStart+7+235, RenderUtil.fromRGB(255, 255, 255));
+			gui.drawString(getFontRenderer(), "Restart", gui.xStart+50, gui.yStart+21+237, RenderUtil.fromRGB(255, 255, 255));
+			gui.drawString(getFontRenderer(), "Shutdown", gui.xStart+50, gui.yStart+35+240, RenderUtil.fromRGB(255, 255, 255));
+		}
+
+		@Override
+		public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+			if(isIn(mx, my, gui.xStart+158, gui.yStart+9, 10, 10)){
+				MessageGuiClick msg = new MessageGuiClick(tile, 0, 1);
+				ManagerNetwork.INSTANCE.sendToServer(msg);
+			}else if(isIn(mx, my, gui.xStart+158, gui.yStart+23, 10, 10)){
+				MessageGuiClick msg = new MessageGuiClick(tile, 1, 1);
+				ManagerNetwork.INSTANCE.sendToServer(msg);
+			}else if(isIn(mx, my, gui.xStart+158, gui.yStart+37, 10, 10)){
+				MessageGuiClick msg = new MessageGuiClick(tile, 2, 1);
+				ManagerNetwork.INSTANCE.sendToServer(msg);
+			}
+		}
+
+		@Override
+		public boolean onKey(int n, char key, GuiBasic gui) {return false;}
+
+		@Override
+		public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {}
+
+	}
 }

@@ -23,6 +23,8 @@ import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.conveyor.IConveyor;
+import com.cout970.magneticraft.api.conveyor.ItemBox;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -240,6 +242,13 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 				if(a.getPipeType() == PipeType.ITEM){
 					int r = a.injectItem(i, true, d.toForgeDir().getOpposite());
 					if(r > 0)return true;
+				}
+			}else if(t instanceof IConveyor){
+				IConveyor c = (IConveyor) t;
+				ItemBox box = new ItemBox(i);
+				if(c.addItem(d.opposite(), 0, box, true)){
+					c.addItem(d.opposite(), 0, box, false);
+					return true;
 				}
 			}
 		}
@@ -481,7 +490,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		ForgeChunkManager.forceChunk(ticket, quarryChunk);
 
 		MgDirection d = getDirection();
-		Log.debug(d);
 		int xMax,xMin,zMax,zMin;
 		if(d == MgDirection.NORTH){
 			xMin = -dim/2;
@@ -511,9 +519,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 				ForgeChunkManager.forceChunk(ticket, chunk);
 				chunks.add(chunk);
 			}
-		}
-		for(ChunkCoordIntPair p : chunks){
-			Log.debug(p);
 		}
 		Log.info("Miner at "+xCoord+" "+yCoord+" "+zCoord+" will keep "+chunks.size()+" chunks loaded");
 	}

@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,6 +12,9 @@ import codechicken.lib.vec.BlockCoord;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMapPositioner extends ItemBasic{
 
@@ -30,8 +35,8 @@ public class ItemMapPositioner extends ItemBasic{
 				int[] i = item.stackTagCompound.getIntArray("coords");
 				if(i.length == 3){
 					if(p.isSneaking()){
-						for(int h=-5;h< 5;h++){
-							for(int j=-5;j< 5;j++){
+						for(int h=-5;h<= 5;h++){
+							for(int j=-5;j<= 5;j++){
 								TileEntity e = w.getTileEntity(x+h, y, z+j);
 								if(e instanceof TileMirror){
 									((TileMirror) e).setTarget(new BlockCoord(i));
@@ -47,5 +52,10 @@ public class ItemMapPositioner extends ItemBasic{
 		}
 		return false;
 	}
-
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+		super.addInformation(item, player, list, flag);
+		list.add(ItemBlockMg.format+"Orientes mirros to a Solar Tower Core, shift click to apply in 10*10 area");
+	}
 }

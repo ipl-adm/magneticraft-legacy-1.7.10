@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.cout970.magneticraft.api.computer.IBusConnectable;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
 import com.cout970.magneticraft.util.Log;
@@ -16,7 +16,7 @@ public class ModuleMemoryController implements IModuleMemoryController {
 	private int size;
 	private int modules;
 	private IComputer compu;
-	private IBusConnectable cache;
+	private IPeripheral cache;
 
 	public ModuleMemoryController(int size, boolean little, int modules){
 		this.modules = modules;

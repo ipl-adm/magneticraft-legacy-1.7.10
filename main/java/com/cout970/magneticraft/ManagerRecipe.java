@@ -30,7 +30,7 @@ public class ManagerRecipe {
 //			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble_clean.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
 			
 //			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles_clean.get(i)), new ItemStack(dust.get(i), 2), ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
-			ItemStack ingot = ManagerOreDict.getOre("ingot"+oreNames[i]);
+			ItemStack ingot = ManagerOreDict.getOreWithPreference("ingot"+oreNames[i]);
 			if(ingot != null){
 				ingot = ingot.copy();
 				ingot.stackSize = 2;

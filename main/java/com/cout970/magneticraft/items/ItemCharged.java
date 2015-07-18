@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
@@ -57,7 +58,7 @@ public class ItemCharged extends ItemBasic implements IBatteryItem{
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addInformation(ItemStack i, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add((getCharge(i)/1000f)+"k"+Magneticraft.ENERGY_STORED_NAME+" / "+(MAX_CHARGE/1000f)+"k"+Magneticraft.ENERGY_STORED_NAME);
+		par3List.add(ItemBlockMg.energy+(getCharge(i)/1000f)+"k"+Magneticraft.ENERGY_STORED_NAME+" / "+(MAX_CHARGE/1000f)+"k"+Magneticraft.ENERGY_STORED_NAME);
 	}
 
 
@@ -72,7 +73,17 @@ public class ItemCharged extends ItemBasic implements IBatteryItem{
 	}
 
 	@Override
-	public BatteryInteraction getInteraction(ItemStack stack) {
-		return BatteryInteraction.BOTH;
+	public boolean canAcceptCharge(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean canExtractCharge(ItemStack stack) {
+		return false;
+	}
+
+	@Override
+	public boolean canProvideEnergy(ItemStack stack) {
+		return false;
 	}
 }

@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,5 +28,11 @@ public class ItemPartCopperPipe extends ItemPartBase{
 	public TMultiPart newPart(ItemStack arg0, EntityPlayer arg1, World arg2,
 			BlockCoord arg3, int arg4, Vector3 arg5) {
 		return new PartCopperPipe();
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+		super.addInformation(item, player, list, flag);
+		list.add(ItemBlockMg.format+"Can transfer "+PartCopperPipe.MAX_EXTRACT+"mB/t per side");
 	}
 }

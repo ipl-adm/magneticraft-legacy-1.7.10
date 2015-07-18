@@ -58,7 +58,7 @@ public class TileTeslaCoil extends TileConductorLow{
 					ItemStack stack = p.inventory.getStackInSlot(i);
 					if(stack != null && stack.getItem() instanceof IBatteryItem){
 						IBatteryItem batteryItem = (IBatteryItem) stack.getItem();
-						if(batteryItem.getInteraction(stack).canAccept()){
+						if(batteryItem.canAcceptCharge(stack)){
 							int space = batteryItem.getMaxCharge(stack) - batteryItem.getCharge(stack);
 							if(space > 0 && cond.getVoltage() > ElectricConstants.MACHINE_WORK){
 								int change = (int)Math.min(space, cond.getVoltage()*12);

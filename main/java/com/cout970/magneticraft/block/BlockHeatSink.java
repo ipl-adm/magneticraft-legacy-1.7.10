@@ -29,7 +29,6 @@ public class BlockHeatSink extends BlockMg{
 
 	public int onBlockPlaced(World w, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int meta)
     {
-		Log.debug(ForgeDirection.getOrientation(side).getOpposite());
     	return ForgeDirection.getOrientation(side).getOpposite().ordinal();
     }
 

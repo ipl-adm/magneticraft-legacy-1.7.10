@@ -98,10 +98,7 @@ public abstract class PartPipe extends MgPart implements IFluidTransport,TFluidH
 	}
 
 	@Override
-	public IFluidTank getTank() {
-		if(buffer == null)buffer = new TankMg(tile(), 100);
-		return buffer;
-	}
+	public abstract IFluidTank getTank();
 	
 	@Override
 	public void bindPart(TMultiPart arg0) {}

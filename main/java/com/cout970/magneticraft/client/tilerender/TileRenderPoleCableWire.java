@@ -100,7 +100,7 @@ public class TileRenderPoleCableWire extends TileEntitySpecialRenderer{
 
 		model.renderStatic(0.0625f);
 
-		RenderUtil.bindTexture(ModelTextures.PIPE_IN_BRONCE);
+		RenderUtil.bindTexture(ModelTextures.ELECTRIC_WIRE_TIER_1);
 		model.renderWires();
 		GL11.glPopMatrix();
 

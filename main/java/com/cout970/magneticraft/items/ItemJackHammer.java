@@ -99,8 +99,4 @@ public class ItemJackHammer extends ItemCharged{
         						true : block.getMaterial() == Material.anvil)) : HARVEST_LEVEL >= 2) : HARVEST_LEVEL >= 1) : HARVEST_LEVEL >= 1) : HARVEST_LEVEL >= 2) :
         							HARVEST_LEVEL >= 2) : HARVEST_LEVEL >= 2);
     }
-	
-	public BatteryInteraction getInteraction(ItemStack stack){
-		return BatteryInteraction.ACCEPT;
-	}
 }

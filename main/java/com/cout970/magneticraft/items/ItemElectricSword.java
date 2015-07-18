@@ -12,7 +12,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
-import com.cout970.magneticraft.api.electricity.item.IBatteryItem.BatteryInteraction;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.google.common.collect.Multimap;
 
@@ -84,9 +83,5 @@ public class ItemElectricSword extends ItemCharged{
 	public boolean isFull3D()
 	{
 		return true;
-	}
-	
-	public BatteryInteraction getInteraction(ItemStack stack){
-		return BatteryInteraction.ACCEPT;
 	}
 }

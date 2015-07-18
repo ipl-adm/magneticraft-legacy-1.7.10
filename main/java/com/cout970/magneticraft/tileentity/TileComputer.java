@@ -4,9 +4,12 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-import com.cout970.magneticraft.api.computer.IBusConnectable;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
 import com.cout970.magneticraft.api.computer.IHardwareProvider.ModuleType;
@@ -20,11 +23,12 @@ import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
-public class TileComputer extends TileBase implements IGuiListener,IGuiSync, IComputer, IBusConnectable{
+public class TileComputer extends TileBase implements IGuiListener,IGuiSync, IComputer{
 	
 	private IModuleCPU procesor;
 	private IModuleMemoryController memory;
@@ -53,6 +57,42 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		}
 	};
 	
+	public IPeripheral motherboard = new IPeripheral() {
+		
+		@Override
+		public int getAddress() {
+			return addres;
+		}
+
+		@Override
+		public void setAddress(int address) {
+			addres = address;
+		}
+
+		@Override
+		public boolean isActive() {
+			return procesor != null && memory != null && rom != null;
+		}
+		
+		@Override
+		public void writeByte(int pointer, int data) {}
+		
+		@Override
+		public int readByte(int pointer) {
+			return 0;
+		}
+		
+		@Override
+		public TileEntity getParent() {
+			return TileComputer.this;
+		}
+		
+		@Override
+		public String getName() {
+			return "Computer";
+		}
+	};
+	
 	public TileComputer(){
 		hardDrive = new ModuleHardDrive(this);
 		floppyDrive = new ModuleDisckDrive(this);
@@ -67,18 +107,29 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 
 	public void updateEntity(){
 		if(worldObj.isRemote)return;
-		if(isActive()){
-//			memory.writeWord(4, (int)worldObj.getTotalWorldTime());
+		long time = System.nanoTime();
+		if(motherboard.isActive()){
 			procesor.iterate();
 			hardDrive.iterate();
 			floppyDrive.iterate();
-			if(worldObj.getTotalWorldTime() % 200 == 0){
-				chechHardware();
-				sendUpdateToClient();
-			}
-		}else{
-			chechHardware();
 		}
+		if(worldObj.getTotalWorldTime() % 100 == 0){
+				chechHardware();
+//				sendUpdateToClient();
+		}
+//		Log.debug((System.nanoTime()-time)/1000);
+	}
+	
+	public Packet getDescriptionPacket(){
+		NBTTagCompound nbt = new NBTTagCompound();
+//		this.writeToNBT(nbt);
+		S35PacketUpdateTileEntity p = new S35PacketUpdateTileEntity(xCoord,yCoord,zCoord,0,nbt);
+		return p;
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+//		this.readFromNBT(pkt.func_148857_g());
 	}
 
 	private void chechHardware() {
@@ -120,7 +171,7 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 	}
 
 	public void weldHardware(){
-		if(!isActive()){
+		if(!motherboard.isActive()){
 			procesor = (IModuleCPU) ((IHardwareProvider)getInv().getStackInSlot(0).getItem()).getHardware(getInv().getStackInSlot(0));
 			memory = (IModuleMemoryController) ((IHardwareProvider)getInv().getStackInSlot(1).getItem()).getHardware(getInv().getStackInSlot(1));
 			rom = (IModuleROM) ((IHardwareProvider)getInv().getStackInSlot(2).getItem()).getHardware(getInv().getStackInSlot(2));
@@ -137,10 +188,12 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		hardDrive.load(nbt);
 		getInv().readFromNBT(nbt);
 		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
-			if(!isActive())chechHardware();
-			if(isActive()){
+			if(!motherboard.isActive())chechHardware();
+			if(motherboard.isActive()){
 				procesor.loadRegisters(nbt);
 				memory.loadMemory(nbt);
+				floppyDrive.load(nbt);
+				hardDrive.load(nbt);
 			}
 		}
 	}
@@ -152,15 +205,17 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		floppyDrive.save(nbt);
 		hardDrive.save(nbt);
 		getInv().writeToNBT(nbt);
-		if(isActive()){
+		if(motherboard.isActive()){
 			procesor.saveRegisters(nbt);
 			memory.saveMemory(nbt);
+			floppyDrive.save(nbt);
+			hardDrive.save(nbt);
 		}
 	}
 
 	@Override
 	public void onMessageReceive(int id, int dato) {
-		if(isActive()){
+		if(motherboard.isActive()){
 			if(id == 0){
 				if(!procesor.isRunning()){
 					procesor.start();
@@ -198,47 +253,15 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 	public IModuleMemoryController getMemory() {
 		return memory;
 	}
-
-	@Override
-	public int getAddress() {
-		return addres;
-	}
-
-	@Override
-	public void setAddress(int address) {
-		addres = address;
-	}
-
-	@Override
-	public boolean isActive() {
-		return procesor != null && memory != null && rom != null;
-	}
 	
 	public InventoryComponent getInv() {
 		return inv;
 	}
 
 	public boolean isRunning() {
-		if(!worldObj.isRemote)isRuning = isActive() && procesor.isRunning();
+		if(!worldObj.isRemote)isRuning = motherboard.isActive() && procesor.isRunning();
 		return isRuning;
 	}
-
-	@Override
-	public IModuleDiskDrive getDrive(int n) {
-		if(n == 0)return hardDrive;
-		if(n == 1)return floppyDrive;
-		return null;
-	}
-
-	@Override
-	public int readByte(int pointer) {
-		return 0;
-	}
-
-	@Override
-	public void writeByte(int pointer, int data) {
-	}
-
 
 	@Override
 	public TileEntity getParent() {
@@ -246,7 +269,7 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 	}
 
 	@Override
-	public String getName() {
-		return "Computer";
+	public IPeripheral[] getPeripherals() {
+		return new IPeripheral[]{motherboard, hardDrive, floppyDrive};
 	}
 }

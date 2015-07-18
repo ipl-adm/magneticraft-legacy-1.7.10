@@ -27,18 +27,21 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-
-		if(progress > 0){
-			if(!updated){
+		if(!updated){
+			if(progress > 0)
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 2);
-				updated = true;
-			}
+			else 
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
+			updated = true;
+		}
+		if(progress > 0){
 			//fuel to heat
 			if(heat.getTemperature() < heat.getMaxTemp()-200){
 				int i = 6;//burning speed
 				if(progress - i < 0){
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
 					progress = 0;
+					updated = false;
 				}else{
 					progress -= i;
 					heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
@@ -60,9 +63,6 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
 					}
 					markDirty();
 				}
-			}
-			if(progress <= 0){
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
 				updated = false;
 			}
 		}			

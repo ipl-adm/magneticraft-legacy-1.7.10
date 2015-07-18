@@ -23,7 +23,7 @@ import com.cout970.magneticraft.client.gui.GuiInserter;
 import com.cout970.magneticraft.client.gui.GuiKineticGenerator;
 import com.cout970.magneticraft.client.gui.GuiMB_Inv;
 import com.cout970.magneticraft.client.gui.GuiMiner;
-import com.cout970.magneticraft.client.gui.GuiMonitor;
+import com.cout970.magneticraft.client.gui.GuiTextMonitor;
 import com.cout970.magneticraft.client.gui.GuiOilDistillery;
 import com.cout970.magneticraft.client.gui.GuiPolimerizer;
 import com.cout970.magneticraft.client.gui.GuiReactorVessel;
@@ -272,7 +272,7 @@ public class GuiHandler implements IGuiHandler{
 			return new GuiCrafter(new ContainerCrafter(player.inventory, tile), tile);
 		}
 		if(tile instanceof TileTextMonitor){
-			return new GuiMonitor(new ContainerMonitor(player.inventory, tile), tile);
+			return new GuiTextMonitor(new ContainerMonitor(player.inventory, tile), tile);
 		}
 		if(tile instanceof TileComputer){
 			return new GuiComputer(new ContainerComputer(player.inventory, tile), tile);

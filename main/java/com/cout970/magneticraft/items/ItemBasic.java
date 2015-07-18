@@ -13,11 +13,15 @@ public class ItemBasic extends Item{
 	
 	public static final String Base = "magneticraft:";
 	
-	public ItemBasic(String unlocalizedname){
+	public ItemBasic(String unlocalizedname, String texture){
 		super();
 		setUnlocalizedName(unlocalizedname);
 		setCreativeTab(CreativeTabsMg.MainTab);
-		setTextureName(Base+unlocalizedname.toLowerCase());
+		setTextureName(Base+texture);
+	}
+	
+	public ItemBasic(String unlocalizedname){
+		this(unlocalizedname, unlocalizedname);
 	}
 
 	public String getUnlocalizedName(ItemStack i){

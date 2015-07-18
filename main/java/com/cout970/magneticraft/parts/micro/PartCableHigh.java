@@ -66,7 +66,7 @@ public class PartCableHigh extends PartElectric implements ISidedHollowConnect{
 	}
 	
 	public void create(){
-		cond = new ElectricConductor(getTile(), getTier(), ElectricConstants.RESISTANCE_COPPER_HIG){
+		cond = new ElectricConductor(getTile(), getTier(), ElectricConstants.RESISTANCE_COPPER_HIGH){
 			public boolean isAbleToConnect(IElectricConductor c, VecInt d){
 				if(c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK || c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_HIGH){
 					if(d.toMgDirection() == null)return false;

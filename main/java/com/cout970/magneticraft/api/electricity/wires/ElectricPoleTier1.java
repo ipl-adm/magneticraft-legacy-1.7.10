@@ -69,10 +69,8 @@ public class ElectricPoleTier1 implements IElectricPole{
 	public boolean canConnectWire(int tier, IElectricPole to) {
 		if(to == this)return false;
 		if(tier != 0)return false;
-		for(WireConnection con : connections){
-			if(con.vecStart().equals(new VecInt(to.getParent())))return false;
-			if(con.vecEnd().equals(new VecInt(to.getParent())))return false;
-		}
+		VecDouble vec = new VecDouble(getParent()).add(new VecDouble(to.getParent()).getOpposite());
+		if(vec.mag() > 16)return false;
 		return true;
 	}
 

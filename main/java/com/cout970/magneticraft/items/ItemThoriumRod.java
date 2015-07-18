@@ -9,10 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemThoriumRod extends ItemBasic implements IRadiactiveItem{
 
@@ -44,7 +48,8 @@ public class ItemThoriumRod extends ItemBasic implements IRadiactiveItem{
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addInformation(ItemStack i, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add(String.format("%.2f",NBTUtils.getDouble(NBT_GRAMS_NAME, i))+"/"+INITIAL_NUMBER_OF_GRAMES);
+		par3List.add(ItemBlockMg.format+String.format("%.2f",NBTUtils.getDouble(NBT_GRAMS_NAME, i))+"/"+INITIAL_NUMBER_OF_GRAMES);
+		par3List.add(ItemBlockMg.format+"Still WIP");
 	}
 	
 	@Override

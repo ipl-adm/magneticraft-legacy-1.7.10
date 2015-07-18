@@ -38,7 +38,7 @@ public class ManagerConfig {
 		WorldGenManagerMg.GenThorium = getOreConfig(config, 	"thorium", 	5, 	6, 20, 0);
 		WorldGenManagerMg.GenSalt = getOreConfig(config, 		"salt", 	6, 	8, 80, 0);
 		WorldGenManagerMg.GenOil = config.getBoolean("Oil Generation", "oil", true, "Should spawn oil in the world?");
-		WorldGenManagerMg.GenOilProbability = config.getInt("Oil Generation Amount", "oil", 2000,200,50000, "How much oil should spawn in the world?, hight value means less oil");
+		WorldGenManagerMg.GenOilProbability = config.getInt("Oil Generation Amount", "oil", 2000,200,50000, "How hard should be the oil spawn in the world?, hight value means less oil");
 		WorldGenManagerMg.GenOilMaxHeight = config.getInt("Oil Generation Max Height", "oil", 30,0,256, "Max Height for a oil deposit");
 		WorldGenManagerMg.GenOilMinHeight = config.getInt("Oil Generation Min Height", "oil", 10,0,256, "Min Height for a oil deposit");
 		WorldGenManagerMg.GenOilMaxAmount = config.getInt("Oil Generation Max oil deposits", "oil", 9,1,16, "Max number of oil deposit together");

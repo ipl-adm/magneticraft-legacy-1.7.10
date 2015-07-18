@@ -33,13 +33,13 @@ public class BlockCrafter extends BlockMg{
 	
 	@Override
 	public String[] getTextures() {
-		return new String[]{"crafter","crafter_top"};
+		return new String[]{"crafter","crafter_top", "crafter_bottom"};
 	}
 
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return side == 1 ? icons[1] : icons[0];
+		return side == 1 ? icons[1] : side == 0 ? icons[2] : icons[0];
 	}
 	
 	@Override

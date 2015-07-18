@@ -44,7 +44,6 @@ public class BlockButtonArray extends BlockMg{
 		MovingObjectPosition hit = RayTracer.retraceBlock(world, player, x, y, z);
 		if(hit == null)
 			return false;
-		Log.debug(hit.hitVec);
 		return true;
 	}
 

@@ -9,7 +9,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 
 public class TileInfiniteEnergy extends TileBase implements IElectricTile{
 
-	private IElectricConductor cond0 = new ElectricConductor(this, 0, 0.001){
+	private IElectricConductor cond0 = new ElectricConductor(this, 0, 0.01){
 		@Override
 		public void computeVoltage() {
 			V = ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier();
@@ -18,7 +18,7 @@ public class TileInfiniteEnergy extends TileBase implements IElectricTile{
 			Iabs = 0;
 		}
 	};
-	private IElectricConductor cond2 = new ElectricConductor(this, 2, 0.001){
+	private IElectricConductor cond2 = new ElectricConductor(this, 2, 0.01){
 		@Override
 		public void computeVoltage() {
 			V = ElectricConstants.MAX_VOLTAGE*getVoltageMultiplier();
@@ -26,6 +26,16 @@ public class TileInfiniteEnergy extends TileBase implements IElectricTile{
 			Itot = Iabs*0.5;
 			Iabs = 0;
 		}
+	};
+	
+	public void updateEntity() {
+		super.updateEntity();
+		if(worldObj.isRemote)return;
+		cond0.recache();
+		cond2.recache();
+		
+		cond0.iterate();
+		cond2.iterate();
 	};
 
 	@Override

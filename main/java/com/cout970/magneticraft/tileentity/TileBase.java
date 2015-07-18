@@ -39,8 +39,7 @@ public class TileBase extends Tile1_8Updater{
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public double getMaxRenderDistanceSquared()
-    {
+    public double getMaxRenderDistanceSquared(){
         return 16384.0D;
     }
 	

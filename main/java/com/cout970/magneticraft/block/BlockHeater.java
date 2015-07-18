@@ -29,16 +29,17 @@ public class BlockHeater extends BlockMg implements MB_Block{
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
 		return new TileHeater();
 	}
+	
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta){
+		if(side == 0 || side == 1)return icons[2];
 		if(meta == 0)return icons[0];
 		return icons[1];
 	}
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"heater_off","heater_on"};
+		return new String[]{"heater_off","heater_on", "heater_top"};
 	}
 	
 	public boolean renderAsNormalBlock(){

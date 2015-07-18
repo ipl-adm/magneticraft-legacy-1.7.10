@@ -20,7 +20,7 @@ public class ElectricConstants {
 	public static final double BATTERY_CHARGE 			= MAX_VOLTAGE*10/12;
 	public static final double RESISTANCE_COPPER_LOW	= 0.01D;
 	public static final double RESISTANCE_COPPER_MED	= 0.05D;
-	public static final double RESISTANCE_COPPER_HIG	= 0.25D;
+	public static final double RESISTANCE_COPPER_HIGH	= 0.25D;
 	public static final double ALTERNATOR_DISCHARGE		= MAX_VOLTAGE;
 	public static final double ENERGY_INTERFACE_LEVEL	= MAX_VOLTAGE/2;
 	public static final double CONVERSION_SPEED 		= EnergyConversor.RFtoW(5);

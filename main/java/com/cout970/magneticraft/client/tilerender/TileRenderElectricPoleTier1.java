@@ -76,7 +76,7 @@ public class TileRenderElectricPoleTier1 extends TileEntitySpecialRenderer{
 				VecDouble off = new VecDouble(-te.xCoord, -te.yCoord, -te.zCoord);
 				
 				VecDouble dist = new VecDouble(pole2.getParent()).add(off);
-				RenderUtil.bindTexture(ModelTextures.PIPE_IN_BRONCE);
+				RenderUtil.bindTexture(ModelTextures.ELECTRIC_WIRE_TIER_1);
 				for(int i = 0; i < count ;i++){
 					VecDouble a = pole1.getWireConnector()[i], b = pole2.getWireConnector()[i];
 					b.add(dist);//b relative to a

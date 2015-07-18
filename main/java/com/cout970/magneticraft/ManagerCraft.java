@@ -11,6 +11,18 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ManagerCraft {
 
 	public static void init(){
+		//ingot blocks
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingot_block_copper), new Object[]{"iii","iii","iii",'i',"ingotCopper"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingot_block_tungsten), new Object[]{"iii","iii","iii",'i',"ingotTungsten"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingot_block_carbide), new Object[]{"iii","iii","iii",'i',"ingotCarbide"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingot_block_zinc), new Object[]{"iii","iii","iii",'i',"ingotZinc"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingot_block_brass), new Object[]{"iii","iii","iii",'i',"ingotBrass"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotCopper, 9), new Object[]{"i",'i',"blockCopper"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotTungsten, 9), new Object[]{"i",'i',"blockTungsten"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotCarbide, 9), new Object[]{"i",'i',"blockCarbide"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotZinc, 9), new Object[]{"i",'i',"blockZinc"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotBrass, 9), new Object[]{"i",'i',"blockBrass"}));
+		//misc blocks
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(housing), new Object[]{"ici","cvc","ici",'i',"ingotIron",'c',"ingotCopper"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(battery), new Object[]{"wbw","bcb","wbw",'w',"ingotIron",'c',"ingotCopper",'b',battery_item}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(furnace), new Object[]{"iri","ihi","ibi",'i',"ingotIron",'r',"dustRedstone",'b',battery_item,'h',housing}));

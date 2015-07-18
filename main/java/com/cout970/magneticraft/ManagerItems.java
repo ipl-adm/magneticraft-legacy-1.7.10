@@ -1,12 +1,9 @@
 package com.cout970.magneticraft;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import com.cout970.magneticraft.items.ItemBasic;
 import com.cout970.magneticraft.items.ItemBattery;
@@ -14,7 +11,6 @@ import com.cout970.magneticraft.items.ItemBucket;
 import com.cout970.magneticraft.items.ItemChainSaw;
 import com.cout970.magneticraft.items.ItemElectricSword;
 import com.cout970.magneticraft.items.ItemFloppyDisk;
-import com.cout970.magneticraft.items.ItemGravelOre;
 import com.cout970.magneticraft.items.ItemHardDrive;
 import com.cout970.magneticraft.items.ItemHeatCoilCopper;
 import com.cout970.magneticraft.items.ItemHeatCoilIron;
@@ -26,16 +22,15 @@ import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
 import com.cout970.magneticraft.items.ItemModuleROM;
 import com.cout970.magneticraft.items.ItemModuleRam64K;
 import com.cout970.magneticraft.items.ItemOilProspector;
-import com.cout970.magneticraft.items.ItemPartBroncePipe;
+import com.cout970.magneticraft.items.ItemPartIronPipe;
 import com.cout970.magneticraft.items.ItemPartCableHigh;
 import com.cout970.magneticraft.items.ItemPartCableLow;
 import com.cout970.magneticraft.items.ItemPartCableMedium;
-import com.cout970.magneticraft.items.ItemPartCopperWire;
 import com.cout970.magneticraft.items.ItemPartCopperPipe;
+import com.cout970.magneticraft.items.ItemPartCopperWire;
 import com.cout970.magneticraft.items.ItemPartHeatCable;
 import com.cout970.magneticraft.items.ItemPartOpticFiber;
 import com.cout970.magneticraft.items.ItemProduct;
-import com.cout970.magneticraft.items.ItemSandOre;
 import com.cout970.magneticraft.items.ItemThermometer;
 import com.cout970.magneticraft.items.ItemThoriumRod;
 import com.cout970.magneticraft.items.ItemToolCharger;
@@ -67,6 +62,10 @@ public class ManagerItems {
 	
 	public static Item ingotCopper;
 	public static Item ingotTungsten;
+	public static Item ingotZinc;
+	public static Item ingotBrass;
+	public static Item ingotCarbide;
+	
 	public static Item dustSulfur;
 	public static Item dustQuartz;
 	public static Item dustObsidian;
@@ -94,7 +93,6 @@ public class ManagerItems {
 	public static Item motor;
 	public static Item copper_coil;
 	public static Item drill;
-	public static Item ingotCarbide;
 	public static Item oil_prospector;
 	public static Item photoelectricDust;
 	public static Item string_fabric;
@@ -112,7 +110,7 @@ public class ManagerItems {
 	public static Item chip_rom;
 	public static Item drive_floppy;
 	public static Item drive_hard;
-	public static Item partbroncepipe;
+	public static Item partironpipe;
 	public static Item partheatcable;
 	public static Item tool_jackhammer;
 	public static Item heavy_copper_coil;
@@ -123,8 +121,12 @@ public class ManagerItems {
 		
 		registerProducts();
 		
-		ingotCopper = new ItemBasic("ingotCopper");
-		ingotTungsten = new ItemBasic("ingotTungsten");
+		ingotCopper = new ItemBasic("ingotCopper", "ingot_copper");
+		ingotTungsten = new ItemBasic("ingotTungsten", "ingot_tungsten");
+		ingotBrass = new ItemBasic("ingotBrass", "ingot_brass");
+		ingotZinc = new ItemBasic("ingotZinc", "ingot_zinc");
+		ingotCarbide = new ItemBasic("ingotCarbide", "ingot_carbide");
+		
 		dustSulfur = new ItemBasic("dustSulfur");
 		dustQuartz = new ItemBasic("dustQuartz");
 		dustObsidian = new ItemBasic("dustObsidian");
@@ -141,7 +143,7 @@ public class ManagerItems {
 		battery_item = new ItemBattery("battery");
 		map = new ItemMapPositioner("map_pos");
 		partcopperpipe = new ItemPartCopperPipe("copper_pipe");
-		partbroncepipe = new ItemPartBroncePipe("bronce_pipe");
+		partironpipe = new ItemPartIronPipe("iron_pipe");
 		wrench = new ItemWrench("wrench");
 		turbine_0 = new ItemTurbine("turbine_0",0,3,3,0.33d,0.70f);
 		turbine_1 = new ItemTurbine("turbine_1",1,5,5,1d,1.25f);
@@ -152,7 +154,6 @@ public class ManagerItems {
 		copper_coil = new ItemBasic("copper_coil");
 		drill = new ItemBasic("drill");
 		wire_copper = new ItemPartCopperWire("copper_wire");
-		ingotCarbide = new ItemBasic("ingotCarbide");
 		oil_prospector = new ItemOilProspector("oil_prospector");
 		photoelectricDust= new ItemBasic("photoelectric_dust");
 		string_fabric = new ItemBasic("string_fabric");
@@ -181,6 +182,8 @@ public class ManagerItems {
 		
 		addItem(ingotCopper, "Copper Ingot");
 		addItem(ingotTungsten, "Tungsten Ingot");
+		addItem(ingotBrass, "Brass Ingot");
+		addItem(ingotZinc, "Zinc Ingot");
 		addItem(dustSulfur, "Sulfur Dust");
 		addItem(dustQuartz, "Quartz Dust");
 		addItem(dustObsidian, "Obsidian Dust");
@@ -228,7 +231,7 @@ public class ManagerItems {
 		addItem(chip_rom, "ROM Module");
 		addItem(drive_floppy, "Floppy Disk");
 		addItem(drive_hard, "Hard Drive");
-		addItem(partbroncepipe, "Bronce Pipe");
+		addItem(partironpipe, "Iron Pipe");
 		addItem(partheatcable, "Heat Cable");
 		addItem(tool_jackhammer, "Jackhammer");
 		addItem(heavy_copper_coil, "Heavy Copper Coil");

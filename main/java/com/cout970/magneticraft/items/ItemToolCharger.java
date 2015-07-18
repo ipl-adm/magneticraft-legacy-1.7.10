@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,6 +12,9 @@ import cofh.api.energy.IEnergyContainerItem;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemToolCharger extends ItemCharged{
 
@@ -28,7 +33,7 @@ public class ItemToolCharger extends ItemCharged{
 					Item it = s.getItem();
 					if(it instanceof IBatteryItem){
 						IBatteryItem st = (IBatteryItem) it;
-						if(st.getInteraction(item).canExtract()){
+						if(st.canProvideEnergy(item)){
 							int space = (int) (getMaxCharge(item)-getCharge(item));
 							int toMove = Math.min(space, st.getCharge(s));
 							toMove = (int) Math.min(toMove, EnergyConversor.RFtoW(500));
@@ -36,7 +41,7 @@ public class ItemToolCharger extends ItemCharged{
 								st.discharge(s, toMove);
 								charge(item, toMove);
 							}
-						}else if(st.getInteraction(item).canAccept()){
+						}else if(st.canAcceptCharge(item)){
 							int space = (int) (st.getMaxCharge(s)-st.getCharge(s));
 							int toMove = Math.min(space, getCharge(item));
 							toMove = (int) Math.min(toMove, EnergyConversor.RFtoW(500));
@@ -57,5 +62,11 @@ public class ItemToolCharger extends ItemCharged{
 				}
 			}
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+		super.addInformation(item, player, list, flag);
+		list.add(ItemBlockMg.format+"Charges tools in the inventory using energy from batteries");
 	}
 }

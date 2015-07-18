@@ -22,7 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemBattery extends ItemCharged{
 	
 	public ItemBattery(String unlocalizedname) {
-		super(unlocalizedname, (int)EnergyConversor.RFtoW(1000000));
+		super(unlocalizedname, (int)EnergyConversor.RFtoW(500000));
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
@@ -36,7 +36,7 @@ public class ItemBattery extends ItemCharged{
 					Item it = s.getItem();
 					if(it instanceof IBatteryItem && !(it instanceof ItemBattery)){
 						IBatteryItem st = (IBatteryItem) it;
-						if(st.getInteraction(stack).canAccept()){
+						if(st.canAcceptCharge(s)){
 							int space = (int) (st.getMaxCharge(s)-st.getCharge(s));
 							int toMove = Math.min(space, getCharge(stack));
 							if(toMove > 0){
@@ -64,7 +64,17 @@ public class ItemBattery extends ItemCharged{
     public void addInformation(ItemStack item, EntityPlayer p, List info, boolean flag) {
 		super.addInformation(item, p, info, flag);
 		if(p != null && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
-			info.add((int)EnergyConversor.WtoRF(getCharge(item))+"/"+(int)EnergyConversor.WtoRF(getMaxCharge(item))+" RF");
+			info.add(ItemBlockMg.format+(int)EnergyConversor.WtoRF(getCharge(item))+"/"+(int)EnergyConversor.WtoRF(getMaxCharge(item))+" RF");
 		}
+	}
+	
+	@Override
+	public boolean canExtractCharge(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public boolean canProvideEnergy(ItemStack stack) {
+		return true;
 	}
 }

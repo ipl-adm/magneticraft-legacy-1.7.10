@@ -57,6 +57,7 @@ import com.cout970.magneticraft.block.BlockMachineHousing;
 import com.cout970.magneticraft.block.BlockMiner;
 import com.cout970.magneticraft.block.BlockMirror;
 import com.cout970.magneticraft.block.BlockMonitor;
+import com.cout970.magneticraft.block.BlockOfIngots;
 import com.cout970.magneticraft.block.BlockOilDistillery;
 import com.cout970.magneticraft.block.BlockOilSource;
 import com.cout970.magneticraft.block.BlockOilSourceDrained;
@@ -185,6 +186,11 @@ public class ManagerBlocks {
 	public static Block oreSalt;
 	public static Block oilSource;
 	public static Block oilSourceDrained;
+	public static Block ingot_block_copper;
+	public static Block ingot_block_tungsten;
+	public static Block ingot_block_carbide;
+	public static Block ingot_block_brass;
+	public static Block ingot_block_zinc;
 	public static Block solarpanel;
 	public static Block furnace;
 	public static Block battery;
@@ -261,7 +267,6 @@ public class ManagerBlocks {
 	public static Block pole_cable_wire;
 	public static Block infinite_energy;
 	public static Block sifter;
-	public static Block button_array;
 	
 	
 	public static void initBlocks(){
@@ -274,7 +279,6 @@ public class ManagerBlocks {
 		oreThorium = new BlockOre("thorium_ore");
 		oreSalt = new BlockOre("salt_ore");
 		oilSourceDrained = new BlockOilSourceDrained();
-		//machines
 		solarpanel = new BlockSolarPanel();
 		furnace = new BlockElectricFurnace();
 		battery = new BlockBattery();
@@ -351,7 +355,11 @@ public class ManagerBlocks {
 		pole_cable_wire = new BlockElectricPoleCableWire();
 		infinite_energy = new BlockInfiniteEnergy();
 		sifter = new BlockSifter();
-		button_array = new BlockButtonArray();
+		ingot_block_copper = new BlockOfIngots("block_copper");
+		ingot_block_tungsten = new BlockOfIngots("block_tungsten");
+		ingot_block_carbide = new BlockOfIngots("block_carbide");
+		ingot_block_brass = new BlockOfIngots("block_brass");
+		ingot_block_zinc = new BlockOfIngots("block_zinc");
 	}
 	
 	public static void registerBlocks(){
@@ -364,6 +372,11 @@ public class ManagerBlocks {
 		addBlock(oreThorium, "Thorium Ore");
 		addBlock(oreTungsten, "Tungsten Ore");
 		addBlock(oreUranium, "Uranium Ore");
+		addBlock(ingot_block_copper, "Copper Block");
+		addBlock(ingot_block_tungsten, "Tungsten Block");
+		addBlock(ingot_block_carbide, "Carbide Block");
+		addBlock(ingot_block_brass, "Brass Block");
+		addBlock(ingot_block_zinc, "Zinc Block");
 		addBlock(solarpanel, "Solar Panel");
 		addBlock(furnace, "Electric Furnace");
 		addBlock(battery, "Battery");
@@ -440,7 +453,6 @@ public class ManagerBlocks {
 		addBlock(pole_cable_wire, "Electrical Pole With Transformer");
 		addBlock(infinite_energy, "Creative Infinite Energy");
 		addBlock(sifter, "Sifter Control");
-		addBlock(button_array, "Button Array");
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());

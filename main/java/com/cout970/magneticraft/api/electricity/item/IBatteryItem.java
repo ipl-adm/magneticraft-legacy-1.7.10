@@ -37,27 +37,9 @@ public interface IBatteryItem {
 	 */
 	public int getMaxCharge(ItemStack stack);
 	
-	public BatteryInteraction getInteraction(ItemStack stack);
+	public boolean canAcceptCharge(ItemStack stack);
 	
-	public enum BatteryInteraction{
-		ACCEPT	(true, false),
-		EXTRACT	(false, true),
-		BOTH	(true, true),
-		NOTHING	(false, false);
-
-		private boolean accept,extract;
-		
-		private BatteryInteraction(boolean accept, boolean extract){
-			this.accept = accept;
-			this.extract = extract;
-		}
-		
-		public boolean canAccept() {
-			return accept;
-		}
-		
-		public boolean canExtract() {
-			return extract;
-		}
-	}
+	public boolean canExtractCharge(ItemStack stack);
+	
+	public boolean canProvideEnergy(ItemStack stack);
 }

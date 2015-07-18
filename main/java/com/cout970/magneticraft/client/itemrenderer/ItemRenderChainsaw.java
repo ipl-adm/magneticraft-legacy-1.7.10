@@ -29,7 +29,7 @@ public class ItemRenderChainsaw implements IItemRenderer{
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch (type) {
 		case ENTITY: {
-			render(0.0F, -0.5F, 0.0F, 1.0F,item,type);
+			render(0.2F, -0.3F, 0.3F, 0.45F,item,type);
 			return;
 		}
 		case EQUIPPED: {

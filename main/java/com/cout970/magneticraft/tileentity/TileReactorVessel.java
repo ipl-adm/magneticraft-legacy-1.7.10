@@ -56,7 +56,7 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
 					double prod = ((initialMass-NewMass)*AVOGADROS_CONSTANT*item.getEnergyPerFision(g));
 //					prod *= 1E-9;
 					g.setItemDamage(g.getItem().getDamage(g));
-					Log.debug(prod);
+//					Log.debug(prod);
 //					heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
 //					production += EnergyConversor.RFtoCALORIES(prod);
 				}

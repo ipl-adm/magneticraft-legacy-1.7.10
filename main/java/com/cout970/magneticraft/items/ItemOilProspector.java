@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,6 +12,9 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemOilProspector extends ItemCharged{
 	
@@ -54,4 +59,9 @@ public class ItemOilProspector extends ItemCharged{
         return false;
     }
 	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+		super.addInformation(item, player, list, flag);
+		list.add(ItemBlockMg.format+"Search for oil in the gound");
+	}
 }

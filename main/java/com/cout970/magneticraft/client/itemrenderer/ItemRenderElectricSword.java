@@ -29,7 +29,7 @@ public class ItemRenderElectricSword implements IItemRenderer{
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch (type) {
 		case ENTITY: {
-			render(0.0F, -0.5F, 0.0F, 1.0F,item,type);
+			render(0.0F, -1.25F, 0.0F, 0.5F,item,type);
 			return;
 		}
 		case EQUIPPED: {

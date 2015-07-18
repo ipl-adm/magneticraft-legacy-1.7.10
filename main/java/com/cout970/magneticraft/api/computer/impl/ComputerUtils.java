@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.DimensionManager;
 
-import com.cout970.magneticraft.api.computer.IBusConnectable;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.util.VecInt;
 
 public class ComputerUtils {
@@ -73,7 +73,7 @@ public class ComputerUtils {
 		return f;
 	}
 
-	public static IBusConnectable getBusByAddress(TileEntity t, int addr) {
+	public static IPeripheral getBusByAddress(TileEntity t, int addr) {
 		ComputerPathFinder p = new ComputerPathFinder(t, addr);
 		p.init();
 		p.addBlock(new VecInt(t));

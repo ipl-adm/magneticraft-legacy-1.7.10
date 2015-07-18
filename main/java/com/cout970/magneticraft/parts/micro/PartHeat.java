@@ -1,11 +1,15 @@
 package com.cout970.magneticraft.parts.micro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
 import codechicken.multipart.TMultiPart;
 
+import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatMultipart;
 import com.cout970.magneticraft.util.Log;
@@ -15,7 +19,8 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart{
 	public IHeatConductor heat;
 	public boolean toUpdate = true;
 	public int oldHeat = -1;
-	public NBTTagCompound tempNBT;
+	public List<NBTTagCompound> tempNBT = new ArrayList<NBTTagCompound>();
+	private int counter;
 	
 	public PartHeat(Item i) {
 		super(i);
@@ -32,25 +37,27 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart{
 		super.update();
 		if(tile() == null)return;
 		if(toUpdate){
-			if(heat == null)
-				create();
+			if(heat == null)create();
 			toUpdate = false;
 			updateConnections();
 			oldHeat = -1;
 		}
-		if(world().isRemote && world().getTotalWorldTime() % 10 == 0){
+		if(!tempNBT.isEmpty()){
+			heat.load(tempNBT.get(0));
+			tempNBT.remove(0);
+		}
+		if(W().isRemote && W().getTotalWorldTime() % 10 == 0){
 			updateConnections();
 		}
-		if(!world().isRemote && world().getTotalWorldTime() % 20 == 0){
-			if(((int)heat.getTemperature()) != oldHeat){
+		if(!W().isRemote && W().getTotalWorldTime() % 20 == 0){
+			counter++;
+			if(((int)heat.getTemperature()) != oldHeat || counter >= 10){
 				oldHeat = (int) heat.getTemperature();
+				counter = 0;
 				sendDescUpdate();
 			}
 		}
-		if(tempNBT != null){
-			heat.load(tempNBT);
-			tempNBT = null;
-		}
+		if(W().isRemote)return;
 		heat.iterate();
 	}
 
@@ -97,7 +104,7 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart{
 
 	public void load(NBTTagCompound nbt){
 		super.load(nbt);
-		tempNBT = nbt;
+		tempNBT.add(nbt);
 	}
 
 	public abstract void updateConnections();

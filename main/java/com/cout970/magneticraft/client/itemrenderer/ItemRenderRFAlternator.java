@@ -8,13 +8,13 @@ import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelDiode;
-import com.cout970.magneticraft.client.model.ModelRFAlternator;
+import com.cout970.magneticraft.client.model.ModelAlternator;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class ItemRenderRFAlternator implements IItemRenderer{
 
-	public ModelRFAlternator model = new ModelRFAlternator();
+	public ModelAlternator model = new ModelAlternator();
 	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type) {

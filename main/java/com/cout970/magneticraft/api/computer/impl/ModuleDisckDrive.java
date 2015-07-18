@@ -10,28 +10,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-import com.cout970.magneticraft.api.computer.IBusConnectable;
-import com.cout970.magneticraft.api.computer.IComputer;
-import com.cout970.magneticraft.api.computer.IFloppyDisk;
 import com.cout970.magneticraft.api.computer.IModuleDiskDrive;
+import com.cout970.magneticraft.api.computer.IPeripheral;
+import com.cout970.magneticraft.api.computer.IStorageDevice;
 
-public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
+public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral{
 
-	private ItemStack disk;
-	private byte[] diskBuffer;
-	private int sector;
-	private int regAction = -1;
-	private int address = 2;
-	private int accessTime = 0;
-	private IComputer cpu;
+	protected ItemStack disk;
+	protected byte[] diskBuffer;
+	protected int sector;
+	protected int regAction = -1;
+	protected int address = 2;
+	protected int accessTime = 0;
+	protected TileEntity tile;
 	
-	public ModuleDisckDrive(IComputer c){
-		cpu = c;
+	public ModuleDisckDrive(TileEntity t){
+		tile = t;
 	}
 
 	@Override
 	public byte[] getRawBuffer() {
 		if(diskBuffer == null)diskBuffer = new byte[128];
+		if(diskBuffer.length != 128)diskBuffer = new byte[128];
 		return diskBuffer;
 	}
 
@@ -49,7 +49,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
 	public void readToBuffer() {
 		ItemStack item = getDisk();
 		if(item != null){
-			IFloppyDisk storage = (IFloppyDisk) item.getItem();
+			IStorageDevice storage = (IStorageDevice) item.getItem();
 			if(storage.getSize(item) >= getSector())return;
 			File f = storage.getAsociateFile(item);
 			if(f == null)return;
@@ -79,7 +79,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
 	public void writeToFile() {
 		ItemStack item = getDisk();
 		if(item != null){
-			IFloppyDisk storage = (IFloppyDisk) item.getItem();
+			IStorageDevice storage = (IStorageDevice) item.getItem();
 			if(storage.getSize(item) >= getSector())return;
 			File f = storage.getAsociateFile(item);
 			if(f == null)return;
@@ -108,7 +108,9 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
 	public ItemStack getDisk() {
 		ItemStack i = disk;
 		if(i != null && i.getItem() != null){
-			if(i.getItem() instanceof IFloppyDisk)return i;
+			if(i.getItem() instanceof IStorageDevice && ((IStorageDevice) i.getItem()).isFloppyDrive(i)){
+				return i;
+			}
 		}
 		return null;
 	}
@@ -118,7 +120,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
 		if(i == null){
 			disk = null;
 			return true;
-		}else if(i.getItem() != null && i.getItem() instanceof IFloppyDisk){
+		}else if(i.getItem() != null && i.getItem() instanceof IStorageDevice && ((IStorageDevice) i.getItem()).isFloppyDrive(i)){
 			if(disk == null){
 				disk = i;
 				return true;
@@ -181,7 +183,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
 	public void iterate() {
 		if(accessTime <= 0){
 			if(regAction != -1 && getDisk() != null){
-				IFloppyDisk drive = (IFloppyDisk)getDisk().getItem();
+				IStorageDevice drive = (IStorageDevice)getDisk().getItem();
 				if(regAction != 0){
 					accessTime = drive.getAccessTime(getDisk());
 				}else{
@@ -252,6 +254,6 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IBusConnectable{
 
 	@Override
 	public TileEntity getParent() {
-		return cpu.getParent();
+		return tile;
 	}
 }

@@ -16,6 +16,7 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile{
 
@@ -34,6 +35,12 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 		return new CompoundHeatCables(heat);
 	}
 
+	@Override
+	public void onNeigChange(){
+		super.onNeigChange();
+		cond.disconect();
+	}
+	
 	public void updateEntity(){
 		super.updateEntity();
 		if(!this.worldObj.isRemote){

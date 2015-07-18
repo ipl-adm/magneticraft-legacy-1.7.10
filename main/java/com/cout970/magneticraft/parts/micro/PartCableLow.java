@@ -35,7 +35,6 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect,IE
 
 	static{
 		double w = 2/16d;
-		Log.debug(boxes.size()+" init low cable boxes");
 		boxes.add(new Cuboid6(0.5-w, 0, 0.5-w, 0.5+w, 0.5-w, 0.5+w));//down
 		boxes.add(new Cuboid6(0.5-w, 0.5+w, 0.5-w, 0.5+w, 1, 0.5+w));//up
 		boxes.add(new Cuboid6(0.5-w, 0.5-w, 0, 0.5+w, 0.5+w, 0.5-w));//north

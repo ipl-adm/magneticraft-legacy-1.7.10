@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import com.cout970.magneticraft.client.model.ModelDiode;
 import com.cout970.magneticraft.client.model.ModelHeatSink;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class ItemRenderDiode implements IItemRenderer{
@@ -31,25 +32,26 @@ public class ItemRenderDiode implements IItemRenderer{
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		switch (type) {
 		case ENTITY: {
-			render(0.0F, -0.5F, 0.0F, 1.0F,item);
+			render(0.0F, -0.5F, 0.0F, 1.0F, item);
 			return;
 		}
 		case EQUIPPED: {
-			render(0.5F, 0.0F, 0.5F, 1.0F,item);
+			render(0.5F, 0.0F, 0.5F, 1.0F, item);
 			return;
 		}
 		case INVENTORY: {
-			render(0.0F, -0.5F, 0.0F, 1.0F,item);
+			render(0.0F, -0.5F, 0.0F, 1.0F, item);
 			return;
 		}
 		case EQUIPPED_FIRST_PERSON: {
-			render(0.5F, 0.0F, 0.5F, 1.0F,item);
+			render(0.5F, 0.0F, 0.5F, 1.0F, item);
 			return;
 		}
 		default:
 			return;
 		}
 	}
+		
 	
 	public void render(float x, float y, float z, float scale, ItemStack i){
 		GL11.glPushMatrix();

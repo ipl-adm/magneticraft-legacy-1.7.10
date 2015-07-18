@@ -17,6 +17,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 import buildcraft.api.tools.IToolWrench;
 import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
@@ -34,6 +35,7 @@ import com.cout970.magneticraft.client.tilerender.TileRenderPipeCopper;
 import com.cout970.magneticraft.util.fluid.FluidUtils;
 import com.cout970.magneticraft.util.fluid.IFluidTransport;
 import com.cout970.magneticraft.util.fluid.TankConection;
+import com.cout970.magneticraft.util.fluid.TankMg;
 
 
 public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
@@ -87,8 +89,8 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 		return 6;
 	}
 
-	public static final int MAX_ACCEPT = 200;
-	public static final int MAX_EXTRACT = 200;
+	public static final int MAX_ACCEPT = 180;
+	public static final int MAX_EXTRACT = 180;
 	public Map<MgDirection,TankConection> tanks = new HashMap<MgDirection,TankConection>();
 	public ConnectionMode[] side = {ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT,ConnectionMode.OUTPUT};//sides input and output
 	public boolean[] locked = new boolean[6];
@@ -321,5 +323,11 @@ public class PartCopperPipe extends PartPipe implements ISidedHollowConnect{
 	@Override
 	public boolean isComaptible(IFluidTransport a) {
 		return a instanceof PartCopperPipe;
+	}
+
+	@Override
+	public IFluidTank getTank() {
+		if(buffer == null)buffer = new TankMg(tile(), MAX_EXTRACT);
+		return buffer;
 	}
 }

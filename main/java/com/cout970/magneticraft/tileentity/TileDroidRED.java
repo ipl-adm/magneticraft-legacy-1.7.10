@@ -10,14 +10,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.computer.IBusConnectable;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IModuleCPU;
 import com.cout970.magneticraft.api.computer.IModuleDiskDrive;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
+import com.cout970.magneticraft.api.computer.IModuleROM;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.impl.ModuleCPU_MIPS;
 import com.cout970.magneticraft.api.computer.impl.ModuleDisckDrive;
 import com.cout970.magneticraft.api.computer.impl.ModuleMemoryController;
+import com.cout970.magneticraft.api.computer.impl.ModuleROM;
+import com.cout970.magneticraft.api.computer.impl.MonitorPeripheral;
 import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -27,41 +30,111 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.IClientInformer;
+import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.Orientation;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
-public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IBusConnectable{
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener{
 
 	private IModuleMemoryController memory;
 	private IModuleDiskDrive floppyDisk;
-	private InventoryComponent inv;
 	private IModuleCPU cpu;
-	private byte[] buffer;
+	private IModuleROM rom;	
+	private InventoryComponent inv = new InventoryComponent(this, 16, "R.E.D.");
 	public int droidAction = -1;//0 move front, 1 move back
 	public int droidProgress = -1;
 	public boolean activate = true;
 	private long time;
 	public int drillAnim;
-	private int address;
-	
-	public TileDroidRED(){
-		inv = new InventoryComponent(this, 16, "R.E.D.");
+
+	public InventoryComponent extras = new InventoryComponent(this, 2, "R.E.D."){
+
+		@Override
+		public void setInventorySlotContents(int slot, ItemStack itemStack) {
+			inventory[slot] = itemStack;
+
+			if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit()) {
+				itemStack.stackSize = this.getInventoryStackLimit();
+			}
+			markDirty();
+			if(slot == 1 && !worldObj.isRemote)floppyDisk.insertDisk(itemStack);
+		}
+
+		@Override
+		public int getInventoryStackLimit() {
+			return 1;
+		}
+	};
+
+	public IPeripheral droid = new IPeripheral(){
+
+		public int address = 0xa;
+
+		@Override
+		public int getAddress() {
+			return address;
+		}
+
+		@Override
+		public void setAddress(int address) {
+			this.address = address;
+		}
+
+		@Override
+		public boolean isActive() {
+			return false;
+		}
+
+		@Override
+		public String getName() {
+			return "RED";
+		}
+
+		@Override
+		public int readByte(int pointer) {
+			return 0;
+		}
+
+		@Override
+		public void writeByte(int pointer, int data){
+
+		}
+
+		@Override
+		public TileEntity getParent() {
+			return TileDroidRED.this;
+		}
+	};
+
+	public MonitorPeripheral monitor = new MonitorPeripheral(this);
+
+
+	public void create(){
 		memory = new ModuleMemoryController(0x10000, false, 8);
-		cpu = new ModuleCPU_MIPS();  
+		cpu = new ModuleCPU_MIPS();
 		floppyDisk = new ModuleDisckDrive(this);
+		rom = new ModuleROM();
 		cpu.connectMemory(memory);
+		rom.loadToRAM(getMemory());
 	}
 
 	public void updateEntity(){
 		super.updateEntity();
+		if(!worldObj.isRemote && cpu == null){
+			create();
+		}
 		if(droidProgress > 0){
 			droidProgress--;
 		}
 		if(droidProgress == 0){
 			if(droidAction == 0){
-				
 				MgDirection dir = getDirection().opposite();
 				Block b = worldObj.getBlock(xCoord+dir.getOffsetX(), yCoord+dir.getOffsetY(), zCoord+dir.getOffsetZ());
 				if(b == getBlockType()){
@@ -123,9 +196,11 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 			droidProgress = -1;
 		}
 		if(worldObj.isRemote)return;
+		cpu.iterate();
+		floppyDisk.iterate();
 		cond.drainPower(EnergyConversor.RFtoW(0.5D));
 	}
-	
+
 	//axis == true rotate from y, else from x, dir == true, left or top, else right or bottom 
 	public void rotate(boolean axis, boolean dir){
 		if(axis){
@@ -150,11 +225,11 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 			}
 		}
 	}
-	
+
 	private void setOrientation(Orientation o){
 		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, o.ordinal(), 3);
 	}
-	
+
 	public Orientation getOrientation() {
 		return Orientation.fromMeta(getBlockMetadata());
 	}
@@ -175,13 +250,13 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 			markDirty();
 		}
 	}
-	
+
 	public void mine(){
 		MgDirection dire = getDirection().opposite();
 		Block b = worldObj.getBlock(xCoord+dire.getOffsetX(), yCoord+dire.getOffsetY(), zCoord+dire.getOffsetZ());
 		int metadata = worldObj.getBlockMetadata(xCoord+dire.getOffsetX(), yCoord+dire.getOffsetY(), zCoord+dire.getOffsetZ());
 		if(MgUtils.isMineableBlock(worldObj, new BlockInfo(b, metadata))){
-			
+
 			ArrayList<ItemStack> items = new ArrayList<ItemStack>();
 			items = b.getDrops(worldObj, xCoord+dire.getOffsetX(), yCoord+dire.getOffsetY(), zCoord+dire.getOffsetZ(), metadata, 0);
 			worldObj.func_147480_a(xCoord+dire.getOffsetX(), yCoord+dire.getOffsetY(), zCoord+dire.getOffsetZ(), false);
@@ -199,74 +274,50 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 		if(getOrientation().getLevel() == -1)return MgDirection.DOWN;
 		return getOrientation().getDirection();
 	}
-	
+
 	public InventoryComponent getInv() {
 		return inv;
 	}
-	
-	public byte[] getBuffer(){
-		if(buffer == null || buffer.length != 16)buffer = new byte[16];
-		return buffer;
-	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
 		activate = nbt.getBoolean("Active");
 		droidProgress = nbt.getInteger("PROGRESS");
 		droidAction = nbt.getInteger("ACTION");
-		address = nbt.getInteger("Address");
 		getInv().readFromNBT(nbt);
-		buffer = nbt.getByteArray("Buffer");
+		monitor.load(nbt);
+		extras.readFromNBT(nbt, "Extras");
+
+		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
+			cpu.loadRegisters(nbt);
+			memory.loadMemory(nbt);
+			floppyDisk.load(nbt);
+		}
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 		nbt.setBoolean("Active", activate);
 		nbt.setInteger("PROGRESS", droidProgress);
 		nbt.setInteger("ACTION", droidAction);
-		nbt.setInteger("Address", address);
-		nbt.setByteArray("Buffer", getBuffer());
+		monitor.save(nbt);
 		getInv().writeToNBT(nbt);
+		extras.writeToNBT(nbt, "Extras");
+		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
+			if(cpu != null){
+				cpu.saveRegisters(nbt);
+				memory.saveMemory(nbt);
+				floppyDisk.save(nbt);
+			}
+		}
 	}
-	
+
 	public float getDelta() {
 		long aux = time;
 		time = System.nanoTime();
 		return time - aux;
-	}
-
-	@Override
-	public int getAddress() {
-		return address;
-	}
-
-	@Override
-	public void setAddress(int address) {
-		this.address = address;
-	}
-
-	@Override
-	public boolean isActive() {
-		return false;
-	}
-
-	@Override
-	public String getName() {
-		return "RED";
-	}
-
-	//droide interface
-	@Override
-	public int readByte(int pointer) {
-		return 0;
-	}
-	
-	//droide interface
-	@Override
-	public void writeByte(int pointer, int data) {
-		
 	}
 
 	@Override
@@ -294,17 +345,49 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	}
 
 	@Override
-	public IModuleDiskDrive getDrive(int n) {
-		return floppyDisk;
-	}
-
-	@Override
 	public TileEntity getParent() {
 		return this;
 	}
 
 	@Override
 	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 500000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, (int) EnergyConversor.RFtoW(50000), ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+	}
+
+	public boolean isRunning() {
+		return true;//cpu.isRunning();
+	}
+
+	@Override
+	public void onMessageReceive(int id, int dato) {
+		if(id == 0){
+			if(!cpu.isRunning()){
+				cpu.start();
+				rom.loadToRAM(memory);
+				sendUpdateToClient();
+			}
+		}else if(id == 1){
+			cpu.stop();
+			cpu.start();
+			rom.loadToRAM(memory);
+			sendUpdateToClient();
+		}else if(id == 2){
+			cpu.stop();
+			sendUpdateToClient();
+		}
+	}
+
+	public IPeripheral[] getPeripherals(){
+		return new IPeripheral[]{droid, monitor};
+	}
+
+	@Override
+	public void saveInfoToMessage(NBTTagCompound nbt) {
+		monitor.saveInfoToMessage(nbt);
+	}
+
+	@Override
+	public void loadInfoFromMessage(NBTTagCompound nbt) {
+		monitor.loadInfoFromMessage(nbt);
 	}
 }

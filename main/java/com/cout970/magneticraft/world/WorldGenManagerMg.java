@@ -58,7 +58,6 @@ public class WorldGenManagerMg implements IWorldGenerator{
 			useOreGenConfig(random, world, chunkX, chunkZ, GenUranium, Uranium);
 			useOreGenConfig(random, world, chunkX, chunkZ, GenSalt, Salt);
 			useOreGenConfig(random, world, chunkX, chunkZ, GenThorium, Thorium);
-			
 			if (GenOil) {
 				int run = GenOilProbability;
 				BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);
@@ -67,19 +66,23 @@ public class WorldGenManagerMg implements IWorldGenerator{
 					if(base.getTempCategory() == TempCategory.OCEAN) run *= 0.85;
 					if(base.getTempCategory() == TempCategory.COLD) run *= 0.75;
 				}
+				
 				if(random.nextInt(run) == 0){
-					for(int d = 0; d < GenOilMaxAmount;d++){
-						int cX = chunkX-3+random.nextInt(6);
-						int cZ = chunkZ-3+random.nextInt(6);
-						int y = world.getHeightValue(cX << 4, cZ << 4);
-						generateSpere(random, world, cX << 4, y+10, cZ << 4, FluidRegistry.getFluid("oil").getBlock(), 0, false, 2.5f+random.nextInt(3));
-						generateSpere_ore(random, world, cX << 4, GenOilMinHeight+random.nextInt(GenOilMaxHeight-GenOilMinHeight), cZ << 4, ManagerBlocks.oilSource, 15, false, 2.5f+random.nextInt(4));
+					if(GenOilMaxHeight-GenOilMinHeight >= 0){	
+						for(int d = 0; d < GenOilMaxAmount;d++){
+							int height = GenOilMinHeight + random.nextInt(GenOilMaxHeight-GenOilMinHeight);
+							int cX = chunkX-3+random.nextInt(6);
+							int cZ = chunkZ-3+random.nextInt(6);
+							int y = world.getHeightValue(cX << 4, cZ << 4);
+							generateSpere(random, world, cX << 4, y+10, cZ << 4, FluidRegistry.getFluid("oil").getBlock(), 0, false, 2.5f+random.nextInt(3));
+							generateSpere_ore(random, world, cX << 4, height, cZ << 4, ManagerBlocks.oilSource, 15, false, 2.5f+random.nextInt(4));
+						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	public void useOreGenConfig(Random random,World world,int chunkX,int chunkZ, OreGenConfig conf, WorldGenMinable mine){
 		if (conf.active) {
 			genChunk(random, world, chunkX, chunkZ, conf.amount_per_chunk, conf.max_height, conf.min_height, mine);

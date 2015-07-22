@@ -4,26 +4,27 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
+
+import com.cout970.magneticraft.util.ITileHandlerNBT;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageTileUpdate implements IMessage, IMessageHandler<MessageTileUpdate, IMessage>{
+public class MessageNBTUpdate implements IMessage, IMessageHandler<MessageNBTUpdate, IMessage>{
 
 	public int x, y, z;
 	public NBTTagCompound nbt;
 
-	public MessageTileUpdate(){}
-
-	public MessageTileUpdate(TileEntity t){
+	public MessageNBTUpdate(){}
+	
+	public MessageNBTUpdate(TileEntity t, NBTTagCompound nbt) {
 		x = t.xCoord;
 		y = t.yCoord;
 		z = t.zCoord;
-		nbt = new NBTTagCompound();
-		t.writeToNBT(nbt);
+		this.nbt = nbt;
 	}
-
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		PacketBuffer PB = new PacketBuffer(buf);
@@ -52,12 +53,12 @@ public class MessageTileUpdate implements IMessage, IMessageHandler<MessageTileU
 	}
 
 	@Override
-	public IMessage onMessage(MessageTileUpdate message, MessageContext ctx) {
+	public IMessage onMessage(MessageNBTUpdate message, MessageContext ctx) {
 		TileEntity tileEntity = null;
 		if(FMLClientHandler.instance().getClient().theWorld != null)
 			tileEntity = FMLClientHandler.instance().getClient().theWorld.getTileEntity(message.x, message.y, message.z);
-		if(tileEntity != null){
-			tileEntity.readFromNBT(message.nbt);
+		if(tileEntity instanceof ITileHandlerNBT){
+			((ITileHandlerNBT) tileEntity).loadInClient(message.nbt);
 		}
 		return null;
 	}

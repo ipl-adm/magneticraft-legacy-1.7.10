@@ -9,39 +9,41 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
+import com.cout970.magneticraft.api.acces.RecipeSifter;
+import com.cout970.magneticraft.compact.minetweaker.Grinder.AddRecipe;
+import com.cout970.magneticraft.compact.minetweaker.Grinder.RemoveRecipe;
 
-@ZenClass("mods.magneticraft.Grinder")
-public class Grinder {
+@ZenClass("mods.magneticraft.Sifter")
+public class Sifter{
 
 	@ZenMethod
-	public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1, IItemStack out2, float prob2){
+	public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1){
 		
 		ItemStack a = MgMinetweaker.toStack(in)
 		,b = MgMinetweaker.toStack(out0)
-		,c = MgMinetweaker.toStack(out1)
-		,d = MgMinetweaker.toStack(out2);
+		,c = MgMinetweaker.toStack(out1);
 		
 		if(a == null || b == null)return;
-		RecipeGrinder r = new RecipeGrinder(a,b,c,prob1,d,prob2);		
+		RecipeSifter r = new RecipeSifter(a,b,c,prob1);		
 		MineTweakerAPI.apply(new AddRecipe(r));
 	}
 	@ZenMethod
 	public static void removeRecipe(IItemStack input){
-		RecipeGrinder r = RecipeGrinder.getRecipe(MgMinetweaker.toStack(input));
+		RecipeSifter r = RecipeSifter.getRecipe(MgMinetweaker.toStack(input));
 		MineTweakerAPI.apply(new RemoveRecipe(r));
 	}
 	
 	public static class AddRecipe implements IUndoableAction{
 
-		private final RecipeGrinder r;
+		private final RecipeSifter r;
 		
-		public AddRecipe(RecipeGrinder r) {
+		public AddRecipe(RecipeSifter r) {
 			this.r = r;
 		}
 
 		@Override
 		public void apply() {
-			MgRecipeRegister.grinder.add(r);
+			MgRecipeRegister.sifter.add(r);
 		}
 
 		@Override
@@ -66,21 +68,21 @@ public class Grinder {
 
 		@Override
 		public void undo() {
-			MgRecipeRegister.grinder.remove(r);
+			MgRecipeRegister.sifter.remove(r);
 		}
 	}
 	
 	public static class RemoveRecipe implements IUndoableAction{
 		
-		private final RecipeGrinder r;
+		private final RecipeSifter r;
 		
-		public RemoveRecipe(RecipeGrinder r) {
+		public RemoveRecipe(RecipeSifter r) {
 			this.r = r;
 		}
 
 		@Override
 		public void apply() {
-			MgRecipeRegister.grinder.remove(r);
+			MgRecipeRegister.sifter.remove(r);
 		}
 
 		@Override
@@ -105,7 +107,7 @@ public class Grinder {
 
 		@Override
 		public void undo() {
-			MgRecipeRegister.grinder.add(r);
+			MgRecipeRegister.sifter.add(r);
 		}
 	}
 }

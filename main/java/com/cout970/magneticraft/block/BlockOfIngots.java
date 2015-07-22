@@ -29,6 +29,6 @@ public class BlockOfIngots extends Block{
 	}
 	
 	public String getUnlocalizedName(){
-        return "magneticraft:"+name;
+        return name;
     }
 }

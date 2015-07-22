@@ -48,6 +48,7 @@ import com.cout970.magneticraft.block.BlockInfiniteSteam;
 import com.cout970.magneticraft.block.BlockInfiniteWater;
 import com.cout970.magneticraft.block.BlockInserter;
 import com.cout970.magneticraft.block.BlockKineticGenerator;
+import com.cout970.magneticraft.block.BlockMB_Controls;
 import com.cout970.magneticraft.block.BlockMB_Energy_Low;
 import com.cout970.magneticraft.block.BlockMB_Energy_Medium;
 import com.cout970.magneticraft.block.BlockMB_Heat;
@@ -85,7 +86,7 @@ import com.cout970.magneticraft.block.BlockTeslaCoil;
 import com.cout970.magneticraft.block.BlockThermopile;
 import com.cout970.magneticraft.block.BlockTransformerLow_Medium;
 import com.cout970.magneticraft.block.BlockTransformerMedium_High;
-import com.cout970.magneticraft.block.BlockTurbine;
+import com.cout970.magneticraft.block.BlockSteamTurbine;
 import com.cout970.magneticraft.block.BlockVoidInventory;
 import com.cout970.magneticraft.block.BlockWindTurbine;
 import com.cout970.magneticraft.block.BlockWoodenShaft;
@@ -125,6 +126,7 @@ import com.cout970.magneticraft.tileentity.TileInfiniteSteam;
 import com.cout970.magneticraft.tileentity.TileInfiniteWater;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
+import com.cout970.magneticraft.tileentity.TileMBControls;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
@@ -191,6 +193,8 @@ public class ManagerBlocks {
 	public static Block ingot_block_carbide;
 	public static Block ingot_block_brass;
 	public static Block ingot_block_zinc;
+	public static Block dust_block_salt;
+	public static Block dust_block_sulfur;
 	public static Block solarpanel;
 	public static Block furnace;
 	public static Block battery;
@@ -267,6 +271,7 @@ public class ManagerBlocks {
 	public static Block pole_cable_wire;
 	public static Block infinite_energy;
 	public static Block sifter;
+	public static Block mb_controls;
 	
 	
 	public static void initBlocks(){
@@ -328,7 +333,7 @@ public class ManagerBlocks {
 		polimerizer = new BlockPolymerizer();
 		reactor_controller = new BlockReactorController();
 		multi_energy_medium = new BlockMB_Energy_Medium();
-		steam_turbine = new BlockTurbine();
+		steam_turbine = new BlockSteamTurbine();
 		combustion_engine = new BlockCombustionEngine(); 
 		heat_sink = new BlockHeatSink();
 		brickFurnace = new BlockBrickFurnace();
@@ -360,6 +365,9 @@ public class ManagerBlocks {
 		ingot_block_carbide = new BlockOfIngots("block_carbide");
 		ingot_block_brass = new BlockOfIngots("block_brass");
 		ingot_block_zinc = new BlockOfIngots("block_zinc");
+		dust_block_salt = new BlockOfIngots("block_salt");
+		dust_block_sulfur = new BlockOfIngots("block_sulfur");
+		mb_controls = new BlockMB_Controls();
 	}
 	
 	public static void registerBlocks(){
@@ -417,7 +425,7 @@ public class ManagerBlocks {
 		addBlock(stirling, "Stirling Generator Control");
 		addBlock(infinite_water, "Infinite Water");
 		addBlock(refinery, "Refinery Control");
-		addBlock(refinery_gap, "Refinery Block");
+		addBlock(refinery_gap, "Multiblock Component");
 		addBlock(refinery_tank, "Refinery Tank");
 		addBlock(copper_tank, "Fluid Tank");
 		addBlock(heater, "Heater");
@@ -453,6 +461,9 @@ public class ManagerBlocks {
 		addBlock(pole_cable_wire, "Electrical Pole With Transformer");
 		addBlock(infinite_energy, "Creative Infinite Energy");
 		addBlock(sifter, "Sifter Control");
+		addBlock(mb_controls, "Multiblock Controls");
+		addBlock(dust_block_salt, "Salt Block");
+		addBlock(dust_block_sulfur, "Sulfur Block");
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
@@ -538,6 +549,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileInfiniteEnergy.class);
 		tileEntities.add(TileSifter.class);
 		tileEntities.add(TileElectricPoleGap.class);
+		tileEntities.add(TileMBControls.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

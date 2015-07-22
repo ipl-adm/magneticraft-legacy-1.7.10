@@ -2,27 +2,26 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+
 import org.lwjgl.input.Keyboard;
+
+import cofh.api.energy.IEnergyContainerItem;
 
 import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-
-public class ItemBattery extends ItemCharged{
+public class ItemSmallBattery extends ItemCharged{
 	
-	public ItemBattery(String unlocalizedname) {
-		super(unlocalizedname, (int)EnergyConversor.RFtoW(500000));
+	public ItemSmallBattery(String unlocalizedname) {
+		super(unlocalizedname, (int)EnergyConversor.RFtoW(8000));
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}

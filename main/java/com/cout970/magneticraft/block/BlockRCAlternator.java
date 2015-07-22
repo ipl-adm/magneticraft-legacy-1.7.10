@@ -26,7 +26,7 @@ public class BlockRCAlternator extends BlockMg{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"rc_alternator"};
+		return new String[]{"void"};
 	}
 
 	@Override

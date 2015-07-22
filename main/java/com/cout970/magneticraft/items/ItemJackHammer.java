@@ -4,6 +4,7 @@ import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -30,6 +31,7 @@ public class ItemJackHammer extends ItemCharged{
 		super(unlocalizedname, 500000);
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setTextureName(Base+"void");
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

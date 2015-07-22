@@ -87,13 +87,13 @@ public class GuiDroidRED extends GuiBasic {
 
 		@Override
 		public void onClick(int mx, int my, int buttom, GuiBasic gui) {
-			if(isIn(mx, my, gui.xStart+158, gui.yStart+9, 10, 10)){
+			if(isIn(mx, my, gui.xStart+40, gui.yStart+235, 10, 10)){
 				MessageGuiClick msg = new MessageGuiClick(tile, 0, 1);
 				ManagerNetwork.INSTANCE.sendToServer(msg);
-			}else if(isIn(mx, my, gui.xStart+158, gui.yStart+23, 10, 10)){
+			}else if(isIn(mx, my, gui.xStart+40, gui.yStart+237, 10, 10)){
 				MessageGuiClick msg = new MessageGuiClick(tile, 1, 1);
 				ManagerNetwork.INSTANCE.sendToServer(msg);
-			}else if(isIn(mx, my, gui.xStart+158, gui.yStart+37, 10, 10)){
+			}else if(isIn(mx, my, gui.xStart+40, gui.yStart+240, 10, 10)){
 				MessageGuiClick msg = new MessageGuiClick(tile, 2, 1);
 				ManagerNetwork.INSTANCE.sendToServer(msg);
 			}

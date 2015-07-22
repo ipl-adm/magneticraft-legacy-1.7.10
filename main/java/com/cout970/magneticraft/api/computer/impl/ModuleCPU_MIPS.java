@@ -443,7 +443,7 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 	 // 5: not aligned with word boundry, 4: invalid addres jump, 3: syscall, 2: aritmatic, 1: invalid instuction, 0: external 
 	public void throwException(int flag){
 //		Log.debug("Exception: "+flag);
-//		Log.debug("FP: 0x"+Integer.toHexString(getRegister(30)));
+//		Log.debug("FP: 0x"+Int eger.toHexString(getRegister(30)));
 //		Log.debug("SP: 0x"+Integer.toHexString(getRegister(29)));
 //		Log.debug("$t0: 0x"+Integer.toHexString(getRegister(8)));
 //		Log.debug("$t1: 0x"+Integer.toHexString(getRegister(9)));

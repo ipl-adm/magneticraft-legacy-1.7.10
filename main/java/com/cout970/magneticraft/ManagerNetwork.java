@@ -3,9 +3,9 @@ package com.cout970.magneticraft;
 import com.cout970.magneticraft.messages.MessageClientCrafterUpdate;
 import com.cout970.magneticraft.messages.MessageClientStream;
 import com.cout970.magneticraft.messages.MessageGuiClick;
+import com.cout970.magneticraft.messages.MessageNBTUpdate;
 import com.cout970.magneticraft.messages.MessageRedstoneControlUpdate;
 import com.cout970.magneticraft.messages.MessageRedstoneStateUpdate;
-import com.cout970.magneticraft.messages.MessageTileUpdate;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -16,7 +16,7 @@ public class ManagerNetwork {
 	public static SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("magneticraft");
 	
 	public static void registerMessages(){
-		INSTANCE.registerMessage(MessageTileUpdate.class, MessageTileUpdate.class, 0, Side.CLIENT);
+		INSTANCE.registerMessage(MessageNBTUpdate.class, MessageNBTUpdate.class, 0, Side.CLIENT);
 		INSTANCE.registerMessage(MessageRedstoneControlUpdate.class, MessageRedstoneControlUpdate.class, 1, Side.SERVER);
 		INSTANCE.registerMessage(MessageRedstoneStateUpdate.class, MessageRedstoneStateUpdate.class, 2, Side.SERVER);
 		INSTANCE.registerMessage(MessageClientStream.class, MessageClientStream.class, 3, Side.SERVER);

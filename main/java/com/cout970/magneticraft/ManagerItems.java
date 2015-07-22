@@ -31,6 +31,7 @@ import com.cout970.magneticraft.items.ItemPartCopperWire;
 import com.cout970.magneticraft.items.ItemPartHeatCable;
 import com.cout970.magneticraft.items.ItemPartOpticFiber;
 import com.cout970.magneticraft.items.ItemProduct;
+import com.cout970.magneticraft.items.ItemSmallBattery;
 import com.cout970.magneticraft.items.ItemThermometer;
 import com.cout970.magneticraft.items.ItemThoriumRod;
 import com.cout970.magneticraft.items.ItemToolCharger;
@@ -116,6 +117,11 @@ public class ManagerItems {
 	public static Item heavy_copper_coil;
 	public static Item tool_charger;
 	public static Item part_optic_fiber;
+	public static Item dustBrass;
+	public static Item stick_iron;
+	public static Item small_battery;
+	public static Item alternator;
+	public static Item magnet;
 	
 	public static void initItems(){
 		
@@ -176,6 +182,11 @@ public class ManagerItems {
 		heavy_copper_coil = new ItemHeavyCopperCoil("heavy_copper_coil");
 		tool_charger = new ItemToolCharger("tool_charger");
 		part_optic_fiber = new ItemPartOpticFiber("optic_fiber");
+		dustBrass = new ItemBasic("dustBrass", "dust_brass");
+		stick_iron = new ItemBasic("stick_iron");
+		small_battery = new ItemSmallBattery("battery_small");
+		alternator = new ItemBasic("alternator");
+		magnet = new ItemBasic("magnet");
 	}
 	
 	public static void registerItems(){
@@ -237,6 +248,11 @@ public class ManagerItems {
 		addItem(heavy_copper_coil, "Heavy Copper Coil");
 		addItem(tool_charger, "Tool Charger");
 		addItem(part_optic_fiber, "Optic Fiber");
+		addItem(dustBrass, "Brass Dust");
+		addItem(stick_iron, "Iron Stick");
+		addItem(small_battery, "Small Battery");
+		addItem(alternator, "Alternator");
+		addItem(magnet, "Magnet");
 		
 		for(Item i : items){
 			GameRegistry.registerItem(i, i.getUnlocalizedName());

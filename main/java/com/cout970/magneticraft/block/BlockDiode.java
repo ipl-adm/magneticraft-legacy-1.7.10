@@ -23,7 +23,7 @@ public class BlockDiode extends BlockMg{
 
 	public BlockDiode() {
 		super(Material.iron);
-		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
+		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 	}
 
 	@Override

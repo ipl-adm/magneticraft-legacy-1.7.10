@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.api.computer.IBusWire;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IModuleCPU;
 import com.cout970.magneticraft.api.computer.IModuleDiskDrive;
@@ -28,12 +29,15 @@ import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IClientInformer;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.Orientation;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
@@ -41,7 +45,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener{
+public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener, IBusWire{
 
 	private IModuleMemoryController memory;
 	private IModuleDiskDrive floppyDisk;
@@ -104,7 +108,17 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 
 		@Override
 		public void writeByte(int pointer, int data){
-
+			Log.debug("Droid message at "+pointer+" with "+data);
+			if(pointer == 1){
+				if(data == 1)move(true);
+				else if(data == 2)move(false);
+			}else if(pointer == 2){
+				rotate(true, data != 0);
+			}else if(pointer == 3){
+				rotate(false, data != 0);
+			}else if(pointer == 4){
+				mine();
+			}
 		}
 
 		@Override
@@ -122,7 +136,8 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 		floppyDisk = new ModuleDisckDrive(this);
 		rom = new ModuleROM();
 		cpu.connectMemory(memory);
-		rom.loadToRAM(getMemory());
+		memory.setComputer(this);
+		
 	}
 
 	public void updateEntity(){
@@ -135,7 +150,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 		}
 		if(droidProgress == 0){
 			if(droidAction == 0){
-				MgDirection dir = getDirection().opposite();
+				MgDirection dir = getDirection();
 				Block b = worldObj.getBlock(xCoord+dir.getOffsetX(), yCoord+dir.getOffsetY(), zCoord+dir.getOffsetZ());
 				if(b == getBlockType()){
 					Orientation ori = getOrientation();
@@ -155,7 +170,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 				droidProgress = -1;
 				return;
 			}else if(droidAction == 1){
-				MgDirection dir = getDirection();
+				MgDirection dir = getDirection().opposite();
 				Block b = worldObj.getBlock(xCoord+dir.getOffsetX(), yCoord+dir.getOffsetY(), zCoord+dir.getOffsetZ());
 				if(b == getBlockType()){
 					Orientation ori = getOrientation();
@@ -235,7 +250,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	}
 
 	public void move(boolean front){
-		MgDirection dir = front ? getDirection().opposite() : getDirection();
+		MgDirection dir = front ? getDirection() : getDirection().opposite();
 		if(getBlockType().canPlaceBlockAt(worldObj, xCoord+dir.getOffsetX(), yCoord+dir.getOffsetY(), zCoord+dir.getOffsetZ())){
 			worldObj.setBlock(xCoord+dir.getOffsetX(), yCoord+dir.getOffsetY(), zCoord+dir.getOffsetZ(), ManagerBlocks.droid_red, 15, 2);
 			if(front){
@@ -252,7 +267,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	}
 
 	public void mine(){
-		MgDirection dire = getDirection().opposite();
+		MgDirection dire = getDirection();
 		Block b = worldObj.getBlock(xCoord+dire.getOffsetX(), yCoord+dire.getOffsetY(), zCoord+dire.getOffsetZ());
 		int metadata = worldObj.getBlockMetadata(xCoord+dire.getOffsetX(), yCoord+dire.getOffsetY(), zCoord+dire.getOffsetZ());
 		if(MgUtils.isMineableBlock(worldObj, new BlockInfo(b, metadata))){
@@ -272,7 +287,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	public MgDirection getDirection() {
 		if(getOrientation().getLevel() == 1)return MgDirection.UP;
 		if(getOrientation().getLevel() == -1)return MgDirection.DOWN;
-		return getOrientation().getDirection();
+		return getOrientation().getDirection().opposite();
 	}
 
 	public InventoryComponent getInv() {
@@ -288,8 +303,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 		getInv().readFromNBT(nbt);
 		monitor.load(nbt);
 		extras.readFromNBT(nbt, "Extras");
-
-		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
+		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER && cpu != null){
 			cpu.loadRegisters(nbt);
 			memory.loadMemory(nbt);
 			floppyDisk.load(nbt);
@@ -302,8 +316,8 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 		nbt.setBoolean("Active", activate);
 		nbt.setInteger("PROGRESS", droidProgress);
 		nbt.setInteger("ACTION", droidAction);
-		monitor.save(nbt);
 		getInv().writeToNBT(nbt);
+		monitor.save(nbt);
 		extras.writeToNBT(nbt, "Extras");
 		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER){
 			if(cpu != null){
@@ -312,6 +326,26 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 				floppyDisk.save(nbt);
 			}
 		}
+	}
+	
+	@Override
+	public void saveInServer(NBTTagCompound nbt) {
+		nbt.setBoolean("Active", activate);
+		nbt.setInteger("PROGRESS", droidProgress);
+		nbt.setInteger("ACTION", droidAction);
+		getInv().writeToNBT(nbt);
+		monitor.save(nbt);
+		extras.writeToNBT(nbt, "Extras");
+	}
+
+	@Override
+	public void loadInClient(NBTTagCompound nbt) {
+		activate = nbt.getBoolean("Active");
+		droidProgress = nbt.getInteger("PROGRESS");
+		droidAction = nbt.getInteger("ACTION");
+		getInv().readFromNBT(nbt);
+		monitor.load(nbt);
+		extras.readFromNBT(nbt, "Extras");
 	}
 
 	public float getDelta() {
@@ -324,6 +358,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
 		craft.sendProgressBarUpdate(cont, 1, (int) cond.getStorage());
+		sendUpdateToClient();
 	}
 
 	@Override
@@ -389,5 +424,10 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	@Override
 	public void loadInfoFromMessage(NBTTagCompound nbt) {
 		monitor.loadInfoFromMessage(nbt);
+	}
+	
+	@Override
+	public VecInt[] getValidConnections() {
+		return VecIntUtil.FORGE_DIRECTIONS;
 	}
 }

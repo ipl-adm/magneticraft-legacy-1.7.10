@@ -90,6 +90,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 			}else{
 				invResult.setInventorySlotContents(0, result);
 			}
+		}else{
+			invResult.setInventorySlotContents(0, null);
 		}
 	}
 	
@@ -195,6 +197,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 		boolean ret = false;
 		if(craftRecipe.matches(craft, worldObj)){
 			ItemStack newResult = craftRecipe.getCraftingResult(craft);
+			if(result == null || result.getItem() == null)return false;
 			ret = OreDictionary.itemMatches(result, newResult, true);
 		}
 		craft.setInventorySlotContents(slot, item);

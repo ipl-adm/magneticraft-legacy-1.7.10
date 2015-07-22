@@ -9,6 +9,7 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 
+import com.cout970.magneticraft.api.computer.impl.ComputerUtils;
 import com.cout970.magneticraft.compact.ManagerIntegration;
 import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;

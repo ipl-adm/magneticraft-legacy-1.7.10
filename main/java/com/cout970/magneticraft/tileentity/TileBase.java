@@ -8,13 +8,14 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.messages.MessageTileUpdate;
+import com.cout970.magneticraft.messages.MessageNBTUpdate;
+import com.cout970.magneticraft.util.ITileHandlerNBT;
 import com.cout970.magneticraft.util.tile.RedstoneControl;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileBase extends Tile1_8Updater{
+public class TileBase extends Tile1_8Updater implements ITileHandlerNBT{
 	
 	public boolean powered;
 	public RedstoneControl redstone = RedstoneControl.NORMAL;
@@ -27,7 +28,9 @@ public class TileBase extends Tile1_8Updater{
 	
 	public void sendUpdateToClient(){
 		if(worldObj.isRemote)return;
-		MessageTileUpdate message = new MessageTileUpdate(this);
+		NBTTagCompound nbt = new NBTTagCompound();
+		saveInServer(nbt);
+		MessageNBTUpdate message = new MessageNBTUpdate(this, nbt);
 		for(Object obj : worldObj.playerEntities){
 			if(obj instanceof EntityPlayerMP){
 				EntityPlayerMP player = (EntityPlayerMP) obj;
@@ -43,7 +46,7 @@ public class TileBase extends Tile1_8Updater{
         return 16384.0D;
     }
 	
-	private int getDistanceSquaredFrom(EntityPlayerMP pl, TileBase tile) {
+	protected int getDistanceSquaredFrom(EntityPlayerMP pl, TileBase tile) {
 		VecInt vecPl = new VecInt(pl);
 		VecInt vecTE = new VecInt(tile);
 		return vecPl.add(vecTE.getOpposite()).squareDistance();
@@ -87,5 +90,15 @@ public class TileBase extends Tile1_8Updater{
 
 	public static RedstoneControl step(RedstoneControl state) {
 		return state == RedstoneControl.NORMAL ? RedstoneControl.INVERSE : state == RedstoneControl.INVERSE ? RedstoneControl.DISBLE : RedstoneControl.NORMAL;
+	}
+
+	@Override
+	public void saveInServer(NBTTagCompound nbt) {
+		writeToNBT(nbt);
+	}
+
+	@Override
+	public void loadInClient(NBTTagCompound nbt) {
+		readFromNBT(nbt);
 	}
 }

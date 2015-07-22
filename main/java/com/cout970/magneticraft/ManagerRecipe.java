@@ -20,18 +20,21 @@ public class ManagerRecipe {
 	public static void registerFurnaceRecipes(){
 
 		for(int i = 0; i < oreNames.length; i++){
+			ItemStack extra_1 = extraNames[i][0] == null ? null : ManagerOreDict.getOreWithPreference("dust"+extraNames[i][0]);
 			//Crusher Recipes
-			MgRecipeRegister.registerCrusherRecipe(ManagerOreDict.getOre("ore"+oreNames[i]), new ItemStack(chunks.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			MgRecipeRegister.registerCrusherRecipe(ManagerOreDict.getOre("ore"+oreNames[i]), new ItemStack(chunks.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
 			//Grinder Recipes
-			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
-//			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks_clean.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
+//			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks_clean.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
 			//Grinder Recipes
-			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
-//			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble_clean.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
+//			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble_clean.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
 			
-//			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles_clean.get(i)), new ItemStack(dust.get(i), 2), ManagerOreDict.getOre(extraNames[i][0]), 0.05F);
+//			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles_clean.get(i)), new ItemStack(dust.get(i), 2), extra_1, 0.05F);
+			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i), 2), extra_1, 0.05F);
 			ItemStack ingot = ManagerOreDict.getOreWithPreference("ingot"+oreNames[i]);
 			if(ingot != null){
+				MgRecipeRegister.registerGrinderRecipe(ingot, new ItemStack(dust.get(i)), null, 0F, null, 0F);
 				ingot = ingot.copy();
 				ingot.stackSize = 2;
 				GameRegistry.addSmelting(new ItemStack(chunks.get(i)), ingot, 1.0F);
@@ -44,6 +47,7 @@ public class ManagerRecipe {
 		}
 		GameRegistry.addSmelting(new ItemStack(oreCopper), new ItemStack(ingotCopper), 1.0F);
 		GameRegistry.addSmelting(new ItemStack(oreTungsten), new ItemStack(ingotTungsten), 1.0F);
+		GameRegistry.addSmelting(new ItemStack(dustBrass), new ItemStack(ingotBrass), 1.0F);
 		
 		for(ItemProduct i : dust){
 			ItemStack ingot = ManagerOreDict.getOre("ingot"+i.getBaseName());
@@ -58,14 +62,14 @@ public class ManagerRecipe {
 		MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.quartz),new ItemStack(dustQuartz),new ItemStack(dustQuartz),0.5f,null,0);
 		MgRecipeRegister.registerGrinderRecipe(new ItemStack(Blocks.obsidian),new ItemStack(dustObsidian,8),null,0,null,0);
 		
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSulfur,1),new ItemStack(dustSulfur,2),new ItemStack(dustSulfur,1),20,null,0);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.coal_ore,1),new ItemStack(Items.coal,2),new ItemStack(Items.coal,1),15,null,0);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.lapis_ore,1),new ItemStack(Items.dye,8,4),new ItemStack(Items.dye,1,4),40,null,0);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.diamond_ore,1),new ItemStack(Items.diamond,1),new ItemStack(Items.diamond,1),30,new ItemStack(Items.diamond,2),1);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.redstone_ore,1),new ItemStack(Items.redstone,5),new ItemStack(Items.redstone,2),40,null,0);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.emerald_ore,1),new ItemStack(Items.emerald,1),new ItemStack(Items.emerald,1),30,new ItemStack(Items.emerald,2),1);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.quartz_ore,1),new ItemStack(Items.quartz,2),new ItemStack(Items.quartz,1),40,new ItemStack(dustQuartz,1),5);
-		MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSalt,1),new ItemStack(dustSalt,2),new ItemStack(dustSalt,1),40,null,0);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSulfur,1),			new ItemStack(dustSulfur,2),	new ItemStack(dustSulfur,1),0.20f,null,0);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.coal_ore,1),	new ItemStack(Items.coal,2),	new ItemStack(Items.coal,1),0.15f,null,0);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.lapis_ore,1),	new ItemStack(Items.dye,8,4),	new ItemStack(Items.dye,1,4),0.40f,null,0);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.diamond_ore,1),	new ItemStack(Items.diamond,1),	new ItemStack(Items.diamond,1),0.30f,new ItemStack(Items.diamond,2),0.01f);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.redstone_ore,1),new ItemStack(Items.redstone,5),new ItemStack(Items.redstone,2),0.40f,null,0);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.emerald_ore,1),	new ItemStack(Items.emerald,1),	new ItemStack(Items.emerald,1),0.30f,new ItemStack(Items.emerald,2),0.01f);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.quartz_ore,1),	new ItemStack(Items.quartz,2),	new ItemStack(Items.quartz,1),0.40f,new ItemStack(dustQuartz,1),0.05f);
+		MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSalt,1),			new ItemStack(dustSalt,2),		new ItemStack(dustSalt,1),0.40f,null,0);
 		
 		MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.RFtoW(160));
 		MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("hotcrude", 20), FluidRegistry.getFluidStack("lightoil", 7), FluidRegistry.getFluidStack("heavyoil", 6), FluidRegistry.getFluidStack("naturalgas", 7));
@@ -122,5 +126,8 @@ public class ManagerRecipe {
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.pumpkin_seeds,1,0), 100, true);
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.melon_seeds,1,0), 100, true);
 		MgRecipeRegister.addBiomassBurnerRecipe(new ItemStack(Items.reeds,1,0), 100, true);
+		ItemStack liana = ManagerOreDict.getOre("plantLiana");
+		if(liana != null)
+			MgRecipeRegister.addBiomassBurnerRecipe(liana.copy(), 400, true);
 	}
 }

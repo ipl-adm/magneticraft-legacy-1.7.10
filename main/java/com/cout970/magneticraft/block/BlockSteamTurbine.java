@@ -25,9 +25,9 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockTurbine extends BlockMg implements MB_ControlBlock{
+public class BlockSteamTurbine extends BlockMg implements MB_ControlBlock{
 
-	public BlockTurbine() {
+	public BlockSteamTurbine() {
 		super(Material.iron);
 		setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
 		setLightOpacity(0);

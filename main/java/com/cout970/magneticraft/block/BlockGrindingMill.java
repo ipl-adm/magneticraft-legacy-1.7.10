@@ -39,7 +39,7 @@ public class BlockGrindingMill extends BlockMg implements MB_ControlBlock{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"grinding_mill"};
+		return new String[]{"void"};
 	}
 
 	@Override

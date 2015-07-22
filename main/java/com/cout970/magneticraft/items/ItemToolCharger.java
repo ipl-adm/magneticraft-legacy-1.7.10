@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemToolCharger extends ItemCharged{
 
 	public ItemToolCharger(String unlocalizedname) {
-		super(unlocalizedname, (int)EnergyConversor.RFtoW(100000));
+		super(unlocalizedname, (int)EnergyConversor.RFtoW(500000));
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}

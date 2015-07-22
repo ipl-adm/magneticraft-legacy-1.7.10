@@ -28,6 +28,8 @@ public class NEIMagneticraftConfig implements IConfigureNEI{
 		API.registerUsageHandler(new CraftingPolymerizer());
 		API.registerRecipeHandler(new CraftingBiomassBurner());
 		API.registerUsageHandler(new CraftingBiomassBurner());
+		API.registerRecipeHandler(new CraftingSifter());
+		API.registerUsageHandler(new CraftingSifter());
 		
 		API.registerGuiOverlayHandler(GuiCrafter.class, new CrafterOverlayHandler(), "crafting");
 	}

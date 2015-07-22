@@ -108,7 +108,7 @@ public class ItemBlockMg extends ItemBlock{
 			list.add(format+"Generates RF energy from electricity");
 			list.add(format+"Produces up to 400RF, uses medium voltage");
 		}else if(b == miner){
-			list.add(format+"Run faster as with more voltage, uses medium voltage");
+			list.add(format+"Run faster with more voltage, uses medium voltage");
 			list.add(format+"Uses "+(int)EnergyConversor.RFtoW(500)+"J per block mined");
 		}else if(b == mirror){
 			list.add(format+"Focus the sunlight into a Solar Tower Core, use a Map Position to orient the mirror");

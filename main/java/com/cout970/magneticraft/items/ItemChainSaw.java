@@ -23,6 +23,7 @@ public class ItemChainSaw extends ItemCharged{
 	public ItemChainSaw(String unlocalizedname) {
 		super(unlocalizedname, 500000);
 		setMaxStackSize(1);
+		setTextureName(Base+"void");
 		setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
 	}
 

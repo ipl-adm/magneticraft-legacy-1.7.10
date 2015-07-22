@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -9,26 +10,30 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-import com.cout970.magneticraft.api.computer.IPeripheral;
+import com.cout970.magneticraft.ManagerNetwork;
+import com.cout970.magneticraft.api.computer.IBusWire;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
 import com.cout970.magneticraft.api.computer.IHardwareProvider.ModuleType;
 import com.cout970.magneticraft.api.computer.IModuleCPU;
-import com.cout970.magneticraft.api.computer.IModuleDiskDrive;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
 import com.cout970.magneticraft.api.computer.IModuleROM;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.impl.ModuleDisckDrive;
 import com.cout970.magneticraft.api.computer.impl.ModuleHardDrive;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.messages.MessageNBTUpdate;
+import com.cout970.magneticraft.util.ITileHandlerNBT;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
-public class TileComputer extends TileBase implements IGuiListener,IGuiSync, IComputer{
+public class TileComputer extends TileBase implements IGuiListener,IGuiSync, IComputer, IBusWire, ITileHandlerNBT{
 	
 	private IModuleCPU procesor;
 	private IModuleMemoryController memory;
@@ -115,22 +120,17 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		}
 		if(worldObj.getTotalWorldTime() % 100 == 0){
 				chechHardware();
-//				sendUpdateToClient();
+				sendUpdateToClient();
 		}
 //		Log.debug((System.nanoTime()-time)/1000);
 	}
 	
 	public Packet getDescriptionPacket(){
-		NBTTagCompound nbt = new NBTTagCompound();
-//		this.writeToNBT(nbt);
-		S35PacketUpdateTileEntity p = new S35PacketUpdateTileEntity(xCoord,yCoord,zCoord,0,nbt);
-		return p;
+		return null;
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-//		this.readFromNBT(pkt.func_148857_g());
-	}
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {}
 
 	private void chechHardware() {
 		ItemStack cpu = getInv().getStackInSlot(0);
@@ -254,6 +254,7 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		return memory;
 	}
 	
+	@Override
 	public InventoryComponent getInv() {
 		return inv;
 	}
@@ -271,5 +272,21 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 	@Override
 	public IPeripheral[] getPeripherals() {
 		return new IPeripheral[]{motherboard, hardDrive, floppyDrive};
+	}
+
+	@Override
+	public VecInt[] getValidConnections() {
+		return VecIntUtil.FORGE_DIRECTIONS;
+	}
+
+	public void saveInServer(NBTTagCompound nbt) {
+		nbt.setBoolean("ON", isRunning());
+		getInv().writeToNBT(nbt);
+	}
+	
+	@Override
+	public void loadInClient(NBTTagCompound nbt){
+		isRuning = nbt.getBoolean("ON");
+		getInv().readFromNBT(nbt);
 	}
 }

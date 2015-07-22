@@ -26,12 +26,12 @@ public class BlockRFAlternator extends BlockMg{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"rf_conversor"};
+		return new String[]{"void"};
 	}
 
 	@Override
 	public String getName() {
-		return "rf_conversor";
+		return "rf_alternator";
 	}
 	
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i){

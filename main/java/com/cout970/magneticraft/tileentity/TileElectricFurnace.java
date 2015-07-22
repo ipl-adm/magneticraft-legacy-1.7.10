@@ -224,7 +224,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 			
 			@Override
 			public float getLevel() {
-				return 0;
+				return progress;
 			}
 		};
 	}

@@ -25,15 +25,16 @@ public class MultiblockSifter extends Multiblock{
 		SimpleComponent e = new SimpleComponent(ManagerBlocks.multi_energy_low);
 		SimpleComponent t = new SimpleComponent(ManagerBlocks.refinery_gap);
 		SimpleComponent g = new SimpleComponent(ManagerBlocks.sifter);
-
+		SimpleComponent n = new SimpleComponent(ManagerBlocks.mb_controls);
+		
 		Mg_Component[][][] m = 
 			{//     {{z2,z1,z0}x2,{z2,z1,z0}x1,{z2,z1,z0}x0}y0
-				{ { e, c, a}, { c, c, c}, { a, c, i} },
-				{ { c, g, a}, { t, t, t}, { a, t, t} },
-				{ { a, a, a}, { a, t, t}, { a, t, t} }
+				{ { c, g}, { i, e}, { c, c}, { c, c} },
+				{ { n, n}, { c, i}, { t, t}, { t, t} },
+				{ { a, a}, { c, c}, { t, t}, { t, t} }
 			};
 
-		VecInt p = new VecInt(-1,-1,0);
+		VecInt p = new VecInt(-1,0,0);
 		x = m.length;
 		y = m[0].length;
 		z = m[0][0].length;
@@ -45,5 +46,4 @@ public class MultiblockSifter extends Multiblock{
 	public int getID() {
 		return MB_Register.ID_SIFTER;
 	}
-
 }

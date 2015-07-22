@@ -26,7 +26,7 @@ public class BlockEUAlternator extends BlockMg{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"eu_alternator"};
+		return new String[]{"void"};
 	}
 
 	@Override

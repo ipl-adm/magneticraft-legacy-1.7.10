@@ -18,6 +18,7 @@ public class MgMinetweaker {
 		MineTweakerAPI.registerClass(BiomassBurner.class);
 		MineTweakerAPI.registerClass(OilDistillery.class);
 		MineTweakerAPI.registerClass(Refinery.class);
+		MineTweakerAPI.registerClass(Sifter.class);
 	}
 	
 	public static ItemStack toStack(IItemStack iStack){

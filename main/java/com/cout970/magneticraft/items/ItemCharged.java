@@ -6,10 +6,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
 
 public class ItemCharged extends ItemBasic implements IBatteryItem{

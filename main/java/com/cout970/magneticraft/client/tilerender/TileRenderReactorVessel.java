@@ -1,17 +1,11 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.client.model.AdvancedModelLoader;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
-import com.cout970.magneticraft.client.model.ModelReactorRod;
 import com.cout970.magneticraft.client.model.ModelReactorVessel;
-import com.cout970.magneticraft.tileentity.TileReactorVessel;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderReactorVessel extends TileEntitySpecialRenderer{

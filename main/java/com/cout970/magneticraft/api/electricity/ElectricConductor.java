@@ -11,7 +11,6 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
-import com.cout970.magneticraft.util.Log;
 
 public class ElectricConductor implements IElectricConductor{
 

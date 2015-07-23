@@ -11,7 +11,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelGrindingMill;
 import com.cout970.magneticraft.tileentity.TileGrindingMill;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;

@@ -3,7 +3,6 @@ package com.cout970.magneticraft.util.multiblock;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -12,7 +11,6 @@ import net.minecraft.world.World;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.block.BlockMg;
 
 public class RemplaceComponent extends Mg_Component{
 	

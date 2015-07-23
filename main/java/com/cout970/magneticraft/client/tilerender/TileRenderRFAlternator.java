@@ -6,9 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.client.model.ModelDiode;
 import com.cout970.magneticraft.client.model.ModelAlternator;
-import com.cout970.magneticraft.tileentity.TileDiode;
 import com.cout970.magneticraft.tileentity.TileRFAlternator;
 import com.cout970.magneticraft.util.RenderUtil;
 

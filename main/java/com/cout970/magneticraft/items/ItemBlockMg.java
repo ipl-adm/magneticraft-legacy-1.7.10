@@ -1,20 +1,80 @@
 package com.cout970.magneticraft.items;
 
+import static com.cout970.magneticraft.ManagerBlocks.airlock;
+import static com.cout970.magneticraft.ManagerBlocks.basic_gen;
+import static com.cout970.magneticraft.ManagerBlocks.battery;
+import static com.cout970.magneticraft.ManagerBlocks.biomass_burner;
+import static com.cout970.magneticraft.ManagerBlocks.boiler;
+import static com.cout970.magneticraft.ManagerBlocks.breaker;
+import static com.cout970.magneticraft.ManagerBlocks.brickFurnace;
+import static com.cout970.magneticraft.ManagerBlocks.combustion_engine;
+import static com.cout970.magneticraft.ManagerBlocks.conveyor_l;
+import static com.cout970.magneticraft.ManagerBlocks.cooler;
+import static com.cout970.magneticraft.ManagerBlocks.copper_tank;
+import static com.cout970.magneticraft.ManagerBlocks.cpu;
+import static com.cout970.magneticraft.ManagerBlocks.crafter;
+import static com.cout970.magneticraft.ManagerBlocks.crusher;
+import static com.cout970.magneticraft.ManagerBlocks.diode;
+import static com.cout970.magneticraft.ManagerBlocks.droid_red;
+import static com.cout970.magneticraft.ManagerBlocks.electric_switch;
+import static com.cout970.magneticraft.ManagerBlocks.eu_alternator;
+import static com.cout970.magneticraft.ManagerBlocks.firebox;
+import static com.cout970.magneticraft.ManagerBlocks.fluidhopper;
+import static com.cout970.magneticraft.ManagerBlocks.furnace;
+import static com.cout970.magneticraft.ManagerBlocks.geothermal;
+import static com.cout970.magneticraft.ManagerBlocks.grinder;
+import static com.cout970.magneticraft.ManagerBlocks.heat_resist;
+import static com.cout970.magneticraft.ManagerBlocks.heat_sink;
+import static com.cout970.magneticraft.ManagerBlocks.heater;
+import static com.cout970.magneticraft.ManagerBlocks.infinite_energy;
+import static com.cout970.magneticraft.ManagerBlocks.infinite_steam;
+import static com.cout970.magneticraft.ManagerBlocks.infinite_water;
+import static com.cout970.magneticraft.ManagerBlocks.inserter;
+import static com.cout970.magneticraft.ManagerBlocks.kinetic;
+import static com.cout970.magneticraft.ManagerBlocks.miner;
+import static com.cout970.magneticraft.ManagerBlocks.mirror;
+import static com.cout970.magneticraft.ManagerBlocks.monitor;
+import static com.cout970.magneticraft.ManagerBlocks.oil_distillery;
+import static com.cout970.magneticraft.ManagerBlocks.permagnet;
+import static com.cout970.magneticraft.ManagerBlocks.pole_cable_wire;
+import static com.cout970.magneticraft.ManagerBlocks.pole_tier1;
+import static com.cout970.magneticraft.ManagerBlocks.polimerizer;
+import static com.cout970.magneticraft.ManagerBlocks.pumpJack;
+import static com.cout970.magneticraft.ManagerBlocks.rc_alternator;
+import static com.cout970.magneticraft.ManagerBlocks.reactor_activator;
+import static com.cout970.magneticraft.ManagerBlocks.reactor_control_rods;
+import static com.cout970.magneticraft.ManagerBlocks.reactor_controller;
+import static com.cout970.magneticraft.ManagerBlocks.reactor_vessel;
+import static com.cout970.magneticraft.ManagerBlocks.reactor_wall;
+import static com.cout970.magneticraft.ManagerBlocks.refinery;
+import static com.cout970.magneticraft.ManagerBlocks.resistance;
+import static com.cout970.magneticraft.ManagerBlocks.rf_alternator;
+import static com.cout970.magneticraft.ManagerBlocks.sifter;
+import static com.cout970.magneticraft.ManagerBlocks.solar_tower_core;
+import static com.cout970.magneticraft.ManagerBlocks.solarpanel;
+import static com.cout970.magneticraft.ManagerBlocks.steam_engine;
+import static com.cout970.magneticraft.ManagerBlocks.steam_turbine;
+import static com.cout970.magneticraft.ManagerBlocks.stirling;
+import static com.cout970.magneticraft.ManagerBlocks.tesla_coil;
+import static com.cout970.magneticraft.ManagerBlocks.thermopile;
+import static com.cout970.magneticraft.ManagerBlocks.transformer_lm;
+import static com.cout970.magneticraft.ManagerBlocks.transformer_mh;
+import static com.cout970.magneticraft.ManagerBlocks.void_inv;
+import static com.cout970.magneticraft.ManagerBlocks.windturbine;
+import static com.cout970.magneticraft.ManagerBlocks.wooden_shaft;
+
 import java.util.List;
 
-
-
-
-import com.cout970.magneticraft.api.util.EnergyConversor;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
-import static com.cout970.magneticraft.ManagerBlocks.*;
+
+import com.cout970.magneticraft.api.util.EnergyConversor;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBlockMg extends ItemBlock{
 	

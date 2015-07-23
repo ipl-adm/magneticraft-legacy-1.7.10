@@ -10,9 +10,7 @@ import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
 import com.cout970.magneticraft.client.gui.component.CompFluidRender;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
-import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
-import com.cout970.magneticraft.tileentity.TileRefinery;
 
 public class GuiOilDistillery extends GuiBasic{
 

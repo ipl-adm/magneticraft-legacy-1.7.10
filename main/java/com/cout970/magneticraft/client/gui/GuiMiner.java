@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerNetwork;
-import com.cout970.magneticraft.client.gui.GuiInserter.CompInseterGui;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBarMediumVoltage;
@@ -19,8 +18,6 @@ import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.messages.MessageGuiClick;
-import com.cout970.magneticraft.tileentity.TileCombustionEngine;
-import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.RenderUtil;
 

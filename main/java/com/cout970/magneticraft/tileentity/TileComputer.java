@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
@@ -10,7 +9,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.api.computer.IBusWire;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
@@ -25,9 +23,8 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.messages.MessageNBTUpdate;
-import com.cout970.magneticraft.util.ITileHandlerNBT;
 import com.cout970.magneticraft.util.IGuiListener;
+import com.cout970.magneticraft.util.ITileHandlerNBT;
 import com.cout970.magneticraft.util.InventoryComponent;
 
 import cpw.mods.fml.common.FMLCommonHandler;

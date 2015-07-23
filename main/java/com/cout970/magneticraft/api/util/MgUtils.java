@@ -26,10 +26,8 @@ import com.cout970.magneticraft.api.electricity.compact.InteractionHelper;
 import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
 import com.cout970.magneticraft.api.electricity.wires.ITileElectricPole;
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatMultipart;
 import com.cout970.magneticraft.api.heat.IHeatTile;
-import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 
 /**
  * 

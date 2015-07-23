@@ -10,24 +10,13 @@ import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerNetwork;
-import com.cout970.magneticraft.client.gui.GuiBasicGenerator.CompInfoDisplay;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
-import com.cout970.magneticraft.client.gui.component.CompBurningTime;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
-import com.cout970.magneticraft.client.gui.component.CompEnergyBar;
-import com.cout970.magneticraft.client.gui.component.CompFluidRender;
-import com.cout970.magneticraft.client.gui.component.CompHeatBar;
-import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.messages.MessageClientStream;
 import com.cout970.magneticraft.messages.MessageGuiClick;
-import com.cout970.magneticraft.messages.MessageRedstoneControlUpdate;
-import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.util.RenderUtil;
-import com.cout970.magneticraft.util.tile.RedstoneControl;
 
 public class GuiInserter extends GuiBasic{
 

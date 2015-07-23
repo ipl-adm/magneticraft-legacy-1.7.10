@@ -8,7 +8,6 @@ import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 
 public class EU_EnergyInterfaceSink implements IEnergyInterface{
 

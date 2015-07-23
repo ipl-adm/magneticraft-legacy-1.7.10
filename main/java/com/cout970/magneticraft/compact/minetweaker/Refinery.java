@@ -4,15 +4,11 @@ import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.liquid.ILiquidStack;
 import net.minecraftforge.fluids.FluidStack;
-
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
-import com.cout970.magneticraft.api.acces.RecipeRefinery;
-import com.cout970.magneticraft.compact.minetweaker.OilDistillery.AddRecipe;
-import com.cout970.magneticraft.compact.minetweaker.OilDistillery.RemoveRecipe;
-
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.acces.RecipeRefinery;
 
 @ZenClass("mods.magneticraft.Refinery")
 public class Refinery {

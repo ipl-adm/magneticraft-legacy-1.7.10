@@ -9,13 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
-import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.IReactorComponent;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileReactorVessel extends TileHeatConductor implements IInventoryManaged,IGuiSync,IBarProvider,IReactorComponent{

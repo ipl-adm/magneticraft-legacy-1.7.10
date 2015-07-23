@@ -1,7 +1,24 @@
 package com.cout970.magneticraft;
 
-import static com.cout970.magneticraft.ManagerBlocks.*;
-import static com.cout970.magneticraft.ManagerItems.*;
+import static com.cout970.magneticraft.ManagerBlocks.oreCopper;
+import static com.cout970.magneticraft.ManagerBlocks.oreSalt;
+import static com.cout970.magneticraft.ManagerBlocks.oreSulfur;
+import static com.cout970.magneticraft.ManagerBlocks.oreTungsten;
+import static com.cout970.magneticraft.ManagerItems.chunks;
+import static com.cout970.magneticraft.ManagerItems.dust;
+import static com.cout970.magneticraft.ManagerItems.dustBrass;
+import static com.cout970.magneticraft.ManagerItems.dustDiamond;
+import static com.cout970.magneticraft.ManagerItems.dustObsidian;
+import static com.cout970.magneticraft.ManagerItems.dustQuartz;
+import static com.cout970.magneticraft.ManagerItems.dustSalt;
+import static com.cout970.magneticraft.ManagerItems.dustSulfur;
+import static com.cout970.magneticraft.ManagerItems.extraNames;
+import static com.cout970.magneticraft.ManagerItems.ingotBrass;
+import static com.cout970.magneticraft.ManagerItems.ingotCopper;
+import static com.cout970.magneticraft.ManagerItems.ingotTungsten;
+import static com.cout970.magneticraft.ManagerItems.oreNames;
+import static com.cout970.magneticraft.ManagerItems.pebbles;
+import static com.cout970.magneticraft.ManagerItems.rubble;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

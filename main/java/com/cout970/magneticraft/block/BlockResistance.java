@@ -15,7 +15,6 @@ import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileResistance;
-import com.cout970.magneticraft.util.Orientation;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

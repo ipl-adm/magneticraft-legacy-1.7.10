@@ -78,4 +78,5 @@ public class ModelTextures {
 	public static final ResourceLocation RC_ALTERNATOR 				= new ResourceLocation("magneticraft", "textures/misc/modelrc_alternator.png");
 	public static final ResourceLocation ELECTRIC_WIRE_TIER_1 		= new ResourceLocation("magneticraft", "textures/misc/wire_tier1.png");
 	public static final ResourceLocation ELECTRIC_SWITCH 			= new ResourceLocation("magneticraft", "textures/misc/switch.png");
+	public static final ResourceLocation GAUGE 						= new ResourceLocation("magneticraft", "textures/misc/gauge.png");
 }

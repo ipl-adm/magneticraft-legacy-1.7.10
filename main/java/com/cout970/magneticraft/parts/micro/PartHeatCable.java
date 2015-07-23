@@ -12,16 +12,13 @@ import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TileMultipart;
 
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.tilerender.TileRenderCableHigh;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatCable;
-import com.cout970.magneticraft.util.Log;
 
 public class PartHeatCable extends PartHeat implements ISidedHollowConnect{
 

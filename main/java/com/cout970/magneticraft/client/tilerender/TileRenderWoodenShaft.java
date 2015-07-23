@@ -6,9 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelShaft;
-import com.cout970.magneticraft.client.model.ModelTeslaCoil;
 import com.cout970.magneticraft.tileentity.TileWoodenShaft;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderWoodenShaft extends TileEntitySpecialRenderer{

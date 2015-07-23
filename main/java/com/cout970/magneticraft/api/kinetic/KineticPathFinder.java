@@ -8,9 +8,7 @@ import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.PathFinder;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 
 public class KineticPathFinder{
 

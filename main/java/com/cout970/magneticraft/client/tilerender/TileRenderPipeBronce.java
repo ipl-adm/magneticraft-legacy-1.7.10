@@ -10,7 +10,6 @@ import com.cout970.magneticraft.client.model.ModelFluidPipe_Center;
 import com.cout970.magneticraft.client.model.ModelFluidPipe_In;
 import com.cout970.magneticraft.parts.micro.PartIronPipe;
 import com.cout970.magneticraft.parts.micro.PartPipe.ConnectionMode;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderPipeBronce {

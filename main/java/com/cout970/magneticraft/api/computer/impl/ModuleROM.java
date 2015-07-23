@@ -2,11 +2,9 @@ package com.cout970.magneticraft.api.computer.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
 import com.cout970.magneticraft.api.computer.IModuleROM;
-import com.cout970.magneticraft.util.Log;
 
 public class ModuleROM implements IModuleROM{
 

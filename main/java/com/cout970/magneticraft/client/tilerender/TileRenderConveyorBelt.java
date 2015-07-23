@@ -21,7 +21,6 @@ import com.cout970.magneticraft.block.BlockConveyorLow;
 import com.cout970.magneticraft.client.model.ModelConveyorBelt;
 import com.cout970.magneticraft.client.model.ModelConveyorBeltAddition;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{

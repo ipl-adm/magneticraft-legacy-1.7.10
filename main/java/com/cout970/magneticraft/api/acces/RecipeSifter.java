@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.api.acces;
 
-import com.cout970.magneticraft.api.util.MgUtils;
-
 import net.minecraft.item.ItemStack;
+
+import com.cout970.magneticraft.api.util.MgUtils;
 
 public class RecipeSifter {
 	

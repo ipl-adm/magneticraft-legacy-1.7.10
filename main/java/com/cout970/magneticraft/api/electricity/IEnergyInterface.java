@@ -1,9 +1,8 @@
 package com.cout970.magneticraft.api.electricity;
 
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
-
 import net.minecraft.tileentity.TileEntity;
+
+import com.cout970.magneticraft.api.util.VecInt;
 
 /**
  * 

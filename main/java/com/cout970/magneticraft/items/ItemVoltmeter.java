@@ -1,8 +1,9 @@
 package com.cout970.magneticraft.items;
 
+import ic2.api.tile.IEnergyStorage;
+
 import java.util.List;
 
-import ic2.api.tile.IEnergyStorage;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
 import net.minecraft.entity.player.EntityPlayer;

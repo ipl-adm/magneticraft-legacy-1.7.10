@@ -5,10 +5,10 @@ import java.util.List;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import codechicken.multipart.JItemMultiPart;
 
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
-import codechicken.multipart.JItemMultiPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

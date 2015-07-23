@@ -55,14 +55,15 @@ public class BlockBattery extends BlockMg{
 
 	@Override
 	public String[] getTextures() {
-		return new String[]{"batterytop","batteryside"};
+		return new String[]{"batterytop","battery1","battery2","battery3","battery4","battery5","battery6","battery7","battery8","battery9","battery10","battery11","battery12"};
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
 		if(side == 0 || side == 1)return icons[0];
-		return icons[1];
+		if(meta > 11)return icons[0];
+		return icons[1+meta];
 	}
 
 	@Override

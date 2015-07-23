@@ -5,7 +5,6 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderIronPipe;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableHigh;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableLow;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableMedium;
@@ -23,6 +22,7 @@ import com.cout970.magneticraft.client.itemrenderer.ItemRenderHandCrank;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatCable;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatSink;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderInserter;
+import com.cout970.magneticraft.client.itemrenderer.ItemRenderIronPipe;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderJackHammer;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderKineticGenerator;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderMonitor;

@@ -2,13 +2,11 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Vector3;
-import codechicken.multipart.JItemMultiPart;
 import codechicken.multipart.TMultiPart;
 
 import com.cout970.magneticraft.parts.micro.PartCopperPipe;

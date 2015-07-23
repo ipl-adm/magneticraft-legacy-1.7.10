@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.client.itemrenderer;
 
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;

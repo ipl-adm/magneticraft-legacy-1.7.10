@@ -7,7 +7,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
 import com.google.common.base.Objects;
 
 /**

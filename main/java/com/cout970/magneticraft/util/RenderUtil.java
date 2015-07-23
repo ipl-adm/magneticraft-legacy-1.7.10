@@ -22,7 +22,6 @@ import codechicken.lib.vec.Vector3;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.multiblock.MB_ControlBlock;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.Mg_Component;
 import com.cout970.magneticraft.util.multiblock.Multiblock;

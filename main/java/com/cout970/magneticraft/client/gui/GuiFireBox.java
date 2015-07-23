@@ -10,7 +10,6 @@ import com.cout970.magneticraft.client.gui.component.CompBurningTime;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
-import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileFireBox;
 
 public class GuiFireBox extends GuiBasic{

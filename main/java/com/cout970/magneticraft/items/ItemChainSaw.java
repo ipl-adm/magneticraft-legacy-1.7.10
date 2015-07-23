@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
+import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.google.common.collect.Multimap;
 

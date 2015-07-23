@@ -3,7 +3,6 @@ package com.cout970.magneticraft.api.electricity.compact;
 import net.minecraft.tileentity.TileEntity;
 import cofh.api.energy.IEnergyHandler;
 
-import com.cout970.magneticraft.api.electricity.EnumAcces;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.util.EnergyConversor;

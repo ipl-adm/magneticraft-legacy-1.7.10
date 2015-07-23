@@ -8,10 +8,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeGrinder;
 import com.cout970.magneticraft.api.acces.RecipeSifter;
-import com.cout970.magneticraft.compact.minetweaker.Grinder.AddRecipe;
-import com.cout970.magneticraft.compact.minetweaker.Grinder.RemoveRecipe;
 
 @ZenClass("mods.magneticraft.Sifter")
 public class Sifter{

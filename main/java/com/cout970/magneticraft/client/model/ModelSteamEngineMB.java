@@ -11,8 +11,6 @@
 
 package com.cout970.magneticraft.client.model;
 
-import com.cout970.magneticraft.util.Log;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

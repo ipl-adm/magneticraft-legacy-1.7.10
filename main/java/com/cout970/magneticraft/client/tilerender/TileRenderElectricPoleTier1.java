@@ -1,19 +1,16 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.wires.ElectricPoleTier1;
 import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
 import com.cout970.magneticraft.api.electricity.wires.WireConnection;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.client.model.ModelElectricalPoleTier1;
 import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class TileRenderElectricPoleTier1 extends TileEntitySpecialRenderer{

@@ -17,7 +17,6 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileGeothermalPump extends TileHeatConductor implements IGuiSync{

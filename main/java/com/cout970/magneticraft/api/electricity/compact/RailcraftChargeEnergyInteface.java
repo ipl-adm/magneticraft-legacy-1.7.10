@@ -5,7 +5,6 @@ import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler.ConnectType;
 import net.minecraft.tileentity.TileEntity;
 
-import com.cout970.magneticraft.api.electricity.EnumAcces;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IndexedConnection;
 import com.cout970.magneticraft.api.util.EnergyConversor;

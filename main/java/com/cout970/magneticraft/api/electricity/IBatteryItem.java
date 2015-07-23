@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.api.electricity.item;
+package com.cout970.magneticraft.api.electricity;
 
 import net.minecraft.item.ItemStack;
 

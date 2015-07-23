@@ -10,7 +10,6 @@ import com.cout970.magneticraft.client.gui.component.CompFluidRender;
 import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
-import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
 
 public class GuiBoiler extends GuiBasic{

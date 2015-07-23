@@ -8,8 +8,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatTile;
-import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.util.RenderUtil;
 

@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.api.computer;
 
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.util.VecInt;
 
 public interface IBusWire {

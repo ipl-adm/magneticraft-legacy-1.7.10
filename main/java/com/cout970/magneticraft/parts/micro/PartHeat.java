@@ -9,10 +9,8 @@ import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
 import codechicken.multipart.TMultiPart;
 
-import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatMultipart;
-import com.cout970.magneticraft.util.Log;
 
 public abstract class PartHeat extends MgPart implements IHeatMultipart{
 

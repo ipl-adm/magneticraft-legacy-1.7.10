@@ -2,17 +2,17 @@
 {
   "modid": "Magneticraft",
   "name": "Magneticraft",
-  "description": "Magneticraft energy free",
-  "version": "1.7.10-0.2.12",
+  "description": "Magneticraft Energy, Industries and Multiblocks!",
+  "version": "1.7.10-0.3.2",
   "mcversion": "1.7.10",
   "url": "http://minecraft.curseforge.com/mc-mods/224808-magneticraft",
   "updateUrl": "http://minecraft.curseforge.com/mc-mods/224808-magneticraft",
   "authorList": [
-  "cout970"
+  "cout970", "MechWarrior99"
   ],
-  "credits": "By cout970",
+  "credits": "By cout970 (Developer) and MechWarrior99 (Artist)",
   "logoFile": "assets/magneticraft/textures/logo/logo.png",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": ["ForgeMultipart"]
 }
 ]

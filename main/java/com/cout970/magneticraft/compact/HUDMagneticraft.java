@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 
 import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileCopperTank;

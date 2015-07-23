@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.block;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -16,12 +15,11 @@ import net.minecraft.world.World;
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.raytracer.RayTracer;
 import codechicken.lib.vec.BlockCoord;
-import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileMBControls;
+import com.cout970.magneticraft.tileentity.TileMB_Controls;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
@@ -39,7 +37,7 @@ public class BlockMB_Controls  extends BlockMg implements MB_Block{
 
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileMBControls();
+		return new TileMB_Controls();
 	}
 
 	@Override
@@ -47,8 +45,8 @@ public class BlockMB_Controls  extends BlockMg implements MB_Block{
 		MovingObjectPosition hit = RayTracer.retraceBlock(world, player, x, y, z);
 		if(hit == null)return true;
 		TileEntity t = world.getTileEntity(x, y, z);
-		if(t instanceof TileMBControls){
-			((TileMBControls) t).onClick(hit);
+		if(t instanceof TileMB_Controls){
+			((TileMB_Controls) t).onClick(hit);
 		}
 		return true;
 	}
@@ -56,8 +54,8 @@ public class BlockMB_Controls  extends BlockMg implements MB_Block{
 	@Override
 	public MovingObjectPosition collisionRayTrace(World w, int x, int y, int z, Vec3 start, Vec3 end){
 		TileEntity t = w.getTileEntity(x, y, z);
-		if(!(t instanceof TileMBControls))return null;
-		List<IndexedCuboid6> list = ((TileMBControls) t).getBoundingBoxes();
+		if(!(t instanceof TileMB_Controls))return null;
+		List<IndexedCuboid6> list = ((TileMB_Controls) t).getBoundingBoxes();
 		return RayTracer.instance().rayTraceCuboids(new Vector3(start), new Vector3(end), list, new BlockCoord(x, y, z), this);
 	}
 

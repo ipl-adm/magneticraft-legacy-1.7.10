@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.api.computer.impl;
 
-import com.cout970.magneticraft.api.computer.IPeripheral;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+
+import com.cout970.magneticraft.api.computer.IPeripheral;
 
 public class MonitorPeripheral implements IPeripheral{
 

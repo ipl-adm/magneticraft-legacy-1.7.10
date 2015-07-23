@@ -1,9 +1,9 @@
 package com.cout970.magneticraft.api.electricity;
 
-import com.cout970.magneticraft.api.util.EnergyConversor;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+
+import com.cout970.magneticraft.api.util.EnergyConversor;
 
 /**
  * 

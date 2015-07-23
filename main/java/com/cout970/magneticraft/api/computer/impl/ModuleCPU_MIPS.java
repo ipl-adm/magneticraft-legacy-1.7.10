@@ -1,13 +1,9 @@
 package com.cout970.magneticraft.api.computer.impl;
 
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.cout970.magneticraft.api.computer.IModuleCPU;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
-import com.cout970.magneticraft.util.Log;
-
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class ModuleCPU_MIPS implements IModuleCPU{
 

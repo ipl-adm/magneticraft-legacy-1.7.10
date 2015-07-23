@@ -6,11 +6,8 @@ import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
-import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
-import com.cout970.magneticraft.tileentity.TileBiomassBurner;
-import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileReactorVessel;
 
 public class GuiReactorVessel extends GuiBasic{

@@ -11,7 +11,6 @@ import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.api.computer.impl.MonitorPeripheral;
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.messages.MessageClientStream;
-import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.util.IClientInformer;
 
 

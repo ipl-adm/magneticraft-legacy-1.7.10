@@ -4,10 +4,9 @@ import java.util.Arrays;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
-import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 
 public class ModuleMemoryController implements IModuleMemoryController {
 

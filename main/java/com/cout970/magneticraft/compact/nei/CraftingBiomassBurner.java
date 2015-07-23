@@ -9,15 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import codechicken.nei.recipe.TemplateRecipeHandler.RecipeTransferRect;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.acces.RecipeBiomassBurner;
-import com.cout970.magneticraft.api.acces.RecipeCrusher;
 import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class CraftingBiomassBurner extends TemplateRecipeHandler{

@@ -9,8 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.item.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
@@ -95,6 +95,13 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 	public void updateEntity(){
 		super.updateEntity();
 		if(!worldObj.isRemote){
+			if(worldObj.getTotalWorldTime() % 40 == 0){
+				int amount = (int) Math.floor(cond.getStorage()*11F / cond.getMaxStorage());
+				int meta = getBlockMetadata();
+				if(amount != meta){
+					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, amount, 3);
+				}
+			}
 			ItemStack i = getInv().getStackInSlot(0);
 			if(i != null){
 				if(i.getItem() instanceof IBatteryItem){

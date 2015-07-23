@@ -1,11 +1,10 @@
 package com.cout970.magneticraft.api.computer.impl;
 
-import com.cout970.magneticraft.api.computer.IPeripheral;
-import com.cout970.magneticraft.api.computer.IStorageDevice;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+
+import com.cout970.magneticraft.api.computer.IStorageDevice;
 
 public class ModuleHardDrive extends ModuleDisckDrive{
 	

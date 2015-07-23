@@ -240,6 +240,7 @@ sifter_control.name=Sifter Control
 mb_controls.name=Multiblock Controls
 block_salt.name=Salt Block
 block_sulfur.name=Sulfur Block
+zinc_ore.name=Zinc Ore
 itemGroup.name=Magneticraft
 fluid.steam=Steam
 fluid.oil=Crude Oil

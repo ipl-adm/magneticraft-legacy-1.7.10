@@ -43,7 +43,6 @@ import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener, IBusWire{
 
@@ -108,7 +107,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 
 		@Override
 		public void writeByte(int pointer, int data){
-			Log.debug("Droid message at "+pointer+" with "+data);
+//			Log.debug("Droid message at "+pointer+" with "+data);
 			if(pointer == 1){
 				if(data == 1)move(true);
 				else if(data == 2)move(false);

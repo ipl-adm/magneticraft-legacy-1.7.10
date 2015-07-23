@@ -18,7 +18,6 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.items.ItemBucket;
-import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

@@ -10,7 +10,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
 import com.cout970.magneticraft.tileentity.TileElectricPoleGap;

@@ -1,21 +1,18 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.lang.instrument.Instrumentation;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.multiblock.MB_Register;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
-import codechicken.lib.vec.Rotation;
 import codechicken.lib.vec.Vector3;
 
-public class TileMBControls extends TileMB_Base{
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.util.multiblock.MB_Register;
+
+public class TileMB_Controls extends TileMB_Base{
 
 	public boolean onClick(MovingObjectPosition hit) {
 		if(multi != null && multi.getID() == MB_Register.ID_SIFTER){

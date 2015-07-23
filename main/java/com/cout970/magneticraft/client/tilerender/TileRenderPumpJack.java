@@ -43,6 +43,7 @@ public class TileRenderPumpJack extends TileEntitySpecialRenderer{
 			tile.m += 0.25f*(tile.getDelta()/1E6);
 		if(tile.m > 1000)tile.m -= 1000;
 		if(tile.m > 10000)tile.m = 0;
+		
 		RenderUtil.bindTexture(ModelTextures.PUMP_HEAD);
 		head.renderStatic(0.0625f);
 		head.renderDynamic(0.0625f, tile.m);

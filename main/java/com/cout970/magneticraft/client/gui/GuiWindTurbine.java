@@ -17,7 +17,6 @@ import com.cout970.magneticraft.client.gui.component.CompEnergyTrackerBar;
 import com.cout970.magneticraft.client.gui.component.CompStorageBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.util.RenderUtil;
 

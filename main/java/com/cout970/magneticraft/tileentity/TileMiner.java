@@ -23,6 +23,7 @@ import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.IPipeTile.PipeType;
 
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
 import com.cout970.magneticraft.api.electricity.ElectricConductor;
@@ -186,6 +187,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 	private void scanWell() {
 		MgDirection d = getDirection();
 		int x,z;
+		if(dim < MIN_DIMENSION)dim = MIN_DIMENSION;
 		if(d == MgDirection.NORTH){
 			x = (hole/dim)-dim/2;
 			z = -((hole%dim)+1);
@@ -467,19 +469,20 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		chunkTicket = null;
 		loadChunk();
 	}
-	
+
 	public void loadChunk(){
 		isFirstTime = true;
-		if (chunkTicket == null) {
-			chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.Instance, worldObj, Type.NORMAL);
+		if(ManagerConfig.ChunkLoading){
+			if (chunkTicket == null) {
+				chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.Instance, worldObj, Type.NORMAL);
+			}
+			chunkTicket.getModData().setInteger("quarryX", xCoord);
+			chunkTicket.getModData().setInteger("quarryY", yCoord);
+			chunkTicket.getModData().setInteger("quarryZ", zCoord);
+			forceChunkLoading(chunkTicket);
 		}
-		chunkTicket.getModData().setInteger("quarryX", xCoord);
-		chunkTicket.getModData().setInteger("quarryY", yCoord);
-		chunkTicket.getModData().setInteger("quarryZ", zCoord);
-		forceChunkLoading(chunkTicket);
-//		ForgeChunkManager.forceChunk(chunkTicket, new ChunkCoordIntPair(xCoord >> 4, zCoord >> 4));
 	}
-	
+
 	public void forceChunkLoading(Ticket ticket) {
 		if (chunkTicket == null) {
 			chunkTicket = ticket;

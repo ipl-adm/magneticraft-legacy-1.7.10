@@ -12,16 +12,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBarMediumVoltage;
 import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
-import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiSteamTurbine extends GuiBasic{

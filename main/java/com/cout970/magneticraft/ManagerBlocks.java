@@ -1,12 +1,9 @@
 package com.cout970.magneticraft;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 
 import com.cout970.magneticraft.block.BlockAirBubble;
 import com.cout970.magneticraft.block.BlockAirlock;
@@ -16,10 +13,6 @@ import com.cout970.magneticraft.block.BlockBiomassBurner;
 import com.cout970.magneticraft.block.BlockBoiler;
 import com.cout970.magneticraft.block.BlockBreaker;
 import com.cout970.magneticraft.block.BlockBrickFurnace;
-import com.cout970.magneticraft.block.BlockButtonArray;
-import com.cout970.magneticraft.block.BlockInfiniteEnergy;
-import com.cout970.magneticraft.block.BlockElectricPoleCableWire;
-import com.cout970.magneticraft.block.BlockMB_Chassis;
 import com.cout970.magneticraft.block.BlockCombustionEngine;
 import com.cout970.magneticraft.block.BlockComputer;
 import com.cout970.magneticraft.block.BlockConcretedPipe;
@@ -32,6 +25,7 @@ import com.cout970.magneticraft.block.BlockDiode;
 import com.cout970.magneticraft.block.BlockDroidRED;
 import com.cout970.magneticraft.block.BlockEUAlternator;
 import com.cout970.magneticraft.block.BlockElectricFurnace;
+import com.cout970.magneticraft.block.BlockElectricPoleCableWire;
 import com.cout970.magneticraft.block.BlockElectricPoleTier1;
 import com.cout970.magneticraft.block.BlockElectricSwitch;
 import com.cout970.magneticraft.block.BlockFireBox;
@@ -44,10 +38,12 @@ import com.cout970.magneticraft.block.BlockHandCrankGenerator;
 import com.cout970.magneticraft.block.BlockHeatResistence;
 import com.cout970.magneticraft.block.BlockHeatSink;
 import com.cout970.magneticraft.block.BlockHeater;
+import com.cout970.magneticraft.block.BlockInfiniteEnergy;
 import com.cout970.magneticraft.block.BlockInfiniteSteam;
 import com.cout970.magneticraft.block.BlockInfiniteWater;
 import com.cout970.magneticraft.block.BlockInserter;
 import com.cout970.magneticraft.block.BlockKineticGenerator;
+import com.cout970.magneticraft.block.BlockMB_Chassis;
 import com.cout970.magneticraft.block.BlockMB_Controls;
 import com.cout970.magneticraft.block.BlockMB_Energy_Low;
 import com.cout970.magneticraft.block.BlockMB_Energy_Medium;
@@ -81,12 +77,12 @@ import com.cout970.magneticraft.block.BlockSifter;
 import com.cout970.magneticraft.block.BlockSolarPanel;
 import com.cout970.magneticraft.block.BlockSolarTowerCore;
 import com.cout970.magneticraft.block.BlockSteamEngine;
+import com.cout970.magneticraft.block.BlockSteamTurbine;
 import com.cout970.magneticraft.block.BlockStirlingGenerator;
 import com.cout970.magneticraft.block.BlockTeslaCoil;
 import com.cout970.magneticraft.block.BlockThermopile;
 import com.cout970.magneticraft.block.BlockTransformerLow_Medium;
 import com.cout970.magneticraft.block.BlockTransformerMedium_High;
-import com.cout970.magneticraft.block.BlockSteamTurbine;
 import com.cout970.magneticraft.block.BlockVoidInventory;
 import com.cout970.magneticraft.block.BlockWindTurbine;
 import com.cout970.magneticraft.block.BlockWoodenShaft;
@@ -110,6 +106,9 @@ import com.cout970.magneticraft.tileentity.TileDiode;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.tileentity.TileEUAlternator;
 import com.cout970.magneticraft.tileentity.TileElectricFurnace;
+import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
+import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
+import com.cout970.magneticraft.tileentity.TileElectricPoleGap;
 import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.TileElectricSwitch;
 import com.cout970.magneticraft.tileentity.TileFireBox;
@@ -126,7 +125,7 @@ import com.cout970.magneticraft.tileentity.TileInfiniteSteam;
 import com.cout970.magneticraft.tileentity.TileInfiniteWater;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
-import com.cout970.magneticraft.tileentity.TileMBControls;
+import com.cout970.magneticraft.tileentity.TileMB_Controls;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
@@ -138,9 +137,6 @@ import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TilePermanentMagnet;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
-import com.cout970.magneticraft.tileentity.TileElectricPoleGap;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.tileentity.TileRCAlternator;
@@ -157,13 +153,13 @@ import com.cout970.magneticraft.tileentity.TileSifter;
 import com.cout970.magneticraft.tileentity.TileSolarPanel;
 import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
+import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
 import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
 import com.cout970.magneticraft.tileentity.TileTeslaCoil;
 import com.cout970.magneticraft.tileentity.TileTextMonitor;
 import com.cout970.magneticraft.tileentity.TileThermopile;
 import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
 import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
-import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
 import com.cout970.magneticraft.tileentity.TileVoidInventory;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.tileentity.TileWindTurbineGap;
@@ -185,6 +181,7 @@ public class ManagerBlocks {
 	public static Block oreUranium;
 	public static Block oreSulfur;
 	public static Block oreThorium;
+	public static Block oreZinc;
 	public static Block oreSalt;
 	public static Block oilSource;
 	public static Block oilSourceDrained;
@@ -368,6 +365,7 @@ public class ManagerBlocks {
 		dust_block_salt = new BlockOfIngots("block_salt");
 		dust_block_sulfur = new BlockOfIngots("block_sulfur");
 		mb_controls = new BlockMB_Controls();
+		oreZinc = new BlockOre("zinc_ore");
 	}
 	
 	public static void registerBlocks(){
@@ -464,6 +462,7 @@ public class ManagerBlocks {
 		addBlock(mb_controls, "Multiblock Controls");
 		addBlock(dust_block_salt, "Salt Block");
 		addBlock(dust_block_sulfur, "Sulfur Block");
+		addBlock(oreZinc, "Zinc Ore");
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
@@ -549,7 +548,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileInfiniteEnergy.class);
 		tileEntities.add(TileSifter.class);
 		tileEntities.add(TileElectricPoleGap.class);
-		tileEntities.add(TileMBControls.class);
+		tileEntities.add(TileMB_Controls.class);
 		
 		for(Class c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

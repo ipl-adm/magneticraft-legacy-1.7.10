@@ -6,11 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelOilDistillery;
-import com.cout970.magneticraft.client.model.ModelRefinery;
-import com.cout970.magneticraft.client.model.ModelRefineryTank;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
-import com.cout970.magneticraft.tileentity.TileRefinery;
-import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;

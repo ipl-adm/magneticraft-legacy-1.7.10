@@ -5,12 +5,12 @@ import codechicken.multipart.MultiPartRegistry.IPartFactory;
 import codechicken.multipart.TMultiPart;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.parts.micro.PartIronPipe;
 import com.cout970.magneticraft.parts.micro.PartCableHigh;
 import com.cout970.magneticraft.parts.micro.PartCableLow;
 import com.cout970.magneticraft.parts.micro.PartCableMedium;
 import com.cout970.magneticraft.parts.micro.PartCopperPipe;
 import com.cout970.magneticraft.parts.micro.PartHeatCable;
+import com.cout970.magneticraft.parts.micro.PartIronPipe;
 import com.cout970.magneticraft.parts.micro.PartOpticFiber;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Down;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_East;

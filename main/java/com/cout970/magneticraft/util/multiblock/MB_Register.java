@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.cout970.magneticraft.util.multiblock.types.MultiblockCrusher;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockGrinder;
+import com.cout970.magneticraft.util.multiblock.types.MultiblockGrindingMill;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockOilDistillery;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockPolymerizer;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockRefinery;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockSifter;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockStirlig;
-import com.cout970.magneticraft.util.multiblock.types.MultiblockGrindingMill;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockTurbine;
 
 public class MB_Register {

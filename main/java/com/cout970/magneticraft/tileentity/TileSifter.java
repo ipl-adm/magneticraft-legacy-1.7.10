@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
 import com.cout970.magneticraft.api.acces.RecipeSifter;
 import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
@@ -13,9 +14,11 @@ import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,12 +36,25 @@ public class TileSifter extends TileMB_Base{
 	public InventoryComponent inv = new InventoryComponent(this, 3, "Sifter");
 	private long time;
 	
+	public void onBlockBreaks(){
+		if(worldObj.isRemote)return;
+		BlockMg.dropItem(inv.getStackInSlot(0), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
+		BlockMg.dropItem(inv.getStackInSlot(1), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
+		BlockMg.dropItem(inv.getStackInSlot(2), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
+	}
+	
 	public void updateEntity() {
 		super.updateEntity();
 		if(drawCounter > 0)drawCounter--;
 		if (!isActive())return;
+		if(worldObj.getTotalWorldTime() % 40 == 0){
+			cond = null;
+		}
 		if(cond == null || in == null || out == null){
 			search();
+		}
+		if(worldObj.getTotalWorldTime() % 40 == 0){
+			((TileBase) cond.getParent()).sendUpdateToClient();
 		}
 		if(working){
 			if(inv.getStackInSlot(0) == null){
@@ -59,6 +75,9 @@ public class TileSifter extends TileMB_Base{
 		}
 	}
 
+	@Override
+	public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e) {}
+	
 	private void inputItem() {
 		if(inv.getStackInSlot(1) == null){
 			for(int i = 0; i < in.getSizeInventory(); i++){

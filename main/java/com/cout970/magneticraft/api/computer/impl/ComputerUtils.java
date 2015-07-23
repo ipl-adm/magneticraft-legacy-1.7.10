@@ -3,7 +3,6 @@ package com.cout970.magneticraft.api.computer.impl;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
@@ -13,7 +12,6 @@ import net.minecraftforge.common.DimensionManager;
 
 import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 
 public class ComputerUtils {
 

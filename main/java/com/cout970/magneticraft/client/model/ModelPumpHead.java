@@ -98,8 +98,8 @@ public class ModelPumpHead extends ModelBase
 	  box.render(f5);
   }
   
-  public void renderDynamic(float f5,float animationMoment){
-	  float perone = animationMoment/1000;
+  public void renderDynamic(float f5,float animationCounter){
+	  float perone = animationCounter/1000;
 	  float x = (float) (15*Math.cos(Math.toRadians(360*perone)));
 	  GL11.glPushMatrix();
 	  pole.rotateAngleX = (float) Math.toRadians(x);

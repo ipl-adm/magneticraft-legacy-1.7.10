@@ -2,12 +2,9 @@ package com.cout970.magneticraft.client.itemrenderer;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.client.model.ModelElectricalPoleTier1;
 import com.cout970.magneticraft.client.model.ModelPoleCableWire;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.util.RenderUtil;

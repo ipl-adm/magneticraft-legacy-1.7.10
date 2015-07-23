@@ -96,13 +96,13 @@ public class ManagerFluids {
 			BuildcraftFuelRegistry.fuel = new FluidFuelHandler();
 			Log.info("Creating a IFuelManager");
 		}
-		Log.info("Registering a Fuels into buildcraft fuel registry");
+		Log.info("Registering Fuels into buildcraft fuel registry");
 		BuildcraftFuelRegistry.fuel.addFuel(lightOil, 80, 25000);
 		BuildcraftFuelRegistry.fuel.addFuel(heavyOil, 60, 25000);
 		BuildcraftFuelRegistry.fuel.addFuel(naturalGas, 40, 75000);
 		BuildcraftFuelRegistry.fuel.addFuel(oil, 30, 5000);
 		
-		Log.info("Registering a Fuels into railcraft fuel manager");
+		Log.info("Registering Fuels into railcraft fuel manager");
 		FuelManager.addBoilerFuel(lightOil, 96000);
 		FuelManager.addBoilerFuel(heavyOil, 75000);
 		FuelManager.addBoilerFuel(naturalGas, 150000);

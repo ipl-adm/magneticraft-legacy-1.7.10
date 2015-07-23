@@ -6,7 +6,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileInserter;
 
 public class ContainerInserter extends ContainerBasic{

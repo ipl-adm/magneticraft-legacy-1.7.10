@@ -2,11 +2,9 @@ package com.cout970.magneticraft.parts.micro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import net.minecraft.tileentity.TileEntity;
-import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
@@ -26,7 +24,6 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
-import com.cout970.magneticraft.util.Log;
 
 public class PartCableLow extends PartElectric implements ISidedHollowConnect,IElectricMultiPart{
 

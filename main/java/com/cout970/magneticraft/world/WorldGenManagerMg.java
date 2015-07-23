@@ -14,7 +14,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.util.Log;
 
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -26,6 +25,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 	public static OreGenConfig GenSulfur;
 	public static OreGenConfig GenThorium;
 	public static OreGenConfig GenSalt;
+	public static OreGenConfig GenZinc;
 	public static boolean GenOil;
 	public static int GenOilProbability;
 	public static int GenOilMaxHeight;
@@ -38,6 +38,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 	public WorldGenMinable Sulfur;
 	public WorldGenMinable Thorium;
 	public WorldGenMinable Salt;
+	public WorldGenMinable Zinc;
 	
 	public WorldGenManagerMg(){
 		Copper = new WorldGenMinable(ManagerBlocks.oreCopper, 0, GenCopper.amount_per_vein, Blocks.stone);
@@ -46,6 +47,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 		Sulfur = new WorldGenMinable(ManagerBlocks.oreSulfur, 0, GenSulfur.amount_per_vein, Blocks.stone);
 		Thorium = new WorldGenMinable(ManagerBlocks.oreThorium, 0, GenThorium.amount_per_vein, Blocks.stone);
 		Salt = new WorldGenMinable(ManagerBlocks.oreSalt, 0, GenSalt.amount_per_vein, Blocks.stone);
+		Zinc = new WorldGenMinable(ManagerBlocks.oreZinc, 0, GenZinc.amount_per_vein, Blocks.stone);
 	}
 	
 	@Override
@@ -58,6 +60,7 @@ public class WorldGenManagerMg implements IWorldGenerator{
 			useOreGenConfig(random, world, chunkX, chunkZ, GenUranium, Uranium);
 			useOreGenConfig(random, world, chunkX, chunkZ, GenSalt, Salt);
 			useOreGenConfig(random, world, chunkX, chunkZ, GenThorium, Thorium);
+			useOreGenConfig(random, world, chunkX, chunkZ, GenZinc, Zinc);
 			if (GenOil) {
 				int run = GenOilProbability;
 				BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);

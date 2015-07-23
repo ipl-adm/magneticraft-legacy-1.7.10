@@ -16,7 +16,6 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.model.ModelPoleCableWire;
-import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
 import com.cout970.magneticraft.util.RenderUtil;

@@ -1,22 +1,14 @@
 package com.cout970.magneticraft.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompFluidRender;
-import com.cout970.magneticraft.client.gui.component.CompGenericBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
-import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.tileentity.TileRefinery;
-import com.cout970.magneticraft.util.RenderUtil;
 
 public class GuiRefinery extends GuiBasic{
 

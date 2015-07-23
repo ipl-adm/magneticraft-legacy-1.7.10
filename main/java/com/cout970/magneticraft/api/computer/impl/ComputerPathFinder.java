@@ -3,9 +3,8 @@ package com.cout970.magneticraft.api.computer.impl;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IBusWire;
-import com.cout970.magneticraft.api.computer.IComputer;
+import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IPeripheralProvider;
 import com.cout970.magneticraft.api.util.PathFinder;
 import com.cout970.magneticraft.api.util.VecInt;

@@ -11,7 +11,6 @@ import com.cout970.magneticraft.api.conveyor.IConveyor;
 import com.cout970.magneticraft.api.conveyor.ItemBox;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.Orientation;
 

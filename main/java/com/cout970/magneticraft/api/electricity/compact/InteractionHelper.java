@@ -1,7 +1,6 @@
 package com.cout970.magneticraft.api.electricity.compact;
 
 import ic2.api.energy.tile.IEnergySink;
-import ic2.api.tile.IEnergyStorage;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler.ConnectType;
 import net.minecraft.tileentity.TileEntity;
@@ -10,7 +9,6 @@ import cofh.api.energy.IEnergyHandler;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.Log;
 /**
  * 
  * @author Cout970

@@ -6,10 +6,10 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 
-import com.cout970.magneticraft.api.computer.impl.ComputerUtils;
 import com.cout970.magneticraft.compact.ManagerIntegration;
 import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
@@ -34,14 +34,15 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 
-@Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, dependencies = "required-after:ForgeMultipart;after:*")
+@Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart")
 public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.3.0";
+	public final static String VERSION = "0.3.2";
 	public final static String ENERGY_STORED_NAME = "J";
-	public static final boolean DEBUG = true;
+	public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
+	public static final boolean DEBUG = false;
 	
 	@Instance(NAME)
 	public static Magneticraft Instance;
@@ -107,9 +108,16 @@ public class Magneticraft{
 			MgMinetweaker.init();
 		}
 		ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());
+//		if(DEBUG)printOreDict();
 		Log.info("postInit Done");
 	}
 	
+//	private void printOreDict() {
+//		for(String i : OreDictionary.getOreNames()){
+//			Log.debug(i+" "+ManagerOreDict.getOre(i));
+//		}
+//	}
+
 	public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {
 
 		@Override
@@ -128,14 +136,16 @@ public class Magneticraft{
 		@Override
 		public List<Ticket> ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount) {
 			List<Ticket> validTickets = Lists.newArrayList();
-			for (Ticket ticket : tickets) {
-				int x = ticket.getModData().getInteger("quarryX");
-				int y = ticket.getModData().getInteger("quarryY");
-				int z = ticket.getModData().getInteger("quarryZ");
+			if(ManagerConfig.ChunkLoading){
+				for (Ticket ticket : tickets) {
+					int x = ticket.getModData().getInteger("quarryX");
+					int y = ticket.getModData().getInteger("quarryY");
+					int z = ticket.getModData().getInteger("quarryZ");
 
-				Block block = world.getBlock(x, y, z);
-				if (block == ManagerBlocks.miner) {
-					validTickets.add(ticket);
+					Block block = world.getBlock(x, y, z);
+					if (block == ManagerBlocks.miner) {
+						validTickets.add(ticket);
+					}
 				}
 			}
 			return validTickets;

@@ -7,6 +7,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.client.tilerender.TileRenderPipeBronce;
+import com.cout970.magneticraft.util.fluid.FluidUtils;
+import com.cout970.magneticraft.util.fluid.IFluidTransport;
+import com.cout970.magneticraft.util.fluid.TankConection;
+import com.cout970.magneticraft.util.fluid.TankMg;
+
+import buildcraft.api.tools.IToolWrench;
+import codechicken.lib.data.MCDataInput;
+import codechicken.lib.data.MCDataOutput;
+import codechicken.lib.raytracer.IndexedCuboid6;
+import codechicken.lib.vec.Cuboid6;
+import codechicken.lib.vec.Vector3;
+import codechicken.microblock.ISidedHollowConnect;
+import codechicken.multipart.NormallyOccludedPart;
+import codechicken.multipart.TMultiPart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,24 +36,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
-import buildcraft.api.tools.IToolWrench;
-import codechicken.lib.data.MCDataInput;
-import codechicken.lib.data.MCDataOutput;
-import codechicken.lib.raytracer.IndexedCuboid6;
-import codechicken.lib.vec.Cuboid6;
-import codechicken.lib.vec.Vector3;
-import codechicken.microblock.ISidedHollowConnect;
-import codechicken.multipart.NormallyOccludedPart;
-import codechicken.multipart.TMultiPart;
-
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.client.tilerender.TileRenderPipeBronce;
-import com.cout970.magneticraft.util.fluid.FluidUtils;
-import com.cout970.magneticraft.util.fluid.IFluidTransport;
-import com.cout970.magneticraft.util.fluid.TankConection;
-import com.cout970.magneticraft.util.fluid.TankMg;
 
 
 public class PartIronPipe extends PartPipe implements ISidedHollowConnect{

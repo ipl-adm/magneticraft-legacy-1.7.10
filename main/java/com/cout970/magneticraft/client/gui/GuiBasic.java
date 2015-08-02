@@ -3,14 +3,14 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
+import com.cout970.magneticraft.client.gui.component.IGuiComp;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
-
-import org.lwjgl.opengl.GL11;
-
-import com.cout970.magneticraft.client.gui.component.IGuiComp;
 
 public abstract class GuiBasic extends GuiContainer{
 

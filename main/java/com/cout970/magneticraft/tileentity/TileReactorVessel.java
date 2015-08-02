@@ -1,20 +1,21 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.IReactorComponent;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TileReactorVessel extends TileHeatConductor implements IInventoryManaged,IGuiSync,IBarProvider,IReactorComponent{
 
@@ -48,15 +49,12 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
 					IRadiactiveItem item = (IRadiactiveItem) g.getItem();
 					double initialMass = item.getGrams(g);//mass
 					double NewMass = initialMass*Math.exp(-item.getDecayConstant(g)*5E11);//natural decay
-//					NewMass -= getRadiation()/AVOGADROS_CONSTANT;//radiation of other atoms
 					item.setGrams(g,NewMass);
-//					desintegration += ((initialMass-NewMass)*AVOGADROS_CONSTANT*getSpeed());//neutrons emited
 					double prod = ((initialMass-NewMass)*AVOGADROS_CONSTANT*item.getEnergyPerFision(g));
-//					prod *= 1E-9;
+					prod *= 1E-10;
 					g.setItemDamage(g.getItem().getDamage(g));
-//					Log.debug(prod);
-//					heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
-//					production += EnergyConversor.RFtoCALORIES(prod);
+					heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
+					production += EnergyConversor.RFtoCALORIES(prod);
 				}
 			}
 		neutrons = 0;

@@ -2,14 +2,6 @@ package com.cout970.magneticraft;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.OreDictionary;
-
 import com.cout970.magneticraft.compact.ManagerIntegration;
 import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
@@ -18,6 +10,7 @@ import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.proxy.IProxy;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 import com.google.common.collect.Lists;
@@ -32,6 +25,12 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.MinecraftForge;
 
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart")
@@ -39,7 +38,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.3.2";
+	public final static String VERSION = "0.3.3";
 	public final static String ENERGY_STORED_NAME = "J";
 	public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
 	public static final boolean DEBUG = false;
@@ -85,6 +84,7 @@ public class Magneticraft{
 		Log.info("Starting Init");
 		NetworkRegistry.INSTANCE.registerGuiHandler(Instance, new GuiHandler());
 		MB_Register.init();
+		EnergyInterfaceFactory.init();
 		registry = new ManagerMultiPart();
 		registry.init();
 		GameRegistry.registerFuelHandler(new SolidFuelHandler());

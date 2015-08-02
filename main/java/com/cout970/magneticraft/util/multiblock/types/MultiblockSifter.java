@@ -1,8 +1,5 @@
 package com.cout970.magneticraft.util.multiblock.types;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -11,12 +8,16 @@ import com.cout970.magneticraft.util.multiblock.Mg_Component;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+
 public class MultiblockSifter extends Multiblock{
 
 	@Override
 	public void init() {
 		SimpleComponent a = new SimpleComponent(Blocks.air){
-			public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e) {
+			@Override
+			public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
 				return true;
 			}
 		};

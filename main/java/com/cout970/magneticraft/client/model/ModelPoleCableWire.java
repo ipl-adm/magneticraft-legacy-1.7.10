@@ -11,14 +11,14 @@
 
 package com.cout970.magneticraft.client.model;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
 public class ModelPoleCableWire extends ModelBase
 {

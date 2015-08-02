@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.client.gui.component;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.gui.GuiBasic;
+
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class CompBackground implements IGuiComp{
 

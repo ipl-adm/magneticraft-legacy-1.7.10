@@ -1,5 +1,16 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
+import com.cout970.magneticraft.api.conveyor.prefab.ItemBox;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.Orientation;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.cout970.magneticraft.tileentity.TileConveyorBelt;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -11,18 +22,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.conveyor.IConveyor;
-import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileConveyorBelt;
-import com.cout970.magneticraft.util.Orientation;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockConveyorLow extends BlockMg{
 	
@@ -42,8 +41,8 @@ public class BlockConveyorLow extends BlockMg{
 				w.setBlockMetadataWithNotify(x, y, z, or.toMeta(), 2);
 			}else{
 				TileEntity t  = w.getTileEntity(x, y, z);
-				if(t instanceof IConveyor){
-					if(((IConveyor) t).addItem(MgDirection.SOUTH, 0, new ItemBox(p.getCurrentEquippedItem()), false)){
+				if(t instanceof IConveyorBelt){
+					if(((IConveyorBelt) t).addItem(MgDirection.SOUTH, 0, new ItemBox(p.getCurrentEquippedItem()), false)){
 						p.setCurrentItemOrArmor(0, null);
 					}
 				}
@@ -107,8 +106,8 @@ public class BlockConveyorLow extends BlockMg{
 		}else{
 			if(w.getBlock(opp.getX(), opp.getY()-1, opp.getZ()) == this){
 				TileEntity t = w.getTileEntity(opp.getX(), opp.getY()-1, opp.getZ());
-				if(t instanceof IConveyor){
-					Orientation fac = ((IConveyor) t).getOrientation();
+				if(t instanceof IConveyorBelt){
+					Orientation fac = ((IConveyorBelt) t).getOrientation();
 					if(fac.getDirection() == dir && fac.getLevel() == 0){
 						fac = Orientation.find(1, fac.getDirection());
 						w.setBlockMetadataWithNotify(opp.getX(), opp.getY()-1, opp.getZ(), fac.toMeta(), 2);
@@ -117,8 +116,8 @@ public class BlockConveyorLow extends BlockMg{
 			}
 			if(w.getBlock(vec.getX(), vec.getY()-1, vec.getZ()) == this){
 				TileEntity t = w.getTileEntity(vec.getX(), vec.getY()-1, vec.getZ());
-				if(t instanceof IConveyor){
-					Orientation fac = ((IConveyor) t).getOrientation();
+				if(t instanceof IConveyorBelt){
+					Orientation fac = ((IConveyorBelt) t).getOrientation();
 					if(fac.getDirection() == dir && fac.getLevel() == 0){
 						fac = Orientation.find(-1, fac.getDirection());
 						w.setBlockMetadataWithNotify(vec.getX(), vec.getY()-1, vec.getZ(), fac.toMeta(), 2);

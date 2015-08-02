@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.compact.nei;
 
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.GuiCrafter;
+
+import codechicken.nei.api.API;
+import codechicken.nei.api.IConfigureNEI;
 
 public class NEIMagneticraftConfig implements IConfigureNEI{
 

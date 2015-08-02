@@ -1,16 +1,13 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.wires.ElectricPoleTier1;
-import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
-import com.cout970.magneticraft.api.electricity.wires.WireConnection;
+import com.cout970.magneticraft.api.electricity.IElectricPole;
+import com.cout970.magneticraft.api.electricity.IInterPoleWire;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
+import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecDouble;
@@ -19,6 +16,9 @@ import com.cout970.magneticraft.client.model.ModelPoleCableWire;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderPoleCableWire extends TileEntitySpecialRenderer{
 	
@@ -43,9 +43,9 @@ public class TileRenderPoleCableWire extends TileEntitySpecialRenderer{
 				down.mask = 0;
 				TileEntity tile = MgUtils.getTileEntity(te, new VecInt(-1, -4, 0));
 				if(tile != null){
-					CompoundElectricCables comp = MgUtils.getElectricCond(tile, MgDirection.WEST.toVecInt(), 0);
+					IElectricConductor[] comp = ElectricUtils.getElectricCond(tile, MgDirection.WEST.toVecInt(), 0);
 					if(comp != null){
-						for(IElectricConductor cond : comp.list()){
+						for(IElectricConductor cond : comp){
 							if(cond.getConnectionClass(MgDirection.WEST.toVecInt()).equals(ConnectionClass.SLAB_BOTTOM)) {
 								down.mask |= 1;
 							}else if(cond.getConnectionClass(MgDirection.WEST.toVecInt()).equals(ConnectionClass.CABLE_LOW)
@@ -58,9 +58,9 @@ public class TileRenderPoleCableWire extends TileEntitySpecialRenderer{
 
 				tile = MgUtils.getTileEntity(te, new VecInt(1, -4, 0));
 				if(tile != null){
-					CompoundElectricCables comp = MgUtils.getElectricCond(tile, MgDirection.WEST.toVecInt(), 0);
+					IElectricConductor[] comp = ElectricUtils.getElectricCond(tile, MgDirection.WEST.toVecInt(), 0);
 					if(comp != null){
-						for(IElectricConductor cond : comp.list()){
+						for(IElectricConductor cond : comp){
 							if(cond.getConnectionClass(MgDirection.WEST.toVecInt()).equals(ConnectionClass.SLAB_BOTTOM)) {
 								down.mask |= 4;
 							}else if(cond.getConnectionClass(MgDirection.WEST.toVecInt()).equals(ConnectionClass.CABLE_LOW)
@@ -111,18 +111,18 @@ public class TileRenderPoleCableWire extends TileEntitySpecialRenderer{
 			pole1.glList = GL11.glGenLists(1);
 			GL11.glNewList(pole1.glList, GL11.GL_COMPILE_AND_EXECUTE);
 
-			int count = pole1.getWireConnector().length;
-			for(WireConnection wire : pole1.getConnectedConductors()){
+			int count = pole1.getWireConnectors().length;
+			for(IInterPoleWire wire : pole1.getConnectedConductors()){
 				if(wire.getStart() != pole1)continue;
 				IElectricPole pole2 = wire.getEnd();
-				if(pole2 == null || pole2.getWireConnector().length != count){
+				if(pole2 == null || pole2.getWireConnectors().length != count){
 					continue;
 				}
 				VecDouble off = new VecDouble(-te.xCoord, -te.yCoord, -te.zCoord);
 				
 				VecDouble dist = new VecDouble(pole2.getParent()).add(off);
 				for(int i = 0; i < count ;i++){
-					VecDouble a = pole1.getWireConnector()[i], b = pole2.getWireConnector()[i];
+					VecDouble a = pole1.getWireConnectors()[i], b = pole2.getWireConnectors()[i];
 					b.add(dist);//b relative to a
 					VecDouble ab = b.copy().add(a.getOpposite());//(b-a)
 					double lenght = ab.mag();//distance between a and b

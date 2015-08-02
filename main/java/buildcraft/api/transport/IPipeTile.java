@@ -8,13 +8,13 @@
  */
 package buildcraft.api.transport;
 
+import buildcraft.api.core.EnumColor;
+import buildcraft.api.transport.pluggable.PipePluggable;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import buildcraft.api.core.EnumColor;
-import buildcraft.api.transport.pluggable.PipePluggable;
 
 public interface IPipeTile extends IInjectable {
 	enum PipeType {

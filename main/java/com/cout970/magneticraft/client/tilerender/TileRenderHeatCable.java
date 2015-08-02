@@ -1,15 +1,14 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
-
-import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.client.model.ModelHeatCable;
 import com.cout970.magneticraft.parts.micro.PartHeatCable;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.lib.vec.Vector3;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderHeatCable extends TileEntitySpecialRenderer{
 
@@ -38,7 +37,6 @@ private ModelHeatCable model;
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) pos.x + 0.5F, (float) pos.y + 1.5F, (float) pos.z + 0.5F);
 		GL11.glRotatef(180, 0, 0, 1);
-		float r = (float) Math.min(1, tile.heat.getTemperature()/1000);
 		Vector3 k = RenderUtil.getHeatColor(tile.heat.getTemperature());
 		GL11.glColor4d(k.x, k.y, k.z, 1);
 		RenderUtil.bindTexture(ModelTextures.HEAT_CABLE);

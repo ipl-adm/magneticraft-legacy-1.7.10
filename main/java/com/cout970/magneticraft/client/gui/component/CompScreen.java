@@ -1,17 +1,18 @@
 package com.cout970.magneticraft.client.gui.component;
 
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerNetwork;
-import com.cout970.magneticraft.api.computer.impl.MonitorPeripheral;
+import com.cout970.magneticraft.api.computer.prefab.MonitorPeripheral;
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.messages.MessageClientStream;
 import com.cout970.magneticraft.util.IClientInformer;
+
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 
 public class CompScreen implements IGuiComp{
@@ -63,8 +64,8 @@ public class CompScreen implements IGuiComp{
 		int n = key;
 		if(n == 27) return false;
 		int shift = 0;
-		if (gui.isShiftKeyDown()) shift |= 64;
-		if (gui.isCtrlKeyDown()) shift |= 32;
+		if (GuiScreen.isShiftKeyDown()) shift |= 64;
+		if (GuiScreen.isCtrlKeyDown()) shift |= 32;
 		switch (n)
 		{
 		case 199:

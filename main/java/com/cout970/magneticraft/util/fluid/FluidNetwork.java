@@ -10,7 +10,7 @@ public class FluidNetwork{
 
 	public FluidNetWorkManager manager = new FluidNetWorkManager(this);
 	private List<IFluidTransport> pipes = new ArrayList<IFluidTransport>();
-	public TileEntity tile;
+	private TileEntity tile;
 	public Fluid fluid;
 	
 	
@@ -23,7 +23,7 @@ public class FluidNetwork{
 		return net;
 	}	
 	
-	private TileEntity getTile() {
+	public TileEntity getTile() {
 		return tile;
 	}
 

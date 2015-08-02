@@ -1,9 +1,5 @@
 package com.cout970.magneticraft.client.gui;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
@@ -16,6 +12,10 @@ import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.messages.MessageGuiClick;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiDroidRED extends GuiBasic {
 
@@ -73,7 +73,6 @@ public class GuiDroidRED extends GuiBasic {
 			TileDroidRED t = (TileDroidRED) tile;
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			
-			String s = null;
 			if(t.isRunning()){
 				gui.drawTexturedModalRect(gui.xStart+60, gui.yStart+61+235 , 0, 177, 9, 9);
 			}else{

@@ -1,11 +1,5 @@
 package com.cout970.magneticraft;
 
-import mods.railcraft.api.fuel.FuelManager;
-import net.minecraft.block.Block;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import buildcraft.api.fuels.BuildcraftFuelRegistry;
-
 import com.cout970.magneticraft.block.fluids.BlockFluidClasicMg;
 import com.cout970.magneticraft.block.fluids.BlockFluidHeavyOil;
 import com.cout970.magneticraft.block.fluids.BlockFluidHotCrude;
@@ -16,7 +10,12 @@ import com.cout970.magneticraft.block.fluids.BlockFluidSteam;
 import com.cout970.magneticraft.handlers.FluidFuelHandler;
 import com.cout970.magneticraft.util.Log;
 
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import mods.railcraft.api.fuel.FuelManager;
+import net.minecraft.block.Block;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class ManagerFluids {
 	

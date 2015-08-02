@@ -1,16 +1,17 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyHandler;
-
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
+
+import cofh.api.energy.IEnergyHandler;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileRFAlternator extends TileConductorLow implements IEnergyHandler{
 
@@ -79,7 +80,7 @@ public class TileRFAlternator extends TileConductorLow implements IEnergyHandler
 			}
 			
 			@Override
-			public boolean isAbleToConnect(IElectricConductor c, VecInt d) {
+			public boolean isAbleToConnect(IConnectable c, VecInt d) {
 				return getDirection().opposite().toVecInt().equals(d);
 			}
 		};

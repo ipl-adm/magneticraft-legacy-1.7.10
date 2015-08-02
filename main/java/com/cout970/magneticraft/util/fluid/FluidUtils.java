@@ -4,14 +4,14 @@ package com.cout970.magneticraft.util.fluid;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+
+import codechicken.multipart.TMultiPart;
+import codechicken.multipart.TileMultipart;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidHandler;
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
 
 public class FluidUtils {
 

@@ -1,9 +1,5 @@
 package com.cout970.magneticraft.client.gui;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
@@ -15,6 +11,11 @@ import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.messages.MessageGuiClick;
 import com.cout970.magneticraft.tileentity.TileResistance;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiResistance extends GuiBasic{
 
@@ -44,23 +45,26 @@ public class GuiResistance extends GuiBasic{
 			TileResistance t = (TileResistance) tile;
 			GL11.glColor4f(1, 1, 1, 1);
 			gui.mc.renderEngine.bindTexture(texture);
+			if(GuiScreen.isCtrlKeyDown()){
+				gui.drawTexturedModalRect(gui.xStart+25, gui.yStart+60, 0, 166, 141, 14);
+			}
 			if(t.select != -1)
 			gui.drawTexturedModalRect(gui.xStart+62+t.select*15, gui.yStart+36, 179, 0, 5, 19);
 			
-			VecInt color = t.color_array[t.line1];
+			VecInt color = TileResistance.color_array[t.line1];
 			GL11.glColor3ub((byte)color.getX(), (byte)color.getY(), (byte)color.getZ());
 			gui.drawTexturedModalRect(gui.xStart+63, gui.yStart+37, 176, 0, 3, 17);
 			
-			color = t.color_array[t.line2];
+			color = TileResistance.color_array[t.line2];
 			GL11.glColor3ub((byte)color.getX(), (byte)color.getY(), (byte)color.getZ());
 			gui.drawTexturedModalRect(gui.xStart+78, gui.yStart+37, 176, 0, 3, 17);
 			
-			color = t.color_array[t.line3];
+			color = TileResistance.color_array[t.line3];
 			GL11.glColor3ub((byte)color.getX(), (byte)color.getY(), (byte)color.getZ());
 			gui.drawTexturedModalRect(gui.xStart+93, gui.yStart+37, 176, 0, 3, 17);
 			
 			GL11.glColor4f(1, 1, 1, 1);
-			String str = "R: "+t.getResistance()+'\u03a9';
+			String str = "R: "+(long)t.getResistance()+'\u03a9';
 			String str2 = String.format("I: %.3fA", Math.abs(t.I));
 			String str3 = String.format("V: %.3fV", Math.abs(t.cond1.getVoltage()-t.cond2.getVoltage()));
 			String str4 = String.format("W: %.3fKW", (Math.abs(Math.min(t.cond1.getVoltage(),t.cond2.getVoltage()))*Math.abs(t.I))/1000d);

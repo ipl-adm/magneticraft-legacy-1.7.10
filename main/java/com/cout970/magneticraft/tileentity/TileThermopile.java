@@ -3,21 +3,21 @@ package com.cout970.magneticraft.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-
 import com.cout970.magneticraft.api.acces.IThermopileDecay;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.ThermopileFuel;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
+
+import net.minecraft.block.Block;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 
 public class TileThermopile extends TileConductorLow implements IGuiSync{
 
@@ -63,7 +63,7 @@ public class TileThermopile extends TileConductorLow implements IGuiSync{
 			tempCold += getCold(b);		
 		}
 		diff = Math.min(tempHot, tempCold);
-		for(IThermopileDecay t : MgRecipeRegister.thermopileDecais){
+		for(IThermopileDecay t : MgRecipeRegister.thermopileDecays){
 			t.onCheck(worldObj, list, tempHot, tempCold);
 		}
 	}

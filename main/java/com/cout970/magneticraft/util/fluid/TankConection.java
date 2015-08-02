@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.util.fluid;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-
-import com.cout970.magneticraft.api.util.MgDirection;
 
 public class TankConection {
 

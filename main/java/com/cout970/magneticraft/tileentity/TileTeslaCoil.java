@@ -3,21 +3,21 @@ package com.cout970.magneticraft.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 
 public class TileTeslaCoil extends TileConductorLow{
 
@@ -27,7 +27,7 @@ public class TileTeslaCoil extends TileConductorLow{
 	public IElectricConductor initConductor() {
 		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW, 320000, ElectricConstants.MACHINE_DISCHARGE,ElectricConstants.MACHINE_CHARGE){			
 			@Override
-			public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
+			public boolean isAbleToConnect(IConnectable e, VecInt v) {
 				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.fromDirection(MgDirection.DOWN).equals(v);
 			}
 			
@@ -39,6 +39,7 @@ public class TileTeslaCoil extends TileConductorLow{
 		};
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;

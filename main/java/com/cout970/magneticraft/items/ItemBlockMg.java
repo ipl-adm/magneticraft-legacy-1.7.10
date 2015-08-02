@@ -65,16 +65,17 @@ import static com.cout970.magneticraft.ManagerBlocks.wooden_shaft;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import org.lwjgl.input.Keyboard;
 
 import com.cout970.magneticraft.api.util.EnergyConversor;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 public class ItemBlockMg extends ItemBlock{
 	
@@ -85,9 +86,11 @@ public class ItemBlockMg extends ItemBlock{
 		super(b);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);
+		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))return;
 		Block b = field_150939_a;
 		if(b == airlock){
 			list.add(format+"Every 10 seconds eliminates all the near water blocks");

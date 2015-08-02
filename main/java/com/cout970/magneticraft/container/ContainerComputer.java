@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.container;
 
+import com.cout970.magneticraft.tileentity.TileComputer;
+
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.tileentity.TileComputer;
 
 public class ContainerComputer extends ContainerBasic{
 

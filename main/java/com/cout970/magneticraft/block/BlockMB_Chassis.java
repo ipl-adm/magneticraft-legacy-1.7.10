@@ -1,12 +1,5 @@
 package com.cout970.magneticraft.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
@@ -17,6 +10,12 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 public class BlockMB_Chassis extends BlockMg implements MB_Block{
 
@@ -39,6 +38,10 @@ public class BlockMB_Chassis extends BlockMg implements MB_Block{
 			}
 		}
 		super.breakBlock(w, x, y, z, b, side);
+	}
+	
+	public boolean isNormalCube(IBlockAccess world, int x, int y, int z){
+		return true;
 	}
 	
 	public boolean renderAsNormalBlock(){

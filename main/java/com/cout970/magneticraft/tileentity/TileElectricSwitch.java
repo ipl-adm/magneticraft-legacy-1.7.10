@@ -1,9 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IndexedConnection;
+import com.cout970.magneticraft.api.electricity.IIndexedConnection;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
@@ -15,16 +14,16 @@ public class TileElectricSwitch extends TileConductorLow{
 	public IElectricConductor initConductor() {
 		return new ElectricConductor(this){
 			@Override
-			public boolean canFlowPower(IndexedConnection con) {
+			public boolean canFlowPower(IIndexedConnection con) {
 				return !powerCut;
 			}
 		};
 	}
 	
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int tier) {
+	public IElectricConductor[] getConds(VecInt dir, int tier) {
 		if(tier != 0 && tier !=-1)return null;
-		return new CompoundElectricCables(cond);
+		return new IElectricConductor[]{cond};
 	}
 	
 	public void onNeigChange(){

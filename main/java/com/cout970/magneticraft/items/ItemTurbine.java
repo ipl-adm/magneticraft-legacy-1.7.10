@@ -2,10 +2,6 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.tool.IWindTurbine;
@@ -16,6 +12,9 @@ import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 public class ItemTurbine extends ItemBasic implements IWindTurbine{
 
@@ -83,6 +82,7 @@ public class ItemTurbine extends ItemBasic implements IWindTurbine{
 		};
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);

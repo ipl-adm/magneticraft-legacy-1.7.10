@@ -4,22 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -32,6 +20,18 @@ import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
 public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 
@@ -44,8 +44,9 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 	public long time;
 	private List<VecInt> pipes = new LinkedList<VecInt>();
 	private List<VecInt> oil = new LinkedList<VecInt>();
+	private List<VecInt> fluid = new LinkedList<VecInt>();
 	private List<VecInt> finder = new LinkedList<VecInt>();
-	private List<VecInt> Visited = new LinkedList<VecInt>();
+	private List<VecInt> visited = new LinkedList<VecInt>();
 	private int alt;
 	private boolean update;
 	private int cooldown;
@@ -55,6 +56,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 	public static Block replacement = ManagerBlocks.oilSourceDrained;
 	private int speed = 50;
 	private boolean working;
+	private static Block fluidOil;
 	
 
 	@Override
@@ -86,6 +88,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 		if(worldObj.isRemote)return;
 
 		if(!update){
+			if(fluidOil == null)fluidOil = FluidRegistry.getFluid("oil").getBlock();
 			if(worldObj.provider.getWorldTime() % 80 == 0)
 				update = searchForOil();
 			export();
@@ -97,7 +100,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 				pipes.clear();
 				for(int y=yCoord-1;y>0;y--){
 					Block b = worldObj.getBlock(xCoord+facing.getOffsetX(), y, zCoord+facing.getOffsetZ());
-					if(Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b, replacement)){
+					if(Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b, replacement) || Block.isEqualTo(b, fluidOil)){
 						break;
 					}else if(!Block.isEqualTo(b, ManagerBlocks.concreted_pipe)){
 						pipes.add(new VecInt(xCoord+facing.getOffsetX(), y, zCoord+facing.getOffsetZ()));
@@ -114,7 +117,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 			if(cooldown <= 0){
 				cooldown = 20;
 				if(pipes.size() == 0){
-					getOil();
+					update = false;
 					blocked = true;
 				}else{
 					if(cond.getVoltage() > ElectricConstants.MACHINE_WORK){
@@ -134,20 +137,31 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 			}
 
 			if(buffer <= 0){
-				if(oil.size() == 0){
-					update = false;
-					blocked = false;
-					return;
-				}else{
-					VecInt b = oil.get(0);
-					int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
-					if(m > 0){
-						worldObj.setBlockMetadataWithNotify(b.getX(), b.getY(), b.getZ(), m-1, 2);
+				if(fluid.isEmpty()){
+					if(oil.isEmpty()){
+						update = false;
+						blocked = false;
+						return;
 					}else{
-						worldObj.setBlock(b.getX(), b.getY(), b.getZ(), replacement);
-						oil.remove(0);
+						VecInt b = oil.get(0);
+						int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
+						if(m > 0){
+							worldObj.setBlockMetadataWithNotify(b.getX(), b.getY(), b.getZ(), m-1, 2);
+						}else{
+							worldObj.setBlock(b.getX(), b.getY(), b.getZ(), replacement);
+							oil.remove(0);
+						}
+						buffer = 1000;
 					}
-					buffer = 1000;
+				}else{
+					VecInt b = fluid.get(0);
+					int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
+					Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());
+					if(m == 0 && bl == fluidOil){
+						worldObj.setBlock(b.getX(), b.getY(), b.getZ(), Blocks.air);
+						buffer = 1000;
+					}
+					fluid.remove(0);
 				}
 			}
 		}
@@ -193,33 +207,36 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 
 	private void getOil() {
 		oil.clear();
+		fluid.clear();
 		pathFinder(new VecInt(xCoord, alt, zCoord));
-		Visited.clear();
+		visited.clear();
 		finder.clear();
 	}
 
 	public void pathFinder(VecInt c){
 		if(oil.size() > 20)return;
-		if(Visited.size() > 4000){
+		if(visited.size() > 4000){
 			alt--;
 			return;
 		}
 		for(MgDirection d : sides){
 			VecInt bc = new VecInt(c.getX()+d.getOffsetX(), c.getY()+d.getOffsetY(), c.getZ()+d.getOffsetZ());
-			if(Visited.contains(bc))continue;
-			Visited.add(bc);
+			if(visited.contains(bc))continue;
+			visited.add(bc);
 
 			Block b = worldObj.getBlock(bc.getX(), bc.getY(), bc.getZ());
-			int m = worldObj.getBlockMetadata(bc.getX(), bc.getY(), bc.getZ());
 
 			if(Block.isEqualTo(b, ManagerBlocks.oilSource)){ 
 				oil.add(bc);
 				if(!finder.contains(bc))finder.add(bc);
 			}else if(Block.isEqualTo(b,replacement)){
 				if(!finder.contains(bc))finder.add(bc);
+			}else if(Block.isEqualTo(b, fluidOil)){
+				fluid.add(bc);
+				if(!finder.contains(bc))finder.add(bc);
 			}
 		}
-		List<VecInt> temp = new ArrayList<VecInt>();
+		List<VecInt> temp = new ArrayList<VecInt>(finder.size());
 		temp.addAll(finder);
 		for(VecInt cc : temp){
 			finder.remove(cc);
@@ -231,10 +248,11 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8{
 		pipes.clear();
 		for(int y=yCoord-1;y>0;y--){
 			Block b = worldObj.getBlock(xCoord+facing.getOffsetX(), y, zCoord+facing.getOffsetZ());
-			if(Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b, replacement)){
+			
+			if(Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b, replacement) || Block.isEqualTo(b, fluidOil)){
 				alt = y;
 				getOil();
-				if(oil.isEmpty()){
+				if(oil.isEmpty() && fluid.isEmpty()){
 					alt = 0;
 				}else{
 					return true;

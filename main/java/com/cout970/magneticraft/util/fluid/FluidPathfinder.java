@@ -3,10 +3,10 @@ package com.cout970.magneticraft.util.fluid;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.tileentity.TileEntity;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+
+import net.minecraft.tileentity.TileEntity;
 
 public class FluidPathfinder {
 

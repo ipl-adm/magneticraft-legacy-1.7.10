@@ -1,21 +1,21 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TileTransformerLow_Medium extends TileBase implements IElectricTile{
 
 	public IElectricConductor low = new ElectricConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW){
 		@Override
-		public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
+		public boolean isAbleToConnect(IConnectable e, VecInt v) {
 			if(v.toMgDirection() != MgDirection.getDirection(getBlockMetadata()))return false;
 			return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.CABLE_LOW;
 		}
@@ -29,13 +29,13 @@ public class TileTransformerLow_Medium extends TileBase implements IElectricTile
 	public double flow;
 
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int tier) {
+	public IElectricConductor[] getConds(VecInt dir, int tier) {
 		if(VecInt.NULL_VECTOR == dir){
-			return tier == 0 ? new CompoundElectricCables(low) : tier == 2 ? new CompoundElectricCables(medium) : null;
+			return tier == 0 ? new IElectricConductor[]{low} : tier == 2 ? new IElectricConductor[]{medium} : null;
 		}
 		MgDirection d = dir.toMgDirection();
-		if(d == MgDirection.getDirection(getBlockMetadata()) && tier == 0)return new CompoundElectricCables(low);
-		if(d == MgDirection.getDirection(getBlockMetadata()).opposite() && tier == 2)return new CompoundElectricCables(medium);
+		if(d == MgDirection.getDirection(getBlockMetadata()) && tier == 0)return new IElectricConductor[]{low};
+		if(d == MgDirection.getDirection(getBlockMetadata()).opposite() && tier == 2)return new IElectricConductor[]{medium};
 		return null;
 	}
 

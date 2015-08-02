@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.tileentity.TileEntity;
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.heat.HeatUtils;
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.tilerender.TileRenderHeatCable;
+
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
 import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TileMultipart;
-
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.HeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.tilerender.TileRenderHeatCable;
+import net.minecraft.tileentity.TileEntity;
 
 public class PartHeatCable extends PartHeat implements ISidedHollowConnect{
 
@@ -32,7 +33,7 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect{
 	public void create() {
 		heat = new HeatConductor(getTile(), 1400, 1000){
 			@Override
-			public boolean isAbleToconnect(IHeatConductor cond, VecInt d) {
+			public boolean isAbleToConnect(IConnectable cond, VecInt d) {
 				if(d.equals(VecInt.NULL_VECTOR))return true;
 				if(d.toMgDirection() == null)return false;
 				if(((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.toMgDirection().ordinal())))){
@@ -48,12 +49,14 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect{
 		conMask = 0;
 		for(MgDirection d : MgDirection.values()){
 			TileEntity t = MgUtils.getTileEntity(tile(), d);
-			CompoundHeatCables c = MgUtils.getHeatCond(t, d.toVecInt().getOpposite());
-			if(c != null && c.count() > 0){
-				IHeatConductor cond = c.getCond(0);
-				if(cond != null){
-					if(cond.isAbleToconnect(heat, d.opposite().toVecInt()) && heat.isAbleToconnect(cond, d.toVecInt())){
-						conMask |= (1 << d.ordinal());
+			IHeatConductor[] c = HeatUtils.getHeatCond(t, d.toVecInt().getOpposite());
+			if(c != null){
+				for(IHeatConductor cond : c){
+					if(cond != null){
+						if(cond.isAbleToConnect(heat, d.opposite().toVecInt()) && heat.isAbleToConnect(cond, d.toVecInt())){
+							conMask |= (1 << d.ordinal());
+							break;
+						}
 					}
 				}
 			}

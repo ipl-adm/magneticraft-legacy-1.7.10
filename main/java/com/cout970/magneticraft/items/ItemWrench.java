@@ -2,15 +2,14 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import buildcraft.api.tools.IToolWrench;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import buildcraft.api.tools.IToolWrench;
-
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemWrench extends ItemBasic implements IToolWrench{
 
@@ -39,6 +38,7 @@ public class ItemWrench extends ItemBasic implements IToolWrench{
 	@Override
 	public void wrenchUsed(EntityPlayer player, int x, int y, int z) {}
 
+	@SuppressWarnings({ "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);

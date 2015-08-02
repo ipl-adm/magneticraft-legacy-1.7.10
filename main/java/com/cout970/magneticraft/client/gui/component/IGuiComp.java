@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.client.gui.component;
 
-import net.minecraft.tileentity.TileEntity;
-
 import com.cout970.magneticraft.client.gui.GuiBasic;
+
+import net.minecraft.tileentity.TileEntity;
 
 public interface IGuiComp {
 

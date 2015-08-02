@@ -1,9 +1,9 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class BlockOfIngots extends Block{
 

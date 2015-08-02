@@ -3,13 +3,13 @@ package com.cout970.magneticraft.util.multiblock;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class SimpleComponent extends Mg_Component{
 

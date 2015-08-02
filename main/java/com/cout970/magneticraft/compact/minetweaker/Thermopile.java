@@ -1,15 +1,15 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.ThermopileFuel;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.block.IBlock;
 import net.minecraft.block.Block;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.ThermopileFuel;
 
 @ZenClass("mods.magneticraft.Thermopile")
 public class Thermopile {

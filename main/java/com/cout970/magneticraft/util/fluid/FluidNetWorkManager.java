@@ -1,12 +1,12 @@
 package com.cout970.magneticraft.util.fluid;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 
 public class FluidNetWorkManager implements IFluidHandler1_8{
 
@@ -38,7 +38,6 @@ public class FluidNetWorkManager implements IFluidHandler1_8{
 		if(aceptPerPipe > 0){
 			for(IFluidTransport t : net.getPipes()){
 				FluidStack f = new FluidStack(resource, aceptPerPipe);
-				int lSpace = t.getTank().getFluidAmount();
 				int filled = t.getTank().fill(f, doFill);
 				acepted += filled;
 			}

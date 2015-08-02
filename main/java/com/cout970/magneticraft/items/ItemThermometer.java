@@ -1,16 +1,15 @@
 package com.cout970.magneticraft.items;
 
+import com.cout970.magneticraft.api.heat.HeatUtils;
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemThermometer extends ItemBasic{
 
@@ -24,9 +23,9 @@ public class ItemThermometer extends ItemBasic{
 	{
 		if(w.isRemote)return false;
 		TileEntity t = w.getTileEntity(x, y, z);
-		CompoundHeatCables comp = MgUtils.getHeatCond(t, VecInt.NULL_VECTOR);
+		IHeatConductor[] comp = HeatUtils.getHeatCond(t, VecInt.NULL_VECTOR);
 		if(comp != null){
-			for(IHeatConductor heat : comp.list()){
+			for(IHeatConductor heat : comp){
 				if(heat != null){
 					p.addChatMessage(new ChatComponentText("Temperature: "+String.format("%.2f",heat.getTemperature())));
 				}

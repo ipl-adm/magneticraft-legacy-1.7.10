@@ -2,15 +2,15 @@ package com.cout970.magneticraft.util.multiblock;
 
 import java.util.ArrayList;
 
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
 
 public class RemplaceComponent extends Mg_Component{
 	

@@ -3,6 +3,19 @@ package com.cout970.magneticraft.util;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glScalef;
+
+import org.lwjgl.opengl.GL11;
+
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.util.VecDouble;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.multiblock.MB_Tile;
+import com.cout970.magneticraft.util.multiblock.Mg_Component;
+import com.cout970.magneticraft.util.multiblock.Multiblock;
+import com.cout970.magneticraft.util.multiblock.RemplaceComponent;
+import com.cout970.magneticraft.util.multiblock.SimpleComponent;
+
+import codechicken.lib.vec.Vector3;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -14,19 +27,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import org.lwjgl.opengl.GL11;
-
-import codechicken.lib.vec.Vector3;
-
-import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.VecDouble;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.multiblock.MB_Tile;
-import com.cout970.magneticraft.util.multiblock.Mg_Component;
-import com.cout970.magneticraft.util.multiblock.Multiblock;
-import com.cout970.magneticraft.util.multiblock.RemplaceComponent;
-import com.cout970.magneticraft.util.multiblock.SimpleComponent;
 
 public class RenderUtil {
 

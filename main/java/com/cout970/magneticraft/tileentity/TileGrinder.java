@@ -2,22 +2,11 @@ package com.cout970.magneticraft.tileentity;
 
 import java.util.List;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -30,6 +19,15 @@ import com.cout970.magneticraft.util.InventoryUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 
 public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync{
 
@@ -84,6 +82,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		distributeItems();
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void catchDrops() {
 		if(in == null)return;
 		MgDirection dir = getDirection().opposite();
@@ -92,8 +91,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 		vec2 = vec1.copy();
 		vec1.add(-1, 0, -1);
 		vec2.add(2, 1, 2);
-		List l = worldObj.getEntitiesWithinAABB(EntityItem.class, 
-				AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec2.getX(), vec2.getY(), vec2.getZ()));
+		List l = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec2.getX(), vec2.getY(), vec2.getZ()));
 		if(l.isEmpty())return;
 		for(int i =0; i < l.size(); i++){
 			EntityItem e = (EntityItem) l.get(i);
@@ -146,8 +144,8 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 	}
 	
 	public void valance(IElectricTile c){
-		CompoundElectricCables comp = c.getConds(VecInt.NULL_VECTOR,0);
-		IElectricConductor cond2 = comp.getCond(0);
+		IElectricConductor[] comp = c.getConds(VecInt.NULL_VECTOR,0);
+		IElectricConductor cond2 = comp[0];
 		double resistence = cond.getResistance() + cond2.getResistance();
 		double difference = cond.getVoltage() - cond2.getVoltage();
 		double change = flow;

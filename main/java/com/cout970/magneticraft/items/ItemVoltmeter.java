@@ -1,9 +1,16 @@
 package com.cout970.magneticraft.items;
 
-import ic2.api.tile.IEnergyStorage;
-
 import java.util.List;
 
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import cofh.api.energy.IEnergyHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.tile.IEnergyStorage;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,16 +19,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyHandler;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemVoltmeter extends ItemBasic{
 
@@ -35,11 +32,10 @@ public class ItemVoltmeter extends ItemBasic{
 	{
 		if(w.isRemote)return false;
 		TileEntity t = w.getTileEntity(x, y, z);
-		CompoundElectricCables comp = null;
 		for(int i = 0; i < 5 ; i++){
-			comp = MgUtils.getElectricCond(t, VecInt.NULL_VECTOR, i);
+			IElectricConductor[] comp = ElectricUtils.getElectricCond(t, VecInt.NULL_VECTOR, i);
 			if(comp != null){
-				for(IElectricConductor cond : comp.list()){
+				for(IElectricConductor cond : comp){
 					double I = cond.getIntensity();
 					String s = String.format("Reading %.2fV %.3fA (%.3fkW)", new Object[] {Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
 					p.addChatMessage(new ChatComponentText(s));
@@ -72,6 +68,7 @@ public class ItemVoltmeter extends ItemBasic{
 		return false;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);

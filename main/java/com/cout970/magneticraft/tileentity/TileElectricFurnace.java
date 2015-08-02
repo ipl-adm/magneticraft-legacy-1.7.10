@@ -1,5 +1,15 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
+import com.cout970.magneticraft.api.tool.IFurnaceCoil;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.IInventoryManaged;
+import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -7,16 +17,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.tool.IFurnaceCoil;
-import com.cout970.magneticraft.client.gui.component.IBarProvider;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IInventoryManaged;
-import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileElectricFurnace extends TileConductorLow implements IInventoryManaged, IGuiSync, ISidedInventory{
 

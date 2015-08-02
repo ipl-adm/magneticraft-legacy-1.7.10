@@ -1,23 +1,11 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import buildcraft.api.fuels.BuildcraftFuelRegistry;
-import buildcraft.api.fuels.IFuel;
-
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.HeatConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -26,6 +14,17 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
+
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
+import buildcraft.api.fuels.IFuel;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileCombustionEngine extends TileConductorLow implements IFluidHandler1_8, IHeatTile, IGuiSync{
 
@@ -134,8 +133,8 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
 	}
 
 	@Override
-	public CompoundHeatCables getHeatCond(VecInt c) {
-		return new CompoundHeatCables(heat);
+	public IHeatConductor[] getHeatCond(VecInt c) {
+		return new IHeatConductor[]{heat};
 	}
 
 	@Override

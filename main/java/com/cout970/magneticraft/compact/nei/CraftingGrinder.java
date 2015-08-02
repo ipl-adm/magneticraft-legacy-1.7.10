@@ -4,17 +4,17 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.acces.RecipeGrinder;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 public class CraftingGrinder extends TemplateRecipeHandler{
 	

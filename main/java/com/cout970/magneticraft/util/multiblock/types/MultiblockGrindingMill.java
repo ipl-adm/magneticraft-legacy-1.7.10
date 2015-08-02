@@ -1,8 +1,5 @@
 package com.cout970.magneticraft.util.multiblock.types;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -11,6 +8,9 @@ import com.cout970.magneticraft.util.multiblock.Mg_Component;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.RemplaceComponent;
 import com.cout970.magneticraft.util.multiblock.SimpleComponent;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 
 public class MultiblockGrindingMill extends Multiblock{
 

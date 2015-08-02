@@ -1,9 +1,5 @@
 package com.cout970.magneticraft.handlers;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.client.gui.GuiBasicGenerator;
 import com.cout970.magneticraft.client.gui.GuiBattery;
 import com.cout970.magneticraft.client.gui.GuiBiomassBurner;
@@ -96,6 +92,9 @@ import com.cout970.magneticraft.tileentity.TileThermopile;
 import com.cout970.magneticraft.tileentity.TileWindTurbine;
 
 import cpw.mods.fml.common.network.IGuiHandler;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class GuiHandler implements IGuiHandler{
 

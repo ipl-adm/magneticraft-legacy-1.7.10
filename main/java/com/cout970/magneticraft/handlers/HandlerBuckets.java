@@ -3,6 +3,13 @@ package com.cout970.magneticraft.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.ManagerFluids;
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.items.ItemBucket;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -14,14 +21,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.ManagerFluids;
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.items.ItemBucket;
-
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
 public class HandlerBuckets {
 
 	public static HandlerBuckets INSTANCE;
@@ -29,9 +28,10 @@ public class HandlerBuckets {
 	public FluidStack getFluid(ItemStack item) {
 		Item i = item.getItem();
 		if(i instanceof ItemBucket){
-			if(((ItemBucket) i).fluid == "oil") return FluidRegistry.getFluidStack("oil",1000);
-			if(((ItemBucket) i).fluid == "lightoil") return FluidRegistry.getFluidStack("lightoil",1000);
-			if(((ItemBucket) i).fluid == "heavyoil") return FluidRegistry.getFluidStack("heavyoil",1000);	
+			if(((ItemBucket) i).fluid == ManagerFluids.OIL_NAME) return FluidRegistry.getFluidStack(ManagerFluids.OIL_NAME,1000);
+			if(((ItemBucket) i).fluid == ManagerFluids.LIGHT_OIL) return FluidRegistry.getFluidStack(ManagerFluids.LIGHT_OIL,1000);
+			if(((ItemBucket) i).fluid == ManagerFluids.HEAVY_OIL) return FluidRegistry.getFluidStack(ManagerFluids.HEAVY_OIL,1000);
+			if(((ItemBucket) i).fluid == ManagerFluids.HOT_CRUDE) return FluidRegistry.getFluidStack(ManagerFluids.HOT_CRUDE,1000);
 		}
 		return null;
 	}
@@ -42,10 +42,12 @@ public class HandlerBuckets {
     	buckets.put(ManagerFluids.oilBlock, ManagerItems.bucket_oil);
     	buckets.put(ManagerFluids.lightOilBlock, ManagerItems.bucket_light_oil);
     	buckets.put(ManagerFluids.heavyOilBlock, ManagerItems.bucket_heavy_oil);
+    	buckets.put(ManagerFluids.hotCrudeBlock, ManagerItems.bucket_hot_crude);
     	
-    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("oil", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_oil), new ItemStack(Items.bucket));
-    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("lightoil", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_light_oil), new ItemStack(Items.bucket));
-    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack("heavyoil", FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_heavy_oil), new ItemStack(Items.bucket));
+    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.OIL_NAME, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_oil), new ItemStack(Items.bucket));
+    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.LIGHT_OIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_light_oil), new ItemStack(Items.bucket));
+    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.HEAVY_OIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_heavy_oil), new ItemStack(Items.bucket));
+    	FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.HOT_CRUDE, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_hot_crude), new ItemStack(Items.bucket));
     }
     
     @SubscribeEvent

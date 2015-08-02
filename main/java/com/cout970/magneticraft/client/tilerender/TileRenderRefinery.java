@@ -1,15 +1,8 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelRefinery;
-import com.cout970.magneticraft.client.model.ModelRefineryTank;
 import com.cout970.magneticraft.tileentity.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
@@ -17,14 +10,17 @@ import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+
 public class TileRenderRefinery extends TileEntitySpecialRenderer{
 
 	private ModelRefinery model;
-	private ModelRefineryTank model2;
 	
 	public TileRenderRefinery(){
 		model = new ModelRefinery();
-		model2 = new ModelRefineryTank();
 	}
 
 	@Override
@@ -66,7 +62,6 @@ public class TileRenderRefinery extends TileEntitySpecialRenderer{
 		IIcon i = te.getTank().getFluid().getFluid().getIcon();
 		if(i == null)return;
 		float h = ((float) te.getTank().getFluidAmount())/((float) te.getTank().getCapacity());
-		Tessellator t = Tessellator.instance;
 		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
 		bindTexture(TextureMap.locationBlocksTexture);
 		

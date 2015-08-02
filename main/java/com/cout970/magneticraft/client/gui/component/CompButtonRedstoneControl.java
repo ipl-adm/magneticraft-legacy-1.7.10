@@ -3,10 +3,6 @@ package com.cout970.magneticraft.client.gui.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
@@ -16,6 +12,10 @@ import com.cout970.magneticraft.messages.MessageRedstoneControlUpdate;
 import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.tile.RedstoneControl;
+
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class CompButtonRedstoneControl implements IGuiComp{
 

@@ -1,14 +1,14 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelHeatSink;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderHeatSink extends TileEntitySpecialRenderer{
 

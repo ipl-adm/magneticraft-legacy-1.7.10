@@ -1,18 +1,18 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.model.ModelCableMedium;
 import com.cout970.magneticraft.parts.micro.PartCableMedium;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.lib.vec.Vector3;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class TileRenderCableMedium extends TileEntitySpecialRenderer{
 	
@@ -31,7 +31,7 @@ public class TileRenderCableMedium extends TileEntitySpecialRenderer{
 		RenderUtil.bindTexture(ModelTextures.CABLE_MEDIUM);
 		boolean[] s = new boolean[6];
 		for(MgDirection d : MgDirection.values()){
-			s[d.ordinal()] = MgUtils.isConductor(MgUtils.getTileEntity(te, d), 1);
+			s[d.ordinal()] = ElectricUtils.isConductor(MgUtils.getTileEntity(te, d), 1);
 		}
 			
 		model.render(0.0625f, s);

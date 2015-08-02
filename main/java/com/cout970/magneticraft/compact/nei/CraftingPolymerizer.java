@@ -4,13 +4,13 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.item.ItemStack;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import net.minecraft.item.ItemStack;
 
 public class CraftingPolymerizer  extends TemplateRecipeHandler{
 

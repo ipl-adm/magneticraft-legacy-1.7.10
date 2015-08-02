@@ -11,13 +11,13 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cout970.magneticraft.util.NamedBlock;
+import com.cout970.magneticraft.util.NamedItem;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
-
-import com.cout970.magneticraft.util.NamedBlock;
-import com.cout970.magneticraft.util.NamedItem;
 
 public class LangHelper {
 

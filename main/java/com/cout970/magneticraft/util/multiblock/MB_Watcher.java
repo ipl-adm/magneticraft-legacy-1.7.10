@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.util.multiblock;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
 
 public class MB_Watcher {
 

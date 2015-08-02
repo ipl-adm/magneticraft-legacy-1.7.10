@@ -2,14 +2,14 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.electricity.IBatteryItem;
+import com.cout970.magneticraft.api.util.NBTUtils;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.IBatteryItem;
-import com.cout970.magneticraft.api.util.NBTUtils;
 
 public class ItemCharged extends ItemBasic implements IBatteryItem{
 

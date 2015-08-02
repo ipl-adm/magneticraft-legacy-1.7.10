@@ -8,14 +8,14 @@
  */
 package buildcraft.api.transport.pluggable;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 import buildcraft.api.core.INBTStoreable;
 import buildcraft.api.core.ISerializable;
 import buildcraft.api.transport.IPipeTile;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * An IPipePluggable MUST have an empty constructor for client-side

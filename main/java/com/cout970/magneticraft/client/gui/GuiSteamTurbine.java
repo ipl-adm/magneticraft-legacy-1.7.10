@@ -3,14 +3,6 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidRegistry;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompEnergyBarMediumVoltage;
@@ -19,6 +11,14 @@ import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class GuiSteamTurbine extends GuiBasic{
 
@@ -30,7 +30,8 @@ public class GuiSteamTurbine extends GuiBasic{
 	public void initComponenets() {
 		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/turbine.png")));
 		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(29, 20), ((TileSteamTurbineControl)tile).getProductionBar()));
-		comp.add(new CompFluidRender_Turbine((TileSteamTurbineControl)tile, new GuiPoint(41,25), new GuiPoint(59, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
+		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/consumptionbar.png"),new GuiPoint(39, 20), ((TileSteamTurbineControl)tile).getSteamConsumtionBar()));
+		comp.add(new CompFluidRender_Turbine((TileSteamTurbineControl)tile, new GuiPoint(50,25), new GuiPoint(68, 64),new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png")));
 		comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar2.png"),new GuiPoint(19,16), ((TileSteamTurbineControl)tile).capacity));
 	}
 	

@@ -1,14 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-
 import com.cout970.magneticraft.api.computer.IBusWire;
 import com.cout970.magneticraft.api.computer.IComputer;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
@@ -17,8 +8,10 @@ import com.cout970.magneticraft.api.computer.IModuleCPU;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
 import com.cout970.magneticraft.api.computer.IModuleROM;
 import com.cout970.magneticraft.api.computer.IPeripheral;
-import com.cout970.magneticraft.api.computer.impl.ModuleDisckDrive;
-import com.cout970.magneticraft.api.computer.impl.ModuleHardDrive;
+import com.cout970.magneticraft.api.computer.prefab.ModuleDisckDrive;
+import com.cout970.magneticraft.api.computer.prefab.ModuleHardDrive;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
@@ -29,6 +22,14 @@ import com.cout970.magneticraft.util.InventoryComponent;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileComputer extends TileBase implements IGuiListener,IGuiSync, IComputer, IBusWire, ITileHandlerNBT{
 	
@@ -109,7 +110,7 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 
 	public void updateEntity(){
 		if(worldObj.isRemote)return;
-		long time = System.nanoTime();
+//		long time = System.nanoTime();
 		if(motherboard.isActive()){
 			procesor.iterate();
 			hardDrive.iterate();
@@ -286,4 +287,23 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		isRuning = nbt.getBoolean("ON");
 		getInv().readFromNBT(nbt);
 	}
+
+	@Override
+	public void iterate() {}
+
+	@Override
+	public boolean isAbleToConnect(IConnectable cond, VecInt dir) {
+		return true;
+	}
+
+	@Override
+	public ConnectionClass getConnectionClass(VecInt v) {
+		return ConnectionClass.FULL_BLOCK;
+	}
+
+	@Override
+	public void save(NBTTagCompound nbt) {}
+
+	@Override
+	public void load(NBTTagCompound nbt) {}
 }

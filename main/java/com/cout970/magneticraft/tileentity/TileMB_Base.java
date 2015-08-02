@@ -1,13 +1,13 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class TileMB_Base extends TileBase implements MB_Tile{
 

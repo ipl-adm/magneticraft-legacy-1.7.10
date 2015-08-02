@@ -1,5 +1,8 @@
 package com.cout970.magneticraft.items;
 
+import com.cout970.magneticraft.handlers.HandlerBuckets;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -7,9 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-
-import com.cout970.magneticraft.handlers.HandlerBuckets;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 
 public class ItemBucket extends ItemBasic{

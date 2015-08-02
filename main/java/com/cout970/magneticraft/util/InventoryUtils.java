@@ -1,13 +1,13 @@
 package com.cout970.magneticraft.util;
 
+import com.cout970.magneticraft.block.BlockMg;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
-
-import com.cout970.magneticraft.block.BlockMg;
 
 public class InventoryUtils {
 

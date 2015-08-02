@@ -1,9 +1,5 @@
 package com.cout970.magneticraft.client.gui;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
@@ -11,6 +7,10 @@ import com.cout970.magneticraft.client.gui.component.CompHeatBar;
 import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiBrickFurnace extends GuiBasic{
 

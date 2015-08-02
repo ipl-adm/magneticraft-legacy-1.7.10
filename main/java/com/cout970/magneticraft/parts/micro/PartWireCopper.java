@@ -4,26 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntity;
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.tilerender.TileRenderWireCopper;
+
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
-
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IEnergyInterface;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.tilerender.TileRenderWireCopper;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 
 public abstract class PartWireCopper extends PartElectric{
 	
@@ -100,7 +102,7 @@ public abstract class PartWireCopper extends PartElectric{
 			}
 
 			@Override
-			public boolean isAbleToConnect(IElectricConductor c, VecInt d){
+			public boolean isAbleToConnect(IConnectable c, VecInt d){
 				if(d.equals(VecInt.NULL_VECTOR))return true;
 				if(d.equals(getDirection().toVecInt()))return true;
 				if(d.equals(getDirection().opposite().toVecInt()))return false;
@@ -127,6 +129,11 @@ public abstract class PartWireCopper extends PartElectric{
 			@Override
 			public ConnectionClass getConnectionClass(VecInt v) {
 				return ConnectionType();
+			}
+			
+			@Override
+			public double getInvCapacity(){
+				return getVoltageMultiplier()*EnergyConversor.RFtoW(0.8D);
 			}
 		};
 	}
@@ -174,10 +181,10 @@ public abstract class PartWireCopper extends PartElectric{
 		Conn = 0;
 		for(MgDirection f : MgDirection.values()){
 			TileEntity target = MgUtils.getTileEntity(tile(), f.toVecInt());
-			CompoundElectricCables c = MgUtils.getElectricCond(target, f.toVecInt().getOpposite(), getTier());
-			IEnergyInterface inter = MgUtils.getInterface(target, f.toVecInt().getOpposite(), getTier());
+			IElectricConductor[] c = ElectricUtils.getElectricCond(target, f.toVecInt().getOpposite(), getTier());
+			IEnergyInterface inter = ElectricUtils.getInterface(target, f.toVecInt().getOpposite(), getTier());
 			if(c != null){
-				for(IElectricConductor e : c.list()){
+				for(IElectricConductor e : c){
 					if(cond.isAbleToConnect(e, f.toVecInt()) && e.isAbleToConnect(cond, f.toVecInt().getOpposite())){
 						Conn |= 1 << f.ordinal();
 					}
@@ -197,14 +204,14 @@ public abstract class PartWireCopper extends PartElectric{
 		for(MgDirection d : MgDirection.values()){
 			VecInt f = d.toVecInt().add(getDirection().toVecInt());
 			TileEntity target = MgUtils.getTileEntity(tile(), f);
-			CompoundElectricCables c = MgUtils.getElectricCond(target, f.getOpposite(), getTier());
-			IEnergyInterface inter = MgUtils.getInterface(target, f.getOpposite(), getTier());
+			IElectricConductor[] c = ElectricUtils.getElectricCond(target, f.getOpposite(), getTier());
+			IEnergyInterface inter = ElectricUtils.getInterface(target, f.getOpposite(), getTier());
 			if(c != null || inter != null){
 				VecInt g = d.toVecInt().copy().add(X(), Y(), Z());
 				Block b = W().getBlock(g.getX(), g.getY(), g.getZ());
 				if(isTranspasable(b)){
 					if(c != null){
-						for(IElectricConductor e : c.list()){
+						for(IElectricConductor e : c){
 							if(cond.isAbleToConnect(e, f) && e.isAbleToConnect(cond, f.getOpposite())){
 								Conn |= 1 << d.ordinal();
 								Conn |= 1 << d.ordinal()+6;

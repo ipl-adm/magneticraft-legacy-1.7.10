@@ -1,5 +1,11 @@
 package com.cout970.magneticraft.items;
 
+import com.cout970.magneticraft.api.electricity.IBatteryItem;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.google.common.collect.Multimap;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -8,13 +14,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.api.electricity.IBatteryItem;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemChainSaw extends ItemCharged{
 

@@ -1,14 +1,14 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.liquid.ILiquidStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
 
 @ZenClass("mods.magneticraft.OilDistillery")
 public class OilDistillery {

@@ -1,21 +1,19 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.HeatConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile{
 
@@ -30,8 +28,8 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 	}
 	
 	@Override
-	public CompoundHeatCables getHeatCond(VecInt c) {
-		return new CompoundHeatCables(heat);
+	public IHeatConductor[] getHeatCond(VecInt c) {
+		return new IHeatConductor[]{heat};
 	}
 
 	@Override
@@ -112,8 +110,8 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 	}
 	
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int tier) {
+	public IElectricConductor[] getConds(VecInt dir, int tier) {
 		if(tier != 0)return null;
-		return new CompoundElectricCables(cond);
+		return new IElectricConductor[]{cond};
 	}
 }

@@ -1,5 +1,16 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.fluid.TankMg;
+import com.cout970.magneticraft.util.tile.TileHeatConductor;
+
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,17 +20,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-
-import com.cout970.magneticraft.api.heat.HeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.client.gui.component.IBarProvider;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
-import com.cout970.magneticraft.util.fluid.TankMg;
-import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8,IGuiSync{
 

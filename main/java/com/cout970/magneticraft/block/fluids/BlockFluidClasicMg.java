@@ -1,18 +1,16 @@
 package com.cout970.magneticraft.block.fluids;
 
+import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-
-import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BlockFluidClasicMg extends BlockFluidClassic{
 
@@ -39,7 +37,7 @@ public abstract class BlockFluidClasicMg extends BlockFluidClassic{
 	public void registerBlockIcons(IIconRegister register) {
 		stillIcon = register.registerIcon(BlockMg.base+"fluids/"+getName()+"_still");
 		flowingIcon = register.registerIcon(BlockMg.base+"fluids/"+getName()+"_flow");
-		FluidRegistry.getFluid(fluidName).setIcons(stillIcon, flowingIcon);
+		definedFluid.setIcons(stillIcon, flowingIcon);
 	}
 	
 	@Override

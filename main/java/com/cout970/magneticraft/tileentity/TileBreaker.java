@@ -3,16 +3,10 @@ package com.cout970.magneticraft.tileentity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -20,6 +14,12 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
+
+import net.minecraft.block.Block;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileBreaker extends TileConductorLow{
 

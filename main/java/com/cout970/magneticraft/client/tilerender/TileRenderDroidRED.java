@@ -1,14 +1,14 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelDroneRED;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderDroidRED extends TileEntitySpecialRenderer{
 	

@@ -1,13 +1,13 @@
 package com.cout970.magneticraft.util;
 
+import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
+import com.cout970.magneticraft.api.conveyor.prefab.ItemBox;
+import com.cout970.magneticraft.api.util.MgDirection;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.api.conveyor.IConveyor;
-import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.util.MgDirection;
 
 public class MgBeltUtils {
 
@@ -16,7 +16,7 @@ public class MgBeltUtils {
 	}
 
 	public static boolean isBelt(TileEntity t) {
-		return t instanceof IConveyor;
+		return t instanceof IConveyorBelt;
 	}
 	
 
@@ -94,7 +94,7 @@ public class MgBeltUtils {
 		return -1;
 	}
 
-	public static boolean canInjectInBelt(IConveyor t, ItemBox box, MgDirection dir) {
+	public static boolean canInjectInBelt(IConveyorBelt t, ItemBox box, MgDirection dir) {
 		boolean var = dir.isPerpendicular(t.getDir()) ? (dir == t.getDir().step(MgDirection.UP) ? !box.isOnLeft() : box.isOnLeft()) : dir != t.getDir();
 		if(t.addItem(dir, var ? 0 : 2, box, true))return true;
 		return false;

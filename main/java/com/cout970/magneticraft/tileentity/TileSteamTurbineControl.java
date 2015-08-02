@@ -1,19 +1,9 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -25,14 +15,23 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 
 	private static final int MAX_STEAM = 1200;
 	public TankMg[] in = new TankMg[4];
 	public IElectricConductor out;
-	private double prod;
-	private double counter;
+	private double energyProduce;
+	private double energyCounter;
 	//render
 	public int drawCounter;
 	public float animation;
@@ -51,13 +50,14 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 		}
 	};
 	private double flow;
+	private float steamConsume;
+	private int steamCounter;
 	
 	private void updateConductor() {
 		if(out == null)return;
 		double resistence = out.getResistance() + capacity.getResistance();
 		double difference = out.getVoltage() - capacity.getVoltage();
 		double change = flow;
-		double slow = change * resistence;
 		flow += ((difference - change * resistence) * out.getIndScale())/out.getVoltageMultiplier();
 		change += (difference * out.getCondParallel())/out.getVoltageMultiplier();
 		out.applyCurrent(-change);
@@ -92,13 +92,16 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 		steam = (int) Math.min(steam, ((getFluidAmount()+1000)/64000f)*MAX_STEAM);
 		if(steam > 0 && capacity.getVoltage() < ElectricConstants.MAX_VOLTAGE*100){
 			drain(steam, true);
-			double p = EnergyConversor.STEAMtoW(steam);
-			capacity.applyPower(p);
-			counter += p;
+			double power = EnergyConversor.STEAMtoW(steam);
+			capacity.applyPower(power);
+			energyCounter += power;
+			steamCounter += steam;
 		}
 		if(worldObj.getTotalWorldTime() % 20 == 1){
-			prod = counter/20;
-			counter = 0;
+			energyProduce = energyCounter/20d;
+			steamConsume = steamCounter/20f;
+			energyCounter = 0;
+			steamCounter = 0;
 		}
 	}
 
@@ -153,7 +156,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 		t = MgUtils.getTileEntity(this, vec.copy().add(new VecInt(0, 1, 0)));
 		
 		if(t instanceof IElectricTile){
-			out = ((IElectricTile) t).getConds(vec.getOpposite(), 2).getCond(0);
+			out = ((IElectricTile) t).getConds(vec.getOpposite(), 2)[0];
 		}
 	}
 
@@ -184,7 +187,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
 		if(out != null)
 			craft.sendProgressBarUpdate(cont, 0, (int)capacity.getVoltage());
-		craft.sendProgressBarUpdate(cont, 1, (int)prod);
+		craft.sendProgressBarUpdate(cont, 1, (int)energyProduce);
 		for(int i = 0;i< 4;i++){
 			if(in[i] != null){
 				if(in[i].getFluidAmount() > 0){
@@ -195,12 +198,13 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 				}
 			}
 		}
+		craft.sendProgressBarUpdate(cont, 10, (int)(steamConsume*10));
 	}
 
 	@Override
 	public void getGUINetworkData(int id, int value) {
 		if(id == 0)capacity.setVoltage(value);
-		if(id == 1)prod = value;
+		if(id == 1)energyProduce = value;
 		if(id >= 2 && id <= 9){
 			int i = (id-2)/2;
 			if(in[i] != null){
@@ -215,6 +219,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 				}
 			}
 		}
+		if(id == 10)steamConsume = value/10f;
 	}
 	
 	@Override
@@ -259,7 +264,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 			
 			@Override
 			public String getMessage() {
-				return String.format("Generating: %.3f kW",prod/1000d);
+				return String.format("Generating: %.3f kW",energyProduce/1000d);
 			}
 			
 			@Override
@@ -269,7 +274,27 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync{
 			
 			@Override
 			public float getLevel() {
-				return (float) Math.min(prod, getMaxLevel());
+				return (float) Math.min(energyProduce, getMaxLevel());
+			}
+		};
+	}
+	
+	public IBarProvider getSteamConsumtionBar() {
+		return new IBarProvider() {
+			
+			@Override
+			public String getMessage() {
+				return String.format("Consuming %.1f mB/t",steamConsume);
+			}
+			
+			@Override
+			public float getMaxLevel() {
+				return (float) MAX_STEAM;
+			}
+			
+			@Override
+			public float getLevel() {
+				return (float) Math.min(steamConsume, getMaxLevel());
 			}
 		};
 	}

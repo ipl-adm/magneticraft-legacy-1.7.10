@@ -1,12 +1,12 @@
 package com.cout970.magneticraft.container;
 
+import com.cout970.magneticraft.tileentity.TileInserter;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.tileentity.TileInserter;
 
 public class ContainerInserter extends ContainerBasic{
 
@@ -30,11 +30,14 @@ public class ContainerInserter extends ContainerBasic{
 				        return false;
 					}
 				});
-		
+		addSlotToContainer(new Slot(((TileInserter)t).upgrades,0,133,9));
+		addSlotToContainer(new Slot(((TileInserter)t).upgrades,1,151,9));
+		addSlotToContainer(new Slot(((TileInserter)t).upgrades,2,133,27));
+		addSlotToContainer(new Slot(((TileInserter)t).upgrades,3,151,27));
 		bindPlayerInventory(p);
 	}
 	
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
-		return transfer(player, slot, new int[]{3, 0,0,0, 0,0,0, 0,0,0,});
+		return transfer(player, slot, new int[]{3, 0,0,0, 0,0,0, 0,0,0, 2,2, 2,2});
 	}
 }

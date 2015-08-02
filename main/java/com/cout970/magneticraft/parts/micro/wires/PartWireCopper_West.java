@@ -2,10 +2,10 @@ package com.cout970.magneticraft.parts.micro.wires;
 
 import java.util.List;
 
-import codechicken.lib.vec.Cuboid6;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.parts.micro.PartWireCopper;
+
+import codechicken.lib.vec.Cuboid6;
 
 public class PartWireCopper_West extends PartWireCopper{
 

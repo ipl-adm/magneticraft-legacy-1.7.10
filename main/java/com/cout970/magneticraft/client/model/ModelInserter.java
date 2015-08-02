@@ -11,14 +11,14 @@
 
 package com.cout970.magneticraft.client.model;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-
-import org.lwjgl.opengl.GL11;
 
 public class ModelInserter extends ModelBase
 {

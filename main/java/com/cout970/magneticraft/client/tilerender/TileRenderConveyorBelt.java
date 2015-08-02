@@ -1,19 +1,10 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.conveyor.ConveyorSide;
-import com.cout970.magneticraft.api.conveyor.IConveyor;
-import com.cout970.magneticraft.api.conveyor.ItemBox;
+import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
+import com.cout970.magneticraft.api.conveyor.IConveyorBeltLane;
+import com.cout970.magneticraft.api.conveyor.IItemBox;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -22,6 +13,15 @@ import com.cout970.magneticraft.client.model.ModelConveyorBelt;
 import com.cout970.magneticraft.client.model.ModelConveyorBeltAddition;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 
 public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 
@@ -55,11 +55,11 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 		GL11.glTranslatef(0.5f, 1.5f, 0.5f);
 		TileConveyorBelt tile = (TileConveyorBelt) t;
 		
-		for(ItemBox b : tile.getSideLane(true).content){
+		for(IItemBox b : tile.getSideLane(true).getItemBoxes()){
 			if(b == null)continue;
 			renderItemBox(b,tile);
 		}
-		for(ItemBox b : tile.getSideLane(false).content){
+		for(IItemBox b : tile.getSideLane(false).getItemBoxes()){
 			if(b == null)continue;
 			renderItemBox(b,tile);
 		}
@@ -81,8 +81,8 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 				VecInt vec = tile.getDir().step(MgDirection.UP).toVecInt();
 				vec.add(new VecInt(tile));
 				TileEntity conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY()+h, vec.getZ());
-				if(conveyor instanceof IConveyor){
-					if(((IConveyor) conveyor).getDir() == tile.getDir().step(MgDirection.UP).opposite()){
+				if(conveyor instanceof IConveyorBelt){
+					if(((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.UP).opposite()){
 						sides &= 1; 
 					}
 				}
@@ -90,8 +90,8 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 				vec = tile.getDir().step(MgDirection.DOWN).toVecInt();
 				vec.add(new VecInt(tile));
 				conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY()+h, vec.getZ());
-				if(conveyor instanceof IConveyor){
-					if(((IConveyor) conveyor).getDir() == tile.getDir().step(MgDirection.DOWN).opposite()){
+				if(conveyor instanceof IConveyorBelt){
+					if(((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.DOWN).opposite()){
 						sides &= 2; 
 					}
 				}
@@ -271,19 +271,19 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer{
 		}
 	}
 	
-	private void renderItemBox(ItemBox b, TileConveyorBelt c) {
+	private void renderItemBox(IItemBox b, TileConveyorBelt c) {
 		GL11.glPushMatrix();
 		float delta = (int) (System.currentTimeMillis()-c.time);
 		if(delta > 50){
 			delta = 50;
 		}
-		ConveyorSide lane = c.getSideLane(b.isOnLeft());
+		IConveyorBeltLane lane = c.getSideLane(b.isOnLeft());
 		
-		lane.setSpace(b.getPosition(),false);
-		if(lane.hasSpace(b.getPosition()+1)){
+		lane.setHitBoxSpace(b.getPosition(),false);
+		if(lane.hasHitBoxSpace(b.getPosition()+1)){
 			delta = (delta/50f);
 		}else delta = 0;
-		lane.setSpace(b.getPosition(),true);
+		lane.setHitBoxSpace(b.getPosition(),true);
 
 		float pos = b.getPosition()+delta;
 		float d = (float) (pos)*0.0625f-0.5f+0.125f;

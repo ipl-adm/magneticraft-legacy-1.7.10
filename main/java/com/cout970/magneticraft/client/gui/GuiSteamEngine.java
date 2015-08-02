@@ -3,11 +3,6 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompButtonRedstoneControl;
@@ -19,6 +14,11 @@ import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.tileentity.TileSteamEngine;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiSteamEngine extends GuiBasic{
 
@@ -81,7 +81,7 @@ public class GuiSteamEngine extends GuiBasic{
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 			if(tile instanceof TileSteamEngine){
 				TileSteamEngine c = (TileSteamEngine) tile;
-				float prod = (c.steamConsumitionM)/(c.STEAM_LIMIT*20);
+				float prod = (c.steamConsumitionM)/(TileSteamEngine.STEAM_LIMIT*20);
 				int scale = (int) (44*prod);
 				gui.mc.renderEngine.bindTexture(texture);
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);

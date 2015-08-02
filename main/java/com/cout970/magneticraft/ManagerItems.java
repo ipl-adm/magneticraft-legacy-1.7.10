@@ -3,8 +3,6 @@ package com.cout970.magneticraft;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.item.Item;
-
 import com.cout970.magneticraft.items.ItemBasic;
 import com.cout970.magneticraft.items.ItemBattery;
 import com.cout970.magneticraft.items.ItemBucket;
@@ -42,6 +40,7 @@ import com.cout970.magneticraft.items.ItemWrench;
 import com.cout970.magneticraft.util.NamedItem;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
 
 public class ManagerItems {
 
@@ -122,6 +121,11 @@ public class ManagerItems {
 	public static Item small_battery;
 	public static Item alternator;
 	public static Item magnet;
+	public static Item upgrade_drop;
+	public static Item upgrade_speed;
+	public static Item upgrade_suck;
+	public static Item upgrade_slow;
+	public static Item rubber;
 	
 	public static void initItems(){
 		
@@ -168,10 +172,10 @@ public class ManagerItems {
 		dustDiamond = new ItemBasic("dustdiamond");
 		tool_sword = new ItemElectricSword("electric_sword");
 		tool_chainsaw = new ItemChainSaw("chainsaw");
-		bucket_oil = new ItemBucket("bucket_oil","oil");
-		bucket_light_oil = new ItemBucket("bucket_light_oil","lightoil");
-		bucket_heavy_oil = new ItemBucket("bucket_heavy_oil","heavyoil");
-		bucket_hot_crude = new ItemBucket("bucket_hot_crude", "hotcrude");
+		bucket_oil = new ItemBucket("bucket_oil", ManagerFluids.OIL_NAME);
+		bucket_light_oil = new ItemBucket("bucket_light_oil", ManagerFluids.LIGHT_OIL);
+		bucket_heavy_oil = new ItemBucket("bucket_heavy_oil", ManagerFluids.HEAVY_OIL);
+		bucket_hot_crude = new ItemBucket("bucket_hot_crude", ManagerFluids.HOT_CRUDE);
 		chip_cpu_mips = new ItemModuleCPU_MIPS("mips_cpu");
 		chip_ram = new ItemModuleRam64K("ram");
 		chip_rom = new ItemModuleROM("rom");
@@ -187,6 +191,11 @@ public class ManagerItems {
 		small_battery = new ItemSmallBattery("battery_small");
 		alternator = new ItemBasic("alternator");
 		magnet = new ItemBasic("magnet");
+		upgrade_drop = new ItemBasic("inserter_item_drop_upgrade");
+		upgrade_speed = new ItemBasic("inserter_item_speed_upgrade");
+		upgrade_suck = new ItemBasic("inserter_item_suck_upgrade");
+		upgrade_slow = new ItemBasic("inserter_item_slow_upgrade");
+		rubber = new ItemBasic("rubber");
 	}
 	
 	public static void registerItems(){
@@ -253,6 +262,11 @@ public class ManagerItems {
 		addItem(small_battery, "Small Battery");
 		addItem(alternator, "Alternator");
 		addItem(magnet, "Magnet");
+		addItem(upgrade_drop, "Inserter Upgrade: Drop Items To Ground");
+		addItem(upgrade_suck, "Inserter Upgrade: Pick Items From Ground");
+		addItem(upgrade_speed, "Inserter Upgrade: Hight Speed");
+		addItem(upgrade_slow, "Inserter Upgrade: Slow Speed");
+		addItem(rubber, "Rubber Sheet");
 		
 		for(Item i : items){
 			GameRegistry.registerItem(i, i.getUnlocalizedName());

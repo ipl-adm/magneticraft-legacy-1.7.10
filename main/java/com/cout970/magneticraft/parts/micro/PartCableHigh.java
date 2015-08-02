@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.tileentity.TileEntity;
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.tilerender.TileRenderCableHigh;
+
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
 import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TileMultipart;
-
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.IEnergyInterface;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.tilerender.TileRenderCableHigh;
+import net.minecraft.tileentity.TileEntity;
 
 public class PartCableHigh extends PartElectric implements ISidedHollowConnect{
 
@@ -67,7 +68,8 @@ public class PartCableHigh extends PartElectric implements ISidedHollowConnect{
 	
 	public void create(){
 		cond = new ElectricConductor(getTile(), getTier(), ElectricConstants.RESISTANCE_COPPER_HIGH){
-			public boolean isAbleToConnect(IElectricConductor c, VecInt d){
+			@Override
+			public boolean isAbleToConnect(IConnectable c, VecInt d){
 				if(c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK || c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_HIGH){
 					if(d.toMgDirection() == null)return false;
 					if(((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.toMgDirection().ordinal()))))
@@ -86,15 +88,15 @@ public class PartCableHigh extends PartElectric implements ISidedHollowConnect{
 		Arrays.fill(connections, false);
 		for(MgDirection d : MgDirection.values()){
 			TileEntity t = MgUtils.getTileEntity(getTile(), d);
-			CompoundElectricCables c = MgUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
+			IElectricConductor[] c = ElectricUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
 			if(c != null){
-				for(IElectricConductor e : c.list()){
+				for(IElectricConductor e : c){
 					if(e.isAbleToConnect(cond, VecInt.fromDirection(d.opposite())) && cond.isAbleToConnect(e, VecInt.fromDirection(d))){
 						connections[d.ordinal()] = true;
 					}
 				}
 			}
-			IEnergyInterface inter = MgUtils.getInterface(t, d.toVecInt().getOpposite(), getTier());
+			IEnergyInterface inter = ElectricUtils.getInterface(t, d.toVecInt().getOpposite(), getTier());
 			if(inter != null && inter.canConnect(d.toVecInt())){
 				if(((TileMultipart)getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.ordinal()))))
 				connections[d.ordinal()] = true;

@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.util.IInventoryManaged;
+import com.cout970.magneticraft.util.InventoryComponent;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.util.IInventoryManaged;
-import com.cout970.magneticraft.util.InventoryComponent;
 
 public class TileMB_Inv extends TileMB_Base implements IInventoryManaged{
 

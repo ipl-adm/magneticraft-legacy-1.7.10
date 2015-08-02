@@ -4,17 +4,17 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.acces.RecipeBiomassBurner;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 public class CraftingBiomassBurner extends TemplateRecipeHandler{
 	
@@ -87,7 +87,6 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler{
 	@Override
 	public void drawExtras(int recipe)
 	{
-		int ticks = 100;
 		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png"));
 		int heat = (int) (EnergyConversor.FUELtoCALORIES(recipes.get(recipe).getBurnTime()));
 		int scale = (int) (44*(heat/750f)/1400f);

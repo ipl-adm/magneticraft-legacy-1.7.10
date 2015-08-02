@@ -1,21 +1,21 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockOilDistillery;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TileMB_Energy_Low extends TileMB_Base implements IElectricTile{
 
 	private ElectricConductor cond = new ElectricConductor(this){
 		@Override
-		public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
-			return e.getConnectionClass(v.getOpposite()).orientation == null;
+		public boolean isAbleToConnect(IConnectable e, VecInt v) {
+			return true;
 		}
 		
 		@Override
@@ -25,12 +25,12 @@ public class TileMB_Energy_Low extends TileMB_Base implements IElectricTile{
 	};
 	
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
+	public IElectricConductor[] getConds(VecInt dir, int Vtier) {
 		if(Vtier != 0)return null;
 		if(this.multi instanceof MultiblockOilDistillery && !VecInt.NULL_VECTOR.equals(dir)){
 			if(dire != null && !dire.opposite().toVecInt().equals(dir))return null;
 		}
-		return new CompoundElectricCables(cond);
+		return new IElectricConductor[]{cond};
 	}
 	
 	@Override

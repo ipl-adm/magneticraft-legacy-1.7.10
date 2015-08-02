@@ -1,5 +1,11 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.cout970.magneticraft.tileentity.TileMiner;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,13 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileMiner;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMiner extends BlockMg{
 

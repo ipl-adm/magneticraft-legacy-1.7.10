@@ -1,12 +1,11 @@
 package com.cout970.magneticraft.util.tile;
 
-import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.TileBase;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class TileConductorMedium extends TileBase implements IElectricTile{
 
@@ -15,9 +14,9 @@ public abstract class TileConductorMedium extends TileBase implements IElectricT
 	public abstract IElectricConductor initConductor();
 	
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int tier) {
+	public IElectricConductor[] getConds(VecInt dir, int tier) {
 		if(tier != 2)return null;
-		return new CompoundElectricCables(cond);
+		return new IElectricConductor[]{cond};
 	}
 	
 	@Override

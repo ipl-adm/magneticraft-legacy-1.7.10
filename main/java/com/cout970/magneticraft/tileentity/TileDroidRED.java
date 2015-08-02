@@ -2,13 +2,6 @@ package com.cout970.magneticraft.tileentity;
 
 import java.util.ArrayList;
 
-import net.minecraft.block.Block;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.computer.IBusWire;
 import com.cout970.magneticraft.api.computer.IComputer;
@@ -17,18 +10,21 @@ import com.cout970.magneticraft.api.computer.IModuleDiskDrive;
 import com.cout970.magneticraft.api.computer.IModuleMemoryController;
 import com.cout970.magneticraft.api.computer.IModuleROM;
 import com.cout970.magneticraft.api.computer.IPeripheral;
-import com.cout970.magneticraft.api.computer.impl.ModuleCPU_MIPS;
-import com.cout970.magneticraft.api.computer.impl.ModuleDisckDrive;
-import com.cout970.magneticraft.api.computer.impl.ModuleMemoryController;
-import com.cout970.magneticraft.api.computer.impl.ModuleROM;
-import com.cout970.magneticraft.api.computer.impl.MonitorPeripheral;
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
+import com.cout970.magneticraft.api.computer.prefab.ModuleCPU_MIPS;
+import com.cout970.magneticraft.api.computer.prefab.ModuleDisckDrive;
+import com.cout970.magneticraft.api.computer.prefab.ModuleMemoryController;
+import com.cout970.magneticraft.api.computer.prefab.ModuleROM;
+import com.cout970.magneticraft.api.computer.prefab.MonitorPeripheral;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
+import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.Orientation;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
@@ -37,12 +33,16 @@ import com.cout970.magneticraft.util.IClientInformer;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.Orientation;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.block.Block;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener, IBusWire{
 
@@ -429,4 +429,23 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 	public VecInt[] getValidConnections() {
 		return VecIntUtil.FORGE_DIRECTIONS;
 	}
+	
+	@Override
+	public void iterate() {}
+
+	@Override
+	public boolean isAbleToConnect(IConnectable cond, VecInt dir) {
+		return true;
+	}
+
+	@Override
+	public ConnectionClass getConnectionClass(VecInt v) {
+		return ConnectionClass.FULL_BLOCK;
+	}
+
+	@Override
+	public void save(NBTTagCompound nbt) {}
+
+	@Override
+	public void load(NBTTagCompound nbt) {}
 }

@@ -1,5 +1,15 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
+
+import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
@@ -9,16 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
-
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TileEUAlternator extends TileConductorLow implements IEnergySink, IEnergyStorage{
 
@@ -93,7 +93,7 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 			}
 			
 			@Override
-			public boolean isAbleToConnect(IElectricConductor c, VecInt d) {
+			public boolean isAbleToConnect(IConnectable c, VecInt d) {
 				return getDirection().opposite().toVecInt().equals(d);
 			}
 		};

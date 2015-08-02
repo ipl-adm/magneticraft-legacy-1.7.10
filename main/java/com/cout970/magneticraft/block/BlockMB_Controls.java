@@ -2,6 +2,20 @@ package com.cout970.magneticraft.block;
 
 import java.util.List;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tileentity.TileMB_Controls;
+import com.cout970.magneticraft.util.multiblock.MB_Block;
+import com.cout970.magneticraft.util.multiblock.MB_Tile;
+import com.cout970.magneticraft.util.multiblock.MB_Watcher;
+import com.cout970.magneticraft.util.multiblock.Multiblock;
+
+import codechicken.lib.raytracer.IndexedCuboid6;
+import codechicken.lib.raytracer.RayTracer;
+import codechicken.lib.vec.BlockCoord;
+import codechicken.lib.vec.Vector3;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,21 +26,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import codechicken.lib.raytracer.IndexedCuboid6;
-import codechicken.lib.raytracer.RayTracer;
-import codechicken.lib.vec.BlockCoord;
-import codechicken.lib.vec.Vector3;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileMB_Controls;
-import com.cout970.magneticraft.util.multiblock.MB_Block;
-import com.cout970.magneticraft.util.multiblock.MB_Tile;
-import com.cout970.magneticraft.util.multiblock.MB_Watcher;
-import com.cout970.magneticraft.util.multiblock.Multiblock;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMB_Controls  extends BlockMg implements MB_Block{
 

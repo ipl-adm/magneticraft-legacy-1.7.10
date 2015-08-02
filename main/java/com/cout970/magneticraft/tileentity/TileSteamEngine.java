@@ -1,16 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
@@ -18,6 +10,14 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_8,IGuiSync{
 

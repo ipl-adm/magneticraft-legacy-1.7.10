@@ -19,10 +19,6 @@ import static com.cout970.magneticraft.ManagerItems.ingotTungsten;
 import static com.cout970.magneticraft.ManagerItems.oreNames;
 import static com.cout970.magneticraft.ManagerItems.pebbles;
 import static com.cout970.magneticraft.ManagerItems.rubble;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
@@ -31,6 +27,10 @@ import com.cout970.magneticraft.items.ItemProduct;
 import com.cout970.magneticraft.util.ThermopileDecay;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class ManagerRecipe {
 
@@ -48,7 +48,7 @@ public class ManagerRecipe {
 //			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble_clean.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
 			
 //			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles_clean.get(i)), new ItemStack(dust.get(i), 2), extra_1, 0.05F);
-			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i), 2), extra_1, 0.05F);
+			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i), 3), extra_1, 0.05F);
 			ItemStack ingot = ManagerOreDict.getOreWithPreference("ingot"+oreNames[i]);
 			if(ingot != null){
 				MgRecipeRegister.registerGrinderRecipe(ingot, new ItemStack(dust.get(i)), null, 0F, null, 0F);
@@ -90,6 +90,9 @@ public class ManagerRecipe {
 		
 		MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.RFtoW(160));
 		MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("hotcrude", 20), FluidRegistry.getFluidStack("lightoil", 7), FluidRegistry.getFluidStack("heavyoil", 6), FluidRegistry.getFluidStack("naturalgas", 7));
+		
+		MgRecipeRegister.registerPolymerizerRecipe(FluidRegistry.getFluidStack(ManagerFluids.NATURAL_GAS, 500), new ItemStack(ManagerItems.dustSulfur), 	new ItemStack(ManagerItems.rubber), 200);
+		MgRecipeRegister.registerPolymerizerRecipe(FluidRegistry.getFluidStack(ManagerFluids.NATURAL_GAS, 500), new ItemStack(Items.coal), 				new ItemStack(ManagerItems.plastic), 300);
 	}
 
 	public static void registerThermopileRecipes() {

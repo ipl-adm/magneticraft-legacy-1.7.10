@@ -1,8 +1,5 @@
 package com.cout970.magneticraft.proxy;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.client.MinecraftForgeClient;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableHigh;
@@ -116,6 +113,8 @@ import com.cout970.magneticraft.tileentity.TileWindTurbine;
 import com.cout970.magneticraft.tileentity.TileWoodenShaft;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 
 public class ClientProxy implements IProxy{

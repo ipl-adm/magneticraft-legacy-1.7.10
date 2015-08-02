@@ -3,21 +3,21 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiGrinder extends GuiBasic{
 

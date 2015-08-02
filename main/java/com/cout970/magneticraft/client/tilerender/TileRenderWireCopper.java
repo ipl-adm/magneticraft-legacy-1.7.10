@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTranslated;
 import static org.lwjgl.opengl.GL11.glTranslatef;
-import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.client.model.ModelWire;
 import com.cout970.magneticraft.client.model.ModelWireCorner;
@@ -18,6 +17,8 @@ import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Up;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_West;
 import com.cout970.magneticraft.util.RenderUtil;
 
+import codechicken.lib.vec.Vector3;
+
 public class TileRenderWireCopper {
 	
 	public ModelWire model = new ModelWire();
@@ -29,7 +30,7 @@ public class TileRenderWireCopper {
 		RenderUtil.bindTexture(ModelTextures.WIRE_COPPER_BLOCK);
 		
 		applyRotations(p);
-		model.renderStatic(p.pixel);
+		model.renderStatic(PartWireCopper.pixel);
 		if(p.Conn != 0){
 			int source = p.Conn & p.getConMask();
 			byte conn = (byte) (source & 0x3F);//mg dirs
@@ -51,9 +52,9 @@ public class TileRenderWireCopper {
 			fin |= (1 & (conn >> rot[2])) << 2;
 			fin |= (1 & (conn >> rot[3])) << 3;
 			
-			model.renderDynamic(p.pixel, fin);
+			model.renderDynamic(PartWireCopper.pixel, fin);
 			RenderUtil.bindTexture(ModelTextures.WIRE_COPPER_CORNER);
-			model2.renderDynamic(p.pixel, ext);
+			model2.renderDynamic(PartWireCopper.pixel, ext);
 		}
 		glPopMatrix();
 	}
@@ -78,37 +79,37 @@ public class TileRenderWireCopper {
 	private void applyRotations(PartWireCopper p) {
 		if(p instanceof PartWireCopper_Down){
 			glTranslatef(0.5f, -1.5f, 0.5f);
-			glTranslatef(0f, p.pixel*3f, 0f);
+			glTranslatef(0f, PartWireCopper.pixel*3f, 0f);
 			return;
 		}
 		if(p instanceof PartWireCopper_Up){
 			glRotatef(180,1,0,0);
 			glTranslatef(0.5f, -2.5f, -0.5f);
-			glTranslatef(0f, p.pixel*3f, 0f);
+			glTranslatef(0f, PartWireCopper.pixel*3f, 0f);
 			return;
 		}
 		if(p instanceof PartWireCopper_East){
 			glRotatef(90,0,0,1);
 			glTranslatef(0.5f, -2.5f, 0.5f);
-			glTranslatef(0f, p.pixel*3f, 0f);
+			glTranslatef(0f, PartWireCopper.pixel*3f, 0f);
 			return;
 		}
 		if(p instanceof PartWireCopper_West){
 			glRotatef(-90,0,0,1);
 			glTranslatef(-0.5f, -1.5f, 0.5f);
-			glTranslatef(0f, p.pixel*3f, 0f);
+			glTranslatef(0f, PartWireCopper.pixel*3f, 0f);
 			return;
 		}
 		if(p instanceof PartWireCopper_North){
 			glRotatef(90,1,0,0);
 			glTranslatef(0.5f, -1.5f, -0.5f);
-			glTranslatef(0f, p.pixel*3f, 0f);
+			glTranslatef(0f, PartWireCopper.pixel*3f, 0f);
 			return;
 		}
 		if(p instanceof PartWireCopper_South){
 			glRotatef(-90,1,0,0);
 			glTranslatef(0.5f, -2.5f, 0.5f);
-			glTranslatef(0f, p.pixel*3f, 0f);
+			glTranslatef(0f, PartWireCopper.pixel*3f, 0f);
 			return;
 		}
 	}

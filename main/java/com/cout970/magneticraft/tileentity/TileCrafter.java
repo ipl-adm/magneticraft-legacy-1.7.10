@@ -4,6 +4,16 @@ package com.cout970.magneticraft.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.IGuiListener;
+import com.cout970.magneticraft.util.IInventoryManaged;
+import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.InventoryCrafterAux;
+import com.cout970.magneticraft.util.InventoryUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -16,16 +26,6 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.oredict.OreDictionary;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IGuiListener;
-import com.cout970.magneticraft.util.IInventoryManaged;
-import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.InventoryCrafterAux;
-import com.cout970.magneticraft.util.InventoryUtils;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
 

@@ -3,16 +3,16 @@ package com.cout970.magneticraft.client.gui.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cout970.magneticraft.client.gui.GuiBasic;
+import com.cout970.magneticraft.util.RenderUtil;
+import com.cout970.magneticraft.util.fluid.TankMg;
+
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
-
-import com.cout970.magneticraft.client.gui.GuiBasic;
-import com.cout970.magneticraft.util.RenderUtil;
-import com.cout970.magneticraft.util.fluid.TankMg;
 
 public class CompFluidRender implements IGuiComp{
 

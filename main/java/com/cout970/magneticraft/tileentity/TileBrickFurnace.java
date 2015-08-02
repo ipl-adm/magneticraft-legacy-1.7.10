@@ -1,5 +1,14 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.IInventoryManaged;
+import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.tile.TileHeatConductor;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -7,15 +16,6 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.heat.HeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.client.gui.component.IBarProvider;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IInventoryManaged;
-import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 public class TileBrickFurnace extends TileHeatConductor implements IInventoryManaged, ISidedInventory, IGuiSync{
 

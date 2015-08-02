@@ -1,14 +1,14 @@
 package com.cout970.magneticraft.items;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import com.cout970.magneticraft.parts.micro.PartHeatCable;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Vector3;
 import codechicken.multipart.TMultiPart;
-
-import com.cout970.magneticraft.parts.micro.PartHeatCable;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class ItemPartHeatCable extends ItemPartBase{
 

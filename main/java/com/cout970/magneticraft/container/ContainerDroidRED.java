@@ -1,13 +1,13 @@
 package com.cout970.magneticraft.container;
 
+import com.cout970.magneticraft.tileentity.TileBase;
+import com.cout970.magneticraft.tileentity.TileDroidRED;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.tileentity.TileDroidRED;
 
 public class ContainerDroidRED extends ContainerBasic{
 

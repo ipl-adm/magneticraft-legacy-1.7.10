@@ -1,9 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 import com.cout970.magneticraft.api.kinetic.IKineticTile;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -13,6 +9,9 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
 public class TileGrindingMill extends TileMB_Base{
 

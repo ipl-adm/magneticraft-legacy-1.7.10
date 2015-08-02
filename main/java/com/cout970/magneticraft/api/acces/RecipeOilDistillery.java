@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.api.acces;
 
-import net.minecraftforge.fluids.FluidStack;
-
 import com.cout970.magneticraft.api.util.MgUtils;
+
+import net.minecraftforge.fluids.FluidStack;
 
 /**
  * 
@@ -11,8 +11,8 @@ import com.cout970.magneticraft.api.util.MgUtils;
  */
 public class RecipeOilDistillery {
 
-	private FluidStack input,output;//the amount of the fluid is the generation per tick
-	private double cost;
+	protected FluidStack input,output;//the amount of the fluid is the generation per tick
+	protected double cost;
 	
 	public RecipeOilDistillery(FluidStack in, FluidStack out, double cost){
 		input = in;

@@ -1,12 +1,12 @@
 package com.cout970.magneticraft.util.tile;
 
+import com.cout970.magneticraft.tileentity.TileBase;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import com.cout970.magneticraft.tileentity.TileBase;
 
 public class TileInventory extends TileBase implements IInventory{
 

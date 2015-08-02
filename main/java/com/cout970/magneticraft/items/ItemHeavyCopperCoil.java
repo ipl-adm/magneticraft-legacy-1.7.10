@@ -2,22 +2,21 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.world.World;
-
-import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
-import com.cout970.magneticraft.api.electricity.wires.ITileElectricPole;
-import com.cout970.magneticraft.api.electricity.wires.WireConnection;
-import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.electricity.IElectricPole;
+import com.cout970.magneticraft.api.electricity.ITileElectricPole;
+import com.cout970.magneticraft.api.electricity.prefab.InterPoleWire;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
 
 public class ItemHeavyCopperCoil extends ItemBasic{
 
@@ -29,11 +28,11 @@ public class ItemHeavyCopperCoil extends ItemBasic{
 	public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_){
 		TileEntity t = w.getTileEntity(x, y, z);
 		if(t instanceof ITileElectricPole){
-			IElectricPole pole1 = MgUtils.getElectricPole(t);
+			IElectricPole pole1 = ElectricUtils.getElectricPole(t);
 			if(pole1 != null){
 				if(NBTUtils.getBoolean("Connected", item)){
 					TileEntity tile = w.getTileEntity(NBTUtils.getInteger("xCoord", item), NBTUtils.getInteger("yCoord", item), NBTUtils.getInteger("zCoord", item));
-					IElectricPole pole2 = MgUtils.getElectricPole(tile);
+					IElectricPole pole2 = ElectricUtils.getElectricPole(tile);
 					if(pole2 != null){
 						if(pole1 == pole2){
 							if(!w.isRemote)
@@ -41,7 +40,8 @@ public class ItemHeavyCopperCoil extends ItemBasic{
 							return false;
 						}
 						if(pole1.canConnectWire(pole2.getTier(), pole2) && pole2.canConnectWire(pole1.getTier(), pole1)){
-							WireConnection wire = new WireConnection(new VecInt(pole1.getParent()), new VecInt(pole2.getParent()), pole1.getParent().getWorldObj());
+							InterPoleWire wire = new InterPoleWire(new VecInt(pole1.getParent()), new VecInt(pole2.getParent()));
+							wire.setWorld(pole1.getParent().getWorldObj());
 							if(wire.getDistance() <= 16){
 								pole1.onConnect(wire);
 								pole2.onConnect(wire);
@@ -78,6 +78,7 @@ public class ItemHeavyCopperCoil extends ItemBasic{
 		return false;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer p, List info, boolean flag) {
 		super.addInformation(item, p, info, flag);

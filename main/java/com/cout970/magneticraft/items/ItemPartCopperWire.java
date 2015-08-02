@@ -2,14 +2,6 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import codechicken.lib.vec.BlockCoord;
-import codechicken.lib.vec.Vector3;
-import codechicken.multipart.TMultiPart;
-
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -21,8 +13,15 @@ import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Up;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_West;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
+import codechicken.lib.vec.BlockCoord;
+import codechicken.lib.vec.Vector3;
+import codechicken.multipart.TMultiPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemPartCopperWire extends ItemPartBase{
 	
@@ -51,6 +50,7 @@ public class ItemPartCopperWire extends ItemPartBase{
 		return null;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);

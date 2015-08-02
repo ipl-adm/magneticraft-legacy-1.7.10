@@ -2,17 +2,16 @@ package com.cout970.magneticraft.compact;
 
 import java.util.List;
 
+import com.cout970.magneticraft.api.heat.HeatUtils;
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
+import com.cout970.magneticraft.tileentity.TileRefineryTank;
+
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
-
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileCopperTank;
-import com.cout970.magneticraft.tileentity.TileRefineryTank;
 
 public class HUDMagneticraft implements IWailaDataProvider{
 
@@ -28,9 +27,9 @@ public class HUDMagneticraft implements IWailaDataProvider{
 
 	@Override
 	public List<String> getWailaBody(ItemStack itemStack,List<String> currenttip, IWailaDataAccessor accessor,IWailaConfigHandler config){
-		CompoundHeatCables comp = MgUtils.getHeatCond(accessor.getTileEntity(), VecInt.NULL_VECTOR);
+		IHeatConductor[] comp = HeatUtils.getHeatCond(accessor.getTileEntity(), VecInt.NULL_VECTOR);
 		if(comp != null){
-			for(IHeatConductor c : comp.list()){
+			for(IHeatConductor c : comp){
 				int h = 0;
 				if(c != null){
 					h = (int) c.getTemperature();

@@ -1,5 +1,22 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.IHeatTile;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.IInventoryManaged;
+import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.fluid.TankMg;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -11,24 +28,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.HeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatTile;
-import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IBarProvider;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
-import com.cout970.magneticraft.util.IInventoryManaged;
-import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.fluid.TankMg;
-import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IInventoryManaged,IHeatTile{
 
@@ -145,7 +144,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
+		super.readFromNBT(nbt);		
 		progress = nbt.getFloat("progres");
 		heat.load(nbt);
 		water.readFromNBT(nbt,"water");
@@ -225,8 +224,8 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 	}
 
 	@Override
-	public CompoundHeatCables getHeatCond(VecInt c) {
-		return new CompoundHeatCables(heat);
+	public IHeatConductor[] getHeatCond(VecInt c) {
+		return new IHeatConductor[]{heat};
 	}
 	
 	public InventoryComponent getInv() {

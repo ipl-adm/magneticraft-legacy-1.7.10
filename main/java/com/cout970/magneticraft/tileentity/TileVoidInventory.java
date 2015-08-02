@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class TileVoidInventory extends TileBase implements IInventoryManaged{
 

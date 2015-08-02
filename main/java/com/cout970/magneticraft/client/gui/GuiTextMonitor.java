@@ -1,9 +1,5 @@
 package com.cout970.magneticraft.client.gui;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
@@ -11,6 +7,10 @@ import com.cout970.magneticraft.client.gui.component.CompScreen;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
 import com.cout970.magneticraft.tileentity.TileTextMonitor;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiTextMonitor extends GuiBasic{
 

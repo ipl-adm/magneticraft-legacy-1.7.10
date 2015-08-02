@@ -3,14 +3,14 @@ package com.cout970.magneticraft.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MovingObjectPosition;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.util.multiblock.MB_Register;
+
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.util.multiblock.MB_Register;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
 
 public class TileMB_Controls extends TileMB_Base{
 

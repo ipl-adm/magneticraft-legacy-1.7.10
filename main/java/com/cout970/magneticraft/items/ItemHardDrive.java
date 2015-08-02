@@ -3,16 +3,15 @@ package com.cout970.magneticraft.items;
 import java.io.File;
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-
 import com.cout970.magneticraft.api.computer.IStorageDevice;
-import com.cout970.magneticraft.api.computer.impl.ComputerUtils;
+import com.cout970.magneticraft.api.computer.prefab.ComputerUtils;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class ItemHardDrive extends ItemBasic implements IStorageDevice{
 
@@ -31,7 +30,9 @@ public class ItemHardDrive extends ItemBasic implements IStorageDevice{
 
 	@Override
 	public String getDiskLabel(ItemStack i) {
-		return ""+NBTUtils.getString("Label", i);
+		String label = NBTUtils.getString("Label", i);
+		if(label == null)return "";
+		return ""+label;
 	}
 
 	@Override
@@ -49,10 +50,12 @@ public class ItemHardDrive extends ItemBasic implements IStorageDevice{
 		NBTUtils.setString("Label", i, label);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);
 		list.add(ItemBlockMg.format+(int)(DISK_SIZE/1024)+"kB of storage");
+		list.add(ItemBlockMg.format+getDiskLabel(item));
 	}
 
 	@Override

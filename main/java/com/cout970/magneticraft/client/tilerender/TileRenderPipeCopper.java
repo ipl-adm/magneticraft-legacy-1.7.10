@@ -2,8 +2,6 @@ package com.cout970.magneticraft.client.tilerender;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelFluidPipe;
 import com.cout970.magneticraft.client.model.ModelFluidPipe_Center;
@@ -11,6 +9,8 @@ import com.cout970.magneticraft.client.model.ModelFluidPipe_In;
 import com.cout970.magneticraft.parts.micro.PartCopperPipe;
 import com.cout970.magneticraft.parts.micro.PartPipe.ConnectionMode;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.lib.vec.Vector3;
 
 
 public class TileRenderPipeCopper {

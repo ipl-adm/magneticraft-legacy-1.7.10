@@ -4,8 +4,6 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTranslated;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
 
@@ -14,6 +12,9 @@ import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderStirling extends TileEntitySpecialRenderer{
 

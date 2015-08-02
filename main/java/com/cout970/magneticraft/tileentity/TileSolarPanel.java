@@ -1,10 +1,11 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -30,7 +31,7 @@ public class TileSolarPanel extends TileConductorLow{
 	public IElectricConductor initConductor() {
 		return new ElectricConductor(this){			
 			@Override
-			public boolean isAbleToConnect(IElectricConductor e, VecInt v) {
+			public boolean isAbleToConnect(IConnectable e, VecInt v) {
 				return e.getConnectionClass(v.getOpposite()) == ConnectionClass.FULL_BLOCK || e.getConnectionClass(v.getOpposite()) == ConnectionClass.SLAB_BOTTOM || VecInt.fromDirection(MgDirection.DOWN).equals(v);
 			}
 			
@@ -38,6 +39,11 @@ public class TileSolarPanel extends TileConductorLow{
 			public ConnectionClass getConnectionClass(VecInt v) {
 				if(v.toMgDirection() == MgDirection.DOWN)return ConnectionClass.FULL_BLOCK;
 				return ConnectionClass.SLAB_BOTTOM;
+			}
+
+			@Override
+			public double getInvCapacity(){
+				return getVoltageMultiplier()*EnergyConversor.RFtoW(0.4D);
 			}
 		};
 	}

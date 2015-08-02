@@ -3,8 +3,6 @@ package com.cout970.magneticraft;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.minecraft.block.Block;
-
 import com.cout970.magneticraft.block.BlockAirBubble;
 import com.cout970.magneticraft.block.BlockAirlock;
 import com.cout970.magneticraft.block.BlockBasicGenerator;
@@ -125,8 +123,8 @@ import com.cout970.magneticraft.tileentity.TileInfiniteSteam;
 import com.cout970.magneticraft.tileentity.TileInfiniteWater;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
-import com.cout970.magneticraft.tileentity.TileMB_Controls;
 import com.cout970.magneticraft.tileentity.TileMB_Base;
+import com.cout970.magneticraft.tileentity.TileMB_Controls;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Low;
 import com.cout970.magneticraft.tileentity.TileMB_Energy_Medium;
 import com.cout970.magneticraft.tileentity.TileMB_Heat;
@@ -169,10 +167,12 @@ import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 
 public class ManagerBlocks {
 
-	public static List<Class> tileEntities = new LinkedList<Class>();
+	public static List<Class<? extends TileEntity>> tileEntities = new LinkedList<Class<? extends TileEntity>>();
 	public static List<Block> blocks = new LinkedList<Block>();
 	public static List<NamedBlock> named = new LinkedList<NamedBlock>();
 
@@ -550,7 +550,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileElectricPoleGap.class);
 		tileEntities.add(TileMB_Controls.class);
 		
-		for(Class c : tileEntities){
+		for(Class<? extends TileEntity> c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");
 		}
 	}

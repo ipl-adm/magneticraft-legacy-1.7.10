@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.tileentity.TileEntity;
-
 import com.cout970.magneticraft.util.InventoryComponent;
+
+import net.minecraft.tileentity.TileEntity;
 
 public class Tile1_8Updater extends TileEntity{
 	

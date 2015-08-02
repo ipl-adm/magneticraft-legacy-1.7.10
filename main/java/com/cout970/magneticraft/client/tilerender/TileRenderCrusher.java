@@ -2,13 +2,6 @@ package com.cout970.magneticraft.client.tilerender;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
@@ -21,6 +14,13 @@ import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
+
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderCrusher extends TileEntitySpecialRenderer{
 

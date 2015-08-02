@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.container;
 
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -7,8 +9,6 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
 
 
 public class ContainerBasic extends Container{

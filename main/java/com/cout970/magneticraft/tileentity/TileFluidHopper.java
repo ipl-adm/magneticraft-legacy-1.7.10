@@ -1,5 +1,13 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.InventoryUtils;
+import com.cout970.magneticraft.util.fluid.TankConection;
+import com.cout970.magneticraft.util.fluid.TankMg;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -16,14 +24,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
-import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.fluid.TankConection;
-import com.cout970.magneticraft.util.fluid.TankMg;
 
 public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSync,ISidedInventory{
 

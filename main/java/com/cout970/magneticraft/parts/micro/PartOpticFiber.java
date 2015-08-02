@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import codechicken.lib.vec.Cuboid6;
-import codechicken.lib.vec.Vector3;
-
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.computer.IOpticFiber;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.tilerender.TileRenderOpticFiber;
+
+import codechicken.lib.vec.Cuboid6;
+import codechicken.lib.vec.Vector3;
 
 public class PartOpticFiber extends MgPart implements IOpticFiber{
 	

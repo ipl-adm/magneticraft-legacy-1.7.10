@@ -3,6 +3,10 @@ package com.cout970.magneticraft.world;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.api.util.BlockInfo;
+
+import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -11,11 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fluids.FluidRegistry;
-
-import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.util.BlockInfo;
-
-import cpw.mods.fml.common.IWorldGenerator;
 
 public class WorldGenManagerMg implements IWorldGenerator{
 

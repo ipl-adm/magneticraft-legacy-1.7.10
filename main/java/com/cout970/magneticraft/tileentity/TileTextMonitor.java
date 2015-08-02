@@ -1,15 +1,15 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.computer.IPeripheral;
+import com.cout970.magneticraft.api.computer.IPeripheralProvider;
+import com.cout970.magneticraft.api.computer.prefab.MonitorPeripheral;
+import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.IClientInformer;
+
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.api.computer.IPeripheral;
-import com.cout970.magneticraft.api.computer.IPeripheralProvider;
-import com.cout970.magneticraft.api.computer.impl.MonitorPeripheral;
-import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IClientInformer;
 
 public class TileTextMonitor extends TileBase implements IClientInformer, IGuiSync, IPeripheralProvider{
 	

@@ -3,11 +3,11 @@ package com.cout970.magneticraft.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
-
-import org.lwjgl.opengl.GL11;
 
 public class CubeRenderer_Util {
 	

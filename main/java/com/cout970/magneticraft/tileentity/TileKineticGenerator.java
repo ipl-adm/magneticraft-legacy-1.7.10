@@ -1,18 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyHandler;
-import cofh.api.energy.IEnergyReceiver;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -20,6 +10,15 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
+
+import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyHandler;
+import cofh.api.energy.IEnergyReceiver;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileKineticGenerator extends TileConductorMedium implements IEnergyHandler,IGuiSync{
 
@@ -46,12 +45,12 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 	}
 	
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int tier) {
+	public IElectricConductor[] getConds(VecInt dir, int tier) {
 		if(tier != 2)return null;
 		if(VecInt.NULL_VECTOR == dir){
-			return new CompoundElectricCables(cond);
+			return new IElectricConductor[]{cond};
 		}
-		if(dir.toMgDirection() == getDirection().opposite())return new CompoundElectricCables(cond);
+		if(dir.toMgDirection() == getDirection().opposite())return new IElectricConductor[]{cond};
 		return null;
 	}
 

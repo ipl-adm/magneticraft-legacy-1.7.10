@@ -1,8 +1,5 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -11,6 +8,9 @@ import com.cout970.magneticraft.client.model.ModelPumpMotor;
 import com.cout970.magneticraft.client.model.ModelPumpPiston;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderPumpJack extends TileEntitySpecialRenderer{
 

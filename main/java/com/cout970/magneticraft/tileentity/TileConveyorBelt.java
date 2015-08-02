@@ -1,26 +1,24 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.Arrays;
+import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
+import com.cout970.magneticraft.api.conveyor.IConveyorBeltLane;
+import com.cout970.magneticraft.api.conveyor.IItemBox;
+import com.cout970.magneticraft.api.conveyor.prefab.ConveyorBeltLane;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.Orientation;
+import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.util.MgBeltUtils;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
-import com.cout970.magneticraft.api.conveyor.ConveyorSide;
-import com.cout970.magneticraft.api.conveyor.IConveyor;
-import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.util.MgBeltUtils;
-import com.cout970.magneticraft.util.Orientation;
+public class TileConveyorBelt extends TileBase implements IConveyorBelt{
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-public class TileConveyorBelt extends TileBase implements IConveyor{
-
-	public ConveyorSide left = new ConveyorSide(this, true);
-	public ConveyorSide right = new ConveyorSide(this, false);
+	public ConveyorBeltLane left = new ConveyorBeltLane(this, true);
+	public ConveyorBeltLane right = new ConveyorBeltLane(this, false);
 	public long time;
 	
 	public MgDirection getDir(){
@@ -29,10 +27,10 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
 	
 	public void onBlockBreaks(){
 		if(worldObj.isRemote)return;
-		for(ItemBox b : left.content){
+		for(IItemBox b : left.getItemBoxes()){
 			BlockMg.dropItem(b.getContent(), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
 		}
-		for(ItemBox b : right.content){
+		for(IItemBox b : right.getItemBoxes()){
 			BlockMg.dropItem(b.getContent(), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
 		}
 	}
@@ -46,49 +44,49 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
 			sendUpdateToClient();
 	}
 
-	private void moveCole(ConveyorSide side) {
+	private void moveCole(ConveyorBeltLane side) {
 		if(worldObj.getTotalWorldTime() % 10 == 0){
-			Arrays.fill(side.spaces, false);
+			side.getHitBoxes().clear();
 		}
 		
 //		for (int i = side.content.size()-1; i >= 0 ; i--) {
-		for (int i = 0; i<side.content.size() ; i++) {
-			ItemBox b = side.content.get(i);
-			if(b.lastTick == worldObj.getTotalWorldTime())continue;
-			b.lastTick = worldObj.getTotalWorldTime();
+		for (int i = 0; i<side.getItemBoxes().size() ; i++) {
+			IItemBox b = side.getItemBoxes().get(i);
+			if(b.getLastUpdateTick() == worldObj.getTotalWorldTime())continue;
+			b.setLastUpdateTick(worldObj.getTotalWorldTime());
 			if(b.getPosition() < 15){
-				side.addvance(b);
+				side.avance(b);
 				continue;
 			}
-			TileEntity t = ConveyorSide.getFrontConveyor(this);
+			TileEntity t = ConveyorBeltLane.getFrontConveyor(this);
 			if(!MgBeltUtils.isBelt(t))continue;
-			IConveyor con = (IConveyor) t;
+			IConveyorBelt con = (IConveyorBelt) t;
 			BeltInteraction iter = BeltInteraction.InterBelt(getDir(), con.getDir());
 			if(iter == BeltInteraction.DIRECT){
-				if(b.getPosition() < 16)side.addvance(b);
+				if(b.getPosition() < 16)side.avance(b);
 				if(b.getPosition() == 16){
-					con.getSideLane(side.isLeft).setSpace(0, false);
-					if(con.inject(0, b, side.isLeft, false)){
-						extract(b, side.isLeft, false);
+					con.getSideLane(side.isOnLeft()).setHitBoxSpace(0, false);
+					if(con.inject(0, b, side.isOnLeft(), false)){
+						extract(b, side.isOnLeft(), false);
 					}
 				}
 			}else if(con.getOrientation().getLevel() == 0){ 
 				if(iter == BeltInteraction.LEFT_T){
-					if(b.getPosition() < 18)side.addvance(b);
+					if(b.getPosition() < 18)side.avance(b);
 					if(b.getPosition() == 18){
-						int new_pos = side.isLeft ? 2 : 10;
-						con.getSideLane(false).setSpace(new_pos, false);
+						int new_pos = side.isOnLeft() ? 2 : 10;
+						con.getSideLane(false).setHitBoxSpace(new_pos, false);
 						if(con.inject(new_pos, b, false, false)){
-							extract(b, side.isLeft, false);
+							extract(b, side.isOnLeft(), false);
 						}
 					}
 				}else if(iter == BeltInteraction.RIGHT_T){
-					if(b.getPosition() < 18)side.addvance(b);
+					if(b.getPosition() < 18)side.avance(b);
 					if(b.getPosition() == 18){
-						int new_pos = side.isLeft ? 10 : 2;
-						con.getSideLane(true).setSpace(new_pos, false);
+						int new_pos = side.isOnLeft() ? 10 : 2;
+						con.getSideLane(true).setHitBoxSpace(new_pos, false);
 						if(con.inject(new_pos, b, true, false)){
-							extract(b, side.isLeft, false);
+							extract(b, side.isOnLeft(), false);
 						}
 					}
 				}
@@ -99,12 +97,12 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
 	//IConveyor
 
 	@Override
-	public boolean extract(ItemBox box, boolean isOnLeft, boolean simulated) {
-		ConveyorSide side = isOnLeft ? left : right;
-		if(side.content.contains(box)){
+	public boolean extract(IItemBox box, boolean isOnLeft, boolean simulated) {
+		ConveyorBeltLane side = isOnLeft ? left : right;
+		if(side.getItemBoxes().contains(box)){
 			if(!simulated){
-				side.content.remove(box);
-				side.setSpace(box.getPosition(), false);
+				side.getItemBoxes().remove(box);
+				side.setHitBoxSpace(box.getPosition(), false);
 			}
 			return true;
 		}
@@ -112,21 +110,21 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
 	}
 
 	@Override
-	public boolean inject(int pos, ItemBox box, boolean isOnLeft, boolean simulated) {
-		ConveyorSide side = isOnLeft ? left : right;
-		if(side.hasSpace(pos)){
+	public boolean inject(int pos, IItemBox box, boolean isOnLeft, boolean simulated) {
+		ConveyorBeltLane side = isOnLeft ? left : right;
+		if(side.hasHitBoxSpace(pos)){
 			if(!simulated){
 				box.setPosition(pos);
 				box.setOnLeft(isOnLeft);
-				side.setSpace(pos, true);
-				side.content.add(box);
+				side.setHitBoxSpace(pos, true);
+				side.getItemBoxes().add(box);
 			}
 			return true;
 		}
 		return false;
 	}
 
-	public boolean addItem(MgDirection dir, int pos, ItemBox b, boolean sim){
+	public boolean addItem(MgDirection dir, int pos, IItemBox b, boolean sim){
 		if(b == null)return false;
 		boolean onLeft;
 		if(dir.isPerpendicular(getDir())){
@@ -167,7 +165,7 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
 	}
 
 	@Override
-	public ConveyorSide getSideLane(boolean left) {
+	public IConveyorBeltLane getSideLane(boolean left) {
 		return left ? this.left : this.right;
 	}
 
@@ -182,7 +180,7 @@ public class TileConveyorBelt extends TileBase implements IConveyor{
     }
 
 	@Override
-	public boolean removeItem(ItemBox it, boolean isLeft, boolean simulated) {
+	public boolean removeItem(IItemBox it, boolean isLeft, boolean simulated) {
 		boolean ret = extract(it, isLeft, simulated);
 		if(!simulated)sendUpdateToClient();
 		return ret;

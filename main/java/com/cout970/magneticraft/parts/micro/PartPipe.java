@@ -2,6 +2,17 @@ package com.cout970.magneticraft.parts.micro;
 
 import java.util.LinkedList;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.fluid.FluidNetwork;
+import com.cout970.magneticraft.util.fluid.FluidUtils;
+import com.cout970.magneticraft.util.fluid.IFluidTransport;
+import com.cout970.magneticraft.util.fluid.TankMg;
+
+import codechicken.multipart.TMultiPart;
+import codechicken.multipart.TileMultipart;
+import codechicken.multipart.scalatraits.TFluidHandlerTile;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -11,17 +22,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
-import codechicken.multipart.scalatraits.TFluidHandlerTile;
-
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
-import com.cout970.magneticraft.util.fluid.FluidNetwork;
-import com.cout970.magneticraft.util.fluid.FluidUtils;
-import com.cout970.magneticraft.util.fluid.IFluidTransport;
-import com.cout970.magneticraft.util.fluid.TankMg;
 
 public abstract class PartPipe extends MgPart implements IFluidTransport,TFluidHandlerTile, IFluidHandler1_8{
 

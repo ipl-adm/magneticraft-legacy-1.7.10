@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.update1_8;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
-
-import com.cout970.magneticraft.api.util.MgDirection;
 
 public interface IFluidHandler1_8 extends net.minecraftforge.fluids.IFluidHandler{
 

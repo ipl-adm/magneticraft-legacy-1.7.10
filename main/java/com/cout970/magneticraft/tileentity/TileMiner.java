@@ -4,31 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraftforge.common.ForgeChunkManager;
-import net.minecraftforge.common.ForgeChunkManager.Ticket;
-import net.minecraftforge.common.ForgeChunkManager.Type;
-import buildcraft.api.transport.IPipeTile;
-import buildcraft.api.transport.IPipeTile.PipeType;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerConfig;
-import com.cout970.magneticraft.api.conveyor.IConveyor;
-import com.cout970.magneticraft.api.conveyor.ItemBox;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
+import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
+import com.cout970.magneticraft.api.conveyor.prefab.ItemBox;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -44,6 +26,24 @@ import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 import com.google.common.collect.Sets;
+
+import buildcraft.api.transport.IPipeTile;
+import buildcraft.api.transport.IPipeTile.PipeType;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.ForgeChunkManager.Ticket;
+import net.minecraftforge.common.ForgeChunkManager.Type;
 
 public class TileMiner extends TileConductorMedium implements IInventoryManaged,IGuiSync, IGuiListener{
 
@@ -143,7 +143,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 		double resistence = cond.getResistance() + capacity.getResistance();
 		double difference = cond.getVoltage() - capacity.getVoltage();
 		double change = flow;
-		double slow = change * resistence;
 		flow += ((difference - change * resistence) * cond.getIndScale())/cond.getVoltageMultiplier();
 		change += (difference * cond.getCondParallel())/cond.getVoltageMultiplier();
 		cond.applyCurrent(-change);
@@ -245,8 +244,8 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 					int r = a.injectItem(i, true, d.toForgeDir().getOpposite());
 					if(r > 0)return true;
 				}
-			}else if(t instanceof IConveyor){
-				IConveyor c = (IConveyor) t;
+			}else if(t instanceof IConveyorBelt){
+				IConveyorBelt c = (IConveyorBelt) t;
 				ItemBox box = new ItemBox(i);
 				if(c.addItem(d.opposite(), 0, box, true)){
 					c.addItem(d.opposite(), 0, box, false);

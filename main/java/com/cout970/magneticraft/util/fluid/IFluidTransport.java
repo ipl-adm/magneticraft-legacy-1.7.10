@@ -1,9 +1,9 @@
 package com.cout970.magneticraft.util.fluid;
 
+import com.cout970.magneticraft.api.util.MgDirection;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.IFluidTank;
-
-import com.cout970.magneticraft.api.util.MgDirection;
 
 public interface IFluidTransport {
 

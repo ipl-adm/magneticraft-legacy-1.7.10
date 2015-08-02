@@ -1,15 +1,15 @@
 package com.cout970.magneticraft.compact.nei;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemStack;
-import codechicken.nei.api.IOverlayHandler;
-import codechicken.nei.recipe.IRecipeHandler;
-
 import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.client.gui.GuiCrafter;
 import com.cout970.magneticraft.messages.MessageClientCrafterUpdate;
 import com.cout970.magneticraft.messages.MessageGuiClick;
 import com.cout970.magneticraft.tileentity.TileCrafter;
+
+import codechicken.nei.api.IOverlayHandler;
+import codechicken.nei.recipe.IRecipeHandler;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.ItemStack;
 
 
 public class CrafterOverlayHandler implements IOverlayHandler {

@@ -2,17 +2,17 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
+import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
+import com.cout970.magneticraft.api.util.NBTUtils;
+import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
-import com.cout970.magneticraft.api.util.NBTUtils;
-import com.cout970.magneticraft.client.tilerender.ModelTextures;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 public class ItemThoriumRod extends ItemBasic implements IRadiactiveItem{
 

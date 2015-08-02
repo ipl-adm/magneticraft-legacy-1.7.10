@@ -1,16 +1,15 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
-import codechicken.lib.vec.Vector3;
 
 import com.cout970.magneticraft.client.model.ModelCableLow;
 import com.cout970.magneticraft.parts.micro.PartCableLow;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import codechicken.lib.vec.Vector3;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class TileRenderCableLow extends TileEntitySpecialRenderer{
 	

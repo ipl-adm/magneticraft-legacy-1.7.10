@@ -1,19 +1,18 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ConnectionClass;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IGuiListener;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 public class TileResistance extends TileBase implements IGuiListener, IGuiSync, IElectricTile{
 
@@ -78,14 +77,14 @@ public class TileResistance extends TileBase implements IGuiListener, IGuiSync, 
 	}
 	
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int tier) {
+	public IElectricConductor[] getConds(VecInt dir, int tier) {
 		if(tier != 0)return null;
 		if(getDirection().opposite().toVecInt().equals(dir))
-			return new CompoundElectricCables(cond2);
+			return new IElectricConductor[]{cond2};
 		if(getDirection().toVecInt().equals(dir))
-			return new CompoundElectricCables(cond1);
+			return new IElectricConductor[]{cond1};
 		if(dir == VecInt.NULL_VECTOR)
-			return new CompoundElectricCables(cond1, cond2);
+			return new IElectricConductor[]{cond1, cond2};
 		return null;
 	}
 

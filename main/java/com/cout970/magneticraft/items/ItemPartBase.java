@@ -2,15 +2,14 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
+import codechicken.multipart.JItemMultiPart;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import codechicken.multipart.JItemMultiPart;
-
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ItemPartBase extends JItemMultiPart{
 	
@@ -33,6 +32,7 @@ public abstract class ItemPartBase extends JItemMultiPart{
         this.itemIcon = IR.registerIcon(this.getIconString());
     }
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);

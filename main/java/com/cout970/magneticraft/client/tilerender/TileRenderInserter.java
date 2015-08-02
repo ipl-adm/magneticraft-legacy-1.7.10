@@ -1,12 +1,5 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -14,6 +7,13 @@ import com.cout970.magneticraft.client.model.ModelInserter;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileInserter.InserterAnimation;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 
 public class TileRenderInserter extends TileEntitySpecialRenderer{
 
@@ -56,7 +56,6 @@ public class TileRenderInserter extends TileEntitySpecialRenderer{
 
 		RenderUtil.bindTexture(ModelTextures.INSERTER);
 		model.renderStatic(0.0625f);
-		boolean large = true;
 		float[] array = getAngles(tile.counter, tile.anim);
 
 		model.renderDynamic(0.0625f, array[0], array[1], array[2], array[3],RenderItemMG,itemEntity,item);
@@ -69,7 +68,7 @@ public class TileRenderInserter extends TileEntitySpecialRenderer{
 	//-45;-90;135 catch far
 
 	public static float[] getAngles(float counter, InserterAnimation anim) {
-		float a = 0,b=0,c=0,d0;
+		float d0;
 		float[] result = new float[4];
 		result[3] = 0;
 		if(anim == InserterAnimation.Retracting_Short){//bring the itm from the belt/inv
@@ -128,11 +127,32 @@ public class TileRenderInserter extends TileEntitySpecialRenderer{
 			result[0] = 45-105*d0;
 			result[1] = -45-35*d0;
 			result[2] = 100;
+		}else if(anim == InserterAnimation.DropItem){
+			d0 = 0;
+			result[0] = 45*d0;
+			result[1] = -85+40*d0;
+			result[2] = 90+10*d0;
+			GL11.glRotatef(180, 0, 1, 0);
+		}else if(anim == InserterAnimation.SuckItem){
+			d0 = 0;
+			result[0] = 45*d0;
+			result[1] = -85+40*d0;
+			result[2] = 90+10*d0;
+		}else if(anim == InserterAnimation.DropItem_Large){
+			d0 = 1-(counter/180f);
+			result[0] = 45-105*d0;
+			result[1] = -45-35*d0;
+			result[2] = 100;
+			GL11.glRotatef(180, 0, 1, 0);
+		}else if(anim == InserterAnimation.SuckItem_Large){
+			d0 = 1;
+			result[0] = 45-105*d0;
+			result[1] = -45-35*d0;
+			result[2] = 100;
 		}else{
 			result[0] = 45;
 			result[1] = -45;
 			result[2] = 100;
-			return result;
 		}
 		return result;
 	}

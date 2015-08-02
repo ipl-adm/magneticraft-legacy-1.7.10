@@ -1,19 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
-import com.cout970.magneticraft.ManagerFluids;
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
+import com.cout970.magneticraft.api.acces.RecipePolymerizer;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -28,6 +15,16 @@ import com.cout970.magneticraft.util.fluid.TankMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync{
 
@@ -53,7 +50,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 			return;
 		}
 		if(worldObj.isRemote)return;
-		if(canCraft()){
+		if(isControled() && canCraft()){
 			if(progress >= maxProgres){
 				craft();
 				progress = 0;
@@ -61,6 +58,8 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 				progress++;
 			}
 			heater.drainCalories(EnergyConversor.RFtoCALORIES(40));
+		}else{
+			progress = 0;
 		}
 		distributeItems();
 	}
@@ -91,12 +90,13 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 	}
 	
 	private void craft() {
+		RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
 		decrStackSize(0, 1);
 		if(getInv().getStackInSlot(1) == null){
-			getInv().setInventorySlotContents(1, new ItemStack(ManagerItems.plastic));
+			getInv().setInventorySlotContents(1, recipe.getOutput().copy());
 		}else{
 			ItemStack i = getInv().getStackInSlot(1);
-			i.stackSize++;
+			i.stackSize += recipe.getOutput().stackSize;
 			getInv().setInventorySlotContents(1, i);
 		}
 		heater.drainCalories(EnergyConversor.RFtoCALORIES(100));
@@ -104,14 +104,14 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 	}
 
 	private boolean canCraft() {
-		if(input.getFluidAmount() >= 500 && MgUtils.areEcuals(input.getFluid(), FluidRegistry.getFluidStack(ManagerFluids.NATURAL_GAS, 1)) && isControled() && heater.getTemperature() > 250){
-			ItemStack stack = getInv().getStackInSlot(0);
-			if(stack != null && MgUtils.areEcuals(stack, new ItemStack(ManagerItems.dustSulfur), true)){
-				ItemStack output = getInv().getStackInSlot(1);
-				if(output == null || (MgUtils.areEcuals(output, new ItemStack(ManagerItems.plastic), true)) && output.stackSize+1 <= getInventoryStackLimit()){
-					return true;
-				}
-			}
+		RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
+		if(recipe == null)return false;
+		if(!MgUtils.areEcuals(recipe.getFluid(), input.getFluid()))return false;
+		if(input.getFluidAmount() < recipe.getFluid().amount)return false;
+		if(heater.getTemperature() < recipe.getTemperature())return false;
+		ItemStack output = getInv().getStackInSlot(1);
+		if(output == null || (MgUtils.areEcuals(output, recipe.getOutput(), true)) && output.stackSize+recipe.getOutput().stackSize <= getInventoryStackLimit()){
+			return true;
 		}
 		return false;
 	}
@@ -134,9 +134,9 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 		}
 		tile = MgUtils.getTileEntity(this, vec.copy().multiply(3));
 		if(tile instanceof TileHeater){
-			CompoundHeatCables comp = ((TileHeater) tile).getHeatCond(vec.getOpposite());
+			IHeatConductor[] comp = ((TileHeater) tile).getHeatCond(vec.getOpposite());
 			if(comp != null){
-				heater = comp.getCond(0);
+				heater = comp[0];
 			}
 		}
 	}

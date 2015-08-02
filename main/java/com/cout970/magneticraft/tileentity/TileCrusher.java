@@ -1,20 +1,10 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-
 import com.cout970.magneticraft.api.acces.RecipeCrusher;
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -27,6 +17,14 @@ import com.cout970.magneticraft.util.InventoryUtils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 
 public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryManaged, ISidedInventory {
 
@@ -210,8 +208,8 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
 		MgDirection d = getDirection().opposite();
 		TileEntity c = MgUtils.getTileEntity(this, d.toVecInt().multiply(3));
 		if (c instanceof IElectricTile) {
-			CompoundElectricCables comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR,0);
-			IElectricConductor cond2 = comp.getCond(0);
+			IElectricConductor[] comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR,0);
+			IElectricConductor cond2 = comp[0];
 			double resistence = cond.getResistance() + cond2.getResistance();
 			double difference = cond.getVoltage() - cond2.getVoltage();
 			double change = flow;

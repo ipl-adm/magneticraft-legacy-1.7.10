@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.api.kinetic;
 
-import net.minecraft.tileentity.TileEntity;
-
 import com.cout970.magneticraft.api.util.MgDirection;
+
+import net.minecraft.tileentity.TileEntity;
 
 public interface IKineticConductor {
 	

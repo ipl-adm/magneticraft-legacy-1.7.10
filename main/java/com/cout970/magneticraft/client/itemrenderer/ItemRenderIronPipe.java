@@ -1,8 +1,5 @@
 package com.cout970.magneticraft.client.itemrenderer;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.IItemRenderer;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.client.model.ModelFluidPipe;
@@ -10,6 +7,9 @@ import com.cout970.magneticraft.client.model.ModelFluidPipe_Center;
 import com.cout970.magneticraft.client.model.ModelFluidPipe_In;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.IItemRenderer;
 
 public class ItemRenderIronPipe implements IItemRenderer{
 

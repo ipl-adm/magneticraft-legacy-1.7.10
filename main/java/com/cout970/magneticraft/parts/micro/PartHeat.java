@@ -3,14 +3,14 @@ package com.cout970.magneticraft.parts.micro;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.IHeatMultipart;
+
 import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
 import codechicken.multipart.TMultiPart;
-
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.heat.IHeatMultipart;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class PartHeat extends MgPart implements IHeatMultipart{
 

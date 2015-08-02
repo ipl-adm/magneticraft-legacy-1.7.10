@@ -1,5 +1,10 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -7,12 +12,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockTransformerLow_Medium extends BlockMg{
 

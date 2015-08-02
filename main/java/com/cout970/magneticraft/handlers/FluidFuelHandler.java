@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraftforge.fluids.Fluid;
 import buildcraft.api.fuels.IFuel;
 import buildcraft.api.fuels.IFuelManager;
+import net.minecraftforge.fluids.Fluid;
 
 public class FluidFuelHandler implements IFuelManager{
 

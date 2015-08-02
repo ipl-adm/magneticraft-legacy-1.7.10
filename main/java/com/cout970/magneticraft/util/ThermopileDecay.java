@@ -3,11 +3,11 @@ package com.cout970.magneticraft.util;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-
 import com.cout970.magneticraft.api.acces.IThermopileDecay;
 import com.cout970.magneticraft.api.util.BlockInfo;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
 
 public class ThermopileDecay implements IThermopileDecay{
 

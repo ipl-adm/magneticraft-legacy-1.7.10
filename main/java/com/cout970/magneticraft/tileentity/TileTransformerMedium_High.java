@@ -1,14 +1,13 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TileTransformerMedium_High extends TileBase implements IElectricTile{
 
@@ -17,13 +16,13 @@ public class TileTransformerMedium_High extends TileBase implements IElectricTil
 	public double flow;
 
 	@Override
-	public CompoundElectricCables getConds(VecInt dir,int tier) {
+	public IElectricConductor[] getConds(VecInt dir,int tier) {
 		if(VecInt.NULL_VECTOR == dir){
-			return tier == 2 ? new CompoundElectricCables(medium) : tier == 4 ? new CompoundElectricCables(high) :  null;
+			return tier == 2 ? new IElectricConductor[]{medium} : tier == 4 ? new IElectricConductor[]{high} :  null;
 		}
 		MgDirection d = dir.toMgDirection();
-		if(d == MgDirection.getDirection(getBlockMetadata()) && tier == 2)return new CompoundElectricCables(medium);
-		if(d == MgDirection.getDirection(getBlockMetadata()).opposite() && tier == 4)return new CompoundElectricCables(high);
+		if(d == MgDirection.getDirection(getBlockMetadata()) && tier == 2)return new IElectricConductor[]{medium};
+		if(d == MgDirection.getDirection(getBlockMetadata()).opposite() && tier == 4)return new IElectricConductor[]{high};
 		return null;
 	}
 

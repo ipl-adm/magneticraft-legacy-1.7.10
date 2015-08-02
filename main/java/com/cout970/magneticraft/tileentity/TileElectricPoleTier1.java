@@ -1,20 +1,19 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
-import com.cout970.magneticraft.api.electricity.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.wires.ElectricPoleTier1;
-import com.cout970.magneticraft.api.electricity.wires.IElectricPole;
-import com.cout970.magneticraft.api.electricity.wires.ITileElectricPole;
-import com.cout970.magneticraft.api.electricity.wires.WireConnection;
+import com.cout970.magneticraft.api.electricity.IElectricPole;
+import com.cout970.magneticraft.api.electricity.IInterPoleWire;
+import com.cout970.magneticraft.api.electricity.ITileElectricPole;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
 
 public class TileElectricPoleTier1 extends TileConductorLow implements ITileElectricPole{
 	
@@ -56,8 +55,8 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
 	}
 
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
-		if(dir == VecInt.NULL_VECTOR && Vtier == 0)return new CompoundElectricCables(cond);
+	public IElectricConductor[] getConds(VecInt dir, int Vtier) {
+		if(dir == VecInt.NULL_VECTOR && Vtier == 0)return new IElectricConductor[]{cond};
 		return null;
 	}
 
@@ -73,10 +72,15 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
 
 	@Override
 	public IElectricConductor initConductor() {
-		cond = new ElectricConductor(this);
+		cond = new ElectricConductor(this){
+			@Override
+			public double getInvCapacity(){
+				return getVoltageMultiplier()*EnergyConversor.RFtoW(0.8D);
+			}
+		};
 		pole = new ElectricPoleTier1(this, cond){
 			@Override
-			public void onDisconnect(WireConnection conn) {
+			public void onDisconnect(IInterPoleWire conn) {
 				super.onDisconnect(conn);
 				clientUpdate = true;
 			}

@@ -3,13 +3,6 @@ package com.cout970.magneticraft.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.Magneticraft;
@@ -22,6 +15,11 @@ import com.cout970.magneticraft.messages.MessageRedstoneStateUpdate;
 import com.cout970.magneticraft.tileentity.TileCrafter;
 import com.cout970.magneticraft.tileentity.TileCrafter.RedstoneState;
 import com.cout970.magneticraft.util.RenderUtil;
+
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.inventory.Container;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiCrafter extends GuiBasic{
 
@@ -46,7 +44,6 @@ public class GuiCrafter extends GuiBasic{
 		@Override
 		public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 			if(tile instanceof TileCrafter){
-				TileCrafter c = (TileCrafter) tile;
 				int i = ((TileCrafter) tile).state == RedstoneState.NORMAL ? 0 : ((TileCrafter) tile).state == RedstoneState.INVERTED ? 18 : 36;
 				RenderUtil.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/button_states.png"));
 				RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y, 0, i, 18, 18, 18, 54);
@@ -60,27 +57,6 @@ public class GuiCrafter extends GuiBasic{
 				}
 				GL11.glDisable(GL11.GL_BLEND);
 			}
-		}
-		
-		private void drawLine(int i, float j, int x, float y, int color) {
-			Tessellator t = Tessellator.instance;
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-			GL11.glShadeModel(GL11.GL_SMOOTH);
-			GL11.glColor3ub((byte)color, (byte)(color >> 8), (byte)(color >> 16));
-			GL11.glLineWidth(2);
-			t.startDrawing(GL11.GL_LINES);
-			t.addVertex(i, j, 0);
-			t.addVertex(x, y, 0);
-			t.addVertex(i, j, 0);
-			t.addVertex(x, y, 0);
-			t.draw();
-			GL11.glShadeModel(GL11.GL_FLAT);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
 		}
 
 		@Override

@@ -1,19 +1,18 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.heat.HeatUtils;
+import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.VecInt;
+
+import codechicken.lib.vec.BlockCoord;
+import codechicken.lib.vec.Vector3;
+import codechicken.multipart.BlockMultipart;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import codechicken.lib.vec.BlockCoord;
-import codechicken.lib.vec.Vector3;
-import codechicken.multipart.BlockMultipart;
-
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
-import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
 
 public class TileMirror extends TileBase{
 
@@ -33,9 +32,9 @@ public class TileMirror extends TileBase{
 			if(!worldObj.isRemote && worldObj.isDaytime() && !worldObj.isRaining() && worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord) && !this.worldObj.provider.hasNoSky){
 				TileEntity t = worldObj.getTileEntity(target.x, target.y, target.z);
 				if(t instanceof TileSolarTowerCore){
-					CompoundHeatCables comp = MgUtils.getHeatCond(t, VecInt.NULL_VECTOR);
+					IHeatConductor[] comp = HeatUtils.getHeatCond(t, VecInt.NULL_VECTOR);
 					if(comp != null){
-						IHeatConductor heat = comp.getCond(0);
+						IHeatConductor heat = comp[0];
 						if(heat != null && heat.getTemperature() < 1200)
 							heat.applyCalories(EnergyConversor.RFtoCALORIES(2));
 					}

@@ -1,11 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-
 import com.cout970.magneticraft.ManagerNetwork;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.messages.MessageNBTUpdate;
@@ -14,6 +8,11 @@ import com.cout970.magneticraft.util.tile.RedstoneControl;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TileBase extends Tile1_8Updater implements ITileHandlerNBT{
 	

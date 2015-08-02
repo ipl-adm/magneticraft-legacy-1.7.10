@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.world.World;
 import buildcraft.api.transport.pluggable.PipePluggable;
+import net.minecraft.world.World;
 
 public abstract class PipeManager {
 

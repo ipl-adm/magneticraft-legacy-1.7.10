@@ -1,9 +1,5 @@
 package com.cout970.magneticraft;
 
-import codechicken.multipart.MultiPartRegistry;
-import codechicken.multipart.MultiPartRegistry.IPartFactory;
-import codechicken.multipart.TMultiPart;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.parts.micro.PartCableHigh;
 import com.cout970.magneticraft.parts.micro.PartCableLow;
@@ -18,6 +14,10 @@ import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_North;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_South;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_Up;
 import com.cout970.magneticraft.parts.micro.wires.PartWireCopper_West;
+
+import codechicken.multipart.MultiPartRegistry;
+import codechicken.multipart.MultiPartRegistry.IPartFactory;
+import codechicken.multipart.TMultiPart;
 
 public class ManagerMultiPart {
 	

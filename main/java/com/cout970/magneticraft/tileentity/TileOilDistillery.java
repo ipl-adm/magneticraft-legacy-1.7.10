@@ -1,19 +1,10 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
 import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
-import com.cout970.magneticraft.api.electricity.BufferedConductor;
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
+import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -22,6 +13,13 @@ import com.cout970.magneticraft.util.fluid.TankMg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectricTile{
 
@@ -81,13 +79,13 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 		vec.add(getDirection().opposite().step(MgDirection.UP).toVecInt());
 		t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof TileMB_Energy_Low){
-			side1 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
+			side1 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0)[0];
 		}
 		vec = getDirection().opposite().toVecInt().multiply(2).add(0,-1, 0);
 		vec.add(getDirection().opposite().step(MgDirection.DOWN).toVecInt());
 		t = MgUtils.getTileEntity(this, vec);
 		if(t instanceof TileMB_Energy_Low){
-			side2 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
+			side2 = ((TileMB_Energy_Low) t).getConds(VecInt.NULL_VECTOR, 0)[0];
 		}
 	}
 
@@ -128,13 +126,6 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 	public MgDirection getDirection() {
 		return MgDirection.getDirection(getBlockMetadata()%6);
 	}
-
-	private void setActive(boolean b) {
-		if(b)
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6 + 6, 2);
-		else
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata()%6, 2);
-	}
 	
 	public boolean isActive() {
 		return getBlockMetadata() > 5;
@@ -171,8 +162,8 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 	}
 
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
-		if(dir == VecInt.NULL_VECTOR)return new CompoundElectricCables(own);
+	public IElectricConductor[] getConds(VecInt dir, int Vtier) {
+		if(dir == VecInt.NULL_VECTOR)return new IElectricConductor[]{own};
 		return null;
 	}
 }

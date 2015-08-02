@@ -3,13 +3,13 @@ package com.cout970.magneticraft.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.tileentity.TileEntity;
-
-import com.cout970.magneticraft.api.heat.HeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
+import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
+
+import net.minecraft.tileentity.TileEntity;
 
 public class TileReactorActivator extends TileHeatConductor{
 

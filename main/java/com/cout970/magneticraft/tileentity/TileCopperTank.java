@@ -1,16 +1,16 @@
 package com.cout970.magneticraft.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.fluid.TankMg;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileCopperTank extends TileMB_Base implements IFluidHandler1_8, IBlockWithData{
 

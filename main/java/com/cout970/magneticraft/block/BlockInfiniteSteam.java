@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.tileentity.TileInfiniteSteam;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import com.cout970.magneticraft.tileentity.TileInfiniteSteam;
 
 public class BlockInfiniteSteam extends BlockMg{
 

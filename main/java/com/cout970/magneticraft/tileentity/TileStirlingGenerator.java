@@ -2,21 +2,9 @@ package com.cout970.magneticraft.tileentity;
 
 import java.util.Random;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-
-import com.cout970.magneticraft.api.electricity.CompoundElectricCables;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.heat.CompoundHeatCables;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.EnergyConversor;
@@ -32,6 +20,15 @@ import com.cout970.magneticraft.util.multiblock.Multiblock;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
 public class TileStirlingGenerator extends TileMB_Base implements IInventoryManaged,IGuiSync, IElectricTile,IHeatTile{
 
@@ -135,12 +132,12 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 		VecInt dir = getDirection().opposite().toVecInt();
 		TileEntity tile = MgUtils.getTileEntity(this, dir);
 		if(tile instanceof IHeatTile){
-			CompoundHeatCables comp = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
-			heat = comp.getCond(0);
+			IHeatConductor[] comp = ((IHeatTile) tile).getHeatCond(VecInt.NULL_VECTOR);
+			heat = comp[0];
 		}
 		tile = MgUtils.getTileEntity(this, dir.copy().multiply(2));
 		if(tile instanceof IElectricTile){
-			cond = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR, 0).getCond(0);
+			cond = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR, 0)[0];
 		}
 	}
 
@@ -258,14 +255,14 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
     }
 
 	@Override
-	public CompoundElectricCables getConds(VecInt dir, int Vtier) {
-		if(VecInt.NULL_VECTOR.equals(dir))return new CompoundElectricCables(cond);
+	public IElectricConductor[] getConds(VecInt dir, int Vtier) {
+		if(VecInt.NULL_VECTOR.equals(dir))return new IElectricConductor[]{cond};
 		return null;
 	}
 
 	@Override
-	public CompoundHeatCables getHeatCond(VecInt c) {
-		if(VecInt.NULL_VECTOR.equals(c))return new CompoundHeatCables(heat);
+	public IHeatConductor[] getHeatCond(VecInt c) {
+		if(VecInt.NULL_VECTOR.equals(c))return new IHeatConductor[]{heat};
 		return null;
 	}
 

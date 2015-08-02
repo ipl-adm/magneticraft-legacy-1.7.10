@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.parts.micro;
 
-import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
-import codechicken.multipart.TMultiPart;
-
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
+
+import codechicken.multipart.TMultiPart;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class PartElectric extends MgPart implements IElectricMultiPart{
 

@@ -2,19 +2,18 @@ package com.cout970.magneticraft.items;
 
 import java.util.List;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.cout970.magneticraft.tileentity.TileMirror;
+import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
+
+import codechicken.lib.vec.BlockCoord;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import codechicken.lib.vec.BlockCoord;
-
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileMirror;
-import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMapPositioner extends ItemBasic{
 
@@ -53,6 +52,7 @@ public class ItemMapPositioner extends ItemBasic{
 		return false;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);

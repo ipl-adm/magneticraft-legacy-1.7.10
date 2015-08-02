@@ -10,11 +10,6 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTranslated;
 import static org.lwjgl.opengl.GL11.glTranslatef;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
@@ -25,6 +20,11 @@ import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
+
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 
 public class TileRenderTurbine extends TileEntitySpecialRenderer{
 	
@@ -137,7 +137,6 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer{
 		float h = 0.99f*1.5f;
 		float alpha = ((float)te.getTank().getFluidAmount())/((float)te.getTank().getCapacity());
 		if(alpha < 0.0625f)return;
-		Tessellator t = Tessellator.instance;
 		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
 		bindTexture(TextureMap.locationBlocksTexture);
 		glColor4f(1, 1, 1, alpha);

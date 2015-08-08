@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBreaker;
 
@@ -7,6 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
@@ -29,6 +31,12 @@ public class BlockBreaker extends BlockMg{
 	
 	public String[] getTextures() {
 		return new String[]{"breaker_head","breaker"};
+	}
+	
+	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_){
+		if(p.isSneaking())return false;
+		p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+		return true;
 	}
 
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i){

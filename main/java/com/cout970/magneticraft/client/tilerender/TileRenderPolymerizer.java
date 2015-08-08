@@ -82,10 +82,10 @@ public class TileRenderPolymerizer extends TileEntitySpecialRenderer{
 			h*=1.25;
 			GL11.glTranslatef(-0.375F, -1.5F, -0.375F);
 			GL11.glTranslatef(k, 0.01f, k);
-			if(te.CubeRenderer == null){
-				te.CubeRenderer = new CubeRenderer_Util();
+			if(te.cubeRenderer == null){
+				te.cubeRenderer = new CubeRenderer_Util();
 			}
-			te.CubeRenderer.renderBox(i, 0.75f-k*2, h-0.01f, 0.75f-k*2);
+			te.cubeRenderer.renderBox(i, 0.75f-k*2, h-0.01f, 0.75f-k*2);
 		}
 	}
 }

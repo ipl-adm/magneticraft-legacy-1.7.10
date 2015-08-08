@@ -1,6 +1,7 @@
 package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.parts.micro.PartBrassPipe;
 import com.cout970.magneticraft.parts.micro.PartCableHigh;
 import com.cout970.magneticraft.parts.micro.PartCableLow;
 import com.cout970.magneticraft.parts.micro.PartCableMedium;
@@ -29,8 +30,16 @@ public class ManagerMultiPart {
 		MultiPartRegistry.registerParts(new IronPipeFactory(), new String[]{ManagerItems.partironpipe.getUnlocalizedName()});
 		MultiPartRegistry.registerParts(new HeatCableFactory(), new String[]{ManagerItems.partheatcable.getUnlocalizedName()});
 		MultiPartRegistry.registerParts(new OpticFiberFactory(), new String[]{ManagerItems.part_optic_fiber.getUnlocalizedName()});
+		MultiPartRegistry.registerParts(new BrassPipeFactory(), new String[]{ManagerItems.part_brass_pipe.getUnlocalizedName()});
 		for(MgDirection d : MgDirection.values())
 		MultiPartRegistry.registerParts(new CopperWireFactory(), new String[]{ManagerItems.wire_copper.getUnlocalizedName()+"_"+d.name()});
+	}
+	
+	public class BrassPipeFactory implements IPartFactory{
+		@Override
+		public TMultiPart createPart(String arg0, boolean arg1) {
+			return new PartBrassPipe();
+		}
 	}
 	
 	public class CableLowFactory implements IPartFactory{

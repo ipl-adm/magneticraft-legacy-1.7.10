@@ -233,6 +233,7 @@ public class TileInserter extends TileBase implements IGuiListener{
 		if(t.addItem(getDir(), 2, new ItemBox(s), true)){
 			getInv().setInventorySlotContents(0, null);
 			t.addItem(getDir(), 2, new ItemBox(s), false);
+			t.onChange();
 		}
 	}
 
@@ -257,6 +258,9 @@ public class TileInserter extends TileBase implements IGuiListener{
 		if(t.removeItem(b, left, true)){
 			if(canInject(obj, b.getContent()) && canExtract(t, b.getContent())){
 				t.removeItem(b, left, false);
+				t.onChange();
+				for(TileEntity tile : MgUtils.getNeig(t.getParent()))
+					if(tile instanceof IConveyorBelt)((IConveyorBelt) tile).onChange();
 				getInv().setInventorySlotContents(0, b.getContent());
 				return true;
 			}

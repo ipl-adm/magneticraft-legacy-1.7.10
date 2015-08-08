@@ -25,6 +25,9 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener{
@@ -39,7 +42,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	};
 	private InventoryComponent invResult = new InventoryComponent(this, 1, "Result");
 	private InventoryCrafting recipe = new InventoryCrafterAux(this, 3, 3);
-	private List<InvSlot> checked = new ArrayList<InvSlot>();
+	private List<InvSlot> checkedInvs = new ArrayList<InvSlot>();
+	private List<TankInfo> checkedTanks = new ArrayList<TankInfo>();
 	private int itemMatches = -1;
 	private IRecipe craftRecipe;
 	private boolean nextCraft = false;
@@ -58,6 +62,9 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 		super.updateEntity();
 		if(worldObj.isRemote)return;
 		if(itemMatches == -1){
+			refreshItemMatches();
+		}
+		if(worldObj.getTotalWorldTime() % 40 == 0){
 			refreshItemMatches();
 		}
 		if(isControled()){
@@ -97,7 +104,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	
 	public void refreshItemMatches(){
 		itemMatches = 0;
-		checked.clear();
+		checkedInvs.clear();
+		checkedTanks.clear();
 		if(craftRecipe == null){
 			refreshRecipe();
 			if(craftRecipe == null){
@@ -110,22 +118,55 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 				itemMatches |= 1 << slot;
 				continue;
 			}
-			if(findItemsFromInventory(slot, this, checked, result, MgDirection.UP)){
+			if(findItemsFromInventory(slot, this, checkedInvs, result, MgDirection.UP)){
 				itemMatches |= 1 << slot;
 			}else{
 				for(MgDirection dir : MgDirection.values()){
 					TileEntity t = MgUtils.getTileEntity(this, dir);
 					if(t instanceof IInventory){
 						IInventory side = (IInventory) t;
-						if(findItemsFromInventory(slot, side, checked, result, dir)){
+						if(findItemsFromInventory(slot, side, checkedInvs, result, dir)){
 							itemMatches |= 1 << slot;
 							break;
+						}
+					}
+					FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(recipe.getStackInSlot(slot));
+					if(fluid != null){
+						if(t instanceof IFluidHandler){
+							IFluidHandler tank = (IFluidHandler) t;
+							boolean breaked = false;
+							for(MgDirection d: MgDirection.values()){
+								FluidStack f = tank.drain(d.toForgeDir(), 1000, false);
+								if(f != null && MgUtils.areEcuals(fluid, f)){
+									TankInfo comp = new TankInfo(tank,dir);
+									if(checkedTanks.contains(comp)){
+										TankInfo comp2 = checkedTanks.get(checkedTanks.indexOf(comp));
+										FluidStack f2 = tank.drain(d.toForgeDir(), comp2.amount + FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot)), false);
+										if(f2 != null && f2.amount == comp2.amount + FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot))){
+											comp2.amount += FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot));
+											checkedTanks.add(comp);
+											itemMatches |= 1 << slot;
+											breaked = true;
+											break;
+										}
+									}else{
+										FluidStack f2 = tank.drain(d.toForgeDir(),FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot)), false);
+										if(f2 != null && f2.amount == FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot))){
+											comp.amount = FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot));
+											checkedTanks.add(comp);
+											itemMatches |= 1 << slot;
+											breaked = true;
+											break;
+										}
+									}
+								}
+							}
+							if(breaked)break;
 						}
 					}
 				}
 			}
 		}
-		
 	}
 
 	public boolean craft(){
@@ -134,8 +175,11 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 			if(item != null){
 				int slot = InventoryUtils.getSlotForStack(getInv(), item);
 				if(slot != -1){
-					for(InvSlot s : checked){
+					for(InvSlot s : checkedInvs){
 						InventoryUtils.remove(s.inv, s.slot, s.amount, getInv());
+					}
+					for(TankInfo s : checkedTanks){
+						s.handler.drain(s.dir.toForgeDir(), s.amount, true);
 					}
 					if(InventoryUtils.canCombine(getInv().getStackInSlot(slot), item, 64)){
 						ItemStack result = InventoryUtils.addition(getInv().getStackInSlot(slot), item);
@@ -145,7 +189,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 							BlockMg.dropItem(item, getWorldObj().rand, xCoord, yCoord, zCoord, getWorldObj());
 						}
 					}
-					checked.clear();
+					checkedInvs.clear();
 					return true;
 				}
 			}
@@ -296,7 +340,26 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 			return false;
 		}
 	}
-	
+
+	public class TankInfo{
+		
+		public MgDirection dir;
+		public IFluidHandler handler;
+		public int amount;
+
+		public TankInfo(IFluidHandler f, MgDirection dir) {
+			this.dir = dir;
+			this.handler = f;
+		}
+
+		public boolean equals(Object o){
+			if(o instanceof TankInfo){
+				return ((TankInfo) o).dir == this.dir && ((TankInfo) o).handler == this.handler;
+			}
+			return false;
+		}
+	}
+
 	public enum RedstoneState{
 		NORMAL,INVERTED,PULSE;
 	}

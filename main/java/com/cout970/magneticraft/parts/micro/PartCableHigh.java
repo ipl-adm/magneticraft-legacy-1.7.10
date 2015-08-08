@@ -11,6 +11,7 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -80,6 +81,10 @@ public class PartCableHigh extends PartElectric implements ISidedHollowConnect{
 			@Override
 			public ConnectionClass getConnectionClass(VecInt v) {
 				return ConnectionClass.CABLE_HIGH;
+			}
+			
+			public double getInvCapacity(){
+				return getVoltageMultiplier()*EnergyConversor.RFtoW(0.05D);
 			}
 		};
 	}

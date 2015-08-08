@@ -235,31 +235,45 @@ public class ModelBrassPipe extends ModelBase
 	  base.render(f5);
   }
   
-  public void renderDynamic(float f5, int con1,int con2){
-	  down.render(f5);
-	  up.render(f5);
-	  front.render(f5);
-	  back.render(f5);
-	  left.render(f5);
-	  right.render(f5);
-	  dadd.render(f5);
-	  uadd.render(f5);
-	  fadd.render(f5);
-	  badd.render(f5);
-	  ladd.render(f5);
-	  radd.render(f5);
-	  upCon.render(f5);
-	  downCon.render(f5);
-	  leftCon.render(f5);
-	  rightCon.render(f5);
-	  backCon.render(f5);
-	  frontCon.render(f5);
-	  upExt.render(f5);
-	  downExt.render(f5);
-	  frontExt.render(f5);
-	  backExt.render(f5);
-	  rightExt.render(f5);
-	  leftExt.render(f5);
+  public void renderDynamic(float f5, int con,int con2){
+	  if((con & 1) > 0){
+		  down.render(f5); 
+		  dadd.render(f5);
+	  }
+	  if((con & 2) > 0){
+		  up.render(f5);
+		  uadd.render(f5);
+	  }
+	  if((con & 4) > 0){
+		  front.render(f5);
+		  fadd.render(f5);
+	  }
+	  if((con & 8) > 0){
+		  back.render(f5);
+		  badd.render(f5);
+	  }
+	  if((con & 16) > 0){
+		  right.render(f5); 
+		  radd.render(f5);
+	  }
+	  if((con & 32) > 0){
+		  left.render(f5); 
+		  ladd.render(f5);
+	  }
+	 
+//	  upCon.render(f5);
+//	  downCon.render(f5);
+//	  leftCon.render(f5);
+//	  rightCon.render(f5);
+//	  backCon.render(f5);
+//	  frontCon.render(f5);
+	  
+//	  upExt.render(f5);
+//	  downExt.render(f5);
+//	  frontExt.render(f5);
+//	  backExt.render(f5);
+//	  rightExt.render(f5);
+//	  leftExt.render(f5);
   }
   
   private void setRotation(ModelRenderer model, float x, float y, float z)

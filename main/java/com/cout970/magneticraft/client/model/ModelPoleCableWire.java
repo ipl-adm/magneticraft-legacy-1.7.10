@@ -18,6 +18,7 @@ import com.cout970.magneticraft.util.RenderUtil;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 
 public class ModelPoleCableWire extends ModelBase
@@ -386,9 +387,12 @@ public class ModelPoleCableWire extends ModelBase
 	  if(glList == -1){
 		  glList = GL11.glGenLists(1);
 		  GL11.glNewList(glList, GL11.GL_COMPILE_AND_EXECUTE);
+		  GL11.glColor4f(1, 1, 1, 1);
+		  Tessellator.instance.startDrawingQuads();
 		  RenderUtil.drawLine(new VecDouble(0, -3.5, 0), new VecDouble(0.6D, -3.10, 0), 0.03125F);
 		  RenderUtil.drawLine(new VecDouble(0, -3.25, 1.35), new VecDouble(0.3D, -3.10, 0.175), 0.03125F);
 		  RenderUtil.drawLine(new VecDouble(0, -3.25, -1.35), new VecDouble(0.3D, -3.10, -0.175), 0.03125F);
+		  Tessellator.instance.draw();
 		  GL11.glEndList();
 	  }else{
 		  GL11.glCallList(glList);

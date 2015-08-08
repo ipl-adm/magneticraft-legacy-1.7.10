@@ -18,6 +18,13 @@ public class CubeRenderer_Util {
 	int listNumber;
 	public boolean isCompiled;
 	
+	public void reset(){
+		if(isCompiled){
+			GL11.glDeleteLists(listNumber, 1);
+			isCompiled = false;
+		}
+	}
+
 	public  void renderBox(IIcon i,float width,float height, float deep){
 		if(i == null)return;
 		if(dims[0] != width || dims[1] != height || dims[2] != deep){
@@ -27,22 +34,22 @@ public class CubeRenderer_Util {
 			listNumber = GLAllocation.generateDisplayLists(1);
 			GL11.glNewList(listNumber, GL11.GL_COMPILE);
 
-		Tessellator t = Tessellator.instance;
-		
-		for(int g=0;g<6;g++)icons[g] = i;
-		
-		drawTop			(t,	0,		0,	deep,	width,	height);		//0
-		drawBottom		(t,	0,		0,	deep,	width,	0);				//1
-		drawNorth		(t,	0,		0,	deep,	height,	0);				//2
-		drawSouth		(t,	0,		0,	deep,	height,	width);			//3
-		drawEast		(t, 0,		0,  width, 	height, 0);				//4
-		drawWest		(t, 0,		0,  width, 	height, deep);			//5
-		
-		GL11.glEndList();
-		isCompiled = true;
-		dims[0] = deep;
-		dims[1] = height;
-		dims[2] = width;
+			Tessellator t = Tessellator.instance;
+
+			for(int g=0;g<6;g++)icons[g] = i;
+
+			drawTop			(t,	0,		0,	deep,	width,	height);		//0
+			drawBottom		(t,	0,		0,	deep,	width,	0);				//1
+			drawNorth		(t,	0,		0,	deep,	height,	0);				//2
+			drawSouth		(t,	0,		0,	deep,	height,	width);			//3
+			drawEast		(t, 0,		0,  width, 	height, 0);				//4
+			drawWest		(t, 0,		0,  width, 	height, deep);			//5
+
+			GL11.glEndList();
+			isCompiled = true;
+			dims[0] = deep;
+			dims[1] = height;
+			dims[2] = width;
 		}
 		GL11.glPushMatrix();
 		GL11.glCallList(listNumber);
@@ -58,22 +65,22 @@ public class CubeRenderer_Util {
 			listNumber = GLAllocation.generateDisplayLists(1);
 			GL11.glNewList(listNumber, GL11.GL_COMPILE);
 
-		Tessellator t = Tessellator.instance;
-		
-		icons = i;
-		
-		drawTop			(t,	0,		0,	deep,	width,	height);		//0
-		drawBottom		(t,	0,		0,	deep,	width,	0);				//1
-		drawNorth		(t,	0,		0,	deep,	height,	0);				//2
-		drawSouth		(t,	0,		0,	deep,	height,	width);			//3
-		drawEast		(t, 0,		0,  width, 	height, 0);				//4
-		drawWest		(t, 0,		0,  width, 	height, deep);			//5
-		
-		GL11.glEndList();
-		isCompiled = true;
-		dims[0] = deep;
-		dims[1] = height;
-		dims[2] = width;
+			Tessellator t = Tessellator.instance;
+
+			icons = i;
+
+			drawTop			(t,	0,		0,	deep,	width,	height);		//0
+			drawBottom		(t,	0,		0,	deep,	width,	0);				//1
+			drawNorth		(t,	0,		0,	deep,	height,	0);				//2
+			drawSouth		(t,	0,		0,	deep,	height,	width);			//3
+			drawEast		(t, 0,		0,  width, 	height, 0);				//4
+			drawWest		(t, 0,		0,  width, 	height, deep);			//5
+
+			GL11.glEndList();
+			isCompiled = true;
+			dims[0] = deep;
+			dims[1] = height;
+			dims[2] = width;
 		}
 		GL11.glPushMatrix();
 		GL11.glCallList(listNumber);

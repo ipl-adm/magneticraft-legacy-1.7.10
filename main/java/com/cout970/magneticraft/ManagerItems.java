@@ -20,6 +20,7 @@ import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
 import com.cout970.magneticraft.items.ItemModuleROM;
 import com.cout970.magneticraft.items.ItemModuleRam64K;
 import com.cout970.magneticraft.items.ItemOilProspector;
+import com.cout970.magneticraft.items.ItemPartBrassPipe;
 import com.cout970.magneticraft.items.ItemPartCableHigh;
 import com.cout970.magneticraft.items.ItemPartCableLow;
 import com.cout970.magneticraft.items.ItemPartCableMedium;
@@ -126,6 +127,7 @@ public class ManagerItems {
 	public static Item upgrade_suck;
 	public static Item upgrade_slow;
 	public static Item rubber;
+	public static Item part_brass_pipe;
 	
 	public static void initItems(){
 		
@@ -196,6 +198,7 @@ public class ManagerItems {
 		upgrade_suck = new ItemBasic("inserter_item_suck_upgrade");
 		upgrade_slow = new ItemBasic("inserter_item_slow_upgrade");
 		rubber = new ItemBasic("rubber");
+		part_brass_pipe = new ItemPartBrassPipe("brass_pipe");
 	}
 	
 	public static void registerItems(){
@@ -267,6 +270,7 @@ public class ManagerItems {
 		addItem(upgrade_speed, "Inserter Upgrade: Hight Speed");
 		addItem(upgrade_slow, "Inserter Upgrade: Slow Speed");
 		addItem(rubber, "Rubber Sheet");
+		addItem(part_brass_pipe, "Brass Pipe");
 		
 		for(Item i : items){
 			GameRegistry.registerItem(i, i.getUnlocalizedName());

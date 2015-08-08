@@ -249,6 +249,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 				ItemBox box = new ItemBox(i);
 				if(c.addItem(d.opposite(), 0, box, true)){
 					c.addItem(d.opposite(), 0, box, false);
+					c.onChange();
 					return true;
 				}
 			}

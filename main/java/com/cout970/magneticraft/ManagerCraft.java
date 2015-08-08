@@ -128,13 +128,13 @@ public class ManagerCraft {
 
 		//multipart
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablelow,2), 		new Object[]{"w","c","w",'c',"ingotCopper",'w',Blocks.wool}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablelow,2), 		new Object[]{"w","c",'c',"ingotCopper",'w',"itemPlastic"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablelow,2), 		new Object[]{"w","c",'c',"ingotCopper",'w',"itemRubber"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wire_copper,4), 	new Object[]{"vwv","wcw",'c',"ingotCopper",'w',Blocks.wool}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wire_copper,4), 	new Object[]{"wcw",'c',"ingotCopper",'w',"itemPlastic"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wire_copper,4), 	new Object[]{"wcw",'c',"ingotCopper",'w',"itemRubber"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablemedium), 		new Object[]{"w","c","w",'c',cablelow,'w',Blocks.wool}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablehigh), 		new Object[]{"w","c","w",'c',cablemedium,'w',Blocks.wool}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablemedium), 		new Object[]{"w","c",'c',cablelow,'w',"itemPlastic"}));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablehigh), 		new Object[]{"w","c",'c',cablemedium,'w',"itemPlastic"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablemedium), 		new Object[]{"w","c",'c',cablelow,'w',"itemRubber"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablehigh), 		new Object[]{"w","c",'c',cablemedium,'w',"itemRubber"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(partcopperpipe,8), new Object[]{"cvc","cgc","cvc",'c',"ingotCopper",'g',"blockGlass"}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(partironpipe,8), 	new Object[]{"cvc","cgc","cvc",'c',"ingotIron",'g',"blockGlass"}));
 	}

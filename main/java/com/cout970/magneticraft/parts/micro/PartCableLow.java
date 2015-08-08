@@ -139,7 +139,7 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect,IE
 	
 	//Render
 	
-	private TileRenderCableLow render;
+	private static TileRenderCableLow render;
 
 	@Override
 	public int getTier() {

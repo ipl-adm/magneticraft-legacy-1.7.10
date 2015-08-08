@@ -9,6 +9,7 @@ import com.cout970.magneticraft.client.itemrenderer.ItemRenderChainsaw;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCombustionEngine;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderConveyorLow;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderCopperPipe;
+import com.cout970.magneticraft.client.itemrenderer.ItemRenderCopperTank;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderDiode;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderDroidRED;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderEUAlternator;
@@ -155,7 +156,7 @@ public class ClientProxy implements IProxy{
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rf_alternator), new ItemRenderRFAlternator());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.eu_alternator), new ItemRenderEUAlternator());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rc_alternator), new ItemRenderRCAlternator());
-		
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.copper_tank), new ItemRenderCopperTank());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_cable_wire), new ItemRenderPoleCableWire());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class,new TileRenderPumpJack());

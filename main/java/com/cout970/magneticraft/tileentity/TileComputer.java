@@ -111,6 +111,7 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 	public void updateEntity(){
 		if(worldObj.isRemote)return;
 //		long time = System.nanoTime();
+		
 		if(motherboard.isActive()){
 			procesor.iterate();
 			hardDrive.iterate();
@@ -120,7 +121,7 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 				chechHardware();
 				sendUpdateToClient();
 		}
-//		Log.debug((System.nanoTime()-time)/1000);
+//		Log.debug(""+(System.nanoTime()-time)/1000000F+" ms");
 	}
 	
 	public Packet getDescriptionPacket(){

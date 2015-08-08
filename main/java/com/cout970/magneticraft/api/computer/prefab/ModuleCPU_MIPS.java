@@ -51,10 +51,10 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 	@Override
 	public void iterate() {
 		if(cpuCicles >= 0){
-			cpuCicles += 2000;//Hz = speed * 20
+			cpuCicles += 10000;//2000
 			
-			if (cpuCicles > 100000){
-				cpuCicles = 100000;
+			if (cpuCicles > 10000){
+				cpuCicles = 10000;
 			}
 			
 			while (cpuCicles > 0){

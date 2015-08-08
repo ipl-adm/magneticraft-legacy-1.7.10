@@ -4,17 +4,25 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.acces.RecipePolymerizer;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 
 public class CraftingPolymerizer  extends TemplateRecipeHandler{
 
-	boolean matches = false;
+	public List<RecipePolymerizer> recipes = new ArrayList<RecipePolymerizer>();
+	private static ResourceLocation tank = new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/tank.png");
+	private static ResourceLocation heat = new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/heatbar.png");
 	
 	@Override
 	public String getRecipeName() {
@@ -44,52 +52,70 @@ public class CraftingPolymerizer  extends TemplateRecipeHandler{
 	@Override
 	public void loadCraftingRecipes(ItemStack result)
 	{
-		if(MgUtils.areEcuals(result, new ItemStack(ManagerItems.plastic),true)){
-			matches = true;
-		}else{
-			matches = false;
+		for(RecipePolymerizer rec : MgRecipeRegister.polymerizer){
+			if(MgUtils.areEcuals(result, rec.getOutput(),true)){
+				recipes.add(rec);
+			}
 		}
 	}
 
-
 	@Override
 	public void loadUsageRecipes(ItemStack ingredient){
-		if(MgUtils.areEcuals(ingredient, new ItemStack(ManagerItems.dustSulfur),true)){
-			matches = true;
-		}else{
-			matches = false;
+		for(RecipePolymerizer rec : MgRecipeRegister.polymerizer){
+			if(MgUtils.areEcuals(ingredient, rec.getInput(),true)){
+				recipes.add(rec);
+			}
 		}
 	}
 	
 	@Override
 	public PositionedStack getResultStack(int recipe)
 	{
-		return new PositionedStack(new ItemStack(ManagerItems.plastic),119,25);
+		return new PositionedStack(recipes.get(recipe).getOutput(),119,25);
 	}
 	
 	@Override
-	public List<PositionedStack> getOtherStacks(int recipe)
-	{
+	public List<PositionedStack> getOtherStacks(int recipe){
 		List<PositionedStack> a = new ArrayList<PositionedStack>();
+		
 		return a;
 	}
 	@Override
 	public List<PositionedStack> getIngredientStacks(int recipe)
 	{
 		List<PositionedStack> need = new ArrayList<PositionedStack>();
-		need.add(new PositionedStack(new ItemStack(ManagerItems.dustSulfur), 63,25));
+		need.add(new PositionedStack(recipes.get(recipe).getInput(), 63,25));
 		return need;
 	}
 
 	@Override
 	public int numRecipes()
 	{
-		return matches ? 1 : 0;
+		return recipes.size();
 	}
 
 	@Override
 	public void drawExtras(int recipe)
 	{
-		RenderUtil.drawString("Natural Gas", 45, 60, RenderUtil.fromRGB(255, 255, 255), true);
+		RecipePolymerizer rec = recipes.get(recipe);
+		RenderUtil.drawString(rec.getFluid().getLocalizedName(), 45, 60, RenderUtil.fromRGB(255, 255, 255), true);
+		RenderUtil.bindTexture(TextureMap.locationBlocksTexture);
+		drawTexturedModelRectFromIcon(36, 14, rec.getFluid().getFluid().getIcon(), 18, 39);
+		RenderUtil.bindTexture(tank);
+		RenderUtil.drawTexturedModalRectScaled(35, 13, 0,0, 18, 39, 20,41);
+		RenderUtil.bindTexture(heat);
+		int scale = Math.min(44, (int)(rec.getTemperature()*44f/1400f));
+		RenderUtil.drawTexturedModalRectScaled(15, 9+(44-scale), 0, 44-scale, 6, scale, 12, 45);
 	}
+	
+	public void drawTexturedModelRectFromIcon(int p_94065_1_, int p_94065_2_, IIcon p_94065_3_, int p_94065_4_, int p_94065_5_)
+    {
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV((double)(p_94065_1_ + 0), (double)(p_94065_2_ + p_94065_5_), (double)0, (double)p_94065_3_.getMinU(), (double)p_94065_3_.getMaxV());
+        tessellator.addVertexWithUV((double)(p_94065_1_ + p_94065_4_), (double)(p_94065_2_ + p_94065_5_), (double)0, (double)p_94065_3_.getMaxU(), (double)p_94065_3_.getMaxV());
+        tessellator.addVertexWithUV((double)(p_94065_1_ + p_94065_4_), (double)(p_94065_2_ + 0), (double)0, (double)p_94065_3_.getMaxU(), (double)p_94065_3_.getMinV());
+        tessellator.addVertexWithUV((double)(p_94065_1_ + 0), (double)(p_94065_2_ + 0), (double)0, (double)p_94065_3_.getMinU(), (double)p_94065_3_.getMinV());
+        tessellator.draw();
+    }
 }

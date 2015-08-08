@@ -44,6 +44,7 @@ public class BlockConveyorLow extends BlockMg{
 				if(t instanceof IConveyorBelt){
 					if(((IConveyorBelt) t).addItem(MgDirection.SOUTH, 0, new ItemBox(p.getCurrentEquippedItem()), false)){
 						p.setCurrentItemOrArmor(0, null);
+						((IConveyorBelt) t).onChange();
 					}
 				}
 			}

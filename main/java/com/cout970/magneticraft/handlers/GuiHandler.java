@@ -4,6 +4,7 @@ import com.cout970.magneticraft.client.gui.GuiBasicGenerator;
 import com.cout970.magneticraft.client.gui.GuiBattery;
 import com.cout970.magneticraft.client.gui.GuiBiomassBurner;
 import com.cout970.magneticraft.client.gui.GuiBoiler;
+import com.cout970.magneticraft.client.gui.GuiBreaker;
 import com.cout970.magneticraft.client.gui.GuiBrickFurnace;
 import com.cout970.magneticraft.client.gui.GuiCombustionEngine;
 import com.cout970.magneticraft.client.gui.GuiComputer;
@@ -34,6 +35,7 @@ import com.cout970.magneticraft.container.ContainerBasicGenerator;
 import com.cout970.magneticraft.container.ContainerBattery;
 import com.cout970.magneticraft.container.ContainerBiomassBurner;
 import com.cout970.magneticraft.container.ContainerBoiler;
+import com.cout970.magneticraft.container.ContainerBreaker;
 import com.cout970.magneticraft.container.ContainerBrickFurnace;
 import com.cout970.magneticraft.container.ContainerCombustionEngine;
 import com.cout970.magneticraft.container.ContainerComputer;
@@ -64,6 +66,7 @@ import com.cout970.magneticraft.tileentity.TileBasicGenerator;
 import com.cout970.magneticraft.tileentity.TileBattery;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;
 import com.cout970.magneticraft.tileentity.TileBoiler;
+import com.cout970.magneticraft.tileentity.TileBreaker;
 import com.cout970.magneticraft.tileentity.TileBrickFurnace;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileComputer;
@@ -193,6 +196,9 @@ public class GuiHandler implements IGuiHandler{
 		if(tile instanceof TileThermopile){
 			return new ContainerThermopile(player.inventory, tile);
 		}
+		if(tile instanceof TileBreaker){
+			return new ContainerBreaker(player.inventory, tile);
+		}
 		return null;
 	}
 
@@ -290,6 +296,9 @@ public class GuiHandler implements IGuiHandler{
 		}
 		if(tile instanceof TileThermopile){
 			return new GuiThermopile(new ContainerThermopile(player.inventory, tile), tile);
+		}
+		if(tile instanceof TileBreaker){
+			return new GuiBreaker(new ContainerBreaker(player.inventory, tile), tile);
 		}
 		return null;
 	}

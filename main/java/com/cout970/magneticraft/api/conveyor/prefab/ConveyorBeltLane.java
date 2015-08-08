@@ -9,7 +9,6 @@ import com.cout970.magneticraft.api.conveyor.IConveyorBeltLane;
 import com.cout970.magneticraft.api.conveyor.IHitBoxArray;
 import com.cout970.magneticraft.api.conveyor.IItemBox;
 import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.util.MgBeltUtils;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -55,7 +54,7 @@ public class ConveyorBeltLane implements IConveyorBeltLane{
 	}
 	
 	public void setHitBoxSpaceExtern(TileEntity tile,int pos, boolean value) {
-		if(MgBeltUtils.isBelt(tile)){
+		if(tile instanceof IConveyorBelt){
 			IConveyorBelt con = (IConveyorBelt) tile;
 			BeltInteraction iter = BeltInteraction.InterBelt(parent.getDir(), con.getDir());
 			if(iter == IConveyorBelt.BeltInteraction.DIRECT){
@@ -96,7 +95,7 @@ public class ConveyorBeltLane implements IConveyorBeltLane{
 	}
 
 	public boolean hasHitBoxSpaceExtern(TileEntity tile, int pos) {
-		if(MgBeltUtils.isBelt(tile)){
+		if(tile instanceof IConveyorBelt){
 			IConveyorBelt con = (IConveyorBelt) tile;
 			boolean temp = false;
 			BeltInteraction iter = BeltInteraction.InterBelt(parent.getDir(), con.getDir());
@@ -168,7 +167,7 @@ public class ConveyorBeltLane implements IConveyorBeltLane{
 		if(c.getOrientation().getLevel() == 1)
 			return MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, 1, 0));
 		TileEntity retval = MgUtils.getTileEntity(t, c.getDir());
-		if(!MgBeltUtils.isBelt(retval)){
+		if(!(retval instanceof IConveyorBelt)){
 			retval = MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, -1, 0));
 		}
 		return retval;

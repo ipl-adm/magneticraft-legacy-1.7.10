@@ -10,6 +10,7 @@ import com.cout970.magneticraft.client.model.ModelElectricalPoleTier1;
 import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.util.RenderUtil;
 
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
@@ -82,13 +83,16 @@ public class TileRenderElectricPoleTier1 extends TileEntitySpecialRenderer{
 					VecDouble mid = ab.copy(); //(b-a)
 					mid.multiply(0.5).add(a);//(b-a)/2 + a
 					double lowPoint = mid.getY() - lenght * 0.05;//height of the middel point less the weight
-					double quallity = 15;
+					double quallity = 8;
+					Tessellator t = Tessellator.instance;
+					t.startDrawingQuads();
 					for(int p = 0; p < quallity; p++){
 						double adv1 = p/quallity, adv2 = (p+1)/quallity;
 						RenderUtil.drawLine(new VecDouble(a.getX()+ab.getX()*adv1, RenderUtil.interpolate(a.getY(), lowPoint, b.getY(), adv1), a.getZ()+ab.getZ()*adv1),
 								new VecDouble(a.getX()+ab.getX()*adv2, RenderUtil.interpolate(a.getY(), lowPoint, b.getY(), adv2), a.getZ()+ab.getZ()*adv2),
 								0.0625F*0.5F);
 					}
+					t.draw();
 				}
 			}
 			GL11.glEndList();

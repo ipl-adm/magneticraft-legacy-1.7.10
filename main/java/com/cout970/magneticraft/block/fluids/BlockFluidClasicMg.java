@@ -21,10 +21,13 @@ public abstract class BlockFluidClasicMg extends BlockFluidClassic{
     @SideOnly(Side.CLIENT)
     protected IIcon flowingIcon;
 	
+    public Fluid toIcon;
+    
 	public BlockFluidClasicMg(Fluid fluid, Material material) {
 		super(fluid, material);
 		setCreativeTab(CreativeTabsMg.MainTab);
 		setBlockName("mg_"+getName()+"_block");
+		toIcon = fluid;
 	}
 	
 	@Override
@@ -37,7 +40,7 @@ public abstract class BlockFluidClasicMg extends BlockFluidClassic{
 	public void registerBlockIcons(IIconRegister register) {
 		stillIcon = register.registerIcon(BlockMg.base+"fluids/"+getName()+"_still");
 		flowingIcon = register.registerIcon(BlockMg.base+"fluids/"+getName()+"_flow");
-		definedFluid.setIcons(stillIcon, flowingIcon);
+		toIcon.setIcons(stillIcon, flowingIcon);
 	}
 	
 	@Override

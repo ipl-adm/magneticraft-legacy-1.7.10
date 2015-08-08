@@ -141,7 +141,6 @@ public class TileConveyorBelt extends TileBase implements IConveyorBelt{
 			}
 		}
 		boolean ret = inject(pos, b, onLeft, sim);
-		sendUpdateToClient();
 		return ret;
 	}
 
@@ -182,7 +181,11 @@ public class TileConveyorBelt extends TileBase implements IConveyorBelt{
 	@Override
 	public boolean removeItem(IItemBox it, boolean isLeft, boolean simulated) {
 		boolean ret = extract(it, isLeft, simulated);
-		if(!simulated)sendUpdateToClient();
 		return ret;
+	}
+
+	@Override
+	public void onChange() {
+		sendUpdateToClient();
 	}
 }

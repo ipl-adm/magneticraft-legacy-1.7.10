@@ -38,7 +38,7 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.3.3";
+	public final static String VERSION = "0.3.4";
 	public final static String ENERGY_STORED_NAME = "J";
 	public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
 	public static final boolean DEBUG = false;

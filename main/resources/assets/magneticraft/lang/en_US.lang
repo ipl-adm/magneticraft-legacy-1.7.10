@@ -153,6 +153,7 @@ item.inserter_item_suck_upgrade.name=Inserter Upgrade: Pick Items From Ground
 item.inserter_item_speed_upgrade.name=Inserter Upgrade: Hight Speed
 item.inserter_item_slow_upgrade.name=Inserter Upgrade: Slow Speed
 item.rubber.name=Rubber Sheet
+item.brass_pipe.name=Brass Pipe
 oil_source.name=Oil Source
 oil_source_drained.name=Oil Source Drained
 copper_ore.name=Copper Ore

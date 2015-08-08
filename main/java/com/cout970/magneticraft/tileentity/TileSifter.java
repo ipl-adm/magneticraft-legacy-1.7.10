@@ -198,6 +198,7 @@ public class TileSifter extends TileMB_Base{
 		if(leverState[2])speed -= 25;
 		if(leverState[3])speed -= 25;
 		this.speed = speed;
+		sendUpdateToClient();
 	}
 	
 	public float getDelta() {

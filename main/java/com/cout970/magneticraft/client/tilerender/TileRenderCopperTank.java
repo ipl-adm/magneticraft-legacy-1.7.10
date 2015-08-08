@@ -45,10 +45,10 @@ public class TileRenderCopperTank extends TileEntitySpecialRenderer{
 			if(h >= 1)h = 0.99f;
 			GL11.glTranslatef(-0.5F, -1.5F, -0.5F);
 			GL11.glTranslatef(k, 0.01f, k);
-			if(te.CubeRenderer == null){
-				te.CubeRenderer = new CubeRenderer_Util();
+			if(te.cubeRenderer == null){
+				te.cubeRenderer = new CubeRenderer_Util();
 			}
-			te.CubeRenderer.renderBox(i, 1f-k*2, h-0.01f, 1f-k*2);
+			te.cubeRenderer.renderBox(i, 1f-k*2, h-0.01f, 1f-k*2);
 		}
 	}
 }

@@ -59,6 +59,7 @@ import com.cout970.magneticraft.block.BlockOilSourceDrained;
 import com.cout970.magneticraft.block.BlockOre;
 import com.cout970.magneticraft.block.BlockPermanentMagnet;
 import com.cout970.magneticraft.block.BlockPolymerizer;
+import com.cout970.magneticraft.block.BlockPressureTank;
 import com.cout970.magneticraft.block.BlockPumpJack;
 import com.cout970.magneticraft.block.BlockRCAlternator;
 import com.cout970.magneticraft.block.BlockRFAlternator;
@@ -136,6 +137,7 @@ import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileOilDistillery;
 import com.cout970.magneticraft.tileentity.TilePermanentMagnet;
 import com.cout970.magneticraft.tileentity.TilePolymerizer;
+import com.cout970.magneticraft.tileentity.TilePressureTank;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.tileentity.TileRCAlternator;
 import com.cout970.magneticraft.tileentity.TileRFAlternator;
@@ -269,6 +271,7 @@ public class ManagerBlocks {
 	public static Block infinite_energy;
 	public static Block sifter;
 	public static Block mb_controls;
+	public static Block pressure_tank;
 	
 	
 	public static void initBlocks(){
@@ -366,6 +369,7 @@ public class ManagerBlocks {
 		dust_block_sulfur = new BlockOfIngots("block_sulfur");
 		mb_controls = new BlockMB_Controls();
 		oreZinc = new BlockOre("zinc_ore");
+		pressure_tank = new BlockPressureTank();
 	}
 	
 	public static void registerBlocks(){
@@ -463,6 +467,7 @@ public class ManagerBlocks {
 		addBlock(dust_block_salt, "Salt Block");
 		addBlock(dust_block_sulfur, "Sulfur Block");
 		addBlock(oreZinc, "Zinc Ore");
+		addBlock(pressure_tank, "Pressure Tank");
 		
 		for(Block b : blocks)
 			GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
@@ -549,6 +554,7 @@ public class ManagerBlocks {
 		tileEntities.add(TileSifter.class);
 		tileEntities.add(TileElectricPoleGap.class);
 		tileEntities.add(TileMB_Controls.class);
+		tileEntities.add(TilePressureTank.class);
 		
 		for(Class<? extends TileEntity> c : tileEntities){
 			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");

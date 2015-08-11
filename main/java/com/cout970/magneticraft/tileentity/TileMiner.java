@@ -27,6 +27,7 @@ import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 import com.google.common.collect.Sets;
 
+import buildcraft.api.core.EnumColor;
 import buildcraft.api.transport.IPipeTile;
 import buildcraft.api.transport.IPipeTile.PipeType;
 import net.minecraft.block.Block;
@@ -241,7 +242,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 			}else if(t instanceof IPipeTile){
 				IPipeTile a = (IPipeTile) t;
 				if(a.getPipeType() == PipeType.ITEM){
-					int r = a.injectItem(i, true, d.toForgeDir().getOpposite());
+					int r = a.injectItem(i, true, d.toForgeDir().getOpposite(), EnumColor.WHITE);
 					if(r > 0)return true;
 				}
 			}else if(t instanceof IConveyorBelt){

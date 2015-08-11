@@ -78,7 +78,13 @@ public class TileComputer extends TileBase implements IGuiListener,IGuiSync, ICo
 		}
 		
 		@Override
-		public void writeByte(int pointer, int data) {}
+		public void writeByte(int pointer, int data) {
+			if(motherboard.isActive()){
+				if(pointer == 0){
+					if(data != 0) procesor.haltTick();
+				}
+			}
+		}
 		
 		@Override
 		public int readByte(int pointer) {

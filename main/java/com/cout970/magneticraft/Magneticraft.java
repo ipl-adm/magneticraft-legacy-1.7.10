@@ -10,6 +10,7 @@ import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.proxy.IProxy;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.URLConnectionReader;
 import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
@@ -38,10 +39,10 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.3.4";
+	public final static String VERSION = "0.3.5";
 	public final static String ENERGY_STORED_NAME = "J";
 	public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	@Instance(NAME)
 	public static Magneticraft Instance;
@@ -97,6 +98,7 @@ public class Magneticraft{
 		ManagerFluids.registerFuels();
 		HandlerBuckets.INSTANCE = new HandlerBuckets();
 		MinecraftForge.EVENT_BUS.register(HandlerBuckets.INSTANCE);
+		checkVersion();
 		Log.info("Init Done");
 	}
 	
@@ -149,6 +151,16 @@ public class Magneticraft{
 				}
 			}
 			return validTickets;
+		}
+	}
+	
+	public void checkVersion(){
+		try {
+			String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
+			Log.info("Last Version: "+version);
+			Log.info("Current Version: "+VERSION);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

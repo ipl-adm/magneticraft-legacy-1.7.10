@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2014, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  *
  * The BuildCraft API is distributed under the terms of the MIT License.
@@ -15,10 +15,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 /**
- * This class is a comparable container for block positions. TODO: should this be merged with position?
+ * This class is a comparable container for integer block positions.
  */
 public class BlockIndex implements Comparable<BlockIndex> {
-
 	public int x;
 	public int y;
 	public int z;
@@ -31,7 +30,6 @@ public class BlockIndex implements Comparable<BlockIndex> {
 	 * Creates an index for a block located on x, y. z
 	 */
 	public BlockIndex(int x, int y, int z) {
-
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -99,7 +97,7 @@ public class BlockIndex implements Comparable<BlockIndex> {
 			return b.x == x && b.y == y && b.z == z;
 		}
 
-		return super.equals(obj);
+		return false;
 	}
 
 	@Override

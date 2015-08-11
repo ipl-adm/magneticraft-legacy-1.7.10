@@ -11,7 +11,11 @@ import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class HUDMagneticraft implements IWailaDataProvider{
 
@@ -62,6 +66,11 @@ public class HUDMagneticraft implements IWailaDataProvider{
 	@Override
 	public List<String> getWailaTail(ItemStack itemStack,List<String> currenttip, IWailaDataAccessor accessor,IWailaConfigHandler config) {
 		return currenttip;
+	}
+
+	@Override
+	public NBTTagCompound getNBTData(EntityPlayerMP var1, TileEntity var2, NBTTagCompound var3, World var4, int var5, int var6, int var7){
+		return var3;
 	}
 	
 }

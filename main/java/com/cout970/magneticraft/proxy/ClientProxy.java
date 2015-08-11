@@ -75,6 +75,7 @@ import com.cout970.magneticraft.client.tilerender.TileRenderTransformer_MH;
 import com.cout970.magneticraft.client.tilerender.TileRenderTurbine;
 import com.cout970.magneticraft.client.tilerender.TileRenderWindTurbine;
 import com.cout970.magneticraft.client.tilerender.TileRenderWoodenShaft;
+import com.cout970.magneticraft.handlers.TooltipHandler;
 import com.cout970.magneticraft.tileentity.TileCombustionEngine;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 import com.cout970.magneticraft.tileentity.TileCopperTank;
@@ -116,12 +117,15 @@ import com.cout970.magneticraft.tileentity.TileWoodenShaft;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 
 public class ClientProxy implements IProxy{
 
 	@Override
 	public void init() {
+		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+
 		MinecraftForgeClient.registerItemRenderer(ManagerItems.cablelow, new ItemRenderCableLow());
 		MinecraftForgeClient.registerItemRenderer(ManagerItems.cablemedium, new ItemRenderCableMedium());
 		MinecraftForgeClient.registerItemRenderer(ManagerItems.cablehigh, new ItemRenderCableHigh());

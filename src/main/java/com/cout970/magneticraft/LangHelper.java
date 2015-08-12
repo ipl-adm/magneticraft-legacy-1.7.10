@@ -46,7 +46,7 @@ public class LangHelper {
 	}
 
 	public static void setupLangFile(){
-		File f = new File("I:/Development/Minecraft Mod 1.7.10/Magneticraft/src/main/resources/assets/magneticraft/lang/en_US.lang");
+		File f = new File(Magneticraft.DEV_HOME+"/src/main/resources/assets/magneticraft/lang/en_US.lang");
 		Writer w;
 		try {
 			w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));

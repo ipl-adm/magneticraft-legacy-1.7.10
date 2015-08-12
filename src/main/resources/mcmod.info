@@ -3,8 +3,8 @@
   "modid": "Magneticraft",
   "name": "Magneticraft",
   "description": "Magneticraft Energy, Industries and Multiblocks!",
-  "version": "0.3.4",
-  "mcversion": "1.7.10",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "http://minecraft.curseforge.com/mc-mods/224808-magneticraft",
   "updateUrl": "http://minecraft.curseforge.com/mc-mods/224808-magneticraft",
   "authorList": [

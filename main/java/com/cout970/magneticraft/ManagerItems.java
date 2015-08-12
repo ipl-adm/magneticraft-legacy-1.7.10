@@ -2,6 +2,7 @@ package com.cout970.magneticraft;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.cout970.magneticraft.items.ItemBasic;
 import com.cout970.magneticraft.items.ItemBattery;
@@ -59,6 +60,8 @@ public class ManagerItems {
 	public static List<ItemProduct> pebbles = new ArrayList<ItemProduct>();
 //	public static List<ItemProduct> pebbles_clean = new ArrayList<ItemProduct>();
 	public static List<ItemProduct> dust = new ArrayList<ItemProduct>();
+	public static List<ItemProduct> sinterClump = new ArrayList<ItemProduct>();
+	public static List<ItemProduct> sinter = new ArrayList<ItemProduct>();
 	
 	
 	public static Item ingotCopper;
@@ -279,13 +282,15 @@ public class ManagerItems {
 	
 	private static void registerProducts(){
 		for(String name : oreNames){
-			chunks.add(new ItemProduct("chunk_"+name.toLowerCase(), "chunk"+name, name));
+			chunks.add(new ItemProduct("chunk_"+name.toLowerCase(Locale.US), "chunk"+name, name));
 //			chunks_clean.add(new ItemProduct("chunk_clean_"+name.toLowerCase(), "cleanChunk"+name, name));
-			rubble.add(new ItemProduct("rubble_"+name.toLowerCase(), "rubble"+name, name));
+			rubble.add(new ItemProduct("rubble_"+name.toLowerCase(Locale.US), "rubble"+name, name));
 //			rubble_clean.add(new ItemProduct("rubble_clean_"+name.toLowerCase(), "cleanRubble"+name, name));
-			pebbles.add(new ItemProduct("pebbles_"+name.toLowerCase(), "pebbles"+name, name));
+			pebbles.add(new ItemProduct("pebbles_"+name.toLowerCase(Locale.US), "pebbles"+name, name));
 //			pebbles_clean.add(new ItemProduct("pebbles_clean_"+name.toLowerCase(), "cleanPebbles"+name, name));
-			dust.add(new ItemProduct("dust_"+name.toLowerCase(), "dust"+name, name));
+			dust.add(new ItemProduct("dust_"+name.toLowerCase(Locale.US), "dust"+name, name));
+			sinterClump.add(new ItemProduct("sinterClump_"+name.toLowerCase(Locale.US), "sinterClump"+name, name));
+			sinter.add(new ItemProduct("sinter_"+name.toLowerCase(Locale.US), "sinter"+name, name));
 		}
 		for(ItemProduct i : chunks)addItem(i, i.getBaseName()+" Chunk");
 //		for(ItemProduct i : chunks_clean)addItem(i, i.getBaseName()+" Clean Chunk");
@@ -294,6 +299,8 @@ public class ManagerItems {
 		for(ItemProduct i : pebbles)addItem(i, i.getBaseName()+" Pebbles");
 //		for(ItemProduct i : pebbles_clean)addItem(i, i.getBaseName()+" Clean Pebbles");
 		for(ItemProduct i : dust)addItem(i, i.getBaseName()+" Dust");
+		for (ItemProduct i : sinterClump)addItem(i, i.getBaseName()+" Sinter Clump");
+		for (ItemProduct i : sinter)addItem(i, i.getBaseName()+" Sinter");
 	}
 	
 	public static void addItem(Item i,String name){

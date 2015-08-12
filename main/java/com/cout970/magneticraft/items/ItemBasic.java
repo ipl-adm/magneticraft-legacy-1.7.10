@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.Locale;
+
 public class ItemBasic extends Item{
 	
 	public static final String Base = "magneticraft:";
@@ -30,6 +32,6 @@ public class ItemBasic extends Item{
 	@SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister IR)
     {
-        this.itemIcon = IR.registerIcon(this.getIconString().toLowerCase());
+        this.itemIcon = IR.registerIcon(this.getIconString().toLowerCase(Locale.US));
     }
 }

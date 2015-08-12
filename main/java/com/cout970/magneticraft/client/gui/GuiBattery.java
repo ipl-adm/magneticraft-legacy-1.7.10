@@ -2,6 +2,7 @@ package com.cout970.magneticraft.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
@@ -27,9 +28,9 @@ public class GuiBattery extends GuiBasic{
 
 	@Override
 	public void initComponenets() {
-		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/battery.png")));
-		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(47,16), ((TileBattery)tile).cond));
-		comp.add(new CompBatteryBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(69,16)));
+		comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US)+":textures/gui/battery.png")));
+		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US)+":textures/gui/energybar.png"),new GuiPoint(47,16), ((TileBattery)tile).cond));
+		comp.add(new CompBatteryBar(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US)+":textures/gui/energybar.png"),new GuiPoint(69,16)));
 		comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
 	}
 	

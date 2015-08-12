@@ -1,265 +1,30 @@
-[15:50:33] [main/INFO]: Setting user: Player328
-[15:50:35] [Client thread/INFO]: LWJGL Version: 2.9.1
-[15:50:50] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Magneticraft, FMLFileResourcePack:Forge Microblocks, FMLFileResourcePack:Forge Multipart, FMLFileResourcePack:Minecraft Multipart Plugin, FMLFileResourcePack:MineTweaker 3, FMLFileResourcePack:Waila
-[15:50:55] [Sound Library Loader/INFO]: Sound engine started
-[15:50:56] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[15:50:56] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[15:51:02] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Magneticraft, FMLFileResourcePack:Forge Microblocks, FMLFileResourcePack:Forge Multipart, FMLFileResourcePack:Minecraft Multipart Plugin, FMLFileResourcePack:MineTweaker 3, FMLFileResourcePack:Waila
-[15:51:03] [Client thread/INFO]: Created: 512x256 textures/items-atlas
-[15:51:04] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
-[15:51:05] [Sound Library Loader/INFO]: Sound engine started
-[15:51:38] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[15:51:38] [Server thread/INFO]: Generating keypair
-[15:51:38] [Server thread/INFO]: Converting map!
-[15:51:38] [Server thread/INFO]: Scanning folders...
-[15:51:38] [Server thread/INFO]: Total conversion count is 0
-[15:51:38] [Server thread/WARN]: Unable to find spawn biome
-[15:51:39] [Server thread/INFO]: Preparing start region for level 0
-[15:51:40] [Server thread/INFO]: Changing view distance to 12, from 10
-[15:51:41] [Server thread/INFO]: Player328[local:E:f5c95199] logged in with entity id 4 at (36.5, 56.0, 34.5)
-[15:51:41] [Server thread/INFO]: Player328 joined the game
-[15:51:48] [Server thread/INFO]: Saving and pausing game...
-[15:51:48] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[15:51:48] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[15:51:48] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[15:51:57] [Server thread/INFO]: Player328 has just earned the achievement [Taking Inventory]
-[15:51:58] [Client thread/INFO]: [CHAT] Player328 has just earned the achievement [Taking Inventory]
-[15:52:02] [Server thread/INFO]: Saving and pausing game...
-[15:52:02] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[15:52:02] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[15:52:02] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[15:52:42] [Client thread/INFO]: Warning: Clientside chunk ticking took 144 ms
-[15:53:42] [Server thread/INFO]: Saving and pausing game...
-[15:53:42] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[15:53:42] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[15:53:42] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[15:55:46] [Client thread/INFO]: [CHAT] Oil not found
-[15:55:47] [Client thread/INFO]: [CHAT] Oil not found
-[15:55:48] [Client thread/INFO]: [CHAT] Oil not found
-[15:55:48] [Client thread/INFO]: [CHAT] Oil not found
-[15:55:48] [Client thread/INFO]: [CHAT] Oil not found
-[15:56:29] [Client thread/INFO]: [CHAT] Error in 28 55 21 with the block: Multiblock Chassis
-[15:56:46] [Client thread/INFO]: [CHAT] Error in 28 55 21 with the block: Multiblock Chassis
-[15:56:47] [Server thread/INFO]: Saving and pausing game...
-[15:56:47] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[15:56:47] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[15:56:47] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[15:56:51] [Client thread/INFO]: [CHAT] Error in 28 55 21 with the block: Multiblock Chassis
-[15:56:54] [Server thread/INFO]: Saving and pausing game...
-[15:56:54] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[15:56:54] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[15:56:54] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[15:57:14] [Client thread/INFO]: [CHAT] Error in 27 55 19 with the block: Multiblock Chassis
-[15:57:32] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:57:44] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:57:57] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:58:11] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:58:24] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:58:37] [Client thread/INFO]: [CHAT] Error in 20 55 24 with the block: Multiblock Chassis
-[15:58:51] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:04] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:18] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:30] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:31] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:31] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:32] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:33] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:45] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[15:59:59] [Client thread/INFO]: [CHAT] Error in 27 55 20 with the block: Multiblock Chassis
-[16:00:14] [Client thread/INFO]: [CHAT] Error in 26 56 21 with the block: Multiblock Component
-[16:00:28] [Client thread/INFO]: [CHAT] Successful activation
-[16:00:38] [Client thread/INFO]: [CHAT] Successful activation
-[16:00:39] [Server thread/INFO]: Saving and pausing game...
-[16:00:39] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[16:00:39] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[16:00:39] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[16:00:46] [Server thread/INFO]: Saving and pausing game...
-[16:00:46] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[16:00:46] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[16:00:46] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[16:01:46] [Client thread/INFO]: [CHAT] Error in 26 62 21 with the block: Multiblock Component
-[16:01:51] [Client thread/INFO]: [CHAT] Successful activation
-[16:02:05] [Client thread/INFO]: [CHAT] Error in 25 56 21 with the block: Refinery Tank
-[16:02:06] [Client thread/INFO]: [CHAT] Error in 25 56 21 with the block: Refinery Tank
-[16:02:19] [Client thread/INFO]: [CHAT] Successful activation
-[16:02:43] [Client thread/INFO]: [CHAT] 'day'' is not a valid number
-[16:02:49] [Server thread/INFO]: [Player328: Set the time to 1000]
-[16:02:49] [Client thread/INFO]: [CHAT] Set the time to 1000
-[16:02:50] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:03] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:05] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:23] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:42] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:43] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:48] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:03:54] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:04:43] [Client thread/INFO]: [CHAT] Unknown command. Try /help for a list of commands
-[16:04:46] [Server thread/INFO]: [Player328: Set own game mode to Survival Mode]
-[16:04:46] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[16:04:47] [Server thread/INFO]: <Player328> hi
-[16:04:47] [Client thread/INFO]: [CHAT] <Player328> hi
-[16:04:53] [Server thread/INFO]: [Player328: Set own game mode to Creative Mode]
-[16:04:53] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[16:05:50] [Server thread/INFO]: [Player328: Set own game mode to Survival Mode]
-[16:05:50] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[16:05:54] [Server thread/INFO]: [Player328: Set own game mode to Creative Mode]
-[16:05:54] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[16:06:25] [Server thread/INFO]: [Player328: Set own game mode to Survival Mode]
-[16:06:25] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[16:06:41] [Server thread/INFO]: [Player328: Set own game mode to Creative Mode]
-[16:06:41] [Client thread/INFO]: [CHAT] Your game mode has been updated
-[16:06:53] [Server thread/INFO]: [Player328] @d
-[16:06:53] [Client thread/INFO]: [CHAT] [Player328] @d
-[16:06:55] [Server thread/INFO]: [Player328] @e
-[16:06:55] [Client thread/INFO]: [CHAT] [Player328] @e
-[16:06:56] [Server thread/INFO]: [Player328] Player328
-[16:06:56] [Client thread/INFO]: [CHAT] [Player328] Player328
-[16:07:13] [Server thread/INFO]: Saving and pausing game...
-[16:07:13] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[16:07:13] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[16:07:13] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[16:09:02] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:09:17] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:09:20] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:09:30] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:09:40] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[16:09:44] [Server thread/INFO]: Saving and pausing game...
-[16:09:44] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[16:09:44] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[16:09:44] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[16:28:10] [Server thread/INFO]: Saving and pausing game...
-[16:28:10] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[16:28:10] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[16:28:10] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[16:28:11] [Server thread/INFO]: Stopping server
-[16:28:11] [Server thread/INFO]: Saving players
-[16:28:11] [Server thread/INFO]: Saving worlds
-[16:28:11] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[16:28:11] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[16:28:11] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[17:58:26] [Client thread/INFO]: Realms library version == 1.3.5
-[17:58:30] [MCO Availability Checker #1/INFO]: Could not authorize you against Realms server: Invalid session id
-[17:58:30] [MCO Availability Checker #1/ERROR]: Couldn't connect to realms: 
-[17:59:13] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[17:59:13] [Server thread/INFO]: Generating keypair
-[17:59:13] [Server thread/INFO]: Preparing start region for level 0
-[17:59:14] [Server thread/INFO]: Changing view distance to 12, from 10
-[17:59:14] [Server thread/INFO]: Player328[local:E:4d04eead] logged in with entity id 3142827 at (12.779835563957427, 56.0, 32.07817827460819)
-[17:59:14] [Server thread/INFO]: Player328 joined the game
-[17:59:15] [Server thread/INFO]: Saving and pausing game...
-[17:59:16] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[17:59:16] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[17:59:16] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[17:59:16] [Server thread/INFO]: Saving and pausing game...
-[17:59:16] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[17:59:16] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[17:59:16] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[17:59:32] [Server thread/INFO]: Saving and pausing game...
-[17:59:32] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[17:59:32] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[17:59:32] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[17:59:33] [Server thread/INFO]: Stopping server
-[17:59:33] [Server thread/INFO]: Saving players
-[17:59:33] [Server thread/INFO]: Saving worlds
-[17:59:33] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[17:59:33] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[17:59:33] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[18:08:39] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[18:08:39] [Server thread/INFO]: Generating keypair
-[18:08:39] [Server thread/INFO]: Preparing start region for level 0
-[18:08:40] [Server thread/INFO]: Changing view distance to 12, from 10
-[18:08:40] [Server thread/INFO]: Player328[local:E:e270449f] logged in with entity id 3164571 at (9.289438081236037, 56.0, 31.736656379377493)
-[18:08:40] [Server thread/INFO]: Player328 joined the game
-[18:08:41] [Server thread/INFO]: Saving and pausing game...
-[18:08:41] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[18:08:41] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[18:08:41] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[18:09:01] [Server thread/INFO]: Saving and pausing game...
-[18:09:01] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[18:09:01] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[18:09:01] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[18:09:02] [Server thread/INFO]: Saving and pausing game...
-[18:09:02] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[18:09:02] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[18:09:02] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:11:39] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:11:46] [Server thread/INFO]: Saving and pausing game...
-[19:11:46] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:11:46] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:11:46] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:11:48] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:11:54] [Client thread/INFO]: [CHAT] Error in 27 57 22 with the block: Multiblock Component
-[19:11:55] [Client thread/INFO]: [CHAT] Error in 27 57 22 with the block: Multiblock Component
-[19:11:59] [Client thread/INFO]: [CHAT] Error in 37 55 23 with the block: Multiblock Chassis
-[19:12:06] [Client thread/INFO]: [CHAT] Successful activation
-[19:12:14] [Server thread/INFO]: Saving and pausing game...
-[19:12:14] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:12:14] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:12:14] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:13:09] [Client thread/INFO]: [CHAT] Saved screenshot as 2015-08-08_19.13.08.png
-[19:13:15] [Client thread/INFO]: [CHAT] /setblock <x> <y> <z> <TileName> [dataValue] [oldBlockHandling] [dataTag]
-[19:13:27] [Client thread/INFO]: [CHAT] minecraft:dirt, minecraft:diamond_block, minecraft:diamond_ore, minecraft:dispenser
-[19:13:27] [Client thread/INFO]: [CHAT] minecraft:dirt, minecraft:diamond_block, minecraft:diamond_ore, minecraft:dispenser
-[19:13:28] [Server thread/INFO]: [Player328: Block placed]
-[19:13:28] [Client thread/INFO]: [CHAT] Block placed
-[19:13:32] [Client thread/INFO]: [CHAT] Successful activation
-[19:13:36] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:13:49] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:14:12] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:14:18] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:14:18] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:14:30] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:14:31] [Server thread/INFO]: Saving and pausing game...
-[19:14:31] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:14:31] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:14:31] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:15:37] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:15:53] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:15:58] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:15:58] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:16:12] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:16:24] [Server thread/INFO]: [Player328: Set the time to 1000]
-[19:16:24] [Client thread/INFO]: [CHAT] Set the time to 1000
-[19:16:31] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:16:41] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:16:57] [Client thread/INFO]: [CHAT] Error in 14 55 38 with the block: Multiblock Chassis
-[19:17:05] [Client thread/INFO]: [CHAT] Error in 15 56 41 with the block: Heater
-[19:17:06] [Client thread/INFO]: [CHAT] Error in 15 56 41 with the block: Heater
-[19:17:19] [Client thread/INFO]: [CHAT] Error in 15 55 38 with the block: Multiblock Chassis
-[19:17:29] [Client thread/INFO]: [CHAT] Error in 14 55 42 with the block: Multiblock Chassis
-[19:17:30] [Client thread/INFO]: [CHAT] Error in 14 55 42 with the block: Multiblock Chassis
-[19:17:39] [Client thread/INFO]: [CHAT] Error in 15 55 38 with the block: Multiblock Chassis
-[19:17:53] [Client thread/INFO]: [CHAT] Error in 14 55 42 with the block: Multiblock Chassis
-[19:17:59] [Client thread/INFO]: [CHAT] Error in 14 55 42 with the block: Multiblock Chassis
-[19:17:59] [Client thread/INFO]: [CHAT] Error in 14 55 42 with the block: Multiblock Chassis
-[19:18:08] [Client thread/INFO]: [CHAT] Error in 18 55 30 with the block: Multiblock Chassis
-[19:18:23] [Client thread/INFO]: [CHAT] Error in 14 55 30 with the block: Multiblock Chassis
-[19:18:27] [Client thread/INFO]: [CHAT] Error in 14 55 30 with the block: Multiblock Chassis
-[19:18:32] [Client thread/INFO]: [CHAT] Error in 14 55 30 with the block: Multiblock Chassis
-[19:18:45] [Client thread/INFO]: [CHAT] Successful activation
-[19:18:53] [Client thread/INFO]: [CHAT] Error in 14 55 42 with the block: Multiblock Chassis
-[19:19:03] [Client thread/INFO]: [CHAT] Successful activation
-[19:19:12] [Server thread/INFO]: Saving and pausing game...
-[19:19:12] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:19:12] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:19:12] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:19:15] [Server thread/INFO]: Saving and pausing game...
-[19:19:15] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:19:15] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:19:15] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:19:35] [Client thread/INFO]: [CHAT] Saved screenshot as 2015-08-08_19.19.35.png
-[19:19:36] [Server thread/INFO]: Saving and pausing game...
-[19:19:36] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:19:36] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:19:36] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:37:43] [Server thread/INFO]: Saving and pausing game...
-[19:37:43] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:37:43] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:37:43] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:37:44] [Server thread/INFO]: Stopping server
-[19:37:44] [Server thread/INFO]: Saving players
-[19:37:44] [Server thread/INFO]: Saving worlds
-[19:37:44] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
-[19:37:44] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
-[19:37:44] [Server thread/INFO]: Saving chunks for level 'testing'/The End
-[19:37:48] [Client thread/INFO]: Stopping!
+[12:55:41] [main/INFO]: Setting user: Player46
+[12:55:45] [Client thread/INFO]: LWJGL Version: 2.9.1
+[12:55:59] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Magneticraft, FMLFileResourcePack:Forge Microblocks, FMLFileResourcePack:Forge Multipart, FMLFileResourcePack:Minecraft Multipart Plugin, FMLFileResourcePack:MineTweaker 3, FMLFileResourcePack:Waila
+[12:56:04] [Sound Library Loader/INFO]: Sound engine started
+[12:56:05] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[12:56:05] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[12:56:07] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Not Enough Items, FMLFileResourcePack:Magneticraft, FMLFileResourcePack:Forge Microblocks, FMLFileResourcePack:Forge Multipart, FMLFileResourcePack:Minecraft Multipart Plugin, FMLFileResourcePack:MineTweaker 3, FMLFileResourcePack:Waila
+[12:56:08] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[12:56:09] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
+[12:56:10] [Sound Library Loader/INFO]: Sound engine started
+[12:56:32] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[12:56:32] [Server thread/INFO]: Generating keypair
+[12:56:35] [Server thread/INFO]: Preparing start region for level 0
+[12:56:36] [Server thread/INFO]: Changing view distance to 12, from 10
+[12:56:36] [Server thread/INFO]: Player46[local:E:d66f3d66] logged in with entity id 88 at (5.701260132397531, 56.0, 21.18266877935465)
+[12:56:36] [Server thread/INFO]: Player46 joined the game
+[12:56:48] [Server thread/INFO]: [Player46: Set the time to 1000]
+[12:56:48] [Client thread/INFO]: [CHAT] Set the time to 1000
+[12:56:49] [Server thread/INFO]: Player46 has just earned the achievement [Taking Inventory]
+[12:56:49] [Client thread/INFO]: [CHAT] Player46 has just earned the achievement [Taking Inventory]
+[12:57:07] [Server thread/INFO]: Saving and pausing game...
+[12:57:07] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
+[12:57:07] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
+[12:57:07] [Server thread/INFO]: Saving chunks for level 'testing'/The End
+[12:57:07] [Server thread/INFO]: Stopping server
+[12:57:07] [Server thread/INFO]: Saving players
+[12:57:07] [Server thread/INFO]: Saving worlds
+[12:57:07] [Server thread/INFO]: Saving chunks for level 'testing'/Overworld
+[12:57:07] [Server thread/INFO]: Saving chunks for level 'testing'/Nether
+[12:57:07] [Server thread/INFO]: Saving chunks for level 'testing'/The End

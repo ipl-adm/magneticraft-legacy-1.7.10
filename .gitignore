@@ -40,3 +40,10 @@ libs
 /server.properties
 *.dat
 *.psd
+
+#anti minecreatr derp excludes
+.eclipse
+deps
+eclipse
+out
+.gradle

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2014, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  *
  * The BuildCraft API is distributed under the terms of the MIT License.
@@ -8,8 +8,9 @@
  */
 package buildcraft.api.transport;
 
-import buildcraft.api.gates.IGate;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import buildcraft.api.gates.IGate;
 
 public interface IPipe {
 	IPipeTile getTile();

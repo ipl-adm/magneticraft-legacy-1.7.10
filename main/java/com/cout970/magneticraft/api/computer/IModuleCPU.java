@@ -10,6 +10,7 @@ public interface IModuleCPU extends IHardwareComponent{
 	
 	public void start();
 	public void stop();
+	public void haltTick();
 	
 	public int getRegister(int reg);
 	public void setRegister(int reg, int value);

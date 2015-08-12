@@ -1,5 +1,6 @@
 package com.cout970.magneticraft;
 
+import java.io.File;
 import java.util.List;
 
 import com.cout970.magneticraft.compact.ManagerIntegration;
@@ -10,6 +11,7 @@ import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.proxy.IProxy;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.URLConnectionReader;
 import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
@@ -26,6 +28,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -38,10 +41,11 @@ public class Magneticraft{
 	
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
-	public final static String VERSION = "0.3.4";
+	public final static String VERSION = "@VERSION@";
 	public final static String ENERGY_STORED_NAME = "J";
 	public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+	public static String DEV_HOME = null;
 	
 	@Instance(NAME)
 	public static Magneticraft Instance;
@@ -53,7 +57,7 @@ public class Magneticraft{
 	public static ManagerMultiPart registry;
 	
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
+	public void preInit(FMLPreInitializationEvent event) {
 		Log.info("Starting preInit");
 		ManagerConfig.init(event.getSuggestedConfigurationFile());
 		
@@ -71,6 +75,20 @@ public class Magneticraft{
 		ManagerIntegration.searchCompatibilities();
 
 		if(DEBUG){
+            //BEGIN FINDING OF SOURCE DIR
+            File temp = event.getModConfigurationDirectory();
+            while (temp != null && temp.isDirectory()) {
+                if (new File(temp,"build.gradle").exists()) {
+                    DEV_HOME = temp.getAbsolutePath();
+                    Log.info("Found source code directory at "+DEV_HOME);
+                    break;
+                }
+                temp = temp.getParentFile();
+            }
+            if (DEV_HOME == null) {
+                throw new RuntimeException("Could not find source code directory!");
+            }
+            //END FINDING OF SOURCE DIR
 			LangHelper.registerNames();
 			LangHelper.setupLangFile();
 		}
@@ -97,6 +115,7 @@ public class Magneticraft{
 		ManagerFluids.registerFuels();
 		HandlerBuckets.INSTANCE = new HandlerBuckets();
 		MinecraftForge.EVENT_BUS.register(HandlerBuckets.INSTANCE);
+		checkVersion();
 		Log.info("Init Done");
 	}
 	
@@ -149,6 +168,16 @@ public class Magneticraft{
 				}
 			}
 			return validTickets;
+		}
+	}
+	
+	public void checkVersion(){
+		try {
+			String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
+			Log.info("Last Version: "+version);
+			Log.info("Current Version: "+VERSION);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

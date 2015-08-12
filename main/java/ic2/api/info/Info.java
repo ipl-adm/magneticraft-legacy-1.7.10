@@ -1,8 +1,9 @@
 package ic2.api.info;
 
+import net.minecraft.util.DamageSource;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.LoaderState;
-import net.minecraft.util.DamageSource;
 
 public class Info {
 	public static IEnergyValueProvider itemEnergy;

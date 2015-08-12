@@ -2,6 +2,7 @@ package ic2.api;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
@@ -11,41 +12,48 @@ public enum Direction {
 	/**
 	 * -X
 	 */
-	XN(0),
+	XN,
 	/**
 	 * +X
 	 */
-	XP(1),
+	XP,
 
 	/**
 	 * -Y
 	 */
-	YN(2), //MC-Code starts with 0 here
+	YN, //MC-Code starts with 0 here
 	/**
 	 * +Y
 	 */
-	YP(3), // 1...
+	YP, // 1...
 
 	/**
 	 * -Z
 	 */
-	ZN(4),
+	ZN,
 	/**
 	 * +Z
 	 */
-	ZP(5);
+	ZP;
 
-	Direction(int dir1) {
-		this.dir = dir1;
+	private Direction() {
+		int side = ordinal() / 2;
+		int sign = getSign();
+
+		xOffset = side == 0 ? sign : 0;
+		yOffset = side == 1 ? sign : 0;
+		zOffset = side == 2 ? sign : 0;
 	}
 
-	/*public CoordinateTuple ApplyToCoordinates(CoordinateTuple coordinates) {
-		CoordinateTuple ret = new CoordinateTuple(coordinates);
+	public static Direction fromSideValue(int side) {
+		return directions[(side + 2) % 6];
+	}
 
-		ret.coords[dir/2] += GetSign();
+	public static Direction fromForgeDirection(ForgeDirection dir) {
+		if (dir == ForgeDirection.UNKNOWN) return null;
 
-		return ret;
-	}*/
+		return fromSideValue(dir.ordinal());
+	}
 
 	/**
 	 * Get the tile entity next to a tile entity following this direction.
@@ -69,7 +77,7 @@ public enum Direction {
 	public TileEntity applyTo(World world, int x, int y, int z) {
 		int coords[] = { x, y, z };
 
-		coords[dir/2] += getSign();
+		coords[ordinal() / 2] += getSign();
 
 		if (world != null && world.blockExists(coords[0], coords[1], coords[2])) {
 			try {
@@ -84,26 +92,20 @@ public enum Direction {
 
 	/**
 	 * Get the inverse of this direction (XN -> XP, XP -> XN, etc.)
-	 * 
+	 *
 	 * @return Inverse direction
 	 */
 	public Direction getInverse() {
-		int inverseDir = dir - getSign();
-
-		for (Direction direction : directions) {
-			if (direction.dir == inverseDir) return direction;
-		}
-
-		return this;
+		return directions[ordinal() ^ 1];
 	}
 
 	/**
 	 * Convert this direction to a Minecraft side value.
-	 * 
+	 *
 	 * @return Minecraft side value
 	 */
 	public int toSideValue() {
-		return (dir + 4) % 6;
+		return (ordinal() + 4) % 6;
 	}
 
 	/**
@@ -112,14 +114,17 @@ public enum Direction {
 	 * @return -1 if the direction is negative, +1 if the direction is positive
 	 */
 	private int getSign() {
-		return (dir % 2) * 2 - 1;
+		return (ordinal() % 2) * 2 - 1;
 	}
 
 	public ForgeDirection toForgeDirection() {
 		return ForgeDirection.getOrientation(toSideValue());
 	}
 
-	private int dir;
+	public final int xOffset;
+	public final int yOffset;
+	public final int zOffset;
+
 	public static final Direction[] directions = Direction.values();
 }
 

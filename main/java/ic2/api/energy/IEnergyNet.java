@@ -2,6 +2,7 @@ package ic2.api.energy;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
@@ -56,6 +57,16 @@ public interface IEnergyNet {
 	 */
 	@Deprecated
 	double getTotalEnergySunken(TileEntity tileEntity);
+
+	/**
+	 * Retrieve statistics for the tile entity specified.
+	 * 
+	 * The statistics apply to the last simulated tick.
+	 * 
+	 * @param te Tile entity to check.
+	 * @return Statistics for the tile entity.
+	 */
+	NodeStats getNodeStats(TileEntity te);
 
 	/**
 	 * Determine the typical power used by the specific tier, e.g. 128 eu/t for tier 2.

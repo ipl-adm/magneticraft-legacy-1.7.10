@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2014, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  *
  * The BuildCraft API is distributed under the terms of the MIT License.
@@ -8,14 +8,15 @@
  */
 package buildcraft.api.transport.pluggable;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import buildcraft.api.core.INBTStoreable;
 import buildcraft.api.core.ISerializable;
 import buildcraft.api.transport.IPipeTile;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * An IPipePluggable MUST have an empty constructor for client-side
@@ -54,4 +55,13 @@ public abstract class PipePluggable implements INBTStoreable, ISerializable {
 
 	@SideOnly(Side.CLIENT)
 	public abstract IPipePluggableRenderer getRenderer();
+
+	@SideOnly(Side.CLIENT)
+	public IPipePluggableDynamicRenderer getDynamicRenderer() {
+		return null;
+	}
+
+	public boolean requiresRenderUpdate(PipePluggable old) {
+		return true;
+	}
 }

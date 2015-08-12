@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2011-2014, SpaceToad and the BuildCraft Team
+ * Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team
  * http://www.mod-buildcraft.com
  *
  * The BuildCraft API is distributed under the terms of the MIT License.
@@ -10,8 +10,9 @@ package buildcraft.api.fuels;
 
 import java.util.Collection;
 
-import buildcraft.api.core.StackKey;
 import net.minecraftforge.fluids.Fluid;
+
+import buildcraft.api.core.StackKey;
 
 public interface ICoolantManager {
 	ICoolant addCoolant(ICoolant coolant);

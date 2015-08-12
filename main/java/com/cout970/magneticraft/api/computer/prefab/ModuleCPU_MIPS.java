@@ -497,4 +497,9 @@ public class ModuleCPU_MIPS implements IModuleCPU{
 	public void setRegPC(int value) {
 		regPC = value;
 	}
+
+	@Override
+	public void haltTick() {
+		cpuCicles = 0;
+	}
 }

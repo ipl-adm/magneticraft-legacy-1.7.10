@@ -8,13 +8,16 @@ package com.cout970.magneticraft.api.util;
 public class EnergyConversor {
 	
 	//1W = 1J/t
-	private static final double RF_J = 10;			// 1RF = 10J | 1J = 0.1RF
-	private static final double EU_J = 40;			// 1EU = 40J | 1J = 0,025EU
-	private static final double STEAM_J = 20;		// 1mB = 20J | 1J = 0.05mB | 1 Burn tick = 5mB Steam = 100J
-	private static final double CALORIE_J = 0.2;	// 1cal = 0.2J | 1J = 5cal
-	private static final double FUEL_J = 100;		// 1 Burning tick = 100J
-	private static final double WATER_STEAM = 5;	// 1mB of Water = 5mB of Steam | 1mB Steam = 0.2 mB Water
-	private static final double FUEL_CALORIE = 500; // 1 Burning tick = 500 cal | 1cal = 0.002 Burning ticks => 1mB Water == 5mB Steam | Calories needed to boil 1mB of water into 5mB of Steam
+	public static final double RF_J = 10;			// 1RF = 10J | 1J = 0.1RF
+	public static final double EU_J = 40;			// 1EU = 40J | 1J = 0,025EU
+	public static final double STEAM_J = 20;		// 1mB = 20J | 1J = 0.05mB | 1 Burn tick = 5mB Steam = 100J
+	public static final double CALORIE_J = 0.2;	// 1cal = 0.2J | 1J = 5cal
+	public static final double FUEL_J = 100;		// 1 Burning tick = 100J
+	public static final double WATER_STEAM = 5;	// 1mB of Water = 5mB of Steam | 1mB Steam = 0.2 mB Water
+	public static final double FUEL_CALORIE = 500; // 1 Burning tick = 500 cal | 1cal = 0.002 Burning ticks => 1mB Water == 5mB Steam | Calories needed to boil 1mB of water into 5mB of Steam
+	public static final double MOL_MB = 1000;	
+	public static final double AVOGADROS_CONSTANT = 6.022E23;
+	public static final double BAR_PA = 100000;
 	
 	//RF
 	public static double RFtoW(double rf){
@@ -107,4 +110,21 @@ public class EnergyConversor {
 	public static double WtoRC(double rc) {
 		return WtoEU(rc);
 	}
+
+	public static long MBtoMOL(int amount) {
+		return (long) (amount/MOL_MB);
+	}
+	
+	public static int MOLtoMB(long amount) {
+		return (int) (amount*MOL_MB);
+	}
+
+	public static double PAtoBAR(double amount) {
+		return amount/BAR_PA;
+	}
+
+	public static double BARtoPA(int amount) {
+		return amount*BAR_PA;
+	}
+	
 }

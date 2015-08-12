@@ -25,25 +25,9 @@ run
 *.command
 
 #workspace
-saves
-asm
-config
-logs
 screenshots
 mods
 world
-lib
-libs
-
-*.txt
-*.json
 /server.properties
-*.dat
 *.psd
-
-#anti minecreatr derp excludes
-.eclipse
-deps
-eclipse
-out
-.gradle
+classes

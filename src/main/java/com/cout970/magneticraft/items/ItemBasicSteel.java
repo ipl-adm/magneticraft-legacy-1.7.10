@@ -1,16 +1,14 @@
 package com.cout970.magneticraft.items;
 
-import com.cout970.magneticraft.api.steel.ISteelAttribute;
-import com.cout970.magneticraft.api.steel.ISteelItem;
-import com.cout970.magneticraft.util.NBTHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.cout970.magneticraft.api.steel.ISteelAttribute;
+import com.cout970.magneticraft.api.steel.ISteelItem;
+import com.cout970.magneticraft.util.NBTHelper;
+
+import net.minecraft.item.ItemStack;
 
 /**
  * Basic implementation of ISteelItem

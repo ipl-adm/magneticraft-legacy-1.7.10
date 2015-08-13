@@ -32,8 +32,8 @@ public interface IPressureConductor extends IConnectable{
 	 * moles of gas in the conductor
 	 * @return
 	 */
-	public long getMoles();
-	public void setMoles(long moles);
+	public double getMoles();
+	public void setMoles(double moles);
 	
 	/**
 	 * temperature of the gas in kelvin

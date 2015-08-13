@@ -18,7 +18,7 @@ public class PressureConductor implements IPressureConductor{
 	protected TileEntity parent;
 	protected double volume;
 	protected double temperature;
-	protected long moles;
+	protected double moles;
 	protected Fluid currentGas;
 	
 	public PressureConductor(TileEntity t, double volume){
@@ -56,14 +56,14 @@ public class PressureConductor implements IPressureConductor{
 	public void save(NBTTagCompound nbt) {
 		nbt.setDouble("vol", volume);
 		nbt.setDouble("temp", temperature);
-		nbt.setLong("mol", moles);
+		nbt.setDouble("mol", moles);
 	}
 
 	@Override
 	public void load(NBTTagCompound nbt) {
 		volume = nbt.getDouble("vol");
 		temperature = nbt.getDouble("temp");
-		moles = nbt.getLong("mol");
+		moles = nbt.getDouble("mol");
 	}
 
 	@Override
@@ -95,12 +95,12 @@ public class PressureConductor implements IPressureConductor{
 	public void onBlockExplode() {}
 
 	@Override
-	public long getMoles() {
+	public double getMoles() {
 		return moles;
 	}
 
 	@Override
-	public void setMoles(long moles) {
+	public void setMoles(double moles) {
 		this.moles = moles;
 	}
 

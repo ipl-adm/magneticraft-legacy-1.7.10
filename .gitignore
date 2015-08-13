@@ -26,8 +26,7 @@ run
 
 #workspace
 screenshots
-mods
-world
+
 /server.properties
 *.psd
 classes

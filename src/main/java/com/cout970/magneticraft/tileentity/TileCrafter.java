@@ -200,8 +200,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 	private boolean findItemsFromInventory(int slot, IInventory inv, List<InvSlot> visited, ItemStack result, MgDirection dir) {
 		for(int i = 0; i< inv.getSizeInventory(); i++){
 			ItemStack content = inv.getStackInSlot(i);
-			if(content != null && canAcces(inv,i,dir)){
-				if(remplaceMatrix(recipe, result, content, slot)){
+			if(content != null && (content.stackSize > 0) && canAccess(inv, i, dir)){
+				if(replaceMatrix(recipe, result, content, slot)){
 					InvSlot pos = new InvSlot(content, i, inv);
 					if(!visited.contains(pos)){
 						visited.add(pos);
@@ -219,7 +219,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 		return false;
 	}
 
-	private boolean canAcces(IInventory inv, int slot, MgDirection dir) {
+	private boolean canAccess(IInventory inv, int slot, MgDirection dir) {
 		if(inv instanceof ISidedInventory){
 			ISidedInventory sided = (ISidedInventory) inv;
 			for(int i : sided.getAccessibleSlotsFromSide(dir.ordinal())){
@@ -235,7 +235,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 		return true;
 	}
 
-	public boolean remplaceMatrix(InventoryCrafting craft, ItemStack result, ItemStack stack, int slot){
+	public boolean replaceMatrix(InventoryCrafting craft, ItemStack result, ItemStack stack, int slot){
 		ItemStack item = craft.getStackInSlot(slot);
 		craft.setInventorySlotContents(slot, stack);
 		boolean ret = false;

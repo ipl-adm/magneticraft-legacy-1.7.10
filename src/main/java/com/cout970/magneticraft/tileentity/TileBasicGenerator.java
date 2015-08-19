@@ -29,301 +29,321 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8,IGuiSync,IInventoryManaged,IHeatTile{
+public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8, IGuiSync, IInventoryManaged, IHeatTile {
 
-	//cook
-	public float progress = 0;
-	public int maxProgres;
-	//heat values 25-120
-	public int maxHeat = 500;
-	public IHeatConductor heat = new HeatConductor(this, 1400, 1000);
-	//gui data
-	public int steamProduction;
-	public int electricProduction;
-	
-	public float steamProductionM;
-	public float electricProductionM;
-	//steam tank
-	public TankMg steam = new TankMg(this, 4000);
-	public TankMg water = new TankMg(this, 2000);
-	
-	public static final int speed = 4;
-	
-	private InventoryComponent inv = new InventoryComponent(this, 1, "Basic Generator");
-	private int oldHeat;
-	private boolean working;
-	
-	@Override
-	public IElectricConductor initConductor() {
-		return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
-	}
-	
-	@Override
-	public void updateEntity(){
-		super.updateEntity();
-		if(worldObj.isRemote)return;
-		heat.iterate();
-		if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 20 == 0){
-			sendUpdateToClient();
-			oldHeat = (int) heat.getTemperature();
-		}
-		if(worldObj.provider.getWorldTime() % 20 == 0){
-			steamProduction = 0;
-			electricProduction = 0;
-			if(working && !isActive()){
-				setActive(true);
-			}else if(!working && isActive()){
-				setActive(false);
-			}
-		}
-		if(progress > 0){
-			//fuel to temp
-			if(heat.getTemperature() < maxHeat && isControled()){
-				heat.applyCalories(EnergyConversor.FUELtoCALORIES(speed));
-				if(progress - speed < 0){
-					progress = 0;
-					working = false;
-				}else{
-					progress -= speed;
-				}
-			}
-		}
-		//temp to steam
-		if(heat.getTemperature() > 100){
-			int change = Math.min(water.getFluidAmount(), EnergyConversor.STEAMtoWATER(steam.getCapacity()-steam.getFluidAmount()));
-			change = Math.min(change, speed);
-			if(change > 0){
-				heat.drainCalories(EnergyConversor.WATERtoSTEAM_HEAT(change));
-				water.drain(change, true);
-				steam.fill(FluidRegistry.getFluidStack("steam", EnergyConversor.WATERtoSTEAM(change)), true);
-				steamProduction += EnergyConversor.WATERtoSTEAM(change);
-			}
-		}
-			//steam to power
-		int gas = Math.min(steam.getFluidAmount(),(int)EnergyConversor.WtoSTEAM(2000));
-		if(gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControled()){
-			cond.applyPower(EnergyConversor.STEAMtoW(gas));
-			electricProduction += EnergyConversor.STEAMtoW(gas);
-			steam.drain(gas, true);
-		}
-		
-		if(progress <= 0){
-			ItemStack a = getInv().getStackInSlot(0);
-			if(a != null && isControled()){
-				int fuel = TileEntityFurnace.getItemBurnTime(a);
-				if(fuel > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && steam.getFluidAmount() < 1){
-					progress = fuel;
-					maxProgres = fuel;
-					
-					if(a != null){
-						a.stackSize--;
-						if(a.stackSize <= 0){
-							a = a.getItem().getContainerItem(a);
-						}
-						getInv().setInventorySlotContents(0, a);
-					}
-					working = true;
-					markDirty();
-				}else working = false;
-			}else working = false;
-		}			
-	}
-	
-	private void setActive(boolean b) {
-		if(b)
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata()+6, 2);
-		else
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata()-6, 2);
-	}
+    //cook
+    public float progress = 0;
+    public int maxProgres;
+    //heat values 25-120
+    public int maxHeat = 500;
+    public IHeatConductor heat = new HeatConductor(this, 1400, 1000);
+    //gui data
+    public int steamProduction;
+    public int electricProduction;
 
-	public boolean isActive() {
-		return getBlockMetadata() > 5;
-	}
+    public float steamProductionM;
+    public float electricProductionM;
+    //steam tank
+    public TankMg steam = new TankMg(this, 4000);
+    public TankMg water = new TankMg(this, 2000);
 
-	//Save & Load
+    public static final int speed = 4;
 
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);		
-		progress = nbt.getFloat("progres");
-		heat.load(nbt);
-		water.readFromNBT(nbt,"water");
-		steam.readFromNBT(nbt,"steam");
-		getInv().readFromNBT(nbt);
-	}
+    private InventoryComponent inv = new InventoryComponent(this, 1, "Basic Generator");
+    private int oldHeat;
+    private boolean working;
 
-	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		nbt.setFloat("progres", progress);
-		heat.save(nbt);
-		water.writeToNBT(nbt,"water");
-		steam.writeToNBT(nbt,"steam");
-		getInv().writeToNBT(nbt);
-	}
+    @Override
+    public IElectricConductor initConductor() {
+        return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+    }
 
-	@Override
-	public void sendGUINetworkData(Container cont, ICrafting c) {
-		c.sendProgressBarUpdate(cont, 0, (int)cond.getVoltage());
-		c.sendProgressBarUpdate(cont, 1, (int)cond.getStorage());
-		c.sendProgressBarUpdate(cont, 2, (int)progress);
-		c.sendProgressBarUpdate(cont, 3, maxProgres);
-		c.sendProgressBarUpdate(cont, 4, (int)Math.ceil(heat.getTemperature()));
-		c.sendProgressBarUpdate(cont, 5, steam.getFluidAmount());
-		c.sendProgressBarUpdate(cont, 6, water.getFluidAmount());
-		if(worldObj.provider.getWorldTime() % 20 == 0){
-			c.sendProgressBarUpdate(cont, 7, steamProduction);
-			c.sendProgressBarUpdate(cont, 8, electricProduction);
-		}
-	}
+    @Override
+    public void updateEntity() {
+        super.updateEntity();
+        if (worldObj.isRemote) return;
+        heat.iterate();
+        if (((int) heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 20 == 0) {
+            sendUpdateToClient();
+            oldHeat = (int) heat.getTemperature();
+        }
+        if (worldObj.provider.getWorldTime() % 20 == 0) {
+            steamProduction = 0;
+            electricProduction = 0;
+            if (working && !isActive()) {
+                setActive(true);
+            } else if (!working && isActive()) {
+                setActive(false);
+            }
+        }
+        if (progress > 0) {
+            //fuel to temp
+            if (heat.getTemperature() < maxHeat && isControled()) {
+                heat.applyCalories(EnergyConversor.FUELtoCALORIES(speed));
+                if (progress - speed < 0) {
+                    progress = 0;
+                    working = false;
+                } else {
+                    progress -= speed;
+                }
+            }
+        }
+        //temp to steam
+        if (heat.getTemperature() > 100) {
+            int change = Math.min(water.getFluidAmount(), EnergyConversor.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));
+            change = Math.min(change, speed);
+            if (change > 0) {
+                heat.drainCalories(EnergyConversor.WATERtoSTEAM_HEAT(change));
+                water.drain(change, true);
+                steam.fill(FluidRegistry.getFluidStack("steam", EnergyConversor.WATERtoSTEAM(change)), true);
+                steamProduction += EnergyConversor.WATERtoSTEAM(change);
+            }
+        }
+        //steam to power
+        int gas = Math.min(steam.getFluidAmount(), (int) EnergyConversor.WtoSTEAM(2000));
+        if (gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControled()) {
+            cond.applyPower(EnergyConversor.STEAMtoW(gas));
+            electricProduction += EnergyConversor.STEAMtoW(gas);
+            steam.drain(gas, true);
+        }
 
-	@Override
-	public void getGUINetworkData(int id, int value) {
-		if(id == 0)cond.setVoltage(value);
-		if(id == 1)cond.setStorage(value);
-		if(id == 2)progress = value;
-		if(id == 3)maxProgres = value;
-		if(id == 4)heat.setTemperature(value);
-		if(id == 5)steam.setFluid(FluidRegistry.getFluidStack("steam", value));
-		if(id == 6)water.setFluid(FluidRegistry.getFluidStack("water", value));
-		if(id == 7)steamProductionM = value/20f;
-		if(id == 8)electricProductionM = value/20f;
-	}
+        if (progress <= 0) {
+            ItemStack a = getInv().getStackInSlot(0);
+            if (a != null && isControled()) {
+                int fuel = TileEntityFurnace.getItemBurnTime(a);
+                if (fuel > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && steam.getFluidAmount() < 1) {
+                    progress = fuel;
+                    maxProgres = fuel;
 
-	@Override
-	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		if(resource != null && resource.getFluidID() == FluidRegistry.getFluidID("water"))
-			return water.fill(resource, doFill);
-		return 0;
-	}
+                    if (a != null) {
+                        a.stackSize--;
+                        if (a.stackSize <= 0) {
+                            a = a.getItem().getContainerItem(a);
+                        }
+                        getInv().setInventorySlotContents(0, a);
+                    }
+                    working = true;
+                    markDirty();
+                } else working = false;
+            } else working = false;
+        }
+    }
 
-	@Override
-	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
-			boolean doDrain) {
-		return drainMg(from, resource.amount, doDrain);
-	}
+    private void setActive(boolean b) {
+        if (b)
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() + 6, 2);
+        else
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() - 6, 2);
+    }
 
-	@Override
-	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
-		return steam.drain(maxDrain, doDrain);
-	}
+    public boolean isActive() {
+        return getBlockMetadata() > 5;
+    }
 
-	@Override
-	public boolean canFillMg(MgDirection from, Fluid fluid) {
-		return FluidRegistry.WATER == fluid;
-	}
+    //Save & Load
 
-	@Override
-	public boolean canDrainMg(MgDirection from, Fluid fluid) {
-		return FluidRegistry.getFluid("steam") == fluid;
-	}
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        progress = nbt.getFloat("progres");
+        heat.load(nbt);
+        water.readFromNBT(nbt, "water");
+        steam.readFromNBT(nbt, "steam");
+        getInv().readFromNBT(nbt);
+    }
 
-	@Override
-	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
-		return new FluidTankInfo[]{water.getInfo(),steam.getInfo()};
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setFloat("progres", progress);
+        heat.save(nbt);
+        water.writeToNBT(nbt, "water");
+        steam.writeToNBT(nbt, "steam");
+        getInv().writeToNBT(nbt);
+    }
 
-	@Override
-	public IHeatConductor[] getHeatCond(VecInt c) {
-		return new IHeatConductor[]{heat};
-	}
-	
-	public InventoryComponent getInv() {
-		return inv;
-	}
-	
-	public int getSizeInventory() {
-		return getInv().getSizeInventory();
-	}
+    @Override
+    public void sendGUINetworkData(Container cont, ICrafting craft) {
+        craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
+        craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
+        craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
+        craft.sendProgressBarUpdate(cont, 3, (int) progress);
+        craft.sendProgressBarUpdate(cont, 4, maxProgres);
+        craft.sendProgressBarUpdate(cont, 5, (int) Math.ceil(heat.getTemperature()));
+        craft.sendProgressBarUpdate(cont, 6, steam.getFluidAmount());
+        craft.sendProgressBarUpdate(cont, 7, water.getFluidAmount());
+        if (worldObj.provider.getWorldTime() % 20 == 0) {
+            craft.sendProgressBarUpdate(cont, 8, steamProduction);
+            craft.sendProgressBarUpdate(cont, 9, electricProduction);
+        }
+    }
 
-	public ItemStack getStackInSlot(int s) {
-		return getInv().getStackInSlot(s);
-	}
+    @Override
+    public void getGUINetworkData(int id, int value) {
+        if (id == 0)
+            cond.setVoltage(value);
+        if (id == 1)
+            cond.setStorage(value & 0xFFFF);
+        if (id == 2)
+            cond.setStorage(cond.getStorage() | (value << 16));
+        if (id == 3)
+            progress = value;
+        if (id == 4)
+            maxProgres = value;
+        if (id == 5)
+            heat.setTemperature(value);
+        if (id == 6)
+            steam.setFluid(FluidRegistry.getFluidStack("steam", value));
+        if (id == 7)
+            water.setFluid(FluidRegistry.getFluidStack("water", value));
+        if (id == 8)
+            steamProductionM = value / 20f;
+        if (id == 9)
+            electricProductionM = value / 20f;
+    }
 
-	public ItemStack decrStackSize(int a, int b) {
-		return getInv().decrStackSize(a, b);
-	}
+    @Override
+    public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
+        if (resource != null && resource.getFluidID() == FluidRegistry.getFluidID("water"))
+            return water.fill(resource, doFill);
+        return 0;
+    }
 
-	public ItemStack getStackInSlotOnClosing(int a) {
-		return getInv().getStackInSlotOnClosing(a);
-	}
+    @Override
+    public FluidStack drainMg_F(MgDirection from, FluidStack resource,
+                                boolean doDrain) {
+        return drainMg(from, resource.amount, doDrain);
+    }
 
-	public void setInventorySlotContents(int a, ItemStack b) {
-		getInv().setInventorySlotContents(a, b);
-	}
+    @Override
+    public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
+        return steam.drain(maxDrain, doDrain);
+    }
 
-	public String getInventoryName() {
-		return getInv().getInventoryName();
-	}
+    @Override
+    public boolean canFillMg(MgDirection from, Fluid fluid) {
+        return FluidRegistry.WATER == fluid;
+    }
 
-	public boolean hasCustomInventoryName() {
-		return getInv().hasCustomInventoryName();
-	}
+    @Override
+    public boolean canDrainMg(MgDirection from, Fluid fluid) {
+        return FluidRegistry.getFluid("steam") == fluid;
+    }
 
-	public int getInventoryStackLimit() {
-		return getInv().getInventoryStackLimit();
-	}
+    @Override
+    public FluidTankInfo[] getTankInfoMg(MgDirection from) {
+        return new FluidTankInfo[]{water.getInfo(), steam.getInfo()};
+    }
 
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return true;
-	}
+    @Override
+    public IHeatConductor[] getHeatCond(VecInt c) {
+        return new IHeatConductor[]{heat};
+    }
 
-	public void openInventory() {}
+    public InventoryComponent getInv() {
+        return inv;
+    }
 
-	public void closeInventory() {}
+    public int getSizeInventory() {
+        return getInv().getSizeInventory();
+    }
 
-	public boolean isItemValidForSlot(int a, ItemStack b) {
-		return getInv().isItemValidForSlot(a, b);
-	}
-	
-	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-		return 0;
-	}
+    public ItemStack getStackInSlot(int s) {
+        return getInv().getStackInSlot(s);
+    }
 
-	public FluidStack drain(ForgeDirection from, FluidStack resource,
-			boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
-		return null;
-	}
+    public ItemStack decrStackSize(int a, int b) {
+        return getInv().decrStackSize(a, b);
+    }
 
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
-		return null;
-	}
+    public ItemStack getStackInSlotOnClosing(int a) {
+        return getInv().getStackInSlotOnClosing(a);
+    }
 
-	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
-		return false;
-	}
+    public void setInventorySlotContents(int a, ItemStack b) {
+        getInv().setInventorySlotContents(a, b);
+    }
 
-	public boolean canDrain(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
-		return false;
-	}
+    public String getInventoryName() {
+        return getInv().getInventoryName();
+    }
 
-	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-		return null;
-	}
+    public boolean hasCustomInventoryName() {
+        return getInv().hasCustomInventoryName();
+    }
 
-	public IBarProvider getBurningTimeBar() {
-		return new IBarProvider() {
-			
-			@Override
-			public String getMessage() {
-				return null;
-			}
-			
-			@Override
-			public float getMaxLevel() {
-				return maxProgres;
-			}
-			
-			@Override
-			public float getLevel() {
-				return progress;
-			}
-		};
-	}
+    public int getInventoryStackLimit() {
+        return getInv().getInventoryStackLimit();
+    }
+
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return true;
+    }
+
+    public void openInventory() {
+    }
+
+    public void closeInventory() {
+    }
+
+    public boolean isItemValidForSlot(int a, ItemStack b) {
+        return getInv().isItemValidForSlot(a, b);
+    }
+
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+        return 0;
+    }
+
+    public FluidStack drain(ForgeDirection from, FluidStack resource,
+                            boolean doDrain) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
+        return null;
+    }
+
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
+        return null;
+    }
+
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return false;
+    }
+
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return false;
+    }
+
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+        return null;
+    }
+
+    public IBarProvider getBurningTimeBar() {
+        return new IBarProvider() {
+
+            @Override
+            public String getMessage() {
+                return null;
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return maxProgres;
+            }
+
+            @Override
+            public float getLevel() {
+                return progress;
+            }
+        };
+    }
 }

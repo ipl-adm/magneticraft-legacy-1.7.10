@@ -13,7 +13,7 @@ public class Log {
 	}
 
 	public static void info(String string) {
-		FMLLog.log(Magneticraft.ID,Level.INFO, string);
+		FMLLog.log(Magneticraft.ID,Level.INFO, "[Magneticraft] " + string);
 	}
 
 	public static void error(String string) {

@@ -26,199 +26,213 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public class TileCombustionEngine extends TileConductorLow implements IFluidHandler1_8, IHeatTile, IGuiSync{
+public class TileCombustionEngine extends TileConductorLow implements IFluidHandler1_8, IHeatTile, IGuiSync {
 
-	private TankMg tank = new TankMg(this, 4000);
-	public IHeatConductor heat = new HeatConductor(this, 600, 800);
-	private float buffer;
-	private IFuel fuel;
-	private float prod,counter;
-	private int maxProd;
-	private int oldHeat;
-	
-	public TankMg getTank(){
-		return tank;
-	}
-	
-	public void updateEntity(){
-		super.updateEntity();
+    private TankMg tank = new TankMg(this, 4000);
+    public IHeatConductor heat = new HeatConductor(this, 600, 800);
+    private float buffer;
+    private IFuel fuel;
+    private float prod, counter;
+    private int maxProd;
+    private int oldHeat;
 
-		if(worldObj.isRemote)return;
-		heat.iterate();
-		if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0){
-			sendUpdateToClient();
-			oldHeat = (int) heat.getTemperature();
-		}
-		if(buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControled() && fuel != null){
-			float speed = getSpeed();
-			double p = EnergyConversor.RFtoW(fuel.getPowerPerCycle()) * speed;
-			buffer -= speed;
-			counter += p;
-			cond.applyPower(p);
-			heat.applyCalories(EnergyConversor.RFtoCALORIES(0.2));
-		}
+    public TankMg getTank() {
+        return tank;
+    }
 
-		if(buffer <= 0 || (fuel == null && getTank().getFluidAmount() >= 10)){
-			FluidStack fluid = getTank().getFluid();
-			if(fluid != null){
-				IFuel f = BuildcraftFuelRegistry.fuel.getFuel(fluid.getFluid());
-				if(f != null){
-					buffer += f.getTotalBurningTime()/100;
-					fuel = f;
-					maxProd = (int) EnergyConversor.RFtoW(f.getPowerPerCycle());
-					getTank().drain(10, true);
-				}
-			}
-		}
-		
-		if(worldObj.getTotalWorldTime() % 20 == 0){
-			prod = counter/20;
-			counter = 0;
-		}
-	}
-	
-	private float getSpeed() {
-		return 1f-((int)(((heat.getTemperature()-25)*0.128f))/64f);
-	}
+    public void updateEntity() {
+        super.updateEntity();
 
-	@Override
-	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		return getTank().fill(resource, doFill);
-	}
+        if (worldObj.isRemote) return;
+        heat.iterate();
+        if (((int) heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0) {
+            sendUpdateToClient();
+            oldHeat = (int) heat.getTemperature();
+        }
+        if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControled() && fuel != null) {
+            float speed = getSpeed();
+            double p = EnergyConversor.RFtoW(fuel.getPowerPerCycle()) * speed;
+            buffer -= speed;
+            counter += p;
+            cond.applyPower(p);
+            heat.applyCalories(EnergyConversor.RFtoCALORIES(0.2));
+        }
 
-	@Override
-	public FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
-		return drainMg(from, resource.amount, doDrain);
-	}
+        if (buffer <= 0 || (fuel == null && getTank().getFluidAmount() >= 10)) {
+            FluidStack fluid = getTank().getFluid();
+            if (fluid != null) {
+                IFuel f = BuildcraftFuelRegistry.fuel.getFuel(fluid.getFluid());
+                if (f != null) {
+                    buffer += f.getTotalBurningTime() / 100;
+                    fuel = f;
+                    maxProd = (int) EnergyConversor.RFtoW(f.getPowerPerCycle());
+                    getTank().drain(10, true);
+                }
+            }
+        }
 
-	@Override
-	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
-		return getTank().drain(maxDrain, doDrain);
-	}
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
+            prod = counter / 20;
+            counter = 0;
+        }
+    }
 
-	@Override
-	public boolean canFillMg(MgDirection from, Fluid fluid) {
-		return true;
-	}
+    private float getSpeed() {
+        return 1f - ((int) (((heat.getTemperature() - 25) * 0.128f)) / 64f);
+    }
 
-	@Override
-	public boolean canDrainMg(MgDirection from, Fluid fluid) {
-		return true;
-	}
+    @Override
+    public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
+        return getTank().fill(resource, doFill);
+    }
 
-	@Override
-	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
-		return new FluidTankInfo[]{getTank().getInfo()};
-	}
+    @Override
+    public FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
+        return drainMg(from, resource.amount, doDrain);
+    }
 
-	@Override
-	public IElectricConductor initConductor() {
-		return new BufferedConductor(this,ElectricConstants.RESISTANCE_COPPER_LOW, 80000,ElectricConstants.GENERATOR_DISCHARGE,ElectricConstants.GENERATOR_CHARGE);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound nbt){
-		super.readFromNBT(nbt);
-		buffer = nbt.getFloat("Buffer");
-		getTank().readFromNBT(nbt);
-		heat.load(nbt);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound nbt){
-		super.writeToNBT(nbt);
-		nbt.setFloat("Buffer", buffer);
-		getTank().writeToNBT(nbt);
-		heat.save(nbt);
-	}
+    @Override
+    public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
+        return getTank().drain(maxDrain, doDrain);
+    }
 
-	@Override
-	public IHeatConductor[] getHeatCond(VecInt c) {
-		return new IHeatConductor[]{heat};
-	}
+    @Override
+    public boolean canFillMg(MgDirection from, Fluid fluid) {
+        return true;
+    }
 
-	@Override
-	public void sendGUINetworkData(Container cont, ICrafting craft) {
-		craft.sendProgressBarUpdate(cont, 0,(int) cond.getVoltage());
-		craft.sendProgressBarUpdate(cont, 1,(int) cond.getStorage());
-		craft.sendProgressBarUpdate(cont, 2,(int) heat.getTemperature());
-		if(getTank().getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 3,getTank().getFluid().getFluidID());
-			craft.sendProgressBarUpdate(cont, 4,getTank().getFluidAmount());
-		}else{
-			craft.sendProgressBarUpdate(cont, 3, -1);
-		}
-		craft.sendProgressBarUpdate(cont, 5, (int)prod*100);
-		craft.sendProgressBarUpdate(cont, 6, maxProd);
-	}
+    @Override
+    public boolean canDrainMg(MgDirection from, Fluid fluid) {
+        return true;
+    }
 
-	@Override
-	public void getGUINetworkData(int id, int value) {
-		if(id == 0)cond.setVoltage(value);
-		if(id == 1)cond.setStorage(value);
-		if(id == 2)heat.setTemperature(value);
-		if(id == 3){
-			if(value == -1){
-				getTank().setFluid(null);
-			}else{
-				getTank().setFluid(new FluidStack(FluidRegistry.getFluid(value),1));
-			}
-		}
-		if(id == 4){
-			getTank().setFluid(new FluidStack(getTank().getFluid(),value));
-		}
-		if(id == 5)prod = value/100f;
-		if(id == 6)maxProd = value;
-	}
-	
-	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-		return 0;
-	}
+    @Override
+    public FluidTankInfo[] getTankInfoMg(MgDirection from) {
+        return new FluidTankInfo[]{getTank().getInfo()};
+    }
 
-	public FluidStack drain(ForgeDirection from, FluidStack resource,
-			boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
-		return null;
-	}
+    @Override
+    public IElectricConductor initConductor() {
+        return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 80000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+    }
 
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
-		return null;
-	}
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        buffer = nbt.getFloat("Buffer");
+        getTank().readFromNBT(nbt);
+        heat.load(nbt);
+    }
 
-	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
-		return false;
-	}
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setFloat("Buffer", buffer);
+        getTank().writeToNBT(nbt);
+        heat.save(nbt);
+    }
 
-	public boolean canDrain(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
-		return false;
-	}
+    @Override
+    public IHeatConductor[] getHeatCond(VecInt c) {
+        return new IHeatConductor[]{heat};
+    }
 
-	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-		return null;
-	}
+    @Override
+    public void sendGUINetworkData(Container cont, ICrafting craft) {
+        craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
+        craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
+        craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
+        craft.sendProgressBarUpdate(cont, 3, (int) heat.getTemperature());
+        if (getTank().getFluidAmount() > 0) {
+            craft.sendProgressBarUpdate(cont, 4, getTank().getFluid().getFluidID());
+            craft.sendProgressBarUpdate(cont, 5, getTank().getFluidAmount());
+        } else {
+            craft.sendProgressBarUpdate(cont, 4, -1);
+        }
+        craft.sendProgressBarUpdate(cont, 6, (int) prod * 100);
+        craft.sendProgressBarUpdate(cont, 7, maxProd);
+    }
 
-	public IBarProvider getProductionBar() {
-		return new IBarProvider() {
-			
-			@Override
-			public String getMessage() {
-				return "Generating: "+prod+"W";
-			}
-			
-			@Override
-			public float getMaxLevel() {
-				return Math.max(maxProd,1);
-			}
-			
-			@Override
-			public float getLevel() {
-				return prod;
-			}
-		};
-	}
+    @Override
+    public void getGUINetworkData(int id, int value) {
+        if (id == 0)
+            cond.setVoltage(value);
+        if (id == 1)
+            cond.setStorage(value & 0xFFFF);
+        if (id == 2)
+            cond.setStorage(cond.getStorage() | (value << 16));
+        if (id == 3)
+            heat.setTemperature(value);
+        if (id == 4) {
+            if (value == -1) {
+                getTank().setFluid(null);
+            } else {
+                getTank().setFluid(new FluidStack(FluidRegistry.getFluid(value), 1));
+            }
+        }
+        if (id == 5) {
+            getTank().setFluid(new FluidStack(getTank().getFluid(), value));
+        }
+        if (id == 6)
+            prod = value / 100f;
+        if (id == 7)
+            maxProd = value;
+    }
+
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+        return 0;
+    }
+
+    public FluidStack drain(ForgeDirection from, FluidStack resource,
+                            boolean doDrain) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
+        return null;
+    }
+
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
+        return null;
+    }
+
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return false;
+    }
+
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return false;
+    }
+
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+        return null;
+    }
+
+    public IBarProvider getProductionBar() {
+        return new IBarProvider() {
+
+            @Override
+            public String getMessage() {
+                return "Generating: " + prod + "W";
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return Math.max(maxProd, 1);
+            }
+
+            @Override
+            public float getLevel() {
+                return prod;
+            }
+        };
+    }
 }

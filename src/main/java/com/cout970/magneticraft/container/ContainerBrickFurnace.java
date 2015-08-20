@@ -4,10 +4,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 
 public class ContainerBrickFurnace extends ContainerBasic{
+	public static final int slotCount = 2;
 
 	public ContainerBrickFurnace(InventoryPlayer p, TileEntity t) {
 		super(p, t);
@@ -22,6 +25,17 @@ public class ContainerBrickFurnace extends ContainerBasic{
 	}
 	
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
+		if (slot >= slotCount) {
+			Slot slotObject = (Slot) inventorySlots.get(slot);
+			ItemStack is1 = slotObject.getStack();
+			if (is1 == null) {
+				return null;
+			}
+			Item item = is1.getItem();
+			if (FurnaceRecipes.smelting().getSmeltingResult(is1) == null) {
+				return null;
+			}
+		}
 		return transfer(player, slot, new int[]{3,2});
 	}
 }

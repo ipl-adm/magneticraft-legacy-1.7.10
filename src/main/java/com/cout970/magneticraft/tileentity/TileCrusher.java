@@ -28,334 +28,338 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryManaged, ISidedInventory {
 
-	private float MAX_PROGRESS = 100;
-	public float animation;
-	public boolean auto;
-	public float progress = 0;
-	public int maxProgres = 100;
-	public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
-	private double flow;
-	private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
-	private InventoryComponent in;
-	private InventoryComponent out;
-	private float speed = 0;
-	public int drawCounter;
-	private long time;
-	public boolean working;
+    private float MAX_PROGRESS = 100;
+    public float animation;
+    public boolean auto;
+    public float progress = 0;
+    public int maxProgres = 100;
+    public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+    private double flow;
+    private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
+    private InventoryComponent in;
+    private InventoryComponent out;
+    private float speed = 0;
+    public int drawCounter;
+    private long time;
+    public boolean working;
 
-	public InventoryComponent getInv() {
-		return inv;
-	}
+    public InventoryComponent getInv() {
+        return inv;
+    }
 
-	public void updateEntity() {
-		super.updateEntity();
-		
-		if(drawCounter > 0)drawCounter--;
-		if (!isActive())return;
-		if (worldObj.isRemote)return;
-		if(worldObj.getTotalWorldTime()%20 == 0)sendUpdateToClient();
-		updateConductor();
-		if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
-			speed = cond.getStorage()*10f/cond.getMaxStorage();
-			if(canCraft()){
-				working = true;
-				if (speed > 0) {
-					progress += speed;
-					cond.drainPower(EnergyConversor.RFtoW(speed * 10));
-					if (progress >= MAX_PROGRESS) {
-						craft();
-						markDirty();
-						progress %= MAX_PROGRESS;
-					}
-				}else{
-					working = false;
-				}
-			}else{
-				working = false;
-				progress = 0;
-			}
-		}else{
-			working = false;
-		}
-		distributeItems();
-	}
+    public void updateEntity() {
+        super.updateEntity();
 
-	private void distributeItems() {
-		if (in == null) {
-			if(getBlockMetadata()%8 >= 4){
-				MgDirection d = getDirection().opposite();
-				VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.UP).toVecInt().getOpposite());
-				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IInventoryManaged) {
-					in = ((IInventoryManaged) c).getInv();
-				}
-			}else{
-				MgDirection d = getDirection().opposite();
-				VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.DOWN).toVecInt().getOpposite());
-				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IInventoryManaged) {
-					in = ((IInventoryManaged) c).getInv();
-				}
-			}
-		}
-		if (out == null) {
-			if(getBlockMetadata()%8 < 4){
-				MgDirection d = getDirection().opposite();
-				VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.UP).toVecInt().multiply(3).getOpposite());
-				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IInventoryManaged) {
-					out = ((IInventoryManaged) c).getInv();
-				}
-			}else{
-				MgDirection d = getDirection().opposite();
-				VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.DOWN).toVecInt().multiply(3).getOpposite());
-				TileEntity c = MgUtils.getTileEntity(this,v);
-				if (c instanceof IInventoryManaged) {
-					out = ((IInventoryManaged) c).getInv();
-				}
-			}
-		}
+        if (drawCounter > 0) drawCounter--;
+        if (!isActive()) return;
+        if (worldObj.isRemote) return;
+        if (worldObj.getTotalWorldTime() % 20 == 0) sendUpdateToClient();
+        updateConductor();
+        if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
+            speed = cond.getStorage() * 10f / cond.getMaxStorage();
+            if (canCraft()) {
+                working = true;
+                if (speed > 0) {
+                    progress += speed;
+                    cond.drainPower(EnergyConversor.RFtoW(speed * 10));
+                    if (progress >= MAX_PROGRESS) {
+                        craft();
+                        markDirty();
+                        progress %= MAX_PROGRESS;
+                    }
+                } else {
+                    working = false;
+                }
+            } else {
+                working = false;
+                progress = 0;
+            }
+        } else {
+            working = false;
+        }
+        distributeItems();
+    }
 
-		if (in != null && out != null) {
-			if(((TileBase)in.tile).isControled()){
-				if(getInv().getStackInSlot(0) != null){
-					int s = InventoryUtils.findCombination(in, getInv().getStackInSlot(0));
-					if(s != -1){
-						InventoryUtils.traspass(in,this,s,0);
-					}
-				}else{
-					setInventorySlotContents(0, InventoryUtils.getItemStack(in));
-				}
-			}
-			if(((TileBase)out.tile).isControled()){
-				for (int i = 0; i < 3; i++) {
-					if(getInv().getStackInSlot(i+1) != null){
-						int s = InventoryUtils.getSlotForStack(out,getInv().getStackInSlot(i+1));
-						if(s != -1){
-							InventoryUtils.traspass(this,out,i+1,s);
-						}
-					}
-				}
-			}
-		}
-	}
+    private void distributeItems() {
+        if (in == null) {
+            if (getBlockMetadata() % 8 >= 4) {
+                MgDirection d = getDirection().opposite();
+                VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.UP).toVecInt().getOpposite());
+                TileEntity c = MgUtils.getTileEntity(this, v);
+                if (c instanceof IInventoryManaged) {
+                    in = ((IInventoryManaged) c).getInv();
+                }
+            } else {
+                MgDirection d = getDirection().opposite();
+                VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.DOWN).toVecInt().getOpposite());
+                TileEntity c = MgUtils.getTileEntity(this, v);
+                if (c instanceof IInventoryManaged) {
+                    in = ((IInventoryManaged) c).getInv();
+                }
+            }
+        }
+        if (out == null) {
+            if (getBlockMetadata() % 8 < 4) {
+                MgDirection d = getDirection().opposite();
+                VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.UP).toVecInt().multiply(3).getOpposite());
+                TileEntity c = MgUtils.getTileEntity(this, v);
+                if (c instanceof IInventoryManaged) {
+                    out = ((IInventoryManaged) c).getInv();
+                }
+            } else {
+                MgDirection d = getDirection().opposite();
+                VecInt v = d.toVecInt().multiply(2).add(d.step(MgDirection.DOWN).toVecInt().multiply(3).getOpposite());
+                TileEntity c = MgUtils.getTileEntity(this, v);
+                if (c instanceof IInventoryManaged) {
+                    out = ((IInventoryManaged) c).getInv();
+                }
+            }
+        }
 
-	@Override
-	public MgDirection getDirection() {
-		int meta = getBlockMetadata();
-		return MgDirection.getDirection(meta%4+2);
-	}
-	
-	private void craft() {
-		ItemStack a = getInv().getStackInSlot(0);
-		RecipeCrusher r = RecipeCrusher.getRecipe(a);
+        if (in != null && out != null) {
+            if (((TileBase) in.tile).isControled()) {
+                if (getInv().getStackInSlot(0) != null) {
+                    int s = InventoryUtils.findCombination(in, getInv().getStackInSlot(0));
+                    if (s != -1) {
+                        InventoryUtils.traspass(in, this, s, 0);
+                    }
+                } else {
+                    setInventorySlotContents(0, InventoryUtils.getItemStack(in));
+                }
+            }
+            if (((TileBase) out.tile).isControled()) {
+                for (int i = 0; i < 3; i++) {
+                    if (getInv().getStackInSlot(i + 1) != null) {
+                        int s = InventoryUtils.getSlotForStack(out, getInv().getStackInSlot(i + 1));
+                        if (s != -1) {
+                            InventoryUtils.traspass(this, out, i + 1, s);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-		getInv().setInventorySlotContents(1,
-				InventoryUtils.addition(r.getOutput(), getInv().getStackInSlot(1)));
+    @Override
+    public MgDirection getDirection() {
+        int meta = getBlockMetadata();
+        return MgDirection.getDirection(meta % 4 + 2);
+    }
 
-		int intents = ((int) (r.getProb2())) + 1;
-		for (int i = 0; i < intents; i++) {
-			if (worldObj.rand.nextFloat() <= r.getProb2() - i) {
-				getInv().setInventorySlotContents(
-						2,
-						InventoryUtils.addition(r.getOutput2(), getInv()
-								.getStackInSlot(2)));
-			}
-		}
+    private void craft() {
+        ItemStack a = getInv().getStackInSlot(0);
+        RecipeCrusher r = RecipeCrusher.getRecipe(a);
 
-		intents = ((int) (r.getProb3())) + 1;
-		for (int i = 0; i < intents; i++) {
-			if (worldObj.rand.nextFloat() <= r.getProb3() - i) {
-				getInv().setInventorySlotContents(
-						3,
-						InventoryUtils.addition(r.getOutput3(), getInv()
-								.getStackInSlot(3)));
-			}
-		}
+        getInv().setInventorySlotContents(1,
+                InventoryUtils.addition(r.getOutput(), getInv().getStackInSlot(1)));
 
-		a.stackSize--;
-		if (a.stackSize <= 0) {
-			getInv().setInventorySlotContents(0, null);
-		}
-	}
+        int intents = ((int) (r.getProb2())) + 1;
+        for (int i = 0; i < intents; i++) {
+            if (worldObj.rand.nextFloat() <= r.getProb2() - i) {
+                getInv().setInventorySlotContents(
+                        2,
+                        InventoryUtils.addition(r.getOutput2(), getInv()
+                                .getStackInSlot(2)));
+            }
+        }
 
-	private boolean canCraft() {
-		ItemStack a = getInv().getStackInSlot(0);
-		if (a == null)
-			return false;
-		RecipeCrusher r = RecipeCrusher.getRecipe(a);
-		if (r == null)
-			return false;
-		if (getInv().getStackInSlot(1) != null)
-			if (!InventoryUtils.canCombine(r.getOutput(),
-					getInv().getStackInSlot(1), getInv()
-							.getInventoryStackLimit()))
-				return false;
-		if (getInv().getStackInSlot(2) != null)
-			if (!InventoryUtils.canCombine(r.getOutput2(), getInv()
-					.getStackInSlot(2), getInv().getInventoryStackLimit()))
-				return false;
-		if (getInv().getStackInSlot(3) != null)
-			if (!InventoryUtils.canCombine(r.getOutput3(), getInv()
-					.getStackInSlot(3), getInv().getInventoryStackLimit()))
-				return false;
-		return true;
-	}
+        intents = ((int) (r.getProb3())) + 1;
+        for (int i = 0; i < intents; i++) {
+            if (worldObj.rand.nextFloat() <= r.getProb3() - i) {
+                getInv().setInventorySlotContents(
+                        3,
+                        InventoryUtils.addition(r.getOutput3(), getInv()
+                                .getStackInSlot(3)));
+            }
+        }
 
-	public void updateConductor() {
-		cond.recache();
-		cond.iterate();
-		MgDirection d = getDirection().opposite();
-		TileEntity c = MgUtils.getTileEntity(this, d.toVecInt().multiply(3));
-		if (c instanceof IElectricTile) {
-			IElectricConductor[] comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR,0);
-			IElectricConductor cond2 = comp[0];
-			double resistence = cond.getResistance() + cond2.getResistance();
-			double difference = cond.getVoltage() - cond2.getVoltage();
-			double change = flow;
-			double slow = change * resistence;
-			flow += ((difference - slow) * cond.getIndScale())
-					/ cond.getVoltageMultiplier();
-			change += (difference * cond.getCondParallel())
-					/ cond.getVoltageMultiplier();
-			cond.applyCurrent(-change);
-			cond2.applyCurrent(change);
-		}
-	}
+        a.stackSize--;
+        if (a.stackSize <= 0) {
+            getInv().setInventorySlotContents(0, null);
+        }
+    }
 
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		working = nbt.getBoolean("W");
-		cond.load(nbt);
-		getInv().readFromNBT(nbt);
-	}
+    private boolean canCraft() {
+        ItemStack a = getInv().getStackInSlot(0);
+        if (a == null)
+            return false;
+        RecipeCrusher r = RecipeCrusher.getRecipe(a);
+        if (r == null)
+            return false;
+        if (getInv().getStackInSlot(1) != null)
+            if (!InventoryUtils.canCombine(r.getOutput(),
+                    getInv().getStackInSlot(1), getInv()
+                            .getInventoryStackLimit()))
+                return false;
+        if (getInv().getStackInSlot(2) != null)
+            if (!InventoryUtils.canCombine(r.getOutput2(), getInv()
+                    .getStackInSlot(2), getInv().getInventoryStackLimit()))
+                return false;
+        if (getInv().getStackInSlot(3) != null)
+            if (!InventoryUtils.canCombine(r.getOutput3(), getInv()
+                    .getStackInSlot(3), getInv().getInventoryStackLimit()))
+                return false;
+        return true;
+    }
 
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		nbt.setBoolean("W", working);
-		cond.save(nbt);
-		getInv().writeToNBT(nbt);
-	}
+    public void updateConductor() {
+        cond.recache();
+        cond.iterate();
+        MgDirection d = getDirection().opposite();
+        TileEntity c = MgUtils.getTileEntity(this, d.toVecInt().multiply(3));
+        if (c instanceof IElectricTile) {
+            IElectricConductor[] comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR, 0);
+            IElectricConductor cond2 = comp[0];
+            double resistence = cond.getResistance() + cond2.getResistance();
+            double difference = cond.getVoltage() - cond2.getVoltage();
+            double change = flow;
+            double slow = change * resistence;
+            flow += ((difference - slow) * cond.getIndScale())
+                    / cond.getVoltageMultiplier();
+            change += (difference * cond.getCondParallel())
+                    / cond.getVoltageMultiplier();
+            cond.applyCurrent(-change);
+            cond2.applyCurrent(change);
+        }
+    }
 
-	@Override
-	public void sendGUINetworkData(Container cont, ICrafting craft) {
-		craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-		craft.sendProgressBarUpdate(cont, 1, cond.getStorage());
-		craft.sendProgressBarUpdate(cont, 2, (int)progress);
-	}
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        working = nbt.getBoolean("W");
+        cond.load(nbt);
+        getInv().readFromNBT(nbt);
+    }
 
-	@Override
-	public void getGUINetworkData(int id, int value) {
-		if (id == 0)
-			cond.setVoltage(value);
-		if (id == 1)
-			cond.setStorage(value);
-		if (id == 2)
-			progress = value;
-	}
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setBoolean("W", working);
+        cond.save(nbt);
+        getInv().writeToNBT(nbt);
+    }
 
-	@Override
-	public void onNeigChange() {
-		super.onNeigChange();
-		cond.disconect();
-		in = null;
-		out = null;
-	}
+    @Override
+    public void sendGUINetworkData(Container cont, ICrafting craft) {
+        craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
+        craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
+        craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
+        craft.sendProgressBarUpdate(cont, 3, (int) progress);
+    }
 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
-		return new int[] {};
-	}
+    @Override
+    public void getGUINetworkData(int id, int value) {
+        if (id == 0)
+            cond.setVoltage(value);
+        if (id == 1)
+            cond.setStorage(value & 0xFFFF);
+        if (id == 2)
+            cond.setStorage(cond.getStorage() | (value << 16));
+        if (id == 3)
+            progress = value;
+    }
 
-	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_,
-			int p_102007_3_) {
-		return false;
-	}
+    @Override
+    public void onNeigChange() {
+        super.onNeigChange();
+        cond.disconect();
+        in = null;
+        out = null;
+    }
 
-	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_,
-			int p_102008_3_) {
-		return false;
-	}
-	
-	public int getSizeInventory() {
-		return getInv().getSizeInventory();
-	}
+    @Override
+    public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+        return new int[]{};
+    }
 
-	public ItemStack getStackInSlot(int s) {
-		return getInv().getStackInSlot(s);
-	}
+    @Override
+    public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_,
+                                 int p_102007_3_) {
+        return false;
+    }
 
-	public ItemStack decrStackSize(int a, int b) {
-		return getInv().decrStackSize(a, b);
-	}
+    @Override
+    public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_,
+                                  int p_102008_3_) {
+        return false;
+    }
 
-	public ItemStack getStackInSlotOnClosing(int a) {
-		return getInv().getStackInSlotOnClosing(a);
-	}
+    public int getSizeInventory() {
+        return getInv().getSizeInventory();
+    }
 
-	public void setInventorySlotContents(int a, ItemStack b) {
-		getInv().setInventorySlotContents(a, b);
-	}
+    public ItemStack getStackInSlot(int s) {
+        return getInv().getStackInSlot(s);
+    }
 
-	public String getInventoryName() {
-		return getInv().getInventoryName();
-	}
+    public ItemStack decrStackSize(int a, int b) {
+        return getInv().decrStackSize(a, b);
+    }
 
-	public boolean hasCustomInventoryName() {
-		return getInv().hasCustomInventoryName();
-	}
+    public ItemStack getStackInSlotOnClosing(int a) {
+        return getInv().getStackInSlotOnClosing(a);
+    }
 
-	public int getInventoryStackLimit() {
-		return getInv().getInventoryStackLimit();
-	}
+    public void setInventorySlotContents(int a, ItemStack b) {
+        getInv().setInventorySlotContents(a, b);
+    }
 
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return true;
-	}
+    public String getInventoryName() {
+        return getInv().getInventoryName();
+    }
 
-	public void openInventory() {}
+    public boolean hasCustomInventoryName() {
+        return getInv().hasCustomInventoryName();
+    }
 
-	public void closeInventory() {}
+    public int getInventoryStackLimit() {
+        return getInv().getInventoryStackLimit();
+    }
 
-	public boolean isItemValidForSlot(int a, ItemStack b) {
-		return getInv().isItemValidForSlot(a, b);
-	}
-	
-	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox()
-    {
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return true;
+    }
+
+    public void openInventory() {
+    }
+
+    public void closeInventory() {
+    }
+
+    public boolean isItemValidForSlot(int a, ItemStack b) {
+        return getInv().isItemValidForSlot(a, b);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
         return INFINITE_EXTENT_AABB;
     }
 
-	public float getDelta() {
-		long aux = time;
-		time = System.nanoTime();
-		return time - aux;
-	}
+    public float getDelta() {
+        long aux = time;
+        time = System.nanoTime();
+        return time - aux;
+    }
 
-	public IBarProvider getProgresBar() {
-		return new IBarProvider() {
-			
-			@Override
-			public String getMessage() {
-				return null;
-			}
-			
-			@Override
-			public float getMaxLevel() {
-				return MAX_PROGRESS;
-			}
-			
-			@Override
-			public float getLevel() {
-				return progress;
-			}
-		};
-	}
+    public IBarProvider getProgresBar() {
+        return new IBarProvider() {
 
-	public boolean isActive() {
-		return getBlockMetadata() >= 8;
-	}
+            @Override
+            public String getMessage() {
+                return null;
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return MAX_PROGRESS;
+            }
+
+            @Override
+            public float getLevel() {
+                return progress;
+            }
+        };
+    }
+
+    public boolean isActive() {
+        return getBlockMetadata() >= 8;
+    }
 }

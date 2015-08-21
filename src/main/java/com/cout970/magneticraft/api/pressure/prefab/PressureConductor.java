@@ -1,15 +1,20 @@
 package com.cout970.magneticraft.api.pressure.prefab;
 
+import java.util.List;
+
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
+import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
-import com.cout970.magneticraft.util.Log;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -33,8 +38,26 @@ public class PressureConductor implements IPressureConductor{
 
 	@Override
 	public void iterate() {
-		//TODO
-		Log.debug(EnergyConversor.PAtoBAR(getPressure())+"\t"+getTemperature()+"\t"+getMoles()+"\t"+EnergyConversor.MOLtoMB(getMoles()));
+		World w = parent.getWorldObj();
+		if(w.isRemote)return;
+		for(MgDirection dir : MgDirection.values()){
+			TileEntity tile = MgUtils.getTileEntity(parent, dir);
+			if(tile != null){
+				List<IPressureConductor> conds = PressureUtils.getPressureCond(tile, dir.opposite().toVecInt());
+				if(!conds.isEmpty()){
+					int size = conds.size() + 1;
+					double sum = getMoles();
+					for(IPressureConductor pres : conds){
+						sum += pres.getMoles();
+					}
+					double newValue = sum / size;
+					setMoles(newValue);
+					for(IPressureConductor pres : conds){
+						pres.setMoles(newValue);
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -105,29 +128,30 @@ public class PressureConductor implements IPressureConductor{
 	}
 
 	@Override
-	public int applyGas(FluidStack gas) {
+	public int applyGas(FluidStack gas, boolean doFill) {
 		if(gas == null)return 0;
 		if(gas.amount == 0)return 0;
 		if(!gas.getFluid().isGaseous())return 0;
 		if(currentGas == null || gas.getFluid().equals(currentGas)){
-			currentGas = gas.getFluid();
-			temperature = currentGas.getTemperature();
-			moles += EnergyConversor.MBtoMOL(gas.amount);
-//			Log.debug("adding: "+EnergyConversor.MBtoMOL(gas.amount)+", "+temp1);
+			if(doFill){
+				currentGas = gas.getFluid();
+				temperature = currentGas.getTemperature();
+				moles += EnergyConversor.MBtoMOL(gas.amount);
+			}
 			return gas.amount;
 		}
 		return 0;
 	}
 
 	@Override
-	public FluidStack drainGas(int amount) {
+	public FluidStack drainGas(int amount, boolean doDrain) {
 		if(currentGas == null)return null;
 		if(amount <= 0)return null;
 		int mB = (int) Math.min(amount, EnergyConversor.MOLtoMB(moles));
 		if(mB > 0){
-			moles -=  EnergyConversor.MBtoMOL(mB);
-//			Log.debug("extracting: "+EnergyConversor.MBtoMOL(mB)+", "+temp2);
-			
+			if(doDrain){
+				moles -=  EnergyConversor.MBtoMOL(mB);
+			}
 			return new FluidStack(currentGas, mB);
 		}
 		return null;

@@ -1,9 +1,9 @@
 package com.cout970.magneticraft.api.steel;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.List;
 import java.util.Map;
+
+import net.minecraft.item.ItemStack;
 
 /**
  * Represents an item made out of steel

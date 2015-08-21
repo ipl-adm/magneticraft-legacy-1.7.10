@@ -1,0 +1,1310 @@
+[18:51:05] [main/DEBUG] [FML/]: Injecting tracing printstreams for STDOUT/STDERR.
+[18:51:05] [main/INFO] [FML/]: Forge Mod Loader version 7.99.16.1448 for Minecraft 1.7.10 loading
+[18:51:05] [main/INFO] [FML/]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_51, running on Windows 8.1:amd64:6.3, installed at I:\Programs\java_1.8
+[18:51:05] [main/DEBUG] [FML/]: Java classpath at launch is I:\Workspace\Forge 1.7.10\Magneticraft\bin;I:\Programs\java_1.8\lib\resources.jar;I:\Programs\java_1.8\lib\rt.jar;I:\Programs\java_1.8\lib\jsse.jar;I:\Programs\java_1.8\lib\jce.jar;I:\Programs\java_1.8\lib\charsets.jar;I:\Programs\java_1.8\lib\jfr.jar;I:\Programs\java_1.8\lib\ext\access-bridge-64.jar;I:\Programs\java_1.8\lib\ext\cldrdata.jar;I:\Programs\java_1.8\lib\ext\dnsns.jar;I:\Programs\java_1.8\lib\ext\jaccess.jar;I:\Programs\java_1.8\lib\ext\jfxrt.jar;I:\Programs\java_1.8\lib\ext\localedata.jar;I:\Programs\java_1.8\lib\ext\nashorn.jar;I:\Programs\java_1.8\lib\ext\sunec.jar;I:\Programs\java_1.8\lib\ext\sunjce_provider.jar;I:\Programs\java_1.8\lib\ext\sunmscapi.jar;I:\Programs\java_1.8\lib\ext\sunpkcs11.jar;I:\Programs\java_1.8\lib\ext\zipfs.jar;C:\Users\cout970\.gradle\caches\minecraft\net\minecraftforge\forge\1.7.10-10.13.4.1448-1.7.10\forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.minecraft\launchwrapper\1.11\9c0592c6e1e9ea296a70948081bd4cc84dda1289\launchwrapper-1.11.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\1.3.9\40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf\jsr305-1.3.9.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-debug-all\5.0.3\f9e364ae2a66ce2a543012a4668856e84e5dab74\asm-debug-all-5.0.3.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.typesafe.akka\akka-actor_2.11\2.3.3\ed62e9fc709ca0f2ff1a3220daa8b70a2870078e\akka-actor_2.11-2.3.3.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.2.1\f771f71fdae3df231bcd54d5ca2d57f0bf93f467\config-1.2.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors-migration_2.11\1.1.0\dfa8bc42b181d5b9f1a5dd147f8ae308b893eb6f\scala-actors-migration_2.11-1.1.0.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-compiler\2.11.1\56ea2e6c025e0821f28d73ca271218b8dd04926a\scala-compiler-2.11.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-library_2.11\1.0.2\e517c53a7e9acd6b1668c5a35eccbaa3bab9aac\scala-continuations-library_2.11-1.0.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-plugin_2.11.1\1.0.2\f361a3283452c57fa30c1ee69448995de23c60f7\scala-continuations-plugin_2.11.1-1.0.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.1\e11da23da3eabab9f4777b9220e60d44c1aab6a\scala-library-2.11.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.11.1\6580347e61cc7f8e802941e7fde40fa83b8badeb\scala-reflect-2.11.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-swing_2.11\1.0.1\b1cdd92bd47b1e1837139c1c53020e86bb9112ae\scala-swing_2.11-1.0.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-xml_2.11\1.0.2\7a80ec00aec122fba7cd4e0d4cdd87ff7e4cb6d0\scala-xml_2.11-1.0.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\4.5\6065cc95c661255349c1d0756657be17c29a4fd3\jopt-simple-4.5.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\lzma\lzma\0.0.1\521616dc7487b42bef0e803bd2fa3faf668101d7\lzma-0.0.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.mojang\realms\1.3.5\807ae355ee63583becd7ea60e76aab1532bb42e\realms-1.3.5.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.8.1\a698750c16740fd5b3871425f4cb3bbaa87f529d\commons-compress-1.8.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.3.3\18f4247ff4572a074444572cee34647c43e7c9c7\httpclient-4.3.3.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.1.3\f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f\commons-logging-1.1.3.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.3.2\31fbbff1ddbf98f3aa7377c94d33b0447c646b6e\httpcore-4.3.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\java3d\vecmath\1.3.1\a0ae4f51da409fa0c20fa0ca59e6bbc9413ae71d\vecmath-1.3.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.sf.trove4j\trove4j\3.0.3\42ccaf4761f0dfdfa805c9e340d99a755907e2dd\trove4j-3.0.3.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j-core-mojang\51.2\63d216a9311cca6be337c1e458e587f99d382b84\icu4j-core-mojang-51.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\codecjorbis\20101023\c73b5636faf089d9f00e8732a829577de25237ee\codecjorbis-20101023.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\codecwav\20101023\12f031cfe88fef5c1dd36c563c0a3a69bd7261da\codecwav-20101023.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\libraryjavasound\20101123\5c5e304366f75f9eaa2e8cca546a1fb6109348b3\libraryjavasound-20101123.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\librarylwjglopenal\20100824\73e80d0794c39665aec3f62eee88ca91676674ef\librarylwjglopenal-20100824.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\soundsystem\20120107\419c05fe9be71f792b2d76cfc9b67f1ed0fec7f6\soundsystem-20120107.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\io.netty\netty-all\4.0.10.Final\9e50bd52ffe257a0e2cd8d971688d6ce7d174325\netty-all-4.0.10.Final.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\17.0\9c6ef172e8de35fd8d4d8783e4821e57cdef7445\guava-17.0.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.3.2\90a3822c38ec8c996e84c16a3477ef632cbc87a3\commons-lang3-3.3.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.4\b1b6ea3b7e4aa4f492509a4952029cd8e48019ad\commons-io-2.4.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.9\9ce04e34240f674bc72680f8b843b1457383161a\commons-codec-1.9.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput\2.0.5\39c7796b469a600f72380316f6b1f11db6c2c7c4\jinput-2.0.5.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jutils\jutils\1.0.0\e12fe1fda814bd348c1579329c86943d2cd3c6a6\jutils-1.0.0.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\1.5.16\ef1582b11fd0943d069cdcb72e99008ac209a283\authlib-1.5.16.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.0-beta9\1dd66e68cccd907880229f9e2de1314bd13ff785\log4j-api-2.0-beta9.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.0-beta9\678861ba1b2e1fccb594bb0ca03114bb05da9695\log4j-core-2.0-beta9.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl\2.9.1\f58c5aabcef0e41718a564be9f8e412fff8db847\lwjgl-2.9.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl_util\2.9.1\290d7ba8a1bd9566f5ddf16ad06f09af5ec9b20e\lwjgl_util-2.9.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch\5.16\1f55f009c61637c10c0acfb8b5ffc600f30044b4\twitch-5.16.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\codechicken\NotEnoughItems\1.7.10-1.0.4.107\fee16ea5f02f8345f9150a528d94348754b56ecf\NotEnoughItems-1.7.10-1.0.4.107-dev.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\codechicken\CodeChickenCore\1.7.10-1.0.4.35\b7165acdf6b414123d49bde2c9a92561cc33c669\CodeChickenCore-1.7.10-1.0.4.35-dev.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\codechicken\CodeChickenLib\1.7.10-1.1.1.106\e199afca5e00f778c8a7b87840af28a48913c91c\CodeChickenLib-1.7.10-1.1.1.106-dev.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors\2.11.0\8ccfb6541de179bb1c4d45cf414acee069b7f78b\scala-actors-2.11.0.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-xml_2.11\1.0.2\820fbca7e524b530fdadc594c39d49a21ea0337e\scala-xml_2.11-1.0.2.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\7ff832a6eb9ab6a767f1ade2b548092d0fa64795\jinput-platform-2.0.5-natives-linux.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\385ee093e01f587f30ee1c8a2ee7d408fd732e16\jinput-platform-2.0.5-natives-windows.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\53f9c919f34d2ca9de8c51fc4e1e8282029a9232\jinput-platform-2.0.5-natives-osx.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-platform\5.16\7c6affe439099806a4f552da14c42f9d643d8b23\twitch-platform-5.16-natives-windows-32.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-platform\5.16\39d0c3d363735b4785598e0e7fbf8297c706a9f9\twitch-platform-5.16-natives-windows-64.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-platform\5.16\62503ee712766cf77f97252e5902786fd834b8c5\twitch-platform-5.16-natives-osx.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-external-platform\4.5\18215140f010c05b9f86ef6f0f8871954d2ccebf\twitch-external-platform-4.5-natives-windows-32.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-external-platform\4.5\c3cde57891b935d41b6680a9c5e1502eeab76d86\twitch-external-platform-4.5-natives-windows-64.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.1\4c517eca808522457dd95ee8fc1fbcdbb602efbe\lwjgl-platform-2.9.1-natives-windows.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.1\aa9aae879af8eb378e22cfc64db56ec2ca9a44d1\lwjgl-platform-2.9.1-natives-linux.jar;C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.1\2d12c83fdfbc04ecabf02c7bc8cc54d034f0daac\lwjgl-platform-2.9.1-natives-osx.jar;I:\Workspace\Forge 1.7.10\Magneticraft\lib\NotEnoughItems-1.7.10-1.0.5.111-dev.jar;I:\Workspace\Forge 1.7.10\Magneticraft\lib\ForgeMultipart-1.7.10-1.1.2.331-dev.jar;I:\Workspace\Forge 1.7.10\Magneticraft\lib\CodeChickenLib-1.7.10-1.1.3.140-dev.jar;I:\Workspace\Forge 1.7.10\Magneticraft\lib\CodeChickenCore-1.7.10-1.0.7.47-dev.jar;I:\Workspace\Forge 1.7.10\Magneticraft\lib\MineTweaker3-Dev-1.7.10-3.0.9C.jar;C:\Users\cout970\.gradle\caches\minecraft\net\minecraftforge\forge\1.7.10-10.13.4.1448-1.7.10\start
+[18:51:05] [main/DEBUG] [FML/]: Java library path at launch is C:\Users\cout970\.gradle\caches\minecraft\net\minecraft\minecraft_natives\1.7.10
+[18:51:05] [main/INFO] [FML/]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[18:51:05] [main/DEBUG] [FML/]: Instantiating coremod class FMLCorePlugin
+[18:51:05] [main/DEBUG] [FML/]: Added access transformer class cpw.mods.fml.common.asm.transformers.AccessTransformer to enqueued access transformers
+[18:51:05] [main/DEBUG] [FML/]: Enqueued coremod FMLCorePlugin
+[18:51:05] [main/DEBUG] [FML/]: Instantiating coremod class FMLForgePlugin
+[18:51:05] [main/DEBUG] [FML/]: Added access transformer class net.minecraftforge.transformers.ForgeAccessTransformer to enqueued access transformers
+[18:51:05] [main/DEBUG] [FML/]: Enqueued coremod FMLForgePlugin
+[18:51:05] [main/DEBUG] [FML/]: All fundamental core mods are successfully located
+[18:51:05] [main/DEBUG] [FML/]: Attempting to load commandline specified mods, relative to I:\Workspace\Forge 1.7.10\Magneticraft\.
+[18:51:05] [main/DEBUG] [FML/]: Discovering coremods
+[18:51:05] [main/INFO] [LaunchWrapper/]: Loading tweak class name cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[18:51:05] [main/INFO] [LaunchWrapper/]: Loading tweak class name cpw.mods.fml.common.launcher.FMLDeobfTweaker
+[18:51:05] [main/INFO] [LaunchWrapper/]: Calling tweak class cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[18:51:05] [main/INFO] [LaunchWrapper/]: Calling tweak class cpw.mods.fml.common.launcher.FMLInjectionAndSortingTweaker
+[18:51:05] [main/INFO] [LaunchWrapper/]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[18:51:05] [main/DEBUG] [FML/]: Injecting coremod FMLCorePlugin {cpw.mods.fml.relauncher.FMLCorePlugin} class transformers
+[18:51:05] [main/TRACE] [FML/]: Registering transformer cpw.mods.fml.common.asm.transformers.MarkerTransformer
+[18:51:05] [main/TRACE] [FML/]: Registering transformer cpw.mods.fml.common.asm.transformers.SideTransformer
+[18:51:05] [main/TRACE] [FML/]: Registering transformer cpw.mods.fml.common.asm.transformers.EventSubscriptionTransformer
+[18:51:05] [main/DEBUG] [FML/]: Injection complete
+[18:51:05] [main/DEBUG] [FML/]: Running coremod plugin for FMLCorePlugin {cpw.mods.fml.relauncher.FMLCorePlugin}
+[18:51:05] [main/DEBUG] [FML/]: Running coremod plugin FMLCorePlugin
+[18:51:05] [main/ERROR] [FML/]: The binary patch set is missing. Either you are in a development environment, or things are not going to work!
+[18:51:06] [main/ERROR] [FML/]: FML appears to be missing any signature data. This is not a good thing
+[18:51:06] [main/DEBUG] [FML/]: Coremod plugin class FMLCorePlugin run successfully
+[18:51:06] [main/INFO] [LaunchWrapper/]: Calling tweak class cpw.mods.fml.relauncher.CoreModManager$FMLPluginWrapper
+[18:51:06] [main/DEBUG] [FML/]: Injecting coremod FMLForgePlugin {net.minecraftforge.classloading.FMLForgePlugin} class transformers
+[18:51:06] [main/TRACE] [FML/]: Registering transformer net.minecraftforge.classloading.FluidIdTransformer
+[18:51:06] [main/DEBUG] [FML/]: Injection complete
+[18:51:06] [main/DEBUG] [FML/]: Running coremod plugin for FMLForgePlugin {net.minecraftforge.classloading.FMLForgePlugin}
+[18:51:06] [main/DEBUG] [FML/]: Running coremod plugin FMLForgePlugin
+[18:51:06] [main/DEBUG] [FML/]: Coremod plugin class FMLForgePlugin run successfully
+[18:51:06] [main/INFO] [LaunchWrapper/]: Calling tweak class cpw.mods.fml.common.launcher.FMLDeobfTweaker
+[18:51:06] [main/DEBUG] [FML/]: Loaded 57 rules from AccessTransformer config file fml_at.cfg
+[18:51:06] [main/DEBUG] [FML/]: Loaded 89 rules from AccessTransformer config file forge_at.cfg
+[18:51:07] [main/DEBUG] [FML/]: Validating minecraft
+[18:51:07] [main/DEBUG] [FML/]: Minecraft validated, launching...
+[18:51:07] [main/INFO] [LaunchWrapper/]: Loading tweak class name cpw.mods.fml.common.launcher.TerminalTweaker
+[18:51:07] [main/INFO] [LaunchWrapper/]: Calling tweak class cpw.mods.fml.common.launcher.TerminalTweaker
+[18:51:07] [main/INFO] [LaunchWrapper/]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[18:51:12] [Client thread/INFO] [STDOUT/]: [cpw.mods.fml.client.SplashProgress:start:188]: ---- Minecraft Crash Report ----
+// I feel sad now :(
+
+Time: 21/08/15 18:51
+Description: Loading screen debug info
+
+This is just a prompt for computer specs to be printed. THIS IS NOT A ERROR
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.7.10
+	Operating System: Windows 8.1 (amd64) version 6.3
+	Java Version: 1.8.0_51, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 981061272 bytes (935 MB) / 1038876672 bytes (990 MB) up to 1038876672 bytes (990 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.5.0 NVIDIA 353.62' Renderer: 'GeForce GT 630/PCIe/SSE2'
+[18:51:12] [Client thread/INFO] [MinecraftForge/]: Attempting early MinecraftForge initialization
+[18:51:12] [Client thread/INFO] [FML/]: MinecraftForge v10.13.4.1448 Initialized
+[18:51:12] [Client thread/INFO] [FML/]: Replaced 183 ore recipies
+[18:51:12] [Client thread/INFO] [MinecraftForge/]: Completed early MinecraftForge initialization
+[18:51:12] [Client thread/DEBUG] [FML/]: File I:\Workspace\Forge 1.7.10\Magneticraft\config\injectedDependencies.json not found. No dependencies injected
+[18:51:12] [Client thread/DEBUG] [FML/]: Building injected Mod Containers [cpw.mods.fml.common.FMLContainer, net.minecraftforge.common.ForgeModContainer]
+[18:51:12] [Client thread/DEBUG] [FML/]: Attempting to load mods contained in the minecraft jar file and associated classes
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related directory at I:\Workspace\Forge 1.7.10\Magneticraft\bin, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\resources.jar, examining for mod candidates
+[18:51:12] [Client thread/TRACE] [FML/]: Skipping known library file I:\Programs\java_1.8\lib\rt.jar
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\jsse.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\jce.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\charsets.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\jfr.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\access-bridge-64.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\cldrdata.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\dnsns.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\jaccess.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\jfxrt.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\localedata.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\nashorn.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\sunec.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\sunjce_provider.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\sunmscapi.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\sunpkcs11.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Programs\java_1.8\lib\ext\zipfs.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\minecraft\net\minecraftforge\forge\1.7.10-10.13.4.1448-1.7.10\forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.minecraft\launchwrapper\1.11\9c0592c6e1e9ea296a70948081bd4cc84dda1289\launchwrapper-1.11.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\1.3.9\40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf\jsr305-1.3.9.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-debug-all\5.0.3\f9e364ae2a66ce2a543012a4668856e84e5dab74\asm-debug-all-5.0.3.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.typesafe.akka\akka-actor_2.11\2.3.3\ed62e9fc709ca0f2ff1a3220daa8b70a2870078e\akka-actor_2.11-2.3.3.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.typesafe\config\1.2.1\f771f71fdae3df231bcd54d5ca2d57f0bf93f467\config-1.2.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors-migration_2.11\1.1.0\dfa8bc42b181d5b9f1a5dd147f8ae308b893eb6f\scala-actors-migration_2.11-1.1.0.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-compiler\2.11.1\56ea2e6c025e0821f28d73ca271218b8dd04926a\scala-compiler-2.11.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-library_2.11\1.0.2\e517c53a7e9acd6b1668c5a35eccbaa3bab9aac\scala-continuations-library_2.11-1.0.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.plugins\scala-continuations-plugin_2.11.1\1.0.2\f361a3283452c57fa30c1ee69448995de23c60f7\scala-continuations-plugin_2.11.1-1.0.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.11.1\e11da23da3eabab9f4777b9220e60d44c1aab6a\scala-library-2.11.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.11.1\6580347e61cc7f8e802941e7fde40fa83b8badeb\scala-reflect-2.11.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-swing_2.11\1.0.1\b1cdd92bd47b1e1837139c1c53020e86bb9112ae\scala-swing_2.11-1.0.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-xml_2.11\1.0.2\7a80ec00aec122fba7cd4e0d4cdd87ff7e4cb6d0\scala-xml_2.11-1.0.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.sf.jopt-simple\jopt-simple\4.5\6065cc95c661255349c1d0756657be17c29a4fd3\jopt-simple-4.5.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\lzma\lzma\0.0.1\521616dc7487b42bef0e803bd2fa3faf668101d7\lzma-0.0.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.mojang\realms\1.3.5\807ae355ee63583becd7ea60e76aab1532bb42e\realms-1.3.5.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-compress\1.8.1\a698750c16740fd5b3871425f4cb3bbaa87f529d\commons-compress-1.8.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient\4.3.3\18f4247ff4572a074444572cee34647c43e7c9c7\httpclient-4.3.3.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\commons-logging\commons-logging\1.1.3\f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f\commons-logging-1.1.3.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpcore\4.3.2\31fbbff1ddbf98f3aa7377c94d33b0447c646b6e\httpcore-4.3.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\java3d\vecmath\1.3.1\a0ae4f51da409fa0c20fa0ca59e6bbc9413ae71d\vecmath-1.3.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.sf.trove4j\trove4j\3.0.3\42ccaf4761f0dfdfa805c9e340d99a755907e2dd\trove4j-3.0.3.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.ibm.icu\icu4j-core-mojang\51.2\63d216a9311cca6be337c1e458e587f99d382b84\icu4j-core-mojang-51.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\codecjorbis\20101023\c73b5636faf089d9f00e8732a829577de25237ee\codecjorbis-20101023.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\codecwav\20101023\12f031cfe88fef5c1dd36c563c0a3a69bd7261da\codecwav-20101023.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\libraryjavasound\20101123\5c5e304366f75f9eaa2e8cca546a1fb6109348b3\libraryjavasound-20101123.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\librarylwjglopenal\20100824\73e80d0794c39665aec3f62eee88ca91676674ef\librarylwjglopenal-20100824.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.paulscode\soundsystem\20120107\419c05fe9be71f792b2d76cfc9b67f1ed0fec7f6\soundsystem-20120107.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\io.netty\netty-all\4.0.10.Final\9e50bd52ffe257a0e2cd8d971688d6ce7d174325\netty-all-4.0.10.Final.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\17.0\9c6ef172e8de35fd8d4d8783e4821e57cdef7445\guava-17.0.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.3.2\90a3822c38ec8c996e84c16a3477ef632cbc87a3\commons-lang3-3.3.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\commons-io\commons-io\2.4\b1b6ea3b7e4aa4f492509a4952029cd8e48019ad\commons-io-2.4.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.9\9ce04e34240f674bc72680f8b843b1457383161a\commons-codec-1.9.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput\2.0.5\39c7796b469a600f72380316f6b1f11db6c2c7c4\jinput-2.0.5.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jutils\jutils\1.0.0\e12fe1fda814bd348c1579329c86943d2cd3c6a6\jutils-1.0.0.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\com.mojang\authlib\1.5.16\ef1582b11fd0943d069cdcb72e99008ac209a283\authlib-1.5.16.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.0-beta9\1dd66e68cccd907880229f9e2de1314bd13ff785\log4j-api-2.0-beta9.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-core\2.0-beta9\678861ba1b2e1fccb594bb0ca03114bb05da9695\log4j-core-2.0-beta9.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl\2.9.1\f58c5aabcef0e41718a564be9f8e412fff8db847\lwjgl-2.9.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl_util\2.9.1\290d7ba8a1bd9566f5ddf16ad06f09af5ec9b20e\lwjgl_util-2.9.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch\5.16\1f55f009c61637c10c0acfb8b5ffc600f30044b4\twitch-5.16.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\codechicken\NotEnoughItems\1.7.10-1.0.4.107\fee16ea5f02f8345f9150a528d94348754b56ecf\NotEnoughItems-1.7.10-1.0.4.107-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\codechicken\CodeChickenCore\1.7.10-1.0.4.35\b7165acdf6b414123d49bde2c9a92561cc33c669\CodeChickenCore-1.7.10-1.0.4.35-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\codechicken\CodeChickenLib\1.7.10-1.1.1.106\e199afca5e00f778c8a7b87840af28a48913c91c\CodeChickenLib-1.7.10-1.1.1.106-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-actors\2.11.0\8ccfb6541de179bb1c4d45cf414acee069b7f78b\scala-actors-2.11.0.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-xml_2.11\1.0.2\820fbca7e524b530fdadc594c39d49a21ea0337e\scala-xml_2.11-1.0.2.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.scala-lang.modules\scala-parser-combinators_2.11\1.0.1\f05d7345bf5a58924f2837c6c1f4d73a938e1ff0\scala-parser-combinators_2.11-1.0.1.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\7ff832a6eb9ab6a767f1ade2b548092d0fa64795\jinput-platform-2.0.5-natives-linux.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\385ee093e01f587f30ee1c8a2ee7d408fd732e16\jinput-platform-2.0.5-natives-windows.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\net.java.jinput\jinput-platform\2.0.5\53f9c919f34d2ca9de8c51fc4e1e8282029a9232\jinput-platform-2.0.5-natives-osx.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-platform\5.16\7c6affe439099806a4f552da14c42f9d643d8b23\twitch-platform-5.16-natives-windows-32.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-platform\5.16\39d0c3d363735b4785598e0e7fbf8297c706a9f9\twitch-platform-5.16-natives-windows-64.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-platform\5.16\62503ee712766cf77f97252e5902786fd834b8c5\twitch-platform-5.16-natives-osx.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-external-platform\4.5\18215140f010c05b9f86ef6f0f8871954d2ccebf\twitch-external-platform-4.5-natives-windows-32.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\tv.twitch\twitch-external-platform\4.5\c3cde57891b935d41b6680a9c5e1502eeab76d86\twitch-external-platform-4.5-natives-windows-64.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.1\4c517eca808522457dd95ee8fc1fbcdbb602efbe\lwjgl-platform-2.9.1-natives-windows.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.1\aa9aae879af8eb378e22cfc64db56ec2ca9a44d1\lwjgl-platform-2.9.1-natives-linux.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at C:\Users\cout970\.gradle\caches\modules-2\files-2.1\org.lwjgl.lwjgl\lwjgl-platform\2.9.1\2d12c83fdfbc04ecabf02c7bc8cc54d034f0daac\lwjgl-platform-2.9.1-natives-osx.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Workspace\Forge 1.7.10\Magneticraft\lib\NotEnoughItems-1.7.10-1.0.5.111-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Workspace\Forge 1.7.10\Magneticraft\lib\ForgeMultipart-1.7.10-1.1.2.331-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Workspace\Forge 1.7.10\Magneticraft\lib\CodeChickenLib-1.7.10-1.1.3.140-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Workspace\Forge 1.7.10\Magneticraft\lib\CodeChickenCore-1.7.10-1.0.7.47-dev.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related file at I:\Workspace\Forge 1.7.10\Magneticraft\lib\MineTweaker3-Dev-1.7.10-3.0.9C.jar, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Found a minecraft related directory at C:\Users\cout970\.gradle\caches\minecraft\net\minecraftforge\forge\1.7.10-10.13.4.1448-1.7.10\start, examining for mod candidates
+[18:51:12] [Client thread/DEBUG] [FML/]: Minecraft jar mods loaded successfully
+[18:51:12] [Client thread/INFO] [FML/]: Found 0 mods from the command line. Injecting into mod discoverer
+[18:51:12] [Client thread/INFO] [FML/]: Searching I:\Workspace\Forge 1.7.10\Magneticraft\mods for mods
+[18:51:12] [Client thread/DEBUG] [FML/]: Examining directory bin for potential mods
+[18:51:12] [Client thread/DEBUG] [FML/]: Found an mcmod.info file in directory bin
+[18:51:12] [Client thread/TRACE] [FML/]: Recursing into package assets
+[18:51:12] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft
+[18:51:12] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.cpu
+[18:51:12] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.lang
+[18:51:12] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures
+[18:51:12] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.blocks
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.blocks.belts
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.blocks.fluids
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.gui
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.gui.nei
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.items
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.items.ores
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.logo
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.misc
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.misc.cables
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.misc.pipe
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.misc.pipe.brass
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.misc.pipe.copper
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package assets.magneticraft.textures.misc.pipe.iron
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.core
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.core.render
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.fuels
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.gates
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.statements
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.statements.containers
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.tools
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.transport
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package buildcraft.api.transport.pluggable
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package cofh
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package cofh.api
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package cofh.api.energy
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package cofh.api.tileentity
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.acces
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.computer
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.computer.prefab
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.conveyor
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.conveyor.prefab
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.electricity
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.electricity.prefab
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.heat
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.heat.prefab
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.kinetic
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.pressure
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.pressure.prefab
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.radiation
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.steel
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.tool
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.api.util
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.block
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.block.fluids
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.client
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.client.gui
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.client.gui.component
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.client.itemrenderer
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.client.model
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.client.tilerender
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.compact
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.compact.minetweaker
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.compact.nei
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.container
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.handlers
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.items
+[18:51:13] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (com.cout970.magneticraft.Magneticraft) - loading
+[18:51:13] [Client thread/TRACE] [Magneticraft/]: Parsed dependency info : [ForgeMultipart] [ForgeMultipart] []
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.messages
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.parts
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.parts.micro
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.parts.micro.wires
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.proxy
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.tabs
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.tileentity
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.update1_8
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.util
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.util.energy
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.util.fluid
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.util.multiblock
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.util.multiblock.types
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.util.tile
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package com.cout970.magneticraft.world
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2.api
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2.api.energy
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2.api.energy.event
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2.api.energy.tile
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2.api.info
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package ic2.api.tile
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods.railcraft
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods.railcraft.api
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods.railcraft.api.core
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods.railcraft.api.electricity
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods.railcraft.api.fuel
+[18:51:13] [Client thread/TRACE] [FML/]: Recursing into package mods.railcraft.api.tracks
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file resources.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container resources.jar appears to be missing an mcmod.info file
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file jsse.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container jsse.jar appears to be missing an mcmod.info file
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file jce.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container jce.jar appears to be missing an mcmod.info file
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file charsets.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container charsets.jar appears to be missing an mcmod.info file
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file jfr.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container jfr.jar appears to be missing an mcmod.info file
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file access-bridge-64.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container access-bridge-64.jar appears to be missing an mcmod.info file
+[18:51:13] [Client thread/DEBUG] [FML/]: Examining file cldrdata.jar for potential mods
+[18:51:13] [Client thread/DEBUG] [FML/]: The mod container cldrdata.jar appears to be missing an mcmod.info file
+[18:51:14] [Client thread/DEBUG] [FML/]: Examining file dnsns.jar for potential mods
+[18:51:14] [Client thread/DEBUG] [FML/]: The mod container dnsns.jar appears to be missing an mcmod.info file
+[18:51:14] [Client thread/DEBUG] [FML/]: Examining file jaccess.jar for potential mods
+[18:51:14] [Client thread/DEBUG] [FML/]: The mod container jaccess.jar appears to be missing an mcmod.info file
+[18:51:14] [Client thread/DEBUG] [FML/]: Examining file jfxrt.jar for potential mods
+[18:51:14] [Client thread/DEBUG] [FML/]: The mod container jfxrt.jar appears to be missing an mcmod.info file
+[18:51:14] [Client thread/DEBUG] [FML/]: Examining file localedata.jar for potential mods
+[18:51:14] [Client thread/DEBUG] [FML/]: The mod container localedata.jar appears to be missing an mcmod.info file
+[18:51:14] [Client thread/DEBUG] [FML/]: Examining file nashorn.jar for potential mods
+[18:51:14] [Client thread/DEBUG] [FML/]: The mod container nashorn.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file sunec.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container sunec.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file sunjce_provider.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container sunjce_provider.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file sunmscapi.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container sunmscapi.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file sunpkcs11.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container sunpkcs11.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file zipfs.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container zipfs.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file launchwrapper-1.11.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container launchwrapper-1.11.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file jsr305-1.3.9.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container jsr305-1.3.9.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file asm-debug-all-5.0.3.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container asm-debug-all-5.0.3.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file akka-actor_2.11-2.3.3.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container akka-actor_2.11-2.3.3.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file config-1.2.1.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container config-1.2.1.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file scala-actors-migration_2.11-1.1.0.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container scala-actors-migration_2.11-1.1.0.jar appears to be missing an mcmod.info file
+[18:51:15] [Client thread/DEBUG] [FML/]: Examining file scala-compiler-2.11.1.jar for potential mods
+[18:51:15] [Client thread/DEBUG] [FML/]: The mod container scala-compiler-2.11.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-continuations-library_2.11-1.0.2.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-continuations-library_2.11-1.0.2.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-continuations-plugin_2.11.1-1.0.2.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-continuations-plugin_2.11.1-1.0.2.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-library-2.11.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-library-2.11.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-parser-combinators_2.11-1.0.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-parser-combinators_2.11-1.0.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-reflect-2.11.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-reflect-2.11.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-swing_2.11-1.0.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-swing_2.11-1.0.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file scala-xml_2.11-1.0.2.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container scala-xml_2.11-1.0.2.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file jopt-simple-4.5.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container jopt-simple-4.5.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file lzma-0.0.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container lzma-0.0.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file realms-1.3.5.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container realms-1.3.5.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file commons-compress-1.8.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container commons-compress-1.8.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file httpclient-4.3.3.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container httpclient-4.3.3.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file commons-logging-1.1.3.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container commons-logging-1.1.3.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file httpcore-4.3.2.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container httpcore-4.3.2.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file vecmath-1.3.1.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container vecmath-1.3.1.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file trove4j-3.0.3.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container trove4j-3.0.3.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file icu4j-core-mojang-51.2.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container icu4j-core-mojang-51.2.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file codecjorbis-20101023.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container codecjorbis-20101023.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file codecwav-20101023.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container codecwav-20101023.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file libraryjavasound-20101123.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container libraryjavasound-20101123.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file librarylwjglopenal-20100824.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container librarylwjglopenal-20100824.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file soundsystem-20120107.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container soundsystem-20120107.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file netty-all-4.0.10.Final.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container netty-all-4.0.10.Final.jar appears to be missing an mcmod.info file
+[18:51:16] [Client thread/DEBUG] [FML/]: Examining file guava-17.0.jar for potential mods
+[18:51:16] [Client thread/DEBUG] [FML/]: The mod container guava-17.0.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file commons-lang3-3.3.2.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container commons-lang3-3.3.2.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file commons-io-2.4.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container commons-io-2.4.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file commons-codec-1.9.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container commons-codec-1.9.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file jinput-2.0.5.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container jinput-2.0.5.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file jutils-1.0.0.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container jutils-1.0.0.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file gson-2.2.4.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container gson-2.2.4.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file authlib-1.5.16.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container authlib-1.5.16.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file log4j-api-2.0-beta9.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container log4j-api-2.0-beta9.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file log4j-core-2.0-beta9.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container log4j-core-2.0-beta9.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file lwjgl-2.9.1.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container lwjgl-2.9.1.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file lwjgl_util-2.9.1.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container lwjgl_util-2.9.1.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file twitch-5.16.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container twitch-5.16.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file NotEnoughItems-1.7.10-1.0.4.107-dev.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container NotEnoughItems-1.7.10-1.0.4.107-dev.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file CodeChickenCore-1.7.10-1.0.4.35-dev.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container CodeChickenCore-1.7.10-1.0.4.35-dev.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file CodeChickenLib-1.7.10-1.1.1.106-dev.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container CodeChickenLib-1.7.10-1.1.1.106-dev.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file scala-actors-2.11.0.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container scala-actors-2.11.0.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file scala-xml_2.11-1.0.2.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container scala-xml_2.11-1.0.2.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file scala-parser-combinators_2.11-1.0.1.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container scala-parser-combinators_2.11-1.0.1.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file jinput-platform-2.0.5-natives-linux.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container jinput-platform-2.0.5-natives-linux.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file jinput-platform-2.0.5-natives-windows.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container jinput-platform-2.0.5-natives-windows.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file jinput-platform-2.0.5-natives-osx.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container jinput-platform-2.0.5-natives-osx.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file twitch-platform-5.16-natives-windows-32.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container twitch-platform-5.16-natives-windows-32.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file twitch-platform-5.16-natives-windows-64.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container twitch-platform-5.16-natives-windows-64.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file twitch-platform-5.16-natives-osx.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container twitch-platform-5.16-natives-osx.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file twitch-external-platform-4.5-natives-windows-32.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container twitch-external-platform-4.5-natives-windows-32.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file twitch-external-platform-4.5-natives-windows-64.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container twitch-external-platform-4.5-natives-windows-64.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file lwjgl-platform-2.9.1-natives-windows.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container lwjgl-platform-2.9.1-natives-windows.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file lwjgl-platform-2.9.1-natives-linux.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container lwjgl-platform-2.9.1-natives-linux.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file lwjgl-platform-2.9.1-natives-osx.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container lwjgl-platform-2.9.1-natives-osx.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file NotEnoughItems-1.7.10-1.0.5.111-dev.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container NotEnoughItems-1.7.10-1.0.5.111-dev.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file ForgeMultipart-1.7.10-1.1.2.331-dev.jar for potential mods
+[18:51:17] [Client thread/TRACE] [FML/]: Located mcmod.info file in file ForgeMultipart-1.7.10-1.1.2.331-dev.jar
+[18:51:17] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (codechicken.microblock.handler.MicroblockMod) - loading
+[18:51:17] [Client thread/TRACE] [ForgeMicroblock/]: Parsed dependency info : [ForgeMultipart] [ForgeMultipart, *] []
+[18:51:17] [Client thread/DEBUG] [ForgeMicroblock/]: Attempting to load the file version.properties from ForgeMultipart-1.7.10-1.1.2.331-dev.jar to locate a version number for ForgeMicroblock
+[18:51:17] [Client thread/WARN] [ForgeMicroblock/]: Mod ForgeMicroblock is missing the required element 'version' and a version.properties file could not be found. Falling back to metadata version 1.1.2.331
+[18:51:17] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (codechicken.multipart.handler.MultipartMod) - loading
+[18:51:17] [Client thread/TRACE] [ForgeMultipart/]: Parsed dependency info : [] [] []
+[18:51:17] [Client thread/DEBUG] [ForgeMultipart/]: Attempting to load the file version.properties from ForgeMultipart-1.7.10-1.1.2.331-dev.jar to locate a version number for ForgeMultipart
+[18:51:17] [Client thread/WARN] [ForgeMultipart/]: Mod ForgeMultipart is missing the required element 'version' and a version.properties file could not be found. Falling back to metadata version 1.1.2.331
+[18:51:17] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (codechicken.multipart.minecraft.MinecraftMultipartMod) - loading
+[18:51:17] [Client thread/TRACE] [McMultipart/]: Parsed dependency info : [] [] []
+[18:51:17] [Client thread/DEBUG] [McMultipart/]: Attempting to load the file version.properties from ForgeMultipart-1.7.10-1.1.2.331-dev.jar to locate a version number for McMultipart
+[18:51:17] [Client thread/WARN] [McMultipart/]: Mod McMultipart is missing the required element 'version' and a version.properties file could not be found. Falling back to metadata version 1.1.2.331
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file CodeChickenLib-1.7.10-1.1.3.140-dev.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container CodeChickenLib-1.7.10-1.1.3.140-dev.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file CodeChickenCore-1.7.10-1.0.7.47-dev.jar for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: The mod container CodeChickenCore-1.7.10-1.0.7.47-dev.jar appears to be missing an mcmod.info file
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining file MineTweaker3-Dev-1.7.10-3.0.9C.jar for potential mods
+[18:51:17] [Client thread/TRACE] [FML/]: Located mcmod.info file in file MineTweaker3-Dev-1.7.10-3.0.9C.jar
+[18:51:17] [Client thread/DEBUG] [FML/]: Identified a mod of type Lcpw/mods/fml/common/Mod; (minetweaker.mc1710.MineTweakerMod) - loading
+[18:51:17] [Client thread/TRACE] [MineTweaker3/]: Parsed dependency info : [] [] []
+[18:51:17] [Client thread/DEBUG] [FML/]: Examining directory start for potential mods
+[18:51:17] [Client thread/DEBUG] [FML/]: No mcmod.info file found in directory start
+[18:51:17] [Client thread/TRACE] [FML/]: Recursing into package net
+[18:51:17] [Client thread/TRACE] [FML/]: Recursing into package net.minecraftforge
+[18:51:17] [Client thread/TRACE] [FML/]: Recursing into package net.minecraftforge.gradle
+[18:51:17] [Client thread/TRACE] [FML/]: Recursing into package net.minecraftforge.gradle.tweakers
+[18:51:17] [Client thread/INFO] [FML/]: Forge Mod Loader has identified 8 mods to load
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.electricity (owned by Magneticraft providing MagneticraftAPI|Electricity) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.acces (owned by Magneticraft providing MagneticraftAPI|Recipes) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.radiation (owned by Magneticraft providing MagneticraftAPI|Radiation) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API ic2.api.energy.tile (owned by IC2 providing IC2API) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API mods.railcraft.api.fuel (owned by RailcraftAPI|core providing RailcraftAPI|fuel) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.conveyor (owned by Magneticraft providing MagneticraftAPI|ConveyorBelt) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.computer.prefab (owned by Magneticraft providing MagneticraftAPI|Computer|PreFab) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.conveyor.prefab (owned by Magneticraft providing MagneticraftAPI|ConveyorBelt|PreFab) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.heat (owned by Magneticraft providing MagneticraftAPI|Heat) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API buildcraft.api (owned by BuildCraft|Core providing BuildCraftAPI|core) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API buildcraft.api.transport (owned by BuildCraftAPI|core providing BuildCraftAPI|transport) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API mods.railcraft.api.tracks (owned by RailcraftAPI|core providing RailcraftAPI|tracks) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.tool (owned by Magneticraft providing MagneticraftAPI|Tools) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.pressure.prefab (owned by Magneticraft providing MagneticraftAPI|Pressure|PreFab) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API mods.railcraft.api.electricity (owned by RailcraftAPI|core providing RailcraftAPI|electricity) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API mods.railcraft.api.core (owned by Railcraft providing RailcraftAPI|core) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API cofh.api.energy (owned by CoFHAPI providing CoFHAPI|energy) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api (owned by Magneticraft providing MagneticraftAPI) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.computer (owned by Magneticraft providing MagneticraftAPI|Computer) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.heat.prefab (owned by Magneticraft providing MagneticraftAPI|Heat|PreFab) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API buildcraft.api.fuels (owned by BuildCraftAPI|core providing BuildCraftAPI|fuels) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API cofh.api (owned by CoFHLib providing CoFHAPI) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API cofh.api.tileentity (owned by CoFHAPI providing CoFHAPI|tileentity) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.util (owned by Magneticraft providing MagneticraftAPI|Util) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.steel (owned by Magneticraft providing MagneticraftAPI|Steel) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.kinetic (owned by Magneticraft providing MagneticraftAPI|Kinetic) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API buildcraft.api.gates (owned by BuildCraftAPI|core providing BuildCraftAPI|gates) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.electricity.prefab (owned by Magneticraft providing MagneticraftAPI|Electricity|PreFab) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API buildcraft.api.statements (owned by BuildCraftAPI|core providing BuildCraftAPI|statements) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API buildcraft.api.tools (owned by BuildCraftAPI|core providing BuildCraftAPI|tools) embedded in Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Found API com.cout970.magneticraft.api.pressure (owned by Magneticraft providing MagneticraftAPI|Pressure) embedded in Magneticraft
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent Railcraft from APIContainer{RailcraftAPI|fuel:1.0.0}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API RailcraftAPI|fuel: owner: RailcraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Heat|PreFab: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent CoFHLib from APIContainer{CoFHAPI|energy:1.7.10R1.0.2}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API CoFHAPI|energy: owner: CoFHAPI, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Heat: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Computer|PreFab: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent CoFHLib from APIContainer{CoFHAPI|tileentity:1.7.10R1.0.2}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API CoFHAPI|tileentity: owner: CoFHAPI, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API CoFHAPI: owner: CoFHLib, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Kinetic: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Radiation: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent BuildCraft|Core from APIContainer{BuildCraftAPI|tools:1.0}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API BuildCraftAPI|tools: owner: BuildCraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|ConveyorBelt|PreFab: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Pressure|PreFab: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|ConveyorBelt: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Computer: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent Railcraft from APIContainer{RailcraftAPI|tracks:2.0.0}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API RailcraftAPI|tracks: owner: RailcraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Recipes: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API BuildCraftAPI|core: owner: BuildCraft|Core, dependents: [Magneticraft]
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent BuildCraft|Core from APIContainer{BuildCraftAPI|gates:4.1}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API BuildCraftAPI|gates: owner: BuildCraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent BuildCraft|Core from APIContainer{BuildCraftAPI|transport:4.1}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API BuildCraftAPI|transport: owner: BuildCraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Electricity|PreFab: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent BuildCraft|Core from APIContainer{BuildCraftAPI|statements:1.1}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API BuildCraftAPI|statements: owner: BuildCraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Tools: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API RailcraftAPI|core: owner: Railcraft, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Steel: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Pressure: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent BuildCraft|Core from APIContainer{BuildCraftAPI|fuels:2.0}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API BuildCraftAPI|fuels: owner: BuildCraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/TRACE] [FML/]: Removing upstream parent Railcraft from APIContainer{RailcraftAPI|electricity:1.6.0}
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API RailcraftAPI|electricity: owner: RailcraftAPI|core, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Util: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API IC2API: owner: IC2, dependents: [Magneticraft]
+[18:51:17] [Client thread/DEBUG] [FML/]: Creating API container dummy for API MagneticraftAPI|Electricity: owner: Magneticraft, dependents: []
+[18:51:17] [Client thread/TRACE] [FML/]: Received a system property request ''
+[18:51:17] [Client thread/TRACE] [FML/]: System property request managing the state of 0 mods
+[18:51:17] [Client thread/DEBUG] [FML/]: After merging, found state information for 0 mods
+[18:51:17] [Client thread/DEBUG] [FML/]: Found translations in forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar [en_US, af_ZA, ar_SA, br_FR, ca_ES, cs_CZ, da_DK, de_DE, el_GR, en_US, es_ES, fa_IR, fi_FI, fr_FR, he_IL, hu_HU, it_IT, ja_JP, ko_KR, lt_LT, nb_NO, nl_NL, nn_NO, no_NO, pl_PL, pt_BR, pt_PT, ro_RO, ru_RU, sl_SI, sr_SP, sv_SE, tr_TR, uk_UA, vi_VN, zh_CN, zh_TW, en_US]
+[18:51:17] [Client thread/DEBUG] [FML/]: Found translations in forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar [en_US, af_ZA, ar_SA, br_FR, ca_ES, cs_CZ, da_DK, de_DE, el_GR, en_US, es_ES, fa_IR, fi_FI, fr_FR, he_IL, hu_HU, it_IT, ja_JP, ko_KR, lt_LT, nb_NO, nl_NL, nn_NO, no_NO, pl_PL, pt_BR, pt_PT, ro_RO, ru_RU, sl_SI, sr_SP, sv_SE, tr_TR, uk_UA, vi_VN, zh_CN, zh_TW, en_US]
+[18:51:17] [Client thread/DEBUG] [Magneticraft/]: Enabling mod Magneticraft
+[18:51:17] [Client thread/DEBUG] [FML/]: Injecting found translation assets for lang en_US at assets/magneticraft/lang/en_US.lang into language system
+[18:51:17] [Client thread/DEBUG] [ForgeMicroblock/]: Enabling mod ForgeMicroblock
+[18:51:17] [Client thread/DEBUG] [FML/]: Found translations in ForgeMultipart-1.7.10-1.1.2.331-dev.jar [pl_PL, en_US, fr_CA, cs_CZ, pt_BR, hr_HR, tr_TR, es_ES, fr_FR, ru_RU, de_DE, zh_TW, it_IT, ko_KR, zh_CN, nl_NL]
+[18:51:17] [Client thread/DEBUG] [ForgeMultipart/]: Enabling mod ForgeMultipart
+[18:51:17] [Client thread/DEBUG] [FML/]: Found translations in ForgeMultipart-1.7.10-1.1.2.331-dev.jar [pl_PL, en_US, fr_CA, cs_CZ, pt_BR, hr_HR, tr_TR, es_ES, fr_FR, ru_RU, de_DE, zh_TW, it_IT, ko_KR, zh_CN, nl_NL]
+[18:51:17] [Client thread/DEBUG] [McMultipart/]: Enabling mod McMultipart
+[18:51:17] [Client thread/DEBUG] [FML/]: Found translations in ForgeMultipart-1.7.10-1.1.2.331-dev.jar [pl_PL, en_US, fr_CA, cs_CZ, pt_BR, hr_HR, tr_TR, es_ES, fr_FR, ru_RU, de_DE, zh_TW, it_IT, ko_KR, zh_CN, nl_NL]
+[18:51:17] [Client thread/DEBUG] [MineTweaker3/]: Enabling mod MineTweaker3
+[18:51:17] [Client thread/TRACE] [FML/]: Verifying mod requirements are satisfied
+[18:51:17] [Client thread/TRACE] [FML/]: All mod requirements are satisfied
+[18:51:17] [Client thread/TRACE] [FML/]: Sorting mods into an ordered list
+[18:51:17] [Client thread/TRACE] [FML/]: Mod sorting completed successfully
+[18:51:17] [Client thread/DEBUG] [FML/]: Mod sorting data
+[18:51:17] [Client thread/DEBUG] [FML/]: 	ForgeMultipart(Forge Multipart:1.1.2.331): ForgeMultipart-1.7.10-1.1.2.331-dev.jar ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	RailcraftAPI|core(API: RailcraftAPI|core:1.4.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	RailcraftAPI|fuel(API: RailcraftAPI|fuel:1.0.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	CoFHAPI(API: CoFHAPI:1.7.10R1.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	CoFHAPI|energy(API: CoFHAPI|energy:1.7.10R1.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	CoFHAPI|tileentity(API: CoFHAPI|tileentity:1.7.10R1.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	BuildCraftAPI|core(API: BuildCraftAPI|core:1.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	BuildCraftAPI|tools(API: BuildCraftAPI|tools:1.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	RailcraftAPI|tracks(API: RailcraftAPI|tracks:2.0.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	BuildCraftAPI|gates(API: BuildCraftAPI|gates:4.1): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	BuildCraftAPI|transport(API: BuildCraftAPI|transport:4.1): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	BuildCraftAPI|statements(API: BuildCraftAPI|statements:1.1): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	BuildCraftAPI|fuels(API: BuildCraftAPI|fuels:2.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	RailcraftAPI|electricity(API: RailcraftAPI|electricity:1.6.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	IC2API(API: IC2API:1.0): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	Magneticraft(Magneticraft:@VERSION@): bin (required-after:ForgeMultipart)
+[18:51:17] [Client thread/DEBUG] [FML/]: 	McMultipart(Minecraft Multipart Plugin:1.1.2.331): ForgeMultipart-1.7.10-1.1.2.331-dev.jar ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MineTweaker3(MineTweaker 3:3.0.9B): MineTweaker3-Dev-1.7.10-3.0.9C.jar ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Heat|PreFab(API: MagneticraftAPI|Heat|PreFab:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Heat(API: MagneticraftAPI|Heat:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Computer|PreFab(API: MagneticraftAPI|Computer|PreFab:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Kinetic(API: MagneticraftAPI|Kinetic:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Radiation(API: MagneticraftAPI|Radiation:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|ConveyorBelt|PreFab(API: MagneticraftAPI|ConveyorBelt|PreFab:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Pressure|PreFab(API: MagneticraftAPI|Pressure|PreFab:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|ConveyorBelt(API: MagneticraftAPI|ConveyorBelt:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Computer(API: MagneticraftAPI|Computer:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Recipes(API: MagneticraftAPI|Recipes:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Electricity|PreFab(API: MagneticraftAPI|Electricity|PreFab:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI(API: MagneticraftAPI:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Tools(API: MagneticraftAPI|Tools:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Steel(API: MagneticraftAPI|Steel:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Pressure(API: MagneticraftAPI|Pressure:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Util(API: MagneticraftAPI|Util:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	MagneticraftAPI|Electricity(API: MagneticraftAPI|Electricity:2.0.2): bin ()
+[18:51:17] [Client thread/DEBUG] [FML/]: 	ForgeMicroblock(Forge Microblocks:1.1.2.331): ForgeMultipart-1.7.10-1.1.2.331-dev.jar (required-after:ForgeMultipart;after:*)
+[18:51:17] [Client thread/TRACE] [mcp/mcp]: Sending event FMLConstructionEvent to mod mcp
+[18:51:17] [Client thread/TRACE] [mcp/mcp]: Sent event FMLConstructionEvent to mod mcp
+[18:51:17] [Client thread/TRACE] [FML/FML]: Sending event FMLConstructionEvent to mod FML
+[18:51:18] [Client thread/TRACE] [FML/FML]: Mod FML is using network checker : Invoking method checkModLists
+[18:51:18] [Client thread/TRACE] [FML/FML]: Testing mod FML to verify it accepts its own version in a remote connection
+[18:51:18] [Client thread/TRACE] [FML/FML]: The mod FML accepts its own version (7.10.99.99)
+[18:51:18] [Client thread/INFO] [FML/FML]: Attempting connection with missing mods [mcp, FML, Forge, Magneticraft, ForgeMicroblock, ForgeMultipart, McMultipart, MineTweaker3] at CLIENT
+[18:51:18] [Client thread/INFO] [FML/FML]: Attempting connection with missing mods [mcp, FML, Forge, Magneticraft, ForgeMicroblock, ForgeMultipart, McMultipart, MineTweaker3] at SERVER
+[18:51:18] [Client thread/TRACE] [FML/FML]: Sent event FMLConstructionEvent to mod FML
+[18:51:18] [Client thread/TRACE] [Forge/Forge]: Sending event FMLConstructionEvent to mod Forge
+[18:51:18] [Client thread/TRACE] [FML/Forge]: Mod Forge is using network checker : No network checking performed
+[18:51:18] [Client thread/TRACE] [FML/Forge]: Testing mod Forge to verify it accepts its own version in a remote connection
+[18:51:18] [Client thread/TRACE] [FML/Forge]: The mod Forge accepts its own version (10.13.4.1448)
+[18:51:18] [Client thread/TRACE] [Forge/Forge]: Sent event FMLConstructionEvent to mod Forge
+[18:51:18] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLConstructionEvent to mod ForgeMultipart
+[18:51:18] [Client thread/TRACE] [FML/ForgeMultipart]: Mod ForgeMultipart is using network checker : Accepting version 1.1.2.331
+[18:51:18] [Client thread/TRACE] [FML/ForgeMultipart]: Testing mod ForgeMultipart to verify it accepts its own version in a remote connection
+[18:51:18] [Client thread/TRACE] [FML/ForgeMultipart]: The mod ForgeMultipart accepts its own version (1.1.2.331)
+[18:51:18] [Client thread/DEBUG] [FML/ForgeMultipart]: Attempting to inject @SidedProxy classes into ForgeMultipart
+[18:51:18] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLConstructionEvent to mod ForgeMultipart
+[18:51:18] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLConstructionEvent to mod Magneticraft
+[18:51:18] [Client thread/TRACE] [FML/Magneticraft]: Mod Magneticraft is using network checker : Accepting version @VERSION@
+[18:51:18] [Client thread/TRACE] [FML/Magneticraft]: Testing mod Magneticraft to verify it accepts its own version in a remote connection
+[18:51:18] [Client thread/TRACE] [FML/Magneticraft]: The mod Magneticraft accepts its own version (@VERSION@)
+[18:51:18] [Client thread/DEBUG] [FML/Magneticraft]: Attempting to inject @SidedProxy classes into Magneticraft
+[18:51:18] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLConstructionEvent to mod Magneticraft
+[18:51:18] [Client thread/TRACE] [McMultipart/McMultipart]: Sending event FMLConstructionEvent to mod McMultipart
+[18:51:18] [Client thread/TRACE] [FML/McMultipart]: Mod McMultipart is using network checker : Accepting version 1.1.2.331
+[18:51:18] [Client thread/TRACE] [FML/McMultipart]: Testing mod McMultipart to verify it accepts its own version in a remote connection
+[18:51:18] [Client thread/TRACE] [FML/McMultipart]: The mod McMultipart accepts its own version (1.1.2.331)
+[18:51:18] [Client thread/DEBUG] [FML/McMultipart]: Attempting to inject @SidedProxy classes into McMultipart
+[18:51:18] [Client thread/TRACE] [McMultipart/McMultipart]: Sent event FMLConstructionEvent to mod McMultipart
+[18:51:18] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLConstructionEvent to mod MineTweaker3
+[18:51:19] [Client thread/TRACE] [FML/MineTweaker3]: Mod MineTweaker3 is using network checker : Accepting version 3.0.9B
+[18:51:19] [Client thread/TRACE] [FML/MineTweaker3]: Testing mod MineTweaker3 to verify it accepts its own version in a remote connection
+[18:51:19] [Client thread/TRACE] [FML/MineTweaker3]: The mod MineTweaker3 accepts its own version (3.0.9B)
+[18:51:19] [Client thread/DEBUG] [FML/MineTweaker3]: Attempting to inject @SidedProxy classes into MineTweaker3
+[18:51:19] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLConstructionEvent to mod MineTweaker3
+[18:51:19] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLConstructionEvent to mod ForgeMicroblock
+[18:51:19] [Client thread/TRACE] [FML/ForgeMicroblock]: Mod ForgeMicroblock is using network checker : Accepting version 1.1.2.331
+[18:51:19] [Client thread/TRACE] [FML/ForgeMicroblock]: Testing mod ForgeMicroblock to verify it accepts its own version in a remote connection
+[18:51:19] [Client thread/TRACE] [FML/ForgeMicroblock]: The mod ForgeMicroblock accepts its own version (1.1.2.331)
+[18:51:19] [Client thread/DEBUG] [FML/ForgeMicroblock]: Attempting to inject @SidedProxy classes into ForgeMicroblock
+[18:51:19] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLConstructionEvent to mod ForgeMicroblock
+[18:51:19] [Client thread/DEBUG] [FML/]: Mod signature data
+[18:51:19] [Client thread/DEBUG] [FML/]:  	Valid Signatures:
+[18:51:19] [Client thread/DEBUG] [FML/]:  	Missing Signatures:
+[18:51:19] [Client thread/DEBUG] [FML/]: 		mcp	(Minecraft Coder Pack	9.05)	minecraft.jar
+[18:51:19] [Client thread/DEBUG] [FML/]: 		FML	(Forge Mod Loader	7.10.99.99)	forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar
+[18:51:19] [Client thread/DEBUG] [FML/]: 		Forge	(Minecraft Forge	10.13.4.1448)	forgeSrc-1.7.10-10.13.4.1448-1.7.10.jar
+[18:51:19] [Client thread/DEBUG] [FML/]: 		ForgeMultipart	(Forge Multipart	1.1.2.331)	ForgeMultipart-1.7.10-1.1.2.331-dev.jar
+[18:51:19] [Client thread/DEBUG] [FML/]: 		Magneticraft	(Magneticraft	@VERSION@)	bin
+[18:51:19] [Client thread/DEBUG] [FML/]: 		McMultipart	(Minecraft Multipart Plugin	1.1.2.331)	ForgeMultipart-1.7.10-1.1.2.331-dev.jar
+[18:51:19] [Client thread/DEBUG] [FML/]: 		MineTweaker3	(MineTweaker 3	3.0.9B)	MineTweaker3-Dev-1.7.10-3.0.9C.jar
+[18:51:19] [Client thread/DEBUG] [FML/]: 		ForgeMicroblock	(Forge Microblocks	1.1.2.331)	ForgeMultipart-1.7.10-1.1.2.331-dev.jar
+[18:51:19] [Client thread/DEBUG] [Forge Mod Loader/]: Mod Forge Mod Loader is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/DEBUG] [Minecraft Forge/]: Mod Minecraft Forge is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/DEBUG] [Magneticraft/]: Mod Magneticraft is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/DEBUG] [Forge Microblocks/]: Mod Forge Microblocks is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/DEBUG] [Forge Multipart/]: Mod Forge Multipart is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/DEBUG] [Minecraft Multipart Plugin/]: Mod Minecraft Multipart Plugin is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/DEBUG] [MineTweaker 3/]: Mod MineTweaker 3 is missing a pack.mcmeta file, substituting a dummy one
+[18:51:19] [Client thread/INFO] [FML/]: Processing ObjectHolder annotations
+[18:51:19] [Client thread/INFO] [FML/]: Found 341 ObjectHolder annotations
+[18:51:19] [Client thread/INFO] [FML/]: Identifying ItemStackHolder annotations
+[18:51:19] [Client thread/INFO] [FML/]: Found 0 ItemStackHolder annotations
+[18:51:19] [Client thread/TRACE] [mcp/mcp]: Sending event FMLPreInitializationEvent to mod mcp
+[18:51:19] [Client thread/TRACE] [mcp/mcp]: Sent event FMLPreInitializationEvent to mod mcp
+[18:51:19] [Client thread/TRACE] [FML/FML]: Sending event FMLPreInitializationEvent to mod FML
+[18:51:19] [Client thread/TRACE] [FML/FML]: Sent event FMLPreInitializationEvent to mod FML
+[18:51:19] [Client thread/TRACE] [Forge/Forge]: Sending event FMLPreInitializationEvent to mod Forge
+[18:51:19] [Client thread/INFO] [FML/Forge]: Configured a dormant chunk cache size of 0
+[18:51:19] [Client thread/TRACE] [Forge/Forge]: Sent event FMLPreInitializationEvent to mod Forge
+[18:51:19] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLPreInitializationEvent to mod ForgeMultipart
+[18:51:21] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLPreInitializationEvent to mod ForgeMultipart
+[18:51:21] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLPreInitializationEvent to mod Magneticraft
+[18:51:21] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Starting preInit
+[18:51:22] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Found source code directory at I:\Workspace\Forge 1.7.10\Magneticraft
+[18:51:22] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] preInit Done
+[18:51:22] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLPreInitializationEvent to mod Magneticraft
+[18:51:22] [Client thread/TRACE] [McMultipart/McMultipart]: Sending event FMLPreInitializationEvent to mod McMultipart
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/McMultipart]: Registered multipart: mc_torch
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/McMultipart]: Registered multipart: mc_lever
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/McMultipart]: Registered multipart: mc_button
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/McMultipart]: Registered multipart: mc_redtorch
+[18:51:22] [Client thread/DEBUG] [FML/McMultipart]: Method codechicken.lib.packet.PacketCustom.writeFluidStack(Lnet/minecraftforge/fluids/FluidStack;)Lcodechicken/lib/packet/PacketCustom;: Replacing GETFIELD fluidID with INVOKEVIRTUAL getFluidID
+[18:51:22] [Client thread/TRACE] [McMultipart/McMultipart]: Sent event FMLPreInitializationEvent to mod McMultipart
+[18:51:22] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLPreInitializationEvent to mod MineTweaker3
+[18:51:22] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLPreInitializationEvent to mod MineTweaker3
+[18:51:22] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLPreInitializationEvent to mod ForgeMicroblock
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/ForgeMicroblock]: Registered multipart: mcr_face
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/ForgeMicroblock]: Registered multipart: mcr_hllw
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/ForgeMicroblock]: Registered multipart: mcr_cnr
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/ForgeMicroblock]: Registered multipart: mcr_edge
+[18:51:22] [Client thread/DEBUG] [ForgeMultipart/ForgeMicroblock]: Registered multipart: mcr_post
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stone
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:dirt
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:dirt_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:dirt_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:cobblestone
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:planks
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:planks_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:planks_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:planks_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:planks_4
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:planks_5
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:log
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:log_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:log_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:log_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:log2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:leaves
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:leaves_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:leaves_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:leaves_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:leaves2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:sponge
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:glass
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:lapis_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:sandstone
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:sandstone_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:sandstone_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_4
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_5
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_6
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_7
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_8
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_9
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_10
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_11
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_12
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_13
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_14
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:wool_15
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:gold_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:iron_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:brick_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:bookshelf
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:mossy_cobblestone
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:obsidian
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:diamond_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:ice
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:snow
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:clay
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:netherrack
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:soul_sand
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:glowstone
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stonebrick
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stonebrick_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stonebrick_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stonebrick_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:nether_brick
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:end_stone
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:emerald_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:redstone_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:quartz_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_4
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_5
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_6
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_7
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_8
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_9
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_10
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_11
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_12
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_13
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_14
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_hardened_clay_15
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:hardened_clay
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:coal_block
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:packed_ice
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_1
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_2
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_3
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_4
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_5
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_6
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_7
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_8
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_9
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_10
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_11
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_12
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_13
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_14
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:stained_glass_15
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:grass
+[18:51:22] [Client thread/DEBUG] [ForgeMicroblock/ForgeMicroblock]: Registered micro material: minecraft:mycelium
+[18:51:22] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLPreInitializationEvent to mod ForgeMicroblock
+[18:51:22] [Client thread/INFO] [FML/]: Applying holder lookups
+[18:51:22] [Client thread/INFO] [FML/]: Holder lookups applied
+[18:51:22] [Client thread/INFO] [FML/]: Injecting itemstacks
+[18:51:22] [Client thread/INFO] [FML/]: Itemstack injection complete
+[18:51:22] [Sound Library Loader/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[18:51:22] [Sound Library Loader/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: Starting up SoundSystem...
+[18:51:23] [Thread-8/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: Initializing LWJGL OpenAL
+[18:51:23] [Thread-8/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]:     (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[18:51:23] [Thread-8/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: OpenAL initialized.
+[18:51:23] [Sound Library Loader/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[18:51:25] [Client thread/TRACE] [mcp/mcp]: Sending event FMLInitializationEvent to mod mcp
+[18:51:25] [Client thread/TRACE] [mcp/mcp]: Sent event FMLInitializationEvent to mod mcp
+[18:51:25] [Client thread/TRACE] [FML/FML]: Sending event FMLInitializationEvent to mod FML
+[18:51:25] [Client thread/TRACE] [FML/FML]: Sent event FMLInitializationEvent to mod FML
+[18:51:25] [Client thread/TRACE] [Forge/Forge]: Sending event FMLInitializationEvent to mod Forge
+[18:51:25] [Client thread/TRACE] [Forge/Forge]: Sent event FMLInitializationEvent to mod Forge
+[18:51:25] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLInitializationEvent to mod ForgeMultipart
+[18:51:25] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLInitializationEvent to mod ForgeMultipart
+[18:51:25] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLInitializationEvent to mod Magneticraft
+[18:51:25] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Starting Init
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.cable_low
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.cable_medium
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.cable_high
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_pipe
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.iron_pipe
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.heat_cable
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.optic_fiber
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.brass_pipe
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_wire_DOWN
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_wire_UP
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_wire_NORTH
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_wire_SOUTH
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_wire_WEST
+[18:51:25] [Client thread/DEBUG] [ForgeMultipart/Magneticraft]: Registered multipart: item.copper_wire_EAST
+[18:51:25] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Creating a IFuelManager
+[18:51:25] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Registering Fuels into buildcraft fuel registry
+[18:51:25] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Registering Fuels into railcraft fuel manager
+[18:51:25] [Client thread/DEBUG] [Railcraft/Magneticraft]: Magneticraft registered "lightoil" as a valid Boiler fuel source with 96000 heat.
+[18:51:25] [Client thread/DEBUG] [Railcraft/Magneticraft]: Magneticraft registered "heavyoil" as a valid Boiler fuel source with 75000 heat.
+[18:51:25] [Client thread/DEBUG] [Railcraft/Magneticraft]: Magneticraft registered "naturalgas" as a valid Boiler fuel source with 150000 heat.
+[18:51:25] [Client thread/DEBUG] [Railcraft/Magneticraft]: Magneticraft registered "oil" as a valid Boiler fuel source with 7500 heat.
+[18:51:26] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Last Version: 0.3.5
+[18:51:26] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Current Version: @VERSION@
+[18:51:26] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Init Done
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLInitializationEvent to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sending event FMLInitializationEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sent event FMLInitializationEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLInitializationEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLInitializationEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLInitializationEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLInitializationEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod mcp
+[18:51:26] [Client thread/TRACE] [mcp/mcp]: Sending event IMCEvent to mod mcp
+[18:51:26] [Client thread/TRACE] [mcp/mcp]: Sent event IMCEvent to mod mcp
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod FML
+[18:51:26] [Client thread/TRACE] [FML/FML]: Sending event IMCEvent to mod FML
+[18:51:26] [Client thread/TRACE] [FML/FML]: Sent event IMCEvent to mod FML
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod Forge
+[18:51:26] [Client thread/TRACE] [Forge/Forge]: Sending event IMCEvent to mod Forge
+[18:51:26] [Client thread/TRACE] [Forge/Forge]: Sent event IMCEvent to mod Forge
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event IMCEvent to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event IMCEvent to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sending event IMCEvent to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sent event IMCEvent to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod McMultipart
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sending event IMCEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sent event IMCEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event IMCEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event IMCEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [FML/]: Attempting to deliver 0 IMC messages to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event IMCEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event IMCEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/INFO] [FML/]: Injecting itemstacks
+[18:51:26] [Client thread/INFO] [FML/]: Itemstack injection complete
+[18:51:26] [Client thread/TRACE] [mcp/mcp]: Sending event FMLPostInitializationEvent to mod mcp
+[18:51:26] [Client thread/TRACE] [mcp/mcp]: Sent event FMLPostInitializationEvent to mod mcp
+[18:51:26] [Client thread/TRACE] [FML/FML]: Sending event FMLPostInitializationEvent to mod FML
+[18:51:26] [Client thread/TRACE] [FML/FML]: Sent event FMLPostInitializationEvent to mod FML
+[18:51:26] [Client thread/TRACE] [Forge/Forge]: Sending event FMLPostInitializationEvent to mod Forge
+[18:51:26] [Client thread/TRACE] [Forge/Forge]: Sent event FMLPostInitializationEvent to mod Forge
+[18:51:26] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLPostInitializationEvent to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLPostInitializationEvent to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLPostInitializationEvent to mod Magneticraft
+[18:51:26] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Starting postInit
+[18:51:26] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] Seting up minetweaker compatibility
+[18:51:26] [Client thread/INFO] [Magneticraft/Magneticraft]: [Magneticraft] postInit Done
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLPostInitializationEvent to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sending event FMLPostInitializationEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sent event FMLPostInitializationEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLPostInitializationEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLPostInitializationEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLPostInitializationEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLPostInitializationEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [mcp/mcp]: Sending event FMLLoadCompleteEvent to mod mcp
+[18:51:26] [Client thread/TRACE] [mcp/mcp]: Sent event FMLLoadCompleteEvent to mod mcp
+[18:51:26] [Client thread/TRACE] [FML/FML]: Sending event FMLLoadCompleteEvent to mod FML
+[18:51:26] [Client thread/TRACE] [FML/FML]: Sent event FMLLoadCompleteEvent to mod FML
+[18:51:26] [Client thread/TRACE] [Forge/Forge]: Sending event FMLLoadCompleteEvent to mod Forge
+[18:51:26] [Client thread/DEBUG] [FML/Forge]: Forge RecipeSorter Baking:
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   12: RecipeEntry("Before", UNKNOWN, )
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   11: RecipeEntry("minecraft:shaped", SHAPED, net.minecraft.item.crafting.ShapedRecipes) Before: minecraft:shapeless
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   10: RecipeEntry("forge:shapedore", SHAPED, net.minecraftforge.oredict.ShapedOreRecipe) Before: minecraft:shapeless After: minecraft:shaped
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   9: RecipeEntry("minecraft:mapextending", SHAPED, net.minecraft.item.crafting.RecipesMapExtending) Before: minecraft:shapeless After: minecraft:shaped
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   8: RecipeEntry("minecraft:shapeless", SHAPELESS, net.minecraft.item.crafting.ShapelessRecipes) After: minecraft:shaped
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   7: RecipeEntry("forge:shapelessore", SHAPELESS, net.minecraftforge.oredict.ShapelessOreRecipe) After: minecraft:shapeless
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   6: RecipeEntry("minecraft:armordyes", SHAPELESS, net.minecraft.item.crafting.RecipesArmorDyes) After: minecraft:shapeless
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   5: RecipeEntry("minecraft:fireworks", SHAPELESS, net.minecraft.item.crafting.RecipeFireworks) After: minecraft:shapeless
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   4: RecipeEntry("minecraft:bookcloning", SHAPELESS, net.minecraft.item.crafting.RecipeBookCloning) After: minecraft:shapeless
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   3: RecipeEntry("fmp:micro", SHAPED, codechicken.microblock.MicroRecipe$) After: forge:shapelessore
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   2: RecipeEntry("minecraft:mapcloning", SHAPELESS, net.minecraft.item.crafting.RecipesMapCloning) After: minecraft:shapeless
+[18:51:26] [Client thread/DEBUG] [FML/Forge]:   1: RecipeEntry("After", UNKNOWN, )
+[18:51:26] [Client thread/DEBUG] [FML/Forge]: Sorting recipies
+[18:51:26] [Client thread/TRACE] [Forge/Forge]: Sent event FMLLoadCompleteEvent to mod Forge
+[18:51:26] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLLoadCompleteEvent to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLLoadCompleteEvent to mod ForgeMultipart
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLLoadCompleteEvent to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLLoadCompleteEvent to mod Magneticraft
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sending event FMLLoadCompleteEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [McMultipart/McMultipart]: Sent event FMLLoadCompleteEvent to mod McMultipart
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLLoadCompleteEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLLoadCompleteEvent to mod MineTweaker3
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLLoadCompleteEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLLoadCompleteEvent to mod ForgeMicroblock
+[18:51:26] [Client thread/DEBUG] [FML/]: Freezing block and item id maps
+[18:51:26] [Client thread/DEBUG] [FML/]: Registry consistency check successful
+[18:51:26] [Client thread/DEBUG] [FML/]: Registry consistency check successful
+[18:51:26] [Client thread/INFO] [FML/]: Forge Mod Loader has successfully loaded 8 mods
+[18:51:27] [Client thread/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[18:51:27] [Client thread/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: SoundSystem shutting down...
+[18:51:27] [Client thread/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:importantMessage:90]:     Author: Paul Lamb, www.paulscode.com
+[18:51:27] [Client thread/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[18:51:27] [Sound Library Loader/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[18:51:27] [Sound Library Loader/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: Starting up SoundSystem...
+[18:51:27] [Thread-10/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: Initializing LWJGL OpenAL
+[18:51:27] [Thread-10/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]:     (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[18:51:27] [Thread-10/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: OpenAL initialized.
+[18:51:28] [Sound Library Loader/INFO] [STDOUT/]: [paulscode.sound.SoundSystemLogger:message:69]: 
+[18:51:28] [Client thread/DEBUG] [Forge Mod Loader/]: Mod Forge Mod Loader is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/DEBUG] [Minecraft Forge/]: Mod Minecraft Forge is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/DEBUG] [Magneticraft/]: Mod Magneticraft is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/DEBUG] [Forge Microblocks/]: Mod Forge Microblocks is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/DEBUG] [Forge Multipart/]: Mod Forge Multipart is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/DEBUG] [Minecraft Multipart Plugin/]: Mod Minecraft Multipart Plugin is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/DEBUG] [MineTweaker 3/]: Mod MineTweaker 3 is missing a pack.mcmeta file, substituting a dummy one
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: The following texture errors were found.
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: ==================================================
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:   DOMAIN magneticraft
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: --------------------------------------------------
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:   domain magneticraft is missing 46 textures
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:     domain magneticraft has 1 location:
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       mod Magneticraft resources at I:\Workspace\Forge 1.7.10\Magneticraft\bin
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: -------------------------
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:     The missing resources for domain magneticraft are:
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_chromium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_iron.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_manganese.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_uranium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_bismuth.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_manganese.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_titanium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_bismuth.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_uranium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_titanium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_osmium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_zinc.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_iron.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_cobalt.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_lithium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_nickel.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_thorium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_mithril.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_tin.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_aluminium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_lead.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_gold.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_platinum.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_iridium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_ardite.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_platinum.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_tungsten.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_tin.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_mithril.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_nickel.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_iridium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_osmium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_cobalt.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_aluminium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_zinc.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_copper.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_chromium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_gold.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_lead.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_lithium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_copper.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinterclump_silver.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_thorium.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_tungsten.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_silver.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:       textures/items/ores/sinter_ardite.png
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: -------------------------
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]:     No other errors exist for domain magneticraft
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: ==================================================
+[18:51:28] [Client thread/ERROR] [TEXTURE ERRORS/]: +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerAboutToStartEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerAboutToStartEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sending event FMLServerAboutToStartEvent to mod FML
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sent event FMLServerAboutToStartEvent to mod FML
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerAboutToStartEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerAboutToStartEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerAboutToStartEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerAboutToStartEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerAboutToStartEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerAboutToStartEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerAboutToStartEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerAboutToStartEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerAboutToStartEvent to mod MineTweaker3
+[18:51:46] [Server thread/INFO] [STDOUT/MineTweaker3]: [minetweaker.runtime.MTTweaker:load:106]: Loading scripts
+[18:51:46] [Server thread/INFO] [STDOUT/MineTweaker3]: [minetweaker.runtime.MTTweaker:load:152]: MineTweaker: Loading intermod
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerAboutToStartEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerAboutToStartEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerAboutToStartEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/INFO] [FML/]: Injecting existing block and item data into this server instance
+[18:51:46] [Server thread/DEBUG] [FML/]: Registry consistency check successful
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blocksteam: 426 (init) -> 425 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blocklightoil: 429 (init) -> 428 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blockoil: 427 (init) -> 426 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:hammer_table: 425 (init) -> 431 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blockheavyoil: 428 (init) -> 427 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blocknaturalgas: 430 (init) -> 429 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blockhotcrude: 431 (init) -> 430 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blockoil: 427 (init) -> 426 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:sawDiamond: 4303 (init) -> 4301 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blocknaturalgas: 430 (init) -> 429 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blockhotcrude: 431 (init) -> 430 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:sawIron: 4302 (init) -> 4300 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:microblock: 4300 (init) -> 4298 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blocklightoil: 429 (init) -> 428 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blockheavyoil: 428 (init) -> 427 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:item.stone_hammer: 4298 (init) -> 4304 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blocksteam: 426 (init) -> 425 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:stoneRod: 4304 (init) -> 4302 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:sawStone: 4301 (init) -> 4299 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:item.iron_hammer: 4299 (init) -> 4303 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:hammer_table: 425 (init) -> 431 (map).
+[18:51:46] [Server thread/DEBUG] [FML/]: Registry consistency check successful
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sending event FMLModIdMappingEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sent event FMLModIdMappingEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sending event FMLModIdMappingEvent to mod FML
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sent event FMLModIdMappingEvent to mod FML
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sending event FMLModIdMappingEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sent event FMLModIdMappingEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLModIdMappingEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLModIdMappingEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLModIdMappingEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLModIdMappingEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLModIdMappingEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLModIdMappingEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLModIdMappingEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLModIdMappingEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLModIdMappingEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLModIdMappingEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/INFO] [FML/]: Applying holder lookups
+[18:51:46] [Server thread/INFO] [FML/]: Holder lookups applied
+[18:51:46] [Server thread/DEBUG] [FML/]: Loading persistent fluid defaults from world
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:oil has been selected as the default fluid for oil
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid minecraft:lava has been selected as the default fluid for lava
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:steam has been selected as the default fluid for steam
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid minecraft:water has been selected as the default fluid for water
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:lightoil has been selected as the default fluid for lightoil
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:hotcrude has been selected as the default fluid for hotcrude
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:heavyoil has been selected as the default fluid for heavyoil
+[18:51:46] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:naturalgas has been selected as the default fluid for naturalgas
+[18:51:46] [Server thread/INFO] [FML/]: Loading dimension 0 (New World) (net.minecraft.server.integrated.IntegratedServer@49d81c9d)
+[18:51:46] [Server thread/INFO] [FML/]: Loading dimension 1 (New World) (net.minecraft.server.integrated.IntegratedServer@49d81c9d)
+[18:51:46] [Server thread/INFO] [FML/]: Loading dimension -1 (New World) (net.minecraft.server.integrated.IntegratedServer@49d81c9d)
+[18:51:46] [Server thread/DEBUG] [Multipart ASM/]: Generation [codechicken.multipart.scalatraits.TFluidHandlerTile] took: 32
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerStartingEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerStartingEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sending event FMLServerStartingEvent to mod FML
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sent event FMLServerStartingEvent to mod FML
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerStartingEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerStartingEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerStartingEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerStartingEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerStartingEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerStartingEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerStartingEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerStartingEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerStartingEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerStartingEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerStartingEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerStartingEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerStartedEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerStartedEvent to mod mcp
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sending event FMLServerStartedEvent to mod FML
+[18:51:46] [Server thread/TRACE] [FML/FML]: Sent event FMLServerStartedEvent to mod FML
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerStartedEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerStartedEvent to mod Forge
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerStartedEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerStartedEvent to mod ForgeMultipart
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerStartedEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerStartedEvent to mod Magneticraft
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerStartedEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerStartedEvent to mod McMultipart
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerStartedEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerStartedEvent to mod MineTweaker3
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerStartedEvent to mod ForgeMicroblock
+[18:51:46] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerStartedEvent to mod ForgeMicroblock
+[18:51:47] [Netty Client IO #0/DEBUG] [FML/]: Server FML protocol version 2, 4 byte dimension received 0
+[18:51:47] [Netty Client IO #0/TRACE] [FML/]: $ServerHello->FMLHandshakeClientState$2:HELLO
+[18:51:47] [Netty Client IO #0/INFO] [FML/]: Server protocol version 2
+[18:51:47] [Netty Client IO #0/DEBUG] [FML/]: Received override dimension 0
+[18:51:47] [Netty IO #1/TRACE] [FML/]: $ClientHello->FMLHandshakeServerState$2:HELLO
+[18:51:47] [Netty IO #1/INFO] [FML/]: Client protocol version 2
+[18:51:47] [Netty IO #1/TRACE] [FML/]: $ModList:8 mods->FMLHandshakeServerState$2:HELLO
+[18:51:47] [Netty IO #1/INFO] [FML/]: Client attempting to join with 8 mods : FML@7.10.99.99,Magneticraft@@VERSION@,McMultipart@1.1.2.331,MineTweaker3@3.0.9B,Forge@10.13.4.1448,ForgeMultipart@1.1.2.331,mcp@9.05,ForgeMicroblock@1.1.2.331
+[18:51:47] [Netty IO #1/INFO] [FML/]: Attempting connection with missing mods [] at CLIENT
+[18:51:47] [Netty Client IO #0/TRACE] [FML/]: $ModList:8 mods->FMLHandshakeClientState$3:WAITINGSERVERDATA
+[18:51:47] [Netty Client IO #0/INFO] [FML/]: Attempting connection with missing mods [] at SERVER
+[18:51:47] [Netty IO #1/TRACE] [FML/]: $HandshakeAck:{2}->FMLHandshakeServerState$3:WAITINGCACK
+[18:51:47] [Netty Client IO #0/TRACE] [FML/]: $HandshakeAck:{2}->FMLHandshakeClientState$5:PENDINGCOMPLETE
+[18:51:47] [Netty IO #1/TRACE] [FML/]: $HandshakeAck:{4}->FMLHandshakeServerState$4:COMPLETE
+[18:51:47] [Netty Client IO #0/TRACE] [FML/]: $HandshakeAck:{3}->FMLHandshakeClientState$6:COMPLETE
+[18:51:47] [Netty IO #1/TRACE] [FML/]: $HandshakeAck:{5}->FMLHandshakeServerState$5:DONE
+[18:51:47] [Server thread/INFO] [FML/]: [Server thread] Server side modded connection established
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:oil has been selected as the default fluid for oil
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid minecraft:lava has been selected as the default fluid for lava
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:steam has been selected as the default fluid for steam
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid minecraft:water has been selected as the default fluid for water
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:lightoil has been selected as the default fluid for lightoil
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:hotcrude has been selected as the default fluid for hotcrude
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:heavyoil has been selected as the default fluid for heavyoil
+[18:51:47] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:naturalgas has been selected as the default fluid for naturalgas
+[18:51:47] [Client thread/INFO] [FML/]: [Client thread] Client side modded connection established
+[18:51:47] [Client thread/DEBUG] [FML/]: Overriding dimension: using 0
+[18:51:47] [Server thread/DEBUG] [FML/]: Method codechicken.lib.data.MCDataOutputWrapper.writeFluidStack(Lnet/minecraftforge/fluids/FluidStack;)Lcodechicken/lib/data/MCDataOutputWrapper;: Replacing GETFIELD fluidID with INVOKEVIRTUAL getFluidID
+[18:51:48] [Client thread/DEBUG] [Multipart ASM/]: 18264 bytes of permGen has been used by ASMMixinCompiler
+[18:51:48] [Client thread/DEBUG] [Multipart ASM/]: Generation [codechicken.multipart.scalatraits.TFluidHandlerTile] took: 5
+[18:52:31] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:53:16] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:54:01] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:54:46] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:55:31] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:56:16] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:57:01] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:57:46] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:58:31] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[18:59:16] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:00:01] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:00:46] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:01:31] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:02:16] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:03:01] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:03:46] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:04:31] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:05:16] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:06:01] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:06:30] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:06:30] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerStoppingEvent to mod mcp
+[19:06:30] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerStoppingEvent to mod mcp
+[19:06:30] [Server thread/TRACE] [FML/FML]: Sending event FMLServerStoppingEvent to mod FML
+[19:06:30] [Server thread/TRACE] [FML/FML]: Sent event FMLServerStoppingEvent to mod FML
+[19:06:30] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerStoppingEvent to mod Forge
+[19:06:30] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerStoppingEvent to mod Forge
+[19:06:30] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerStoppingEvent to mod ForgeMultipart
+[19:06:30] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerStoppingEvent to mod ForgeMultipart
+[19:06:30] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerStoppingEvent to mod Magneticraft
+[19:06:30] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerStoppingEvent to mod Magneticraft
+[19:06:30] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerStoppingEvent to mod McMultipart
+[19:06:30] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerStoppingEvent to mod McMultipart
+[19:06:30] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerStoppingEvent to mod MineTweaker3
+[19:06:30] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerStoppingEvent to mod MineTweaker3
+[19:06:30] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerStoppingEvent to mod ForgeMicroblock
+[19:06:30] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerStoppingEvent to mod ForgeMicroblock
+[19:06:30] [Server thread/DEBUG] [FML/]: Gathering id map for writing to world save New World
+[19:06:30] [Server thread/INFO] [FML/]: Unloading dimension 0
+[19:06:30] [Server thread/INFO] [FML/]: Unloading dimension -1
+[19:06:30] [Server thread/INFO] [FML/]: Unloading dimension 1
+[19:06:30] [Server thread/DEBUG] [FML/]: Reverting to frozen data state.
+[19:06:30] [Server thread/INFO] [FML/]: Applying holder lookups
+[19:06:30] [Server thread/INFO] [FML/]: Holder lookups applied
+[19:06:30] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerStoppedEvent to mod mcp
+[19:06:30] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerStoppedEvent to mod mcp
+[19:06:30] [Server thread/TRACE] [FML/FML]: Sending event FMLServerStoppedEvent to mod FML
+[19:06:30] [Server thread/TRACE] [FML/FML]: Sent event FMLServerStoppedEvent to mod FML
+[19:06:30] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerStoppedEvent to mod Forge
+[19:06:30] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerStoppedEvent to mod Forge
+[19:06:30] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerStoppedEvent to mod ForgeMultipart
+[19:06:30] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerStoppedEvent to mod ForgeMultipart
+[19:06:30] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerStoppedEvent to mod Magneticraft
+[19:06:30] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerStoppedEvent to mod Magneticraft
+[19:06:30] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerStoppedEvent to mod McMultipart
+[19:06:30] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerStoppedEvent to mod McMultipart
+[19:06:30] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerStoppedEvent to mod MineTweaker3
+[19:06:30] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerStoppedEvent to mod MineTweaker3
+[19:06:30] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerStoppedEvent to mod ForgeMicroblock
+[19:06:30] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerStoppedEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerAboutToStartEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerAboutToStartEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sending event FMLServerAboutToStartEvent to mod FML
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sent event FMLServerAboutToStartEvent to mod FML
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerAboutToStartEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerAboutToStartEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerAboutToStartEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerAboutToStartEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerAboutToStartEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerAboutToStartEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerAboutToStartEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerAboutToStartEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerAboutToStartEvent to mod MineTweaker3
+[19:06:33] [Server thread/INFO] [STDOUT/MineTweaker3]: [minetweaker.runtime.MTTweaker:load:106]: Loading scripts
+[19:06:33] [Server thread/INFO] [STDOUT/MineTweaker3]: [minetweaker.runtime.MTTweaker:load:152]: MineTweaker: Loading intermod
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerAboutToStartEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerAboutToStartEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerAboutToStartEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/INFO] [FML/]: Injecting existing block and item data into this server instance
+[19:06:33] [Server thread/DEBUG] [FML/]: Registry consistency check successful
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blocksteam: 426 (init) -> 425 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blocklightoil: 429 (init) -> 428 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blockoil: 427 (init) -> 426 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:hammer_table: 425 (init) -> 431 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blockheavyoil: 428 (init) -> 427 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blocknaturalgas: 430 (init) -> 429 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed block id mismatch Magneticraft:blockhotcrude: 431 (init) -> 430 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blockoil: 427 (init) -> 426 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:sawDiamond: 4303 (init) -> 4301 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blocknaturalgas: 430 (init) -> 429 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blockhotcrude: 431 (init) -> 430 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:sawIron: 4302 (init) -> 4300 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:microblock: 4300 (init) -> 4298 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blocklightoil: 429 (init) -> 428 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blockheavyoil: 428 (init) -> 427 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:item.stone_hammer: 4298 (init) -> 4304 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:blocksteam: 426 (init) -> 425 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:stoneRod: 4304 (init) -> 4302 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch ForgeMicroblock:sawStone: 4301 (init) -> 4299 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:item.iron_hammer: 4299 (init) -> 4303 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Fixed item id mismatch Magneticraft:hammer_table: 425 (init) -> 431 (map).
+[19:06:33] [Server thread/DEBUG] [FML/]: Registry consistency check successful
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sending event FMLModIdMappingEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sent event FMLModIdMappingEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sending event FMLModIdMappingEvent to mod FML
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sent event FMLModIdMappingEvent to mod FML
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sending event FMLModIdMappingEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sent event FMLModIdMappingEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLModIdMappingEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLModIdMappingEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLModIdMappingEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLModIdMappingEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLModIdMappingEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLModIdMappingEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLModIdMappingEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLModIdMappingEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLModIdMappingEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLModIdMappingEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/INFO] [FML/]: Applying holder lookups
+[19:06:33] [Server thread/INFO] [FML/]: Holder lookups applied
+[19:06:33] [Server thread/DEBUG] [FML/]: Loading persistent fluid defaults from world
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:oil has been selected as the default fluid for oil
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid minecraft:lava has been selected as the default fluid for lava
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:steam has been selected as the default fluid for steam
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid minecraft:water has been selected as the default fluid for water
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:lightoil has been selected as the default fluid for lightoil
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:hotcrude has been selected as the default fluid for hotcrude
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:heavyoil has been selected as the default fluid for heavyoil
+[19:06:33] [Server thread/DEBUG] [FML/]: The fluid Magneticraft:naturalgas has been selected as the default fluid for naturalgas
+[19:06:33] [Server thread/INFO] [FML/]: Loading dimension 0 (New World) (net.minecraft.server.integrated.IntegratedServer@8042c7d)
+[19:06:33] [Server thread/INFO] [FML/]: Loading dimension 1 (New World) (net.minecraft.server.integrated.IntegratedServer@8042c7d)
+[19:06:33] [Server thread/INFO] [FML/]: Loading dimension -1 (New World) (net.minecraft.server.integrated.IntegratedServer@8042c7d)
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerStartingEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerStartingEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sending event FMLServerStartingEvent to mod FML
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sent event FMLServerStartingEvent to mod FML
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerStartingEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerStartingEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerStartingEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerStartingEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerStartingEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerStartingEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerStartingEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerStartingEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerStartingEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerStartingEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerStartingEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerStartingEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sending event FMLServerStartedEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [mcp/mcp]: Sent event FMLServerStartedEvent to mod mcp
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sending event FMLServerStartedEvent to mod FML
+[19:06:33] [Server thread/TRACE] [FML/FML]: Sent event FMLServerStartedEvent to mod FML
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sending event FMLServerStartedEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [Forge/Forge]: Sent event FMLServerStartedEvent to mod Forge
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sending event FMLServerStartedEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [ForgeMultipart/ForgeMultipart]: Sent event FMLServerStartedEvent to mod ForgeMultipart
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sending event FMLServerStartedEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [Magneticraft/Magneticraft]: Sent event FMLServerStartedEvent to mod Magneticraft
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sending event FMLServerStartedEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [McMultipart/McMultipart]: Sent event FMLServerStartedEvent to mod McMultipart
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sending event FMLServerStartedEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [MineTweaker3/MineTweaker3]: Sent event FMLServerStartedEvent to mod MineTweaker3
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sending event FMLServerStartedEvent to mod ForgeMicroblock
+[19:06:33] [Server thread/TRACE] [ForgeMicroblock/ForgeMicroblock]: Sent event FMLServerStartedEvent to mod ForgeMicroblock
+[19:06:33] [Netty Client IO #1/DEBUG] [FML/]: Server FML protocol version 2, 4 byte dimension received 0
+[19:06:33] [Netty Client IO #1/TRACE] [FML/]: $ServerHello->FMLHandshakeClientState$2:HELLO
+[19:06:33] [Netty Client IO #1/INFO] [FML/]: Server protocol version 2
+[19:06:33] [Netty Client IO #1/DEBUG] [FML/]: Received override dimension 0
+[19:06:33] [Netty IO #3/TRACE] [FML/]: $ClientHello->FMLHandshakeServerState$2:HELLO
+[19:06:33] [Netty IO #3/INFO] [FML/]: Client protocol version 2
+[19:06:33] [Netty IO #3/TRACE] [FML/]: $ModList:8 mods->FMLHandshakeServerState$2:HELLO
+[19:06:33] [Netty IO #3/INFO] [FML/]: Client attempting to join with 8 mods : FML@7.10.99.99,Magneticraft@@VERSION@,McMultipart@1.1.2.331,MineTweaker3@3.0.9B,Forge@10.13.4.1448,ForgeMultipart@1.1.2.331,mcp@9.05,ForgeMicroblock@1.1.2.331
+[19:06:33] [Netty IO #3/INFO] [FML/]: Attempting connection with missing mods [] at CLIENT
+[19:06:33] [Netty Client IO #1/TRACE] [FML/]: $ModList:8 mods->FMLHandshakeClientState$3:WAITINGSERVERDATA
+[19:06:33] [Netty Client IO #1/INFO] [FML/]: Attempting connection with missing mods [] at SERVER
+[19:06:33] [Netty IO #3/TRACE] [FML/]: $HandshakeAck:{2}->FMLHandshakeServerState$3:WAITINGCACK
+[19:06:33] [Netty Client IO #1/TRACE] [FML/]: $HandshakeAck:{2}->FMLHandshakeClientState$5:PENDINGCOMPLETE
+[19:06:33] [Netty IO #3/TRACE] [FML/]: $HandshakeAck:{4}->FMLHandshakeServerState$4:COMPLETE
+[19:06:33] [Netty Client IO #1/TRACE] [FML/]: $HandshakeAck:{3}->FMLHandshakeClientState$6:COMPLETE
+[19:06:33] [Netty IO #3/TRACE] [FML/]: $HandshakeAck:{5}->FMLHandshakeServerState$5:DONE
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:oil has been selected as the default fluid for oil
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid minecraft:lava has been selected as the default fluid for lava
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:steam has been selected as the default fluid for steam
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid minecraft:water has been selected as the default fluid for water
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:lightoil has been selected as the default fluid for lightoil
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:hotcrude has been selected as the default fluid for hotcrude
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:heavyoil has been selected as the default fluid for heavyoil
+[19:06:33] [Client thread/DEBUG] [FML/]: The fluid Magneticraft:naturalgas has been selected as the default fluid for naturalgas
+[19:06:33] [Client thread/INFO] [FML/]: [Client thread] Client side modded connection established
+[19:06:33] [Server thread/INFO] [FML/]: [Server thread] Server side modded connection established
+[19:06:33] [Client thread/DEBUG] [FML/]: Overriding dimension: using 0

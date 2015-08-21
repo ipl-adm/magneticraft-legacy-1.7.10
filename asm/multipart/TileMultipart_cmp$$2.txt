@@ -1,0 +1,169 @@
+// class version 50.0 (50)
+// access flags 0x1
+public class TileMultipart_cmp$$2 extends codechicken/multipart/TileMultipartClient  implements codechicken/multipart/scalatraits/TFluidHandlerTile  {
+
+
+  // access flags 0x2
+  private Ljava/util/LinkedList; tankList
+
+  // access flags 0x1
+  public <init>()V
+    ALOAD 0
+    INVOKESPECIAL codechicken/multipart/TileMultipartClient.<init> ()V
+    ALOAD 0
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.$init$ (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;)V
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public tankList()Ljava/util/LinkedList;
+    ALOAD 0
+    GETFIELD TileMultipart_cmp$$2.tankList : Ljava/util/LinkedList;
+    ARETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public tankList_$eq(Ljava/util/LinkedList;)V
+    ALOAD 0
+    ALOAD 1
+    PUTFIELD TileMultipart_cmp$$2.tankList : Ljava/util/LinkedList;
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public codechicken$multipart$scalatraits$TFluidHandlerTile$$super$partRemoved(Lcodechicken/multipart/TMultiPart;I)V
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    INVOKESPECIAL codechicken/multipart/TileMultipart.partRemoved (Lcodechicken/multipart/TMultiPart;I)V
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public codechicken$multipart$scalatraits$TFluidHandlerTile$$super$clearParts()V
+    ALOAD 0
+    INVOKESPECIAL codechicken/multipart/TileMultipart.clearParts ()V
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public codechicken$multipart$scalatraits$TFluidHandlerTile$$super$bindPart(Lcodechicken/multipart/TMultiPart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKESPECIAL codechicken/multipart/TileMultipart.bindPart (Lcodechicken/multipart/TMultiPart;)V
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public codechicken$multipart$scalatraits$TFluidHandlerTile$$super$copyFrom(Lcodechicken/multipart/TileMultipart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKESPECIAL codechicken/multipart/TileMultipart.copyFrom (Lcodechicken/multipart/TileMultipart;)V
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public copyFrom(Lcodechicken/multipart/TileMultipart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.copyFrom (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lcodechicken/multipart/TileMultipart;)V
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public bindPart(Lcodechicken/multipart/TMultiPart;)V
+    ALOAD 0
+    ALOAD 1
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.bindPart (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lcodechicken/multipart/TMultiPart;)V
+    RETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public partRemoved(Lcodechicken/multipart/TMultiPart;I)V
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.partRemoved (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lcodechicken/multipart/TMultiPart;I)V
+    RETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public clearParts()V
+    ALOAD 0
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.clearParts (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;)V
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public getTankInfo(Lnet/minecraftforge/common/util/ForgeDirection;)[Lnet/minecraftforge/fluids/FluidTankInfo;
+    ALOAD 0
+    ALOAD 1
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.getTankInfo (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lnet/minecraftforge/common/util/ForgeDirection;)[Lnet/minecraftforge/fluids/FluidTankInfo;
+    ARETURN
+    MAXSTACK = 2
+    MAXLOCALS = 2
+
+  // access flags 0x1
+  public fill(Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/FluidStack;Z)I
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    ILOAD 3
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.fill (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/FluidStack;Z)I
+    IRETURN
+    MAXSTACK = 4
+    MAXLOCALS = 4
+
+  // access flags 0x1
+  public canFill(Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/Fluid;)Z
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.canFill (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/Fluid;)Z
+    IRETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public canDrain(Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/Fluid;)Z
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.canDrain (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/Fluid;)Z
+    IRETURN
+    MAXSTACK = 3
+    MAXLOCALS = 3
+
+  // access flags 0x1
+  public drain(Lnet/minecraftforge/common/util/ForgeDirection;IZ)Lnet/minecraftforge/fluids/FluidStack;
+    ALOAD 0
+    ALOAD 1
+    ILOAD 2
+    ILOAD 3
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.drain (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lnet/minecraftforge/common/util/ForgeDirection;IZ)Lnet/minecraftforge/fluids/FluidStack;
+    ARETURN
+    MAXSTACK = 4
+    MAXLOCALS = 4
+
+  // access flags 0x1
+  public drain(Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/FluidStack;Z)Lnet/minecraftforge/fluids/FluidStack;
+    ALOAD 0
+    ALOAD 1
+    ALOAD 2
+    ILOAD 3
+    INVOKESTATIC codechicken/multipart/scalatraits/TFluidHandlerTile$class.drain (Lcodechicken/multipart/scalatraits/TFluidHandlerTile;Lnet/minecraftforge/common/util/ForgeDirection;Lnet/minecraftforge/fluids/FluidStack;Z)Lnet/minecraftforge/fluids/FluidStack;
+    ARETURN
+    MAXSTACK = 4
+    MAXLOCALS = 4
+}

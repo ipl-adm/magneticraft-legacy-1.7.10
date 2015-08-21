@@ -1,0 +1,22 @@
+[19:23:57] [main/INFO]: Logging in with username & password
+[19:24:01] [main/INFO]: Setting user: cout970
+[19:24:02] [Client thread/INFO]: LWJGL Version: 2.9.1
+[19:24:04] [Twitch authenticator/ERROR]: Given twitch access token is invalid
+[19:24:09] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Magneticraft, FMLFileResourcePack:Forge Microblocks, FMLFileResourcePack:Forge Multipart, FMLFileResourcePack:Minecraft Multipart Plugin, FMLFileResourcePack:MineTweaker 3
+[19:24:12] [Sound Library Loader/INFO]: Sound engine started
+[19:24:14] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
+[19:24:14] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[19:24:15] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Magneticraft, FMLFileResourcePack:Forge Microblocks, FMLFileResourcePack:Forge Multipart, FMLFileResourcePack:Minecraft Multipart Plugin, FMLFileResourcePack:MineTweaker 3
+[19:24:15] [Client thread/INFO]: Created: 512x512 textures/blocks-atlas
+[19:24:16] [Client thread/INFO]: Created: 512x256 textures/items-atlas
+[19:24:16] [Sound Library Loader/INFO]: Sound engine started
+[19:24:37] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[19:24:37] [Server thread/INFO]: Generating keypair
+[19:24:37] [Server thread/INFO]: Preparing start region for level 0
+[19:24:38] [Server thread/INFO]: Changing view distance to 12, from 10
+[19:24:38] [Server thread/INFO]: cout970[local:E:3b713c55] logged in with entity id 4 at (-354.69999998807907, 56.0, -1499.5197975759052)
+[19:24:38] [Server thread/INFO]: cout970 joined the game
+[19:24:38] [Server thread/INFO]: Saving and pausing game...
+[19:24:38] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[19:24:39] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[19:24:39] [Server thread/INFO]: Saving chunks for level 'New World'/The End

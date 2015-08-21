@@ -13,6 +13,7 @@ public class ManagerConfig {
 
 	public static Configuration config;
 	public static boolean ChunkLoading;
+	public static boolean hammerTableDrops;
 
 	public static void init(File file) {
 		if(config == null){
@@ -44,6 +45,7 @@ public class ManagerConfig {
 		WorldGenManagerMg.GenOilMinHeight = config.getInt("Oil Generation Min Height", Configuration.CATEGORY_GENERAL, 10,0,256, "Min Height for a oil deposit");
 		WorldGenManagerMg.GenOilMaxAmount = config.getInt("Oil Generation Max oil deposits", Configuration.CATEGORY_GENERAL, 9,1,16, "Max number of oil deposits nearby");
 		ChunkLoading = config.getBoolean("Chunk Loading", Configuration.CATEGORY_GENERAL, true, "Should the miner load chunks?");
+		hammerTableDrops = config.getBoolean("Hammer Table", Configuration.CATEGORY_GENERAL, false, "Should the hammer table drop the output items?");
 		if (config.hasChanged()) {
 			config.save();
 		}

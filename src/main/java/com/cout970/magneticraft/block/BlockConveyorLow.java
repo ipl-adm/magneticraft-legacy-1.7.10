@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.block;
 
-import buildcraft.api.tools.IToolWrench;
 import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
 import com.cout970.magneticraft.api.conveyor.prefab.ItemBox;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -9,6 +8,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
 
+import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;

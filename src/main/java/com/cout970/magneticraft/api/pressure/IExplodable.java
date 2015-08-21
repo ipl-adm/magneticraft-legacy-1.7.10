@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.block;
+package com.cout970.magneticraft.api.pressure;
 
 import net.minecraft.world.World;
 

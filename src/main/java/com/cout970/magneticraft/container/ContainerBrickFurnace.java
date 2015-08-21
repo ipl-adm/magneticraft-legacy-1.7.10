@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
@@ -31,7 +30,6 @@ public class ContainerBrickFurnace extends ContainerBasic{
 			if (is1 == null) {
 				return null;
 			}
-			Item item = is1.getItem();
 			if (FurnaceRecipes.smelting().getSmeltingResult(is1) == null) {
 				return null;
 			}

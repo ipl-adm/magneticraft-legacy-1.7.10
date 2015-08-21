@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.container;
 
 import com.cout970.magneticraft.api.tool.IFurnaceCoil;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;

@@ -16,6 +16,7 @@ import com.cout970.magneticraft.client.itemrenderer.ItemRenderEUAlternator;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderElectricPoleTier1;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderElectricSword;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderFluidHopper;
+import com.cout970.magneticraft.client.itemrenderer.ItemRenderHammerTable;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHandCrank;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatCable;
 import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatSink;
@@ -49,6 +50,7 @@ import com.cout970.magneticraft.client.tilerender.TileRenderElectricPoleTier1;
 import com.cout970.magneticraft.client.tilerender.TileRenderFluidHopper;
 import com.cout970.magneticraft.client.tilerender.TileRenderGrinder;
 import com.cout970.magneticraft.client.tilerender.TileRenderGrindingMill;
+import com.cout970.magneticraft.client.tilerender.TileRenderHammerTable;
 import com.cout970.magneticraft.client.tilerender.TileRenderHandCrank;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatSink;
 import com.cout970.magneticraft.client.tilerender.TileRenderInserter;
@@ -88,6 +90,7 @@ import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.TileFluidHopper;
 import com.cout970.magneticraft.tileentity.TileGrinder;
 import com.cout970.magneticraft.tileentity.TileGrindingMill;
+import com.cout970.magneticraft.tileentity.TileHammerTable;
 import com.cout970.magneticraft.tileentity.TileHandCrankGenerator;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
 import com.cout970.magneticraft.tileentity.TileInserter;
@@ -162,6 +165,7 @@ public class ClientProxy implements IProxy{
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rc_alternator), new ItemRenderRCAlternator());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.copper_tank), new ItemRenderCopperTank());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_cable_wire), new ItemRenderPoleCableWire());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.hammer_table), new ItemRenderHammerTable());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class,new TileRenderPumpJack());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMirror.class,new TileRenderMirror());
@@ -200,5 +204,6 @@ public class ClientProxy implements IProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRCAlternator.class, new TileRenderRCAlternator());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleCableWire.class, new TileRenderPoleCableWire());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSifter.class, new TileRenderSifter());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileHammerTable.class, new TileRenderHammerTable());
 	}
 }

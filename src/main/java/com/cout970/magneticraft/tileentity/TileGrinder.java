@@ -44,7 +44,6 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
     private long time;
     private boolean working;
     private boolean active_w;
-    private int storageBuilder;
 
     public void updateEntity() {
         super.updateEntity();

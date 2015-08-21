@@ -2,6 +2,7 @@ package com.cout970.magneticraft.api.util;
 
 import com.google.common.base.Objects;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -159,5 +160,13 @@ public class VecInt {
 
 	public TileEntity getTileEntity(World w) {
 		return w.getTileEntity(x, y, z);
+	}
+
+	public VecInt add(MgDirection dir) {
+		return this.add(dir.getOffsetX(), dir.getOffsetY(), dir.getOffsetZ());
+	}
+
+	public Block getBlock(World world) {
+		return world.getBlock(x, y, z);
 	}
 }

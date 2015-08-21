@@ -10,9 +10,8 @@ package buildcraft.api.fuels;
 
 import java.util.Collection;
 
-import net.minecraftforge.fluids.Fluid;
-
 import buildcraft.api.core.StackKey;
+import net.minecraftforge.fluids.Fluid;
 
 public interface ICoolantManager {
 	ICoolant addCoolant(ICoolant coolant);

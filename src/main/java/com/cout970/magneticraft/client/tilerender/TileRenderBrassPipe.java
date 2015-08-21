@@ -18,7 +18,8 @@ public class TileRenderBrassPipe {
 		GL11.glColor4f(1, 1, 1, 1);
 		RenderUtil.bindTexture(ModelTextures.BRASS_PIPE);
 		model.renderStatic(0.0625f);
-		model.renderDynamic(0.0625f, (int)part.connections, part.interactions);
+		int con = part.connections == -1 ? 0 : part.connections;
+		model.renderDynamic(0.0625f, con, part.interactions);
 		GL11.glPopMatrix();
 	}
 }

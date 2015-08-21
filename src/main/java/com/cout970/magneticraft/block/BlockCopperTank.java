@@ -115,8 +115,7 @@ public class BlockCopperTank extends BlockMg implements MB_Block{
 		}
 	}
 
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube(){
 		return false;
 	}
 

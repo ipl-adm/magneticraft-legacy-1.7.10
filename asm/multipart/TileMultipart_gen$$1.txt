@@ -1,0 +1,22 @@
+// class version 50.0 (50)
+// access flags 0x21
+public class TileMultipart_gen$$1 extends codechicken/multipart/asm/ASMMixinFactory$Constructor  {
+
+
+  // access flags 0x1
+  public <init>()V
+    ALOAD 0
+    INVOKESPECIAL codechicken/multipart/asm/ASMMixinFactory$Constructor.<init> ()V
+    RETURN
+    MAXSTACK = 1
+    MAXLOCALS = 1
+
+  // access flags 0x1
+  public generate()Lcodechicken/multipart/TileMultipart;
+    NEW TileMultipart_cmp$$0
+    DUP
+    INVOKESPECIAL TileMultipart_cmp$$0.<init> ()V
+    ARETURN
+    MAXSTACK = 2
+    MAXLOCALS = 1
+}

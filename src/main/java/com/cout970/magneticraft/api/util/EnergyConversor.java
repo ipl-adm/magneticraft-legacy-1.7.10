@@ -111,8 +111,8 @@ public class EnergyConversor {
 		return WtoEU(rc);
 	}
 
-	public static long MBtoMOL(int amount) {
-		return (long) (amount/MOL_MB);
+	public static double MBtoMOL(double amount) {
+		return amount/MOL_MB;
 	}
 	
 	public static double MOLtoMB(double d) {
@@ -123,7 +123,7 @@ public class EnergyConversor {
 		return amount/BAR_PA;
 	}
 
-	public static double BARtoPA(int amount) {
+	public static double BARtoPA(double amount) {
 		return amount*BAR_PA;
 	}
 	

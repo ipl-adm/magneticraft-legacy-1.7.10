@@ -1,8 +1,7 @@
 package buildcraft.api.statements.containers;
 
-import net.minecraftforge.common.util.ForgeDirection;
-
 import buildcraft.api.statements.IStatementContainer;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Created by asie on 3/14/15.

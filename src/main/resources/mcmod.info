@@ -8,9 +8,9 @@
   "url": "http://minecraft.curseforge.com/mc-mods/224808-magneticraft",
   "updateUrl": "http://minecraft.curseforge.com/mc-mods/224808-magneticraft",
   "authorList": [
-  "Cout970", "Minecreatr", "MattDahEpic","MechWarrior99"
+  "Cout970", "Minecreatr", "MattDahEpic","MechWarrior99","Cypher121"
   ],
-  "credits": "By Magneticraft Team: Cout970, Minecreatr, MattDahEpic (Developers) and MechWarrior99 (Artist)",
+  "credits": "By Magneticraft Team: Cout970, Cypher121, Minecreatr, MattDahEpic (Developers) and MechWarrior99 (Artist)",
   "logoFile": "assets/magneticraft/textures/logo/logo.png",
   "screenshots": [],
   "dependencies": ["ForgeMultipart"]

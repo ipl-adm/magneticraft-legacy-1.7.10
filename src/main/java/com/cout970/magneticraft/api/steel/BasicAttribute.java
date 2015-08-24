@@ -8,20 +8,20 @@ import net.minecraft.util.StatCollector;
  *
  * @author minecreatr
  */
-public class BasicAttribute implements ISteelAttribute{
+public class BasicAttribute implements ISteelAttribute {
 
     private String name;
 
-    public BasicAttribute(String name){
+    public BasicAttribute(String name) {
         this.name = name;
         AttributeRegistry.registerAttribute(this);
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public String getDisplayText(int value){
+    public String getDisplayText(int value) {
         return EnumChatFormatting.BLUE + StatCollector.translateToLocal(getName()) + EnumChatFormatting.GRAY + ": " + EnumChatFormatting.GREEN + value;
     }
 }

@@ -1,14 +1,16 @@
 package com.cout970.magneticraft.block;
 
 import buildcraft.api.tools.IToolWrench;
+import cofh.api.item.IToolHammer;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
 import com.cout970.magneticraft.api.conveyor.prefab.ItemBox;
+import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.Orientation;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileConveyorBelt;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -16,6 +18,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -35,8 +38,9 @@ public class BlockConveyorLow extends BlockMg {
 
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
-        if (p.getCurrentEquippedItem() != null && Block.getBlockFromItem(p.getCurrentEquippedItem().getItem()) != this) {
-            if (p.getCurrentEquippedItem().getItem() instanceof IToolWrench) {
+        Item item;
+        if ((p.getCurrentEquippedItem() != null) && (Block.getBlockFromItem(item = p.getCurrentEquippedItem().getItem()) != this)) {
+            if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH && (item instanceof IToolHammer))) {
                 Orientation or = Orientation.fromMeta(w.getBlockMetadata(x, y, z) + 1);
                 w.setBlockMetadataWithNotify(x, y, z, or.toMeta(), 2);
             } else {

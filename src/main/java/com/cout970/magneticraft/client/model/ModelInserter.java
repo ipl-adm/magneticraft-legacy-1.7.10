@@ -5,13 +5,7 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -19,10 +13,10 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 
-public class ModelInserter extends ModelBase
-{
-  //fields
+public class ModelInserter extends ModelBase {
+    //fields
     ModelRenderer Base1;
     ModelRenderer Base2;
     ModelRenderer ArmLower1;
@@ -36,201 +30,198 @@ public class ModelInserter extends ModelBase
     ModelRenderer ClawP4;
     ModelRenderer ClawP2;
     ModelRenderer ClawP3;
-  
-  public ModelInserter()
-  {
-    textureWidth = 64;
-    textureHeight = 64;
-    
-      Base1 = new ModelRenderer(this, 0, 45);
-      Base1.addBox(0F, 0F, 0F, 16, 3, 16);
-      Base1.setRotationPoint(-8F, 21F, -8F);
-      Base1.setTextureSize(64, 64);
-      Base1.mirror = true;
-      setRotation(Base1, 0F, 0F, 0F);
-      Base2 = new ModelRenderer(this, 0, 37);
-      Base2.addBox(0F, 0F, 0F, 6, 2, 6);
-      Base2.setRotationPoint(-3F, 19F, -3F);
-      Base2.setTextureSize(64, 64);
-      Base2.mirror = true;
-      setRotation(Base2, 0F, 0F, 0F);
-      ArmLower1 = new ModelRenderer(this, 0, 49);
-      ArmLower1.addBox(0F, -8F, -1F, 1, 10, 2);
-      ArmLower1.setRotationPoint(1F, 19F, 0F);
-      ArmLower1.setTextureSize(64, 64);
-      ArmLower1.mirror = true;
-      setRotation(ArmLower1, -0.7853982F, 0F, 0F);
-      ArmLower2 = new ModelRenderer(this, 0, 49);
-      ArmLower2.addBox(-1F, -8F, -1F, 1, 10, 2);
-      ArmLower2.setRotationPoint(-1F, 19F, 0F);
-      ArmLower2.setTextureSize(64, 64);
-      ArmLower2.mirror = true;
-      setRotation(ArmLower2, -0.7853982F, 0F, 0F);
-      SuportBarLower = new ModelRenderer(this, 0, 0);
-      SuportBarLower.addBox(-1F, -3F, 2F, 2, 1, 1);
-      SuportBarLower.setRotationPoint(0F, 19F, 0F);
-      SuportBarLower.setTextureSize(64, 64);
-      SuportBarLower.mirror = true;
-      setRotation(SuportBarLower, 0F, 0F, 0F);
-      ArmMid = new ModelRenderer(this, 48, 50);
-      ArmMid.addBox(-1F, -9F, -1F, 2, 9, 2);
-      ArmMid.setRotationPoint(0F, 14F, 5F);
-      ArmMid.setTextureSize(64, 64);
-      ArmMid.mirror = true;
-      setRotation(ArmMid, 1.047198F, 0F, 0F);
-      ArmUpper1 = new ModelRenderer(this, 0, 45);
-      ArmUpper1.addBox(3F, 0F, -3F, 1, 1, 3);
-      ArmUpper1.setRotationPoint(-2F, 9F, -2F);
-      ArmUpper1.setTextureSize(64, 64);
-      ArmUpper1.mirror = true;
-      setRotation(ArmUpper1, 0.1745329F, 0F, 0F);
-      ArmUpper2 = new ModelRenderer(this, 0, 45);
-      ArmUpper2.addBox(0F, 0F, -3F, 1, 1, 3);
-      ArmUpper2.setRotationPoint(-2F, 9F, -2F);
-      ArmUpper2.setTextureSize(64, 64);
-      ArmUpper2.mirror = true;
-      setRotation(ArmUpper2, 0.1745329F, 0F, 0F);
-      Extender = new ModelRenderer(this, 0, 38);
-      Extender.addBox(-0.5F, 1F, -0.5F, 1, 3, 1);
-      Extender.setRotationPoint(0F, 9F, -4F);
-      Extender.setTextureSize(64, 64);
-      Extender.mirror = true;
-      setRotation(Extender, 0F, 0F, 0F);
-      ClawP1 = new ModelRenderer(this, 56, 56);
-      ClawP1.addBox(-1F, 0F, -1F, 2, 3, 2);
-      ClawP1.setRotationPoint(0F, 9F, -4F);
-      ClawP1.setTextureSize(64, 64);
-      ClawP1.mirror = true;
-      setRotation(ClawP1, 0F, 0F, 0F);
-      ClawP4 = new ModelRenderer(this, 9, 57);
-      ClawP4.addBox(1.5F, 5F, -1F, 1, 1, 2);
-      ClawP4.setRotationPoint(0F, 9F, -4F);
-      ClawP4.setTextureSize(64, 64);
-      ClawP4.mirror = true;
-      setRotation(ClawP4, 0F, 0F, 0F);
-      ClawP2 = new ModelRenderer(this, 25, 42);
-      ClawP2.addBox(-2F, 4F, -1F, 4, 1, 2);
-      ClawP2.setRotationPoint(0F, 9F, -4F);
-      ClawP2.setTextureSize(64, 64);
-      ClawP2.mirror = true;
-      setRotation(ClawP2, 0F, 0F, 0F);
-      ClawP3 = new ModelRenderer(this, 9, 57);
-      ClawP3.addBox(-2.5F, 5F, -1F, 1, 1, 2);
-      ClawP3.setRotationPoint(0F, 9F, -4F);
-      ClawP3.setTextureSize(64, 64);
-      ClawP3.mirror = true;
-      setRotation(ClawP3, 0F, 0F, 0F);
-  }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    Base1.render(f5);
-    Base2.render(f5);
-    ArmLower1.render(f5);
-    ArmLower2.render(f5);
-    SuportBarLower.render(f5);
-    ArmMid.render(f5);
-    ArmUpper1.render(f5);
-    ArmUpper2.render(f5);
-    Extender.render(f5);
-    ClawP1.render(f5);
-    ClawP4.render(f5);
-    ClawP2.render(f5);
-    ClawP3.render(f5);
-  }
-  
-  public void renderStatic(float f5){
-	  Base1.render(f5);
-  }
-  
-  public void renderDynamic(float f5, float a1, float a2,float a3,float a4){
-	  renderDynamic(f5, a1, a2, a3, a4, null, null, null);
-  }
 
-  public void renderDynamic(float f5, float a1, float a2,float a3,float a4, RenderItem renderItemMG, EntityItem itemEntity, ItemStack item){
-	  float rad1 = (float) Math.toRadians(a1);
-	  float rad2 = (float) Math.toRadians(a2);
-	  float rad3 = (float) Math.toRadians(a3-90);
-	  float pixel = 0.0625f;
-	  float angle_0,angle_1,angle_2,angle_3,angle_4,angle_5,trans_z,trans_y;
+    public ModelInserter() {
+        textureWidth = 64;
+        textureHeight = 64;
 
-	  ArmLower1.rotateAngleX = rad1;
-	  ArmLower2.rotateAngleX = rad1;
-	  SuportBarLower.rotateAngleX = (float) rad1+0.7853981f;
+        Base1 = new ModelRenderer(this, 0, 45);
+        Base1.addBox(0F, 0F, 0F, 16, 3, 16);
+        Base1.setRotationPoint(-8F, 21F, -8F);
+        Base1.setTextureSize(64, 64);
+        Base1.mirror = true;
+        setRotation(Base1, 0F, 0F, 0F);
+        Base2 = new ModelRenderer(this, 0, 37);
+        Base2.addBox(0F, 0F, 0F, 6, 2, 6);
+        Base2.setRotationPoint(-3F, 19F, -3F);
+        Base2.setTextureSize(64, 64);
+        Base2.mirror = true;
+        setRotation(Base2, 0F, 0F, 0F);
+        ArmLower1 = new ModelRenderer(this, 0, 49);
+        ArmLower1.addBox(0F, -8F, -1F, 1, 10, 2);
+        ArmLower1.setRotationPoint(1F, 19F, 0F);
+        ArmLower1.setTextureSize(64, 64);
+        ArmLower1.mirror = true;
+        setRotation(ArmLower1, -0.7853982F, 0F, 0F);
+        ArmLower2 = new ModelRenderer(this, 0, 49);
+        ArmLower2.addBox(-1F, -8F, -1F, 1, 10, 2);
+        ArmLower2.setRotationPoint(-1F, 19F, 0F);
+        ArmLower2.setTextureSize(64, 64);
+        ArmLower2.mirror = true;
+        setRotation(ArmLower2, -0.7853982F, 0F, 0F);
+        SuportBarLower = new ModelRenderer(this, 0, 0);
+        SuportBarLower.addBox(-1F, -3F, 2F, 2, 1, 1);
+        SuportBarLower.setRotationPoint(0F, 19F, 0F);
+        SuportBarLower.setTextureSize(64, 64);
+        SuportBarLower.mirror = true;
+        setRotation(SuportBarLower, 0F, 0F, 0F);
+        ArmMid = new ModelRenderer(this, 48, 50);
+        ArmMid.addBox(-1F, -9F, -1F, 2, 9, 2);
+        ArmMid.setRotationPoint(0F, 14F, 5F);
+        ArmMid.setTextureSize(64, 64);
+        ArmMid.mirror = true;
+        setRotation(ArmMid, 1.047198F, 0F, 0F);
+        ArmUpper1 = new ModelRenderer(this, 0, 45);
+        ArmUpper1.addBox(3F, 0F, -3F, 1, 1, 3);
+        ArmUpper1.setRotationPoint(-2F, 9F, -2F);
+        ArmUpper1.setTextureSize(64, 64);
+        ArmUpper1.mirror = true;
+        setRotation(ArmUpper1, 0.1745329F, 0F, 0F);
+        ArmUpper2 = new ModelRenderer(this, 0, 45);
+        ArmUpper2.addBox(0F, 0F, -3F, 1, 1, 3);
+        ArmUpper2.setRotationPoint(-2F, 9F, -2F);
+        ArmUpper2.setTextureSize(64, 64);
+        ArmUpper2.mirror = true;
+        setRotation(ArmUpper2, 0.1745329F, 0F, 0F);
+        Extender = new ModelRenderer(this, 0, 38);
+        Extender.addBox(-0.5F, 1F, -0.5F, 1, 3, 1);
+        Extender.setRotationPoint(0F, 9F, -4F);
+        Extender.setTextureSize(64, 64);
+        Extender.mirror = true;
+        setRotation(Extender, 0F, 0F, 0F);
+        ClawP1 = new ModelRenderer(this, 56, 56);
+        ClawP1.addBox(-1F, 0F, -1F, 2, 3, 2);
+        ClawP1.setRotationPoint(0F, 9F, -4F);
+        ClawP1.setTextureSize(64, 64);
+        ClawP1.mirror = true;
+        setRotation(ClawP1, 0F, 0F, 0F);
+        ClawP4 = new ModelRenderer(this, 9, 57);
+        ClawP4.addBox(1.5F, 5F, -1F, 1, 1, 2);
+        ClawP4.setRotationPoint(0F, 9F, -4F);
+        ClawP4.setTextureSize(64, 64);
+        ClawP4.mirror = true;
+        setRotation(ClawP4, 0F, 0F, 0F);
+        ClawP2 = new ModelRenderer(this, 25, 42);
+        ClawP2.addBox(-2F, 4F, -1F, 4, 1, 2);
+        ClawP2.setRotationPoint(0F, 9F, -4F);
+        ClawP2.setTextureSize(64, 64);
+        ClawP2.mirror = true;
+        setRotation(ClawP2, 0F, 0F, 0F);
+        ClawP3 = new ModelRenderer(this, 9, 57);
+        ClawP3.addBox(-2.5F, 5F, -1F, 1, 1, 2);
+        ClawP3.setRotationPoint(0F, 9F, -4F);
+        ClawP3.setTextureSize(64, 64);
+        ClawP3.mirror = true;
+        setRotation(ClawP3, 0F, 0F, 0F);
+    }
 
-	  angle_0 =  (float) -Math.sin(rad1)*pixel*7;
-	  angle_1 =  (float) -Math.cos(rad1)*pixel*7;
-	  
-	  angle_2 =  (float) -Math.sin(rad2)*pixel*9;
-	  angle_3 =  (float) -Math.cos(rad2)*pixel*9;
-	  
-	  angle_4 = (float) Math.sin(rad3)*pixel*2;
-	  angle_5 = (float) Math.cos(rad3)*pixel*2;
-	  
-	  ArmMid.offsetZ = angle_0 - pixel*5f;
-	  ArmMid.offsetY = angle_1 + pixel*5f;
-	  ArmMid.rotateAngleX = rad2;
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        Base1.render(f5);
+        Base2.render(f5);
+        ArmLower1.render(f5);
+        ArmLower2.render(f5);
+        SuportBarLower.render(f5);
+        ArmMid.render(f5);
+        ArmUpper1.render(f5);
+        ArmUpper2.render(f5);
+        Extender.render(f5);
+        ClawP1.render(f5);
+        ClawP4.render(f5);
+        ClawP2.render(f5);
+        ClawP3.render(f5);
+    }
 
-	  ArmUpper1.offsetZ = angle_0 + angle_2*8/9f + pixel*2;
-	  ArmUpper1.offsetY = angle_1 + angle_3 + pixel*10f;
-	  ArmUpper1.rotateAngleX = (float) Math.toRadians(a3+45);
+    public void renderStatic(float f5) {
+        Base1.render(f5);
+    }
 
-	  ArmUpper2.offsetZ = angle_0 + angle_2*8/9f + pixel*2;
-	  ArmUpper2.offsetY = angle_1 + angle_3 + pixel*10;
-	  ArmUpper2.rotateAngleX = (float) Math.toRadians(a3+45);
-	  
-	  trans_z = angle_0 + angle_2 + angle_4 + pixel*6;
-	  trans_y = angle_1 + angle_3 + angle_5 + pixel*8;
-	  
-	  Extender.rotateAngleX = rad3;
-	  ClawP1.rotateAngleX = rad3;
-	  ClawP4.rotateAngleX = rad3;
-	  ClawP2.rotateAngleX = rad3;
-	  ClawP3.rotateAngleX = rad3;
-	  
-	  
-	  Extender.offsetZ = trans_z;
-	  ClawP1.offsetZ = trans_z;
-	  ClawP4.offsetZ = trans_z;
-	  ClawP2.offsetZ = trans_z;
-	  ClawP3.offsetZ = trans_z;
-	  
-	  Extender.offsetY = trans_y+a4;
-	  ClawP1.offsetY = trans_y;
-	  ClawP4.offsetY = trans_y+a4;
-	  ClawP2.offsetY = trans_y+a4;
-	  ClawP3.offsetY = trans_y+a4;
-	  
-	  ArmLower1.render(f5);
-	  ArmLower2.render(f5);
-	  SuportBarLower.render(f5);
-	  ArmMid.render(f5);
-	  ArmUpper1.render(f5);
-	  ArmUpper2.render(f5); 
-	  Base2.render(f5);
-	  Extender.render(f5);
-	  ClawP1.render(f5);
-	  ClawP4.render(f5);
-	  ClawP2.render(f5);
-	  ClawP3.render(f5);
+    public void renderDynamic(float f5, float a1, float a2, float a3, float a4) {
+        renderDynamic(f5, a1, a2, a3, a4, null, null, null);
+    }
 
-	  if(item != null){
-		  GL11.glRotatef(180, 0, 0, 1);
-		  GL11.glTranslatef(0.0F, -2.00F, -0.2F);
-		  GL11.glTranslatef(0,1-trans_y+a4,trans_z);
-		  GL11.glScalef(0.7f, 0.7f, 0.7f);
-		  itemEntity.setEntityItemStack(item);
-		  renderItemMG.doRender(itemEntity, 0, 0, 0, 0, 0);
-		  GL11.glScalef(1,1,1);
-	  }
-  }
-  
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
-  }
+    public void renderDynamic(float f5, float a1, float a2, float a3, float a4, RenderItem renderItemMG, EntityItem itemEntity, ItemStack item) {
+        float rad1 = (float) Math.toRadians(a1);
+        float rad2 = (float) Math.toRadians(a2);
+        float rad3 = (float) Math.toRadians(a3 - 90);
+        float pixel = 0.0625f;
+        float angle_0, angle_1, angle_2, angle_3, angle_4, angle_5, trans_z, trans_y;
+
+        ArmLower1.rotateAngleX = rad1;
+        ArmLower2.rotateAngleX = rad1;
+        SuportBarLower.rotateAngleX = (float) rad1 + 0.7853981f;
+
+        angle_0 = (float) -Math.sin(rad1) * pixel * 7;
+        angle_1 = (float) -Math.cos(rad1) * pixel * 7;
+
+        angle_2 = (float) -Math.sin(rad2) * pixel * 9;
+        angle_3 = (float) -Math.cos(rad2) * pixel * 9;
+
+        angle_4 = (float) Math.sin(rad3) * pixel * 2;
+        angle_5 = (float) Math.cos(rad3) * pixel * 2;
+
+        ArmMid.offsetZ = angle_0 - pixel * 5f;
+        ArmMid.offsetY = angle_1 + pixel * 5f;
+        ArmMid.rotateAngleX = rad2;
+
+        ArmUpper1.offsetZ = angle_0 + angle_2 * 8 / 9f + pixel * 2;
+        ArmUpper1.offsetY = angle_1 + angle_3 + pixel * 10f;
+        ArmUpper1.rotateAngleX = (float) Math.toRadians(a3 + 45);
+
+        ArmUpper2.offsetZ = angle_0 + angle_2 * 8 / 9f + pixel * 2;
+        ArmUpper2.offsetY = angle_1 + angle_3 + pixel * 10;
+        ArmUpper2.rotateAngleX = (float) Math.toRadians(a3 + 45);
+
+        trans_z = angle_0 + angle_2 + angle_4 + pixel * 6;
+        trans_y = angle_1 + angle_3 + angle_5 + pixel * 8;
+
+        Extender.rotateAngleX = rad3;
+        ClawP1.rotateAngleX = rad3;
+        ClawP4.rotateAngleX = rad3;
+        ClawP2.rotateAngleX = rad3;
+        ClawP3.rotateAngleX = rad3;
+
+
+        Extender.offsetZ = trans_z;
+        ClawP1.offsetZ = trans_z;
+        ClawP4.offsetZ = trans_z;
+        ClawP2.offsetZ = trans_z;
+        ClawP3.offsetZ = trans_z;
+
+        Extender.offsetY = trans_y + a4;
+        ClawP1.offsetY = trans_y;
+        ClawP4.offsetY = trans_y + a4;
+        ClawP2.offsetY = trans_y + a4;
+        ClawP3.offsetY = trans_y + a4;
+
+        ArmLower1.render(f5);
+        ArmLower2.render(f5);
+        SuportBarLower.render(f5);
+        ArmMid.render(f5);
+        ArmUpper1.render(f5);
+        ArmUpper2.render(f5);
+        Base2.render(f5);
+        Extender.render(f5);
+        ClawP1.render(f5);
+        ClawP4.render(f5);
+        ClawP2.render(f5);
+        ClawP3.render(f5);
+
+        if (item != null) {
+            GL11.glRotatef(180, 0, 0, 1);
+            GL11.glTranslatef(0.0F, -2.00F, -0.2F);
+            GL11.glTranslatef(0, 1 - trans_y + a4, trans_z);
+            GL11.glScalef(0.7f, 0.7f, 0.7f);
+            itemEntity.setEntityItemStack(item);
+            renderItemMG.doRender(itemEntity, 0, 0, 0, 0, 0);
+            GL11.glScalef(1, 1, 1);
+        }
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
 
 }

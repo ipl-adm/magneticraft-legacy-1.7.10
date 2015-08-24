@@ -2,13 +2,12 @@ package com.cout970.magneticraft.util.multiblock;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-
 import net.minecraft.world.World;
 
-public interface MB_Block{
+public interface MB_Block {
 
-	public void mutates(World w, VecInt blockPosition, Multiblock c, MgDirection e);
+    public void mutates(World w, VecInt blockPosition, Multiblock c, MgDirection e);
 
-	public void destroy(World w, VecInt blockPosition, Multiblock c, MgDirection e);
-	
+    public void destroy(World w, VecInt blockPosition, Multiblock c, MgDirection e);
+
 }

@@ -1,204 +1,109 @@
 package com.cout970.magneticraft.proxy;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableHigh;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableLow;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderCableMedium;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderChainsaw;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderCombustionEngine;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderConveyorLow;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderCopperPipe;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderCopperTank;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderDiode;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderDroidRED;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderEUAlternator;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderElectricPoleTier1;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderElectricSword;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderFluidHopper;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderHandCrank;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatCable;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderHeatSink;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderInserter;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderIronPipe;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderJackHammer;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderKineticGenerator;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderMonitor;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderPoleCableWire;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderPumpJack;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderRCAlternator;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderRFAlternator;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderReactorActivator;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderReactorControl;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderReactorVessel;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderResistance;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderSteamEngine;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderTeslaCoil;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderTransformerLM;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderTransformerMH;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderWireCopper;
-import com.cout970.magneticraft.client.itemrenderer.ItemRenderWoodenShaft;
-import com.cout970.magneticraft.client.tilerender.TileRenderCombustionEngine;
-import com.cout970.magneticraft.client.tilerender.TileRenderConveyorBelt;
-import com.cout970.magneticraft.client.tilerender.TileRenderCopperTank;
-import com.cout970.magneticraft.client.tilerender.TileRenderCrusher;
-import com.cout970.magneticraft.client.tilerender.TileRenderDiode;
-import com.cout970.magneticraft.client.tilerender.TileRenderDroidRED;
-import com.cout970.magneticraft.client.tilerender.TileRenderEUAlternator;
-import com.cout970.magneticraft.client.tilerender.TileRenderElectricPoleTier1;
-import com.cout970.magneticraft.client.tilerender.TileRenderFluidHopper;
-import com.cout970.magneticraft.client.tilerender.TileRenderGrinder;
-import com.cout970.magneticraft.client.tilerender.TileRenderGrindingMill;
-import com.cout970.magneticraft.client.tilerender.TileRenderHandCrank;
-import com.cout970.magneticraft.client.tilerender.TileRenderHeatSink;
-import com.cout970.magneticraft.client.tilerender.TileRenderInserter;
-import com.cout970.magneticraft.client.tilerender.TileRenderKineticGenerator;
-import com.cout970.magneticraft.client.tilerender.TileRenderMirror;
-import com.cout970.magneticraft.client.tilerender.TileRenderMonitor;
-import com.cout970.magneticraft.client.tilerender.TileRenderOilDistillery;
-import com.cout970.magneticraft.client.tilerender.TileRenderPoleCableWire;
-import com.cout970.magneticraft.client.tilerender.TileRenderPolymerizer;
-import com.cout970.magneticraft.client.tilerender.TileRenderPumpJack;
-import com.cout970.magneticraft.client.tilerender.TileRenderRCAlternator;
-import com.cout970.magneticraft.client.tilerender.TileRenderRFAlternator;
-import com.cout970.magneticraft.client.tilerender.TileRenderReactorActivator;
-import com.cout970.magneticraft.client.tilerender.TileRenderReactorControl;
-import com.cout970.magneticraft.client.tilerender.TileRenderReactorVessel;
-import com.cout970.magneticraft.client.tilerender.TileRenderRefinery;
-import com.cout970.magneticraft.client.tilerender.TileRenderResistance;
-import com.cout970.magneticraft.client.tilerender.TileRenderSifter;
-import com.cout970.magneticraft.client.tilerender.TileRenderSteamEngine;
-import com.cout970.magneticraft.client.tilerender.TileRenderStirling;
-import com.cout970.magneticraft.client.tilerender.TileRenderTeslaCoil;
-import com.cout970.magneticraft.client.tilerender.TileRenderTransformerLow_Medium;
-import com.cout970.magneticraft.client.tilerender.TileRenderTransformer_MH;
-import com.cout970.magneticraft.client.tilerender.TileRenderTurbine;
-import com.cout970.magneticraft.client.tilerender.TileRenderWindTurbine;
-import com.cout970.magneticraft.client.tilerender.TileRenderWoodenShaft;
+import com.cout970.magneticraft.client.itemrenderer.*;
+import com.cout970.magneticraft.client.tilerender.*;
 import com.cout970.magneticraft.handlers.TooltipHandler;
-import com.cout970.magneticraft.tileentity.TileCombustionEngine;
-import com.cout970.magneticraft.tileentity.TileConveyorBelt;
-import com.cout970.magneticraft.tileentity.TileCopperTank;
-import com.cout970.magneticraft.tileentity.TileCrusher;
-import com.cout970.magneticraft.tileentity.TileDiode;
-import com.cout970.magneticraft.tileentity.TileDroidRED;
-import com.cout970.magneticraft.tileentity.TileEUAlternator;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
-import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
-import com.cout970.magneticraft.tileentity.TileFluidHopper;
-import com.cout970.magneticraft.tileentity.TileGrinder;
-import com.cout970.magneticraft.tileentity.TileGrindingMill;
-import com.cout970.magneticraft.tileentity.TileHandCrankGenerator;
-import com.cout970.magneticraft.tileentity.TileHeatSink;
-import com.cout970.magneticraft.tileentity.TileInserter;
-import com.cout970.magneticraft.tileentity.TileKineticGenerator;
-import com.cout970.magneticraft.tileentity.TileMirror;
-import com.cout970.magneticraft.tileentity.TileOilDistillery;
-import com.cout970.magneticraft.tileentity.TilePolymerizer;
-import com.cout970.magneticraft.tileentity.TilePumpJack;
-import com.cout970.magneticraft.tileentity.TileRCAlternator;
-import com.cout970.magneticraft.tileentity.TileRFAlternator;
-import com.cout970.magneticraft.tileentity.TileReactorActivator;
-import com.cout970.magneticraft.tileentity.TileReactorControlRods;
-import com.cout970.magneticraft.tileentity.TileReactorVessel;
-import com.cout970.magneticraft.tileentity.TileRefinery;
-import com.cout970.magneticraft.tileentity.TileResistance;
-import com.cout970.magneticraft.tileentity.TileSifter;
-import com.cout970.magneticraft.tileentity.TileSteamEngine;
-import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
-import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
-import com.cout970.magneticraft.tileentity.TileTeslaCoil;
-import com.cout970.magneticraft.tileentity.TileTextMonitor;
-import com.cout970.magneticraft.tileentity.TileTransformerLow_Medium;
-import com.cout970.magneticraft.tileentity.TileTransformerMedium_High;
-import com.cout970.magneticraft.tileentity.TileWindTurbine;
-import com.cout970.magneticraft.tileentity.TileWoodenShaft;
-
+import com.cout970.magneticraft.tileentity.*;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
 
-public class ClientProxy implements IProxy{
+public class ClientProxy implements IProxy {
 
-	@Override
-	public void init() {
-		MinecraftForge.EVENT_BUS.register(new TooltipHandler());
+    @Override
+    public void init() {
+        MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.cablelow, new ItemRenderCableLow());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.cablemedium, new ItemRenderCableMedium());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.cablehigh, new ItemRenderCableHigh());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.partcopperpipe, new ItemRenderCopperPipe());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.partironpipe, new ItemRenderIronPipe());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.kinetic), new ItemRenderKineticGenerator());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pumpJack), new ItemRenderPumpJack());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.transformer_lm), new ItemRenderTransformerLM());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.fluidhopper), new ItemRenderFluidHopper());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.steam_engine), new ItemRenderSteamEngine());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.reactor_vessel), new ItemRenderReactorVessel());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.reactor_control_rods), new ItemRenderReactorControl());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.reactor_activator), new ItemRenderReactorActivator());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.transformer_mh), new ItemRenderTransformerMH());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.partheatcable, new ItemRenderHeatCable());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.inserter), new ItemRenderInserter());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.tesla_coil), new ItemRenderTeslaCoil());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.heat_sink), new ItemRenderHeatSink());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.wire_copper, new ItemRenderWireCopper());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.combustion_engine), new ItemRenderCombustionEngine());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_sword, new ItemRenderElectricSword());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_chainsaw, new ItemRenderChainsaw());
-		MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_jackhammer, new ItemRenderJackHammer());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.conveyor_l), new ItemRenderConveyorLow());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.monitor), new ItemRenderMonitor());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_tier1), new ItemRenderElectricPoleTier1());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.droid_red), new ItemRenderDroidRED());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.hand_crank_gen), new ItemRenderHandCrank());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.wooden_shaft), new ItemRenderWoodenShaft());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.diode), new ItemRenderDiode());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.resistance), new ItemRenderResistance());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rf_alternator), new ItemRenderRFAlternator());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.eu_alternator), new ItemRenderEUAlternator());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rc_alternator), new ItemRenderRCAlternator());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.copper_tank), new ItemRenderCopperTank());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_cable_wire), new ItemRenderPoleCableWire());
-		
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class,new TileRenderPumpJack());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileMirror.class,new TileRenderMirror());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileWindTurbine.class,new TileRenderWindTurbine());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFluidHopper.class,new TileRenderFluidHopper());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSteamEngine.class,new TileRenderSteamEngine());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTransformerLow_Medium.class,new TileRenderTransformerLow_Medium());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileKineticGenerator.class,new TileRenderKineticGenerator());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileReactorVessel.class,new TileRenderReactorVessel());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileReactorControlRods.class,new TileRenderReactorControl());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileInserter.class,new TileRenderInserter());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileReactorActivator.class,new TileRenderReactorActivator());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTransformerMedium_High.class,new TileRenderTransformer_MH());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTeslaCoil.class,new TileRenderTeslaCoil());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileConveyorBelt.class,new TileRenderConveyorBelt());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRefinery.class,new TileRenderRefinery());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCopperTank.class,new TileRenderCopperTank());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCombustionEngine.class,new TileRenderCombustionEngine());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileHeatSink.class,new TileRenderHeatSink());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class,new TileRenderGrinder());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCrusher.class,new TileRenderCrusher());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePolymerizer.class,new TileRenderPolymerizer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSteamTurbineControl.class,new TileRenderTurbine());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileStirlingGenerator.class,new TileRenderStirling());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTextMonitor.class,new TileRenderMonitor());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleTier1.class,new TileRenderElectricPoleTier1());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileDroidRED.class,new TileRenderDroidRED());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileOilDistillery.class,new TileRenderOilDistillery());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileGrindingMill.class,new TileRenderGrindingMill());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileWoodenShaft.class,new TileRenderWoodenShaft());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileHandCrankGenerator.class,new TileRenderHandCrank());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileDiode.class,new TileRenderDiode());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileResistance.class,new TileRenderResistance());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRFAlternator.class, new TileRenderRFAlternator());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEUAlternator.class, new TileRenderEUAlternator());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRCAlternator.class, new TileRenderRCAlternator());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleCableWire.class, new TileRenderPoleCableWire());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSifter.class, new TileRenderSifter());
-	}
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.cablelow, new ItemRenderCableLow());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.cablemedium, new ItemRenderCableMedium());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.cablehigh, new ItemRenderCableHigh());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.partcopperpipe, new ItemRenderCopperPipe());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.partironpipe, new ItemRenderIronPipe());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pumpJack), new ItemRenderPumpJack());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.transformer_lm), new ItemRenderTransformerLM());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.fluidhopper), new ItemRenderFluidHopper());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.steam_engine), new ItemRenderSteamEngine());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.reactor_vessel), new ItemRenderReactorVessel());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.reactor_control_rods), new ItemRenderReactorControl());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.reactor_activator), new ItemRenderReactorActivator());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.transformer_mh), new ItemRenderTransformerMH());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.partheatcable, new ItemRenderHeatCable());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.inserter), new ItemRenderInserter());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.tesla_coil), new ItemRenderTeslaCoil());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.heat_sink), new ItemRenderHeatSink());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.wire_copper, new ItemRenderWireCopper());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.combustion_engine), new ItemRenderCombustionEngine());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_sword, new ItemRenderElectricSword());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_chainsaw, new ItemRenderChainsaw());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_jackhammer, new ItemRenderJackHammer());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.conveyor_l), new ItemRenderConveyorLow());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.monitor), new ItemRenderMonitor());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_tier1), new ItemRenderElectricPoleTier1());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.droid_red), new ItemRenderDroidRED());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.hand_crank_gen), new ItemRenderHandCrank());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.wooden_shaft), new ItemRenderWoodenShaft());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.diode), new ItemRenderDiode());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.resistance), new ItemRenderResistance());
+        if (Magneticraft.COFH) {
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rf_alternator), new ItemRenderRFAlternator());
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.kinetic), new ItemRenderKineticGenerator());
+        }
+        if (Magneticraft.IC2) {
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.eu_alternator), new ItemRenderEUAlternator());
+        }
+        if (Magneticraft.RAILCRAFT) {
+            MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rc_alternator), new ItemRenderRCAlternator());
+        }
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.copper_tank), new ItemRenderCopperTank());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_cable_wire), new ItemRenderPoleCableWire());
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class, new TileRenderPumpJack());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileMirror.class, new TileRenderMirror());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileWindTurbine.class, new TileRenderWindTurbine());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileFluidHopper.class, new TileRenderFluidHopper());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSteamEngine.class, new TileRenderSteamEngine());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTransformerLow_Medium.class, new TileRenderTransformerLow_Medium());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileReactorVessel.class, new TileRenderReactorVessel());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileReactorControlRods.class, new TileRenderReactorControl());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileInserter.class, new TileRenderInserter());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileReactorActivator.class, new TileRenderReactorActivator());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTransformerMedium_High.class, new TileRenderTransformer_MH());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTeslaCoil.class, new TileRenderTeslaCoil());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileConveyorBelt.class, new TileRenderConveyorBelt());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRefinery.class, new TileRenderRefinery());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCopperTank.class, new TileRenderCopperTank());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCombustionEngine.class, new TileRenderCombustionEngine());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileHeatSink.class, new TileRenderHeatSink());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileGrinder.class, new TileRenderGrinder());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCrusher.class, new TileRenderCrusher());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePolymerizer.class, new TileRenderPolymerizer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSteamTurbineControl.class, new TileRenderTurbine());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileStirlingGenerator.class, new TileRenderStirling());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTextMonitor.class, new TileRenderMonitor());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleTier1.class, new TileRenderElectricPoleTier1());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileDroidRED.class, new TileRenderDroidRED());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileOilDistillery.class, new TileRenderOilDistillery());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileGrindingMill.class, new TileRenderGrindingMill());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileWoodenShaft.class, new TileRenderWoodenShaft());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileHandCrankGenerator.class, new TileRenderHandCrank());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileDiode.class, new TileRenderDiode());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileResistance.class, new TileRenderResistance());
+        if (Magneticraft.COFH) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileRFAlternator.class, new TileRenderRFAlternator());
+            ClientRegistry.bindTileEntitySpecialRenderer(TileKineticGenerator.class, new TileRenderKineticGenerator());
+        }
+        if (Magneticraft.IC2) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileEUAlternator.class, new TileRenderEUAlternator());
+        }
+        if (Magneticraft.RAILCRAFT) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileRCAlternator.class, new TileRenderRCAlternator());
+        }
+        ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleCableWire.class, new TileRenderPoleCableWire());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSifter.class, new TileRenderSifter());
+    }
 }

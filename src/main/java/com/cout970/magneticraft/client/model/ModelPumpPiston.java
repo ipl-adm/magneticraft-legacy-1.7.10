@@ -5,85 +5,76 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelPumpPiston extends ModelBase
-{
-  //fields
+public class ModelPumpPiston extends ModelBase {
+    //fields
     ModelRenderer piston;
     ModelRenderer cable1;
     ModelRenderer outPipe;
     ModelRenderer cable;
-  
-  public ModelPumpPiston()
-  {
-    textureWidth = 38;
-    textureHeight = 18;
-    
-      piston = new ModelRenderer(this, 0, 0);
-      piston.addBox(-2F, -2F, -2F, 4, 10, 4);
-      piston.setRotationPoint(0F, 16F, 0F);
-      piston.setTextureSize(38, 18);
-      piston.mirror = true;
-      setRotation(piston, 0F, 0F, 0F);
-      cable1 = new ModelRenderer(this, 16, 0);
-      cable1.addBox(-0.5F, -2F, -0.5F, 1, 6, 1);
-      cable1.setRotationPoint(0F, 0F, 0F);
-      cable1.setTextureSize(38, 18);
-      cable1.mirror = true;
-      setRotation(cable1, 0F, 0F, 0F);
-      outPipe = new ModelRenderer(this, 20, 0);
-      outPipe.addBox(0.5F, 7F, -8F, 1, 1, 6);
-      outPipe.setRotationPoint(0F, 16F, 0F);
-      outPipe.setTextureSize(38, 18);
-      outPipe.mirror = true;
-      setRotation(outPipe, 0F, 0F, 0F);
-      cable = new ModelRenderer(this, 34, 0);
-      cable.addBox(-0.5F, 0F, -0.5F, 1, 16, 1);
-      cable.setRotationPoint(0F, 0F, 0F);
-      cable.setTextureSize(38, 18);
-      cable.mirror = true;
-      setRotation(cable, 0F, 0F, 0F);
-  }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5,entity);
-    piston.render(f5);
-    outPipe.render(f5);
-    cable.render(f5);
-  }
-  
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
-  }
 
-  public void renderStatic(float f5){
-	  piston.render(f5);
-	  //	  cable1.render(f5);
-	  //	    outPipe.render(f5);
-	  //	  cable.render(f5); 
-  }
+    public ModelPumpPiston() {
+        textureWidth = 38;
+        textureHeight = 18;
 
-  public void renderDynamic(float f5){
-	  cable.render(f5);
-  }
+        piston = new ModelRenderer(this, 0, 0);
+        piston.addBox(-2F, -2F, -2F, 4, 10, 4);
+        piston.setRotationPoint(0F, 16F, 0F);
+        piston.setTextureSize(38, 18);
+        piston.mirror = true;
+        setRotation(piston, 0F, 0F, 0F);
+        cable1 = new ModelRenderer(this, 16, 0);
+        cable1.addBox(-0.5F, -2F, -0.5F, 1, 6, 1);
+        cable1.setRotationPoint(0F, 0F, 0F);
+        cable1.setTextureSize(38, 18);
+        cable1.mirror = true;
+        setRotation(cable1, 0F, 0F, 0F);
+        outPipe = new ModelRenderer(this, 20, 0);
+        outPipe.addBox(0.5F, 7F, -8F, 1, 1, 6);
+        outPipe.setRotationPoint(0F, 16F, 0F);
+        outPipe.setTextureSize(38, 18);
+        outPipe.mirror = true;
+        setRotation(outPipe, 0F, 0F, 0F);
+        cable = new ModelRenderer(this, 34, 0);
+        cable.addBox(-0.5F, 0F, -0.5F, 1, 16, 1);
+        cable.setRotationPoint(0F, 0F, 0F);
+        cable.setTextureSize(38, 18);
+        cable.mirror = true;
+        setRotation(cable, 0F, 0F, 0F);
+    }
 
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity t)
-  {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5,t);
-  }
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        piston.render(f5);
+        outPipe.render(f5);
+        cable.render(f5);
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    public void renderStatic(float f5) {
+        piston.render(f5);
+        //	  cable1.render(f5);
+        //	    outPipe.render(f5);
+        //	  cable.render(f5);
+    }
+
+    public void renderDynamic(float f5) {
+        cable.render(f5);
+    }
+
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity t) {
+        super.setRotationAngles(f, f1, f2, f3, f4, f5, t);
+    }
 
 }

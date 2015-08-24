@@ -8,12 +8,14 @@ public interface ISteelAttribute {
 
     /**
      * Get the name of this attribute
+     *
      * @return The name of the attribute
      */
     public String getName();
 
     /**
      * Gets the fully formatted text to display
+     *
      * @param value The Value Of the Attribute
      * @return The Fully Formatted Text
      */

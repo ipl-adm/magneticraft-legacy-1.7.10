@@ -1,7 +1,6 @@
 package com.cout970.magneticraft.util.fluid;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -9,23 +8,23 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TankConection {
 
-	public IFluidHandler tank;
-	public MgDirection side;
-	
-	public TankConection(IFluidHandler t,MgDirection enumFacing){
-		tank = t;
-		side = enumFacing;
-	}
+    public IFluidHandler tank;
+    public MgDirection side;
 
-	public FluidTankInfo[] getTankInfo(MgDirection enumF) {
-		return tank.getTankInfo(ForgeDirection.getOrientation(enumF.ordinal()));
-	}
+    public TankConection(IFluidHandler t, MgDirection enumFacing) {
+        tank = t;
+        side = enumFacing;
+    }
 
-	public FluidStack drain(MgDirection down, int maxDrain, boolean b) {
-		return tank.drain(ForgeDirection.getOrientation(down.ordinal()), maxDrain, b);
-	}
+    public FluidTankInfo[] getTankInfo(MgDirection enumF) {
+        return tank.getTankInfo(ForgeDirection.getOrientation(enumF.ordinal()));
+    }
 
-	public int fill(MgDirection f, FluidStack resource, boolean doFill) {
-		return tank.fill(ForgeDirection.getOrientation(f.ordinal()), resource, doFill);
-	}
+    public FluidStack drain(MgDirection down, int maxDrain, boolean b) {
+        return tank.drain(ForgeDirection.getOrientation(down.ordinal()), maxDrain, b);
+    }
+
+    public int fill(MgDirection f, FluidStack resource, boolean doFill) {
+        return tank.fill(ForgeDirection.getOrientation(f.ordinal()), resource, doFill);
+    }
 }

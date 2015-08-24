@@ -5,7 +5,7 @@ import net.minecraft.inventory.ICrafting;
 
 public interface IGuiSync {
 
-	void sendGUINetworkData(Container cont, ICrafting craft);
+    void sendGUINetworkData(Container cont, ICrafting craft);
 
-	void getGUINetworkData(int id, int value);
+    void getGUINetworkData(int id, int value);
 }

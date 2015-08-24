@@ -9,7 +9,6 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -132,9 +131,8 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 
     @Override
     public void sendGUINetworkData(Container cont, ICrafting craft) {
-        //0 => V
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-        craft.sendProgressBarUpdate(cont, 1, (int) progress);
+        craft.sendProgressBarUpdate(cont, 1, progress);
         craft.sendProgressBarUpdate(cont, 2, (cond.getStorage() & 0xFFFF));
         craft.sendProgressBarUpdate(cont, 3, ((cond.getStorage() & 0xFFFF0000) >>> 16));
     }

@@ -1,22 +1,26 @@
 package com.cout970.magneticraft.update1_8;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
-public interface IFluidHandler1_8 extends net.minecraftforge.fluids.IFluidHandler{
+public interface IFluidHandler1_8 extends net.minecraftforge.fluids.IFluidHandler {
 
-	//anticipation the 1.8 update
-	
-	int fillMg(MgDirection from, FluidStack resource, boolean doFill);
-	FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain);
-	FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain);
-	boolean canFillMg(MgDirection from, Fluid fluid);
-	boolean canDrainMg(MgDirection from, Fluid fluid);
-	FluidTankInfo[] getTankInfoMg(MgDirection from);
-	
+    //anticipation the 1.8 update
+
+    int fillMg(MgDirection from, FluidStack resource, boolean doFill);
+
+    FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain);
+
+    FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain);
+
+    boolean canFillMg(MgDirection from, Fluid fluid);
+
+    boolean canDrainMg(MgDirection from, Fluid fluid);
+
+    FluidTankInfo[] getTankInfoMg(MgDirection from);
+
 //	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 //		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fill(EnumFacing.values()[from.ordinal()], resource, doFill);
 //		return 0;

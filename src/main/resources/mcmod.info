@@ -13,6 +13,7 @@
   "credits": "By Magneticraft Team: Cout970, Cypher121, Minecreatr, MattDahEpic (Developers) and MechWarrior99 (Artist)",
   "logoFile": "assets/magneticraft/textures/logo/logo.png",
   "screenshots": [],
-  "dependencies": ["ForgeMultipart"]
+  "requiredMods": [ "Forge", "ForgeMultipart" ],
+  "dependencies": [ "Railcraft", "ForgeMultipart", "BuildCraft|Core", "CoFHCore", "IC2" ]
 }
 ]

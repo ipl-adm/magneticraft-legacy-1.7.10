@@ -1,32 +1,12 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.ArrayList;
-
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.api.computer.IBusWire;
-import com.cout970.magneticraft.api.computer.IComputer;
-import com.cout970.magneticraft.api.computer.IModuleCPU;
-import com.cout970.magneticraft.api.computer.IModuleDiskDrive;
-import com.cout970.magneticraft.api.computer.IModuleMemoryController;
-import com.cout970.magneticraft.api.computer.IModuleROM;
-import com.cout970.magneticraft.api.computer.IPeripheral;
-import com.cout970.magneticraft.api.computer.prefab.ModuleCPU_MIPS;
-import com.cout970.magneticraft.api.computer.prefab.ModuleDisckDrive;
-import com.cout970.magneticraft.api.computer.prefab.ModuleMemoryController;
-import com.cout970.magneticraft.api.computer.prefab.ModuleROM;
-import com.cout970.magneticraft.api.computer.prefab.MonitorPeripheral;
+import com.cout970.magneticraft.api.computer.*;
+import com.cout970.magneticraft.api.computer.prefab.*;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
-import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.ConnectionClass;
-import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.api.util.IConnectable;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.Orientation;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VecIntUtil;
+import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IClientInformer;
@@ -34,7 +14,6 @@ import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
@@ -43,6 +22,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.ArrayList;
 
 public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener, IBusWire {
 

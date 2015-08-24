@@ -5,86 +5,76 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import org.lwjgl.opengl.GL11;
 
-public class ModelWindMillBig extends ModelBase
-{
-	//fields
-	ModelRenderer axix;
-	ModelRenderer pole;
-	ModelRenderer wool;
+public class ModelWindMillBig extends ModelBase {
+    //fields
+    ModelRenderer axix;
+    ModelRenderer pole;
+    ModelRenderer wool;
 
-	public ModelWindMillBig()
-	{
-		textureWidth = 256;
-		textureHeight = 64;
+    public ModelWindMillBig() {
+        textureWidth = 256;
+        textureHeight = 64;
 
-		axix = new ModelRenderer(this, 0, 0);
-		axix.addBox(-2F, -2F, -2F, 4, 10, 4);
-		axix.setRotationPoint(0F, 16F, 0F);
-		axix.setTextureSize(256, 64);
-		axix.mirror = true;
-		setRotation(axix, 0F, 0F, 0F);
-		pole = new ModelRenderer(this, 112, 0);
-		pole.addBox(-1F, -1F, 2F, 2, 2, 54);
-		pole.setRotationPoint(0F, 16F, 0F);
-		pole.setTextureSize(256, 64);
-		pole.mirror = true;
-		setRotation(pole, 0F, 0F, 0F);
-		wool = new ModelRenderer(this, 0, 0);
-		wool.addBox(1F, -0.5F, 7F, 8, 1, 48);
-		wool.setRotationPoint(0F, 16F, 0F);
-		wool.setTextureSize(256, 64);
-		wool.mirror = true;
-		setRotation(wool, 0F, 0F, 0.1745329F);
-	}
+        axix = new ModelRenderer(this, 0, 0);
+        axix.addBox(-2F, -2F, -2F, 4, 10, 4);
+        axix.setRotationPoint(0F, 16F, 0F);
+        axix.setTextureSize(256, 64);
+        axix.mirror = true;
+        setRotation(axix, 0F, 0F, 0F);
+        pole = new ModelRenderer(this, 112, 0);
+        pole.addBox(-1F, -1F, 2F, 2, 2, 54);
+        pole.setRotationPoint(0F, 16F, 0F);
+        pole.setTextureSize(256, 64);
+        pole.mirror = true;
+        setRotation(pole, 0F, 0F, 0F);
+        wool = new ModelRenderer(this, 0, 0);
+        wool.addBox(1F, -0.5F, 7F, 8, 1, 48);
+        wool.setRotationPoint(0F, 16F, 0F);
+        wool.setTextureSize(256, 64);
+        wool.mirror = true;
+        setRotation(wool, 0F, 0F, 0.1745329F);
+    }
 
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-	{
-		super.render(entity, f, f1, f2, f3, f4, f5);
-		setRotationAngles(f, f1, f2, f3, f4, f5,entity);
-		axix.render(f5);
-		pole.render(f5);
-		wool.render(f5);
-	}
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        axix.render(f5);
+        pole.render(f5);
+        wool.render(f5);
+    }
 
-	public void renderStatic(float f5){
-		axix.render(f5);
-		  GL11.glPushMatrix();
-		  pole.render(f5);
-		  wool.render(f5);
-		  GL11.glRotatef(90, 0, 1, 0);
-		  pole.render(f5);
-		  wool.render(f5);
-		  GL11.glRotatef(90, 0, 1, 0);
-		  pole.render(f5);
-		  wool.render(f5);
-		  GL11.glRotatef(90, 0, 1, 0);
-		  pole.render(f5);
-		  wool.render(f5);
-		  GL11.glPopMatrix();
-	  }
-	
-	private void setRotation(ModelRenderer model, float x, float y, float z)
-	{
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
-	}
+    public void renderStatic(float f5) {
+        axix.render(f5);
+        GL11.glPushMatrix();
+        pole.render(f5);
+        wool.render(f5);
+        GL11.glRotatef(90, 0, 1, 0);
+        pole.render(f5);
+        wool.render(f5);
+        GL11.glRotatef(90, 0, 1, 0);
+        pole.render(f5);
+        wool.render(f5);
+        GL11.glRotatef(90, 0, 1, 0);
+        pole.render(f5);
+        wool.render(f5);
+        GL11.glPopMatrix();
+    }
 
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity t)
-	{
-		super.setRotationAngles(f, f1, f2, f3, f4, f5,t);
-	}
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity t) {
+        super.setRotationAngles(f, f1, f2, f3, f4, f5, t);
+    }
 
 }

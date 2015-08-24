@@ -16,7 +16,6 @@ import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -288,12 +287,12 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
     }
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-            return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+        return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
     }
 
     public FluidStack drain(ForgeDirection from, FluidStack resource,
                             boolean doDrain) {
-            return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
@@ -302,15 +301,15 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
     }
 
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-            return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-            return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-            return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+        return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
 
     public IBarProvider getBurningTimeBar() {

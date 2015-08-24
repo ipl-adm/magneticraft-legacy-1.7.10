@@ -1,5 +1,9 @@
 package com.cout970.magneticraft.tileentity;
 
+import buildcraft.api.fuels.BuildcraftFuelRegistry;
+import buildcraft.api.fuels.IFuel;
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
@@ -9,14 +13,12 @@ import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.block.fluids.BlockFuel;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
-import buildcraft.api.fuels.BuildcraftFuelRegistry;
-import buildcraft.api.fuels.IFuel;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,16 +33,24 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
     private TankMg tank = new TankMg(this, 4000);
     public IHeatConductor heat = new HeatConductor(this, 600, 800);
     private float buffer;
-    private IFuel fuel;
     private float prod, counter;
     private int maxProd;
     private int oldHeat;
+
+    BlockFuel fuel;
+    IFuel fuelBC;
 
     public TankMg getTank() {
         return tank;
     }
 
     public void updateEntity() {
+        if (Magneticraft.BUILDCRAFT) {
+            updateEntityBC();
+            return;
+        }
+
+
         super.updateEntity();
 
         if (worldObj.isRemote) return;
@@ -61,10 +71,42 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
         if (buffer <= 0 || (fuel == null && getTank().getFluidAmount() >= 10)) {
             FluidStack fluid = getTank().getFluid();
             if (fluid != null) {
-                IFuel f = BuildcraftFuelRegistry.fuel.getFuel(fluid.getFluid());
+                BlockFuel f = ManagerFluids.fuels.get(fluid.getFluid());
                 if (f != null) {
                     buffer += f.getTotalBurningTime() / 100;
                     fuel = f;
+                    maxProd = (int) EnergyConversor.RFtoW(f.getPowerPerCycle());
+                    getTank().drain(10, true);
+                }
+            }
+        }
+    }
+
+    public void updateEntityBC() {
+        super.updateEntity();
+
+        if (worldObj.isRemote) return;
+        heat.iterate();
+        if (((int) heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0) {
+            sendUpdateToClient();
+            oldHeat = (int) heat.getTemperature();
+        }
+        if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControled() && fuelBC != null) {
+            float speed = getSpeed();
+            double p = EnergyConversor.RFtoW(fuelBC.getPowerPerCycle()) * speed;
+            buffer -= speed;
+            counter += p;
+            cond.applyPower(p);
+            heat.applyCalories(EnergyConversor.RFtoCALORIES(0.2));
+        }
+
+        if (buffer <= 0 || (fuelBC == null && getTank().getFluidAmount() >= 10)) {
+            FluidStack fluid = getTank().getFluid();
+            if (fluid != null) {
+                IFuel f = BuildcraftFuelRegistry.fuel.getFuel(fluid.getFluid());
+                if (f != null) {
+                    buffer += f.getTotalBurningTime() / 100;
+                    fuelBC = f;
                     maxProd = (int) EnergyConversor.RFtoW(f.getPowerPerCycle());
                     getTank().drain(10, true);
                 }
@@ -180,40 +222,27 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
     }
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-        return 0;
+        return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
     }
 
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
-                            boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
-        return null;
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
-        return null;
+        return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
     }
 
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-        return null;
+        return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
 
     public IBarProvider getProductionBar() {

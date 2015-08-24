@@ -1,13 +1,12 @@
 package com.cout970.magneticraft;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cout970.magneticraft.items.*;
 import com.cout970.magneticraft.util.NamedItem;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManagerItems {
 
@@ -18,16 +17,28 @@ public class ManagerItems {
     public static String[] oreNames = new String[]{"Iron", "Gold", "Copper", "Tin", "Tungsten", "Lead", "Silver", "Uranium", "Thorium", "Nickel", "Ardite", "Cobalt", "Zinc", "Aluminium", "Platinum", "Titanium", "Osmium", "Bismuth", "Chromium", "Mithril", "Lithium", "Iridium", "Manganese"};
     public static String[][] extraNames = new String[][]{{"Nickel", "Aluminium"}, {"Copper", "Silver"}, {"Gold", "Iron"}, {"Iron", "Silver"}, {"Iron", "Aluminium"}, {"Silver", "Thorium"}, {"Lead", "Copper"}, {"Thorium", "Plutonium"}, {"Uranium", "Plutonium"}, {"Iron", "Zinc"}, {"Cobalt", null},
             {"Ardite", null}, {"Iron", "Nickel"}, {"Iron", "Titanium"}, {"Nickel", "Silver"}, {"Iron", "Nickel"}, {null, "Iron"}, {null, "Zinc"}, {null, "Nickel"}, {null, "Zinc"}, {null, "Iron"}, {null, "Iron"}, {"Iron", null}};
-/*  public static List<ItemProduct> chunks = new ArrayList<ItemProduct>();
-    //	public static List<ItemProduct> chunks_clean = new ArrayList<ItemProduct>();
-    public static List<ItemProduct> rubble = new ArrayList<ItemProduct>();
-    //	public static List<ItemProduct> rubble_clean = new ArrayList<ItemProduct>();
-    public static List<ItemProduct> pebbles = new ArrayList<ItemProduct>();
-    //	public static List<ItemProduct> pebbles_clean = new ArrayList<ItemProduct>();
-    public static List<ItemProduct> dust = new ArrayList<ItemProduct>();
-    public static List<ItemProduct> sinterClump = new ArrayList<ItemProduct>();
-    public static List<ItemProduct> sinter = new ArrayList<ItemProduct>(); */
 
+    private static int oreAmount = oreNames.length;
+    public static ItemMeta chunks = new ItemMeta("chunks", oreAmount)
+            .setUnlocByPattern("chunk_!lower_name!", oreNames)
+            .setTextureByPattern("ores/chunk_!lower_name!", oreNames)
+            .setOreDictByPattern("chunk!name!", oreNames)
+            .setNameByPattern("!name! Chunk", oreNames);
+    public static ItemMeta rubble = new ItemMeta("rubble", oreAmount)
+            .setUnlocByPattern("rubble_!lower_name!", oreNames)
+            .setTextureByPattern("ores/rubble_!lower_name!", oreNames)
+            .setOreDictByPattern("rubble!name!", oreNames)
+            .setNameByPattern("!name! Rubble", oreNames);
+    public static ItemMeta pebbles = new ItemMeta("pebbles", oreAmount)
+            .setUnlocByPattern("pebbles_!lower_name!", oreNames)
+            .setTextureByPattern("ores/pebbles_!lower_name!", oreNames)
+            .setOreDictByPattern("pebbles!name!", oreNames)
+            .setNameByPattern("!name! Pebbles", oreNames);
+    public static ItemMeta dust = new ItemMeta("dust", oreAmount)
+            .setUnlocByPattern("dust_!lower_name!", oreNames)
+            .setTextureByPattern("ores/dust_!lower_name!", oreNames)
+            .setOreDictByPattern("dust!name!", oreNames)
+            .setNameByPattern("!name! Dust", oreNames);
 
     public static Item ingotCopper;
     public static Item ingotTungsten;
@@ -189,12 +200,12 @@ public class ManagerItems {
         addItem(volt, "Voltmeter");
         addItem(therm, "Thermometer");
         addItem(battery_item, "Sulfuric Acid Battery");
-        addItem(map, "Map Position");
+        addItem(map, "Position Map");
         addItem(partcopperpipe, "Copper Pipe");
         addItem(wrench, "Wrench");
-        addItem(turbine_0, "Wind Turbine lv 0");
-        addItem(turbine_1, "Wind Turbine lv 1");
-        addItem(turbine_2, "Wind Turbine lv 2");
+        addItem(turbine_0, "Small Wind Turbine");
+        addItem(turbine_1, "Medium Wind Turbine");
+        addItem(turbine_2, "Large Wind Turbine");
         addItem(uranium_rod, "Uranium Rod");
         addItem(thorium_rod, "Thorium Rod");
         addItem(motor, "Electric Motor");
@@ -246,32 +257,10 @@ public class ManagerItems {
     }
 
     private static void registerProducts() {
-/*      for (String name : oreNames) {
-            chunks.add(new ItemProduct("chunk_" + name.toLowerCase(Locale.US), "chunk" + name, name));
-			chunks_clean.add(new ItemProduct("chunk_clean_"+name.toLowerCase(), "cleanChunk"+name, name));
-            rubble.add(new ItemProduct("rubble_" + name.toLowerCase(Locale.US), "rubble" + name, name));
-			rubble_clean.add(new ItemProduct("rubble_clean_"+name.toLowerCase(), "cleanRubble"+name, name));
-            pebbles.add(new ItemProduct("pebbles_" + name.toLowerCase(Locale.US), "pebbles" + name, name));
-			pebbles_clean.add(new ItemProduct("pebbles_clean_"+name.toLowerCase(), "cleanPebbles"+name, name));
-            dust.add(new ItemProduct("dust_" + name.toLowerCase(Locale.US), "dust" + name, name));
-            sinterClump.add(new ItemProduct("sinterClump_" + name.toLowerCase(Locale.US), "sinterClump" + name, name));
-            sinter.add(new ItemProduct("sinter_" + name.toLowerCase(Locale.US), "sinter" + name, name));
-        }
-        for (ItemProduct i : chunks) addItem(i, i.getBaseName() + " Chunk");
-		for(ItemProduct i : chunks_clean)addItem(i, i.getBaseName()+" Clean Chunk");
-        for (ItemProduct i : rubble) addItem(i, i.getBaseName() + " Rubble");
-		for(ItemProduct i : rubble_clean)addItem(i, i.getBaseName()+" Clean Rubble");
-        for (ItemProduct i : pebbles) addItem(i, i.getBaseName() + " Pebbles");
-		for(ItemProduct i : pebbles_clean)addItem(i, i.getBaseName()+" Clean Pebbles");
-        for (ItemProduct i : dust) addItem(i, i.getBaseName() + " Dust");
-        for (ItemProduct i : sinterClump) addItem(i, i.getBaseName() + " Sinter Clump");
-        for (ItemProduct i : sinter) addItem(i, i.getBaseName() + " Sinter");*/
-        addItem(ManagerOreDict.chunks, "chunk");
-        addItem(ManagerOreDict.rubble, "rubble");
-        addItem(ManagerOreDict.pebbles, "pebbles");
-        addItem(ManagerOreDict.dust, "dust");
-        //addItem(new ItemMeta("sinter_!lower_name!", "sinter_!lower_name!", "sinter!name!", oreNames), "sinter");
-        //addItem(new ItemMeta("sinterClump_!lower_name!", "sinterClump_!lower_name!", "sinterClump!name!", oreNames), "sinterClump");
+        addItem(chunks, "chunk");
+        addItem(rubble, "rubble");
+        addItem(pebbles, "pebbles");
+        addItem(dust, "dust");
 
     }
 

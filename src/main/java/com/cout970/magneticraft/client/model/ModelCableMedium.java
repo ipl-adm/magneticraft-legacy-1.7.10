@@ -5,18 +5,13 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
-public class ModelCableMedium extends ModelBase
-{
-  //fields
+public class ModelCableMedium extends ModelBase {
+    //fields
     ModelRenderer base;
     ModelRenderer B;
     ModelRenderer F;
@@ -24,75 +19,72 @@ public class ModelCableMedium extends ModelBase
     ModelRenderer L;
     ModelRenderer D;
     ModelRenderer U;
-  
-  public ModelCableMedium()
-  {
-    textureWidth = 48;
-    textureHeight = 48;
-    
-      base = new ModelRenderer(this, 0, 0);
-      base.addBox(-3F, -3F, -3F, 6, 6, 6);
-      base.setRotationPoint(0F, 16F, 0F);
-      base.setTextureSize(48, 48);
-      base.mirror = true;
-      setRotation(base, 0F, 0F, 0F);
-      B = new ModelRenderer(this, 0, 37);
-      B.addBox(-3F, -3F, -1F, 6, 6, 5);
-      B.setRotationPoint(0F, 16F, 4F);
-      B.setTextureSize(48, 48);
-      B.mirror = true;
-      setRotation(B, 0F, 0F, 0F);
-      F = new ModelRenderer(this, 0, 26);
-      F.addBox(-3F, -3F, -8F, 6, 6, 5);
-      F.setRotationPoint(0F, 16F, 0F);
-      F.setTextureSize(48, 48);
-      F.mirror = true;
-      setRotation(F, 0F, 0F, 0F);
-      R = new ModelRenderer(this, 0, 14);
-      R.addBox(-2F, -3F, -3F, 5, 6, 6);
-      R.setRotationPoint(-6F, 16F, 0F);
-      R.setTextureSize(48, 48);
-      R.mirror = true;
-      setRotation(R, 0F, 0F, 0F);
-      L = new ModelRenderer(this, 22, 36);
-      L.addBox(-1F, -3F, -3F, 5, 6, 6);
-      L.setRotationPoint(4F, 16F, 0F);
-      L.setTextureSize(48, 48);
-      L.mirror = true;
-      setRotation(L, 0F, 0F, 0F);
-      D = new ModelRenderer(this, 22, 25);
-      D.addBox(-3F, 3F, -3F, 6, 5, 6);
-      D.setRotationPoint(0F, 16F, 0F);
-      D.setTextureSize(48, 48);
-      D.mirror = true;
-      setRotation(D, 0F, 0F, 0F);
-      U = new ModelRenderer(this, 22, 14);
-      U.addBox(-3F, -8F, -3F, 6, 5, 6);
-      U.setRotationPoint(0F, 16F, 0F);
-      U.setTextureSize(48, 48);
-      U.mirror = true;
-      setRotation(U, 0F, 0F, 0F);
-  }
-  
-  public void render(float f5,boolean[] s)
-  {
-	  if(s == null)return;
-	  if(s[0])U.render(f5); 
-	  if(s[1])D.render(f5);
-	  if(s[2])F.render(f5);
-	  if(s[3])B.render(f5);
-	  if(s[4])R.render(f5);
-	  if(s[5])L.render(f5);
-  }
 
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-	  model.rotateAngleX = x;
-	  model.rotateAngleY = y;
-	  model.rotateAngleZ = z;
-  }
+    public ModelCableMedium() {
+        textureWidth = 48;
+        textureHeight = 48;
 
-  public void renderBase(float f5) {
-	  base.render(f5);
-  }
+        base = new ModelRenderer(this, 0, 0);
+        base.addBox(-3F, -3F, -3F, 6, 6, 6);
+        base.setRotationPoint(0F, 16F, 0F);
+        base.setTextureSize(48, 48);
+        base.mirror = true;
+        setRotation(base, 0F, 0F, 0F);
+        B = new ModelRenderer(this, 0, 37);
+        B.addBox(-3F, -3F, -1F, 6, 6, 5);
+        B.setRotationPoint(0F, 16F, 4F);
+        B.setTextureSize(48, 48);
+        B.mirror = true;
+        setRotation(B, 0F, 0F, 0F);
+        F = new ModelRenderer(this, 0, 26);
+        F.addBox(-3F, -3F, -8F, 6, 6, 5);
+        F.setRotationPoint(0F, 16F, 0F);
+        F.setTextureSize(48, 48);
+        F.mirror = true;
+        setRotation(F, 0F, 0F, 0F);
+        R = new ModelRenderer(this, 0, 14);
+        R.addBox(-2F, -3F, -3F, 5, 6, 6);
+        R.setRotationPoint(-6F, 16F, 0F);
+        R.setTextureSize(48, 48);
+        R.mirror = true;
+        setRotation(R, 0F, 0F, 0F);
+        L = new ModelRenderer(this, 22, 36);
+        L.addBox(-1F, -3F, -3F, 5, 6, 6);
+        L.setRotationPoint(4F, 16F, 0F);
+        L.setTextureSize(48, 48);
+        L.mirror = true;
+        setRotation(L, 0F, 0F, 0F);
+        D = new ModelRenderer(this, 22, 25);
+        D.addBox(-3F, 3F, -3F, 6, 5, 6);
+        D.setRotationPoint(0F, 16F, 0F);
+        D.setTextureSize(48, 48);
+        D.mirror = true;
+        setRotation(D, 0F, 0F, 0F);
+        U = new ModelRenderer(this, 22, 14);
+        U.addBox(-3F, -8F, -3F, 6, 5, 6);
+        U.setRotationPoint(0F, 16F, 0F);
+        U.setTextureSize(48, 48);
+        U.mirror = true;
+        setRotation(U, 0F, 0F, 0F);
+    }
+
+    public void render(float f5, boolean[] s) {
+        if (s == null) return;
+        if (s[0]) U.render(f5);
+        if (s[1]) D.render(f5);
+        if (s[2]) F.render(f5);
+        if (s[3]) B.render(f5);
+        if (s[4]) R.render(f5);
+        if (s[5]) L.render(f5);
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    public void renderBase(float f5) {
+        base.render(f5);
+    }
 }

@@ -12,7 +12,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 import static com.cout970.magneticraft.ManagerBlocks.*;
 import static com.cout970.magneticraft.ManagerItems.*;
-import static com.cout970.magneticraft.ManagerOreDict.*;
 
 public class ManagerRecipe {
 
@@ -49,19 +48,6 @@ public class ManagerRecipe {
         GameRegistry.addSmelting(new ItemStack(oreTungsten), new ItemStack(ingotTungsten), 1.0F);
         GameRegistry.addSmelting(new ItemStack(oreZinc), new ItemStack(ingotZinc), 1.0F);
         GameRegistry.addSmelting(new ItemStack(dustBrass), new ItemStack(ingotBrass), 1.0F);
-
-/*        for (ItemProduct i : dust) {
-            ItemStack ingot = ManagerOreDict.getOre("ingot" + i.getBaseName());
-            if (ingot != null) {
-                ingot = ingot.copy();
-                ingot.stackSize = 1;
-                GameRegistry.addSmelting(new ItemStack(i), ingot, 1.0F);
-            }
-        }
-
-        for (int i = 0; i < oreNames.length; i++) {
-            GameRegistry.addSmelting(new ItemStack(dust, 1, i), ManagerOreDict.getOre());
-        } */
 
         MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.diamond), new ItemStack(dustDiamond), null, 0, null, 0);
         MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.quartz), new ItemStack(dustQuartz), new ItemStack(dustQuartz), 0.5f, null, 0);

@@ -26,6 +26,21 @@ run
 
 #workspace
 screenshots
+logs
+saves
+asm
+config/CodeChickenLib.cfg
+config/Magneticraft.cfg
+config/Waila.cfg
+config/forge.cfg
+config/forgeChunkLoading.cfg
+config/microblocks.cfg
+config/multipart.cfg
+config/splash.properties
+crash
+minetweaker.log
+options.txt
+usernamecache.json
 
 /server.properties
 *.psd

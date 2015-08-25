@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.block;
 
-import com.cout970.magneticraft.api.acces.RecipeCrusher;
 import com.cout970.magneticraft.api.tool.IHammer;
 import com.cout970.magneticraft.tileentity.TileHammerTable;
 
@@ -34,7 +33,7 @@ public class BlockHammerTable extends BlockMg{
 							return true;
 						}
 						
-					}else if(RecipeCrusher.getRecipe(i) != null && ((TileHammerTable) tile).getInput() == null){
+					}else if(((TileHammerTable) tile).getInput() == null){
 						ItemStack split = i.splitStack(1);
 						if(i.stackSize <= 0){
 							p.setCurrentItemOrArmor(0, null);
@@ -42,12 +41,10 @@ public class BlockHammerTable extends BlockMg{
 						((TileHammerTable) tile).setInput(split);
 						return true;
 					}
-				} 
-				if(p.isSneaking()){
-					if(((TileHammerTable) tile).getInput() != null){
-						if(p.inventory.addItemStackToInventory(((TileHammerTable) tile).getInput())){
-							((TileHammerTable) tile).setInput(null);
-						}
+				}
+				if(((TileHammerTable) tile).getInput() != null){
+					if(p.inventory.addItemStackToInventory(((TileHammerTable) tile).getInput())){
+						((TileHammerTable) tile).setInput(null);
 					}
 				}
 			}

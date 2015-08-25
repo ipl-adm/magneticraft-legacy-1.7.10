@@ -83,6 +83,10 @@ public class ContainerBasic extends Container{
 		if(tile instanceof IGuiSync){
 			for (int i = 0; i < crafters.size(); i++) {
 				((IGuiSync) tile).sendGUINetworkData(this, (ICrafting) crafters.get(i));
+//				HashMap<Integer, Integer> data = ((IGuiSync) tile).getGuiData();
+//				for(int id : data.keySet()){
+//		    		((ICrafting) crafters.get(i)).sendProgressBarUpdate(this, id, data.get(id));
+//		    	}
 			}
 		}
 	}

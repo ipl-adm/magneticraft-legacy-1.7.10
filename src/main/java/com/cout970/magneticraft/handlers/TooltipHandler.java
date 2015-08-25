@@ -15,15 +15,17 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
  */
 public class TooltipHandler {
 
-    @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent event){
-        if (event.itemStack.getItem() instanceof ISteelItem){
-            ItemStack stack = event.itemStack;
-            ISteelItem steel = (ISteelItem) stack.getItem();
-            Map<ISteelAttribute, Integer> map = steel.getAttributeMap(stack);
-            for (ISteelAttribute attribute : map.keySet()){
-                event.toolTip.add(attribute.getDisplayText(map.get(attribute)));
-            }
-        }
-    }
+	// Why you use this event instead use the method addInformation on the item
+	// class?
+	@SubscribeEvent
+	public void onTooltip(ItemTooltipEvent event) {
+		if (event.itemStack.getItem() instanceof ISteelItem) {
+			ItemStack stack = event.itemStack;
+			ISteelItem steel = (ISteelItem) stack.getItem();
+			Map<ISteelAttribute, Integer> map = steel.getAttributeMap(stack);
+			for (ISteelAttribute attribute : map.keySet()) {
+				event.toolTip.add(attribute.getDisplayText(map.get(attribute)));
+			}
+		}
+	}
 }

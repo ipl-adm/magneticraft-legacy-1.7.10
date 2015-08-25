@@ -41,7 +41,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
 	public void updateEntity(){
 		super.updateEntity();
 		if(worldObj.isRemote)return;
-		if(worldObj.provider.getWorldTime() % 20 == 0 && isControled() && cond.getVoltage() > ElectricConstants.MACHINE_WORK)
+		if(worldObj.getTotalWorldTime() % 20 == 0 && isControled() && cond.getVoltage() > ElectricConstants.MACHINE_WORK)
 			BreakBlock();
 		ejectFromInv();
 	}

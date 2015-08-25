@@ -51,7 +51,7 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
 				}
 			}
 			heat.iterate();
-			if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0){
+			if(((int)heat.getTemperature()) != oldHeat && worldObj.getTotalWorldTime() % 10 == 0){
 				sendUpdateToClient();
 				oldHeat = (int) heat.getTemperature();
 			}

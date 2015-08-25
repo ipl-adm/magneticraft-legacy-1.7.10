@@ -41,7 +41,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
-        if (worldObj.provider.getWorldTime() % 20 == 0) {
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
             steamConsumitionM = steamConsumition;
             electricProductionM = electricProduction;
             steamConsumition = 0;

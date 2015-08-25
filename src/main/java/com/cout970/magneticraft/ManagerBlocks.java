@@ -275,10 +275,9 @@ public class ManagerBlocks {
 	public static Block mb_controls;
 	public static Block pressure_tank;
 	public static Block hammer_table;
-	
-	
-	public static void initBlocks(){
-		//ores & resources
+
+	public static void initBlocks() {
+		// ores & resources
 		oilSource = new BlockOilSource();
 		oreCopper = new BlockOre("copper_ore");
 		oreTungsten = new BlockOre("tungsten_ore");
@@ -337,7 +336,7 @@ public class ManagerBlocks {
 		reactor_controller = new BlockReactorController();
 		multi_energy_medium = new BlockMB_Energy_Medium();
 		steam_turbine = new BlockSteamTurbine();
-		combustion_engine = new BlockCombustionEngine(); 
+		combustion_engine = new BlockCombustionEngine();
 		heat_sink = new BlockHeatSink();
 		brickFurnace = new BlockBrickFurnace();
 		crafter = new BlockCrafter();
@@ -375,9 +374,9 @@ public class ManagerBlocks {
 		pressure_tank = new BlockPressureTank();
 		hammer_table = new BlockHammerTable();
 	}
-	
-	public static void registerBlocks(){
-		
+
+	public static void registerBlocks() {
+
 		addBlock(oilSource, "Oil Source");
 		addBlock(oilSourceDrained, "Oil Source Drained");
 		addBlock(oreCopper, "Copper Ore");
@@ -473,13 +472,13 @@ public class ManagerBlocks {
 		addBlock(oreZinc, "Zinc Ore");
 		addBlock(pressure_tank, "Pressure Tank");
 		addBlock(hammer_table, "Hammer Table");
-		
-		for(Block b : blocks)
+
+		for (Block b : blocks)
 			GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
 	}
-	
-	public static void registerTileEntities(){
-		
+
+	public static void registerTileEntities() {
+
 		tileEntities.add(TileBase.class);
 		tileEntities.add(TileConductorLow.class);
 		tileEntities.add(TileSolarPanel.class);
@@ -561,13 +560,13 @@ public class ManagerBlocks {
 		tileEntities.add(TileMB_Controls.class);
 		tileEntities.add(TilePressureTank.class);
 		tileEntities.add(TileHammerTable.class);
-		
-		for(Class<? extends TileEntity> c : tileEntities){
-			GameRegistry.registerTileEntity(c, c.getName()+"_Mg");
+
+		for (Class<? extends TileEntity> c : tileEntities) {
+			GameRegistry.registerTileEntity(c, c.getName() + "_Mg");
 		}
 	}
-	
-	private static void addBlock(Block b, String name){
+
+	private static void addBlock(Block b, String name) {
 		blocks.add(b);
 		named.add(new NamedBlock(b, name));
 	}

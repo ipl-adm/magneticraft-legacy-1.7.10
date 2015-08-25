@@ -90,7 +90,10 @@ public class ItemBlockMg extends ItemBlock{
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);
-		if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))return;
+		if(!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+			list.add(EnumChatFormatting.GRAY+"<press shift for more info>");
+			return;
+		}
 		Block b = field_150939_a;
 		if(b == airlock){
 			list.add(format+"Every 10 seconds eliminates all the near water blocks");

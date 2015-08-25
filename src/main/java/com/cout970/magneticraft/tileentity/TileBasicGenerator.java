@@ -63,11 +63,11 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
         super.updateEntity();
         if (worldObj.isRemote) return;
         heat.iterate();
-        if (((int) heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 20 == 0) {
+        if (((int) heat.getTemperature()) != oldHeat && worldObj.getTotalWorldTime() % 20 == 0) {
             sendUpdateToClient();
             oldHeat = (int) heat.getTemperature();
         }
-        if (worldObj.provider.getWorldTime() % 20 == 0) {
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
             steamProduction = 0;
             electricProduction = 0;
             if (working && !isActive()) {
@@ -172,7 +172,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
         craft.sendProgressBarUpdate(cont, 5, (int) Math.ceil(heat.getTemperature()));
         craft.sendProgressBarUpdate(cont, 6, steam.getFluidAmount());
         craft.sendProgressBarUpdate(cont, 7, water.getFluidAmount());
-        if (worldObj.provider.getWorldTime() % 20 == 0) {
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
             craft.sendProgressBarUpdate(cont, 8, steamProduction);
             craft.sendProgressBarUpdate(cont, 9, electricProduction);
         }

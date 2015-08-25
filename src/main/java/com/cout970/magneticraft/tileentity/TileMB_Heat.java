@@ -25,7 +25,7 @@ public class TileMB_Heat extends TileMB_Base implements IHeatTile{
 		super.updateEntity();
 		if(!this.worldObj.isRemote){
 			heat.iterate();
-			if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0){
+			if(((int)heat.getTemperature()) != oldHeat && worldObj.getTotalWorldTime() % 10 == 0){
 				sendUpdateToClient();
 				oldHeat = (int) heat.getTemperature();
 			}

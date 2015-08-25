@@ -25,41 +25,45 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSync,ISidedInventory{
+public class TileFluidHopper extends TileBase implements IFluidHandler1_8, IGuiSync, ISidedInventory {
 
 	public TankMg tank = new TankMg(this, 5000);
 	public ItemStack[] inventory;
-	
-	public TileFluidHopper(){
+
+	public TileFluidHopper() {
 		super();
 		inventory = new ItemStack[2];
 	}
 
 	public void updateEntity() {
 		super.updateEntity();
-		if (worldObj.isRemote)return;
+		if (worldObj.isRemote)
+			return;
 
-		if(inventory[0] != null){
-			if(tank.getSpace() >= 1000){
+		if (inventory[0] != null) {
+			if (tank.getSpace() >= 1000) {
 				FluidStack f = FluidContainerRegistry.getFluidForFilledItem(inventory[0]);
-				if(f != null){
+				if (f != null) {
 					ItemStack i = inventory[0].getItem().getContainerItem(inventory[0]);
-					if((inventory[1] == null || InventoryUtils.canCombine(i, inventory[1],64)) && tank.fill(f, false) == f.amount){
+					if ((inventory[1] == null || InventoryUtils.canCombine(i, inventory[1], 64))
+							&& tank.fill(f, false) == f.amount) {
 						inventory[1] = InventoryUtils.addition(i, inventory[1]);
 						inventory[0].splitStack(1);
-						if(inventory[0].stackSize <= 0)inventory[0] = null;
+						if (inventory[0].stackSize <= 0)
+							inventory[0] = null;
 						tank.fill(f, true);
 					}
 				}
 			}
-			if(tank.getFluidAmount() >= 1000){
-				if(FluidContainerRegistry.isEmptyContainer(inventory[0])){
+			if (tank.getFluidAmount() >= 1000) {
+				if (FluidContainerRegistry.isEmptyContainer(inventory[0])) {
 					ItemStack h = FluidContainerRegistry.fillFluidContainer(tank.drain(1000, false), inventory[0]);
-					if(h != null){
-						if(inventory[1] == null || InventoryUtils.canCombine(h, inventory[1],64)){
+					if (h != null) {
+						if (inventory[1] == null || InventoryUtils.canCombine(h, inventory[1], 64)) {
 							inventory[1] = InventoryUtils.addition(h, inventory[1]);
 							inventory[0].splitStack(1);
-							if(inventory[0].stackSize <= 0)inventory[0] = null;
+							if (inventory[0].stackSize <= 0)
+								inventory[0] = null;
 							tank.drain(1000, true);
 						}
 					}
@@ -72,18 +76,19 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 			if (t instanceof IFluidHandler) {
 				TankConection tan = new TankConection((IFluidHandler) t, MgDirection.DOWN);
 				FluidTankInfo[] info = tan.getTankInfo(MgDirection.DOWN);
-				for (FluidTankInfo i : info){
+				for (FluidTankInfo i : info) {
 					if (i.fluid != null) {
 						if (tank.getFluid() == null || i.fluid.isFluidEqual(tank.getFluid())) {
 							FluidStack fl = tan.drain(MgDirection.DOWN, 100, false);
-							if(fl==null)continue;
+							if (fl == null)
+								continue;
 							int h = tank.fill(fl, true);
 							tan.drain(MgDirection.DOWN, h, true);
 							break;
 						}
 					}
 				}
-			} else if (worldObj.provider.getWorldTime() % 20 == 0) {
+			} else if (worldObj.getTotalWorldTime() % 20 == 0) {
 				Block b = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
 				if (worldObj.getBlockMetadata(xCoord, yCoord + 1, zCoord) == 0) {
 					Fluid f = FluidRegistry.lookupFluidForBlock(b);
@@ -96,7 +101,8 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 			}
 		}
 
-		if (tank.getFluidAmount() == 0) return;
+		if (tank.getFluidAmount() == 0)
+			return;
 		TileEntity t = MgUtils.getTileEntity(this, MgDirection.getDirection(getBlockMetadata()));
 		if (t instanceof IFluidHandler) {
 			IFluidHandler f = (IFluidHandler) t;
@@ -108,9 +114,8 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 					change = Math.min(change, 50);
 					if (change > 0) {
 						FluidStack resource = tank.drain(change, false);
-						int filled = f.fill(
-								ForgeDirection.getOrientation(getBlockMetadata()).getOpposite(),
-								resource, true);
+						int filled = f.fill(ForgeDirection.getOrientation(getBlockMetadata()).getOpposite(), resource,
+								true);
 						tank.drain(filled, true);
 					}
 				}
@@ -120,14 +125,13 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 
 	@Override
 	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		if(from != MgDirection.getDirection(getBlockMetadata()))
+		if (from != MgDirection.getDirection(getBlockMetadata()))
 			return tank.fill(resource, doFill);
 		return 0;
 	}
 
 	@Override
-	public FluidStack drainMg_F(MgDirection from, FluidStack resource,
-			boolean doDrain) {
+	public FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
 		return drainMg(from, resource.amount, doDrain);
 	}
 
@@ -153,7 +157,7 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 
 	@Override
 	public void sendGUINetworkData(Container cont, ICrafting craft) {
-		if(tank.getFluidAmount() > 0){
+		if (tank.getFluidAmount() > 0) {
 			craft.sendProgressBarUpdate(cont, 0, tank.getFluid().getFluidID());
 		}
 		craft.sendProgressBarUpdate(cont, 1, tank.getFluidAmount());
@@ -161,11 +165,12 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 
 	@Override
 	public void getGUINetworkData(int i, int value) {
-		if(i == 0)tank.setFluid(new FluidStack(FluidRegistry.getFluid(value),1));
-		if(i == 1){
-			if(value == 0){
+		if (i == 0)
+			tank.setFluid(new FluidStack(FluidRegistry.getFluid(value), 1));
+		if (i == 1) {
+			if (value == 0) {
 				tank.setFluid(null);
-			}else
+			} else
 				tank.setFluid(new FluidStack(tank.getFluid(), value));
 		}
 	}
@@ -186,8 +191,7 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 		if (itemStack != null) {
 			if (itemStack.stackSize <= amount) {
 				setInventorySlotContents(slot, null);
-			}
-			else {
+			} else {
 				itemStack = itemStack.splitStack(amount);
 				if (itemStack.stackSize == 0) {
 					setInventorySlotContents(slot, null);
@@ -233,16 +237,18 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 	}
 
 	@Override
-	public void openInventory() {}
+	public void openInventory() {
+	}
 
 	@Override
-	public void closeInventory() {}
+	public void closeInventory() {
+	}
 
 	@Override
 	public boolean isItemValidForSlot(int var1, ItemStack var2) {
 		return true;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 
@@ -277,49 +283,52 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8,IGuiSy
 
 	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
-		return new int[]{0,1};
+		return new int[] { 0, 1 };
 	}
 
 	@Override
-	public boolean canInsertItem(int slot, ItemStack i,
-			int side) {
+	public boolean canInsertItem(int slot, ItemStack i, int side) {
 		return slot == 0;
 	}
 
 	@Override
-	public boolean canExtractItem(int slot, ItemStack i,
-			int side) {
+	public boolean canExtractItem(int slot, ItemStack i, int side) {
 		return slot == 1;
 	}
-	
+
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+		if (this instanceof IFluidHandler1_8)
+			return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
 		return 0;
 	}
 
-	public FluidStack drain(ForgeDirection from, FluidStack resource,
-			boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
+	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+		if (this instanceof IFluidHandler1_8)
+			return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
 		return null;
 	}
 
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
+		if (this instanceof IFluidHandler1_8)
+			return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
 		return null;
 	}
 
 	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
+		if (this instanceof IFluidHandler1_8)
+			return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
 		return false;
 	}
 
 	public boolean canDrain(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
+		if (this instanceof IFluidHandler1_8)
+			return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
 		return false;
 	}
 
 	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+		if (this instanceof IFluidHandler1_8)
+			return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 		return null;
 	}
 }

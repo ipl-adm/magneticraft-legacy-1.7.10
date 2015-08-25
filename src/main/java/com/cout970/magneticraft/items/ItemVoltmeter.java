@@ -72,6 +72,6 @@ public class ItemVoltmeter extends ItemBasic{
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
 		super.addInformation(item, player, list, flag);
-		list.add(ItemBlockMg.format+"Allow the player to see the voltage and the currnte in a cable or wire");
+		list.add(ItemBlockMg.format+"Allow the player to see the voltage and the current in a cable or wire");
 	}
 }

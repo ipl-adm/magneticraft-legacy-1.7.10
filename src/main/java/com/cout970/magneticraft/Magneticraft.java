@@ -35,10 +35,9 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 
-
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart")
-public class Magneticraft{
-	
+public class Magneticraft {
+
 	public final static String ID = "Magneticraft";
 	public final static String NAME = "Magneticraft";
 	public final static String VERSION = "@VERSION@";
@@ -46,25 +45,24 @@ public class Magneticraft{
 	public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
 	public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 	public static String DEV_HOME = null;
-	
+
 	@Instance(NAME)
 	public static Magneticraft Instance;
-	
-	@SidedProxy(clientSide="com.cout970.magneticraft.proxy.ClientProxy",
-				serverSide="com.cout970.magneticraft.proxy.ServerProxy")
+
+	@SidedProxy(clientSide = "com.cout970.magneticraft.proxy.ClientProxy", serverSide = "com.cout970.magneticraft.proxy.ServerProxy")
 	public static IProxy proxy;
-	
+
 	public static ManagerMultiPart registry;
-	
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		Log.info("Starting preInit");
 		ManagerConfig.init(event.getSuggestedConfigurationFile());
-		
+
 		ManagerBlocks.initBlocks();
 		ManagerBlocks.registerBlocks();
 		ManagerBlocks.registerTileEntities();
-		
+
 		ManagerItems.initItems();
 		ManagerItems.registerItems();
 
@@ -74,21 +72,21 @@ public class Magneticraft{
 
 		ManagerIntegration.searchCompatibilities();
 
-		if(DEBUG){
-            //BEGIN FINDING OF SOURCE DIR
-            File temp = event.getModConfigurationDirectory();
-            while (temp != null && temp.isDirectory()) {
-                if (new File(temp,"build.gradle").exists()) {
-                    DEV_HOME = temp.getAbsolutePath();
-                    Log.info("Found source code directory at "+DEV_HOME);
-                    break;
-                }
-                temp = temp.getParentFile();
-            }
-            if (DEV_HOME == null) {
-                throw new RuntimeException("Could not find source code directory!");
-            }
-            //END FINDING OF SOURCE DIR
+		if (DEBUG) {
+			// BEGIN FINDING OF SOURCE DIR
+			File temp = event.getModConfigurationDirectory();
+			while (temp != null && temp.isDirectory()) {
+				if (new File(temp, "build.gradle").exists()) {
+					DEV_HOME = temp.getAbsolutePath();
+					Log.info("Found source code directory at " + DEV_HOME);
+					break;
+				}
+				temp = temp.getParentFile();
+			}
+			if (DEV_HOME == null) {
+				throw new RuntimeException("Could not find source code directory!");
+			}
+			// END FINDING OF SOURCE DIR
 			LangHelper.registerNames();
 			LangHelper.setupLangFile();
 		}
@@ -96,9 +94,9 @@ public class Magneticraft{
 		ManagerOreDict.registerOreDict();
 		Log.info("preInit Done");
 	}
-	
+
 	@EventHandler
-	public void load(FMLInitializationEvent event){
+	public void load(FMLInitializationEvent event) {
 		Log.info("Starting Init");
 		NetworkRegistry.INSTANCE.registerGuiHandler(Instance, new GuiHandler());
 		MB_Register.init();
@@ -118,24 +116,24 @@ public class Magneticraft{
 		checkVersion();
 		Log.info("Init Done");
 	}
-	
+
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event){
+	public void postInit(FMLPostInitializationEvent event) {
 		Log.info("Starting postInit");
-		if(Loader.isModLoaded("MineTweaker3")){
+		if (Loader.isModLoaded("MineTweaker3")) {
 			Log.info("Seting up minetweaker compatibility");
 			MgMinetweaker.init();
 		}
 		ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());
-//		if(DEBUG)printOreDict();
+		// if(DEBUG)printOreDict();
 		Log.info("postInit Done");
 	}
-	
-//	private void printOreDict() {
-//		for(String i : OreDictionary.getOreNames()){
-//			Log.debug(i+" "+ManagerOreDict.getOre(i));
-//		}
-//	}
+
+	// private void printOreDict() {
+	// for(String i : OreDictionary.getOreNames()){
+	// Log.debug(i+" "+ManagerOreDict.getOre(i));
+	// }
+	// }
 
 	public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {
 
@@ -146,8 +144,8 @@ public class Magneticraft{
 				int y = ticket.getModData().getInteger("quarryY");
 				int z = ticket.getModData().getInteger("quarryZ");
 				TileEntity tq = world.getTileEntity(x, y, z);
-				if(tq instanceof TileMiner){
-					((TileMiner)tq).forceChunkLoading(ticket);
+				if (tq instanceof TileMiner) {
+					((TileMiner) tq).forceChunkLoading(ticket);
 				}
 			}
 		}
@@ -155,7 +153,7 @@ public class Magneticraft{
 		@Override
 		public List<Ticket> ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount) {
 			List<Ticket> validTickets = Lists.newArrayList();
-			if(ManagerConfig.ChunkLoading){
+			if (ManagerConfig.ChunkLoading) {
 				for (Ticket ticket : tickets) {
 					int x = ticket.getModData().getInteger("quarryX");
 					int y = ticket.getModData().getInteger("quarryY");
@@ -170,12 +168,13 @@ public class Magneticraft{
 			return validTickets;
 		}
 	}
-	
-	public void checkVersion(){
+
+	public void checkVersion() {
 		try {
-			String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
-			Log.info("Last Version: "+version);
-			Log.info("Current Version: "+VERSION);
+			String version = URLConnectionReader
+					.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
+			Log.info("Last Version: " + version);
+			Log.info("Current Version: " + VERSION);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.api.pressure.prefab;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
@@ -18,19 +19,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class PressureConductor implements IPressureConductor{
+public class PressureConductor implements IPressureConductor {
 
 	protected TileEntity parent;
 	protected double volume;
 	protected double temperature;
 	protected double moles;
 	protected Fluid currentGas;
-	
-	public PressureConductor(TileEntity t, double volume){
+
+	public PressureConductor(TileEntity t, double volume) {
 		parent = t;
 		this.volume = volume;
 	}
-	
+
 	@Override
 	public TileEntity getParent() {
 		return parent;
@@ -39,22 +40,31 @@ public class PressureConductor implements IPressureConductor{
 	@Override
 	public void iterate() {
 		World w = parent.getWorldObj();
-		if(w.isRemote)return;
-		for(MgDirection dir : MgDirection.values()){
+		if (w.isRemote)
+			return;
+		if (getFluid() == null)
+			return;
+		for (MgDirection dir : MgDirection.values()) {
 			TileEntity tile = MgUtils.getTileEntity(parent, dir);
-			if(tile != null){
-				List<IPressureConductor> conds = PressureUtils.getPressureCond(tile, dir.opposite().toVecInt());
-				if(!conds.isEmpty()){
-					int size = conds.size() + 1;
-					double sum = getMoles();
-					for(IPressureConductor pres : conds){
-						sum += pres.getMoles();
+			if (tile != null) {
+				List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, dir.opposite().toVecInt());
+				List<IPressureConductor> conds = new ArrayList<IPressureConductor>();
+
+				for (IPressureConductor p : pre) {
+					if (p.getFluid() == null) {
+						p.setFluid(getFluid());
+						p.setTemperature(getTemperature());
+						conds.add(p);
+					} else if (p.getFluid() == getFluid()) {
+						conds.add(p);
 					}
-					double newValue = sum / size;
-					setMoles(newValue);
-					for(IPressureConductor pres : conds){
-						pres.setMoles(newValue);
-					}
+				}
+
+				for (IPressureConductor p : conds) {
+					double sum = getMoles() + p.getMoles();
+					double vol = getVolume() + p.getVolume();
+					setMoles(sum * (getVolume() / vol));
+					p.setMoles(sum * (p.getVolume() / vol));
 				}
 			}
 		}
@@ -101,7 +111,7 @@ public class PressureConductor implements IPressureConductor{
 
 	@Override
 	public double getPressure() {
-		return ((moles*temperature*R)/(volume/1000D))*1000;
+		return ((moles * temperature * R) / (volume / 1000D)) * 1000;
 	}
 
 	@Override
@@ -115,7 +125,8 @@ public class PressureConductor implements IPressureConductor{
 	}
 
 	@Override
-	public void onBlockExplode() {}
+	public void onBlockExplode() {
+	}
 
 	@Override
 	public double getMoles() {
@@ -129,11 +140,14 @@ public class PressureConductor implements IPressureConductor{
 
 	@Override
 	public int applyGas(FluidStack gas, boolean doFill) {
-		if(gas == null)return 0;
-		if(gas.amount == 0)return 0;
-		if(!gas.getFluid().isGaseous())return 0;
-		if(currentGas == null || gas.getFluid().equals(currentGas)){
-			if(doFill){
+		if (gas == null)
+			return 0;
+		if (gas.amount == 0)
+			return 0;
+		if (!gas.getFluid().isGaseous())
+			return 0;
+		if (currentGas == null || gas.getFluid().equals(currentGas)) {
+			if (doFill) {
 				currentGas = gas.getFluid();
 				temperature = currentGas.getTemperature();
 				moles += EnergyConversor.MBtoMOL(gas.amount);
@@ -145,12 +159,14 @@ public class PressureConductor implements IPressureConductor{
 
 	@Override
 	public FluidStack drainGas(int amount, boolean doDrain) {
-		if(currentGas == null)return null;
-		if(amount <= 0)return null;
+		if (currentGas == null)
+			return null;
+		if (amount <= 0)
+			return null;
 		int mB = (int) Math.min(amount, EnergyConversor.MOLtoMB(moles));
-		if(mB > 0){
-			if(doDrain){
-				moles -=  EnergyConversor.MBtoMOL(mB);
+		if (mB > 0) {
+			if (doDrain) {
+				moles -= EnergyConversor.MBtoMOL(mB);
 			}
 			return new FluidStack(currentGas, mB);
 		}
@@ -165,5 +181,10 @@ public class PressureConductor implements IPressureConductor{
 	@Override
 	public Fluid getFluid() {
 		return currentGas;
+	}
+
+	@Override
+	public void setFluid(Fluid f) {
+		currentGas = f;
 	}
 }

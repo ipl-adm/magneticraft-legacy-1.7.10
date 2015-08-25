@@ -23,7 +23,7 @@ public abstract class TileHeatConductor extends TileBase implements IHeatTile{
 		super.updateEntity();
 		if(!this.worldObj.isRemote){
 			heat.iterate();
-			if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0){
+			if(((int)heat.getTemperature()) != oldHeat && worldObj.getTotalWorldTime() % 10 == 0){
 				sendUpdateToClient();
 				oldHeat = (int) heat.getTemperature();
 			}
@@ -39,39 +39,4 @@ public abstract class TileHeatConductor extends TileBase implements IHeatTile{
 		super.writeToNBT(nbt);
 		heat.save(nbt);
 	}
-
-//	@Override
-//	public int getTemperature() {
-//		return (int) (heat.getTemperature()*ConversionRatio);
-//	}
-//
-//	@Override
-//	public void setTemperature(int T) {
-//		heat.setTemperature(T/ConversionRatio);
-//	}
-//
-//	@Override
-//	public void addTemperature(int T) {
-//		heat.applyCalories(T/ConversionRatio);
-//	}
-//
-//	@Override
-//	public String getName() {
-//		return "Magneticraft Heat Handler";
-//	}
-//
-//	@Override
-//	public int getMaxTemperature() {
-//		return (int) heat.getMaxTemp();
-//	}
-//
-//	@Override
-//	public void onOverheat(World world, int x, int y, int z) {
-//		
-//	}
-//
-//	@Override
-//	public boolean canBeFrictionHeated() {
-//		return false;
-//	}
 }

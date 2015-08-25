@@ -6,31 +6,32 @@ import com.cout970.magneticraft.tileentity.TileBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class TilePressure extends TileBase implements IPressurePipe{
+public abstract class TilePressure extends TileBase implements IPressurePipe {
 
 	public IPressureConductor pressure = initConductor();
-	
+
 	@Override
 	public IPressureConductor[] getPressureConductor() {
-		return new IPressureConductor[]{pressure};
+		return new IPressureConductor[] { pressure };
 	}
 
 	public abstract IPressureConductor initConductor();
-	
-	public void updateEntity(){
+
+	public void updateEntity() {
 		super.updateEntity();
-		if(worldObj.isRemote)return;
+		if (worldObj.isRemote)
+			return;
 		pressure.iterate();
 	}
-	
+
 	@Override
-	public void readFromNBT(NBTTagCompound nbt){
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		pressure.load(nbt);
 	}
-	
+
 	@Override
-	public void writeToNBT(NBTTagCompound nbt){
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		pressure.save(nbt);
 	}

@@ -122,7 +122,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 			prodCounter = 0;
 		}
 
-		if(((int)heat.getTemperature()) != oldHeat && worldObj.provider.getWorldTime() % 10 == 0){
+		if(((int)heat.getTemperature()) != oldHeat && worldObj.getTotalWorldTime() % 10 == 0){
 			sendUpdateToClient();
 			oldHeat = (int) heat.getTemperature();
 		}

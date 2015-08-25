@@ -120,8 +120,6 @@ public class Magneticraft {
     public void load(FMLInitializationEvent event) {
         Log.info("Starting Init");
 
-        Log.info("CoFHCore: " + (COFH ? "loaded" : "missing"));
-
         NetworkRegistry.INSTANCE.registerGuiHandler(Instance, new GuiHandler());
         MB_Register.init();
         EnergyInterfaceFactory.init();

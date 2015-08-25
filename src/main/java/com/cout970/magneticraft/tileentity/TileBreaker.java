@@ -30,20 +30,20 @@ import java.util.Random;
 
 public class TileBreaker extends TileConductorLow implements IInventory, IGuiListener, IGuiSync {
 
-    public InventoryComponent inv = new InventoryComponent(this, 9, "Block Breaker");
-    public InventoryComponent filter = new InventoryComponent(this, 9, "Filter");
-    public boolean whiteList;
-    public boolean ignoreNBT;
-    public boolean ignoreMeta;
-    public boolean ignoreDict;
-
-    public void updateEntity() {
-        super.updateEntity();
-        if (worldObj.isRemote) return;
-        if (worldObj.provider.getWorldTime() % 20 == 0 && isControled() && cond.getVoltage() > ElectricConstants.MACHINE_WORK)
-            BreakBlock();
-        ejectFromInv();
-    }
+	public InventoryComponent inv = new InventoryComponent(this, 9, "Block Breaker");
+	public InventoryComponent filter = new InventoryComponent(this, 9, "Filter");
+	public boolean whiteList;
+	public boolean ignoreNBT;
+	public boolean ignoreMeta;
+	public boolean ignoreDict;
+	
+	public void updateEntity(){
+		super.updateEntity();
+		if(worldObj.isRemote)return;
+		if(worldObj.getTotalWorldTime() % 20 == 0 && isControled() && cond.getVoltage() > ElectricConstants.MACHINE_WORK)
+			BreakBlock();
+		ejectFromInv();
+	}
 
     private void ejectFromInv() {
         MgDirection d = MgDirection.getDirection(getBlockMetadata()).opposite();

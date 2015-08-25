@@ -76,13 +76,13 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
         if (worldObj.isRemote) return;
 
-        if (!update) {
-            if (fluidOil == null) fluidOil = FluidRegistry.getFluid("oil").getBlock();
-            if (worldObj.provider.getWorldTime() % 80 == 0)
-                update = searchForOil();
-            export();
-            return;
-        }
+		if(!update){
+			if(fluidOil == null)fluidOil = FluidRegistry.getFluid("oil").getBlock();
+			if(worldObj.getTotalWorldTime() % 80 == 0)
+				update = searchForOil();
+			export();
+			return;
+		}
 
         if (worldObj.getTotalWorldTime() % 80 == 0) {
             if (alt != 0) {

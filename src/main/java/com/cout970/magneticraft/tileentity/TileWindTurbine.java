@@ -92,7 +92,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         if (facing == null) {
             facing = MgDirection.getDirection(getBlockMetadata());
         } else {
-            if (worldObj.provider.getWorldTime() % 20 == 0) {
+            if (worldObj.getTotalWorldTime() % 20 == 0) {
                 wind = 10000.0d * getWindSpeed();
                 if (turbine != -1) {
                     power = (int) (wind * efficiency / 5780d);

@@ -10,6 +10,7 @@ package mods.railcraft.api.tracks;
 
 import java.util.List;
 import java.util.Locale;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

@@ -1,14 +1,19 @@
 package com.cout970.magneticraft.api.pressure.prefab;
 
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
-import com.cout970.magneticraft.api.util.*;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.util.Log;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class PressureConductor implements IPressureConductor {
+public class PressureConductor implements IPressureConductor{
 
     protected TileEntity parent;
     protected double volume;
@@ -26,50 +31,77 @@ public class PressureConductor implements IPressureConductor {
         return parent;
     }
 
-    @Override
-    public void iterate() {
-        //TODO
-        Log.debug(EnergyConversor.PAtoBAR(getPressure()) + "\t" + getTemperature() + "\t" + getMoles() + "\t" + EnergyConversor.MOLtoMB(getMoles()));
-    }
+	@Override
+	public void iterate() {
+		World w = parent.getWorldObj();
+		if (w.isRemote)
+			return;
+		if (getFluid() == null)
+			return;
+		for (MgDirection dir : MgDirection.values()) {
+			TileEntity tile = MgUtils.getTileEntity(parent, dir);
+			if (tile != null) {
+				List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, dir.opposite().toVecInt());
+				List<IPressureConductor> conds = new ArrayList<IPressureConductor>();
 
-    @Override
-    public VecInt[] getValidConnections() {
-        return VecIntUtil.FORGE_DIRECTIONS;
-    }
+				for (IPressureConductor p : pre) {
+					if (p.getFluid() == null) {
+						p.setFluid(getFluid());
+						p.setTemperature(getTemperature());
+						conds.add(p);
+					} else if (p.getFluid() == getFluid()) {
+						conds.add(p);
+					}
+				}
 
-    @Override
-    public boolean isAbleToConnect(IConnectable cond, VecInt dir) {
-        return true;
-    }
+				for (IPressureConductor p : conds) {
+					double sum = getMoles() + p.getMoles();
+					double vol = getVolume() + p.getVolume();
+					setMoles(sum * (getVolume() / vol));
+					p.setMoles(sum * (p.getVolume() / vol));
+				}
+			}
+		}
+	}
 
-    @Override
-    public ConnectionClass getConnectionClass(VecInt v) {
-        return ConnectionClass.FULL_BLOCK;
-    }
+	@Override
+	public VecInt[] getValidConnections() {
+		return VecIntUtil.FORGE_DIRECTIONS;
+	}
 
-    @Override
-    public void save(NBTTagCompound nbt) {
-        nbt.setDouble("vol", volume);
-        nbt.setDouble("temp", temperature);
-        nbt.setDouble("mol", moles);
-    }
+	@Override
+	public boolean isAbleToConnect(IConnectable cond, VecInt dir) {
+		return true;
+	}
 
-    @Override
-    public void load(NBTTagCompound nbt) {
-        volume = nbt.getDouble("vol");
-        temperature = nbt.getDouble("temp");
-        moles = nbt.getDouble("mol");
-    }
+	@Override
+	public ConnectionClass getConnectionClass(VecInt v) {
+		return ConnectionClass.FULL_BLOCK;
+	}
 
-    @Override
-    public double getVolume() {
-        return volume;
-    }
+	@Override
+	public void save(NBTTagCompound nbt) {
+		nbt.setDouble("vol", volume);
+		nbt.setDouble("temp", temperature);
+		nbt.setDouble("mol", moles);
+	}
 
-    @Override
-    public void setVolume(double vol) {
-        volume = vol;
-    }
+	@Override
+	public void load(NBTTagCompound nbt) {
+		volume = nbt.getDouble("vol");
+		temperature = nbt.getDouble("temp");
+		moles = nbt.getDouble("mol");
+	}
+
+	@Override
+	public double getVolume() {
+		return volume;
+	}
+
+	@Override
+	public void setVolume(double vol) {
+		volume = vol;
+	}
 
     @Override
     public double getPressure() {
@@ -134,8 +166,13 @@ public class PressureConductor implements IPressureConductor {
         return EnergyConversor.BARtoPA(200);
     }
 
-    @Override
-    public Fluid getFluid() {
-        return currentGas;
-    }
+	@Override
+	public Fluid getFluid() {
+		return currentGas;
+	}
+
+	@Override
+	public void setFluid(Fluid f) {
+		currentGas = f;
+	}
 }

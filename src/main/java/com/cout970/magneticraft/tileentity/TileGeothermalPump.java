@@ -37,71 +37,73 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync {
         return new HeatConductor(this, 1600, 1000);
     }
 
-    public void updateEntity() {
-        super.updateEntity();
-        if (worldObj.isRemote) return;
-        if (worldObj.provider.getWorldTime() % 20 == 0) {
-            if (working && !isActive()) {
-                setActive(true);
-            } else if (!working && isActive()) {
-                setActive(false);
-            }
-        }
-        if (!update) {
-            if (worldObj.provider.getWorldTime() % 40 == 0)
-                update = searchForLava();
-        } else {
-            if (!blocked) {
-                if (cooldown > 0) cooldown--;
-                if (cooldown <= 0) {
-                    cooldown = 20;
-                    if (pipes.size() == 0) {
-                        getLava();
-                        blocked = true;
-                    } else {
-                        VecInt c = pipes.get(0);
-                        worldObj.setBlock(c.getX(), c.getY(), c.getZ(), ManagerBlocks.concreted_pipe);
-                        pipes.remove(0);
-                    }
-                }
-            } else if (isControled()) {
+	public void updateEntity() {
+		super.updateEntity();
+		if (worldObj.isRemote)
+			return;
+		if (worldObj.getTotalWorldTime() % 20 == 0) {
+			if (working && !isActive()) {
+				setActive(true);
+			} else if (!working && isActive()) {
+				setActive(false);
+			}
+		}
+		if (!update) {
+			if (worldObj.getTotalWorldTime() % 40 == 0)
+				update = searchForLava();
+		} else {
+			if (!blocked) {
+				if (cooldown > 0)
+					cooldown--;
+				if (cooldown <= 0) {
+					cooldown = 20;
+					if (pipes.size() == 0) {
+						getLava();
+						blocked = true;
+					} else {
+						VecInt c = pipes.get(0);
+						worldObj.setBlock(c.getX(), c.getY(), c.getZ(), ManagerBlocks.concreted_pipe);
+						pipes.remove(0);
+					}
+				}
+			} else if (isControled()) {
 
-                if (heat.getTemperature() < 1200 && buffer > 0) {
-                    int i = Math.min(12, buffer);
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
-                    buffer -= i;
-                    working = true;
-                } else {
-                    working = false;
-                }
-                if (buffer <= 0) {
-                    if (lava.size() == 0) {
-                        update = false;
-                        blocked = false;
-                        working = false;
-                        return;
-                    } else {
-                        VecInt b = lava.get(0);
-                        Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());
-                        if (Block.isEqualTo(bl, Blocks.lava)) {
-                            worldObj.setBlock(b.getX(), b.getY(), b.getZ(), Blocks.obsidian);
-                            buffer = 20000;
-                            working = true;
-                        }
-                        lava.remove(0);
-                    }
-                }
-            }
-        }
-    }
+				if (heat.getTemperature() < 1200 && buffer > 0) {
+					int i = Math.min(12, buffer);
+					heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
+					buffer -= i;
+					working = true;
+				} else {
+					working = false;
+				}
+				if (buffer <= 0) {
+					if (lava.size() == 0) {
+						update = false;
+						blocked = false;
+						working = false;
+						return;
+					} else {
+						VecInt b = lava.get(0);
+						Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());
+						if (Block.isEqualTo(bl, Blocks.lava)) {
+							worldObj.setBlock(b.getX(), b.getY(), b.getZ(), Blocks.obsidian);
+							buffer = 20000;
+							working = true;
+						}
+						lava.remove(0);
+					}
+				}
+			}
+		}
+	}
 
-    private void setActive(boolean b) {
-        int m = getBlockMetadata();
-        if (b)
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, m % 6 + 6, 3);
-        else
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, m % 6, 3);
-    }
+	private void setActive(boolean b) {
+		int m = getBlockMetadata();
+		if (b)
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, m % 6 + 6, 3);
+		else
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, m % 6, 3);
+	}
 
     public boolean isActive() {
         return getBlockMetadata() > 5;

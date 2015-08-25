@@ -26,6 +26,14 @@ run
 
 #workspace
 screenshots
+asm/**
+config/**
+crash-reports/**
+minetweaker.log
+options.txt
+usernamecache.json
+logs/**
+saves/**
 
 /server.properties
 *.psd

@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.items;
 
+import java.util.Locale;
+
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

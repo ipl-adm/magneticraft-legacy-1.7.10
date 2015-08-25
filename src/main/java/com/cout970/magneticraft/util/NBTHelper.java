@@ -1,13 +1,13 @@
 package com.cout970.magneticraft.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.cout970.magneticraft.api.steel.AttributeRegistry;
 import com.cout970.magneticraft.api.steel.ISteelAttribute;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * An NBT Utility class

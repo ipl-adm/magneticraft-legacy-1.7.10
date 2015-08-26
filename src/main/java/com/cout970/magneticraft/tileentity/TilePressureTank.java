@@ -18,14 +18,14 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TilePressureTank extends TilePressure implements IFluidHandler, IExplodable {
 
-	@Override
-	public IPressureConductor initConductor() {
-		return new PressureConductor(this, 16000);
-	}
-	
-	public void updateEntity(){
-		super.updateEntity();
-		if(worldObj.isRemote)return;
+    @Override
+    public IPressureConductor initConductor() {
+        return new PressureConductor(this, 16000);
+    }
+
+    public void updateEntity() {
+        super.updateEntity();
+        if (worldObj.isRemote) return;
         if (pressure.getPressure() > pressure.getMaxPressure()) {
             this.explode(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
         }
@@ -34,36 +34,36 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
     @Override
     public void explode(World world, int x, int y, int z, boolean explodeNeighbors) {
         if (!world.isRemote) {
-        	pressure.onBlockExplode();
+            pressure.onBlockExplode();
             world.setBlock(x, y, z, Blocks.air);
-        	
+
             if (explodeNeighbors) {
-            	for(MgDirection dir : MgDirection.values()){
-            		VecInt pos = new VecInt(this).add(dir);
-            		IExplodable exp = PressureUtils.getExplodable(world, pos);
-            		if(exp != null){
-            			exp.explode(world, pos.getX(), pos.getY(), pos.getZ(), explodeNeighbors);
-            		}
-            	}
+                for (MgDirection dir : MgDirection.values()) {
+                    VecInt pos = new VecInt(this).add(dir);
+                    IExplodable exp = PressureUtils.getExplodable(world, pos);
+                    if (exp != null) {
+                        exp.explode(world, pos.getX(), pos.getY(), pos.getZ(), explodeNeighbors);
+                    }
+                }
             }
             Explosion e = world.createExplosion(null, x, y, z, 1f, true);
-        	e.doExplosionA();
+            e.doExplosionA();
         }
     }
 
     @Override
     public int fill(ForgeDirection from, FluidStack gas, boolean doFill) {
-    	return pressure.applyGas(gas, doFill);
+        return (doFill)? pressure.applyGas(gas) : null;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-    	return drain(from, resource.amount, doDrain);
+        return drain(from, resource.amount, doDrain);
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-    	return pressure.drainGas(maxDrain, doDrain);
+        return (doDrain)? pressure.drainGas(maxDrain) : null;
     }
 
     @Override

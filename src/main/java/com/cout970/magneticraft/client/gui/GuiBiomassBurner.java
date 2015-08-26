@@ -1,7 +1,5 @@
 package com.cout970.magneticraft.client.gui;
 
-import java.util.Locale;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.*;
 import com.cout970.magneticraft.tileentity.TileBiomassBurner;

@@ -26,6 +26,7 @@ public class ManagerBlocks {
     public static Block oreThorium;
     public static Block oreZinc;
     public static Block oreSalt;
+    public static Block oreLime;
     public static Block oilSource;
     public static Block oilSourceDrained;
     public static Block ingot_block_copper;
@@ -124,6 +125,7 @@ public class ManagerBlocks {
         oreSulfur = new BlockOre("sulfur_ore");
         oreThorium = new BlockOre("thorium_ore");
         oreSalt = new BlockOre("salt_ore");
+        oreLime = new BlockOre("limestone");
         oilSourceDrained = new BlockOilSourceDrained();
         solarpanel = new BlockSolarPanel();
         furnace = new BlockElectricFurnace();
@@ -229,6 +231,7 @@ public class ManagerBlocks {
         addBlock(oreThorium, "Thorium Ore");
         addBlock(oreTungsten, "Tungsten Ore");
         addBlock(oreUranium, "Uranium Ore");
+        addBlock(oreLime, "Limestone");
         addBlock(ingot_block_copper, "Copper Block");
         addBlock(ingot_block_tungsten, "Tungsten Block");
         addBlock(ingot_block_carbide, "Carbide Block");
@@ -320,7 +323,7 @@ public class ManagerBlocks {
         addBlock(dust_block_salt, "Salt Block");
         addBlock(dust_block_sulfur, "Sulfur Block");
         addBlock(oreZinc, "Zinc Ore");
-        addBlock(pressure_tank, "Pressure Tank");
+        //addBlock(pressure_tank, "Pressure Tank");
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());

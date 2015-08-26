@@ -24,6 +24,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
     public static OreGenConfig GenThorium;
     public static OreGenConfig GenSalt;
     public static OreGenConfig GenZinc;
+    public static GaussOreGenConfig GenLime;
     public static boolean GenOil;
     public static int GenOilProbability;
     public static int GenOilMaxHeight;
@@ -37,6 +38,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
     public WorldGenMinable Thorium;
     public WorldGenMinable Salt;
     public WorldGenMinable Zinc;
+    public WorldGenMinable Limestone;
 
     public WorldGenManagerMg() {
         Copper = new WorldGenMinable(ManagerBlocks.oreCopper, 0, GenCopper.amount_per_vein, Blocks.stone);
@@ -46,6 +48,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
         Thorium = new WorldGenMinable(ManagerBlocks.oreThorium, 0, GenThorium.amount_per_vein, Blocks.stone);
         Salt = new WorldGenMinable(ManagerBlocks.oreSalt, 0, GenSalt.amount_per_vein, Blocks.stone);
         Zinc = new WorldGenMinable(ManagerBlocks.oreZinc, 0, GenZinc.amount_per_vein, Blocks.stone);
+        Limestone = new WorldGenMinable(ManagerBlocks.oreLime, 0, GenLime.amount_per_vein, Blocks.stone);
     }
 
     @Override
@@ -59,6 +62,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
             useOreGenConfig(random, world, chunkX, chunkZ, GenSalt, Salt);
             useOreGenConfig(random, world, chunkX, chunkZ, GenThorium, Thorium);
             useOreGenConfig(random, world, chunkX, chunkZ, GenZinc, Zinc);
+            useRandomOreGenConfig(random, world, chunkX, chunkZ, GenLime, Limestone);
             if (GenOil) {
                 int run = GenOilProbability;
                 BiomeGenBase base = world.getBiomeGenForCoords(chunkX << 4, chunkZ << 4);
@@ -75,8 +79,8 @@ public class WorldGenManagerMg implements IWorldGenerator {
                             int cX = chunkX - 3 + random.nextInt(6);
                             int cZ = chunkZ - 3 + random.nextInt(6);
                             int y = world.getHeightValue(cX << 4, cZ << 4);
-                            generateSpere(random, world, cX << 4, y + 10, cZ << 4, FluidRegistry.getFluid("oil").getBlock(), 0, false, 2.5f + random.nextInt(3));
-                            generateSpere_ore(random, world, cX << 4, height, cZ << 4, ManagerBlocks.oilSource, 15, false, 2.5f + random.nextInt(4));
+                            generateSphere(world, cX << 4, y + 10, cZ << 4, FluidRegistry.getFluid("oil").getBlock(), 0, false, 2.5f + random.nextInt(3));
+                            generateSphere_ore(world, cX << 4, height, cZ << 4, ManagerBlocks.oilSource, 15, false, 2.5f + random.nextInt(4));
                         }
                     }
                 }
@@ -90,6 +94,31 @@ public class WorldGenManagerMg implements IWorldGenerator {
         }
     }
 
+    public void useRandomOreGenConfig(Random random, World world, int chunkX, int chunkZ, GaussOreGenConfig conf, WorldGenMinable mine) { //implements Gaussian distribution of amount of veins
+        if (conf.active) {
+            double v1, v2, s;
+            do {
+                v1 = 2 * random.nextDouble() - 1;
+                v2 = 2 * random.nextDouble() - 1;
+                s = v1 * v1 + v2 * v2;
+            } while (s >= 1 || s == 0);
+            double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s) / s);
+            double nextGaussian = v2 * multiplier * conf.deviation + conf.amount_per_chunk;
+            int veins = (int) Math.floor(nextGaussian);
+            if (veins < 0) {
+                veins = 0;
+            }
+            if (veins < (conf.amount_per_chunk - conf.max_deviation)) {
+                veins = conf.amount_per_chunk - conf.max_deviation;
+            }
+            if (veins > (conf.amount_per_chunk + conf.max_deviation)) {
+                veins = conf.amount_per_chunk + conf.max_deviation;
+            }
+
+            genChunk(random, world, chunkX, chunkZ, veins, conf.max_height, conf.min_height, mine);
+        }
+    }
+
 
     public void genChunk(Random r, World w, int cx, int cz, int a, int h, int hm, WorldGenMinable wgm) {
         for (int k = 0; k < a; k++) {
@@ -100,7 +129,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
         }
     }
 
-    private void generateSpere(Random random, World world, int x, int y, int z, Block b, int meta, boolean flag, float rad) {
+    private void generateSphere(World world, int x, int y, int z, Block b, int meta, boolean flag, float rad) {
         int max_it = (int) (Math.ceil(rad) + 1);
         float rad_square = rad * rad;
         float rad_square_2 = (rad + 1) * (rad + 1);
@@ -109,7 +138,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
         LinkedList<BlockInfo> list = new LinkedList<BlockInfo>();
 
         for (; y > 0; y--) {
-            if (canRemplace(world.getBlock(x, y, z))) break;
+            if (canReplace(world.getBlock(x, y, z))) break;
             if (Block.isEqualTo(Blocks.water, world.getBlock(x, y, z))) return;
         }
         if (y == 0) return;
@@ -117,10 +146,10 @@ public class WorldGenManagerMg implements IWorldGenerator {
         for (int j = -extension; j <= extension; j++) {
             for (int i = -max_it; i <= max_it; i++) {
                 for (int k = -max_it; k <= max_it; k++) {
-                    if (i * i + (j * j * 8) + k * k < rad_square) {//spere
+                    if (i * i + (j * j * 8) + k * k < rad_square) {//sphere
                         Block bl = world.getBlock(x + i + offX, y + j, z + k + offZ);
                         if (!Block.isEqualTo(bl, Blocks.air) || flag) {
-                            if (canRemplace(bl)) {
+                            if (canReplace(bl)) {
                                 if (ore) {
                                     list.add(new BlockInfo(b, meta, i, j, k));
                                     count++;
@@ -165,7 +194,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
         }
     }
 
-    private void generateSpere_ore(Random random, World world, int x, int y, int z, Block b, int meta, boolean flag, float rad) {
+    private void generateSphere_ore(World world, int x, int y, int z, Block b, int meta, boolean flag, float rad) {
         int max_it = (int) (Math.ceil(rad) + 1);
         float rad_square = rad * rad;
         float rad_square_2 = (rad + 1) * (rad + 1);
@@ -175,10 +204,10 @@ public class WorldGenManagerMg implements IWorldGenerator {
         for (int j = -max_it; j <= max_it; j++) {
             for (int i = -max_it; i <= max_it; i++) {
                 for (int k = -max_it; k <= max_it; k++) {
-                    if (i * i + j * j + k * k < rad_square) {//spere
+                    if (i * i + j * j + k * k < rad_square) {//sphere
                         Block bl = world.getBlock(x + i + 8, y + j, z + k + 8);
                         if (!Block.isEqualTo(bl, Blocks.air) || flag) {
-                            if (canRemplace(bl)) {
+                            if (canReplace(bl)) {
                                 list.add(new BlockInfo(b, meta, i, j, k));
                                 count++;
                             } else if (Block.isEqualTo(bl, Blocks.water)) {
@@ -201,18 +230,16 @@ public class WorldGenManagerMg implements IWorldGenerator {
         if (Block.isEqualTo(bl, Blocks.deadbush)) return true;
         if (Block.isEqualTo(bl, Blocks.cactus)) return true;
         if (Block.isEqualTo(bl, Blocks.yellow_flower)) return true;
-        if (Block.isEqualTo(bl, Blocks.tallgrass)) return true;
-        return false;
+        return Block.isEqualTo(bl, Blocks.tallgrass);
     }
 
-    public boolean canRemplace(Block b) {
+    public boolean canReplace(Block b) {
         if (Block.isEqualTo(b, Blocks.dirt)) return true;
         if (Block.isEqualTo(b, Blocks.stone)) return true;
         if (Block.isEqualTo(b, Blocks.grass)) return true;
         if (Block.isEqualTo(b, Blocks.sand)) return true;
         if (Block.isEqualTo(b, Blocks.gravel)) return true;
         if (Block.isEqualTo(b, Blocks.sandstone)) return true;
-        if (Block.isEqualTo(b, Blocks.clay)) return true;
-        return false;
+        return Block.isEqualTo(b, Blocks.clay);
     }
 }

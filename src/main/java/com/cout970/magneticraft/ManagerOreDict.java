@@ -18,6 +18,7 @@ public class ManagerOreDict {
         OreDictionary.registerOre("oreThorium", oreThorium);
         OreDictionary.registerOre("oreSalt", oreSalt);
         OreDictionary.registerOre("oreZinc", oreZinc);
+        OreDictionary.registerOre("limestone", oreLime);
 
         OreDictionary.registerOre("dustSulfur", dustSulfur);
         OreDictionary.registerOre("dustQuartz", dustQuartz);

@@ -64,4 +64,6 @@ public interface IPressureConductor extends IConnectable {
     public void onBlockExplode();
 
     public Fluid getFluid();
+
+    public void setFluid(Fluid fluid);
 }

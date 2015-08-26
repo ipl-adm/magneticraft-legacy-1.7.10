@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Level;
 
 public class Log {
     public static final String prefix = Magneticraft.DEBUG ? "[Magneticraft] " : "";
+
     public static void log(Object o) {
         FMLLog.log(Magneticraft.ID, Level.INFO, String.valueOf(o));
     }

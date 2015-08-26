@@ -5,22 +5,22 @@ import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
-public class TileCooler extends TileHeatConductor{
+public class TileCooler extends TileHeatConductor {
 
-	@Override
-	public IHeatConductor initHeatCond() {
-		return new HeatConductor(this, 1400D, 1000.0D);
-	}
-	
-	public void updateEntity(){
-		super.updateEntity();
-		if(worldObj.isRemote)return;
-		if(heat.getTemperature() > 25){
-			double a = heat.getTemperature()-25;
-			a *= a; 
-			a *= 0.0002;
-			this.heat.drainCalories(EnergyConversor.RFtoCALORIES(a));
-		}
-	}
+    @Override
+    public IHeatConductor initHeatCond() {
+        return new HeatConductor(this, 1400D, 1000.0D);
+    }
+
+    public void updateEntity() {
+        super.updateEntity();
+        if (worldObj.isRemote) return;
+        if (heat.getTemperature() > 25) {
+            double a = heat.getTemperature() - 25;
+            a *= a;
+            a *= 0.0002;
+            this.heat.drainCalories(EnergyConversor.RFtoCALORIES(a));
+        }
+    }
 
 }

@@ -1,16 +1,16 @@
 package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.util.InventoryComponent;
-
 import net.minecraft.tileentity.TileEntity;
 
-public class Tile1_8Updater extends TileEntity{
-	
-	public void update() {
-		updateEntity();
-	}
-	
-	public void updateEntity(){}
+public class Tile1_8Updater extends TileEntity {
+
+    public void update() {
+        updateEntity();
+    }
+
+    public void updateEntity() {
+    }
 
 //	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 //		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
@@ -42,11 +42,11 @@ public class Tile1_8Updater extends TileEntity{
 //		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
 //		return null;
 //	}
-	
-	public boolean isPowered(){
-		//worldObj.isBlockPowered(getPos());
-		return worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
-	}
+
+    public boolean isPowered() {
+        //worldObj.isBlockPowered(getPos());
+        return worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord);
+    }
 
 //	public int getSizeInventory() {
 //		return getInv().getSizeInventory();
@@ -92,7 +92,7 @@ public class Tile1_8Updater extends TileEntity{
 //		return getInv().isItemValidForSlot(a, b);
 //	}
 
-	public InventoryComponent getInv() {
-		return null;
-	}
+    public InventoryComponent getInv() {
+        return null;
+    }
 }

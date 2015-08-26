@@ -6,20 +6,19 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
-public class CreativeTabMedieval extends CreativeTabs{
+public class CreativeTabMedieval extends CreativeTabs {
 
-	public CreativeTabMedieval(String s) {
-		super(s);
-	}
+    public CreativeTabMedieval(String s) {
+        super(s);
+    }
 
-	@Override
-	public Item getTabIconItem() {
-		return Items.stick;
-	}
+    @Override
+    public Item getTabIconItem() {
+        return Items.stick;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public String getTranslatedTabLabel()
-	{
-		return "Magneticraft Medieval Age";
-	}
+    @SideOnly(Side.CLIENT)
+    public String getTranslatedTabLabel() {
+        return "Magneticraft Medieval Age";
+    }
 }

@@ -7,7 +7,6 @@ import com.cout970.magneticraft.api.pressure.prefab.PressureConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TilePressure;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -28,9 +27,9 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
 		super.updateEntity();
 		if(worldObj.isRemote)return;
         if (pressure.getPressure() > pressure.getMaxPressure()) {
-            this.explode(this.worldObj,this.xCoord,this.yCoord,this.zCoord,true);
+            this.explode(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
         }
-	}
+    }
 
     @Override
     public void explode(World world, int x, int y, int z, boolean explodeNeighbors) {
@@ -67,18 +66,18 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
     	return pressure.drainGas(maxDrain, doDrain);
     }
 
-	@Override
-	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		return (pressure.getFluid() == null || pressure.getFluid().equals(fluid));
-	}
+    @Override
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        return (pressure.getFluid() == null || pressure.getFluid().equals(fluid));
+    }
 
-	@Override
-	public boolean canDrain(ForgeDirection from, Fluid fluid) {
-		return pressure.getFluid() != null && pressure.getFluid() == fluid;
-	}
+    @Override
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        return pressure.getFluid() != null && pressure.getFluid() == fluid;
+    }
 
-	@Override
-	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		return new FluidTankInfo[]{};
-	}
+    @Override
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        return new FluidTankInfo[]{};
+    }
 }

@@ -1,55 +1,57 @@
 package com.cout970.magneticraft.client.gui.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.util.RenderUtil;
-
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class CompEnergyTrackerBar implements IGuiComp{
+import java.util.ArrayList;
+import java.util.List;
 
-	public ResourceLocation texture;
-	public GuiPoint pos;
-	public IEnergyTracker track;
+public class CompEnergyTrackerBar implements IGuiComp {
 
-	public CompEnergyTrackerBar(ResourceLocation tex, GuiPoint p, IEnergyTracker track){
-		texture = tex;
-		pos = p;
-		this.track = track;
-	}
+    public ResourceLocation texture;
+    public GuiPoint pos;
+    public IEnergyTracker track;
 
-	@Override
-	public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(track != null){
-			float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick()/track.getMaxChange() : track.getChangeInTheLastSecond()/(track.getMaxChange()*20);
-			if(prod > 1)prod = 1;
-			int scale = (int) (44*prod);
-			gui.mc.renderEngine.bindTexture(texture);
-			RenderUtil.drawTexturedModalRectScaled(gui.xStart+pos.x, gui.yStart+pos.y+(44-scale), 0, 44-scale, 6, scale, 12, 45);
-		}
-	}
+    public CompEnergyTrackerBar(ResourceLocation tex, GuiPoint p, IEnergyTracker track) {
+        texture = tex;
+        pos = p;
+        this.track = track;
+    }
 
-	@Override
-	public void onClick(int mx, int my, int buttom, GuiBasic gui) {}
+    @Override
+    public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
+        if (track != null) {
+            float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick() / track.getMaxChange() : track.getChangeInTheLastSecond() / (track.getMaxChange() * 20);
+            if (prod > 1) prod = 1;
+            int scale = (int) (44 * prod);
+            gui.mc.renderEngine.bindTexture(texture);
+            RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (44 - scale), 0, 44 - scale, 6, scale, 12, 45);
+        }
+    }
 
-	@Override
-	public boolean onKey(int n, char key, GuiBasic gui) {return false;}
+    @Override
+    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    }
 
-	@Override
-	public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-		if(track != null){
-			if(gui.isIn(mx, my, gui.xStart+pos.x, gui.yStart+pos.y, 6, 44)){
-				List<String> data = new ArrayList<String>();
-				float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick() : track.getChangeInTheLastSecond()/20;
-				String s = track.isConsume() ? "Consumption " : "Production ";
-				data.add(String.format(s+"%.3f kW", Float.valueOf(((int)prod)/1000f)));
-				gui.drawHoveringText2(data, mx-gui.xStart, my-gui.yStart);
-				RenderHelper.enableGUIStandardItemLighting();
-			}
-		}
-	}
+    @Override
+    public boolean onKey(int n, char key, GuiBasic gui) {
+        return false;
+    }
+
+    @Override
+    public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
+        if (track != null) {
+            if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                List<String> data = new ArrayList<String>();
+                float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick() : track.getChangeInTheLastSecond() / 20;
+                String s = track.isConsume() ? "Consumption " : "Production ";
+                data.add(String.format(s + "%.3f kW", Float.valueOf(((int) prod) / 1000f)));
+                gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
+                RenderHelper.enableGUIStandardItemLighting();
+            }
+        }
+    }
 }

@@ -2,58 +2,60 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class TileVoidInventory extends TileBase implements IInventoryManaged{
+public class TileVoidInventory extends TileBase implements IInventoryManaged {
 
-	public InventoryComponent inv = new InventoryComponent(this, 1, "void");
-	
-	public int getSizeInventory() {
-		return getInv().getSizeInventory();
-	}
+    public InventoryComponent inv = new InventoryComponent(this, 1, "void");
 
-	public ItemStack getStackInSlot(int s) {
-		return getInv().getStackInSlot(s);
-	}
+    public int getSizeInventory() {
+        return getInv().getSizeInventory();
+    }
 
-	public ItemStack decrStackSize(int a, int b) {
-		return getInv().decrStackSize(a, b);
-	}
+    public ItemStack getStackInSlot(int s) {
+        return getInv().getStackInSlot(s);
+    }
 
-	public ItemStack getStackInSlotOnClosing(int a) {
-		return getInv().getStackInSlotOnClosing(a);
-	}
+    public ItemStack decrStackSize(int a, int b) {
+        return getInv().decrStackSize(a, b);
+    }
 
-	public void setInventorySlotContents(int a, ItemStack b) {}
+    public ItemStack getStackInSlotOnClosing(int a) {
+        return getInv().getStackInSlotOnClosing(a);
+    }
 
-	public String getInventoryName() {
-		return getInv().getInventoryName();
-	}
+    public void setInventorySlotContents(int a, ItemStack b) {
+    }
 
-	public boolean hasCustomInventoryName() {
-		return getInv().hasCustomInventoryName();
-	}
+    public String getInventoryName() {
+        return getInv().getInventoryName();
+    }
 
-	public int getInventoryStackLimit() {
-		return getInv().getInventoryStackLimit();
-	}
+    public boolean hasCustomInventoryName() {
+        return getInv().hasCustomInventoryName();
+    }
 
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return true;
-	}
+    public int getInventoryStackLimit() {
+        return getInv().getInventoryStackLimit();
+    }
 
-	public void openInventory() {}
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return true;
+    }
 
-	public void closeInventory() {}
+    public void openInventory() {
+    }
 
-	public boolean isItemValidForSlot(int a, ItemStack b) {
-		return getInv().isItemValidForSlot(a, b);
-	}
-	
-	public InventoryComponent getInv() {
-		return inv;
-	}
+    public void closeInventory() {
+    }
+
+    public boolean isItemValidForSlot(int a, ItemStack b) {
+        return getInv().isItemValidForSlot(a, b);
+    }
+
+    public InventoryComponent getInv() {
+        return inv;
+    }
 
 }

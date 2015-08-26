@@ -1,35 +1,34 @@
 package com.cout970.magneticraft.block;
 
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockOilSourceDrained extends BlockMg{
+import java.util.Random;
 
-	public BlockOilSourceDrained() {
-		super(Material.rock);
-	}
-	
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
+public class BlockOilSourceDrained extends BlockMg {
+
+    public BlockOilSourceDrained() {
+        super(Material.rock);
+    }
+
+    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return null;
     }
 
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return null;
-	}
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return null;
+    }
 
-	@Override
-	public String[] getTextures() {
-		return new String[]{"oilsource_drained"};
-	}
+    @Override
+    public String[] getTextures() {
+        return new String[]{"oilsource_drained"};
+    }
 
-	@Override
-	public String getName() {
-		return "oil_source_drained";
-	}
+    @Override
+    public String getName() {
+        return "oil_source_drained";
+    }
 }

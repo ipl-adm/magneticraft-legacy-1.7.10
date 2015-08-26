@@ -5,19 +5,14 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelReactorControl extends ModelBase
-{
-  //fields
+public class ModelReactorControl extends ModelBase {
+    //fields
     ModelRenderer pilar1;
     ModelRenderer pilar2;
     ModelRenderer pilar3;
@@ -33,151 +28,148 @@ public class ModelReactorControl extends ModelBase
     ModelRenderer controlrod4;
     ModelRenderer top;
     ModelRenderer bottom;
-  
-  public ModelReactorControl()
-  {
-    textureWidth = 140;
-    textureHeight = 36;
-    
-      pilar1 = new ModelRenderer(this, 0, 0);
-      pilar1.addBox(5F, 1F, -8F, 3, 15, 3);
-      pilar1.setRotationPoint(0F, 8F, 0F);
-      pilar1.setTextureSize(140, 36);
-      pilar1.mirror = true;
-      setRotation(pilar1, 0F, 0F, 0F);
-      pilar2 = new ModelRenderer(this, 0, 0);
-      pilar2.addBox(5F, 1F, 5F, 3, 15, 3);
-      pilar2.setRotationPoint(0F, 8F, 0F);
-      pilar2.setTextureSize(140, 36);
-      pilar2.mirror = true;
-      setRotation(pilar2, 0F, 0F, 0F);
-      pilar3 = new ModelRenderer(this, 0, 0);
-      pilar3.addBox(-8F, 1F, 5F, 3, 15, 3);
-      pilar3.setRotationPoint(0F, 8F, 0F);
-      pilar3.setTextureSize(140, 36);
-      pilar3.mirror = true;
-      setRotation(pilar3, 0F, 0F, 0F);
-      pilar4 = new ModelRenderer(this, 0, 0);
-      pilar4.addBox(-8F, 1F, -8F, 3, 15, 3);
-      pilar4.setRotationPoint(0F, 8F, 0F);
-      pilar4.setTextureSize(140, 36);
-      pilar4.mirror = true;
-      setRotation(pilar4, 0F, 0F, 0F);
-      s5 = new ModelRenderer(this, 90, 0);
-      s5.addBox(-7F, -7F, -5F, 1, 14, 10);
-      s5.setRotationPoint(0F, 16F, 0F);
-      s5.setTextureSize(140, 36);
-      s5.mirror = true;
-      setRotation(s5, 0F, 0F, 0F);
-      s6 = new ModelRenderer(this, 90, 0);
-      s6.addBox(6F, -7F, -5F, 1, 14, 10);
-      s6.setRotationPoint(0F, 16F, 0F);
-      s6.setTextureSize(140, 36);
-      s6.mirror = true;
-      setRotation(s6, 0F, 0F, 0F);
-      s7 = new ModelRenderer(this, 55, 0);
-      s7.addBox(-5F, -7F, -7F, 10, 14, 1);
-      s7.setRotationPoint(0F, 16F, 0F);
-      s7.setTextureSize(140, 36);
-      s7.mirror = true;
-      setRotation(s7, 0F, 0F, 0F);
-      s8 = new ModelRenderer(this, 55, 0);
-      s8.addBox(-5F, -7F, 6F, 10, 14, 1);
-      s8.setRotationPoint(0F, 16F, 0F);
-      s8.setTextureSize(140, 36);
-      s8.mirror = true;
-      setRotation(s8, 0F, 0F, 0F);
-      centralrod = new ModelRenderer(this, 113, 0);
-      centralrod.addBox(-1F, -7F, -1F, 2, 15, 2);
-      centralrod.setRotationPoint(0F, 16F, 0F);
-      centralrod.setTextureSize(140, 36);
-      centralrod.mirror = true;
-      setRotation(centralrod, 0F, 0F, 0F);
-      controlrod1 = new ModelRenderer(this, 78, 0);
-      controlrod1.addBox(-1F, -8F, 1F, 2, 16, 3);
-      controlrod1.setRotationPoint(0F, 16F, 0F);
-      controlrod1.setTextureSize(140, 36);
-      controlrod1.mirror = true;
-      setRotation(controlrod1, 0F, 0F, 0F);
-      controlrod2 = new ModelRenderer(this, 78, 0);
-      controlrod2.addBox(-1F, -8F, -4F, 2, 16, 3);
-      controlrod2.setRotationPoint(0F, 16F, 0F);
-      controlrod2.setTextureSize(140, 36);
-      controlrod2.mirror = true;
-      setRotation(controlrod2, 0F, 0F, 0F);
-      controlrod3 = new ModelRenderer(this, 122, 0);
-      controlrod3.addBox(1F, -8F, -1F, 3, 16, 2);
-      controlrod3.setRotationPoint(0F, 16F, 0F);
-      controlrod3.setTextureSize(140, 36);
-      controlrod3.mirror = true;
-      setRotation(controlrod3, 0F, 0F, 0F);
-      controlrod4 = new ModelRenderer(this, 122, 0);
-      controlrod4.addBox(-4F, -8F, -1F, 3, 16, 2);
-      controlrod4.setRotationPoint(0F, 16F, 0F);
-      controlrod4.setTextureSize(140, 36);
-      controlrod4.mirror = true;
-      setRotation(controlrod4, 0F, 0F, 0F);
-      top = new ModelRenderer(this, 0, 2);
-      top.addBox(-8F, -7F, -8F, 16, 1, 16);
-      top.setRotationPoint(0F, 15F, 0F);
-      top.setTextureSize(140, 36);
-      top.mirror = true;
-      setRotation(top, 0F, 0F, 0F);
-      bottom = new ModelRenderer(this, 0, 19);
-      bottom.addBox(-7F, 7F, -7F, 14, 1, 14);
-      bottom.setRotationPoint(0F, 16F, 0F);
-      bottom.setTextureSize(140, 36);
-      bottom.mirror = true;
-      setRotation(bottom, 0F, 0F, 0F);
-  }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5,entity);
-    pilar1.render(f5);
-    pilar2.render(f5);
-    pilar3.render(f5);
-    pilar4.render(f5);
-    s5.render(f5);
-    s6.render(f5);
-    s7.render(f5);
-    s8.render(f5);
-    centralrod.render(f5);
-    controlrod1.render(f5);
-    controlrod2.render(f5);
-    controlrod3.render(f5);
-    controlrod4.render(f5);
-    top.render(f5);
-    bottom.render(f5);
-  }
-  
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
-  }
 
-  public void renderStatic(float f5){
-	  pilar1.render(f5);
-	  pilar2.render(f5);
-	  pilar3.render(f5);
-	  pilar4.render(f5);
-	  s5.render(f5);
-	  s6.render(f5);
-	  s7.render(f5);
-	  s8.render(f5);
-	  centralrod.render(f5);
-	  top.render(f5);
-	  bottom.render(f5);
-  }
+    public ModelReactorControl() {
+        textureWidth = 140;
+        textureHeight = 36;
 
-  public void renderDynamic(float f5){
-	  controlrod1.render(f5);
-	  controlrod2.render(f5);
-	  controlrod3.render(f5);
-	  controlrod4.render(f5);
-  }
+        pilar1 = new ModelRenderer(this, 0, 0);
+        pilar1.addBox(5F, 1F, -8F, 3, 15, 3);
+        pilar1.setRotationPoint(0F, 8F, 0F);
+        pilar1.setTextureSize(140, 36);
+        pilar1.mirror = true;
+        setRotation(pilar1, 0F, 0F, 0F);
+        pilar2 = new ModelRenderer(this, 0, 0);
+        pilar2.addBox(5F, 1F, 5F, 3, 15, 3);
+        pilar2.setRotationPoint(0F, 8F, 0F);
+        pilar2.setTextureSize(140, 36);
+        pilar2.mirror = true;
+        setRotation(pilar2, 0F, 0F, 0F);
+        pilar3 = new ModelRenderer(this, 0, 0);
+        pilar3.addBox(-8F, 1F, 5F, 3, 15, 3);
+        pilar3.setRotationPoint(0F, 8F, 0F);
+        pilar3.setTextureSize(140, 36);
+        pilar3.mirror = true;
+        setRotation(pilar3, 0F, 0F, 0F);
+        pilar4 = new ModelRenderer(this, 0, 0);
+        pilar4.addBox(-8F, 1F, -8F, 3, 15, 3);
+        pilar4.setRotationPoint(0F, 8F, 0F);
+        pilar4.setTextureSize(140, 36);
+        pilar4.mirror = true;
+        setRotation(pilar4, 0F, 0F, 0F);
+        s5 = new ModelRenderer(this, 90, 0);
+        s5.addBox(-7F, -7F, -5F, 1, 14, 10);
+        s5.setRotationPoint(0F, 16F, 0F);
+        s5.setTextureSize(140, 36);
+        s5.mirror = true;
+        setRotation(s5, 0F, 0F, 0F);
+        s6 = new ModelRenderer(this, 90, 0);
+        s6.addBox(6F, -7F, -5F, 1, 14, 10);
+        s6.setRotationPoint(0F, 16F, 0F);
+        s6.setTextureSize(140, 36);
+        s6.mirror = true;
+        setRotation(s6, 0F, 0F, 0F);
+        s7 = new ModelRenderer(this, 55, 0);
+        s7.addBox(-5F, -7F, -7F, 10, 14, 1);
+        s7.setRotationPoint(0F, 16F, 0F);
+        s7.setTextureSize(140, 36);
+        s7.mirror = true;
+        setRotation(s7, 0F, 0F, 0F);
+        s8 = new ModelRenderer(this, 55, 0);
+        s8.addBox(-5F, -7F, 6F, 10, 14, 1);
+        s8.setRotationPoint(0F, 16F, 0F);
+        s8.setTextureSize(140, 36);
+        s8.mirror = true;
+        setRotation(s8, 0F, 0F, 0F);
+        centralrod = new ModelRenderer(this, 113, 0);
+        centralrod.addBox(-1F, -7F, -1F, 2, 15, 2);
+        centralrod.setRotationPoint(0F, 16F, 0F);
+        centralrod.setTextureSize(140, 36);
+        centralrod.mirror = true;
+        setRotation(centralrod, 0F, 0F, 0F);
+        controlrod1 = new ModelRenderer(this, 78, 0);
+        controlrod1.addBox(-1F, -8F, 1F, 2, 16, 3);
+        controlrod1.setRotationPoint(0F, 16F, 0F);
+        controlrod1.setTextureSize(140, 36);
+        controlrod1.mirror = true;
+        setRotation(controlrod1, 0F, 0F, 0F);
+        controlrod2 = new ModelRenderer(this, 78, 0);
+        controlrod2.addBox(-1F, -8F, -4F, 2, 16, 3);
+        controlrod2.setRotationPoint(0F, 16F, 0F);
+        controlrod2.setTextureSize(140, 36);
+        controlrod2.mirror = true;
+        setRotation(controlrod2, 0F, 0F, 0F);
+        controlrod3 = new ModelRenderer(this, 122, 0);
+        controlrod3.addBox(1F, -8F, -1F, 3, 16, 2);
+        controlrod3.setRotationPoint(0F, 16F, 0F);
+        controlrod3.setTextureSize(140, 36);
+        controlrod3.mirror = true;
+        setRotation(controlrod3, 0F, 0F, 0F);
+        controlrod4 = new ModelRenderer(this, 122, 0);
+        controlrod4.addBox(-4F, -8F, -1F, 3, 16, 2);
+        controlrod4.setRotationPoint(0F, 16F, 0F);
+        controlrod4.setTextureSize(140, 36);
+        controlrod4.mirror = true;
+        setRotation(controlrod4, 0F, 0F, 0F);
+        top = new ModelRenderer(this, 0, 2);
+        top.addBox(-8F, -7F, -8F, 16, 1, 16);
+        top.setRotationPoint(0F, 15F, 0F);
+        top.setTextureSize(140, 36);
+        top.mirror = true;
+        setRotation(top, 0F, 0F, 0F);
+        bottom = new ModelRenderer(this, 0, 19);
+        bottom.addBox(-7F, 7F, -7F, 14, 1, 14);
+        bottom.setRotationPoint(0F, 16F, 0F);
+        bottom.setTextureSize(140, 36);
+        bottom.mirror = true;
+        setRotation(bottom, 0F, 0F, 0F);
+    }
+
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        pilar1.render(f5);
+        pilar2.render(f5);
+        pilar3.render(f5);
+        pilar4.render(f5);
+        s5.render(f5);
+        s6.render(f5);
+        s7.render(f5);
+        s8.render(f5);
+        centralrod.render(f5);
+        controlrod1.render(f5);
+        controlrod2.render(f5);
+        controlrod3.render(f5);
+        controlrod4.render(f5);
+        top.render(f5);
+        bottom.render(f5);
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    public void renderStatic(float f5) {
+        pilar1.render(f5);
+        pilar2.render(f5);
+        pilar3.render(f5);
+        pilar4.render(f5);
+        s5.render(f5);
+        s6.render(f5);
+        s7.render(f5);
+        s8.render(f5);
+        centralrod.render(f5);
+        top.render(f5);
+        bottom.render(f5);
+    }
+
+    public void renderDynamic(float f5) {
+        controlrod1.render(f5);
+        controlrod2.render(f5);
+        controlrod3.render(f5);
+        controlrod4.render(f5);
+    }
 
 }

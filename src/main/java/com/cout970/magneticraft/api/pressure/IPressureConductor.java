@@ -57,9 +57,9 @@ public interface IPressureConductor extends IConnectable {
      * @param gas
      * @return the amount accepted by the conductor, will be 0 if the fluid is not valid(no gas or diferent fluid) or the same amount as the fluidstack.
      */
-    public int applyGas(FluidStack gas);
+    public int applyGas(FluidStack gas, boolean doFill);
 
-    public FluidStack drainGas(int amount);
+    public FluidStack drainGas(int amount, boolean doDrain);
 
     public void onBlockExplode();
 

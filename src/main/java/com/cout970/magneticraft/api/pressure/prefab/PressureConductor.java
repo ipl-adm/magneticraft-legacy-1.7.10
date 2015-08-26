@@ -132,11 +132,12 @@ public class PressureConductor implements IPressureConductor {
     }
 
     @Override
-    public int applyGas(FluidStack gas) {
+    public int applyGas(FluidStack gas, boolean doFill) {
         if (gas == null) return 0;
         if (gas.amount == 0) return 0;
         if (!gas.getFluid().isGaseous()) return 0;
         if (currentGas == null || gas.getFluid().equals(currentGas)) {
+            if (!doFill) return gas.amount;
             currentGas = gas.getFluid();
             temperature = currentGas.getTemperature();
             moles += EnergyConversor.MBtoMOL(gas.amount);
@@ -147,11 +148,12 @@ public class PressureConductor implements IPressureConductor {
     }
 
     @Override
-    public FluidStack drainGas(int amount) {
+    public FluidStack drainGas(int amount, boolean doDrain) {
         if (currentGas == null) return null;
         if (amount <= 0) return null;
         int mB = (int) Math.min(amount, EnergyConversor.MOLtoMB(moles));
         if (mB > 0) {
+            if (!doDrain) return new FluidStack(currentGas, mB);
             moles -= EnergyConversor.MBtoMOL(mB);
 //			Log.debug("extracting: "+EnergyConversor.MBtoMOL(mB)+", "+temp2);
 

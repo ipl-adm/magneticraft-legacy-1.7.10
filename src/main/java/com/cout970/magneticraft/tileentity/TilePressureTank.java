@@ -42,7 +42,7 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
                     VecInt pos = new VecInt(this).add(dir);
                     IExplodable exp = PressureUtils.getExplodable(world, pos);
                     if (exp != null) {
-                        exp.explode(world, pos.getX(), pos.getY(), pos.getZ(), explodeNeighbors);
+                        exp.explode(world, pos.getX(), pos.getY(), pos.getZ(), true);
                     }
                 }
             }
@@ -53,7 +53,7 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
 
     @Override
     public int fill(ForgeDirection from, FluidStack gas, boolean doFill) {
-        return (doFill)? pressure.applyGas(gas) : null;
+        return pressure.applyGas(gas, doFill);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return (doDrain)? pressure.drainGas(maxDrain) : null;
+        return pressure.drainGas(maxDrain, doDrain);
     }
 
     @Override

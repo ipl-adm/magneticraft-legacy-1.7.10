@@ -270,51 +270,57 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8, IGuiS
         nbtTagCompound.setTag("Inventory", list);
     }
 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
-		return new int[]{0,1};
-	}
+    @Override
+    public int[] getAccessibleSlotsFromSide(int side) {
+        return new int[]{0, 1};
+    }
 
-	@Override
-	public boolean canInsertItem(int slot, ItemStack i,
-			int side) {
-		return slot == 0;
-	}
+    @Override
+    public boolean canInsertItem(int slot, ItemStack i,
+                                 int side) {
+        return slot == 0;
+    }
 
-	@Override
-	public boolean canExtractItem(int slot, ItemStack i,
-			int side) {
-		return slot == 1;
-	}
-	
-	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-		return 0;
-	}
+    @Override
+    public boolean canExtractItem(int slot, ItemStack i,
+                                  int side) {
+        return slot == 1;
+    }
 
-	public FluidStack drain(ForgeDirection from, FluidStack resource,
-			boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource,doDrain);
-		return null;
-	}
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+        return 0;
+    }
 
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).drainMg(MgDirection.getDirection(from.ordinal()),maxDrain,doDrain);
-		return null;
-	}
+    public FluidStack drain(ForgeDirection from, FluidStack resource,
+                            boolean doDrain) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
+        return null;
+    }
 
-	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canFillMg(MgDirection.getDirection(from.ordinal()),fluid);
-		return false;
-	}
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
+        return null;
+    }
 
-	public boolean canDrain(ForgeDirection from, Fluid fluid) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).canDrainMg(MgDirection.getDirection(from.ordinal()),fluid);
-		return false;
-	}
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return false;
+    }
 
-	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		if(this instanceof IFluidHandler1_8)return ((IFluidHandler1_8)this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-		return null;
-	}
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
+        return false;
+    }
+
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        if (this instanceof IFluidHandler1_8)
+            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+        return null;
+    }
 }

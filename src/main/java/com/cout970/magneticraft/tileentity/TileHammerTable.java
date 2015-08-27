@@ -83,6 +83,7 @@ public class TileHammerTable extends TileBase {
 
     private void addParticles() {
         if (worldObj.isRemote) {
+            Item item = getOutput().getItem();
             for (int i = 0; i < 20; i++) {
                 float a, b, c;
                 Random rnd = new Random();
@@ -90,7 +91,6 @@ public class TileHammerTable extends TileBase {
                 b = (rnd.nextFloat() - 0.5F) * 0.5F;
                 c = (rnd.nextFloat() - 0.5F) * 0.5F;
                 // TODO FIX: some particles looks weird
-                Item item = getOutput().getItem();
                 Minecraft.getMinecraft().effectRenderer
                         .addEffect(new EntityBreakingFX(worldObj, xCoord + 0.5 + a, yCoord + 0.95, zCoord + 0.5 + c,
                                 a * 0.15, 0.1f + b * 0.005, c * 0.15, item, 0));

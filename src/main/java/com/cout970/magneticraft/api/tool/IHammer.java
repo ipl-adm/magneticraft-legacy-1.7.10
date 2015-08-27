@@ -13,15 +13,15 @@ public interface IHammer {
     /**
      * called to damage the tool, return the item to leave in the player's hands
      */
-    public ItemStack tick(ItemStack hammer, World w, int x, int y, int z);
+    ItemStack tick(ItemStack hammer, World w, int x, int y, int z);
 
     /**
      * Return true if the tool can work or not on the hammer table
      */
-    public boolean canHammer(ItemStack hammer, World w, int x, int y, int z);
+    boolean canHammer(ItemStack hammer, World w, int x, int y, int z);
 
     /**
      * Return the number of hits needed to break the ore
      */
-    public int getMaxHits(ItemStack hammer, World w, int x, int y, int z);
+    int getMaxHits(ItemStack hammer, World w, int x, int y, int z);
 }

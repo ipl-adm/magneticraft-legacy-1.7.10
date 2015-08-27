@@ -3,6 +3,7 @@ package com.cout970.magneticraft;
 import com.cout970.magneticraft.api.acces.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.ThermopileDecay;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;

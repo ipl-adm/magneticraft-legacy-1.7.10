@@ -46,7 +46,7 @@ public class TileRenderHammerTable extends TileEntitySpecialRenderer {
         GL11.glRotatef(180, 0, 0, 1);
         TileHammerTable tile = (TileHammerTable) t;
 
-        //RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
+        RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
         model.renderStatic(0.0625f);
         if (tile.getInput() != null) {
             ItemStack itemstack = tile.getInput();

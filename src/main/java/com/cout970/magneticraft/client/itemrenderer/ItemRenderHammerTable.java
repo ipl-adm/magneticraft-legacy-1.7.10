@@ -53,7 +53,7 @@ public class ItemRenderHammerTable implements IItemRenderer {
         GL11.glRotatef(180F, 0, 0, 1);
         GL11.glRotatef(180F, 0, 1, 0);
         GL11.glTranslatef(0, -1.5f, 0);
-        //RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
+        RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
         model.renderStatic(0.0625f);
         GL11.glPopMatrix();
     }

@@ -80,4 +80,5 @@ public class ModelTextures {
     public static final ResourceLocation ELECTRIC_SWITCH = new ResourceLocation("magneticraft", "textures/misc/switch.png");
     public static final ResourceLocation GAUGE = new ResourceLocation("magneticraft", "textures/misc/gauge.png");
     public static final ResourceLocation BRASS_PIPE = new ResourceLocation("magneticraft", "textures/misc/pipe/brass/base.png");
+    public static final ResourceLocation HAMMER_TABLE = new ResourceLocation("magneticraft", "textures/misc/modelhammertable.png");
 }

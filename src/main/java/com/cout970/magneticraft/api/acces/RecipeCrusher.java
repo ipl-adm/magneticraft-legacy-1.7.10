@@ -50,22 +50,23 @@ public class RecipeCrusher {
 
     public static RecipeCrusher getRecipe(ItemStack i) {
         for (RecipeCrusher r : MgRecipeRegister.crusher) {
-            if (r.matches(i)) return r;
+            if (r.matches(i)) {
+                return r;
+            }
         }
         return null;
     }
 
     public boolean matches(ItemStack i) {
-        if (MgUtils.areEcuals(input, i, true)) return true;
-        return false;
+        return MgUtils.areEcuals(input, i, true);
     }
 
     public String toString() {
         String s = "Crusher Recipe, Input: " + input.getDisplayName() + ", Main Output: " + output.getDisplayName();
         if (output2 != null)
-            s += ", Primary Output: " + output2.getDisplayName() + " with " + (int) (prob2 * 100) + "%";
+            s += ", Primary Output: " + output2.getDisplayName() + " with " + (int) (prob2 * 100) + "%%";
         if (output3 != null)
-            s += ", Secondary Output: " + output3.getDisplayName() + " with " + (int) (prob3 * 100) + "%";
+            s += ", Secondary Output: " + output3.getDisplayName() + " with " + (int) (prob3 * 100) + "%%";
         return s;
     }
 }

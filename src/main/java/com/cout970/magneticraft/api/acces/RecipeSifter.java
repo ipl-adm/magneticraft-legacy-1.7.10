@@ -47,7 +47,7 @@ public class RecipeSifter {
 
     public String toString() {
         String s = "Sifter Recipe, Input: " + input.getDisplayName() + ", Main Output: " + output.getDisplayName();
-        if (extra != null) s += ", Primary Output: " + extra.getDisplayName() + " with " + (int) (prob * 100) + "%";
+        if (extra != null) s += ", Primary Output: " + extra.getDisplayName() + " with " + (int) (prob * 100) + "%%";
         return s;
     }
 }

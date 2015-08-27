@@ -107,6 +107,8 @@ public class ManagerItems {
     public static Item upgrade_slow;
     public static Item rubber;
     public static Item part_brass_pipe;
+    public static Item hammer_stone;
+    public static Item hammer_iron;
 
     public static void initItems() {
 
@@ -178,6 +180,8 @@ public class ManagerItems {
         upgrade_slow = new ItemBasic("inserter_item_slow_upgrade");
         rubber = new ItemBasic("rubber");
         part_brass_pipe = new ItemPartBrassPipe("brass_pipe");
+        hammer_stone = new ItemHammerStone("stone_hammer");
+        hammer_iron = new ItemHammerIron("iron_hammer");
     }
 
     public static void registerItems() {
@@ -250,6 +254,10 @@ public class ManagerItems {
         addItem(upgrade_slow, "Inserter Upgrade: Decrease Speed");
         addItem(rubber, "Rubber Sheet");
         addItem(part_brass_pipe, "Brass Pipe");
+        addItem(part_brass_pipe, "Brass Pipe");
+        addItem(hammer_stone, "Stone Crushing Hammer");
+        addItem(hammer_iron, "Iron Crushing Hammer");
+
 
         for (Item i : items) {
             GameRegistry.registerItem(i, i.getUnlocalizedName());

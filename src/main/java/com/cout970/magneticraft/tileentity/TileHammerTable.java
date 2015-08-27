@@ -5,6 +5,7 @@ import com.cout970.magneticraft.api.acces.RecipeCrusher;
 import com.cout970.magneticraft.block.BlockMg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityBreakingFX;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -60,13 +61,13 @@ public class TileHammerTable extends TileBase {
         if (progress >= maxProgress) {
             maxProgress = 0;
             progress = 0;
-            ore = null;
             ItemStack out = getOutput();
+            ore = null;
             // TODO CHECK
             /*if (ManagerConfig.hammerTableDrops) {
                 BlockMg.dropItem(out, worldObj.rand, xCoord, yCoord, zCoord, worldObj);
             } else {
-            */    ore = out; /*
+            */    ore = out.copy(); /*
             } */
         }
     }
@@ -77,7 +78,7 @@ public class TileHammerTable extends TileBase {
         RecipeCrusher rec = RecipeCrusher.getRecipe(ore);
         if (rec == null)
             return null;
-        return rec.getOutput2() == null ? rec.getOutput() : rec.getOutput2();
+        return (rec.getOutput2() == null) ? rec.getOutput() : rec.getOutput2();
     }
 
     private void addParticles() {
@@ -89,9 +90,10 @@ public class TileHammerTable extends TileBase {
                 b = (rnd.nextFloat() - 0.5F) * 0.5F;
                 c = (rnd.nextFloat() - 0.5F) * 0.5F;
                 // TODO FIX: some particles looks weird
+                Item item = getOutput().getItem();
                 Minecraft.getMinecraft().effectRenderer
                         .addEffect(new EntityBreakingFX(worldObj, xCoord + 0.5 + a, yCoord + 0.95, zCoord + 0.5 + c,
-                                a * 0.15, 0.1f + b * 0.005, c * 0.15, getOutput().getItem(), 0));
+                                a * 0.15, 0.1f + b * 0.005, c * 0.15, item, 0));
             }
         }
     }

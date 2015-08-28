@@ -1,6 +1,5 @@
 package com.cout970.magneticraft;
 
-import com.cout970.magneticraft.api.util.ShapedHammerRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

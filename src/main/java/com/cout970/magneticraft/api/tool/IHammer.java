@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.api.tool;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 

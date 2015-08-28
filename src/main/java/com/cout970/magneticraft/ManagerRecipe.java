@@ -49,6 +49,7 @@ public class ManagerRecipe {
         GameRegistry.addSmelting(new ItemStack(oreTungsten), new ItemStack(ingotTungsten), 1.0F);
         GameRegistry.addSmelting(new ItemStack(oreZinc), new ItemStack(ingotZinc), 1.0F);
         GameRegistry.addSmelting(new ItemStack(dustBrass), new ItemStack(ingotBrass), 1.0F);
+        GameRegistry.addSmelting(oreLime, new ItemStack(burntLime), 0.1F);
 
         MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.diamond), new ItemStack(dustDiamond), null, 0, null, 0);
         MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.quartz), new ItemStack(dustQuartz), new ItemStack(dustQuartz), 0.5f, null, 0);

@@ -115,7 +115,9 @@ public class ManagerBlocks {
     public static Block mb_controls;
     public static Block pressure_tank;
     public static Block hammer_table;
-
+    public static Block burntLime;
+    public static Block brickLime;
+    public static Block roof_tile;
 
     public static void initBlocks() {
         //ores & resources
@@ -126,7 +128,11 @@ public class ManagerBlocks {
         oreSulfur = new BlockOre("sulfur_ore");
         oreThorium = new BlockOre("thorium_ore");
         oreSalt = new BlockOre("salt_ore");
+        oreZinc = new BlockOre("zinc_ore");
         oreLime = new BlockOre("limestone");
+        burntLime = new BlockSimple("burnt_limestone");
+        brickLime = new BlockSimple("brick_limestone");
+        roof_tile = new BlockSimple("roof_tile");
         oilSourceDrained = new BlockOilSourceDrained();
         solarpanel = new BlockSolarPanel();
         furnace = new BlockElectricFurnace();
@@ -218,7 +224,6 @@ public class ManagerBlocks {
         dust_block_salt = new BlockOfIngots("block_salt");
         dust_block_sulfur = new BlockOfIngots("block_sulfur");
         mb_controls = new BlockMB_Controls();
-        oreZinc = new BlockOre("zinc_ore");
         pressure_tank = new BlockPressureTank();
         hammer_table = new BlockHammerTable();
     }
@@ -234,6 +239,9 @@ public class ManagerBlocks {
         addBlock(oreTungsten, "Tungsten Ore");
         addBlock(oreUranium, "Uranium Ore");
         addBlock(oreLime, "Limestone");
+        addBlock(burntLime, "Burnt Limestone");
+        addBlock(brickLime, "Limestone Brick");
+        addBlock(roof_tile, "Clay Roof Tiles");
         addBlock(ingot_block_copper, "Copper Block");
         addBlock(ingot_block_tungsten, "Tungsten Block");
         addBlock(ingot_block_carbide, "Carbide Block");

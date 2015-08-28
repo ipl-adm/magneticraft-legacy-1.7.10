@@ -1,5 +1,6 @@
 package com.cout970.magneticraft;
 
+import com.cout970.magneticraft.api.util.ShapedHammerRecipe;
 import com.cout970.magneticraft.compact.ManagerIntegration;
 import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
@@ -31,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.RecipeSorter;
 
 import java.io.File;
 import java.util.List;

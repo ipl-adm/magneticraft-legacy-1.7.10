@@ -255,8 +255,8 @@ public class ManagerItems {
         addItem(rubber, "Rubber Sheet");
         addItem(part_brass_pipe, "Brass Pipe");
         addItem(part_brass_pipe, "Brass Pipe");
-        addItem(hammer_stone, "Stone Crushing Hammer");
-        addItem(hammer_iron, "Iron Crushing Hammer");
+        addItem(hammer_stone, "Stone Hammer");
+        addItem(hammer_iron, "Iron Hammer");
 
 
         for (Item i : items) {

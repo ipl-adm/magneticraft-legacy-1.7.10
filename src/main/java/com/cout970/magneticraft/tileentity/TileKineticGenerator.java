@@ -13,12 +13,14 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
+import cpw.mods.fml.common.Optional;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+@Optional.Interface(iface = "cofh.api.energy.IEnergyHandler", modid = "CoFHCore")
 public class TileKineticGenerator extends TileConductorMedium implements IEnergyHandler, IGuiSync {
 
     protected EnergyStorage storage = new EnergyStorage(32000);
@@ -27,7 +29,6 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
     private int lastProd = 0;
     private int prodCount = 0;
     private int prodLastSec = 0;
-    private boolean working;
 
 
     public MgDirection getDirection() {
@@ -57,6 +58,8 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
         super.updateEntity();
         if (worldObj.isRemote) return;
         lastProd = 0;
+        boolean working;
+
         if (cond.getVoltage() > ElectricConstants.MACHINE_WORK * 100 && isControled()) {
             float f = (storage.getMaxEnergyStored() - storage.getEnergyStored()) * 10f / storage.getMaxEnergyStored();
             int min = (int) Math.min((cond.getVoltage() - ElectricConstants.MACHINE_WORK * 100) / 10, 40 * Math.ceil(f));

@@ -2,12 +2,16 @@ package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.block.*;
 import com.cout970.magneticraft.items.ItemBlockMg;
+import com.cout970.magneticraft.items.ItemBlockMgSlab;
 import com.cout970.magneticraft.tileentity.*;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.LinkedList;
@@ -117,7 +121,10 @@ public class ManagerBlocks {
     public static Block hammer_table;
     public static Block burntLime;
     public static Block brickLime;
-    public static Block roof_tile;
+    public static Block roofTile;
+    public static BlockSlab slabRoofTileSingle;
+    public static BlockSlab slabRoofTileDouble;
+    public static Block stairsRoofTile;
 
     public static void initBlocks() {
         //ores & resources
@@ -132,7 +139,10 @@ public class ManagerBlocks {
         oreLime = new BlockOre("limestone");
         burntLime = new BlockSimple("burnt_limestone");
         brickLime = new BlockSimple("brick_limestone");
-        roof_tile = new BlockSimple("roof_tile");
+        roofTile = new BlockSimple("roofTile");
+        slabRoofTileSingle = new BlockClayTileSlab(false);
+        slabRoofTileDouble = new BlockClayTileSlab(true);
+        stairsRoofTile = new BlockClayTileStairs();
         oilSourceDrained = new BlockOilSourceDrained();
         solarpanel = new BlockSolarPanel();
         furnace = new BlockElectricFurnace();
@@ -241,7 +251,10 @@ public class ManagerBlocks {
         addBlock(oreLime, "Limestone");
         addBlock(burntLime, "Burnt Limestone");
         addBlock(brickLime, "Limestone Brick");
-        addBlock(roof_tile, "Clay Roof Tiles");
+        addBlock(roofTile, "Clay Roof Tiles");
+        addAltItemBlock(slabRoofTileSingle, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
+        addAltItemBlock(slabRoofTileDouble, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
+        addBlock(stairsRoofTile, "Clay Roof Tile Stairs");
         addBlock(ingot_block_copper, "Copper Block");
         addBlock(ingot_block_tungsten, "Tungsten Block");
         addBlock(ingot_block_carbide, "Carbide Block");
@@ -339,6 +352,7 @@ public class ManagerBlocks {
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
     }
+
 
     public static void registerTileEntities() {
 
@@ -438,5 +452,12 @@ public class ManagerBlocks {
     private static void addBlock(Block b, String name) {
         blocks.add(b);
         named.add(new NamedBlock(b, name));
+    }
+
+
+    private static void addAltItemBlock(Block b, Class<? extends ItemBlock> ic, String name) {
+        named.add(new NamedBlock(b, name));
+        Log.info(b.getUnlocalizedName());
+        GameRegistry.registerBlock(b, ic, b.getUnlocalizedName());
     }
 }

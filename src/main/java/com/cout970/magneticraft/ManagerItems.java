@@ -2,8 +2,11 @@ package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.items.*;
 import com.cout970.magneticraft.util.NamedItem;
+
 import cpw.mods.fml.common.registry.GameRegistry;
+
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemSlab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -254,10 +257,8 @@ public class ManagerItems {
         addItem(upgrade_slow, "Inserter Upgrade: Decrease Speed");
         addItem(rubber, "Rubber Sheet");
         addItem(part_brass_pipe, "Brass Pipe");
-        addItem(part_brass_pipe, "Brass Pipe");
         addItem(hammer_stone, "Stone Hammer");
         addItem(hammer_iron, "Iron Hammer");
-
 
         for (Item i : items) {
             GameRegistry.registerItem(i, i.getUnlocalizedName());

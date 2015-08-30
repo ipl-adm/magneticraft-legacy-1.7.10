@@ -29,6 +29,7 @@ public class BlockOre extends Block {
         return name;
     }
 
+    @Override
     public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return this == ManagerBlocks.oreSulfur ? ManagerItems.dustSulfur : this == ManagerBlocks.oreSalt ? ManagerItems.dustSalt : Item.getItemFromBlock(this);
     }
@@ -36,6 +37,7 @@ public class BlockOre extends Block {
     /**
      * Returns the quantity of items to drop on block destruction.
      */
+    @Override
     public int quantityDropped(Random p_149745_1_) {
         return this == ManagerBlocks.oreSulfur ? 4 + p_149745_1_.nextInt(5) : 1;
     }
@@ -43,6 +45,7 @@ public class BlockOre extends Block {
     /**
      * Returns the usual quantity dropped by the block plus a bonus of 1 to 'i' (inclusive).
      */
+    @Override
     public int quantityDroppedWithBonus(int fortune, Random ran) {
         if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped(0, ran, fortune)) {
             int j = ran.nextInt(fortune + 2) - 1;

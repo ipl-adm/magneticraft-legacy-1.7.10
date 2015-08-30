@@ -3,7 +3,9 @@ package com.cout970.magneticraft.compact.nei;
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.client.gui.GuiCrafter;
+import net.minecraft.item.ItemStack;
 
 public class NEIMagneticraftConfig implements IConfigureNEI {
 
@@ -29,6 +31,8 @@ public class NEIMagneticraftConfig implements IConfigureNEI {
         API.registerUsageHandler(new CraftingBiomassBurner());
         API.registerRecipeHandler(new CraftingSifter());
         API.registerUsageHandler(new CraftingSifter());
+
+        API.hideItem(new ItemStack(ManagerBlocks.slabRoofTileDouble));
 
         API.registerGuiOverlayHandler(GuiCrafter.class, new CrafterOverlayHandler(), "crafting");
     }

@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.handlers;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.*;
 import com.cout970.magneticraft.container.*;
 import com.cout970.magneticraft.tileentity.*;
@@ -155,7 +156,7 @@ public class GuiHandler implements IGuiHandler {
         if (tile instanceof TileMiner) {
             return new GuiMiner(new ContainerMiner(player.inventory, tile), tile);
         }
-        if (tile instanceof TileKineticGenerator) {
+        if (Magneticraft.COFH && (tile instanceof TileKineticGenerator)) {
             return new GuiKineticGenerator(new ContainerKineticGenerator(player.inventory, tile), tile);
         }
         if (tile instanceof TileBiomassBurner) {

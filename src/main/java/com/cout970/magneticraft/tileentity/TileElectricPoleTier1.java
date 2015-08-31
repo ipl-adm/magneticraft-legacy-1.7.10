@@ -21,6 +21,9 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
     public boolean updateCables = true;
     public boolean locked = false;
 
+    private int ticksUntilUpdate = 0;
+    private static final int UPDATE_PAUSE = 100;
+
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
         return INFINITE_EXTENT_AABB;
@@ -36,6 +39,11 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
     }
 
     public void updateEntity() {
+        if (ticksUntilUpdate == 0) {
+            clientUpdate = true;
+        }
+        ticksUntilUpdate = (ticksUntilUpdate + 1) % UPDATE_PAUSE;
+
         super.updateEntity();
         if (updateCables && !locked && (pole.getConnectionMode() == 0)) {
             findConnections();

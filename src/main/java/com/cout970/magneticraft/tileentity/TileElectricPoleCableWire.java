@@ -24,6 +24,9 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
     public boolean updateCables = true;
     public boolean locked = false;
 
+    private int ticksUntilUpdate = 0;
+    private static final int UPDATE_PAUSE = 100;
+
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
         return INFINITE_EXTENT_AABB;
@@ -39,6 +42,11 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
     }
 
     public void updateEntity() {
+        if (ticksUntilUpdate == 0) {
+            clientUpdate = true;
+        }
+        ticksUntilUpdate = (ticksUntilUpdate + 1) % UPDATE_PAUSE;
+
         super.updateEntity();
         if (updateCables && !locked && (pole.getConnectionMode() == 0)) {
             findConnections();
@@ -50,7 +58,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
             IElectricConductor[] comp = ((TileElectricPoleCableWireDown) t).getConds(VecInt.NULL_VECTOR, 0);
             if (comp != null) {
                 IElectricConductor to = comp[0];
-                double resistence = (to.getResistance() + cond.getResistance());
+                double resistance = (to.getResistance() + cond.getResistance());
                 //the voltage difference
                 double deltaV = to.getVoltage() - cond.getVoltage();
                 //sanity check for infinite current
@@ -59,7 +67,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
                 double current = flow;
                 // (V - I*R) I*R is the voltage difference that this conductor should have using the ohm's law, and V the real one
                 //vDiff is the voltage difference between the current voltage difference and the proper voltage difference using the ohm's law
-                double vDiff = (deltaV - current * resistence);
+                double vDiff = (deltaV - current * resistance);
                 //make sure the vDiff is not in the incorrect direction when the resistance is too big
                 vDiff = Math.min(vDiff, Math.abs(deltaV));
                 vDiff = Math.max(vDiff, -Math.abs(deltaV));

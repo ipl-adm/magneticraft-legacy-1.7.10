@@ -1,8 +1,23 @@
 package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.block.*;
-import com.cout970.magneticraft.items.ItemBlockMg;
-import com.cout970.magneticraft.items.ItemBlockMgSlab;
+import com.cout970.magneticraft.block.compat.BlockEUAlternator;
+import com.cout970.magneticraft.block.compat.BlockKineticGenerator;
+import com.cout970.magneticraft.block.compat.BlockRCAlternator;
+import com.cout970.magneticraft.block.compat.BlockRFAlternator;
+import com.cout970.magneticraft.block.computer.BlockComputer;
+import com.cout970.magneticraft.block.computer.BlockDroidRED;
+import com.cout970.magneticraft.block.computer.BlockMonitor;
+import com.cout970.magneticraft.block.energy.*;
+import com.cout970.magneticraft.block.heat.BlockCooler;
+import com.cout970.magneticraft.block.heat.BlockHeatResistance;
+import com.cout970.magneticraft.block.heat.BlockHeatSink;
+import com.cout970.magneticraft.block.multiblock.*;
+import com.cout970.magneticraft.block.multiblock.controllers.*;
+import com.cout970.magneticraft.block.slabs.BlockClayTileSlab;
+import com.cout970.magneticraft.block.stairs.BlockClayTileStairs;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
+import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
 import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.NamedBlock;
@@ -162,7 +177,7 @@ public class ManagerBlocks {
         windturbine = new BlockWindTurbine();
         permagnet = new BlockPermanentMagnet();
         fluidhopper = new BlockFluidHopper();
-        heat_resist = new BlockHeatResistence();
+        heat_resist = new BlockHeatResistance();
         breaker = new BlockBreaker();
         steam_engine = new BlockSteamEngine();
         geothermal = new BlockGeothermalPump();

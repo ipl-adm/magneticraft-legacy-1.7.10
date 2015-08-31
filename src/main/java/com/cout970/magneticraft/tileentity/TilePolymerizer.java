@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.RecipePolymerizer;
+import com.cout970.magneticraft.api.access.RecipePolymerizer;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -105,11 +105,11 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
     private boolean canCraft() {
         RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
         if (recipe == null) return false;
-        if (!MgUtils.areEcuals(recipe.getFluid(), input.getFluid())) return false;
+        if (!MgUtils.areEqual(recipe.getFluid(), input.getFluid())) return false;
         if (input.getFluidAmount() < recipe.getFluid().amount) return false;
         if (heater.getTemperature() < recipe.getTemperature()) return false;
         ItemStack output = getInv().getStackInSlot(1);
-        if (output == null || (MgUtils.areEcuals(output, recipe.getOutput(), true)) && output.stackSize + recipe.getOutput().stackSize <= getInventoryStackLimit()) {
+        if (output == null || (MgUtils.areEqual(output, recipe.getOutput(), true)) && output.stackSize + recipe.getOutput().stackSize <= getInventoryStackLimit()) {
             return true;
         }
         return false;

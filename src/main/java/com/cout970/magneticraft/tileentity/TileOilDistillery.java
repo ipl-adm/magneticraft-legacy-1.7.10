@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
+import com.cout970.magneticraft.api.access.RecipeOilDistillery;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -43,7 +43,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
             own.iterate();
             if (own.getVoltage() > ElectricConstants.MACHINE_WORK && input.getFluidAmount() > 0 && output.getSpace() > 0) {
                 RecipeOilDistillery recipe = RecipeOilDistillery.getRecipe(input.getFluid());
-                if (recipe != null && (MgUtils.areEcuals(recipe.getOutput(), output.getFluid()) || output.getFluid() == null) && output.getSpace() >= recipe.getOutput().amount) {
+                if (recipe != null && (MgUtils.areEqual(recipe.getOutput(), output.getFluid()) || output.getFluid() == null) && output.getSpace() >= recipe.getOutput().amount) {
                     input.drain(recipe.getInput().amount, true);
                     output.fill(recipe.getOutput(), true);
                     own.drainPower(recipe.getEnergyCost());

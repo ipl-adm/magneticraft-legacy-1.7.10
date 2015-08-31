@@ -3,8 +3,8 @@ package com.cout970.magneticraft.compact.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipePolymerizer;
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.RecipePolymerizer;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.Tessellator;
@@ -51,7 +51,7 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         for (RecipePolymerizer rec : MgRecipeRegister.polymerizer) {
-            if (MgUtils.areEcuals(result, rec.getOutput(), true)) {
+            if (MgUtils.areEqual(result, rec.getOutput(), true)) {
                 recipes.add(rec);
             }
         }
@@ -60,7 +60,7 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
         for (RecipePolymerizer rec : MgRecipeRegister.polymerizer) {
-            if (MgUtils.areEcuals(ingredient, rec.getInput(), true)) {
+            if (MgUtils.areEqual(ingredient, rec.getInput(), true)) {
                 recipes.add(rec);
             }
         }

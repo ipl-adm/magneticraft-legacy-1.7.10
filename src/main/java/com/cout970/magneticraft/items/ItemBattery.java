@@ -4,6 +4,7 @@ import cofh.api.energy.IEnergyContainerItem;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

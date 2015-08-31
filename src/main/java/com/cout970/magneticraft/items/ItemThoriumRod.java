@@ -3,6 +3,7 @@ package com.cout970.magneticraft.items;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

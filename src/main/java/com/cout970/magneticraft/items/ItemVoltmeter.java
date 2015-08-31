@@ -5,6 +5,7 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

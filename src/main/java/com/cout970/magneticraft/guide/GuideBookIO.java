@@ -27,7 +27,7 @@ public class GuideBookIO {
         book = null;
         if (book == null) {
             book = new BookGuide();
-            //TOREMOVE some teests with the guide book
+            //TODO REMOVE some tests with the guide book
 //			BookPage page = new BookPage();
 //			// page.addComponent(new CompItemRender(new ItemStack(Blocks.stone,
 //			// 10), 15, 23));

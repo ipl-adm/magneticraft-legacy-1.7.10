@@ -3,6 +3,7 @@ package com.cout970.magneticraft.items;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

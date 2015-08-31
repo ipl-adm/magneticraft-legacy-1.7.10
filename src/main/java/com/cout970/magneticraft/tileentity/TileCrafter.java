@@ -128,7 +128,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                             boolean breaked = false;
                             for (MgDirection d : MgDirection.values()) {
                                 FluidStack f = tank.drain(d.toForgeDir(), 1000, false);
-                                if (f != null && MgUtils.areEcuals(fluid, f)) {
+                                if (f != null && MgUtils.areEqual(fluid, f)) {
                                     TankInfo comp = new TankInfo(tank, dir);
                                     if (checkedTanks.contains(comp)) {
                                         TankInfo comp2 = checkedTanks.get(checkedTanks.indexOf(comp));

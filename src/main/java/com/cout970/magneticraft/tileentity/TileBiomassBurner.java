@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.RecipeBiomassBurner;
+import com.cout970.magneticraft.api.access.RecipeBiomassBurner;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;

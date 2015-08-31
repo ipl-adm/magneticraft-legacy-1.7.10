@@ -4,6 +4,7 @@ import com.cout970.magneticraft.api.tool.IWindTurbine;
 import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.client.model.ModelWindMillBig;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

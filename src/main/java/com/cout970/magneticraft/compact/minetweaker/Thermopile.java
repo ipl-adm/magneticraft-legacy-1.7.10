@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.ThermopileFuel;
 import minetweaker.IUndoableAction;

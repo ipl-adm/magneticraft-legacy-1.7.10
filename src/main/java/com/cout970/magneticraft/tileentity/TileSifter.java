@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.RecipeSifter;
+import com.cout970.magneticraft.api.access.RecipeSifter;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;

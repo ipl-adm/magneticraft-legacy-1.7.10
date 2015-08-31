@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.InterPoleWire;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cpw.mods.fml.relauncher.Side;
@@ -97,7 +98,7 @@ public class ItemHeavyCopperCoil extends ItemBasic {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer p, List info, boolean flag) {
         super.addInformation(item, p, info, flag);
-        info.add(ItemBlockMg.format + "Allow to manually connect two poles");
+        info.add(ItemBlockMg.format + "Used to manually connect two poles");
         if (NBTUtils.getBoolean("Connected", item)) {
             int x, y, z;
             x = NBTUtils.getInteger("xCoord", item);

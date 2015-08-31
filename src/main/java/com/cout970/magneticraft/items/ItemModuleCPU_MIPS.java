@@ -3,6 +3,7 @@ package com.cout970.magneticraft.items;
 import com.cout970.magneticraft.api.computer.IHardwareComponent;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
 import com.cout970.magneticraft.api.computer.prefab.ModuleCPU_MIPS;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

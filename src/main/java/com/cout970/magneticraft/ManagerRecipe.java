@@ -1,9 +1,8 @@
 package com.cout970.magneticraft;
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.ThermopileDecay;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
@@ -22,6 +21,8 @@ public class ManagerRecipe {
             ItemStack extra_1 = extraNames[i][0] == null ? null : ManagerOreDict.getOreWithPreference("dust" + extraNames[i][0]);
             //Crusher Recipes
             MgRecipeRegister.registerCrusherRecipe(ManagerOreDict.getOre("ore" + oreNames[i]), new ItemStack(chunks, 1, i), new ItemStack(dust, 1, i), 0.05F, extra_1, 0.05F);
+            //Crushing Table Recipes
+            MgRecipeRegister.registerHammerTableRecipe(ManagerOreDict.getOre("ore" + oreNames[i]), new ItemStack(chunks, 1, i));
             //Grinder Recipes
             MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks, 1, i), new ItemStack(rubble, 1, i), new ItemStack(dust, 1, i), 0.05F, extra_1, 0.05F);
 //			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks_clean.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);

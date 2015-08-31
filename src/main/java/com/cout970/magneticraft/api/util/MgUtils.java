@@ -23,7 +23,7 @@ import java.util.List;
 public class MgUtils {
 
     /**
-     * Usefull method to get an adjacent TileEntity
+     * Useful method to get an adjacent TileEntity
      *
      * @param tile
      * @param d
@@ -34,7 +34,7 @@ public class MgUtils {
     }
 
     /**
-     * Usefull method to get an adjacent TileEntity
+     * Useful method to get an adjacent TileEntity
      *
      * @param tile
      * @param d
@@ -60,7 +60,7 @@ public class MgUtils {
     }
 
     /**
-     * checks if an Expecific Block can be mined by a miner or by a BlockBreaker
+     * checks if specified Block can be mined by a miner or by a BlockBreaker
      *
      * @param w
      * @param info
@@ -85,7 +85,7 @@ public class MgUtils {
      * @param b
      * @return
      */
-    public static boolean areEcuals(FluidStack a, FluidStack b) {
+    public static boolean areEqual(FluidStack a, FluidStack b) {
         if (a == null && b == null) return true;
         if (a == null || b == null) return false;
         if (FluidRegistry.getFluidName(a).equalsIgnoreCase(FluidRegistry.getFluidName(b))) return true;
@@ -93,14 +93,14 @@ public class MgUtils {
     }
 
     /**
-     * checks if two itemStacks are equal or has the same id in OreDictionary
+     * checks if two itemStacks are equal or have the same id in OreDictionary
      *
      * @param a
      * @param b
      * @param meta
      * @return
      */
-    public static boolean areEcuals(ItemStack a, ItemStack b, boolean meta) {
+    public static boolean areEqual(ItemStack a, ItemStack b, boolean meta) {
         if (a == null && b == null) return true;
         if (a != null && b != null && a.getItem() != null && b.getItem() != null) {
             if (OreDictionary.itemMatches(a, b, meta)) return true;

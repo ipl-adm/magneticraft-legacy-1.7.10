@@ -9,6 +9,7 @@ public class ItemHammerStone extends ItemBasic implements IHammer {
     public ItemHammerStone(String unlocalizedname) {
         super(unlocalizedname);
         setMaxDamage(131);
+        setMaxStackSize(1);
     }
 
     @Override
@@ -29,22 +30,5 @@ public class ItemHammerStone extends ItemBasic implements IHammer {
     @Override
     public int getMaxHits(ItemStack hammer, World w, int x, int y, int z) {
         return 10;
-    }
-
-    @Override
-    public boolean hasContainerItem(ItemStack is) {
-        return ((getMaxDamage() - is.getItemDamage()) >= 2);
-    }
-
-    @Override
-    public ItemStack getContainerItem(ItemStack is) {
-        ItemStack t = is.copy();
-        t.setItemDamage(is.getItemDamage() + 2);
-        return ((getMaxDamage() - is.getItemDamage()) >= 2) ? t : null;
-    }
-
-    @Override
-    public boolean doesContainerItemLeaveCraftingGrid(ItemStack itemStack) {
-        return false;
     }
 }

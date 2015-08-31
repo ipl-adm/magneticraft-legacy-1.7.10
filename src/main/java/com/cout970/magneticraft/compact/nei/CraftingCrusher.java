@@ -3,8 +3,8 @@ package com.cout970.magneticraft.compact.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeCrusher;
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.RecipeCrusher;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -51,9 +51,9 @@ public class CraftingCrusher extends TemplateRecipeHandler {
     @Override
     public void loadCraftingRecipes(ItemStack result) {
         for (RecipeCrusher recipe : MgRecipeRegister.crusher) {
-            if (MgUtils.areEcuals(recipe.getOutput(), result, true)) recipes.add(recipe);
-            else if (MgUtils.areEcuals(recipe.getOutput2(), result, true)) recipes.add(recipe);
-            else if (MgUtils.areEcuals(recipe.getOutput3(), result, true)) recipes.add(recipe);
+            if (MgUtils.areEqual(recipe.getOutput(), result, true)) recipes.add(recipe);
+            else if (MgUtils.areEqual(recipe.getOutput2(), result, true)) recipes.add(recipe);
+            else if (MgUtils.areEqual(recipe.getOutput3(), result, true)) recipes.add(recipe);
         }
     }
 

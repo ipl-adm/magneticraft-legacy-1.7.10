@@ -9,7 +9,7 @@ public class SolidFuelHandler implements IFuelHandler {
 
     @Override
     public int getBurnTime(ItemStack fuel) {
-        if (MgUtils.areEcuals(fuel, new ItemStack(ManagerItems.dustSulfur), false)) return 1600;
+        if (MgUtils.areEqual(fuel, new ItemStack(ManagerItems.dustSulfur), false)) return 1600;
         return 0;
     }
 

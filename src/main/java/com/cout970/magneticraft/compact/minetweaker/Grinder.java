@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeGrinder;
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.RecipeGrinder;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;

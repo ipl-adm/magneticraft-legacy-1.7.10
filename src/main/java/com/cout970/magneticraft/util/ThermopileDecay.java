@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.util;
 
-import com.cout970.magneticraft.api.acces.IThermopileDecay;
+import com.cout970.magneticraft.api.access.IThermopileDecay;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

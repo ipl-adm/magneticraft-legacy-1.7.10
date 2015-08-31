@@ -131,6 +131,8 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_suck), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', "ingotCarbide"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_speed), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', motor));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_slow), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', magnet));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hammer_stone), "xxx", "yzy", " z ", 'x', "cobblestone", 'y', Items.string, 'z', "stickWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hammer_iron), "xxx", "yzy", " z ", 'x', "ingotIron", 'y', Items.string, 'z', "stickWood"));
 
         //multipart
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cablelow, 2), "w", "c", "w", 'c', "ingotCopper", 'w', Blocks.wool));

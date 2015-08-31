@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.IThermopileDecay;
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.IThermopileDecay;
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;

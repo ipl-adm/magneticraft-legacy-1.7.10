@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.RecipeRefinery;
+import com.cout970.magneticraft.api.access.RecipeRefinery;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -35,9 +35,9 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
             RecipeRefinery recipe = RecipeRefinery.getRecipe(input.getFluid());
             if (recipe != null) {
                 if (input.getFluidAmount() >= recipe.getInput().amount) {
-                    if (recipe.getOut0() == null || output0.getFluid() == null || (MgUtils.areEcuals(recipe.getOut0(), output0.getFluid()) && recipe.getOut0().amount <= output0.getSpace())) {
-                        if (recipe.getOut1() == null || output1.getFluid() == null || (MgUtils.areEcuals(recipe.getOut1(), output1.getFluid()) && recipe.getOut1().amount <= output1.getSpace())) {
-                            if (recipe.getOut2() == null || output2.getFluid() == null || (MgUtils.areEcuals(recipe.getOut2(), output2.getFluid()) && recipe.getOut2().amount <= output2.getSpace())) {
+                    if (recipe.getOut0() == null || output0.getFluid() == null || (MgUtils.areEqual(recipe.getOut0(), output0.getFluid()) && recipe.getOut0().amount <= output0.getSpace())) {
+                        if (recipe.getOut1() == null || output1.getFluid() == null || (MgUtils.areEqual(recipe.getOut1(), output1.getFluid()) && recipe.getOut1().amount <= output1.getSpace())) {
+                            if (recipe.getOut2() == null || output2.getFluid() == null || (MgUtils.areEqual(recipe.getOut2(), output2.getFluid()) && recipe.getOut2().amount <= output2.getSpace())) {
                                 input.drain(recipe.getInput().amount, true);
                                 output0.fill(recipe.getOut0().copy(), true);
                                 output1.fill(recipe.getOut1().copy(), true);

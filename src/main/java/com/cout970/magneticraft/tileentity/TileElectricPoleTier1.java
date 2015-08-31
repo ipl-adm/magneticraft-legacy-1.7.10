@@ -27,7 +27,7 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
     }
 
     public void onBlockBreaks() {
-        pole.disconectAll();
+        pole.disconnectAll();
     }
 
     public void onNeigChange() {
@@ -37,7 +37,7 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
 
     public void updateEntity() {
         super.updateEntity();
-        if (updateCables && !locked) {
+        if (updateCables && !locked && (pole.getConnectionMode() == 0)) {
             findConnections();
             updateCables = false;
         }

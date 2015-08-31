@@ -30,7 +30,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
     }
 
     public void onBlockBreaks() {
-        pole.disconectAll();
+        pole.disconnectAll();
     }
 
     public void onNeigChange() {
@@ -40,7 +40,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
 
     public void updateEntity() {
         super.updateEntity();
-        if (updateCables && !locked) {
+        if (updateCables && !locked && (pole.getConnectionMode() == 0)) {
             findConnections();
             updateCables = false;
         }
@@ -51,14 +51,14 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
             if (comp != null) {
                 IElectricConductor to = comp[0];
                 double resistence = (to.getResistance() + cond.getResistance());
-                //the voltage differennce
+                //the voltage difference
                 double deltaV = to.getVoltage() - cond.getVoltage();
                 //sanity check for infinite current
                 if (Double.isNaN(flow)) flow = 0;
                 //the extra current from the last tick
                 double current = flow;
                 // (V - I*R) I*R is the voltage difference that this conductor should have using the ohm's law, and V the real one
-                //vDiff is the voltage difference bvetween the current voltager difference and the proper voltage difference using the ohm's law
+                //vDiff is the voltage difference between the current voltage difference and the proper voltage difference using the ohm's law
                 double vDiff = (deltaV - current * resistence);
                 //make sure the vDiff is not in the incorrect direction when the resistance is too big
                 vDiff = Math.min(vDiff, Math.abs(deltaV));

@@ -11,27 +11,27 @@ import java.util.List;
  */
 public interface IElectricPole {
 
-    public List<IInterPoleWire> getConnectedConductors();
+    List<IInterPoleWire> getConnectedConductors();
 
-    public void iterate();
+    void iterate();
 
-    public boolean canConnectWire(int tier, IElectricPole to);
+    boolean canConnectWire(int tier, IElectricPole to, boolean isManual);
 
-    public TileEntity getParent();
+    TileEntity getParent();
 
-    public IElectricConductor getConductor();
+    IElectricConductor getConductor();
 
-    public int getTier();
+    int getTier();
 
-    public VecDouble[] getWireConnectors();
+    VecDouble[] getWireConnectors();
 
-    public void onConnect(IInterPoleWire wire);
+    void onConnect(IInterPoleWire wire);
 
-    public void onDisconnect(IInterPoleWire connection);
+    void onDisconnect(IInterPoleWire connection);
 
-    public void save(NBTTagCompound nbt);
+    void save(NBTTagCompound nbt);
 
-    public void load(NBTTagCompound nbt);
+    void load(NBTTagCompound nbt);
 
-    public void disconectAll();
+    void disconnectAll();
 }

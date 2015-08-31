@@ -17,6 +17,7 @@ import java.util.List;
 public class ElectricPoleTier1 implements IElectricPole {
 
     protected List<IInterPoleWire> connections = new ArrayList<IInterPoleWire>();
+    private int connectionsBlocked;
     protected IElectricConductor cond;
     protected TileEntity parent;
     public boolean update = true;
@@ -26,10 +27,11 @@ public class ElectricPoleTier1 implements IElectricPole {
     public ElectricPoleTier1(TileEntity tile, IElectricConductor cond) {
         parent = tile;
         this.cond = cond;
+        connectionsBlocked = 1;
     }
 
     @Override
-    public void disconectAll() {
+    public void disconnectAll() {
         update = true;
         ArrayList<IInterPoleWire> list = new ArrayList<IInterPoleWire>();
         list.addAll(connections);
@@ -66,7 +68,7 @@ public class ElectricPoleTier1 implements IElectricPole {
     }
 
     @Override
-    public boolean canConnectWire(int tier, IElectricPole to) {
+    public boolean canConnectWire(int tier, IElectricPole to, boolean isManual) {
         if (to == this) return false;
         if (tier != 0) return false;
         VecDouble vec = new VecDouble(getParent()).add(new VecDouble(to.getParent()).getOpposite());
@@ -78,8 +80,13 @@ public class ElectricPoleTier1 implements IElectricPole {
                 }
             }
         }
-        if (connections.size() > 6) return false;
-        return true;
+        if (isManual && (connectionsBlocked >= 2)) {
+            return false;
+        } else if (!isManual && (connectionsBlocked >= 1)) {
+            return false;
+        }
+
+        return (connections.size() <= 6);
     }
 
     @Override
@@ -144,6 +151,30 @@ public class ElectricPoleTier1 implements IElectricPole {
         }
     }
 
+    public int getConnectionMode() {
+        return connectionsBlocked;
+    }
+
+    public void blockAllConnections() {
+        disconnectAll();
+        connectionsBlocked = 2;
+    }
+
+    public void blockAutoConnections() {
+        disconnectAll();
+        connectionsBlocked = 1;
+    }
+
+    public void allowConnections() {
+        findConnections(this);
+        connectionsBlocked = 0;
+    }
+
+    public void setConnectionMode(int mode) {
+        disconnectAll();
+        connectionsBlocked = mode;
+    }
+
     @Override
     public void save(NBTTagCompound nbt) {
         NBTTagList nbtList = new NBTTagList();
@@ -153,6 +184,7 @@ public class ElectricPoleTier1 implements IElectricPole {
             nbtList.appendTag(tag);
         }
         nbt.setTag("connect", nbtList);
+        nbt.setInteger("mode", connectionsBlocked);
     }
 
     @Override
@@ -166,10 +198,11 @@ public class ElectricPoleTier1 implements IElectricPole {
             p.load(tag);
             connections.add(p);
         }
+        connectionsBlocked = nbt.getInteger("mode");
     }
 
     public static void findConnections(IElectricPole pole) {
-        pole.disconectAll();
+        pole.disconnectAll();
         int rad = 16;
         for (int x = -rad; x <= rad; x++) {
             for (int z = -rad; z <= rad; z++) {
@@ -178,7 +211,7 @@ public class ElectricPoleTier1 implements IElectricPole {
                     TileEntity t = new VecInt(pole.getParent()).add(x, y, z).getTileEntity(pole.getParent().getWorldObj());
                     IElectricPole p = ElectricUtils.getElectricPole(t);
                     if (p == null) continue;
-                    if (p.canConnectWire(0, pole) && pole.canConnectWire(0, p)) {
+                    if (p.canConnectWire(0, pole, false) && pole.canConnectWire(0, p, false)) {
                         InterPoleWire wire = new InterPoleWire(new VecInt(pole.getParent()), new VecInt(p.getParent()));
                         wire.setWorld(p.getParent().getWorldObj());
                         pole.onConnect(wire);

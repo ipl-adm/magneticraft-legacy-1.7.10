@@ -1,15 +1,49 @@
 package com.cout970.magneticraft;
 
-import com.cout970.magneticraft.items.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cout970.magneticraft.items.ItemBasic;
+import com.cout970.magneticraft.items.ItemBattery;
+import com.cout970.magneticraft.items.ItemBucket;
+import com.cout970.magneticraft.items.ItemChainSaw;
+import com.cout970.magneticraft.items.ItemElectricSword;
+import com.cout970.magneticraft.items.ItemFloppyDisk;
+import com.cout970.magneticraft.items.ItemHammerIron;
+import com.cout970.magneticraft.items.ItemHammerStone;
+import com.cout970.magneticraft.items.ItemHardDrive;
+import com.cout970.magneticraft.items.ItemHeatCoilCopper;
+import com.cout970.magneticraft.items.ItemHeatCoilIron;
+import com.cout970.magneticraft.items.ItemHeatCoilTungsten;
+import com.cout970.magneticraft.items.ItemHeavyCopperCoil;
+import com.cout970.magneticraft.items.ItemJackHammer;
+import com.cout970.magneticraft.items.ItemMapPositioner;
+import com.cout970.magneticraft.items.ItemMeta;
+import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
+import com.cout970.magneticraft.items.ItemModuleROM;
+import com.cout970.magneticraft.items.ItemModuleRam64K;
+import com.cout970.magneticraft.items.ItemOilProspector;
+import com.cout970.magneticraft.items.ItemPartBrassPipe;
+import com.cout970.magneticraft.items.ItemPartCableHigh;
+import com.cout970.magneticraft.items.ItemPartCableLow;
+import com.cout970.magneticraft.items.ItemPartCableMedium;
+import com.cout970.magneticraft.items.ItemPartCopperPipe;
+import com.cout970.magneticraft.items.ItemPartCopperWire;
+import com.cout970.magneticraft.items.ItemPartHeatCable;
+import com.cout970.magneticraft.items.ItemPartIronPipe;
+import com.cout970.magneticraft.items.ItemPartOpticFiber;
+import com.cout970.magneticraft.items.ItemSmallBattery;
+import com.cout970.magneticraft.items.ItemThermometer;
+import com.cout970.magneticraft.items.ItemThoriumRod;
+import com.cout970.magneticraft.items.ItemToolCharger;
+import com.cout970.magneticraft.items.ItemTurbine;
+import com.cout970.magneticraft.items.ItemUraniumRod;
+import com.cout970.magneticraft.items.ItemVoltmeter;
+import com.cout970.magneticraft.items.ItemWrench;
 import com.cout970.magneticraft.util.NamedItem;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemSlab;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ManagerItems {
 

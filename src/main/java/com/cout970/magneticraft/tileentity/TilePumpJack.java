@@ -45,10 +45,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
     private MgDirection[] sides = {MgDirection.NORTH, MgDirection.EAST, MgDirection.SOUTH, MgDirection.WEST, MgDirection.DOWN, MgDirection.UP};
     private int buffer;
     public static Block replacement = ManagerBlocks.oilSourceDrained;
-    @SuppressWarnings("FieldCanBeLocal")
-    private int speed = 50;
-    @SuppressWarnings("FieldCanBeLocal")
-    private boolean working;
+    private static int speed = 50;
     private static Block fluidOil;
 
 
@@ -64,7 +61,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
             facing = getOrientation(getBlockMetadata());
 
 
-        working = cond.getVoltage() > ElectricConstants.MACHINE_WORK;
+       boolean working = cond.getVoltage() > ElectricConstants.MACHINE_WORK;
 
         if (worldObj.getTotalWorldTime() % 20 == 0) {
             if (working && !isActive()) {

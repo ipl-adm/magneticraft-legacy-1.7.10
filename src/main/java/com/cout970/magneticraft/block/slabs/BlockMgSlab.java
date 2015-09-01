@@ -1,20 +1,16 @@
 package com.cout970.magneticraft.block.slabs;
 
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-
-import java.util.Random;
 
 public abstract class BlockMgSlab extends BlockSlab {
 

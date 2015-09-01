@@ -1,5 +1,8 @@
 package com.cout970.magneticraft;
 
+import java.io.File;
+import java.util.List;
+
 import com.cout970.magneticraft.compact.ManagerIntegration;
 import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
@@ -13,6 +16,7 @@ import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 import com.google.common.collect.Lists;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -31,10 +35,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.oredict.RecipeSorter;
-
-import java.io.File;
-import java.util.List;
 
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +

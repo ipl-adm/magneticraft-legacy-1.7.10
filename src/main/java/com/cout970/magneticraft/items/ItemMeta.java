@@ -101,7 +101,8 @@ public class ItemMeta extends Item {
         return icons[meta];
     }
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         for (int i = 0; i < meta_amount; i++) {
             list.add(new ItemStack(item, 1, i));

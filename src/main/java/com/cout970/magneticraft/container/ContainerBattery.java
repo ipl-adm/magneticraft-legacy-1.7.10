@@ -7,17 +7,17 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-public class ContainerBattery extends ContainerBasic{
+public class ContainerBattery extends ContainerBasic {
 
-	public ContainerBattery(InventoryPlayer p, TileEntity t) {
-		super(p, t);
-		
-		addSlotToContainer(new Slot((IInventory) t, 0, 102, 16));
-		addSlotToContainer(new Slot((IInventory) t, 1, 102, 48));
-		bindPlayerInventory(p);
-	}
-	
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
-		return transfer(player, slot, new int[]{3,3});
-	}
+    public ContainerBattery(InventoryPlayer p, TileEntity t) {
+        super(p, t);
+
+        addSlotToContainer(new Slot((IInventory) t, 0, 102, 16));
+        addSlotToContainer(new Slot((IInventory) t, 1, 102, 48));
+        bindPlayerInventory(p);
+    }
+
+    public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
+        return transfer(player, slot, new int[]{3, 3});
+    }
 }

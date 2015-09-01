@@ -16,7 +16,6 @@ import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
@@ -114,14 +113,11 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
                 if (fuel > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && steam.getFluidAmount() < 1) {
                     progress = fuel;
                     maxProgres = fuel;
-
-                    if (a != null) {
-                        a.stackSize--;
-                        if (a.stackSize <= 0) {
-                            a = a.getItem().getContainerItem(a);
-                        }
-                        getInv().setInventorySlotContents(0, a);
+                    a.stackSize--;
+                    if (a.stackSize <= 0) {
+                        a = a.getItem().getContainerItem(a);
                     }
+                    getInv().setInventorySlotContents(0, a);
                     working = true;
                     markDirty();
                 } else working = false;
@@ -291,40 +287,29 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
     }
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-        return 0;
+        return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
     }
 
     public FluidStack drain(ForgeDirection from, FluidStack resource,
                             boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
-        return null;
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
-        return null;
+        return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
+
     }
 
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-        return null;
+        return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
 
     public IBarProvider getBurningTimeBar() {

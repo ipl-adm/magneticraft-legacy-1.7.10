@@ -1,8 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.List;
-
-import com.cout970.magneticraft.api.acces.RecipeGrinder;
+import com.cout970.magneticraft.api.access.RecipeGrinder;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
@@ -16,7 +14,6 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.item.EntityItem;
@@ -28,6 +25,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+
+import java.util.List;
 
 public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync {
 
@@ -286,8 +285,8 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
             Log.info("Decoded " + Integer.toString(storageBuilder));
             storageBuilder = 0;
         }*/
-        if(id == 1)cond.setStorage(value & 0xFFFF);
-        if(id == 2)cond.setStorage(cond.getStorage() | (value << 16));
+        if (id == 1) cond.setStorage(value & 0xFFFF);
+        if (id == 2) cond.setStorage(cond.getStorage() | (value << 16));
         if (id == 3) {
             progress = value;
         }

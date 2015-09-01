@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.acces.RecipePolymerizer;
+import com.cout970.magneticraft.api.access.RecipePolymerizer;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -12,7 +12,6 @@ import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.fluid.TankMg;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,249 +25,250 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync{
+public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync {
 
-	public int progress;
-	public int maxProgres = 200;
-	public InventoryComponent inv = new InventoryComponent(this, 2, "Polimerizer");
-	public TankMg input;
-	public IHeatConductor heater;
-	public InventoryComponent in,out;
-	public int drawCounter;
-	
-	
-	public InventoryComponent getInv(){
-		return inv;
-	}
-	
-	public void updateEntity(){
-		super.updateEntity();
-		if(drawCounter > 0)drawCounter--;
-		if(!isActive())return;		
-		if(input == null || in == null || out == null || heater == null || worldObj.getTotalWorldTime() % 20 == 0){
-			searchTanks();
-			return;
-		}
-		if(worldObj.isRemote)return;
-		if(isControled() && canCraft()){
-			if(progress >= maxProgres){
-				craft();
-				progress = 0;
-			}else{
-				progress++;
-			}
-			heater.drainCalories(EnergyConversor.RFtoCALORIES(40));
-		}else{
-			progress = 0;
-		}
-		distributeItems();
-	}
-	
-	private void distributeItems() {
-		if (in != null) {
-			if(((TileBase)in.tile).isControled()){
-				if(getInv().getStackInSlot(0) != null){
-					int s = InventoryUtils.findCombination(in, getInv().getStackInSlot(0));
-					if(s != -1){
-						InventoryUtils.traspass(in,this,s,0);
-					}
-				}else{
-					setInventorySlotContents(0, InventoryUtils.getItemStack(in));
-				}
-			}
-		}
-		if (out != null) {
-			if(((TileBase)out.tile).isControled()){
-				if(getInv().getStackInSlot(1) != null){
-					int s = InventoryUtils.getSlotForStack(out,getInv().getStackInSlot(1));
-					if(s != -1){
-						InventoryUtils.traspass(this,out,1,s);
-					}
-				}
-			}
-		}
-	}
-	
-	private void craft() {
-		RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
-		decrStackSize(0, 1);
-		if(getInv().getStackInSlot(1) == null){
-			getInv().setInventorySlotContents(1, recipe.getOutput().copy());
-		}else{
-			ItemStack i = getInv().getStackInSlot(1);
-			i.stackSize += recipe.getOutput().stackSize;
-			getInv().setInventorySlotContents(1, i);
-		}
-		heater.drainCalories(EnergyConversor.RFtoCALORIES(100));
-		input.drain(500, true);
-	}
+    public int progress;
+    public int maxProgres = 200;
+    public InventoryComponent inv = new InventoryComponent(this, 2, "Polimerizer");
+    public TankMg input;
+    public IHeatConductor heater;
+    public InventoryComponent in, out;
+    public int drawCounter;
 
-	private boolean canCraft() {
-		RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
-		if(recipe == null)return false;
-		if(!MgUtils.areEcuals(recipe.getFluid(), input.getFluid()))return false;
-		if(input.getFluidAmount() < recipe.getFluid().amount)return false;
-		if(heater.getTemperature() < recipe.getTemperature())return false;
-		ItemStack output = getInv().getStackInSlot(1);
-		if(output == null || (MgUtils.areEcuals(output, recipe.getOutput(), true)) && output.stackSize+recipe.getOutput().stackSize <= getInventoryStackLimit()){
-			return true;
-		}
-		return false;
-	}
 
-	private void searchTanks() {
-		MgDirection d = MgDirection.getDirection(getBlockMetadata()%6).opposite();
-		VecInt vec = d.toVecInt();
-		TileEntity tile = MgUtils.getTileEntity(this, vec.copy().multiply(4));
-		
-		if(tile instanceof TileCopperTank){
-			input = ((TileCopperTank) tile).getTank();
-		}
-		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.DOWN).toVecInt().getOpposite()));
-		if(tile instanceof IInventoryManaged){
-			in = ((IInventoryManaged) tile).getInv();
-		}
-		tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.UP).toVecInt().getOpposite()));
-		if(tile instanceof IInventoryManaged){
-			out = ((IInventoryManaged) tile).getInv();
-		}
-		tile = MgUtils.getTileEntity(this, vec.copy().multiply(3));
-		if(tile instanceof TileHeater){
-			IHeatConductor[] comp = ((TileHeater) tile).getHeatCond(vec.getOpposite());
-			if(comp != null){
-				heater = comp[0];
-			}
-		}
-	}
-	
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		getInv().readFromNBT(nbt);
-	}
+    public InventoryComponent getInv() {
+        return inv;
+    }
 
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		getInv().writeToNBT(nbt);
-	}
+    public void updateEntity() {
+        super.updateEntity();
+        if (drawCounter > 0) drawCounter--;
+        if (!isActive()) return;
+        if (input == null || in == null || out == null || heater == null || worldObj.getTotalWorldTime() % 20 == 0) {
+            searchTanks();
+            return;
+        }
+        if (worldObj.isRemote) return;
+        if (isControled() && canCraft()) {
+            if (progress >= maxProgres) {
+                craft();
+                progress = 0;
+            } else {
+                progress++;
+            }
+            heater.drainCalories(EnergyConversor.RFtoCALORIES(40));
+        } else {
+            progress = 0;
+        }
+        distributeItems();
+    }
 
-	@Override
-	public void sendGUINetworkData(Container cont, ICrafting craft) {
-		if(input == null || heater == null)return;
-		craft.sendProgressBarUpdate(cont, 0, (int) heater.getTemperature());
-		if(input.getFluidAmount() > 0){
-			craft.sendProgressBarUpdate(cont, 1, input.getFluid().getFluidID());
-			craft.sendProgressBarUpdate(cont, 2, input.getFluidAmount());
-		}else craft.sendProgressBarUpdate(cont, 1, -1);
-		
-		craft.sendProgressBarUpdate(cont, 3, progress);
-		((TileHeater)heater.getParent()).sendGUINetworkData(cont, craft);
-	}
+    private void distributeItems() {
+        if (in != null) {
+            if (((TileBase) in.tile).isControled()) {
+                if (getInv().getStackInSlot(0) != null) {
+                    int s = InventoryUtils.findCombination(in, getInv().getStackInSlot(0));
+                    if (s != -1) {
+                        InventoryUtils.traspass(in, this, s, 0);
+                    }
+                } else {
+                    setInventorySlotContents(0, InventoryUtils.getItemStack(in));
+                }
+            }
+        }
+        if (out != null) {
+            if (((TileBase) out.tile).isControled()) {
+                if (getInv().getStackInSlot(1) != null) {
+                    int s = InventoryUtils.getSlotForStack(out, getInv().getStackInSlot(1));
+                    if (s != -1) {
+                        InventoryUtils.traspass(this, out, 1, s);
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public void getGUINetworkData(int id, int value) {
-		if(input == null || heater == null)return;
-		if(id == 0) heater.setTemperature(value);
-		if(id == 1)
-			if(value == -1) input.setFluid(null);
-			else input.setFluid(new FluidStack(FluidRegistry.getFluid(value),1));
-		if(id == 2) input.getFluid().amount = value;
-		if(id == 3)progress = value;
-		((TileHeater)heater.getParent()).getGUINetworkData(id, value);
-	}
+    private void craft() {
+        RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
+        decrStackSize(0, 1);
+        if (getInv().getStackInSlot(1) == null) {
+            getInv().setInventorySlotContents(1, recipe.getOutput().copy());
+        } else {
+            ItemStack i = getInv().getStackInSlot(1);
+            i.stackSize += recipe.getOutput().stackSize;
+            getInv().setInventorySlotContents(1, i);
+        }
+        heater.drainCalories(EnergyConversor.RFtoCALORIES(100));
+        input.drain(500, true);
+    }
 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
-		return new int[] {};
-	}
+    private boolean canCraft() {
+        RecipePolymerizer recipe = RecipePolymerizer.getRecipe(getInv().getStackInSlot(0));
+        if (recipe == null) return false;
+        if (!MgUtils.areEqual(recipe.getFluid(), input.getFluid())) return false;
+        if (input.getFluidAmount() < recipe.getFluid().amount) return false;
+        if (heater.getTemperature() < recipe.getTemperature()) return false;
+        ItemStack output = getInv().getStackInSlot(1);
+        if (output == null || (MgUtils.areEqual(output, recipe.getOutput(), true)) && output.stackSize + recipe.getOutput().stackSize <= getInventoryStackLimit()) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_,
-			int p_102007_3_) {
-		return false;
-	}
+    private void searchTanks() {
+        MgDirection d = MgDirection.getDirection(getBlockMetadata() % 6).opposite();
+        VecInt vec = d.toVecInt();
+        TileEntity tile = MgUtils.getTileEntity(this, vec.copy().multiply(4));
 
-	@Override
-	public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_,
-			int p_102008_3_) {
-		return false;
-	}
-	
-	public int getSizeInventory() {
-		return getInv().getSizeInventory();
-	}
+        if (tile instanceof TileCopperTank) {
+            input = ((TileCopperTank) tile).getTank();
+        }
+        tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.DOWN).toVecInt().getOpposite()));
+        if (tile instanceof IInventoryManaged) {
+            in = ((IInventoryManaged) tile).getInv();
+        }
+        tile = MgUtils.getTileEntity(this, vec.copy().add(d.step(MgDirection.UP).toVecInt().getOpposite()));
+        if (tile instanceof IInventoryManaged) {
+            out = ((IInventoryManaged) tile).getInv();
+        }
+        tile = MgUtils.getTileEntity(this, vec.copy().multiply(3));
+        if (tile instanceof TileHeater) {
+            IHeatConductor[] comp = ((TileHeater) tile).getHeatCond(vec.getOpposite());
+            if (comp != null) {
+                heater = comp[0];
+            }
+        }
+    }
 
-	public ItemStack getStackInSlot(int s) {
-		return getInv().getStackInSlot(s);
-	}
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        getInv().readFromNBT(nbt);
+    }
 
-	public ItemStack decrStackSize(int a, int b) {
-		return getInv().decrStackSize(a, b);
-	}
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        getInv().writeToNBT(nbt);
+    }
 
-	public ItemStack getStackInSlotOnClosing(int a) {
-		return getInv().getStackInSlotOnClosing(a);
-	}
+    @Override
+    public void sendGUINetworkData(Container cont, ICrafting craft) {
+        if (input == null || heater == null) return;
+        craft.sendProgressBarUpdate(cont, 0, (int) heater.getTemperature());
+        if (input.getFluidAmount() > 0) {
+            craft.sendProgressBarUpdate(cont, 1, input.getFluid().getFluidID());
+            craft.sendProgressBarUpdate(cont, 2, input.getFluidAmount());
+        } else craft.sendProgressBarUpdate(cont, 1, -1);
 
-	public void setInventorySlotContents(int a, ItemStack b) {
-		getInv().setInventorySlotContents(a, b);
-	}
+        craft.sendProgressBarUpdate(cont, 3, progress);
+        ((TileHeater) heater.getParent()).sendGUINetworkData(cont, craft);
+    }
 
-	public String getInventoryName() {
-		return getInv().getInventoryName();
-	}
+    @Override
+    public void getGUINetworkData(int id, int value) {
+        if (input == null || heater == null) return;
+        if (id == 0) heater.setTemperature(value);
+        if (id == 1)
+            if (value == -1) input.setFluid(null);
+            else input.setFluid(new FluidStack(FluidRegistry.getFluid(value), 1));
+        if (id == 2) input.getFluid().amount = value;
+        if (id == 3) progress = value;
+        ((TileHeater) heater.getParent()).getGUINetworkData(id, value);
+    }
 
-	public boolean hasCustomInventoryName() {
-		return getInv().hasCustomInventoryName();
-	}
+    @Override
+    public int[] getAccessibleSlotsFromSide(int p_94128_1_) {
+        return new int[]{};
+    }
 
-	public int getInventoryStackLimit() {
-		return getInv().getInventoryStackLimit();
-	}
+    @Override
+    public boolean canInsertItem(int p_102007_1_, ItemStack p_102007_2_,
+                                 int p_102007_3_) {
+        return false;
+    }
 
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return true;
-	}
+    @Override
+    public boolean canExtractItem(int p_102008_1_, ItemStack p_102008_2_,
+                                  int p_102008_3_) {
+        return false;
+    }
 
-	public void openInventory() {}
+    public int getSizeInventory() {
+        return getInv().getSizeInventory();
+    }
 
-	public void closeInventory() {}
+    public ItemStack getStackInSlot(int s) {
+        return getInv().getStackInSlot(s);
+    }
 
-	public boolean isItemValidForSlot(int a, ItemStack b) {
-		return getInv().isItemValidForSlot(a, b);
-	}
-	
-	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox()
-    {
+    public ItemStack decrStackSize(int a, int b) {
+        return getInv().decrStackSize(a, b);
+    }
+
+    public ItemStack getStackInSlotOnClosing(int a) {
+        return getInv().getStackInSlotOnClosing(a);
+    }
+
+    public void setInventorySlotContents(int a, ItemStack b) {
+        getInv().setInventorySlotContents(a, b);
+    }
+
+    public String getInventoryName() {
+        return getInv().getInventoryName();
+    }
+
+    public boolean hasCustomInventoryName() {
+        return getInv().hasCustomInventoryName();
+    }
+
+    public int getInventoryStackLimit() {
+        return getInv().getInventoryStackLimit();
+    }
+
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return true;
+    }
+
+    public void openInventory() {
+    }
+
+    public void closeInventory() {
+    }
+
+    public boolean isItemValidForSlot(int a, ItemStack b) {
+        return getInv().isItemValidForSlot(a, b);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
         return INFINITE_EXTENT_AABB;
     }
-	
-	@Override
-	public MgDirection getDirection() {
-		return MgDirection.getDirection(getBlockMetadata()%6);
-	}
 
-	public IBarProvider getProgresBar() {
-		return new IBarProvider() {
-			
-			@Override
-			public String getMessage() {
-				return null;
-			}
-			
-			@Override
-			public float getMaxLevel() {
-				return maxProgres;
-			}
-			
-			@Override
-			public float getLevel() {
-				return progress;
-			}
-		};
-	}
+    @Override
+    public MgDirection getDirection() {
+        return MgDirection.getDirection(getBlockMetadata() % 6);
+    }
 
-	public boolean isActive() {
-		return getBlockMetadata() > 5;
-	}
+    public IBarProvider getProgresBar() {
+        return new IBarProvider() {
+
+            @Override
+            public String getMessage() {
+                return null;
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return maxProgres;
+            }
+
+            @Override
+            public float getLevel() {
+                return progress;
+            }
+        };
+    }
+
+    public boolean isActive() {
+        return getBlockMetadata() > 5;
+    }
 }

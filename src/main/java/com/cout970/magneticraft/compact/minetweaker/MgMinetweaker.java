@@ -11,26 +11,26 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class MgMinetweaker {
 
-	public static void init(){
-		MineTweakerAPI.registerClass(Crusher.class);
-		MineTweakerAPI.registerClass(Grinder.class);
-		MineTweakerAPI.registerClass(Thermopile.class);
-		MineTweakerAPI.registerClass(BiomassBurner.class);
-		MineTweakerAPI.registerClass(OilDistillery.class);
-		MineTweakerAPI.registerClass(Refinery.class);
-		MineTweakerAPI.registerClass(Sifter.class);
-		MineTweakerAPI.registerClass(Polymerizer.class);
-	}
-	
-	public static ItemStack toStack(IItemStack iStack){
-		return MineTweakerMC.getItemStack(iStack);
-	}
+    public static void init() {
+        MineTweakerAPI.registerClass(Crusher.class);
+        MineTweakerAPI.registerClass(Grinder.class);
+        MineTweakerAPI.registerClass(Thermopile.class);
+        MineTweakerAPI.registerClass(BiomassBurner.class);
+        MineTweakerAPI.registerClass(OilDistillery.class);
+        MineTweakerAPI.registerClass(Refinery.class);
+        MineTweakerAPI.registerClass(Sifter.class);
+        MineTweakerAPI.registerClass(Polymerizer.class);
+    }
 
-	public static Block getBlock(IBlock block) {
-		return MineTweakerMC.getBlock(block);
-	}
+    public static ItemStack toStack(IItemStack iStack) {
+        return MineTweakerMC.getItemStack(iStack);
+    }
 
-	public static FluidStack toFluid(ILiquidStack in) {
-		return MineTweakerMC.getLiquidStack(in);
-	}
+    public static Block getBlock(IBlock block) {
+        return MineTweakerMC.getBlock(block);
+    }
+
+    public static FluidStack toFluid(ILiquidStack in) {
+        return MineTweakerMC.getLiquidStack(in);
+    }
 }

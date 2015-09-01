@@ -17,27 +17,27 @@ public class AttributeRegistry {
 
     private static List<ISteelAttribute> unbakedList = new ArrayList<ISteelAttribute>();
 
-    private static Map<Integer, ISteelAttribute>  attributeMap;
+    private static Map<Integer, ISteelAttribute> attributeMap;
 
     private static Map<ISteelAttribute, Integer> reverseAttributeMap;
 
-    public static void registerAttribute(ISteelAttribute attribute){
+    public static void registerAttribute(ISteelAttribute attribute) {
         unbakedList.add(attribute);
     }
 
-    public static void bake(){
-        for (int i = 0 ; i<unbakedList.size() ; i++){
+    public static void bake() {
+        for (int i = 0; i < unbakedList.size(); i++) {
             ISteelAttribute attribute = unbakedList.get(i);
             attributeMap.put(i, attribute);
             reverseAttributeMap.put(attribute, i);
         }
     }
 
-    public static ISteelAttribute getAttribute(int id){
+    public static ISteelAttribute getAttribute(int id) {
         return attributeMap.get(id);
     }
 
-    public static int getAttributeID(ISteelAttribute attribute){
+    public static int getAttributeID(ISteelAttribute attribute) {
         return reverseAttributeMap.get(attribute);
     }
 }

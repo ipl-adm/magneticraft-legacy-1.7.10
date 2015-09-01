@@ -1,9 +1,8 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeCrusher;
-
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.RecipeCrusher;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
@@ -14,100 +13,97 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("mods.magneticraft.Crusher")
 public class Crusher {
 
-	@ZenMethod
-	public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1, IItemStack out2, float prob2){
-		
-		ItemStack a = MgMinetweaker.toStack(in)
-		,b = MgMinetweaker.toStack(out0)
-		,c = MgMinetweaker.toStack(out1)
-		,d = MgMinetweaker.toStack(out2);
-		
-		if(a == null || b == null)return;
-		RecipeCrusher r = new RecipeCrusher(a,b,c,prob1,d,prob2);		
-		MineTweakerAPI.apply(new AddRecipe(r));
-	}
-	
-	@ZenMethod
-	public static void removeRecipe(IItemStack input){
-		RecipeCrusher r = RecipeCrusher.getRecipe(MgMinetweaker.toStack(input));
-		MineTweakerAPI.apply(new RemoveRecipe(r));
-	}
-	
-	public static class AddRecipe implements IUndoableAction{
+    @ZenMethod
+    public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1, IItemStack out2, float prob2) {
 
-		private final RecipeCrusher r;
-		
-		public AddRecipe(RecipeCrusher r) {
-			this.r = r;
-		}
+        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out0), c = MgMinetweaker.toStack(out1), d = MgMinetweaker.toStack(out2);
 
-		@Override
-		public void apply() {
-			MgRecipeRegister.crusher.add(r);
-		}
+        if (a == null || b == null) return;
+        RecipeCrusher r = new RecipeCrusher(a, b, c, prob1, d, prob2);
+        MineTweakerAPI.apply(new AddRecipe(r));
+    }
 
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
+    @ZenMethod
+    public static void removeRecipe(IItemStack input) {
+        RecipeCrusher r = RecipeCrusher.getRecipe(MgMinetweaker.toStack(input));
+        MineTweakerAPI.apply(new RemoveRecipe(r));
+    }
 
-		@Override
-		public String describe() {
-			return "Adding "+r;
-		}
+    public static class AddRecipe implements IUndoableAction {
 
-		@Override
-		public String describeUndo() {
-			return "Removing "+r;
-		}
+        private final RecipeCrusher r;
 
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
+        public AddRecipe(RecipeCrusher r) {
+            this.r = r;
+        }
 
-		@Override
-		public void undo() {
-			MgRecipeRegister.crusher.remove(r);
-		}
-	}
-	
-	public static class RemoveRecipe implements IUndoableAction{
-		
-		private final RecipeCrusher r;
-		
-		public RemoveRecipe(RecipeCrusher r) {
-			this.r = r;
-		}
+        @Override
+        public void apply() {
+            MgRecipeRegister.crusher.add(r);
+        }
 
-		@Override
-		public void apply() {
-			MgRecipeRegister.crusher.remove(r);
-		}
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
 
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
+        @Override
+        public String describe() {
+            return "Adding " + r;
+        }
 
-		@Override
-		public String describe() {
-			return "Removing "+r;
-		}
+        @Override
+        public String describeUndo() {
+            return "Removing " + r;
+        }
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding "+r;
-		}
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
 
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
+        @Override
+        public void undo() {
+            MgRecipeRegister.crusher.remove(r);
+        }
+    }
 
-		@Override
-		public void undo() {
-			MgRecipeRegister.crusher.add(r);
-		}
-	}
+    public static class RemoveRecipe implements IUndoableAction {
+
+        private final RecipeCrusher r;
+
+        public RemoveRecipe(RecipeCrusher r) {
+            this.r = r;
+        }
+
+        @Override
+        public void apply() {
+            MgRecipeRegister.crusher.remove(r);
+        }
+
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
+
+        @Override
+        public String describe() {
+            return "Removing " + r;
+        }
+
+        @Override
+        public String describeUndo() {
+            return "Re-Adding " + r;
+        }
+
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
+
+        @Override
+        public void undo() {
+            MgRecipeRegister.crusher.add(r);
+        }
+    }
 }

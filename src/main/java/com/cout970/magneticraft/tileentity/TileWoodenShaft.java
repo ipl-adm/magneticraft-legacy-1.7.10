@@ -5,29 +5,29 @@ import com.cout970.magneticraft.api.kinetic.KineticConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.util.tile.TileKineticConductor;
 
-public class TileWoodenShaft extends TileKineticConductor{
+public class TileWoodenShaft extends TileKineticConductor {
 
 
-	@Override
-	public MgDirection[] getValidSides() {
-		return new MgDirection[]{getDirection(),getDirection().opposite()};
-	}
+    @Override
+    public MgDirection[] getValidSides() {
+        return new MgDirection[]{getDirection(), getDirection().opposite()};
+    }
 
-	public MgDirection getDirection() {
-		return MgDirection.getDirection(getBlockMetadata());
-	}
+    public MgDirection getDirection() {
+        return MgDirection.getDirection(getBlockMetadata());
+    }
 
-	@Override
-	public IKineticConductor initKineticCond() {
-		return new KineticConductor(this);
-	}
+    @Override
+    public IKineticConductor initKineticCond() {
+        return new KineticConductor(this);
+    }
 
-	public void updateEntity(){
-		super.updateEntity();
-		if(worldObj.isRemote){
-			float f = (float) (kinetic.getRotation() + (kinetic.getSpeed()/60)*kinetic.getDelta()/1E6);
-			if(f > 1000)f %= 1000;
-			kinetic.setRotation(f);
-		}
-	}
+    public void updateEntity() {
+        super.updateEntity();
+        if (worldObj.isRemote) {
+            float f = (float) (kinetic.getRotation() + (kinetic.getSpeed() / 60) * kinetic.getDelta() / 1E6);
+            if (f > 1000) f %= 1000;
+            kinetic.setRotation(f);
+        }
+    }
 }

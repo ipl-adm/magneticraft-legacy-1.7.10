@@ -7,16 +7,16 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-public class ContainerFluidHopper extends ContainerBasic{
+public class ContainerFluidHopper extends ContainerBasic {
 
-	public ContainerFluidHopper(InventoryPlayer p, TileEntity t) {
-		super(p, t);
-		addSlotToContainer(new Slot((IInventory) t, 0, 53, 25));
-		addSlotToContainer(new Slot((IInventory) t, 1, 53, 48));
-		bindPlayerInventory(p);
-	}
+    public ContainerFluidHopper(InventoryPlayer p, TileEntity t) {
+        super(p, t);
+        addSlotToContainer(new Slot((IInventory) t, 0, 53, 25));
+        addSlotToContainer(new Slot((IInventory) t, 1, 53, 48));
+        bindPlayerInventory(p);
+    }
 
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
-		return transfer(player, slot, new int[]{3,2});
-	}
+    public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
+        return transfer(player, slot, new int[]{3, 2});
+    }
 }

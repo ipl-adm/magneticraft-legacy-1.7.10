@@ -1,8 +1,7 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeOilDistillery;
-
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.RecipeOilDistillery;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.liquid.ILiquidStack;
@@ -13,100 +12,100 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("mods.magneticraft.OilDistillery")
 public class OilDistillery {
 
-	@ZenMethod
-	public static void addRecipe(ILiquidStack in, ILiquidStack out, double cost){
-		FluidStack a = MgMinetweaker.toFluid(in),
-				b = MgMinetweaker.toFluid(out);
-		if(a != null && b != null){
-			RecipeOilDistillery r = new RecipeOilDistillery(a, b, cost);
-			MineTweakerAPI.apply(new AddRecipe(r));
-		}
-	}
-	
-	@ZenMethod
-	public static void removeRecipe(ILiquidStack in){
-		FluidStack f = MgMinetweaker.toFluid(in);
-		if(f == null)return;
-		RecipeOilDistillery r = RecipeOilDistillery.getRecipe(f);
-		if(r == null)return;
-		MineTweakerAPI.apply(new RemoveRecipe(r));
-	}
-	
-	public static class AddRecipe implements IUndoableAction{
+    @ZenMethod
+    public static void addRecipe(ILiquidStack in, ILiquidStack out, double cost) {
+        FluidStack a = MgMinetweaker.toFluid(in),
+                b = MgMinetweaker.toFluid(out);
+        if (a != null && b != null) {
+            RecipeOilDistillery r = new RecipeOilDistillery(a, b, cost);
+            MineTweakerAPI.apply(new AddRecipe(r));
+        }
+    }
 
-		private final RecipeOilDistillery r;
-		
-		public AddRecipe(RecipeOilDistillery r) {
-			this.r = r;
-		}
+    @ZenMethod
+    public static void removeRecipe(ILiquidStack in) {
+        FluidStack f = MgMinetweaker.toFluid(in);
+        if (f == null) return;
+        RecipeOilDistillery r = RecipeOilDistillery.getRecipe(f);
+        if (r == null) return;
+        MineTweakerAPI.apply(new RemoveRecipe(r));
+    }
 
-		@Override
-		public void apply() {
-			MgRecipeRegister.oilDistillery.add(r);
-		}
+    public static class AddRecipe implements IUndoableAction {
 
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
+        private final RecipeOilDistillery r;
 
-		@Override
-		public String describe() {
-			return "Adding "+r;
-		}
+        public AddRecipe(RecipeOilDistillery r) {
+            this.r = r;
+        }
 
-		@Override
-		public String describeUndo() {
-			return "Removing "+r;
-		}
+        @Override
+        public void apply() {
+            MgRecipeRegister.oilDistillery.add(r);
+        }
 
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
 
-		@Override
-		public void undo() {
-			MgRecipeRegister.oilDistillery.remove(r);
-		}
-	}
+        @Override
+        public String describe() {
+            return "Adding " + r;
+        }
 
-	public static class RemoveRecipe implements IUndoableAction{
+        @Override
+        public String describeUndo() {
+            return "Removing " + r;
+        }
 
-		private final RecipeOilDistillery r;
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
 
-		public RemoveRecipe(RecipeOilDistillery r) {
-			this.r = r;
-		}
+        @Override
+        public void undo() {
+            MgRecipeRegister.oilDistillery.remove(r);
+        }
+    }
 
-		@Override
-		public void apply() {
-			MgRecipeRegister.oilDistillery.remove(r);
-		}
+    public static class RemoveRecipe implements IUndoableAction {
 
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
+        private final RecipeOilDistillery r;
 
-		@Override
-		public String describe() {
-			return "Removing "+r;
-		}
+        public RemoveRecipe(RecipeOilDistillery r) {
+            this.r = r;
+        }
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding "+r;
-		}
+        @Override
+        public void apply() {
+            MgRecipeRegister.oilDistillery.remove(r);
+        }
 
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
 
-		@Override
-		public void undo() {
-			MgRecipeRegister.oilDistillery.add(r);
-		}
-	}
+        @Override
+        public String describe() {
+            return "Removing " + r;
+        }
+
+        @Override
+        public String describeUndo() {
+            return "Re-Adding " + r;
+        }
+
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
+
+        @Override
+        public void undo() {
+            MgRecipeRegister.oilDistillery.add(r);
+        }
+    }
 }

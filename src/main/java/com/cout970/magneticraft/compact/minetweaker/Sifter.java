@@ -1,8 +1,7 @@
 package com.cout970.magneticraft.compact.minetweaker;
 
-import com.cout970.magneticraft.api.acces.MgRecipeRegister;
-import com.cout970.magneticraft.api.acces.RecipeSifter;
-
+import com.cout970.magneticraft.api.access.MgRecipeRegister;
+import com.cout970.magneticraft.api.access.RecipeSifter;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
@@ -11,100 +10,99 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.magneticraft.Sifter")
-public class Sifter{
+public class Sifter {
 
-	@ZenMethod
-	public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1){
-		
-		ItemStack a = MgMinetweaker.toStack(in)
-		,b = MgMinetweaker.toStack(out0)
-		,c = MgMinetweaker.toStack(out1);
-		
-		if(a == null || b == null)return;
-		RecipeSifter r = new RecipeSifter(a,b,c,prob1);		
-		MineTweakerAPI.apply(new AddRecipe(r));
-	}
-	@ZenMethod
-	public static void removeRecipe(IItemStack input){
-		RecipeSifter r = RecipeSifter.getRecipe(MgMinetweaker.toStack(input));
-		MineTweakerAPI.apply(new RemoveRecipe(r));
-	}
-	
-	public static class AddRecipe implements IUndoableAction{
+    @ZenMethod
+    public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1) {
 
-		private final RecipeSifter r;
-		
-		public AddRecipe(RecipeSifter r) {
-			this.r = r;
-		}
+        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out0), c = MgMinetweaker.toStack(out1);
 
-		@Override
-		public void apply() {
-			MgRecipeRegister.sifter.add(r);
-		}
+        if (a == null || b == null) return;
+        RecipeSifter r = new RecipeSifter(a, b, c, prob1);
+        MineTweakerAPI.apply(new AddRecipe(r));
+    }
 
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
+    @ZenMethod
+    public static void removeRecipe(IItemStack input) {
+        RecipeSifter r = RecipeSifter.getRecipe(MgMinetweaker.toStack(input));
+        MineTweakerAPI.apply(new RemoveRecipe(r));
+    }
 
-		@Override
-		public String describe() {
-			return "Adding "+r;
-		}
+    public static class AddRecipe implements IUndoableAction {
 
-		@Override
-		public String describeUndo() {
-			return "Removing "+r;
-		}
+        private final RecipeSifter r;
 
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
+        public AddRecipe(RecipeSifter r) {
+            this.r = r;
+        }
 
-		@Override
-		public void undo() {
-			MgRecipeRegister.sifter.remove(r);
-		}
-	}
-	
-	public static class RemoveRecipe implements IUndoableAction{
-		
-		private final RecipeSifter r;
-		
-		public RemoveRecipe(RecipeSifter r) {
-			this.r = r;
-		}
+        @Override
+        public void apply() {
+            MgRecipeRegister.sifter.add(r);
+        }
 
-		@Override
-		public void apply() {
-			MgRecipeRegister.sifter.remove(r);
-		}
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
 
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
+        @Override
+        public String describe() {
+            return "Adding " + r;
+        }
 
-		@Override
-		public String describe() {
-			return "Removing "+r;
-		}
+        @Override
+        public String describeUndo() {
+            return "Removing " + r;
+        }
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding "+r;
-		}
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
 
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
+        @Override
+        public void undo() {
+            MgRecipeRegister.sifter.remove(r);
+        }
+    }
 
-		@Override
-		public void undo() {
-			MgRecipeRegister.sifter.add(r);
-		}
-	}
+    public static class RemoveRecipe implements IUndoableAction {
+
+        private final RecipeSifter r;
+
+        public RemoveRecipe(RecipeSifter r) {
+            this.r = r;
+        }
+
+        @Override
+        public void apply() {
+            MgRecipeRegister.sifter.remove(r);
+        }
+
+        @Override
+        public boolean canUndo() {
+            return true;
+        }
+
+        @Override
+        public String describe() {
+            return "Removing " + r;
+        }
+
+        @Override
+        public String describeUndo() {
+            return "Re-Adding " + r;
+        }
+
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
+
+        @Override
+        public void undo() {
+            MgRecipeRegister.sifter.add(r);
+        }
+    }
 }

@@ -1,14 +1,13 @@
 package com.cout970.magneticraft.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.cout970.magneticraft.api.steel.AttributeRegistry;
 import com.cout970.magneticraft.api.steel.ISteelAttribute;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An NBT Utility class
@@ -40,22 +39,24 @@ public class NBTHelper {
 
     /**
      * Gets the NBTTagList for steel attributes
+     *
      * @param stack The ItemStack
      * @return The NBTTagList of steel attributes
      */
-    public static NBTTagList getSteelAttributes(ItemStack stack){
+    public static NBTTagList getSteelAttributes(ItemStack stack) {
         return stack.getTagCompound().getTagList(STEEL_ATTRIBUTES, COMPOUND);
     }
 
     /**
      * Gets the map of steel attributes to integer values on an item
+     *
      * @param stack The Item
      * @return The Map of attributes
      */
-    public static Map<ISteelAttribute, Integer> getSteelAttributeMap(ItemStack stack){
+    public static Map<ISteelAttribute, Integer> getSteelAttributeMap(ItemStack stack) {
         NBTTagList list = getSteelAttributes(stack);
         Map<ISteelAttribute, Integer> map = new HashMap<ISteelAttribute, Integer>();
-        for (int i = 0 ; i < list.tagCount() ; i++){
+        for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound compound = list.getCompoundTagAt(i);
             int id = compound.getInteger("id");
             int value = compound.getInteger("value");
@@ -67,12 +68,13 @@ public class NBTHelper {
 
     /**
      * Sets the attribute map to the specified ItemStack
-     * @param map The Attribute map
+     *
+     * @param map   The Attribute map
      * @param stack The ItemStack
      */
-    public static void setAttributeMap(Map<ISteelAttribute, Integer> map, ItemStack stack){
+    public static void setAttributeMap(Map<ISteelAttribute, Integer> map, ItemStack stack) {
         NBTTagList list = new NBTTagList();
-        for (ISteelAttribute attribute : map.keySet()){
+        for (ISteelAttribute attribute : map.keySet()) {
             NBTTagCompound compound = new NBTTagCompound();
             compound.setInteger("id", AttributeRegistry.getAttributeID(attribute));
             compound.setInteger("value", map.get(attribute));

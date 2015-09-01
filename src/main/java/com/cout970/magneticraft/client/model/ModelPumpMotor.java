@@ -5,19 +5,14 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelPumpMotor extends ModelBase
-{
-  //fields
+public class ModelPumpMotor extends ModelBase {
+    //fields
     ModelRenderer Motor;
     ModelRenderer axix;
     ModelRenderer bal1;
@@ -27,126 +22,122 @@ public class ModelPumpMotor extends ModelBase
     ModelRenderer cable;
     ModelRenderer hard1;
     ModelRenderer hard2;
-  
-  public ModelPumpMotor()
-  {
-    textureWidth = 64;
-    textureHeight = 32;
-    
-      Motor = new ModelRenderer(this, 0, 0);
-      Motor.addBox(-3F, -4F, -5F, 6, 12, 10);
-      Motor.setRotationPoint(0F, 16F, 0F);
-      Motor.setTextureSize(64, 32);
-      Motor.mirror = true;
-      setRotation(Motor, 0F, 0F, 0F);
-      axix = new ModelRenderer(this, 0, 22);
-      axix.addBox(-5F, -1F, -1F, 10, 2, 2);
-      axix.setRotationPoint(0F, 16F, 0F);
-      axix.setTextureSize(64, 32);
-      axix.mirror = true;
-      setRotation(axix, 0F, 0F, 0F);
-      bal1 = new ModelRenderer(this, 32, 0);
-      bal1.addBox(-6F, -1F, -5F, 1, 2, 12);
-      bal1.setRotationPoint(0F, 16F, 0F);
-      bal1.setTextureSize(64, 32);
-      bal1.mirror = true;
-      setRotation(bal1, 0F, 0F, 0F);
-      bal2 = new ModelRenderer(this, 32, 0);
-      bal2.addBox(5F, -1F, -5F, 1, 2, 12);
-      bal2.setRotationPoint(0F, 16F, 0F);
-      bal2.setTextureSize(64, 32);
-      bal2.mirror = true;
-      setRotation(bal2, 0F, 0F, 0F);
-      hammer1 = new ModelRenderer(this, 32, 14);
-      hammer1.addBox(-6F, -2F, -7F, 2, 4, 2);
-      hammer1.setRotationPoint(0F, 16F, 0F);
-      hammer1.setTextureSize(64, 32);
-      hammer1.mirror = true;
-      setRotation(hammer1, 0F, 0F, 0F);
-      hammer2 = new ModelRenderer(this, 40, 14);
-      hammer2.addBox(4F, -2F, -7F, 2, 4, 2);
-      hammer2.setRotationPoint(0F, 16F, 0F);
-      hammer2.setTextureSize(64, 32);
-      hammer2.mirror = true;
-      setRotation(hammer2, 0F, 0F, 0F);
-      cable = new ModelRenderer(this, 32, 20);
-      cable.addBox(-2F, 5F, 5F, 4, 3, 3);
-      cable.setRotationPoint(0F, 16F, 0F);
-      cable.setTextureSize(64, 32);
-      cable.mirror = true;
-      setRotation(cable, 0F, 0F, 0F);
-      hard1 = new ModelRenderer(this, 58, 0);
-      hard1.addBox(0F, -0.5F, -0.5F, 1, 20, 1);
-      hard1.setRotationPoint(6F, -2F, 0F);
-      hard1.setTextureSize(64, 32);
-      hard1.mirror = true;
-      setRotation(hard1, 0.2617994F, 0F, 0F);
-      hard2 = new ModelRenderer(this, 58, 0);
-      hard2.addBox(-1F, -1F, -0.5F, 1, 20, 1);
-      hard2.setRotationPoint(-6F, -2F, 0F);
-      hard2.setTextureSize(64, 32);
-      hard2.mirror = true;
-      setRotation(hard2, 0.2617994F, 0F, 0F);
-  }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5,entity);
-    Motor.render(f5);
-    axix.render(f5);
-    bal1.render(f5);
-    bal2.render(f5);
-    hammer1.render(f5);
-    hammer2.render(f5);
-    cable.render(f5);
-    hard1.render(f5);
-    hard2.render(f5);
-  }
-  
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
-  }
 
-  public void renderStatic(float f5){
-	  Motor.render(f5);
+    public ModelPumpMotor() {
+        textureWidth = 64;
+        textureHeight = 32;
+
+        Motor = new ModelRenderer(this, 0, 0);
+        Motor.addBox(-3F, -4F, -5F, 6, 12, 10);
+        Motor.setRotationPoint(0F, 16F, 0F);
+        Motor.setTextureSize(64, 32);
+        Motor.mirror = true;
+        setRotation(Motor, 0F, 0F, 0F);
+        axix = new ModelRenderer(this, 0, 22);
+        axix.addBox(-5F, -1F, -1F, 10, 2, 2);
+        axix.setRotationPoint(0F, 16F, 0F);
+        axix.setTextureSize(64, 32);
+        axix.mirror = true;
+        setRotation(axix, 0F, 0F, 0F);
+        bal1 = new ModelRenderer(this, 32, 0);
+        bal1.addBox(-6F, -1F, -5F, 1, 2, 12);
+        bal1.setRotationPoint(0F, 16F, 0F);
+        bal1.setTextureSize(64, 32);
+        bal1.mirror = true;
+        setRotation(bal1, 0F, 0F, 0F);
+        bal2 = new ModelRenderer(this, 32, 0);
+        bal2.addBox(5F, -1F, -5F, 1, 2, 12);
+        bal2.setRotationPoint(0F, 16F, 0F);
+        bal2.setTextureSize(64, 32);
+        bal2.mirror = true;
+        setRotation(bal2, 0F, 0F, 0F);
+        hammer1 = new ModelRenderer(this, 32, 14);
+        hammer1.addBox(-6F, -2F, -7F, 2, 4, 2);
+        hammer1.setRotationPoint(0F, 16F, 0F);
+        hammer1.setTextureSize(64, 32);
+        hammer1.mirror = true;
+        setRotation(hammer1, 0F, 0F, 0F);
+        hammer2 = new ModelRenderer(this, 40, 14);
+        hammer2.addBox(4F, -2F, -7F, 2, 4, 2);
+        hammer2.setRotationPoint(0F, 16F, 0F);
+        hammer2.setTextureSize(64, 32);
+        hammer2.mirror = true;
+        setRotation(hammer2, 0F, 0F, 0F);
+        cable = new ModelRenderer(this, 32, 20);
+        cable.addBox(-2F, 5F, 5F, 4, 3, 3);
+        cable.setRotationPoint(0F, 16F, 0F);
+        cable.setTextureSize(64, 32);
+        cable.mirror = true;
+        setRotation(cable, 0F, 0F, 0F);
+        hard1 = new ModelRenderer(this, 58, 0);
+        hard1.addBox(0F, -0.5F, -0.5F, 1, 20, 1);
+        hard1.setRotationPoint(6F, -2F, 0F);
+        hard1.setTextureSize(64, 32);
+        hard1.mirror = true;
+        setRotation(hard1, 0.2617994F, 0F, 0F);
+        hard2 = new ModelRenderer(this, 58, 0);
+        hard2.addBox(-1F, -1F, -0.5F, 1, 20, 1);
+        hard2.setRotationPoint(-6F, -2F, 0F);
+        hard2.setTextureSize(64, 32);
+        hard2.mirror = true;
+        setRotation(hard2, 0.2617994F, 0F, 0F);
+    }
+
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        Motor.render(f5);
+        axix.render(f5);
+        bal1.render(f5);
+        bal2.render(f5);
+        hammer1.render(f5);
+        hammer2.render(f5);
+        cable.render(f5);
+        hard1.render(f5);
+        hard2.render(f5);
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    public void renderStatic(float f5) {
+        Motor.render(f5);
 //	  cable.render(f5);
-  }
-  
-  public void renderDynamic(float f5, float animationMoment){
-	  float permill = animationMoment/1000;
-	  float HammerGire = (float) Math.toRadians(15*Math.cos(Math.toRadians(360*permill)));
-	  float gire = (float) Math.toRadians(360*permill-90);
-	  float pendule = (float) Math.toRadians(15*Math.cos(gire));
-	  float height = (float) Math.sin(HammerGire) - 0.0375f;
-	  float lateral = (float) Math.cos(HammerGire + Math.toRadians(180)) + 0.96875f;//1 - 0.0625f/2f;
-	  
-	  axix.rotateAngleX = gire;
-	  axix.render(f5);
-	  bal1.rotateAngleX = gire;
-	  bal1.render(f5);
-	  bal2.rotateAngleX = gire;
-	  bal2.render(f5);
-	  hammer1.rotateAngleX = gire;
-	  hammer1.render(f5);  
-	  hammer2.rotateAngleX = gire;
-	  hammer2.render(f5);
-	  hard1.offsetY = height;
-	  hard1.offsetZ = lateral;
-	  hard1.rotateAngleX = pendule;
-	  hard1.render(f5);
-	  hard2.offsetY = height;
-	  hard2.offsetZ = lateral;
-	  hard2.rotateAngleX = pendule;
-	  hard2.render(f5);
-  }
+    }
 
-  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity t)
-  {
-    super.setRotationAngles(f, f1, f2, f3, f4, f5,t);
-  }
+    public void renderDynamic(float f5, float animationMoment) {
+        float permill = animationMoment / 1000;
+        float HammerGire = (float) Math.toRadians(15 * Math.cos(Math.toRadians(360 * permill)));
+        float gire = (float) Math.toRadians(360 * permill - 90);
+        float pendule = (float) Math.toRadians(15 * Math.cos(gire));
+        float height = (float) Math.sin(HammerGire) - 0.0375f;
+        float lateral = (float) Math.cos(HammerGire + Math.toRadians(180)) + 0.96875f;//1 - 0.0625f/2f;
+
+        axix.rotateAngleX = gire;
+        axix.render(f5);
+        bal1.rotateAngleX = gire;
+        bal1.render(f5);
+        bal2.rotateAngleX = gire;
+        bal2.render(f5);
+        hammer1.rotateAngleX = gire;
+        hammer1.render(f5);
+        hammer2.rotateAngleX = gire;
+        hammer2.render(f5);
+        hard1.offsetY = height;
+        hard1.offsetZ = lateral;
+        hard1.rotateAngleX = pendule;
+        hard1.render(f5);
+        hard2.offsetY = height;
+        hard2.offsetZ = lateral;
+        hard2.rotateAngleX = pendule;
+        hard2.render(f5);
+    }
+
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity t) {
+        super.setRotationAngles(f, f1, f2, f3, f4, f5, t);
+    }
 
 }

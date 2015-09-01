@@ -2,72 +2,73 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileMB_Inv extends TileMB_Base implements IInventoryManaged{
+public class TileMB_Inv extends TileMB_Base implements IInventoryManaged {
 
-	public InventoryComponent inv = new InventoryComponent(this, 4, "Multiblock buffer");
+    public InventoryComponent inv = new InventoryComponent(this, 4, "Multiblock buffer");
 
-	public InventoryComponent getInv(){
-		return inv;
-	}
-	
-	public int getSizeInventory() {
-		return getInv().getSizeInventory();
-	}
+    public InventoryComponent getInv() {
+        return inv;
+    }
 
-	public ItemStack getStackInSlot(int s) {
-		return getInv().getStackInSlot(s);
-	}
+    public int getSizeInventory() {
+        return getInv().getSizeInventory();
+    }
 
-	public ItemStack decrStackSize(int a, int b) {
-		return getInv().decrStackSize(a, b);
-	}
+    public ItemStack getStackInSlot(int s) {
+        return getInv().getStackInSlot(s);
+    }
 
-	public ItemStack getStackInSlotOnClosing(int a) {
-		return getInv().getStackInSlotOnClosing(a);
-	}
+    public ItemStack decrStackSize(int a, int b) {
+        return getInv().decrStackSize(a, b);
+    }
 
-	public void setInventorySlotContents(int a, ItemStack b) {
-		getInv().setInventorySlotContents(a, b);
-	}
+    public ItemStack getStackInSlotOnClosing(int a) {
+        return getInv().getStackInSlotOnClosing(a);
+    }
 
-	public String getInventoryName() {
-		return getInv().getInventoryName();
-	}
+    public void setInventorySlotContents(int a, ItemStack b) {
+        getInv().setInventorySlotContents(a, b);
+    }
 
-	public boolean hasCustomInventoryName() {
-		return getInv().hasCustomInventoryName();
-	}
+    public String getInventoryName() {
+        return getInv().getInventoryName();
+    }
 
-	public int getInventoryStackLimit() {
-		return getInv().getInventoryStackLimit();
-	}
+    public boolean hasCustomInventoryName() {
+        return getInv().hasCustomInventoryName();
+    }
 
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-		return true;
-	}
+    public int getInventoryStackLimit() {
+        return getInv().getInventoryStackLimit();
+    }
 
-	public void openInventory() {}
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return true;
+    }
 
-	public void closeInventory() {}
+    public void openInventory() {
+    }
 
-	public boolean isItemValidForSlot(int a, ItemStack b) {
-		return getInv().isItemValidForSlot(a, b);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound nbt){
-		super.readFromNBT(nbt);
-		getInv().readFromNBT(nbt);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound nbt){
-		super.writeToNBT(nbt);
-		getInv().writeToNBT(nbt);
-	}
+    public void closeInventory() {
+    }
+
+    public boolean isItemValidForSlot(int a, ItemStack b) {
+        return getInv().isItemValidForSlot(a, b);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        getInv().readFromNBT(nbt);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        getInv().writeToNBT(nbt);
+    }
 }

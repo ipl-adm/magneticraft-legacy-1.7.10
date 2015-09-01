@@ -1,75 +1,75 @@
 package com.cout970.magneticraft.items;
 
-import java.io.File;
-import java.util.List;
-
 import com.cout970.magneticraft.api.computer.IStorageDevice;
 import com.cout970.magneticraft.api.computer.prefab.ComputerUtils;
 import com.cout970.magneticraft.api.util.NBTUtils;
+import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class ItemHardDrive extends ItemBasic implements IStorageDevice{
+import java.io.File;
+import java.util.List;
 
-	public static final int DISK_SIZE = 0x100000; //1024kB
-	
-	public ItemHardDrive(String unlocalizedname) {
-		super(unlocalizedname);
-		setCreativeTab(CreativeTabsMg.InformationAgeTab);
-	}
+public class ItemHardDrive extends ItemBasic implements IStorageDevice {
 
-	@Override
-	public File getAsociateFile(ItemStack i) {
-		NBTUtils.sanityCheck(i);
-		return ComputerUtils.getFileFromItemStack(i);
-	}
+    public static final int DISK_SIZE = 0x100000; //1024kB
 
-	@Override
-	public String getDiskLabel(ItemStack i) {
-		String label = NBTUtils.getString("Label", i);
-		if(label == null)return "";
-		return ""+label;
-	}
+    public ItemHardDrive(String unlocalizedname) {
+        super(unlocalizedname);
+        setCreativeTab(CreativeTabsMg.InformationAgeTab);
+    }
 
-	@Override
-	public String getSerialNumber(ItemStack i) {
-		return ""+NBTUtils.getString("SerialNumber", i);
-	}
+    @Override
+    public File getAsociateFile(ItemStack i) {
+        NBTUtils.sanityCheck(i);
+        return ComputerUtils.getFileFromItemStack(i);
+    }
 
-	@Override
-	public int getSize(ItemStack i) {
-		return DISK_SIZE;
-	}
+    @Override
+    public String getDiskLabel(ItemStack i) {
+        String label = NBTUtils.getString("Label", i);
+        if (label == null) return "";
+        return "" + label;
+    }
 
-	@Override
-	public void setDiskLabel(ItemStack i, String label) {
-		NBTUtils.setString("Label", i, label);
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
-		super.addInformation(item, player, list, flag);
-		list.add(ItemBlockMg.format+(int)(DISK_SIZE/1024)+"kB of storage");
-		list.add(ItemBlockMg.format+getDiskLabel(item));
-	}
+    @Override
+    public String getSerialNumber(ItemStack i) {
+        return "" + NBTUtils.getString("SerialNumber", i);
+    }
 
-	@Override
-	public int getAccessTime(ItemStack i) {
-		return 0;
-	}
+    @Override
+    public int getSize(ItemStack i) {
+        return DISK_SIZE;
+    }
 
-	@Override
-	public boolean isHardDrive(ItemStack i) {
-		return true;
-	}
+    @Override
+    public void setDiskLabel(ItemStack i, String label) {
+        NBTUtils.setString("Label", i, label);
+    }
 
-	@Override
-	public boolean isFloppyDrive(ItemStack i) {
-		return false;
-	}
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+        super.addInformation(item, player, list, flag);
+        list.add(ItemBlockMg.format + (int) (DISK_SIZE / 1024) + "kB of storage");
+        list.add(ItemBlockMg.format + getDiskLabel(item));
+    }
+
+    @Override
+    public int getAccessTime(ItemStack i) {
+        return 0;
+    }
+
+    @Override
+    public boolean isHardDrive(ItemStack i) {
+        return true;
+    }
+
+    @Override
+    public boolean isFloppyDrive(ItemStack i) {
+        return false;
+    }
 }

@@ -1,13 +1,10 @@
 package com.cout970.magneticraft.items;
 
-import java.util.List;
-
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,29 +13,30 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-public class ItemManometer extends ItemBasic{
+import java.util.List;
 
-	public ItemManometer(String unlocalizedname) {
-		super(unlocalizedname);
-		setCreativeTab(CreativeTabsMg.SteamAgeTab);
-		setMaxStackSize(1);
-	}
+public class ItemManometer extends ItemBasic {
 
-	public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_)
-	{
-		if(w.isRemote)return false;
-		TileEntity t = w.getTileEntity(x, y, z);
-		List<IPressureConductor> list = PressureUtils.getPressureCond(t, VecInt.NULL_VECTOR);
-		for(IPressureConductor cond : list){
-			String s = String.format("Reading %.2fbar, %dpa",EnergyConversor.PAtoBAR(cond.getPressure()), (int)cond.getPressure());
-			p.addChatMessage(new ChatComponentText(s));
-		}
-		return false;
-	}
-	
-	@SuppressWarnings({ "rawtypes" })
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
-		super.addInformation(item, player, list, flag);
-	}
+    public ItemManometer(String unlocalizedname) {
+        super(unlocalizedname);
+        setCreativeTab(CreativeTabsMg.SteamAgeTab);
+        setMaxStackSize(1);
+    }
+
+    public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+        if (w.isRemote) return false;
+        TileEntity t = w.getTileEntity(x, y, z);
+        List<IPressureConductor> list = PressureUtils.getPressureCond(t, VecInt.NULL_VECTOR);
+        for (IPressureConductor cond : list) {
+            String s = String.format("Reading %.2fbar, %dpa", EnergyConversor.PAtoBAR(cond.getPressure()), (int) cond.getPressure());
+            p.addChatMessage(new ChatComponentText(s));
+        }
+        return false;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
+        super.addInformation(item, player, list, flag);
+    }
 }

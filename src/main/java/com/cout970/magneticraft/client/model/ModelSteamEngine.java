@@ -5,21 +5,15 @@
 // - ZeuX
 
 
-
-
-
-
 package com.cout970.magneticraft.client.model;
-
-import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import org.lwjgl.opengl.GL11;
 
-public class ModelSteamEngine extends ModelBase
-{
-  //fields
+public class ModelSteamEngine extends ModelBase {
+    //fields
     ModelRenderer shaft1;
     ModelRenderer piston1;
     ModelRenderer piston2;
@@ -47,258 +41,255 @@ public class ModelSteamEngine extends ModelBase
     ModelRenderer Shape6;
     ModelRenderer Shape7;
     ModelRenderer Shape8;
-  
-  public ModelSteamEngine()
-  {
-    textureWidth = 128;
-    textureHeight = 64;
-    
-      shaft1 = new ModelRenderer(this, 42, 0);
-      shaft1.addBox(-7F, -2F, -8F, 14, 5, 16);
-      shaft1.setRotationPoint(0F, 11F, 0F);
-      shaft1.setTextureSize(128, 64);
-      shaft1.mirror = true;
-      setRotation(shaft1, 0F, 0F, 0F);
-      piston1 = new ModelRenderer(this, 36, 0);
-      piston1.addBox(-7F, 2F, 3F, 4, 5, 4);
-      piston1.setRotationPoint(0F, 16F, 0F);
-      piston1.setTextureSize(128, 64);
-      piston1.mirror = true;
-      setRotation(piston1, 0F, 0F, 0F);
-      piston2 = new ModelRenderer(this, 36, 0);
-      piston2.addBox(-7F, 2F, -2F, 4, 5, 4);
-      piston2.setRotationPoint(0F, 16F, 0F);
-      piston2.setTextureSize(128, 64);
-      piston2.mirror = true;
-      setRotation(piston2, 0F, 0F, 0F);
-      piston3 = new ModelRenderer(this, 36, 0);
-      piston3.addBox(-7F, 2F, -7F, 4, 5, 4);
-      piston3.setRotationPoint(0F, 16F, 0F);
-      piston3.setTextureSize(128, 64);
-      piston3.mirror = true;
-      setRotation(piston3, 0F, 0F, 0F);
-      piston4 = new ModelRenderer(this, 36, 0);
-      piston4.addBox(3F, 2F, 3F, 4, 5, 4);
-      piston4.setRotationPoint(0F, 16F, 0F);
-      piston4.setTextureSize(128, 64);
-      piston4.mirror = true;
-      setRotation(piston4, 0F, 0F, 0F);
-      piston5 = new ModelRenderer(this, 36, 0);
-      piston5.addBox(3F, 2F, -2F, 4, 5, 4);
-      piston5.setRotationPoint(0F, 16F, 0F);
-      piston5.setTextureSize(128, 64);
-      piston5.mirror = true;
-      setRotation(piston5, 0F, 0F, 0F);
-      piston6 = new ModelRenderer(this, 36, 0);
-      piston6.addBox(3F, 2F, -7F, 4, 5, 4);
-      piston6.setRotationPoint(0F, 16F, 0F);
-      piston6.setTextureSize(128, 64);
-      piston6.mirror = true;
-      setRotation(piston6, 0F, 0F, 0F);
-      rod1 = new ModelRenderer(this, 0, 0);
-      rod1.addBox(-5.5F, 0F, 4.5F, 1, 3, 1);
-      rod1.setRotationPoint(0F, 14F, 0F);
-      rod1.setTextureSize(128, 64);
-      rod1.mirror = true;
-      setRotation(rod1, 0F, 0F, 0F);
-      rod2 = new ModelRenderer(this, 0, 0);
-      rod2.addBox(-5.5F, 0F, -0.5F, 1, 3, 1);
-      rod2.setRotationPoint(0F, 14F, 0F);
-      rod2.setTextureSize(128, 64);
-      rod2.mirror = true;
-      setRotation(rod2, 0F, 0F, 0F);
-      rod3 = new ModelRenderer(this, 0, 0);
-      rod3.addBox(-5.5F, 0F, -5.5F, 1, 3, 1);
-      rod3.setRotationPoint(0F, 14F, 0F);
-      rod3.setTextureSize(128, 64);
-      rod3.mirror = true;
-      setRotation(rod3, 0F, 0F, 0F);
-      rod4 = new ModelRenderer(this, 0, 0);
-      rod4.addBox(4.5F, 0F, 4.5F, 1, 3, 1);
-      rod4.setRotationPoint(0F, 14F, 0F);
-      rod4.setTextureSize(128, 64);
-      rod4.mirror = true;
-      setRotation(rod4, 0F, 0F, 0F);
-      rod5 = new ModelRenderer(this, 0, 0);
-      rod5.addBox(4.5F, 0F, -0.5F, 1, 3, 1);
-      rod5.setRotationPoint(0F, 14F, 0F);
-      rod5.setTextureSize(128, 64);
-      rod5.mirror = true;
-      setRotation(rod5, 0F, 0F, 0F);
-      rod6 = new ModelRenderer(this, 0, 0);
-      rod6.addBox(4.5F, 0F, -5.5F, 1, 3, 1);
-      rod6.setRotationPoint(0F, 14F, 0F);
-      rod6.setTextureSize(128, 64);
-      rod6.mirror = true;
-      setRotation(rod6, 0F, 0F, 0F);
-      mPiston1 = new ModelRenderer(this, 24, 0);
-      mPiston1.addBox(-6.5F, 1F, 3.5F, 3, 4, 3);
-      mPiston1.setRotationPoint(0F, 16F, 0F);
-      mPiston1.setTextureSize(128, 64);
-      mPiston1.mirror = true;
-      setRotation(mPiston1, 0F, 0F, 0F);
-      mPiston2 = new ModelRenderer(this, 24, 0);
-      mPiston2.addBox(-6.5F, 3F, -1.5F, 3, 4, 3);
-      mPiston2.setRotationPoint(0F, 14F, 0F);
-      mPiston2.setTextureSize(128, 64);
-      mPiston2.mirror = true;
-      setRotation(mPiston2, 0F, 0F, 0F);
-      mPiston3 = new ModelRenderer(this, 24, 0);
-      mPiston3.addBox(-6.5F, 1F, -6.5F, 3, 4, 3);
-      mPiston3.setRotationPoint(0F, 16F, 0F);
-      mPiston3.setTextureSize(128, 64);
-      mPiston3.mirror = true;
-      setRotation(mPiston3, 0F, 0F, 0F);
-      mPiston4 = new ModelRenderer(this, 24, 0);
-      mPiston4.addBox(3.5F, 1F, 3.5F, 3, 4, 3);
-      mPiston4.setRotationPoint(0F, 16F, 0F);
-      mPiston4.setTextureSize(128, 64);
-      mPiston4.mirror = true;
-      setRotation(mPiston4, 0F, 0F, 0F);
-      mPiston5 = new ModelRenderer(this, 24, 0);
-      mPiston5.addBox(3.5F, 1F, -1.5F, 3, 4, 3);
-      mPiston5.setRotationPoint(0F, 16F, 0F);
-      mPiston5.setTextureSize(128, 64);
-      mPiston5.mirror = true;
-      setRotation(mPiston5, 0F, 0F, 0F);
-      mPiston6 = new ModelRenderer(this, 24, 0);
-      mPiston6.addBox(3.5F, 1F, -6.5F, 3, 4, 3);
-      mPiston6.setRotationPoint(0F, 16F, 0F);
-      mPiston6.setTextureSize(128, 64);
-      mPiston6.mirror = true;
-      setRotation(mPiston6, 0F, 0F, 0F);
-      Shape1 = new ModelRenderer(this, 0, 25);
-      Shape1.addBox(-8F, 7F, -8F, 16, 1, 16);
-      Shape1.setRotationPoint(0F, 16F, 0F);
-      Shape1.setTextureSize(128, 64);
-      Shape1.mirror = true;
-      setRotation(Shape1, 0F, 0F, 0F);
-      Shape2 = new ModelRenderer(this, 0, 0);
-      Shape2.addBox(-2F, -2F, 0F, 4, 9, 16);
-      Shape2.setRotationPoint(0F, 16F, -8F);
-      Shape2.setTextureSize(128, 64);
-      Shape2.mirror = true;
-      setRotation(Shape2, 0F, 0F, 0F);
-      Shape3 = new ModelRenderer(this, 65, 27);
-      Shape3.addBox(-8F, -7F, -8F, 1, 14, 1);
-      Shape3.setRotationPoint(0F, 16F, 0F);
-      Shape3.setTextureSize(128, 64);
-      Shape3.mirror = true;
-      setRotation(Shape3, 0F, 0F, 0F);
-      Shape4 = new ModelRenderer(this, 65, 27);
-      Shape4.addBox(7F, -7F, -8F, 1, 14, 1);
-      Shape4.setRotationPoint(0F, 16F, 0F);
-      Shape4.setTextureSize(128, 64);
-      Shape4.mirror = true;
-      setRotation(Shape4, 0F, 0F, 0F);
-      Shape5 = new ModelRenderer(this, 65, 27);
-      Shape5.addBox(-8F, -7F, 7F, 1, 14, 1);
-      Shape5.setRotationPoint(0F, 16F, 0F);
-      Shape5.setTextureSize(128, 64);
-      Shape5.mirror = true;
-      setRotation(Shape5, 0F, 0F, 0F);
-      Shape6 = new ModelRenderer(this, 65, 27);
-      Shape6.addBox(7F, -7F, 7F, 1, 14, 1);
-      Shape6.setRotationPoint(0F, 16F, 0F);
-      Shape6.setTextureSize(128, 64);
-      Shape6.mirror = true;
-      setRotation(Shape6, 0F, 0F, 0F);
-      Shape7 = new ModelRenderer(this, 70, 27);
-      Shape7.addBox(-8F, -7F, -7F, 1, 1, 14);
-      Shape7.setRotationPoint(0F, 16F, 0F);
-      Shape7.setTextureSize(128, 64);
-      Shape7.mirror = true;
-      setRotation(Shape7, 0F, 0F, 0F);
-      Shape8 = new ModelRenderer(this, 70, 27);
-      Shape8.addBox(7F, -7F, -7F, 1, 1, 14);
-      Shape8.setRotationPoint(0F, 16F, 0F);
-      Shape8.setTextureSize(128, 64);
-      Shape8.mirror = true;
-      setRotation(Shape8, 0F, 0F, 0F);
-  }
-  
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {
-    super.render(entity, f, f1, f2, f3, f4, f5);
-    setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    shaft1.render(f5);
-    piston1.render(f5);
-    piston2.render(f5);
-    piston3.render(f5);
-    piston4.render(f5);
-    piston5.render(f5);
-    piston6.render(f5);
-    rod1.render(f5);
-    rod2.render(f5);
-    rod3.render(f5);
-    rod4.render(f5);
-    rod5.render(f5);
-    rod6.render(f5);
-    mPiston1.render(f5);
-    mPiston2.render(f5);
-    mPiston3.render(f5);
-    mPiston4.render(f5);
-    mPiston5.render(f5);
-    mPiston6.render(f5);
-    Shape1.render(f5);
-    Shape2.render(f5);
-    Shape3.render(f5);
-    Shape4.render(f5);
-    Shape5.render(f5);
-    Shape6.render(f5);
-    Shape7.render(f5);
-    Shape8.render(f5);
-  }
-  
-  public void renderDynamic(float f5, float g){
-		 
-	  GL11.glPushMatrix();
-	  
-	  float alt = (float) Math.sin(Math.toRadians(g*0.36))/16+0.0625f;
-	  GL11.glTranslatef(0, -alt, 0);
-	  rod1.render(f5);
-	  rod3.render(f5);
-	  rod5.render(f5);
-	  mPiston1.render(f5);
-	  mPiston3.render(f5);
-	  mPiston5.render(f5);
-	  GL11.glTranslatef(0, alt, 0);
-	  
-	  alt = (float) Math.sin(Math.toRadians((1000-g)*0.36))/16+0.0625f;
-	  GL11.glTranslatef(0, -alt, 0);
-	  rod2.render(f5);
-	  rod4.render(f5);
-	  rod6.render(f5);
-	  mPiston2.render(f5);
-	  mPiston4.render(f5);
-	  mPiston6.render(f5); 
-	  GL11.glTranslatef(0, alt, 0);
 
-	  GL11.glPopMatrix();
-  }
+    public ModelSteamEngine() {
+        textureWidth = 128;
+        textureHeight = 64;
 
-  private void setRotation(ModelRenderer model, float x, float y, float z)
-  {
-	  model.rotateAngleX = x;
-	  model.rotateAngleY = y;
-	  model.rotateAngleZ = z;
-  }
+        shaft1 = new ModelRenderer(this, 42, 0);
+        shaft1.addBox(-7F, -2F, -8F, 14, 5, 16);
+        shaft1.setRotationPoint(0F, 11F, 0F);
+        shaft1.setTextureSize(128, 64);
+        shaft1.mirror = true;
+        setRotation(shaft1, 0F, 0F, 0F);
+        piston1 = new ModelRenderer(this, 36, 0);
+        piston1.addBox(-7F, 2F, 3F, 4, 5, 4);
+        piston1.setRotationPoint(0F, 16F, 0F);
+        piston1.setTextureSize(128, 64);
+        piston1.mirror = true;
+        setRotation(piston1, 0F, 0F, 0F);
+        piston2 = new ModelRenderer(this, 36, 0);
+        piston2.addBox(-7F, 2F, -2F, 4, 5, 4);
+        piston2.setRotationPoint(0F, 16F, 0F);
+        piston2.setTextureSize(128, 64);
+        piston2.mirror = true;
+        setRotation(piston2, 0F, 0F, 0F);
+        piston3 = new ModelRenderer(this, 36, 0);
+        piston3.addBox(-7F, 2F, -7F, 4, 5, 4);
+        piston3.setRotationPoint(0F, 16F, 0F);
+        piston3.setTextureSize(128, 64);
+        piston3.mirror = true;
+        setRotation(piston3, 0F, 0F, 0F);
+        piston4 = new ModelRenderer(this, 36, 0);
+        piston4.addBox(3F, 2F, 3F, 4, 5, 4);
+        piston4.setRotationPoint(0F, 16F, 0F);
+        piston4.setTextureSize(128, 64);
+        piston4.mirror = true;
+        setRotation(piston4, 0F, 0F, 0F);
+        piston5 = new ModelRenderer(this, 36, 0);
+        piston5.addBox(3F, 2F, -2F, 4, 5, 4);
+        piston5.setRotationPoint(0F, 16F, 0F);
+        piston5.setTextureSize(128, 64);
+        piston5.mirror = true;
+        setRotation(piston5, 0F, 0F, 0F);
+        piston6 = new ModelRenderer(this, 36, 0);
+        piston6.addBox(3F, 2F, -7F, 4, 5, 4);
+        piston6.setRotationPoint(0F, 16F, 0F);
+        piston6.setTextureSize(128, 64);
+        piston6.mirror = true;
+        setRotation(piston6, 0F, 0F, 0F);
+        rod1 = new ModelRenderer(this, 0, 0);
+        rod1.addBox(-5.5F, 0F, 4.5F, 1, 3, 1);
+        rod1.setRotationPoint(0F, 14F, 0F);
+        rod1.setTextureSize(128, 64);
+        rod1.mirror = true;
+        setRotation(rod1, 0F, 0F, 0F);
+        rod2 = new ModelRenderer(this, 0, 0);
+        rod2.addBox(-5.5F, 0F, -0.5F, 1, 3, 1);
+        rod2.setRotationPoint(0F, 14F, 0F);
+        rod2.setTextureSize(128, 64);
+        rod2.mirror = true;
+        setRotation(rod2, 0F, 0F, 0F);
+        rod3 = new ModelRenderer(this, 0, 0);
+        rod3.addBox(-5.5F, 0F, -5.5F, 1, 3, 1);
+        rod3.setRotationPoint(0F, 14F, 0F);
+        rod3.setTextureSize(128, 64);
+        rod3.mirror = true;
+        setRotation(rod3, 0F, 0F, 0F);
+        rod4 = new ModelRenderer(this, 0, 0);
+        rod4.addBox(4.5F, 0F, 4.5F, 1, 3, 1);
+        rod4.setRotationPoint(0F, 14F, 0F);
+        rod4.setTextureSize(128, 64);
+        rod4.mirror = true;
+        setRotation(rod4, 0F, 0F, 0F);
+        rod5 = new ModelRenderer(this, 0, 0);
+        rod5.addBox(4.5F, 0F, -0.5F, 1, 3, 1);
+        rod5.setRotationPoint(0F, 14F, 0F);
+        rod5.setTextureSize(128, 64);
+        rod5.mirror = true;
+        setRotation(rod5, 0F, 0F, 0F);
+        rod6 = new ModelRenderer(this, 0, 0);
+        rod6.addBox(4.5F, 0F, -5.5F, 1, 3, 1);
+        rod6.setRotationPoint(0F, 14F, 0F);
+        rod6.setTextureSize(128, 64);
+        rod6.mirror = true;
+        setRotation(rod6, 0F, 0F, 0F);
+        mPiston1 = new ModelRenderer(this, 24, 0);
+        mPiston1.addBox(-6.5F, 1F, 3.5F, 3, 4, 3);
+        mPiston1.setRotationPoint(0F, 16F, 0F);
+        mPiston1.setTextureSize(128, 64);
+        mPiston1.mirror = true;
+        setRotation(mPiston1, 0F, 0F, 0F);
+        mPiston2 = new ModelRenderer(this, 24, 0);
+        mPiston2.addBox(-6.5F, 3F, -1.5F, 3, 4, 3);
+        mPiston2.setRotationPoint(0F, 14F, 0F);
+        mPiston2.setTextureSize(128, 64);
+        mPiston2.mirror = true;
+        setRotation(mPiston2, 0F, 0F, 0F);
+        mPiston3 = new ModelRenderer(this, 24, 0);
+        mPiston3.addBox(-6.5F, 1F, -6.5F, 3, 4, 3);
+        mPiston3.setRotationPoint(0F, 16F, 0F);
+        mPiston3.setTextureSize(128, 64);
+        mPiston3.mirror = true;
+        setRotation(mPiston3, 0F, 0F, 0F);
+        mPiston4 = new ModelRenderer(this, 24, 0);
+        mPiston4.addBox(3.5F, 1F, 3.5F, 3, 4, 3);
+        mPiston4.setRotationPoint(0F, 16F, 0F);
+        mPiston4.setTextureSize(128, 64);
+        mPiston4.mirror = true;
+        setRotation(mPiston4, 0F, 0F, 0F);
+        mPiston5 = new ModelRenderer(this, 24, 0);
+        mPiston5.addBox(3.5F, 1F, -1.5F, 3, 4, 3);
+        mPiston5.setRotationPoint(0F, 16F, 0F);
+        mPiston5.setTextureSize(128, 64);
+        mPiston5.mirror = true;
+        setRotation(mPiston5, 0F, 0F, 0F);
+        mPiston6 = new ModelRenderer(this, 24, 0);
+        mPiston6.addBox(3.5F, 1F, -6.5F, 3, 4, 3);
+        mPiston6.setRotationPoint(0F, 16F, 0F);
+        mPiston6.setTextureSize(128, 64);
+        mPiston6.mirror = true;
+        setRotation(mPiston6, 0F, 0F, 0F);
+        Shape1 = new ModelRenderer(this, 0, 25);
+        Shape1.addBox(-8F, 7F, -8F, 16, 1, 16);
+        Shape1.setRotationPoint(0F, 16F, 0F);
+        Shape1.setTextureSize(128, 64);
+        Shape1.mirror = true;
+        setRotation(Shape1, 0F, 0F, 0F);
+        Shape2 = new ModelRenderer(this, 0, 0);
+        Shape2.addBox(-2F, -2F, 0F, 4, 9, 16);
+        Shape2.setRotationPoint(0F, 16F, -8F);
+        Shape2.setTextureSize(128, 64);
+        Shape2.mirror = true;
+        setRotation(Shape2, 0F, 0F, 0F);
+        Shape3 = new ModelRenderer(this, 65, 27);
+        Shape3.addBox(-8F, -7F, -8F, 1, 14, 1);
+        Shape3.setRotationPoint(0F, 16F, 0F);
+        Shape3.setTextureSize(128, 64);
+        Shape3.mirror = true;
+        setRotation(Shape3, 0F, 0F, 0F);
+        Shape4 = new ModelRenderer(this, 65, 27);
+        Shape4.addBox(7F, -7F, -8F, 1, 14, 1);
+        Shape4.setRotationPoint(0F, 16F, 0F);
+        Shape4.setTextureSize(128, 64);
+        Shape4.mirror = true;
+        setRotation(Shape4, 0F, 0F, 0F);
+        Shape5 = new ModelRenderer(this, 65, 27);
+        Shape5.addBox(-8F, -7F, 7F, 1, 14, 1);
+        Shape5.setRotationPoint(0F, 16F, 0F);
+        Shape5.setTextureSize(128, 64);
+        Shape5.mirror = true;
+        setRotation(Shape5, 0F, 0F, 0F);
+        Shape6 = new ModelRenderer(this, 65, 27);
+        Shape6.addBox(7F, -7F, 7F, 1, 14, 1);
+        Shape6.setRotationPoint(0F, 16F, 0F);
+        Shape6.setTextureSize(128, 64);
+        Shape6.mirror = true;
+        setRotation(Shape6, 0F, 0F, 0F);
+        Shape7 = new ModelRenderer(this, 70, 27);
+        Shape7.addBox(-8F, -7F, -7F, 1, 1, 14);
+        Shape7.setRotationPoint(0F, 16F, 0F);
+        Shape7.setTextureSize(128, 64);
+        Shape7.mirror = true;
+        setRotation(Shape7, 0F, 0F, 0F);
+        Shape8 = new ModelRenderer(this, 70, 27);
+        Shape8.addBox(7F, -7F, -7F, 1, 1, 14);
+        Shape8.setRotationPoint(0F, 16F, 0F);
+        Shape8.setTextureSize(128, 64);
+        Shape8.mirror = true;
+        setRotation(Shape8, 0F, 0F, 0F);
+    }
 
-  public void renderStatic(float f5) {
-	  shaft1.render(f5);
-	  piston1.render(f5);
-	  piston2.render(f5);
-	  piston3.render(f5);
-	  piston4.render(f5);
-	  piston5.render(f5);
-	  piston6.render(f5);
-	  Shape1.render(f5);
-	  Shape2.render(f5);
-	  Shape3.render(f5);
-	  Shape4.render(f5);
-	  Shape5.render(f5);
-	  Shape6.render(f5);
-	  Shape7.render(f5);
-	  Shape8.render(f5);
-  }
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        super.render(entity, f, f1, f2, f3, f4, f5);
+        setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        shaft1.render(f5);
+        piston1.render(f5);
+        piston2.render(f5);
+        piston3.render(f5);
+        piston4.render(f5);
+        piston5.render(f5);
+        piston6.render(f5);
+        rod1.render(f5);
+        rod2.render(f5);
+        rod3.render(f5);
+        rod4.render(f5);
+        rod5.render(f5);
+        rod6.render(f5);
+        mPiston1.render(f5);
+        mPiston2.render(f5);
+        mPiston3.render(f5);
+        mPiston4.render(f5);
+        mPiston5.render(f5);
+        mPiston6.render(f5);
+        Shape1.render(f5);
+        Shape2.render(f5);
+        Shape3.render(f5);
+        Shape4.render(f5);
+        Shape5.render(f5);
+        Shape6.render(f5);
+        Shape7.render(f5);
+        Shape8.render(f5);
+    }
+
+    public void renderDynamic(float f5, float g) {
+
+        GL11.glPushMatrix();
+
+        float alt = (float) Math.sin(Math.toRadians(g * 0.36)) / 16 + 0.0625f;
+        GL11.glTranslatef(0, -alt, 0);
+        rod1.render(f5);
+        rod3.render(f5);
+        rod5.render(f5);
+        mPiston1.render(f5);
+        mPiston3.render(f5);
+        mPiston5.render(f5);
+        GL11.glTranslatef(0, alt, 0);
+
+        alt = (float) Math.sin(Math.toRadians((1000 - g) * 0.36)) / 16 + 0.0625f;
+        GL11.glTranslatef(0, -alt, 0);
+        rod2.render(f5);
+        rod4.render(f5);
+        rod6.render(f5);
+        mPiston2.render(f5);
+        mPiston4.render(f5);
+        mPiston6.render(f5);
+        GL11.glTranslatef(0, alt, 0);
+
+        GL11.glPopMatrix();
+    }
+
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
+        model.rotateAngleX = x;
+        model.rotateAngleY = y;
+        model.rotateAngleZ = z;
+    }
+
+    public void renderStatic(float f5) {
+        shaft1.render(f5);
+        piston1.render(f5);
+        piston2.render(f5);
+        piston3.render(f5);
+        piston4.render(f5);
+        piston5.render(f5);
+        piston6.render(f5);
+        Shape1.render(f5);
+        Shape2.render(f5);
+        Shape3.render(f5);
+        Shape4.render(f5);
+        Shape5.render(f5);
+        Shape6.render(f5);
+        Shape7.render(f5);
+        Shape8.render(f5);
+    }
 }

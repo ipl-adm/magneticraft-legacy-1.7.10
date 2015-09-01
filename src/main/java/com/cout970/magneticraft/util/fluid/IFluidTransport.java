@@ -1,24 +1,23 @@
 package com.cout970.magneticraft.util.fluid;
 
 import com.cout970.magneticraft.api.util.MgDirection;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.IFluidTank;
 
 public interface IFluidTransport {
 
-	TileEntity getTileEntity();
+    TileEntity getTileEntity();
 
-	void setNetwork(FluidNetwork fluidNetwork);
+    void setNetwork(FluidNetwork fluidNetwork);
 
-	void onNetworkUpdate();
+    void onNetworkUpdate();
 
-	FluidNetwork getNetwork();
-	
-	IFluidTank getTank();
-	
-	boolean canConectOnSide(MgDirection dir);
-	
-	boolean isComaptible(IFluidTransport a);
+    FluidNetwork getNetwork();
+
+    IFluidTank getTank();
+
+    boolean canConnectOnSide(MgDirection dir);
+
+    boolean isCompatible(IFluidTransport a);
 
 }

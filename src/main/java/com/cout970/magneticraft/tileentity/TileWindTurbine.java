@@ -1,7 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.Random;
-
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
@@ -17,7 +15,6 @@ import com.cout970.magneticraft.util.FractalLib;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -32,6 +29,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
+
+import java.util.Random;
 
 public class TileWindTurbine extends TileConductorLow implements IInventoryManaged, IGuiSync {
 

@@ -1,17 +1,9 @@
 package com.cout970.magneticraft.block;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileMB_Remplaced;
-import com.cout970.magneticraft.util.multiblock.MB_Block;
-import com.cout970.magneticraft.util.multiblock.MB_Tile;
-import com.cout970.magneticraft.util.multiblock.MB_Tile_Remplaced;
-import com.cout970.magneticraft.util.multiblock.MB_Watcher;
-import com.cout970.magneticraft.util.multiblock.Multiblock;
-
+import com.cout970.magneticraft.tileentity.TileMB_Replaced;
+import com.cout970.magneticraft.util.multiblock.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -22,77 +14,79 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockGrindingMillGap extends BlockMg implements MB_Block{
+import java.util.ArrayList;
+import java.util.List;
 
-	public BlockGrindingMillGap() {
-		super(Material.iron);
-		setCreativeTab(null);
-		setLightOpacity(0);
-	}
+public class BlockGrindingMillGap extends BlockMg implements MB_Block {
 
-	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-		return new TileMB_Remplaced();
-	}
+    public BlockGrindingMillGap() {
+        super(Material.iron);
+        setCreativeTab(null);
+        setLightOpacity(0);
+    }
 
-	public void breakBlock(World w,int x,int y,int z,Block b,int side){
-		if(!w.isRemote){
-			TileEntity t = w.getTileEntity(x, y, z);
-			if(t instanceof MB_Tile){
-				if(((MB_Tile) t).getControlPos() != null && ((MB_Tile) t).getMultiblock() != null)
-				MB_Watcher.destroyStructure(w, ((MB_Tile) t).getControlPos(), ((MB_Tile) t).getMultiblock(),((MB_Tile) t).getDirection());
-			}
-		}
-		super.breakBlock(w, x, y, z, b, side);
-	}
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new TileMB_Replaced();
+    }
 
-	public boolean renderAsNormalBlock(){
+    public void breakBlock(World w, int x, int y, int z, Block b, int side) {
+        if (!w.isRemote) {
+            TileEntity t = w.getTileEntity(x, y, z);
+            if (t instanceof MB_Tile) {
+                if (((MB_Tile) t).getControlPos() != null && ((MB_Tile) t).getMultiblock() != null)
+                    MB_Watcher.destroyStructure(w, ((MB_Tile) t).getControlPos(), ((MB_Tile) t).getMultiblock(), ((MB_Tile) t).getDirection());
+            }
+        }
+        super.breakBlock(w, x, y, z, b, side);
+    }
+
+    public boolean renderAsNormalBlock() {
         return false;
     }
-	
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune){
-		
-		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile instanceof MB_Tile_Remplaced){
-			List<ItemStack> t = ((MB_Tile_Remplaced) tile).getDrops();
-			if(t != null){
-				ret.addAll(t);
-			}
-		}
-		return ret;
-	}
 
-	@Override
-	public String[] getTextures() {
-		return new String[]{"void"};
-	}
-	
-	public boolean isOpaqueCube(){
-		return false;
-	}
+    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 
-	@Override
-	public String getName() {
-		return "grinding_mill_gap";
-	}
-	
-	@SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta)
-    {
+        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof MB_Tile_Replaced) {
+            List<ItemStack> t = ((MB_Tile_Replaced) tile).getDrops();
+            if (t != null) {
+                ret.addAll(t);
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public String[] getTextures() {
+        return new String[]{"void"};
+    }
+
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
+    @Override
+    public String getName() {
+        return "grinding_mill_gap";
+    }
+
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
         return icons[0];
     }
 
-	@Override
-	public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
-	}
-	
-	@SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
-		return false;
+    @Override
+    public void mutates(World w, VecInt p, Multiblock c, MgDirection e) {
     }
 
-	@Override
-	public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
-	}
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
+        return false;
+    }
+
+    @Override
+    public void destroy(World w, VecInt p, Multiblock c, MgDirection e) {
+    }
 }

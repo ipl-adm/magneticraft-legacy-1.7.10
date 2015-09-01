@@ -466,7 +466,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
     public void loadChunk() {
         isFirstTime = true;
-        if (ManagerConfig.ChunkLoading) {
+        if (ManagerConfig.MINER_CHUNKLOADING) {
             if (chunkTicket == null) {
                 chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.Instance, worldObj, Type.NORMAL);
             }

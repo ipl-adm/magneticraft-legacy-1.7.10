@@ -199,7 +199,7 @@ public class Magneticraft {
         @Override
         public List<Ticket> ticketsLoaded(List<Ticket> tickets, World world, int maxTicketCount) {
             List<Ticket> validTickets = Lists.newArrayList();
-            if (ManagerConfig.ChunkLoading) {
+            if (ManagerConfig.MINER_CHUNKLOADING) {
                 for (Ticket ticket : tickets) {
                     int x = ticket.getModData().getInteger("quarryX");
                     int y = ticket.getModData().getInteger("quarryY");

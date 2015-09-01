@@ -1,17 +1,13 @@
 package com.cout970.magneticraft;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.cout970.magneticraft.block.*;
-import com.cout970.magneticraft.block.compat.BlockEUAlternator;
-import com.cout970.magneticraft.block.compat.BlockKineticGenerator;
-import com.cout970.magneticraft.block.compat.BlockRCAlternator;
-import com.cout970.magneticraft.block.compat.BlockRFAlternator;
-import com.cout970.magneticraft.block.computer.BlockComputer;
-import com.cout970.magneticraft.block.computer.BlockDroidRED;
-import com.cout970.magneticraft.block.computer.BlockMonitor;
+import com.cout970.magneticraft.block.compat.*;
+import com.cout970.magneticraft.block.computer.*;
 import com.cout970.magneticraft.block.energy.*;
-import com.cout970.magneticraft.block.heat.BlockCooler;
-import com.cout970.magneticraft.block.heat.BlockHeatResistance;
-import com.cout970.magneticraft.block.heat.BlockHeatSink;
+import com.cout970.magneticraft.block.heat.*;
 import com.cout970.magneticraft.block.multiblock.*;
 import com.cout970.magneticraft.block.multiblock.controllers.*;
 import com.cout970.magneticraft.block.slabs.BlockClayTileSlab;
@@ -19,18 +15,15 @@ import com.cout970.magneticraft.block.stairs.BlockClayTileStairs;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
 import com.cout970.magneticraft.tileentity.*;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class ManagerBlocks {
 
@@ -472,7 +465,6 @@ public class ManagerBlocks {
 
     private static void addAltItemBlock(Block b, Class<? extends ItemBlock> ic, String name) {
         named.add(new NamedBlock(b, name));
-        Log.info(b.getUnlocalizedName());
         GameRegistry.registerBlock(b, ic, b.getUnlocalizedName());
     }
 }

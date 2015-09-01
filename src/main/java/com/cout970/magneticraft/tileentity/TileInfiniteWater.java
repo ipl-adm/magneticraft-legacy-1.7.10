@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
@@ -12,14 +13,16 @@ public class TileInfiniteWater extends TileBase implements IFluidHandler1_8 {
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
-        for (MgDirection d : MgDirection.values()) {
-            TileEntity t = MgUtils.getTileEntity(this, d);
-            if (t instanceof IFluidHandler) {
-                IFluidHandler f = (IFluidHandler) t;
-                if (f.canFill(d.toForgeDir(), FluidRegistry.WATER)) {
-                    f.fill(d.toForgeDir().getOpposite(), FluidRegistry.getFluidStack("water", 50), true);
-                }
-            }
+        if(ManagerConfig.INFINITE_WATER_GENERATION > 0){
+        	for (MgDirection d : MgDirection.values()) {
+        		TileEntity t = MgUtils.getTileEntity(this, d);
+        		if (t instanceof IFluidHandler) {
+        			IFluidHandler f = (IFluidHandler) t;
+        			if (f.canFill(d.toForgeDir(), FluidRegistry.WATER)) {
+        				f.fill(d.toForgeDir().getOpposite(), FluidRegistry.getFluidStack("water", ManagerConfig.INFINITE_WATER_GENERATION), true);
+        			}
+        		}
+        	}
         }
     }
 

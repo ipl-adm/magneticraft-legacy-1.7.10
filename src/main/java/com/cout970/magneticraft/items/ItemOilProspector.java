@@ -62,6 +62,6 @@ public class ItemOilProspector extends ItemCharged {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
         super.addInformation(item, player, list, flag);
-        list.add(ItemBlockMg.format + "Search for oil in the gound");
+        list.add(ItemBlockMg.format + "Looks for underground oil deposits in 3x3 area");
     }
 }

@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.access.RecipeCrusher;
 import com.cout970.magneticraft.api.access.RecipeHammerTable;
 import com.cout970.magneticraft.block.BlockMg;
 import net.minecraft.block.Block;
@@ -107,6 +106,6 @@ public class TileHammerTable extends TileBase {
     }
 
     public boolean canWork() {
-        return (ore != null) && (RecipeCrusher.getRecipe(ore) != null);
+        return (ore != null) && (RecipeHammerTable.getRecipe(ore) != null);
     }
 }

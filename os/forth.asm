@@ -611,8 +611,26 @@ p_quote:	.word c_quote
 d_colon:	.byte 1
 		.ascii ":"
 		.align 2
-		.word d_query
+		.word d_create
 p_colon:	.word c_colon
+
+d_create:	.byte 6
+		.ascii "CREATE"
+		.align 2
+		.word d_variable
+p_create:	.word c_create
+
+d_variable:	.byte 8
+		.ascii "VARIABLE"
+		.align 2
+		.word d_constant
+p_variable:	.word c_variable
+
+d_constant:	.byte 8
+		.ascii "CONSTANT"
+		.align 2
+		.word d_query
+p_constant:	.word c_constant
 
 # high level words
 
@@ -879,8 +897,7 @@ c_semi_colon:
 	
 	next
 	
-# #CREATE (--) creates a dictionary entry
-# WIP
+# CREATE (-- addr) creates a dictionary entry and return the body address
 c_create:
 	push $ra
 	lw $t0, var_bl
@@ -898,29 +915,140 @@ c_create_next_word:
 	addu $t0, $t0, $a0
 	addu $t0,$t0, 3
 	andi $t0,$t0, 0xfffffffc
+	move $t5, $t0
 	lw $t0, 0($t0)
 	bnez $t0, c_create_next_word
 	lw $t1, var_here
-	sw $t1, ($t0) # stores in t0 (last dict entry with pointer to 0) the value of here
+	sw $t1, ($t5) # stores in t0 (last dict entry with pointer to 0) the value of here
 	pop $t2 # string from word
-	li $t3, 0
-	# TODO copy the string in here
-	# change here to be able to use alignw (add str length to here)
-	# create a subroutine to execute a list of address and link it to here
-	# write a 0 in the next word field
-	# move here out of the dictionary definition
+	lb $t3, ($t2)
+	andi $t3, $t3, 31
+	addi $t3, $t3, 1 # add 1 to include the string count
+	move $t1, $t2	
+	lw $t0, var_here
 c_create_loop:	
-	beqz $t2, c_create_loop_end
-	
-	#copy string to here
-	addi $t3, $t3, 1
+	beqz $t3, c_create_loop_end
+	lb $t4, ($t1)
+	sb $t4, ($t0)
+	addiu $t1, $t1, 1
+	addiu $t0, $t0, 1
+	subi $t3, $t3, 1
 	j c_create_loop
 c_create_loop_end:
-	push_fp $t3
-	jal c_allot
+	sw $t0, var_here
 	jal c_alignw
+	lw $t2, var_here
+	sw $zero, ($t2)
+	addiu $t2, $t2, 4
+	push_fp $t0
+	sw $t0, ($t2)
+	addiu $t2, $t2, 4
+	sw $t2, var_here
 c_create_exit:
+	next
 	
+# VARIABLE (-- addr)
+c_variable:
+	push $ra
+	lw $t0, var_bl
+	push_fp $t0
+	jal c_word
+	pop_fp $t0
+	lb $t1, ($t0)
+	beqz $t1, c_variable_exit
+	push $t0
+	la $t0, d_forth
+c_variable_next_word:
+	lbu $a0, 0($t0)
+	andi $a0, 31
+	addu $t0,$t0, 1
+	addu $t0, $t0, $a0
+	addu $t0,$t0, 3
+	andi $t0,$t0, 0xfffffffc
+	move $t5, $t0
+	lw $t0, 0($t0)
+	bnez $t0, c_variable_next_word
+	lw $t1, var_here
+	sw $t1, ($t5) # stores in t0 (last dict entry with pointer to 0) the value of here
+	pop $t2 # string from word
+	lb $t3, ($t2)
+	andi $t3, $t3, 31
+	addi $t3, $t3, 1 # add 1 to include the string count
+	move $t1, $t2	
+	lw $t0, var_here
+c_variable_loop:	
+	beqz $t3, c_variable_loop_end
+	lb $t4, ($t1)
+	sb $t4, ($t0)
+	addiu $t1, $t1, 1
+	addiu $t0, $t0, 1
+	subi $t3, $t3, 1
+	j c_variable_loop
+c_variable_loop_end:
+	sw $t0, var_here
+	jal c_alignw
+	lw $t2, var_here
+	sw $zero, ($t2)
+	addiu $t2, $t2, 4
+	la $t0, read_var
+	sw $t0, ($t2)
+	addiu $t2, $t2, 8
+	sw $t2, var_here
+c_variable_exit:
+	next
+	
+# CONTANT (-- value)
+c_constant:
+	stack_check 4
+	push $ra
+	lw $t0, var_bl
+	push_fp $t0
+	jal c_word
+	pop_fp $t0
+	lb $t1, ($t0)
+	beqz $t1, c_constant_exit
+	push $t0
+	la $t0, d_forth
+c_constant_next_word:
+	lbu $a0, 0($t0)
+	andi $a0, 31
+	addu $t0,$t0, 1
+	addu $t0, $t0, $a0
+	addu $t0,$t0, 3
+	andi $t0,$t0, 0xfffffffc
+	move $t5, $t0
+	lw $t0, 0($t0)
+	bnez $t0, c_constant_next_word
+	lw $t1, var_here
+	sw $t1, ($t5) # stores in t0 (last dict entry with pointer to 0) the value of here
+	pop $t2 # string from word
+	lb $t3, ($t2)
+	andi $t3, $t3, 31
+	addi $t3, $t3, 1 # add 1 to include the string count
+	move $t1, $t2	
+	lw $t0, var_here
+c_constant_loop:	
+	beqz $t3, c_constant_loop_end
+	lb $t4, ($t1)
+	sb $t4, ($t0)
+	addiu $t1, $t1, 1
+	addiu $t0, $t0, 1
+	subi $t3, $t3, 1
+	j c_constant_loop
+c_constant_loop_end:
+	sw $t0, var_here
+	jal c_alignw
+	lw $t2, var_here
+	sw $zero, ($t2)
+	addiu $t2, $t2, 4
+	la $t0, read_const
+	sw $t0, ($t2)
+	addiu $t2, $t2, 4
+	pop_fp $t5
+	sw $t5, ($t2)
+	addiu $t2, $t2, 4
+	sw $t2, var_here
+c_constant_exit:
 	next
 	
 # -FIND ( -- addr flag) or (-- addr false)  ING: makes a tokem from the buffer TIB or BLOCK, and try to find it in the dictionary, if is founded flag will be true
@@ -1296,7 +1424,19 @@ read_const:
 	lw $t0, ($t1)
 	push_fp $t0
 	return
-
+	
+# called when a compiled word is typed, iterates a list of address to subrutines executing them
+c_run_program:
+	push $ra
+	
+	next
+	
+# is placed on the end of a list of subroutines to execute by c_run_program
+c_run_end:
+	push $ra
+	
+	next
+	
 c_cor_compile:#TODO
 
 #?Stack
@@ -2541,4 +2681,4 @@ print_tib_end:
 
 	j c_quit
 	
-.include "mips_driver.asm"
+.include "monitor_driver.asm"

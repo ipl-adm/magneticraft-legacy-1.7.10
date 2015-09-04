@@ -156,6 +156,7 @@ item.rubber.name=Rubber Sheet
 item.brass_pipe.name=Brass Pipe
 item.stone_hammer.name=Stone Hammer
 item.iron_hammer.name=Iron Hammer
+item.manometer.name=Manometer
 oil_source.name=Oil Source
 oil_source_drained.name=Drained Oil Source
 copper_ore.name=Copper Ore

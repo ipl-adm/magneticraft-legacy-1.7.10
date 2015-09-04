@@ -1,8 +1,8 @@
-package com.cout970.magneticraft.parts.micro.wires;
+package com.cout970.magneticraft.parts.electric.wires;
 
 import codechicken.lib.vec.Cuboid6;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.parts.micro.PartWireCopper;
+import com.cout970.magneticraft.parts.electric.PartWireCopper;
 
 import java.util.List;
 

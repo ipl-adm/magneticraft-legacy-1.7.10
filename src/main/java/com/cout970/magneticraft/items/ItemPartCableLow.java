@@ -5,7 +5,7 @@ import codechicken.lib.vec.Vector3;
 import codechicken.multipart.TMultiPart;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
-import com.cout970.magneticraft.parts.micro.PartCableLow;
+import com.cout970.magneticraft.parts.electric.PartCableLow;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -2,7 +2,7 @@ package com.cout970.magneticraft.client.tilerender;
 
 import codechicken.lib.vec.Vector3;
 import com.cout970.magneticraft.client.model.ModelBrassPipe;
-import com.cout970.magneticraft.parts.micro.PartBrassPipe;
+import com.cout970.magneticraft.parts.fluid.PartBrassPipe;
 import com.cout970.magneticraft.util.RenderUtil;
 import org.lwjgl.opengl.GL11;
 

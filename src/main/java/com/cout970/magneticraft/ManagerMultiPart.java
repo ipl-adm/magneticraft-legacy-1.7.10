@@ -4,8 +4,15 @@ import codechicken.multipart.MultiPartRegistry;
 import codechicken.multipart.MultiPartRegistry.IPartFactory;
 import codechicken.multipart.TMultiPart;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.parts.micro.*;
-import com.cout970.magneticraft.parts.micro.wires.*;
+import com.cout970.magneticraft.parts.*;
+import com.cout970.magneticraft.parts.electric.PartCableHigh;
+import com.cout970.magneticraft.parts.electric.PartCableLow;
+import com.cout970.magneticraft.parts.electric.PartCableMedium;
+import com.cout970.magneticraft.parts.electric.wires.*;
+import com.cout970.magneticraft.parts.fluid.PartBrassPipe;
+import com.cout970.magneticraft.parts.fluid.PartCopperPipe;
+import com.cout970.magneticraft.parts.fluid.PartIronPipe;
+import com.cout970.magneticraft.parts.heat.PartHeatCable;
 
 public class ManagerMultiPart {
 

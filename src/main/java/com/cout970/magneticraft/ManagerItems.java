@@ -17,6 +17,7 @@ import com.cout970.magneticraft.items.ItemHeatCoilIron;
 import com.cout970.magneticraft.items.ItemHeatCoilTungsten;
 import com.cout970.magneticraft.items.ItemHeavyCopperCoil;
 import com.cout970.magneticraft.items.ItemJackHammer;
+import com.cout970.magneticraft.items.ItemManometer;
 import com.cout970.magneticraft.items.ItemMapPositioner;
 import com.cout970.magneticraft.items.ItemMeta;
 import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
@@ -146,6 +147,7 @@ public class ManagerItems {
     public static Item part_brass_pipe;
     public static Item hammer_stone;
     public static Item hammer_iron;
+    public static Item manometer;
 
     public static void initItems() {
 
@@ -219,6 +221,7 @@ public class ManagerItems {
         part_brass_pipe = new ItemPartBrassPipe("brass_pipe");
         hammer_stone = new ItemHammerStone("stone_hammer");
         hammer_iron = new ItemHammerIron("iron_hammer");
+        manometer = new ItemManometer("manometer");
     }
 
     public static void registerItems() {
@@ -293,6 +296,7 @@ public class ManagerItems {
         addItem(part_brass_pipe, "Brass Pipe");
         addItem(hammer_stone, "Stone Hammer");
         addItem(hammer_iron, "Iron Hammer");
+        addItem(manometer, "Manometer");
 
         for (Item i : items) {
             GameRegistry.registerItem(i, i.getUnlocalizedName());

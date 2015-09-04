@@ -41,6 +41,8 @@ var_r0:		.word fp_stack
 var_s0:		.word sp_stack
 var_scr: 	.word 0
 var_if: 	.word 0
+p_run_end:	.word c_run_end
+p_run_program:	.word c_run_program
 
 d_forth:	.byte	5
 		.ascii	"FORTH"
@@ -410,19 +412,19 @@ d_zero_set:	.byte 2
 		.word d_if
 p_zero_set:	.word c_zero_set
 
-d_if:		.byte 2 # INMEDIATE
+d_if:		.byte 0x82 # INMEDIATE
 		.ascii "IF" #FIX
 		.align 2
 		.word d_then
 p_if:		.word c_if
 
-d_then:		.byte 4 # INMEDIATE
+d_then:		.byte 0x84 # INMEDIATE
 		.ascii "THEN" #FIX
 		.align 2
 		.word d_else
 p_then:		.word c_then
 
-d_else:		.byte 4 # INMEDIATE
+d_else:		.byte 0x84 # INMEDIATE
 		.ascii "ELSE" #FIX
 		.align 2
 		.word d_lit
@@ -458,7 +460,7 @@ d_cor_compile:	.byte 9
 		.word d_literal
 p_cor_compile:	.word c_cor_compile
 
-d_literal:	.byte 0x87
+d_literal:	.byte 0x87 # INMEDIATE
 		.ascii "LITERAL"
 		.align 2
 		.word d_q_stack
@@ -531,13 +533,13 @@ d_enclose:	.byte 7
 p_enclose:	.word c_enclose
 
 d_branch:	.byte 6
-		.ascii "BRANCH"
+		.ascii "BRANCH" # TODO remplace this for ?BRANCH
 		.align 2
 		.word d_int_else
 p_branch:	.word c_branch
 
 d_int_else:	.byte 6
-		.ascii "(ELSE)"
+		.ascii "(ELSE)" # TODO replace this for banch
 		.align 2
 		.word d_bracket_1
 p_int_else:	.word c_int_else
@@ -584,35 +586,41 @@ d_dec:		.byte 7
 		.word d_paren
 p_dec:		.word c_dec
 
-d_paren:	.byte 1
+d_paren:	.byte 0x81 # INMEDIATE
 		.ascii "("
 		.align 2
 		.word d_inv_paren
 p_paren:	.word c_paren
 
-d_inv_paren:	.byte 1
+d_inv_paren:	.byte 0x81 # INMEDIATE
 		.ascii ")"
 		.align 2
 		.word d_dot_quote
 p_inv_paren:	.word c_inv_paren
 
-d_dot_quote:	.byte 2
+d_dot_quote:	.byte 0x82 # INMEDIATE
 		.ascii ".\""
 		.align 2
 		.word d_quote
 p_dot_quote:	.word c_dot_quote
 
-d_quote:	.byte 1
+d_quote:	.byte 0x81 # INMEDIATE
 		.ascii "\""
 		.align 2
 		.word d_colon
 p_quote:	.word c_quote
 
-d_colon:	.byte 1
+d_colon:	.byte 0x81 # INMEDIATE
 		.ascii ":"
 		.align 2
-		.word d_create
+		.word d_semi_colon
 p_colon:	.word c_colon
+
+d_semi_colon:	.byte 0x81 # INMEDIATE
+		.ascii ";"
+		.align 2
+		.word d_create
+p_semi_colon:	.word c_semi_colon
 
 d_create:	.byte 6
 		.ascii "CREATE"
@@ -868,6 +876,10 @@ c_interpret_exit:
 c_colon:
 	push $ra
 	jal c_create
+	pop_fp $t0
+	lw $t1, p_run_program
+	sw $t1, ($t0)
+	
 	jal c_bracket_2
 c_colon_begin:
 	jal c_minus_find # ( -- addr flag) or (-- addr false)
@@ -892,9 +904,12 @@ c_colon_exit:
 	jal c_q_stack
 	j c_colon_begin
 	
+# ; end of a word definition
 c_semi_colon:
-	push $ra
-	
+	la $t0, p_run_end
+	pop_fp $t0
+	jal c_comma
+	jal c_bracket_1
 	next
 	
 # CREATE (-- addr) creates a dictionary entry and return the body address
@@ -2556,7 +2571,6 @@ c_rdrop:# RDROP
 
 # : LITERAL   ( n1 -- ) compile un numero del stack
 c_literal:
-	la $t0, var_state
 	lw $t1, var_state
 	beqz $t1, c_literal_end
 	pop_fp $t0
@@ -2566,7 +2580,7 @@ c_literal:
 	addiu $t2, $t2, 4
 	sw $t0, ($t2)
 	addiu $t2, $t2, 4
-	sw $t2, ($t1)
+	sw $t2, var_here
 c_literal_end:
 	return
 
@@ -2681,4 +2695,4 @@ print_tib_end:
 
 	j c_quit
 	
-.include "monitor_driver.asm"
+.include "mips_driver.asm"

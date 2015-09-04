@@ -1,21 +1,21 @@
-package com.cout970.magneticraft.parts.micro.wires;
+package com.cout970.magneticraft.parts.electric.wires;
 
 import codechicken.lib.vec.Cuboid6;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.parts.micro.PartWireCopper;
+import com.cout970.magneticraft.parts.electric.PartWireCopper;
 
 import java.util.List;
 
-public class PartWireCopper_North extends PartWireCopper {
+public class PartWireCopper_South extends PartWireCopper {
 
     @Override
     public MgDirection getDirection() {
-        return MgDirection.NORTH;
+        return MgDirection.SOUTH;
     }
 
     @Override
     public List<Cuboid6> getBoxes() {
-        return North_Boxes;
+        return South_Boxes;
     }
 
     @Override
@@ -26,5 +26,4 @@ public class PartWireCopper_North extends PartWireCopper {
         if (dir == MgDirection.EAST) return 4;
         return 0;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.parts.micro;
+package com.cout970.magneticraft.parts.electric;
 
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;

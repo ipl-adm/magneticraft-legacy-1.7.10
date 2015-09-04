@@ -3,7 +3,8 @@ package com.cout970.magneticraft.items;
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Vector3;
 import codechicken.multipart.TMultiPart;
-import com.cout970.magneticraft.parts.micro.PartHeatCable;
+
+import com.cout970.magneticraft.parts.heat.PartHeatCable;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

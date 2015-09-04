@@ -15,7 +15,7 @@ public class EnergyConversor {
     public static final double FUEL_J = 100;        // 1 Burning tick = 100J
     public static final double WATER_STEAM = 5;    // 1mB of Water = 5mB of Steam | 1mB Steam = 0.2 mB Water
     public static final double FUEL_CALORIE = 500; // 1 Burning tick = 500 cal | 1cal = 0.002 Burning ticks => 1mB Water == 5mB Steam | Calories needed to boil 1mB of water into 5mB of Steam
-    public static final double MOL_MB = 1024;
+    public static final double MOL_MB = 8192;
     public static final double AVOGADROS_CONSTANT = 6.022E23;
     public static final double BAR_PA = 100000;
 
@@ -111,8 +111,8 @@ public class EnergyConversor {
         return WtoEU(rc);
     }
 
-    public static long MBtoMOL(int amount) {
-        return (long) (amount / MOL_MB);
+    public static double MBtoMOL(double amount) {
+        return (amount / MOL_MB);
     }
 
     public static double MOLtoMB(double d) {
@@ -123,7 +123,7 @@ public class EnergyConversor {
         return amount / BAR_PA;
     }
 
-    public static double BARtoPA(int amount) {
+    public static double BARtoPA(double amount) {
         return amount * BAR_PA;
     }
 

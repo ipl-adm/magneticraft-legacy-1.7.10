@@ -3,8 +3,8 @@ package com.cout970.magneticraft.client.tilerender;
 import codechicken.lib.vec.Vector3;
 import com.cout970.magneticraft.client.model.ModelWire;
 import com.cout970.magneticraft.client.model.ModelWireCorner;
-import com.cout970.magneticraft.parts.micro.PartWireCopper;
-import com.cout970.magneticraft.parts.micro.wires.*;
+import com.cout970.magneticraft.parts.electric.PartWireCopper;
+import com.cout970.magneticraft.parts.electric.wires.*;
 import com.cout970.magneticraft.util.RenderUtil;
 
 import static org.lwjgl.opengl.GL11.*;

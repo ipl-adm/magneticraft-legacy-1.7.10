@@ -1,29 +1,31 @@
-package com.cout970.magneticraft.parts.micro;
+package com.cout970.magneticraft.parts.electric;
 
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
 import codechicken.multipart.NormallyOccludedPart;
-import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.*;
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.*;
-import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
+import com.cout970.magneticraft.client.tilerender.TileRenderCableHigh;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PartCableLow extends PartElectric implements ISidedHollowConnect, IElectricMultiPart {
+public class PartCableHigh extends PartElectric implements ISidedHollowConnect {
 
-    public byte connections;
+    public boolean[] connections = new boolean[6];
     public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
 
     static {
-        double w = 2 / 16d;
+        double w = 4 / 16d;
         boxes.add(new Cuboid6(0.5 - w, 0, 0.5 - w, 0.5 + w, 0.5 - w, 0.5 + w));//down
         boxes.add(new Cuboid6(0.5 - w, 0.5 + w, 0.5 - w, 0.5 + w, 1, 0.5 + w));//up
         boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0, 0.5 + w, 0.5 + w, 0.5 - w));//north
@@ -33,8 +35,8 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
         boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w, 0.5 + w));//base
     }
 
-    public PartCableLow() {
-        super(ManagerItems.cablelow);
+    public PartCableHigh() {
+        super(ManagerItems.cablehigh);
     }
 
     @Override
@@ -46,8 +48,8 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
     public List<Cuboid6> getCollisionCubes() {
         ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
         t2.add(boxes.get(6));
-        for (byte i = 0; i < 6; i++) {
-            if ((connections & (1 << i)) > 0) {
+        for (int i = 0; i < 6; i++) {
+            if (connections[i]) {
                 t2.add(boxes.get(i));
             }
         }
@@ -60,86 +62,60 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
     }
 
     public void create() {
-        cond = new ElectricConductor(getTile(), ElectricConstants.RESISTANCE_COPPER_LOW) {
-
-            @Override
-            public VecInt[] getValidConnections() {
-                VecInt[] FORGE_DIRECTIONS = {
-                        VecInt.fromDirection(MgDirection.DOWN),
-                        VecInt.fromDirection(MgDirection.UP),
-                        VecInt.fromDirection(MgDirection.NORTH),
-                        VecInt.fromDirection(MgDirection.SOUTH),
-                        VecInt.fromDirection(MgDirection.WEST),
-                        VecInt.fromDirection(MgDirection.EAST),
-                        VecInt.NULL_VECTOR};
-                return FORGE_DIRECTIONS;
-            }
-
+        cond = new ElectricConductor(getTile(), getTier(), ElectricConstants.RESISTANCE_COPPER_HIGH) {
             @Override
             public boolean isAbleToConnect(IConnectable c, VecInt d) {
-                if (d.equals(VecInt.NULL_VECTOR)) return true;
-                if (d.toMgDirection() == null) return false;
-                if (c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK || c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_LOW) {
-                    if (((TileMultipart) getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.toMgDirection().ordinal())))) {
+                if (c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK || c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_HIGH) {
+                    if (d.toMgDirection() == null) return false;
+                    if (((TileMultipart) getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.toMgDirection().ordinal()))))
                         return true;
-                    }
                 }
                 return false;
             }
 
             @Override
             public ConnectionClass getConnectionClass(VecInt v) {
-                return ConnectionClass.CABLE_LOW;
+                return ConnectionClass.CABLE_HIGH;
             }
 
-            @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.8D);
+                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.05D);
             }
         };
     }
 
     public void updateConnections() {
-        connections = 0;
+        Arrays.fill(connections, false);
         for (MgDirection d : MgDirection.values()) {
             TileEntity t = MgUtils.getTileEntity(getTile(), d);
             IElectricConductor[] c = ElectricUtils.getElectricCond(t, VecInt.fromDirection(d).getOpposite(), getTier());
-            if (c != null && cond != null) {
+            if (c != null) {
                 for (IElectricConductor e : c) {
                     if (e.isAbleToConnect(cond, VecInt.fromDirection(d.opposite())) && cond.isAbleToConnect(e, VecInt.fromDirection(d))) {
-                        connections = (byte) (connections | (1 << d.ordinal()));
+                        connections[d.ordinal()] = true;
                     }
                 }
             }
             IEnergyInterface inter = ElectricUtils.getInterface(t, d.toVecInt().getOpposite(), getTier());
             if (inter != null && inter.canConnect(d.toVecInt())) {
                 if (((TileMultipart) getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.ordinal()))))
-                    connections = (byte) (connections | (1 << d.ordinal()));
-            }
-        }
-        for (TMultiPart t : tile().jPartList()) {
-            if (t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getElectricConductor(getTier()) != null) {
-                if (t instanceof PartWireCopper) {
-                    connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal()));
-                }
+                    connections[d.ordinal()] = true;
             }
         }
     }
-
 
     //Render
 
-    private static TileRenderCableLow render;
-
-    @Override
-    public int getTier() {
-        return 0;
-    }
+    private TileRenderCableHigh render;
 
     @Override
     public void renderPart(Vector3 pos) {
-        if (render == null) render = new TileRenderCableLow();
+        if (render == null) render = new TileRenderCableHigh();
         render.render(this, pos);
     }
 
+    @Override
+    public int getTier() {
+        return 4;
+    }
 }

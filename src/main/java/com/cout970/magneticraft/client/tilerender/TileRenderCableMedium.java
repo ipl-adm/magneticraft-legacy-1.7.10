@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.model.ModelCableMedium;
-import com.cout970.magneticraft.parts.micro.PartCableMedium;
+import com.cout970.magneticraft.parts.electric.PartCableMedium;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

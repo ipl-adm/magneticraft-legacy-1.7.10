@@ -2,7 +2,7 @@ package com.cout970.magneticraft.client.tilerender;
 
 import codechicken.lib.vec.Vector3;
 import com.cout970.magneticraft.client.model.ModelHeatCable;
-import com.cout970.magneticraft.parts.micro.PartHeatCable;
+import com.cout970.magneticraft.parts.heat.PartHeatCable;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;

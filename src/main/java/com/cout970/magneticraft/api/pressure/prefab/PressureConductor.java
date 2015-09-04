@@ -1,16 +1,23 @@
 package com.cout970.magneticraft.api.pressure.prefab;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
-import com.cout970.magneticraft.api.util.*;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PressureConductor implements IPressureConductor {
 
@@ -138,10 +145,10 @@ public class PressureConductor implements IPressureConductor {
         if (!gas.getFluid().isGaseous()) return 0;
         if (currentGas == null || gas.getFluid().equals(currentGas)) {
             if (!doFill) return gas.amount;
-            currentGas = gas.getFluid();
-            temperature = currentGas.getTemperature();
+            
+            setFluid(gas.getFluid());
+            setTemperature(currentGas.getTemperature());
             moles += EnergyConversor.MBtoMOL(gas.amount);
-//			Log.debug("adding: "+EnergyConversor.MBtoMOL(gas.amount)+", "+temp1);
             return gas.amount;
         }
         return 0;
@@ -155,8 +162,6 @@ public class PressureConductor implements IPressureConductor {
         if (mB > 0) {
             if (!doDrain) return new FluidStack(currentGas, mB);
             moles -= EnergyConversor.MBtoMOL(mB);
-//			Log.debug("extracting: "+EnergyConversor.MBtoMOL(mB)+", "+temp2);
-
             return new FluidStack(currentGas, mB);
         }
         return null;

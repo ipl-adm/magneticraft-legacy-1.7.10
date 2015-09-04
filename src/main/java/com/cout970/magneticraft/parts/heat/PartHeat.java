@@ -1,10 +1,12 @@
-package com.cout970.magneticraft.parts.micro;
+package com.cout970.magneticraft.parts.heat;
 
 import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
 import codechicken.multipart.TMultiPart;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatMultipart;
+import com.cout970.magneticraft.parts.MgPart;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 

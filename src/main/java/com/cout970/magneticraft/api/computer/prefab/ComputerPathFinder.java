@@ -4,7 +4,8 @@ import com.cout970.magneticraft.api.computer.IBusWire;
 import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IPeripheralProvider;
 import com.cout970.magneticraft.api.util.PathFinder;
-import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VectorOffset;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -20,8 +21,8 @@ public class ComputerPathFinder extends PathFinder {
     }
 
     @Override
-    public boolean step(VecInt coord) {
-        TileEntity t = w.getTileEntity(coord.getX(), coord.getY(), coord.getZ());
+    public boolean step(VectorOffset coord) {
+        TileEntity t = coord.getCoords().getTileEntity(w);
 
         if (t instanceof IPeripheral && ((IPeripheral) t).getAddress() == address) {
             result = (IPeripheral) t;
@@ -39,7 +40,7 @@ public class ComputerPathFinder extends PathFinder {
             }
         }
         if (t instanceof IBusWire) {
-            addNeigBlocks(coord);
+            addNeigBlocks(coord.getCoords());
         }
         return true;
     }

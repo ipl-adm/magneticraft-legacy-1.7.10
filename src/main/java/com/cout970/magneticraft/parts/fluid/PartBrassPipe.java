@@ -1,34 +1,36 @@
-package com.cout970.magneticraft.parts.micro;
+package com.cout970.magneticraft.parts.fluid;
 
-import codechicken.lib.vec.Cuboid6;
-import codechicken.lib.vec.Vector3;
-import codechicken.microblock.ISidedHollowConnect;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.pressure.IExplodable;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
-import com.cout970.magneticraft.api.pressure.IPressureMultipart;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
-import com.cout970.magneticraft.api.pressure.prefab.PressureConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderBrassPipe;
+import com.cout970.magneticraft.util.network.BasicNetwork;
+import com.cout970.magneticraft.util.network.pressure.NodePressureConductor;
+import com.cout970.magneticraft.util.network.pressure.PressureNetwork;
+
+import codechicken.lib.vec.Cuboid6;
+import codechicken.lib.vec.Vector3;
+import codechicken.microblock.ISidedHollowConnect;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class PartBrassPipe extends MgPart implements ISidedHollowConnect, IExplodable, IPressureMultipart {
+public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConnect, IExplodable{
 
     public byte connections = -1;
     public int interactions;
     public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
-    public IPressureConductor pressure;
+    public NodePressureConductor pressure;
     public NBTTagCompound tempNBT;
     private static TileRenderBrassPipe render;
 
@@ -64,8 +66,14 @@ public class PartBrassPipe extends MgPart implements ISidedHollowConnect, IExplo
         pressure.iterate();
     }
 
+    public void onRemoved(){
+    	if(network != null){
+    		network.removeNode(this);
+    	}
+    }
+    
     private void create() {
-        pressure = new PressureConductor(tile(), 360);
+        pressure = new NodePressureConductor(tile(), 360, this);
     }
 
     public void recache() {
@@ -144,4 +152,24 @@ public class PartBrassPipe extends MgPart implements ISidedHollowConnect, IExplo
         super.load(nbt);
         tempNBT = nbt;
     }
+
+	@Override
+	public NodePressureConductor getConductor() {
+		return pressure;
+	}
+
+	@Override
+	public BasicNetwork createNetwork() {
+		return new PressureNetwork(this);
+	}
+	
+	@Override
+	public BasicNetwork getNetwork() {
+		if(network == null){
+			network = createNetwork();
+			((PressureNetwork)network).getPressureCond().network = (PressureNetwork) network;
+			network.refresh();
+		}
+		return network;
+	}
 }

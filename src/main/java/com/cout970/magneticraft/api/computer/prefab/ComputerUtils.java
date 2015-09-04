@@ -2,6 +2,8 @@ package com.cout970.magneticraft.api.computer.prefab;
 
 import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VectorOffset;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -75,7 +77,7 @@ public class ComputerUtils {
     public static IPeripheral getBusByAddress(TileEntity t, int addr) {
         ComputerPathFinder p = new ComputerPathFinder(t, addr);
         p.init();
-        p.addBlock(new VecInt(t));
+        p.addBlock(new VectorOffset(new VecInt(t), VecInt.NULL_VECTOR));
         p.addNeigBlocks(new VecInt(t));
         while (p.iterate()) {
             ;

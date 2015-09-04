@@ -1,8 +1,10 @@
-package com.cout970.magneticraft.parts.micro;
+package com.cout970.magneticraft.parts.electric;
 
 import codechicken.multipart.TMultiPart;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
+import com.cout970.magneticraft.parts.MgPart;
+
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 

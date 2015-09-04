@@ -5,34 +5,34 @@ import java.util.LinkedList;
 
 public abstract class PathFinder {
 
-    public LinkedList<VecInt> scanPosition;
+    public LinkedList<VectorOffset> scanPosition;
     public HashSet<VecInt> scanMap;
 
     public void init() {
-        scanPosition = new LinkedList<VecInt>();
+        scanPosition = new LinkedList<VectorOffset>();
         scanMap = new HashSet<VecInt>();
     }
 
-    public void addBlock(VecInt v) {
-        if (!scanMap.contains(v)) {
+    public void addBlock(VectorOffset v) {
+        if (!scanMap.contains(v.getCoords())) {
             scanPosition.addLast(v);
-            scanMap.add(v);
+            scanMap.add(v.getCoords());
         }
     }
 
     public void addNeigBlocks(VecInt pos) {
         for (MgDirection d : MgDirection.values()) {
-            addBlock(d.toVecInt().add(pos));
+            addBlock(new VectorOffset(d.toVecInt().add(pos), d.toVecInt()));
         }
     }
 
-    public abstract boolean step(VecInt coord);
+    public abstract boolean step(VectorOffset coord);
 
     public boolean iterate() {
         if (scanPosition.size() == 0) {
             return false;
         } else {
-            VecInt vec = scanPosition.removeFirst();
+        	VectorOffset vec = scanPosition.removeFirst();
             return step(vec);
         }
     }

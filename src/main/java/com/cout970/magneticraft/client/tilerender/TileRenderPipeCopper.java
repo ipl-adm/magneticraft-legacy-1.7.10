@@ -5,8 +5,8 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelFluidPipe;
 import com.cout970.magneticraft.client.model.ModelFluidPipe_Center;
 import com.cout970.magneticraft.client.model.ModelFluidPipe_In;
-import com.cout970.magneticraft.parts.micro.PartCopperPipe;
-import com.cout970.magneticraft.parts.micro.PartPipe.ConnectionMode;
+import com.cout970.magneticraft.parts.fluid.PartCopperPipe;
+import com.cout970.magneticraft.parts.fluid.PartFluidPipe.ConnectionMode;
 import com.cout970.magneticraft.util.RenderUtil;
 import org.lwjgl.opengl.GL11;
 

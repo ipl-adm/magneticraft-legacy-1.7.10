@@ -1,9 +1,8 @@
-package com.cout970.magneticraft.parts.micro;
+package com.cout970.magneticraft.parts.fluid;
 
 import buildcraft.api.tools.IToolWrench;
 import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
-import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
@@ -15,7 +14,7 @@ import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.client.tilerender.TileRenderPipeBronce;
+import com.cout970.magneticraft.client.tilerender.TileRenderPipeCopper;
 import com.cout970.magneticraft.util.fluid.FluidUtils;
 import com.cout970.magneticraft.util.fluid.IFluidTransport;
 import com.cout970.magneticraft.util.fluid.TankConection;
@@ -30,13 +29,13 @@ import net.minecraftforge.fluids.*;
 import java.util.*;
 
 
-public class PartIronPipe extends PartPipe implements ISidedHollowConnect {
+public class PartCopperPipe extends PartFluidPipe implements ISidedHollowConnect {
 
     public boolean[] connections = new boolean[7];
     public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
 
-    public PartIronPipe() {
-        super(ManagerItems.partironpipe);
+    public PartCopperPipe() {
+        super(ManagerItems.partcopperpipe);
     }
 
     static {
@@ -49,16 +48,6 @@ public class PartIronPipe extends PartPipe implements ISidedHollowConnect {
         boxes.add(new Cuboid6(0, 0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w));//west
         boxes.add(new Cuboid6(0.5 + w, 0.5 - w, 0.5 - w, 1, 0.5 + w, 0.5 + w));//east
         boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w, 0.5 + w));//base
-    }
-
-    @Override
-    public Iterable<IndexedCuboid6> getSubParts() {
-        Iterable<Cuboid6> boxList = getCollisionBoxes();
-        LinkedList<IndexedCuboid6> partList = new LinkedList<IndexedCuboid6>();
-        for (Cuboid6 c : boxList)
-            partList.add(new IndexedCuboid6(0, c));
-        ((ArrayList<Cuboid6>) boxList).clear();
-        return partList;
     }
 
     @Override
@@ -78,11 +67,11 @@ public class PartIronPipe extends PartPipe implements ISidedHollowConnect {
         return t2;
     }
 
-    private TileRenderPipeBronce render;
+    private TileRenderPipeCopper render;
 
     @Override
     public void renderPart(Vector3 pos) {
-        if (render == null) render = new TileRenderPipeBronce();
+        if (render == null) render = new TileRenderPipeCopper();
         render.render(this, pos);
     }
 
@@ -91,8 +80,8 @@ public class PartIronPipe extends PartPipe implements ISidedHollowConnect {
         return 6;
     }
 
-    public static final int MAX_ACCEPT = 360;
-    public static final int MAX_EXTRACT = 360;
+    public static final int MAX_ACCEPT = 180;
+    public static final int MAX_EXTRACT = 180;
     public Map<MgDirection, TankConection> tanks = new HashMap<MgDirection, TankConection>();
     public ConnectionMode[] side = {ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT};//sides input and output
     public boolean[] locked = new boolean[6];
@@ -117,12 +106,6 @@ public class PartIronPipe extends PartPipe implements ISidedHollowConnect {
                 }
             }
         }
-    }
-
-    @Override
-    public IFluidTank getTank() {
-        if (buffer == null) buffer = new TankMg(tile(), MAX_EXTRACT);
-        return buffer;
     }
 
     @Override
@@ -327,6 +310,12 @@ public class PartIronPipe extends PartPipe implements ISidedHollowConnect {
 
     @Override
     public boolean isCompatible(IFluidTransport a) {
-        return a instanceof PartIronPipe;
+        return a instanceof PartCopperPipe;
+    }
+
+    @Override
+    public IFluidTank getTank() {
+        if (buffer == null) buffer = new TankMg(tile(), MAX_EXTRACT);
+        return buffer;
     }
 }

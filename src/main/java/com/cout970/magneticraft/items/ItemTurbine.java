@@ -86,6 +86,6 @@ public class ItemTurbine extends ItemBasic implements IWindTurbine {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
         super.addInformation(item, player, list, flag);
-        list.add(ItemBlockMg.format + "Needed in a Wind Turbine Block to generate electricity");
+        list.add(ItemBlockMg.format + "Used by Wind Turbine to generate electricity");
     }
 }

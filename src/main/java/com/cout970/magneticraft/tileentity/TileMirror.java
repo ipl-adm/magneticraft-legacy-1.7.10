@@ -28,13 +28,13 @@ public class TileMirror extends TileBase {
         }
         if (worldObj.isRemote) return;
         if (target != null) {
-            if (!worldObj.isRemote && worldObj.isDaytime() && !worldObj.isRaining() && worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord) && !this.worldObj.provider.hasNoSky) {
+            if (worldObj.isDaytime() && !worldObj.isRaining() && worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord) && !this.worldObj.provider.hasNoSky) {
                 TileEntity t = worldObj.getTileEntity(target.x, target.y, target.z);
                 if (t instanceof TileSolarTowerCore) {
                     IHeatConductor[] comp = HeatUtils.getHeatCond(t, VecInt.NULL_VECTOR);
                     if (comp != null) {
                         IHeatConductor heat = comp[0];
-                        if (heat != null && heat.getTemperature() < 1200)
+                        if ((heat != null) && (heat.getTemperature() < 1200))
                             heat.applyCalories(EnergyConversor.RFtoCALORIES(2));
                     }
                 }

@@ -55,6 +55,6 @@ public class ItemMapPositioner extends ItemBasic {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
         super.addInformation(item, player, list, flag);
-        list.add(ItemBlockMg.format + "Orientes mirros to a Solar Tower Core, shift click to apply in 10*10 area");
+        list.add(ItemBlockMg.format + "Orients mirrors to a Solar Tower Core, shift-click to apply to all mirrors in 10x10 area");
     }
 }

@@ -32,6 +32,7 @@ public class ItemPartIronPipe extends ItemPartBase {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
         super.addInformation(item, player, list, flag);
+        list.add(ItemBlockMg.format + "Transfers fluids. Right-click connection with a wrench to change mode");
         list.add(ItemBlockMg.format + "Can transfer " + PartIronPipe.MAX_EXTRACT + "mB/t per side");
     }
 }

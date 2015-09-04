@@ -32,6 +32,6 @@ public class ItemHeatCoilIron extends ItemBasic implements IFurnaceCoil {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
         super.addInformation(item, player, list, flag);
-        list.add(ItemBlockMg.format + "Makes the electric furnace run 4 times faster than a normal furnace, uses " + getElectricConsumption() + "W");
+        list.add(ItemBlockMg.format + "Makes the electric furnace work 4 times faster than a normal furnace, uses " + getElectricConsumption() + "W");
     }
 }

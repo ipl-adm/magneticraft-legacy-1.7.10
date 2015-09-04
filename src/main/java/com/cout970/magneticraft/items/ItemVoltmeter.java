@@ -37,7 +37,7 @@ public class ItemVoltmeter extends ItemBasic {
             if (comp != null) {
                 for (IElectricConductor cond : comp) {
                     double I = cond.getIntensity();
-                    String s = String.format("Reading %.2fV %.3fA (%.3fkW)", new Object[]{Double.valueOf(cond.getVoltage()), Double.valueOf(I), Double.valueOf(cond.getVoltage() * I / 1000)});
+                    String s = String.format("Reading %.2fV %.3fA (%.3fkW)", cond.getVoltage(), I, cond.getVoltage() * I / 1000);
                     p.addChatMessage(new ChatComponentText(s));
                 }
             }
@@ -46,7 +46,7 @@ public class ItemVoltmeter extends ItemBasic {
         if ((Magneticraft.RAILCRAFT) && (t instanceof IElectricGrid)) {
             IElectricGrid h = (IElectricGrid) t;
             ChargeHandler handler = h.getChargeHandler();
-            String s = String.format("Charge: %.2fc | Draw: %.2fc/t | Loss: %.2fc/t", new Object[]{Double.valueOf(handler.getCharge()), Double.valueOf(handler.getDraw()), Double.valueOf(handler.getLosses())});
+            String s = String.format("Charge: %.2fc | Draw: %.2fc/t | Loss: %.2fc/t", handler.getCharge(), handler.getDraw(), handler.getLosses());
             p.addChatMessage(new ChatComponentText(s));
         }
 
@@ -72,6 +72,6 @@ public class ItemVoltmeter extends ItemBasic {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
         super.addInformation(item, player, list, flag);
-        list.add(ItemBlockMg.format + "Allow the player to see the voltage and the currnte in a cable or wire");
+        list.add(ItemBlockMg.format + "Used to measure voltage and current flowing through an electric conductor");
     }
 }

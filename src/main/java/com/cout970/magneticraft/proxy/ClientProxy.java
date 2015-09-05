@@ -49,7 +49,7 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.wooden_shaft), new ItemRenderWoodenShaft());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.diode), new ItemRenderDiode());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.resistance), new ItemRenderResistance());
-        if (Magneticraft.COFH) {
+        if (Magneticraft.COFH_ENERGY) {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rf_alternator), new ItemRenderRFAlternator());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.kinetic), new ItemRenderKineticGenerator());
         }
@@ -94,7 +94,7 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileHandCrankGenerator.class, new TileRenderHandCrank());
         ClientRegistry.bindTileEntitySpecialRenderer(TileDiode.class, new TileRenderDiode());
         ClientRegistry.bindTileEntitySpecialRenderer(TileResistance.class, new TileRenderResistance());
-        if (Magneticraft.COFH) {
+        if (Magneticraft.COFH_ENERGY) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileRFAlternator.class, new TileRenderRFAlternator());
             ClientRegistry.bindTileEntitySpecialRenderer(TileKineticGenerator.class, new TileRenderKineticGenerator());
         }

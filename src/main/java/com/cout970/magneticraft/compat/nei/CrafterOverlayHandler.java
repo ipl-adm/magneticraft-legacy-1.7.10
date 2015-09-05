@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.compact.nei;
+package com.cout970.magneticraft.compat.nei;
 
 import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.recipe.IRecipeHandler;

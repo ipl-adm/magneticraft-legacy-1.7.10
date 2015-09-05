@@ -63,7 +63,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock {
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
         Item item;
-        if ((p.getCurrentEquippedItem() != null) && (((item = p.getCurrentEquippedItem().getItem()) instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH && (item instanceof IToolHammer)))) {
+        if ((p.getCurrentEquippedItem() != null) && (((item = p.getCurrentEquippedItem().getItem()) instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer)))) {
             TileEntity t = w.getTileEntity(x, y, z);
             if (!w.isRemote) {
                 int meta = w.getBlockMetadata(x, y, z);

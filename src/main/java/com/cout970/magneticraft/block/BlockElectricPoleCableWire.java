@@ -104,7 +104,7 @@ public class BlockElectricPoleCableWire extends BlockMg {
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) {
             Item item = p.getCurrentEquippedItem().getItem();
-            if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH && (item instanceof IToolHammer))) {
+            if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer))) {
                 TileEntity te = w.getTileEntity(x, y, z);
                 TileElectricPoleCableWire tilePole = null;
                 if (te instanceof ITileElectricPole) {

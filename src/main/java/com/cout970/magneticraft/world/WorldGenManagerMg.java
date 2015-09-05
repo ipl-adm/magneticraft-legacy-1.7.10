@@ -96,14 +96,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
 
     public void useRandomOreGenConfig(Random random, World world, int chunkX, int chunkZ, GaussOreGenConfig conf, WorldGenMinable mine) { //implements Gaussian distribution of amount of veins
         if (conf.active) {
-            double v1, v2, s;
-            do {
-                v1 = 2 * random.nextDouble() - 1;
-                v2 = 2 * random.nextDouble() - 1;
-                s = v1 * v1 + v2 * v2;
-            } while (s >= 1 || s == 0);
-            double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s) / s);
-            double nextGaussian = v2 * multiplier * conf.deviation + conf.amount_per_chunk;
+            double nextGaussian = random.nextGaussian() * conf.deviation + conf.amount_per_chunk;
             int veins = (int) Math.floor(nextGaussian);
             if (veins < 0) {
                 veins = 0;

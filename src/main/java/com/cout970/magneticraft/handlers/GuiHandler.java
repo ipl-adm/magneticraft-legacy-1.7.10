@@ -156,7 +156,7 @@ public class GuiHandler implements IGuiHandler {
         if (tile instanceof TileMiner) {
             return new GuiMiner(new ContainerMiner(player.inventory, tile), tile);
         }
-        if (Magneticraft.COFH && (tile instanceof TileKineticGenerator)) {
+        if (Magneticraft.COFH_ENERGY && (tile instanceof TileKineticGenerator)) {
             return new GuiKineticGenerator(new ContainerKineticGenerator(player.inventory, tile), tile);
         }
         if (tile instanceof TileBiomassBurner) {

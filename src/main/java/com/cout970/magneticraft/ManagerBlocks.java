@@ -10,8 +10,8 @@ import com.cout970.magneticraft.block.energy.*;
 import com.cout970.magneticraft.block.heat.*;
 import com.cout970.magneticraft.block.multiblock.*;
 import com.cout970.magneticraft.block.multiblock.controllers.*;
-import com.cout970.magneticraft.block.slabs.BlockClayTileSlab;
-import com.cout970.magneticraft.block.stairs.BlockClayTileStairs;
+import com.cout970.magneticraft.block.slabs.*;
+import com.cout970.magneticraft.block.stairs.*;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
 import com.cout970.magneticraft.tileentity.*;
@@ -127,8 +127,17 @@ public class ManagerBlocks {
     public static Block mb_controls;
     public static Block pressure_tank;
     public static Block hammer_table;
+    public static BlockSlab slabOreLimeSingle;
+    public static BlockSlab slabOreLimeDouble;
+    public static Block stairsOreLime;
     public static Block burntLime;
+    public static BlockSlab slabBurntLimeSingle;
+    public static BlockSlab slabBurntLimeDouble;
+    public static Block stairsBurntLime;
     public static Block brickLime;
+    public static BlockSlab slabBrickLimeSingle;
+    public static BlockSlab slabBrickLimeDouble;
+    public static Block stairsBrickLime;
     public static Block roofTile;
     public static BlockSlab slabRoofTileSingle;
     public static BlockSlab slabRoofTileDouble;
@@ -145,8 +154,17 @@ public class ManagerBlocks {
         oreSalt = new BlockOre("salt_ore");
         oreZinc = new BlockOre("zinc_ore");
         oreLime = new BlockOre("limestone");
+        slabOreLimeSingle = new BlockOreLimeSlab(false);
+        slabOreLimeDouble = new BlockOreLimeSlab(true);
+        stairsOreLime = new BlockOreLimeStairs();
         burntLime = new BlockSimple("burnt_limestone");
+        slabBurntLimeSingle = new BlockBurntLimeSlab(false);
+        slabBurntLimeDouble = new BlockBurntLimeSlab(true);
+        stairsBurntLime = new BlockBurntLimeStairs();
         brickLime = new BlockSimple("brick_limestone");
+        slabBrickLimeSingle = new BlockBrickLimeSlab(false);
+        slabBrickLimeDouble = new BlockBrickLimeSlab(true);
+        stairsBrickLime = new BlockBrickLimeStairs();
         roofTile = new BlockSimple("roofTile");
         slabRoofTileSingle = new BlockClayTileSlab(false);
         slabRoofTileDouble = new BlockClayTileSlab(true);
@@ -221,7 +239,7 @@ public class ManagerBlocks {
         electric_switch = new BlockElectricSwitch();
         diode = new BlockDiode();
         resistance = new BlockResistance();
-        if (Magneticraft.COFH) {
+        if (Magneticraft.COFH_ENERGY) {
             rf_alternator = new BlockRFAlternator();
             kinetic = new BlockKineticGenerator();
         }
@@ -257,8 +275,17 @@ public class ManagerBlocks {
         addBlock(oreTungsten, "Tungsten Ore");
         addBlock(oreUranium, "Uranium Ore");
         addBlock(oreLime, "Limestone");
+        addAltItemBlock(slabOreLimeSingle, ItemBlockMgSlab.class, "Limestone Slab");
+        addAltItemBlock(slabOreLimeDouble, ItemBlockMgSlab.class, "Limestone Slab");
+        addBlock(stairsOreLime, "Limestone Stairs");
         addBlock(burntLime, "Burnt Limestone");
+        addAltItemBlock(slabBurntLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Slab");
+        addAltItemBlock(slabBurntLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Slab");
+        addBlock(stairsBurntLime, "Burnt Limestone Stairs");
         addBlock(brickLime, "Limestone Brick");
+        addAltItemBlock(slabBrickLimeSingle, ItemBlockMgSlab.class, "Limestone Brick Slab");
+        addAltItemBlock(slabBrickLimeDouble, ItemBlockMgSlab.class, "Limestone Brick Slab");
+        addBlock(stairsBrickLime, "Limestone Brick Stairs");
         addBlock(roofTile, "Clay Roof Tiles");
         addAltItemBlock(slabRoofTileSingle, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
         addAltItemBlock(slabRoofTileDouble, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
@@ -337,7 +364,7 @@ public class ManagerBlocks {
         addBlock(electric_switch, "Electric Switch");
         addBlock(diode, "Diode");
         addBlock(resistance, "Resistance");
-        if (Magneticraft.COFH) {
+        if (Magneticraft.COFH_ENERGY) {
             addBlock(rf_alternator, "RF Alternator");
             addBlock(kinetic, "Kinetic Generator");
         }
@@ -433,7 +460,7 @@ public class ManagerBlocks {
         tileEntities.add(TileElectricSwitch.class);
         tileEntities.add(TileDiode.class);
         tileEntities.add(TileResistance.class);
-        if (Magneticraft.COFH) {
+        if (Magneticraft.COFH_ENERGY) {
             tileEntities.add(TileRFAlternator.class);
             tileEntities.add(TileKineticGenerator.class);
         }

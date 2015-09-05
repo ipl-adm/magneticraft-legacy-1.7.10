@@ -3,8 +3,8 @@ package com.cout970.magneticraft;
 import java.io.File;
 import java.util.List;
 
-import com.cout970.magneticraft.compact.ManagerIntegration;
-import com.cout970.magneticraft.compact.minetweaker.MgMinetweaker;
+import com.cout970.magneticraft.compat.ManagerIntegration;
+import com.cout970.magneticraft.compat.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.handlers.HandlerBuckets;
 import com.cout970.magneticraft.handlers.SolidFuelHandler;
@@ -21,6 +21,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
@@ -51,7 +52,8 @@ public class Magneticraft {
     public static boolean BUILDCRAFT = false;
     public static boolean RAILCRAFT = false;
     public static boolean IC2 = false;
-    public static boolean COFH = false;
+    public static boolean COFH_ENERGY = false;
+    public static boolean COFH_TOOLS = false;
 
     @Instance(NAME)
     public static Magneticraft Instance;
@@ -75,8 +77,11 @@ public class Magneticraft {
         if (Loader.isModLoaded("Railcraft")) {
             RAILCRAFT = true;
         }
-        if (Loader.isModLoaded("CoFHCore")) {
-            COFH = true;
+        if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy")) {
+            COFH_ENERGY = true;
+        }
+        if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|item")) {
+            COFH_TOOLS = true;
         }
 
         ManagerConfig.init(event.getSuggestedConfigurationFile());

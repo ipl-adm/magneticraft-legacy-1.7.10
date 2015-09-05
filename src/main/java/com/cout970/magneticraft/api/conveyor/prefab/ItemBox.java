@@ -15,7 +15,7 @@ public class ItemBox implements IItemBox {
     protected long lastTick;
 
     public ItemBox(ItemStack it) {
-        content = it;
+        content = (it == null) ? null : it.copy();
     }
 
     public ItemStack getContent() {
@@ -23,7 +23,7 @@ public class ItemBox implements IItemBox {
     }
 
     public void setContent(ItemStack content) {
-        this.content = content;
+        this.content = (content == null) ? null : content.copy();
     }
 
     public int getPosition() {

@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.compact;
+package com.cout970.magneticraft.compat;
 
 import com.cout970.magneticraft.api.heat.HeatUtils;
 import com.cout970.magneticraft.api.heat.IHeatConductor;

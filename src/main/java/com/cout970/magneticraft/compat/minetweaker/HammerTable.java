@@ -1,47 +1,44 @@
-package com.cout970.magneticraft.compact.minetweaker;
+package com.cout970.magneticraft.compat.minetweaker;
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipeOilDistillery;
+import com.cout970.magneticraft.api.access.RecipeHammerTable;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
-import minetweaker.api.liquid.ILiquidStack;
-import net.minecraftforge.fluids.FluidStack;
+import minetweaker.api.item.IItemStack;
+import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.magneticraft.OilDistillery")
-public class OilDistillery {
+@ZenClass("mods.magneticraft.HammerTable")
+public class HammerTable {
 
     @ZenMethod
-    public static void addRecipe(ILiquidStack in, ILiquidStack out, double cost) {
-        FluidStack a = MgMinetweaker.toFluid(in),
-                b = MgMinetweaker.toFluid(out);
-        if (a != null && b != null) {
-            RecipeOilDistillery r = new RecipeOilDistillery(a, b, cost);
-            MineTweakerAPI.apply(new AddRecipe(r));
-        }
+    public static void addRecipe(IItemStack in, IItemStack out) {
+
+        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out);
+
+        if (a == null || b == null) return;
+        RecipeHammerTable r = new RecipeHammerTable(a, b);
+        MineTweakerAPI.apply(new AddRecipe(r));
     }
 
     @ZenMethod
-    public static void removeRecipe(ILiquidStack in) {
-        FluidStack f = MgMinetweaker.toFluid(in);
-        if (f == null) return;
-        RecipeOilDistillery r = RecipeOilDistillery.getRecipe(f);
-        if (r == null) return;
+    public static void removeRecipe(IItemStack input) {
+        RecipeHammerTable r = RecipeHammerTable.getRecipe(MgMinetweaker.toStack(input));
         MineTweakerAPI.apply(new RemoveRecipe(r));
     }
 
     public static class AddRecipe implements IUndoableAction {
 
-        private final RecipeOilDistillery r;
+        private final RecipeHammerTable r;
 
-        public AddRecipe(RecipeOilDistillery r) {
+        public AddRecipe(RecipeHammerTable r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.oilDistillery.add(r);
+            MgRecipeRegister.hammer_table.add(r);
         }
 
         @Override
@@ -66,21 +63,21 @@ public class OilDistillery {
 
         @Override
         public void undo() {
-            MgRecipeRegister.oilDistillery.remove(r);
+            MgRecipeRegister.hammer_table.remove(r);
         }
     }
 
     public static class RemoveRecipe implements IUndoableAction {
 
-        private final RecipeOilDistillery r;
+        private final RecipeHammerTable r;
 
-        public RemoveRecipe(RecipeOilDistillery r) {
+        public RemoveRecipe(RecipeHammerTable r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.oilDistillery.remove(r);
+            MgRecipeRegister.hammer_table.remove(r);
         }
 
         @Override
@@ -105,7 +102,8 @@ public class OilDistillery {
 
         @Override
         public void undo() {
-            MgRecipeRegister.oilDistillery.add(r);
+            MgRecipeRegister.hammer_table.add(r);
         }
     }
 }
+

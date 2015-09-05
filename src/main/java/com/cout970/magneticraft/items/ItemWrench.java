@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 @Optional.InterfaceList({
-        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHCore"),
+        @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "CoFHAPI|item"),
         @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraft|Core")
 })
 public class ItemWrench extends ItemBasic implements IWrench, IToolWrench, IToolHammer {

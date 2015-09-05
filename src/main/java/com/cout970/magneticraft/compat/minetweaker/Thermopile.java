@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.compact.minetweaker;
+package com.cout970.magneticraft.compat.minetweaker;
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;

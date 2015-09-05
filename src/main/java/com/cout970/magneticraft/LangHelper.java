@@ -51,7 +51,7 @@ public class LangHelper {
                     w.write(s + ".name=" + name.get(unloc.indexOf(s)) + "\n");
                 }
             }
-            if (!Magneticraft.COFH) {
+            if (!Magneticraft.COFH_ENERGY) {
                 w.write("kinetic_generator.name=Kinetic Generator\n");
                 w.write("rf_alternator.name=RF Alternator\n");
             }

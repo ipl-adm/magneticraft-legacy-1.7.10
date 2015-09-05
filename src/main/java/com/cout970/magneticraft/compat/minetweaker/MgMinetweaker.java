@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.compact.minetweaker;
+package com.cout970.magneticraft.compat.minetweaker;
 
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.block.IBlock;

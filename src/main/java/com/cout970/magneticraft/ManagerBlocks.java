@@ -165,7 +165,7 @@ public class ManagerBlocks {
         slabBrickLimeSingle = new BlockBrickLimeSlab(false);
         slabBrickLimeDouble = new BlockBrickLimeSlab(true);
         stairsBrickLime = new BlockBrickLimeStairs();
-        roofTile = new BlockSimple("roofTile");
+        roofTile = new BlockClayTile();
         slabRoofTileSingle = new BlockClayTileSlab(false);
         slabRoofTileDouble = new BlockClayTileSlab(true);
         stairsRoofTile = new BlockClayTileStairs();

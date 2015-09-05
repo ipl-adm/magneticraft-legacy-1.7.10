@@ -1,10 +1,10 @@
-package com.cout970.magneticraft.compact.nei;
+package com.cout970.magneticraft.compat.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipeGrinder;
+import com.cout970.magneticraft.api.access.RecipeCrusher;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -15,18 +15,18 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftingGrinder extends TemplateRecipeHandler {
+public class CraftingCrusher extends TemplateRecipeHandler {
 
-    List<RecipeGrinder> recipes = new ArrayList<RecipeGrinder>();
+    List<RecipeCrusher> recipes = new ArrayList<RecipeCrusher>();
 
     @Override
     public String getRecipeName() {
-        return "Grinder";
+        return "Crusher";
     }
 
     @Override
     public String getGuiTexture() {
-        return "magneticraft:textures/gui/nei/grinder.png";
+        return "magneticraft:textures/gui/nei/crusher.png";
     }
 
     @Override
@@ -36,21 +36,21 @@ public class CraftingGrinder extends TemplateRecipeHandler {
     }
 
     private String getRecipesID() {
-        return "mg_grinder";
+        return "mg_crusher";
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 
         if (outputId.equals(getRecipesID())) {
-            for (RecipeGrinder recipe : MgRecipeRegister.grinder)
+            for (RecipeCrusher recipe : MgRecipeRegister.crusher)
                 recipes.add(recipe);
         } else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipeGrinder recipe : MgRecipeRegister.grinder) {
+        for (RecipeCrusher recipe : MgRecipeRegister.crusher) {
             if (MgUtils.areEqual(recipe.getOutput(), result, true)) recipes.add(recipe);
             else if (MgUtils.areEqual(recipe.getOutput2(), result, true)) recipes.add(recipe);
             else if (MgUtils.areEqual(recipe.getOutput3(), result, true)) recipes.add(recipe);
@@ -60,7 +60,7 @@ public class CraftingGrinder extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeGrinder recipe : MgRecipeRegister.grinder) {
+        for (RecipeCrusher recipe : MgRecipeRegister.crusher) {
             if (recipe.matches(ingredient)) recipes.add(recipe);
         }
     }

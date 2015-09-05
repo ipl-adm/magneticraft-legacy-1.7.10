@@ -41,7 +41,7 @@ public class ItemSmallBattery extends ItemCharged {
                                 discharge(stack, toMove);
                             }
                         }
-                    } else if (Magneticraft.COFH && (it instanceof IEnergyContainerItem)) {//calcs in RF
+                    } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
                         int space = st.getMaxEnergyStored(s) - st.getEnergyStored(s);
                         int toMove = (int) Math.min(space, EnergyConversor.WtoRF(getCharge(stack)));

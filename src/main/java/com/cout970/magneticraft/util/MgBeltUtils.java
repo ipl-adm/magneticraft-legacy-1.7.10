@@ -6,30 +6,23 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class MgBeltUtils {
 
-    public static boolean isInventory(TileEntity t) {
-        return t instanceof IInventory;
-    }
-
-    public static boolean isBelt(TileEntity t) {
-        return t instanceof IConveyorBelt;
-    }
-
-
-    /**
-     * @param v
-     * @param it
-     * @param dir
-     * @return excess
-     */
     public static int dropItemStackIntoInventory(IInventory v, ItemStack stack, MgDirection dir, boolean simulated) {
         ItemStack it = stack.copy();
+
         if (v instanceof ISidedInventory) {
             ISidedInventory s = (ISidedInventory) v;
             if (s.getAccessibleSlotsFromSide(dir.ordinal()) == null) return it.stackSize;
+            for (int i : s.getAccessibleSlotsFromSide(dir.ordinal())) {
+                if ((s.getStackInSlot(i) != null) && s.getStackInSlot(i).getItem().equals(it.getItem()) && s.canInsertItem(i, it, dir.ordinal())) {
+                    int noAccepted = placeInSlot(v, i, it, simulated);
+                    if (noAccepted == 0) return 0;
+                    it.stackSize = noAccepted;
+                }
+            }
+
             for (int i : s.getAccessibleSlotsFromSide(dir.ordinal())) {
                 if (s.canInsertItem(i, it, dir.ordinal())) {
                     int noAccepted = placeInSlot(v, i, it, simulated);
@@ -39,8 +32,21 @@ public class MgBeltUtils {
             }
         } else {
             for (int i = 0; i < v.getSizeInventory(); i++) {
+                if ((v.getStackInSlot(i) == null) || (!v.getStackInSlot(i).getItem().equals(it.getItem()))) {
+                    continue;
+                }
                 int noAccepted = placeInSlot(v, i, it, simulated);
-                if (noAccepted == 0) return 0;
+                if (noAccepted == 0) {
+                    return 0;
+                }
+                it.stackSize = noAccepted;
+            }
+
+            for (int i = 0; i < v.getSizeInventory(); i++) {
+                int noAccepted = placeInSlot(v, i, it, simulated);
+                if (noAccepted == 0) {
+                    return 0;
+                }
                 it.stackSize = noAccepted;
             }
         }
@@ -57,8 +63,8 @@ public class MgBeltUtils {
                 a.setInventorySlotContents(slot, d);
             }
             return b.stackSize - accepted;
-        } else if (MatchesAll(c, b)) {
-            int space = a.getInventoryStackLimit() - c.stackSize;
+        } else if (matchesAll(c, b)) {
+            int space = Math.min(c.getMaxStackSize(), a.getInventoryStackLimit()) - c.stackSize;
             int accepted = Math.min(space, b.stackSize);
             if (!simulated) {
                 ItemStack d = c.copy();
@@ -70,15 +76,15 @@ public class MgBeltUtils {
         return b.stackSize;
     }
 
-    private static boolean MatchesAll(ItemStack a, ItemStack b) {
+    private static boolean matchesAll(ItemStack a, ItemStack b) {
         return ItemStack.areItemStackTagsEqual(a, b) && a.isItemEqual(b);
     }
 
-    public static int getSlotWithItemStack(IInventory t, MgDirection dir) {
+    public static int getSlotWithItemStack(IInventory t, MgDirection dir, boolean allowEmpty) {
         if (t instanceof ISidedInventory) {
             if (((ISidedInventory) t).getAccessibleSlotsFromSide(dir.ordinal()) == null) return -1;
             for (int i : ((ISidedInventory) t).getAccessibleSlotsFromSide(dir.ordinal())) {
-                if (t.getStackInSlot(i) != null && ((ISidedInventory) t).canExtractItem(i, t.getStackInSlot(i), dir.ordinal())) {
+                if ((t.getStackInSlot(i) != null) && (allowEmpty || (t.getStackInSlot(i).stackSize > 0)) && ((ISidedInventory) t).canExtractItem(i, t.getStackInSlot(i), dir.ordinal())) {
                     return i;
                 }
             }
@@ -94,8 +100,6 @@ public class MgBeltUtils {
 
     public static boolean canInjectInBelt(IConveyorBelt t, ItemBox box, MgDirection dir) {
         boolean var = dir.isPerpendicular(t.getDir()) ? (dir == t.getDir().step(MgDirection.UP) ? !box.isOnLeft() : box.isOnLeft()) : dir != t.getDir();
-        if (t.addItem(dir, var ? 0 : 2, box, true)) return true;
-        return false;
+        return t.addItem(dir, var ? 0 : 2, box, true);
     }
-
 }

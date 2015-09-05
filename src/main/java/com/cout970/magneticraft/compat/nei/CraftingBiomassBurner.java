@@ -1,11 +1,11 @@
-package com.cout970.magneticraft.compact.nei;
+package com.cout970.magneticraft.compat.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipeSifter;
-import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.access.RecipeBiomassBurner;
+import com.cout970.magneticraft.api.util.EnergyConversor;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -15,70 +15,64 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftingSifter extends TemplateRecipeHandler {
+public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
-    List<RecipeSifter> recipes = new ArrayList<RecipeSifter>();
+    List<RecipeBiomassBurner> recipes = new ArrayList<RecipeBiomassBurner>();
 
     @Override
     public String getRecipeName() {
-        return "Sifter";
+        return "Biomass Burner";
     }
 
     @Override
     public String getGuiTexture() {
-        return "magneticraft:textures/gui/nei/sifter.png";
+        return "magneticraft:textures/gui/nei/biomass_burner.png";
     }
 
     @Override
     public void loadTransferRects() {
-        transferRects.add(new RecipeTransferRect(new Rectangle(68, 21, 24, 15), getRecipesID()));
+        transferRects.add(new RecipeTransferRect(new Rectangle(75, 18, 16, 16), getRecipesID()));
     }
 
     private String getRecipesID() {
-        return "mg_sifter";
+        return "mg_biomas_burner";
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
-
         if (outputId.equals(getRecipesID())) {
-            for (RecipeSifter recipe : MgRecipeRegister.sifter)
+            for (RecipeBiomassBurner recipe : MgRecipeRegister.biomassBurner)
                 recipes.add(recipe);
         } else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipeSifter recipe : MgRecipeRegister.sifter) {
-            if (MgUtils.areEqual(recipe.getOutput(), result, true)) recipes.add(recipe);
-            else if (MgUtils.areEqual(recipe.getExtra(), result, true)) recipes.add(recipe);
-        }
     }
 
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeSifter recipe : MgRecipeRegister.sifter) {
+        for (RecipeBiomassBurner recipe : MgRecipeRegister.biomassBurner) {
             if (recipe.matches(ingredient)) recipes.add(recipe);
         }
     }
 
     @Override
     public PositionedStack getResultStack(int recipe) {
-        return new PositionedStack(recipes.get(recipe).getOutput(), 96, 20);
+        return null;//new PositionedStack(recipes.get(recipe).getFuel(),96,20);
     }
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
         List<PositionedStack> a = new ArrayList<PositionedStack>();
-        if (recipes.get(recipe).getExtra() != null) a.add(new PositionedStack(recipes.get(recipe).getExtra(), 114, 20));
         return a;
     }
 
     @Override
     public List<PositionedStack> getIngredientStacks(int recipe) {
         List<PositionedStack> need = new ArrayList<PositionedStack>();
-        need.add(new PositionedStack(recipes.get(recipe).getInput(), 46, 20));
+        need.add(new PositionedStack(recipes.get(recipe).getFuel(), 75, 36));
         return need;
     }
 
@@ -89,12 +83,10 @@ public class CraftingSifter extends TemplateRecipeHandler {
 
     @Override
     public void drawExtras(int recipe) {
-        int ticks = 100;
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"));
-        RenderUtil.drawTexturedModalRectScaled(69, 20, 0, 0, (int) (22 * ((cycleticks % ticks / (float) ticks))), 16, 22 * 2, 16);
-        if (recipes.get(recipe).getExtra() != null) {
-            String s = (int) (recipes.get(recipe).getProb() * 100) + "%";
-            RenderUtil.drawString(s, 122, 44, RenderUtil.fromRGB(255, 255, 255), true);
-        }
+        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"));
+        int heat = (int) (EnergyConversor.FUELtoCALORIES(recipes.get(recipe).getBurnTime()));
+        int scale = (int) (44 * (heat / 750f) / 1400f);
+        RenderUtil.drawTexturedModalRectScaled(102, 9 + (44 - scale), 0, 44 - scale, 6, scale, 12, 45);
+        RenderUtil.drawString(String.format("%.1fkcal", (float) heat / 1000f), 115, 30, RenderUtil.fromRGB(255, 255, 255), false);
     }
 }

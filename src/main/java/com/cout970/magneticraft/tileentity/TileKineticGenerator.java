@@ -20,7 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-@Optional.Interface(iface = "cofh.api.energy.IEnergyHandler", modid = "CoFHCore")
+@Optional.Interface(iface = "cofh.api.energy.IEnergyHandler", modid = "CoFHAPI|energy")
 public class TileKineticGenerator extends TileConductorMedium implements IEnergyHandler, IGuiSync {
 
     protected EnergyStorage storage = new EnergyStorage(32000);

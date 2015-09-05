@@ -1,10 +1,10 @@
-package com.cout970.magneticraft.compact.nei;
+package com.cout970.magneticraft.compat.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipeCrusher;
+import com.cout970.magneticraft.api.access.RecipeSifter;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
@@ -15,52 +15,50 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CraftingCrusher extends TemplateRecipeHandler {
+public class CraftingSifter extends TemplateRecipeHandler {
 
-    List<RecipeCrusher> recipes = new ArrayList<RecipeCrusher>();
+    List<RecipeSifter> recipes = new ArrayList<RecipeSifter>();
 
     @Override
     public String getRecipeName() {
-        return "Crusher";
+        return "Sifter";
     }
 
     @Override
     public String getGuiTexture() {
-        return "magneticraft:textures/gui/nei/crusher.png";
+        return "magneticraft:textures/gui/nei/sifter.png";
     }
 
     @Override
     public void loadTransferRects() {
-
         transferRects.add(new RecipeTransferRect(new Rectangle(68, 21, 24, 15), getRecipesID()));
     }
 
     private String getRecipesID() {
-        return "mg_crusher";
+        return "mg_sifter";
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
 
         if (outputId.equals(getRecipesID())) {
-            for (RecipeCrusher recipe : MgRecipeRegister.crusher)
+            for (RecipeSifter recipe : MgRecipeRegister.sifter)
                 recipes.add(recipe);
         } else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipeCrusher recipe : MgRecipeRegister.crusher) {
+        for (RecipeSifter recipe : MgRecipeRegister.sifter) {
             if (MgUtils.areEqual(recipe.getOutput(), result, true)) recipes.add(recipe);
-            else if (MgUtils.areEqual(recipe.getOutput2(), result, true)) recipes.add(recipe);
-            else if (MgUtils.areEqual(recipe.getOutput3(), result, true)) recipes.add(recipe);
+            else if (MgUtils.areEqual(recipe.getExtra(), result, true)) recipes.add(recipe);
         }
     }
 
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeCrusher recipe : MgRecipeRegister.crusher) {
+        for (RecipeSifter recipe : MgRecipeRegister.sifter) {
             if (recipe.matches(ingredient)) recipes.add(recipe);
         }
     }
@@ -73,10 +71,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
         List<PositionedStack> a = new ArrayList<PositionedStack>();
-        if (recipes.get(recipe).getOutput2() != null)
-            a.add(new PositionedStack(recipes.get(recipe).getOutput2(), 114, 20));
-        if (recipes.get(recipe).getOutput3() != null)
-            a.add(new PositionedStack(recipes.get(recipe).getOutput3(), 132, 20));
+        if (recipes.get(recipe).getExtra() != null) a.add(new PositionedStack(recipes.get(recipe).getExtra(), 114, 20));
         return a;
     }
 
@@ -97,13 +92,9 @@ public class CraftingCrusher extends TemplateRecipeHandler {
         int ticks = 100;
         Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"));
         RenderUtil.drawTexturedModalRectScaled(69, 20, 0, 0, (int) (22 * ((cycleticks % ticks / (float) ticks))), 16, 22 * 2, 16);
-        if (recipes.get(recipe).getOutput2() != null) {
-            String s = (int) (recipes.get(recipe).getProb2() * 100) + "%";
+        if (recipes.get(recipe).getExtra() != null) {
+            String s = (int) (recipes.get(recipe).getProb() * 100) + "%";
             RenderUtil.drawString(s, 122, 44, RenderUtil.fromRGB(255, 255, 255), true);
-        }
-        if (recipes.get(recipe).getOutput3() != null) {
-            String s = (int) (recipes.get(recipe).getProb3() * 100) + "%";
-            RenderUtil.drawString(s, 144, 44, RenderUtil.fromRGB(255, 255, 255), true);
         }
     }
 }

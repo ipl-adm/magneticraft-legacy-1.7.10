@@ -1,48 +1,45 @@
-package com.cout970.magneticraft.compact.minetweaker;
+package com.cout970.magneticraft.compat.minetweaker;
+
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipeRefinery;
+import com.cout970.magneticraft.api.access.RecipeCrusher;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
-import minetweaker.api.liquid.ILiquidStack;
-import net.minecraftforge.fluids.FluidStack;
+import minetweaker.api.item.IItemStack;
+import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.magneticraft.Refinery")
-public class Refinery {
+@ZenClass("mods.magneticraft.Crusher")
+public class Crusher {
 
     @ZenMethod
-    public static void addRecipe(ILiquidStack in, ILiquidStack out1, ILiquidStack out2, ILiquidStack out3) {
-        FluidStack a = MgMinetweaker.toFluid(in),
-                b = MgMinetweaker.toFluid(out1),
-                c = MgMinetweaker.toFluid(out2),
-                d = MgMinetweaker.toFluid(out3);
-        if (a == null || b == null || c == null || d == null) return;
-        RecipeRefinery r = new RecipeRefinery(a, b, c, d);
+    public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1, IItemStack out2, float prob2) {
+
+        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out0), c = MgMinetweaker.toStack(out1), d = MgMinetweaker.toStack(out2);
+
+        if (a == null || b == null) return;
+        RecipeCrusher r = new RecipeCrusher(a, b, c, prob1, d, prob2);
         MineTweakerAPI.apply(new AddRecipe(r));
     }
 
     @ZenMethod
-    public static void removeRecipe(ILiquidStack in) {
-        FluidStack f = MgMinetweaker.toFluid(in);
-        if (f == null) return;
-        RecipeRefinery r = RecipeRefinery.getRecipe(f);
-        if (r == null) return;
+    public static void removeRecipe(IItemStack input) {
+        RecipeCrusher r = RecipeCrusher.getRecipe(MgMinetweaker.toStack(input));
         MineTweakerAPI.apply(new RemoveRecipe(r));
     }
 
     public static class AddRecipe implements IUndoableAction {
 
-        private final RecipeRefinery r;
+        private final RecipeCrusher r;
 
-        public AddRecipe(RecipeRefinery r) {
+        public AddRecipe(RecipeCrusher r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.refinery.add(r);
+            MgRecipeRegister.crusher.add(r);
         }
 
         @Override
@@ -67,21 +64,21 @@ public class Refinery {
 
         @Override
         public void undo() {
-            MgRecipeRegister.refinery.remove(r);
+            MgRecipeRegister.crusher.remove(r);
         }
     }
 
     public static class RemoveRecipe implements IUndoableAction {
 
-        private final RecipeRefinery r;
+        private final RecipeCrusher r;
 
-        public RemoveRecipe(RecipeRefinery r) {
+        public RemoveRecipe(RecipeCrusher r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.refinery.remove(r);
+            MgRecipeRegister.crusher.remove(r);
         }
 
         @Override
@@ -106,7 +103,7 @@ public class Refinery {
 
         @Override
         public void undo() {
-            MgRecipeRegister.refinery.add(r);
+            MgRecipeRegister.crusher.add(r);
         }
     }
 }

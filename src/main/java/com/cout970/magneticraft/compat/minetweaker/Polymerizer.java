@@ -1,44 +1,47 @@
-package com.cout970.magneticraft.compact.minetweaker;
+package com.cout970.magneticraft.compat.minetweaker;
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipeSifter;
+import com.cout970.magneticraft.api.access.RecipePolymerizer;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
+import minetweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.magneticraft.Sifter")
-public class Sifter {
+@ZenClass("mods.magneticraft.Polymerizer")
+public class Polymerizer {
 
     @ZenMethod
-    public static void addRecipe(IItemStack in, IItemStack out0, IItemStack out1, float prob1) {
+    public static void addRecipe(ILiquidStack f, IItemStack in, IItemStack out0, double temp) {
 
-        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out0), c = MgMinetweaker.toStack(out1);
+        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out0);
+        FluidStack fluid = MgMinetweaker.toFluid(f);
 
         if (a == null || b == null) return;
-        RecipeSifter r = new RecipeSifter(a, b, c, prob1);
+        RecipePolymerizer r = new RecipePolymerizer(fluid, a, b, temp);
         MineTweakerAPI.apply(new AddRecipe(r));
     }
 
     @ZenMethod
     public static void removeRecipe(IItemStack input) {
-        RecipeSifter r = RecipeSifter.getRecipe(MgMinetweaker.toStack(input));
+        RecipePolymerizer r = RecipePolymerizer.getRecipe(MgMinetweaker.toStack(input));
         MineTweakerAPI.apply(new RemoveRecipe(r));
     }
 
     public static class AddRecipe implements IUndoableAction {
 
-        private final RecipeSifter r;
+        private final RecipePolymerizer r;
 
-        public AddRecipe(RecipeSifter r) {
+        public AddRecipe(RecipePolymerizer r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.sifter.add(r);
+            MgRecipeRegister.polymerizer.add(r);
         }
 
         @Override
@@ -63,21 +66,21 @@ public class Sifter {
 
         @Override
         public void undo() {
-            MgRecipeRegister.sifter.remove(r);
+            MgRecipeRegister.polymerizer.remove(r);
         }
     }
 
     public static class RemoveRecipe implements IUndoableAction {
 
-        private final RecipeSifter r;
+        private final RecipePolymerizer r;
 
-        public RemoveRecipe(RecipeSifter r) {
+        public RemoveRecipe(RecipePolymerizer r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.sifter.remove(r);
+            MgRecipeRegister.polymerizer.remove(r);
         }
 
         @Override
@@ -102,7 +105,7 @@ public class Sifter {
 
         @Override
         public void undo() {
-            MgRecipeRegister.sifter.add(r);
+            MgRecipeRegister.polymerizer.add(r);
         }
     }
 }

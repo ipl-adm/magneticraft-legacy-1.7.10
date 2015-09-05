@@ -279,7 +279,7 @@ public class PartIronPipe extends PartFluidPipe implements ISidedHollowConnect {
     }
 
     public boolean activate(EntityPlayer player, MovingObjectPosition hit, ItemStack item) {
-        if ((item != null) && ((item.getItem() instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item.getItem() instanceof IToolWrench)) || (Magneticraft.COFH && (item.getItem() instanceof IToolHammer)))) {
+        if ((item != null) && ((item.getItem() instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item.getItem() instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item.getItem() instanceof IToolHammer)))) {
             Vector3 v = new Vector3(hit.hitVec.xCoord - hit.blockX, hit.hitVec.yCoord - hit.blockY, hit.hitVec.zCoord - hit.blockZ);
             for (MgDirection d : MgDirection.values()) {
                 if (connections[d.ordinal()]) {

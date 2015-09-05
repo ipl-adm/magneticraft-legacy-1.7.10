@@ -58,7 +58,7 @@ public class TileConveyorBelt extends TileBase implements IConveyorBelt {
                 continue;
             }
             TileEntity t = ConveyorBeltLane.getFrontConveyor(this);
-            if (!MgBeltUtils.isBelt(t)) continue;
+            if (!(t instanceof IConveyorBelt)) continue;
             IConveyorBelt con = (IConveyorBelt) t;
             BeltInteraction iter = BeltInteraction.InterBelt(getDir(), con.getDir());
             if (iter == BeltInteraction.DIRECT) {
@@ -133,14 +133,9 @@ public class TileConveyorBelt extends TileBase implements IConveyorBelt {
                 onLeft = false;
             }
         } else {
-            if (b.isOnLeft()) {
-                onLeft = true;
-            } else {
-                onLeft = false;
-            }
+            onLeft = b.isOnLeft();
         }
-        boolean ret = inject(pos, b, onLeft, sim);
-        return ret;
+        return inject(pos, b, onLeft, sim);
     }
 
     //save and load
@@ -178,8 +173,7 @@ public class TileConveyorBelt extends TileBase implements IConveyorBelt {
 
     @Override
     public boolean removeItem(IItemBox it, boolean isLeft, boolean simulated) {
-        boolean ret = extract(it, isLeft, simulated);
-        return ret;
+        return extract(it, isLeft, simulated);
     }
 
     @Override

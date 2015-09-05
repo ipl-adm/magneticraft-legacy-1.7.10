@@ -22,7 +22,7 @@ public class EnergyInterfaceFactory implements IEnergyInterfaceFactory {
     @Override
     public boolean shouldHandleTile(TileEntity tile, VecInt f, int tier) {
         if (tier != 0) return false;
-        return (Magneticraft.RAILCRAFT && (tile instanceof IElectricGrid)) || (Magneticraft.COFH && (tile instanceof IEnergyHandler)) || (Magneticraft.IC2 && (tile instanceof IEnergySink));
+        return (Magneticraft.RAILCRAFT && (tile instanceof IElectricGrid)) || (Magneticraft.COFH_ENERGY && (tile instanceof IEnergyHandler)) || (Magneticraft.IC2 && (tile instanceof IEnergySink));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class EnergyInterfaceFactory implements IEnergyInterfaceFactory {
                 if (((IElectricGrid) tile).getChargeHandler().getType() == ConnectType.BLOCK)
                     return getElectricalGrid((IElectricGrid) tile);
             }
-            if (Magneticraft.COFH && (tile instanceof IEnergyHandler) && (f.toMgDirection() != null)) {
+            if (Magneticraft.COFH_ENERGY && (tile instanceof IEnergyHandler) && (f.toMgDirection() != null)) {
                 if (((IEnergyHandler) tile).canConnectEnergy(f.toMgDirection().toForgeDir())) {
                     return getEnergyHandler((IEnergyHandler) tile, f.toMgDirection());
                 }
@@ -56,7 +56,7 @@ public class EnergyInterfaceFactory implements IEnergyInterfaceFactory {
         return new RailcraftChargeEnergyInteface(g);
     }
 
-    @Optional.Method(modid = "CoFHCore")
+    @Optional.Method(modid = "CoFHAPI|energy")
     public static IEnergyInterface getEnergyHandler(IEnergyHandler tile, MgDirection dir) {
         return new RF_EnergyInterface(tile, dir);
     }

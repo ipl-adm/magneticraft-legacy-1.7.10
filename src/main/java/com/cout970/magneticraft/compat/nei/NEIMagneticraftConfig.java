@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.compact.nei;
+package com.cout970.magneticraft.compat.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -32,6 +32,9 @@ public class NEIMagneticraftConfig implements IConfigureNEI {
         API.registerRecipeHandler(new CraftingSifter());
         API.registerUsageHandler(new CraftingSifter());
 
+        API.hideItem(new ItemStack(ManagerBlocks.slabOreLimeDouble));
+        API.hideItem(new ItemStack(ManagerBlocks.slabBurntLimeDouble));
+        API.hideItem(new ItemStack(ManagerBlocks.slabBrickLimeDouble));
         API.hideItem(new ItemStack(ManagerBlocks.slabRoofTileDouble));
 
         API.registerGuiOverlayHandler(GuiCrafter.class, new CrafterOverlayHandler(), "crafting");

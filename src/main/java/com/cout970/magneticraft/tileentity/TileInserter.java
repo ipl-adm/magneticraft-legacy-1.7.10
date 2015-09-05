@@ -16,6 +16,7 @@ import com.cout970.magneticraft.util.MgBeltUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -58,7 +59,16 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     public void updateEntity() {
         super.updateEntity();
+        if (worldObj.isRemote) {
+            return;
+        }
         if (anim == null) {
+            anim = InserterAnimation.Extending_Short;
+            counter = 0;
+            return;
+        }
+        if ((getInv().getStackInSlot(0) != null) && (getInv().getStackInSlot(0).stackSize == 0)) {
+            getInv().setInventorySlotContents(0, null);
             anim = InserterAnimation.Extending_Short;
             counter = 0;
             return;
@@ -94,7 +104,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                         suckFromInv((IInventory) t, o);
                     } else if (t instanceof IConveyorBelt && ((IConveyorBelt) t).getOrientation().getLevel() == 0) {
                         suckFromBelt((IConveyorBelt) t, o);
-                    } else if (canSuckDropedItems() && cooldown == 0) {
+                    } else if (canSuckDroppedItems() && cooldown == 0) {
                         suckFromGround();
                         cooldown = 10;
                     }
@@ -107,17 +117,18 @@ public class TileInserter extends TileBase implements IGuiListener {
                     }
                     counter = 0;
                     sendUpdateToClient();
+
                 }
             }
         } else {
             if (counter >= 180) {
                 anim = getNextAnimation();
                 counter = 0;
-                sendUpdateToClient();
             } else {
                 counter += getSpeed();
             }
         }
+        sendUpdateToClient();
     }
 
     private InserterAnimation getNextAnimation() {
@@ -157,9 +168,9 @@ public class TileInserter extends TileBase implements IGuiListener {
         if (b.isAir(worldObj, vec1.getX(), vec1.getY(), vec1.getZ())) {
             List l = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec1.getX() + 1, vec1.getY() + 1, vec1.getZ() + 1));
             if (!l.isEmpty()) {
-                for (int i = 0; i < l.size(); i++) {
-                    if (l.get(i) instanceof EntityItem) {
-                        EntityItem entity = (EntityItem) l.get(i);
+                for (Object aL : l) {
+                    if (aL instanceof EntityItem) {
+                        EntityItem entity = (EntityItem) aL;
                         if (entity.getEntityItem() != null) {
                             getInv().setInventorySlotContents(0, entity.getEntityItem());
                             entity.setDead();
@@ -223,7 +234,7 @@ public class TileInserter extends TileBase implements IGuiListener {
         return Math.min(40, (Math.max(10, speed)));
     }
 
-    private boolean canSuckDropedItems() {
+    private boolean canSuckDroppedItems() {
         for (int i = 0; i < upgrades.getSizeInventory(); i++) {
             ItemStack item = upgrades.getStackInSlot(i);
             if (item != null) {
@@ -246,29 +257,33 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     private void dropToInv(IInventory t) {
         ItemStack s = getInv().getStackInSlot(0);
-        if (MgBeltUtils.dropItemStackIntoInventory(t, s, MgDirection.UP, true) == 0) {
+        if (MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), true) == 0) {
             getInv().setInventorySlotContents(0, null);
-            MgBeltUtils.dropItemStackIntoInventory(t, s, MgDirection.UP, false);
+            MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), false);
         }
     }
 
     private void suckFromBelt(IConveyorBelt t, Object obj) {
         IConveyorBeltLane side = t.getSideLane(true);
-        if (extractFromBelt(side, t, true, obj)) return;
+        if (extractFromBelt(side, t, true, obj)) {
+            return;
+        }
         side = t.getSideLane(false);
-        if (extractFromBelt(side, t, false, obj)) return;
+        extractFromBelt(side, t, false, obj);
     }
 
     public boolean extractFromBelt(IConveyorBeltLane side, IConveyorBelt t, boolean left, Object obj) {
         if (side.getItemBoxes().isEmpty()) return false;
         IItemBox b = side.getItemBoxes().get(0);
+
         if (t.removeItem(b, left, true)) {
-            if (canInject(obj, b.getContent()) && canExtract(t, b.getContent())) {
+            ItemStack x = b.getContent();
+            if (canInject(obj, x) && canExtract(t, x)) {
+                getInv().setInventorySlotContents(0, b.getContent());
                 t.removeItem(b, left, false);
                 t.onChange();
                 for (TileEntity tile : MgUtils.getNeig(t.getParent()))
                     if (tile instanceof IConveyorBelt) ((IConveyorBelt) tile).onChange();
-                getInv().setInventorySlotContents(0, b.getContent());
                 return true;
             }
         }
@@ -276,12 +291,28 @@ public class TileInserter extends TileBase implements IGuiListener {
     }
 
     private void suckFromInv(IInventory t, Object obj) {
-        int slot = getSlotWithItemStack(t);
-        if (slot != -1) {
-            ItemStack s = t.getStackInSlot(slot);
-            if (canInject(obj, s) && canExtract(t, s)) {
-                getInv().setInventorySlotContents(0, s);
-                t.setInventorySlotContents(slot, null);
+        if (t instanceof ISidedInventory) {
+            ISidedInventory ts = (ISidedInventory) t;
+            for (MgDirection d : getValidDirections()) {
+                if (ts.getAccessibleSlotsFromSide(d.ordinal()) == null) {
+                    for (int i : ts.getAccessibleSlotsFromSide(d.ordinal())) {
+                        ItemStack s = t.getStackInSlot(i);
+                        if ((s != null) && (s.stackSize > 0) && ts.canExtractItem(i, s, d.ordinal()) && canInject(obj, s) && canExtract(t, s)) {
+                            getInv().setInventorySlotContents(0, s);
+                            t.setInventorySlotContents(i, null);
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < t.getSizeInventory(); i++) {
+                if (t.getStackInSlot(i) != null) {
+                    ItemStack s = t.getStackInSlot(i);
+                    if (canInject(obj, s) && canExtract(t, s)) {
+                        getInv().setInventorySlotContents(0, s);
+                        t.setInventorySlotContents(i, null);
+                    }
+                }
             }
         }
     }
@@ -303,7 +334,7 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     public int getSlotWithItemStack(IInventory i) {
         for (MgDirection d : getValidDirections()) {
-            int s = MgBeltUtils.getSlotWithItemStack(i, d);
+            int s = MgBeltUtils.getSlotWithItemStack(i, d, false);
             if (s != -1) return s;
         }
         return -1;
@@ -339,7 +370,7 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     public boolean canInject(Object obj, ItemStack s) {
         if (obj instanceof IInventory) {
-            return MgBeltUtils.dropItemStackIntoInventory((IInventory) obj, s, MgDirection.UP, true) == 0;
+            return MgBeltUtils.dropItemStackIntoInventory((IInventory) obj, s, getDir(), true) == 0;
         } else if (obj instanceof IConveyorBelt) {
             return ((IConveyorBelt) obj).addItem(getDir(), 2, new ItemBox(s), true);
         } else {
@@ -382,22 +413,22 @@ public class TileInserter extends TileBase implements IGuiListener {
     }
 
     public enum InserterAnimation {
-        Rotating, Rotating_INV, Retracting_Short, Extending_Short, Retracting_INV_Short, Extending_INV_Short, Retracting_Large, Extending_Large, Retracting_INV_Large, Extending_INV_Large, DropItem, SuckItem, DropItem_Large, SuckItem_Large;
+        Rotating, Rotating_INV, Retracting_Short, Extending_Short, Retracting_INV_Short, Extending_INV_Short, Retracting_Large, Extending_Large, Retracting_INV_Large, Extending_INV_Large, DropItem, SuckItem, DropItem_Large, SuckItem_Large
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
-            whiteList = dato == 1;
+            whiteList = data == 1;
             sendUpdateToClient();
         } else if (id == 1) {
-            ignoreMeta = dato == 1;
+            ignoreMeta = data == 1;
             sendUpdateToClient();
         } else if (id == 2) {
-            ignoreNBT = dato == 1;
+            ignoreNBT = data == 1;
             sendUpdateToClient();
         } else if (id == 3) {
-            ignoreDict = dato == 1;
+            ignoreDict = data == 1;
             sendUpdateToClient();
         }
     }

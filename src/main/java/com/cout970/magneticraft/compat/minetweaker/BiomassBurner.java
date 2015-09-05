@@ -1,47 +1,43 @@
-package com.cout970.magneticraft.compact.minetweaker;
+package com.cout970.magneticraft.compat.minetweaker;
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
-import com.cout970.magneticraft.api.access.RecipePolymerizer;
+import com.cout970.magneticraft.api.access.RecipeBiomassBurner;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.magneticraft.Polymerizer")
-public class Polymerizer {
+@ZenClass("mods.magneticraft.BiomassBurner")
+public class BiomassBurner {
 
     @ZenMethod
-    public static void addRecipe(ILiquidStack f, IItemStack in, IItemStack out0, double temp) {
-
-        ItemStack a = MgMinetweaker.toStack(in), b = MgMinetweaker.toStack(out0);
-        FluidStack fluid = MgMinetweaker.toFluid(f);
-
-        if (a == null || b == null) return;
-        RecipePolymerizer r = new RecipePolymerizer(fluid, a, b, temp);
+    public static void addFuel(IItemStack fuel, int burningTime) {
+        ItemStack a = MgMinetweaker.toStack(fuel);
+        if (a == null && burningTime <= 0) return;
+        RecipeBiomassBurner r = new RecipeBiomassBurner(a, burningTime, true);
         MineTweakerAPI.apply(new AddRecipe(r));
     }
 
     @ZenMethod
-    public static void removeRecipe(IItemStack input) {
-        RecipePolymerizer r = RecipePolymerizer.getRecipe(MgMinetweaker.toStack(input));
+    public static void removeFuel(IItemStack fuel) {
+        ItemStack a = MgMinetweaker.toStack(fuel);
+        RecipeBiomassBurner r = RecipeBiomassBurner.getRecipe(a);
         MineTweakerAPI.apply(new RemoveRecipe(r));
     }
 
     public static class AddRecipe implements IUndoableAction {
 
-        private final RecipePolymerizer r;
+        private final RecipeBiomassBurner r;
 
-        public AddRecipe(RecipePolymerizer r) {
+        public AddRecipe(RecipeBiomassBurner r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.polymerizer.add(r);
+            MgRecipeRegister.biomassBurner.add(r);
         }
 
         @Override
@@ -66,21 +62,21 @@ public class Polymerizer {
 
         @Override
         public void undo() {
-            MgRecipeRegister.polymerizer.remove(r);
+            MgRecipeRegister.biomassBurner.remove(r);
         }
     }
 
     public static class RemoveRecipe implements IUndoableAction {
 
-        private final RecipePolymerizer r;
+        private final RecipeBiomassBurner r;
 
-        public RemoveRecipe(RecipePolymerizer r) {
+        public RemoveRecipe(RecipeBiomassBurner r) {
             this.r = r;
         }
 
         @Override
         public void apply() {
-            MgRecipeRegister.polymerizer.remove(r);
+            MgRecipeRegister.biomassBurner.remove(r);
         }
 
         @Override
@@ -105,7 +101,7 @@ public class Polymerizer {
 
         @Override
         public void undo() {
-            MgRecipeRegister.polymerizer.add(r);
+            MgRecipeRegister.biomassBurner.add(r);
         }
     }
 }

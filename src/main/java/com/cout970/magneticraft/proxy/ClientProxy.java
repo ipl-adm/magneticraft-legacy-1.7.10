@@ -19,11 +19,11 @@ public class ClientProxy implements IProxy {
     public void init() {
         MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 
-        MinecraftForgeClient.registerItemRenderer(ManagerItems.cablelow, new ItemRenderCableLow());
-        MinecraftForgeClient.registerItemRenderer(ManagerItems.cablemedium, new ItemRenderCableMedium());
-        MinecraftForgeClient.registerItemRenderer(ManagerItems.cablehigh, new ItemRenderCableHigh());
-        MinecraftForgeClient.registerItemRenderer(ManagerItems.partcopperpipe, new ItemRenderCopperPipe());
-        MinecraftForgeClient.registerItemRenderer(ManagerItems.partironpipe, new ItemRenderIronPipe());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.part_copper_cable_low, new ItemRenderCableLow());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.part_copper_cable_medium, new ItemRenderCableMedium());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.part_copper_cable_high, new ItemRenderCableHigh());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.part_copper_pipe, new ItemRenderCopperPipe());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.part_iron_pipe, new ItemRenderIronPipe());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pumpJack), new ItemRenderPumpJack());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.transformer_lm), new ItemRenderTransformerLM());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.fluidhopper), new ItemRenderFluidHopper());
@@ -36,7 +36,7 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.inserter), new ItemRenderInserter());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.tesla_coil), new ItemRenderTeslaCoil());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.heat_sink), new ItemRenderHeatSink());
-        MinecraftForgeClient.registerItemRenderer(ManagerItems.wire_copper, new ItemRenderWireCopper());
+        MinecraftForgeClient.registerItemRenderer(ManagerItems.part_copper_wire, new ItemRenderWireCopper());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.combustion_engine), new ItemRenderCombustionEngine());
         MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_sword, new ItemRenderElectricSword());
         MinecraftForgeClient.registerItemRenderer(ManagerItems.tool_chainsaw, new ItemRenderChainsaw());

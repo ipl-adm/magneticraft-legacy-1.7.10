@@ -86,7 +86,7 @@ public abstract class PartWireCopper extends PartElectric {
     public abstract List<Cuboid6> getBoxes();
 
     public PartWireCopper() {
-        super(ManagerItems.wire_copper);
+        super(ManagerItems.part_copper_wire);
     }
 
     public void create() {

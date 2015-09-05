@@ -1,20 +1,15 @@
 package com.cout970.magneticraft.items;
 
-import cofh.api.energy.IEnergyContainerItem;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConversor;
-import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import org.lwjgl.input.Keyboard;
-
-import java.util.List;
 
 public class ItemSmallBattery extends ItemCharged {
 
@@ -57,14 +52,6 @@ public class ItemSmallBattery extends ItemCharged {
         return super.onItemRightClick(stack, w, p);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack item, EntityPlayer p, List info, boolean flag) {
-        super.addInformation(item, p, info, flag);
-        if (p != null && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            info.add(ItemBlockMg.format + (int) EnergyConversor.WtoRF(getCharge(item)) + "/" + (int) EnergyConversor.WtoRF(getMaxCharge(item)) + " RF");
-        }
-    }
 
     @Override
     public boolean canExtractCharge(ItemStack stack) {

@@ -89,19 +89,19 @@ public class ManagerItems {
     public static Item dustObsidian;
     public static Item dustSalt;
 
-    public static Item cablelow;
-    public static Item cablemedium;
-    public static Item cablehigh;
-    public static Item wire_copper;
-    public static Item partcopperpipe;
+    public static Item part_copper_cable_low;
+    public static Item part_copper_cable_medium;
+    public static Item part_copper_cable_high;
+    public static Item part_copper_wire;
+    public static Item part_copper_pipe;
 
     public static Item heatCoilCopper;
     public static Item heatCoilIron;
     public static Item heatCoilTungsten;
-    public static Item volt;
-    public static Item therm;
+    public static Item voltmeter;
+    public static Item thermometer;
     public static Item battery_item;
-    public static Item map;
+    public static Item map_positioner;
     public static Item wrench;
     public static Item turbine_0;
     public static Item turbine_1;
@@ -126,9 +126,9 @@ public class ManagerItems {
     public static Item chip_cpu_mips;
     public static Item chip_ram;
     public static Item chip_rom;
-    public static Item drive_floppy;
-    public static Item drive_hard;
-    public static Item partironpipe;
+    public static Item floppy_disk;
+    public static Item hard_drive;
+    public static Item part_iron_pipe;
     public static Item partheatcable;
     public static Item tool_jackhammer;
     public static Item heavy_copper_coil;
@@ -167,15 +167,15 @@ public class ManagerItems {
         heatCoilCopper = new ItemHeatCoilCopper("heatcoil_copper");
         heatCoilIron = new ItemHeatCoilIron("heatcoil_iron");
         heatCoilTungsten = new ItemHeatCoilTungsten("heatcoil_tungsten");
-        cablelow = new ItemPartCableLow("cable_low");
-        cablemedium = new ItemPartCableMedium("cable_medium");
-        cablehigh = new ItemPartCableHigh("cable_high");
-        volt = new ItemVoltmeter("voltmeter");
-        therm = new ItemThermometer("thermometer");
+        part_copper_cable_low = new ItemPartCableLow("cable_low");
+        part_copper_cable_medium = new ItemPartCableMedium("cable_medium");
+        part_copper_cable_high = new ItemPartCableHigh("cable_high");
+        voltmeter = new ItemVoltmeter("voltmeter");
+        thermometer = new ItemThermometer("thermometer");
         battery_item = new ItemBattery("battery");
-        map = new ItemMapPositioner("map_pos");
-        partcopperpipe = new ItemPartCopperPipe("copper_pipe");
-        partironpipe = new ItemPartIronPipe("iron_pipe");
+        map_positioner = new ItemMapPositioner("map_pos");
+        part_copper_pipe = new ItemPartCopperPipe("copper_pipe");
+        part_iron_pipe = new ItemPartIronPipe("iron_pipe");
         wrench = new ItemWrench("wrench");
         turbine_0 = new ItemTurbine("turbine_0", 0, 3, 3, 0.33d, 0.70f);
         turbine_1 = new ItemTurbine("turbine_1", 1, 5, 5, 1d, 1.25f);
@@ -185,7 +185,7 @@ public class ManagerItems {
         motor = new ItemBasic("motor");
         copper_coil = new ItemBasic("copper_coil");
         drill = new ItemBasic("drill");
-        wire_copper = new ItemPartCopperWire("copper_wire");
+        part_copper_wire = new ItemPartCopperWire("copper_wire");
         oil_prospector = new ItemOilProspector("oil_prospector");
         photoelectricDust = new ItemBasic("photoelectric_dust");
         string_fabric = new ItemBasic("string_fabric");
@@ -201,8 +201,8 @@ public class ManagerItems {
         chip_cpu_mips = new ItemModuleCPU_MIPS("mips_cpu");
         chip_ram = new ItemModuleRam64K("ram");
         chip_rom = new ItemModuleROM("rom");
-        drive_floppy = new ItemFloppyDisk("floppydisk");
-        drive_hard = new ItemHardDrive("harddrive");
+        floppy_disk = new ItemFloppyDisk("floppydisk");
+        hard_drive = new ItemHardDrive("harddrive");
         partheatcable = new ItemPartHeatCable("heat_cable");
         tool_jackhammer = new ItemJackHammer("jack_hammer");
         heavy_copper_coil = new ItemHeavyCopperCoil("heavy_copper_coil");
@@ -238,14 +238,14 @@ public class ManagerItems {
         addItem(heatCoilCopper, "Copper Heat Coil");
         addItem(heatCoilIron, "Iron Heat Coil");
         addItem(heatCoilTungsten, "Tungsten Heat Coil");
-        addItem(cablelow, "Low Voltage Cable");
-        addItem(cablemedium, "Medium Voltage Cable");
-        addItem(cablehigh, "High Voltage Cable");
-        addItem(volt, "Voltmeter");
-        addItem(therm, "Thermometer");
+        addItem(part_copper_cable_low, "Low Voltage Cable");
+        addItem(part_copper_cable_medium, "Medium Voltage Cable");
+        addItem(part_copper_cable_high, "High Voltage Cable");
+        addItem(voltmeter, "Voltmeter");
+        addItem(thermometer, "Thermometer");
         addItem(battery_item, "Sulfuric Acid Battery");
-        addItem(map, "Position Map");
-        addItem(partcopperpipe, "Copper Pipe");
+        addItem(map_positioner, "Position Map");
+        addItem(part_copper_pipe, "Copper Pipe");
         addItem(wrench, "Wrench");
         addItem(turbine_0, "Small Wind Turbine");
         addItem(turbine_1, "Medium Wind Turbine");
@@ -255,7 +255,7 @@ public class ManagerItems {
         addItem(motor, "Electric Motor");
         addItem(copper_coil, "Copper Coil");
         addItem(drill, "Diamond Drill");
-        addItem(wire_copper, "Copper Wire");
+        addItem(part_copper_wire, "Copper Wire");
         addItem(ingotCarbide, "Carbide Ingot");
         addItem(oil_prospector, "Oil Prospector");
 
@@ -275,9 +275,9 @@ public class ManagerItems {
         addItem(chip_cpu_mips, "Mips CPU");
         addItem(chip_ram, "RAM Module");
         addItem(chip_rom, "ROM Module");
-        addItem(drive_floppy, "Floppy Disk");
-        addItem(drive_hard, "Hard Drive");
-        addItem(partironpipe, "Iron Pipe");
+        addItem(floppy_disk, "Floppy Disk");
+        addItem(hard_drive, "Hard Drive");
+        addItem(part_iron_pipe, "Iron Pipe");
         addItem(partheatcable, "Heat Cable");
         addItem(tool_jackhammer, "Jackhammer");
         addItem(heavy_copper_coil, "Heavy Copper Coil");
@@ -296,7 +296,7 @@ public class ManagerItems {
         addItem(part_brass_pipe, "Brass Pipe");
         addItem(hammer_stone, "Stone Hammer");
         addItem(hammer_iron, "Iron Hammer");
-        addItem(manometer, "Manometer");
+        if(Magneticraft.DEBUG) addItem(manometer, "Manometer");
 
         for (Item i : items) {
             GameRegistry.registerItem(i, i.getUnlocalizedName());

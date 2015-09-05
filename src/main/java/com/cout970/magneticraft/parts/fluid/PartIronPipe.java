@@ -36,7 +36,7 @@ public class PartIronPipe extends PartFluidPipe implements ISidedHollowConnect {
     public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
 
     public PartIronPipe() {
-        super(ManagerItems.partironpipe);
+        super(ManagerItems.part_iron_pipe);
     }
 
     static {

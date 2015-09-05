@@ -1,10 +1,12 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
-import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -12,11 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class ItemUraniumRod extends ItemBasic implements IRadiactiveItem {
 
-    private static final double INITIAL_NUMBER_OF_GRAMES = 10000;//10Kg
+    public static final double INITIAL_NUMBER_OF_GRAMES = 10000;//10Kg
 
     public ItemUraniumRod(String unlocalizedname) {
         super(unlocalizedname);
@@ -39,12 +39,6 @@ public class ItemUraniumRod extends ItemBasic implements IRadiactiveItem {
     public boolean onItemUse(ItemStack item, EntityPlayer p, World w, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
         NBTUtils.setDouble(NBT_GRAMS_NAME, item, 100);
         return false;
-    }
-
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public void addInformation(ItemStack i, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        par3List.add(ItemBlockMg.format + String.format("%.2f", NBTUtils.getDouble(NBT_GRAMS_NAME, i)) + "/" + INITIAL_NUMBER_OF_GRAMES);
-        par3List.add(ItemBlockMg.format + "Still WIP");
     }
 
     @Override

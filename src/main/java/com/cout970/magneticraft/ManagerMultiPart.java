@@ -17,16 +17,16 @@ import com.cout970.magneticraft.parts.heat.PartHeatCable;
 public class ManagerMultiPart {
 
     public void init() {
-        MultiPartRegistry.registerParts(new CableLowFactory(), new String[]{ManagerItems.cablelow.getUnlocalizedName()});
-        MultiPartRegistry.registerParts(new CableMediumFactory(), new String[]{ManagerItems.cablemedium.getUnlocalizedName()});
-        MultiPartRegistry.registerParts(new CableHighFactory(), new String[]{ManagerItems.cablehigh.getUnlocalizedName()});
-        MultiPartRegistry.registerParts(new CopperPipeFactory(), new String[]{ManagerItems.partcopperpipe.getUnlocalizedName()});
-        MultiPartRegistry.registerParts(new IronPipeFactory(), new String[]{ManagerItems.partironpipe.getUnlocalizedName()});
+        MultiPartRegistry.registerParts(new CableLowFactory(), new String[]{ManagerItems.part_copper_cable_low.getUnlocalizedName()});
+        MultiPartRegistry.registerParts(new CableMediumFactory(), new String[]{ManagerItems.part_copper_cable_medium.getUnlocalizedName()});
+        MultiPartRegistry.registerParts(new CableHighFactory(), new String[]{ManagerItems.part_copper_cable_high.getUnlocalizedName()});
+        MultiPartRegistry.registerParts(new CopperPipeFactory(), new String[]{ManagerItems.part_copper_pipe.getUnlocalizedName()});
+        MultiPartRegistry.registerParts(new IronPipeFactory(), new String[]{ManagerItems.part_iron_pipe.getUnlocalizedName()});
         MultiPartRegistry.registerParts(new HeatCableFactory(), new String[]{ManagerItems.partheatcable.getUnlocalizedName()});
         MultiPartRegistry.registerParts(new OpticFiberFactory(), new String[]{ManagerItems.part_optic_fiber.getUnlocalizedName()});
         MultiPartRegistry.registerParts(new BrassPipeFactory(), new String[]{ManagerItems.part_brass_pipe.getUnlocalizedName()});
         for (MgDirection d : MgDirection.values())
-            MultiPartRegistry.registerParts(new CopperWireFactory(), new String[]{ManagerItems.wire_copper.getUnlocalizedName() + "_" + d.name()});
+            MultiPartRegistry.registerParts(new CopperWireFactory(), new String[]{ManagerItems.part_copper_wire.getUnlocalizedName() + "_" + d.name()});
     }
 
     public class BrassPipeFactory implements IPartFactory {
@@ -88,7 +88,7 @@ public class ManagerMultiPart {
     public class CopperWireFactory implements IPartFactory {
         @Override
         public TMultiPart createPart(String name, boolean arg1) {
-            MgDirection dir = MgDirection.valueOf(name.replaceFirst(ManagerItems.wire_copper.getUnlocalizedName() + "_", ""));
+            MgDirection dir = MgDirection.valueOf(name.replaceFirst(ManagerItems.part_copper_wire.getUnlocalizedName() + "_", ""));
             if (dir == MgDirection.DOWN) return new PartWireCopper_Down();
             if (dir == MgDirection.UP) return new PartWireCopper_Up();
             if (dir == MgDirection.NORTH) return new PartWireCopper_North();

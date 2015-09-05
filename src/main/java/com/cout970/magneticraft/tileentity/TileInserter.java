@@ -300,6 +300,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                         if ((s != null) && (s.stackSize > 0) && ts.canExtractItem(i, s, d.ordinal()) && canInject(obj, s) && canExtract(t, s)) {
                             getInv().setInventorySlotContents(0, s);
                             t.setInventorySlotContents(i, null);
+                            return;
                         }
                     }
                 }
@@ -311,6 +312,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                     if (canInject(obj, s) && canExtract(t, s)) {
                         getInv().setInventorySlotContents(0, s);
                         t.setInventorySlotContents(i, null);
+                        return;
                     }
                 }
             }

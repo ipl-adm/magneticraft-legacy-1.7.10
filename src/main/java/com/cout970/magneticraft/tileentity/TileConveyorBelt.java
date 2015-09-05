@@ -7,7 +7,7 @@ import com.cout970.magneticraft.api.conveyor.prefab.ConveyorBeltLane;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.Orientation;
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.util.MgBeltUtils;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;

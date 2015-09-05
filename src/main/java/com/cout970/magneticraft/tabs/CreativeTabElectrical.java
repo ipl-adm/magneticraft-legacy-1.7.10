@@ -14,7 +14,7 @@ public class CreativeTabElectrical extends CreativeTabs {
 
     @Override
     public Item getTabIconItem() {
-        return ManagerItems.volt;
+        return ManagerItems.voltmeter;
     }
 
     @SideOnly(Side.CLIENT)

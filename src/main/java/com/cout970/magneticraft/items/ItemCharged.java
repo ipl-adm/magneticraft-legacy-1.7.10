@@ -1,15 +1,16 @@
 package com.cout970.magneticraft.items;
 
+import java.util.List;
+
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.NBTUtils;
-import com.cout970.magneticraft.items.block.ItemBlockMg;
+import com.cout970.magneticraft.items.block.ManagerTooltip;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 public class ItemCharged extends ItemBasic implements IBatteryItem {
 
@@ -57,7 +58,8 @@ public class ItemCharged extends ItemBasic implements IBatteryItem {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void addInformation(ItemStack i, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        par3List.add(ItemBlockMg.energy + (getCharge(i) / 1000f) + "k" + Magneticraft.ENERGY_STORED_NAME + " / " + (MAX_CHARGE / 1000f) + "k" + Magneticraft.ENERGY_STORED_NAME);
+    	par3List.add(ManagerTooltip.energy + (getCharge(i) / 1000f) + "k" + Magneticraft.ENERGY_STORED_NAME + " / " + (MAX_CHARGE / 1000f) + "k" + Magneticraft.ENERGY_STORED_NAME);
+    	super.addInformation(i, par2EntityPlayer, par3List, par4);
     }
 
 

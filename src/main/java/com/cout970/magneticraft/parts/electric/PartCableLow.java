@@ -34,7 +34,7 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
     }
 
     public PartCableLow() {
-        super(ManagerItems.cablelow);
+        super(ManagerItems.part_copper_cable_low);
     }
 
     @Override

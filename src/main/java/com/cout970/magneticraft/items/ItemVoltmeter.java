@@ -1,14 +1,12 @@
 package com.cout970.magneticraft.items;
 
-import cofh.api.energy.IEnergyHandler;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import cofh.api.energy.IEnergyHandler;
 import ic2.api.tile.IEnergyStorage;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
@@ -18,8 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.util.List;
 
 public class ItemVoltmeter extends ItemBasic {
 
@@ -66,12 +62,5 @@ public class ItemVoltmeter extends ItemBasic {
             p.addChatMessage(new ChatComponentText(s));
         }
         return false;
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack item, EntityPlayer player, List list, boolean flag) {
-        super.addInformation(item, player, list, flag);
-        list.add(ItemBlockMg.format + "Used to measure voltage and current flowing through an electric conductor");
     }
 }

@@ -6,11 +6,7 @@ import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.InterPoleWire;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,8 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class ItemHeavyCopperCoil extends ItemBasic {
 
@@ -92,19 +86,5 @@ public class ItemHeavyCopperCoil extends ItemBasic {
             }
         }
         return false;
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack item, EntityPlayer p, List info, boolean flag) {
-        super.addInformation(item, p, info, flag);
-        info.add(ItemBlockMg.format + "Used to manually connect two poles");
-        if (NBTUtils.getBoolean("Connected", item)) {
-            int x, y, z;
-            x = NBTUtils.getInteger("xCoord", item);
-            y = NBTUtils.getInteger("yCoord", item);
-            z = NBTUtils.getInteger("zCoord", item);
-            info.add("Linked to: " + x + ", " + y + ", " + z);
-        }
     }
 }

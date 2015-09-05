@@ -35,7 +35,7 @@ public class PartCopperPipe extends PartFluidPipe implements ISidedHollowConnect
     public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
 
     public PartCopperPipe() {
-        super(ManagerItems.partcopperpipe);
+        super(ManagerItems.part_copper_pipe);
     }
 
     static {

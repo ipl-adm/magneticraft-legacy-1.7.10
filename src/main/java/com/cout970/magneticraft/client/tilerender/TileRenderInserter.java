@@ -54,7 +54,7 @@ public class TileRenderInserter extends TileEntitySpecialRenderer {
 
         RenderUtil.bindTexture(ModelTextures.INSERTER);
         model.renderStatic(0.0625f);
-        float[] array = getAngles(tile.counter, tile.anim);
+        float[] array = getAngles(tile.counter+frames, tile.anim);
 
         model.renderDynamic(0.0625f, array[0], array[1], array[2], array[3], RenderItemMG, itemEntity, item);
 

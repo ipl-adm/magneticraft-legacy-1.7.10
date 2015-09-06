@@ -76,7 +76,7 @@ public class ManagerTooltip {
 			} else if (b == cooler) {
 				list.add(format + "Dissipates heat, work better with high temperatures");
 			} else if (b == copper_tank) {
-				list.add(format + "Stores up to 16000 mB of fluid, keeps the fluid when is picked up");
+				list.add(format + "Stores up to 16000 mB of a fluid, keeps its contents when picked up");
 			} else if (b == crafter) {
 				list.add(format + "Automatically crafts items using given recipe");
 				list.add(format + "Uses items from internal inventory as well as adjacent inventories");

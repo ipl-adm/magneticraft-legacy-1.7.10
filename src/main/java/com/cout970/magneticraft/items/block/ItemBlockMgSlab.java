@@ -4,6 +4,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.slabs.BlockMgSlab;
 
+import com.cout970.magneticraft.util.Log;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,22 +26,40 @@ public class ItemBlockMgSlab extends ItemSlab {
     public String getUnlocalizedName(ItemStack par1ItemStack) {
         return field_150939_a.getUnlocalizedName();
     }
+
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ) {
-        //x y z are the coords of the block that you click on. Adding MgDirection.getDirection(side).toVecInt() to this coords you get the place where a new block will be placed
-    	VecInt vec = MgDirection.getDirection(side).toVecInt().add(x, y, z);
+        if (world.getBlock(x, y, z) == singleBlock) {
+            int meta = world.getBlockMetadata(x, y, z) & 7;
+            world.setBlockMetadataWithNotify(x, y, z, 0, 2);
 
-        if (vec.getBlock(world) == singleBlock) {
-            int meta = vec.getBlockMetadata(world) & 7;
-            vec.setBlockMetadata(world, 0, 2);
             boolean res = super.onItemUse(stack, player, world, x, y, z, side, clickX, clickY, clickZ);
-            if (vec.getBlock(world) != singleBlock) {
-            	vec.setBlockMetadata(world, meta, 2);
+
+            if (world.getBlock(x, y, z) != singleBlock) {
+                world.setBlockMetadataWithNotify(x, y, z, meta, 2);
             }
+
             return res;
         } else {
+            VecInt vec = MgDirection.getDirection(side).toVecInt().add(x, y, z);
+            Log.info(vec.getX() + " " + vec.getY() + " " + vec.getZ());
+            if (vec.getBlock(world) == singleBlock) {
+                int meta = world.getBlockMetadata(x, y, z) & 7;
+                vec.setBlockMetadata(world, 0, 2);
+
+                boolean res = super.onItemUse(stack, player, world, vec.getX(), vec.getY(), vec.getZ(), 1, clickX, clickY, clickZ);
+
+                if (vec.getBlock(world) != singleBlock) {
+                    vec.setBlockMetadata(world, meta, 2);
+                }
+
+                return res;
+            }
+
             return super.onItemUse(stack, player, world, x, y, z, side, clickX, clickY, clickZ);
+
         }
+
 
     }
 }

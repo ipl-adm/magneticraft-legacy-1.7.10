@@ -127,21 +127,45 @@ public class ManagerBlocks {
     public static Block mb_controls;
     public static Block pressure_tank;
     public static Block crushing_table;
+
     public static BlockSlab slabOreLimeSingle;
     public static BlockSlab slabOreLimeDouble;
     public static Block stairsOreLime;
+
     public static Block burntLime;
     public static BlockSlab slabBurntLimeSingle;
     public static BlockSlab slabBurntLimeDouble;
     public static Block stairsBurntLime;
+
     public static Block brickLime;
     public static BlockSlab slabBrickLimeSingle;
     public static BlockSlab slabBrickLimeDouble;
     public static Block stairsBrickLime;
+
     public static Block roofTile;
     public static BlockSlab slabRoofTileSingle;
     public static BlockSlab slabRoofTileDouble;
     public static Block stairsRoofTile;
+
+    public static Block tileLime;
+    public static BlockSlab slabTileLimeSingle;
+    public static BlockSlab slabTileLimeDouble;
+    public static Block stairsTileLime;
+
+    public static Block burntBrickLime;
+    public static BlockSlab slabBurntBrickLimeSingle;
+    public static BlockSlab slabBurntBrickLimeDouble;
+    public static Block stairsBurntBrickLime;
+
+    public static Block cobbleLime;
+    public static BlockSlab slabCobbleLimeSingle;
+    public static BlockSlab slabCobbleLimeDouble;
+    public static Block stairsCobbleLime;
+
+    public static Block burntCobbleLime;
+    public static BlockSlab slabBurntCobbleLimeSingle;
+    public static BlockSlab slabBurntCobbleLimeDouble;
+    public static Block stairsBurntCobbleLime;
 
     public static void initBlocks() {
         //ores & resources
@@ -153,22 +177,52 @@ public class ManagerBlocks {
         oreThorium = new BlockOre("thorium_ore");
         oreSalt = new BlockOre("salt_ore");
         oreZinc = new BlockOre("zinc_ore");
+
         oreLime = new BlockOre("limestone");
         slabOreLimeSingle = new BlockOreLimeSlab(false);
         slabOreLimeDouble = new BlockOreLimeSlab(true);
         stairsOreLime = new BlockOreLimeStairs();
+
         burntLime = new BlockSimple("burnt_limestone");
         slabBurntLimeSingle = new BlockBurntLimeSlab(false);
         slabBurntLimeDouble = new BlockBurntLimeSlab(true);
         stairsBurntLime = new BlockBurntLimeStairs();
+
         brickLime = new BlockSimple("brick_limestone");
         slabBrickLimeSingle = new BlockBrickLimeSlab(false);
         slabBrickLimeDouble = new BlockBrickLimeSlab(true);
         stairsBrickLime = new BlockBrickLimeStairs();
+
         roofTile = new BlockClayTile();
         slabRoofTileSingle = new BlockClayTileSlab(false);
         slabRoofTileDouble = new BlockClayTileSlab(true);
         stairsRoofTile = new BlockClayTileStairs();
+
+        tileLime = new BlockSimple("tile_limestone");
+        slabTileLimeSingle = new BlockTileLimeSlab(false);
+        slabTileLimeDouble = new BlockTileLimeSlab(true);
+        stairsTileLime = new BlockTileLimeStairs();
+
+        tileLime = new BlockSimple("tile_limestone");
+        slabTileLimeSingle = new BlockTileLimeSlab(false);
+        slabTileLimeDouble = new BlockTileLimeSlab(true);
+        stairsTileLime = new BlockTileLimeStairs();
+
+        cobbleLime = new BlockSimple("cobble_limestone");
+        slabCobbleLimeSingle = new BlockCobbleLimeSlab(false);
+        slabCobbleLimeDouble = new BlockCobbleLimeSlab(true);
+        stairsCobbleLime = new BlockCobbleLimeStairs();
+
+        burntBrickLime = new BlockSimple("burnt_brick_limestone");
+        slabBurntBrickLimeSingle = new BlockBurntBrickLimeSlab(false);
+        slabBurntBrickLimeDouble = new BlockBurntBrickLimeSlab(true);
+        stairsBurntBrickLime = new BlockBurntBrickLimeStairs();
+
+        burntCobbleLime = new BlockSimple("burnt_cobble_limestone");
+        slabBurntCobbleLimeSingle = new BlockBurntCobbleLimeSlab(false);
+        slabBurntCobbleLimeDouble = new BlockBurntCobbleLimeSlab(true);
+        stairsBurntCobbleLime = new BlockBurntCobbleLimeStairs();
+
         oilSourceDrained = new BlockOilSourceDrained();
         solarpanel = new BlockSolarPanel();
         furnace = new BlockElectricFurnace();
@@ -274,22 +328,47 @@ public class ManagerBlocks {
         addBlock(oreThorium, "Thorium Ore");
         addBlock(oreTungsten, "Tungsten Ore");
         addBlock(oreUranium, "Uranium Ore");
+
         addBlock(oreLime, "Limestone");
         addAltItemBlock(slabOreLimeSingle, ItemBlockMgSlab.class, "Limestone Slab");
         addAltItemBlock(slabOreLimeDouble, ItemBlockMgSlab.class, "Limestone Slab");
         addBlock(stairsOreLime, "Limestone Stairs");
+
         addBlock(burntLime, "Burnt Limestone");
         addAltItemBlock(slabBurntLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Slab");
         addAltItemBlock(slabBurntLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Slab");
         addBlock(stairsBurntLime, "Burnt Limestone Stairs");
-        addBlock(brickLime, "Limestone Brick");
+
+        addBlock(brickLime, "Limestone Bricks");
         addAltItemBlock(slabBrickLimeSingle, ItemBlockMgSlab.class, "Limestone Brick Slab");
         addAltItemBlock(slabBrickLimeDouble, ItemBlockMgSlab.class, "Limestone Brick Slab");
         addBlock(stairsBrickLime, "Limestone Brick Stairs");
+
         addBlock(roofTile, "Clay Roof Tiles");
         addAltItemBlock(slabRoofTileSingle, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
         addAltItemBlock(slabRoofTileDouble, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
         addBlock(stairsRoofTile, "Clay Roof Tile Stairs");
+
+        addBlock(tileLime, "Limestone Tiles");
+        addAltItemBlock(slabTileLimeSingle, ItemBlockMgSlab.class, "Limestone Tile Slab");
+        addAltItemBlock(slabTileLimeDouble, ItemBlockMgSlab.class, "Limestone Tile Slab");
+        addBlock(stairsTileLime, "Limestone Tile Stairs");
+
+        addBlock(burntBrickLime, "Burnt Limestone Bricks");
+        addAltItemBlock(slabBurntBrickLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Brick Slab");
+        addAltItemBlock(slabBurntBrickLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Brick Slab");
+        addBlock(stairsBurntBrickLime, "Burnt Limestone Brick Stairs");
+
+        addBlock(cobbleLime, "Limestone Cobble");
+        addAltItemBlock(slabCobbleLimeSingle, ItemBlockMgSlab.class, "Limestone Cobble Slab");
+        addAltItemBlock(slabCobbleLimeDouble, ItemBlockMgSlab.class, "Limestone Cobble Slab");
+        addBlock(stairsCobbleLime, "Limestone Cobble Stairs");
+
+        addBlock(burntCobbleLime, "Burnt Limestone Cobble");
+        addAltItemBlock(slabBurntCobbleLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Cobble Slab");
+        addAltItemBlock(slabBurntCobbleLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Cobble Slab");
+        addBlock(stairsBurntCobbleLime, "Burnt Limestone Cobble Stairs");
+
         addBlock(ingot_block_copper, "Copper Block");
         addBlock(ingot_block_tungsten, "Tungsten Block");
         addBlock(ingot_block_carbide, "Carbide Block");

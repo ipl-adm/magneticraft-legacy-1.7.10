@@ -102,11 +102,11 @@ public class WorldGenManagerMg implements IWorldGenerator {
             if (veins < 0) {
                 veins = 0;
             }
-            if (veins < (conf.amount_per_chunk - conf.max_deviation)) {
-                veins = conf.amount_per_chunk - conf.max_deviation;
+            if (veins < (conf.min_chunk)) {
+                veins = conf.min_chunk;
             }
-            if (veins > (conf.amount_per_chunk + conf.max_deviation)) {
-                veins = conf.amount_per_chunk + conf.max_deviation;
+            if (veins > (conf.max_chunk)) {
+                veins = conf.max_chunk;
             }
             genChunk(random, world, chunkX, chunkZ, veins, conf.max_height, conf.min_height, mine);
         }

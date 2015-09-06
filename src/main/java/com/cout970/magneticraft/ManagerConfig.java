@@ -41,7 +41,7 @@ public class ManagerConfig {
         WorldGenManagerMg.GenSalt = getOreConfig(config,     "salt",      6,  8, 80, 0);
         WorldGenManagerMg.GenZinc = getOreConfig(config,     "zinc",      4,  6, 80, 0);
 
-        WorldGenManagerMg.GenLime = getGaussOreConfig(config, "limestone", 1, 1F, 2, 40, 64, 16);
+        WorldGenManagerMg.GenLime = getGaussOreConfig(config, "limestone", 5, 1F, 2, 40, 64, 16);
         //@formatter:on
         WorldGenManagerMg.GenOil = config.getBoolean("Oil Generation", Configuration.CATEGORY_GENERAL, true, "Should spawn oil in the world?");
         WorldGenManagerMg.GenOilProbability = config.getInt("Oil Generation Amount", Configuration.CATEGORY_GENERAL, 2000, 200, 50000, "How rare should oil be? Higher value means less oil.");

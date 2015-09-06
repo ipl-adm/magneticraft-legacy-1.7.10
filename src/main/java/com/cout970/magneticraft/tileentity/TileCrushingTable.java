@@ -1,7 +1,11 @@
 package com.cout970.magneticraft.tileentity;
 
+import java.util.Random;
+
+import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.access.RecipeHammerTable;
 import com.cout970.magneticraft.block.BlockMg;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityBlockDustFX;
@@ -11,9 +15,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.Random;
-
-public class TileHammerTable extends TileBase {
+public class TileCrushingTable extends TileBase {
 
     private ItemStack ore;
     public int progress;
@@ -65,12 +67,12 @@ public class TileHammerTable extends TileBase {
             progress = 0;
             ItemStack out = getOutput();
             ore = null;
-            // TODO CHECK
-            /*if (ManagerConfig.hammerTableDrops) {
+            if (ManagerConfig.CRUSHING_TABLE_DROPS) {
+            	if(!worldObj.isRemote)
                 BlockMg.dropItem(out, worldObj.rand, xCoord, yCoord, zCoord, worldObj);
             } else {
-            */    ore = out.copy(); /*
-            } */
+                ore = out.copy(); 
+            } 
         }
     }
 
@@ -78,19 +80,18 @@ public class TileHammerTable extends TileBase {
         RecipeHammerTable rec = RecipeHammerTable.getRecipe(ore);
         if (rec == null)
             return null;
-        return rec.getOutput();
+        return rec.getOutput().copy();
     }
 
     private void addParticles() {
         if (worldObj.isRemote) {
-            Item item = ore.getItem();
+            Item item = ore.getItem(); 
+            Random rnd = new Random();
             for (int i = 0; i < 20; i++) {
                 float a, b, c;
-                Random rnd = new Random();
                 a = (rnd.nextFloat() - 0.5F) * 0.5F;
                 b = (rnd.nextFloat() - 0.5F) * 0.5F;
                 c = (rnd.nextFloat() - 0.5F) * 0.5F;
-                // TODO FIX: some particles looks weird
                 if (item instanceof ItemBlock) {
                     Block block = Block.getBlockFromItem(item);
                     Minecraft.getMinecraft().effectRenderer

@@ -390,7 +390,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                     getRecipe().setInventorySlotContents(i, null);
                 refreshRecipe();
             } else if (value == 0) {
-                nextCraft = true;
+                if(state == RedstoneState.PULSE)nextCraft = true;
             }
         }
     }

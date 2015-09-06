@@ -1,8 +1,7 @@
 package com.cout970.magneticraft.block.slabs;
 
 import com.cout970.magneticraft.ManagerBlocks;
-import com.cout970.magneticraft.block.slabs.BlockMgSlab;
-import com.cout970.magneticraft.util.Log;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockSlab;

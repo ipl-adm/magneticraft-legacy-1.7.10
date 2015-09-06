@@ -167,4 +167,16 @@ public class VecInt {
     public Block getBlock(World world) {
         return world.getBlock(x, y, z);
     }
+
+	public int getBlockMetadata(World world) {
+		 return world.getBlockMetadata(x, y, z);
+	}
+
+	public void setBlockMetadata(World world, int meta, int flags) {
+		world.setBlockMetadataWithNotify(x, y, z, meta, flags);
+	}
+	
+	public void setBlock(World world, Block block){
+		world.setBlock(x, y, z, block);
+	}
 }

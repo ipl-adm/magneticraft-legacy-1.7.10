@@ -4,7 +4,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -34,6 +33,12 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(roofTile, 2), "x x", " x ", "x x", 'x', "ingotBrick"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slabRoofTileSingle, 6), "xxx", 'x', roofTile));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairsRoofTile, 4), true, "x  ", "xx ", "xxx", 'x', roofTile));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slabBrickLimeSingle, 6), "xxx", 'x', brickLime));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairsBrickLime, 4), true, "x  ", "xx ", "xxx", 'x', brickLime));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slabBurntLimeSingle, 6), "xxx", 'x', burntLime));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairsBurntLime, 4), true, "x  ", "xx ", "xxx", 'x', burntLime));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slabOreLimeSingle, 6), "xxx", 'x', "limestone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairsOreLime, 4), true, "x  ", "xx ", "xxx", 'x', "limestone"));
         //misc blocks
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(housing), "ici", "csc", "ici", 'i', "ingotIron", 'c', "ingotCarbide", 's', Blocks.stone));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(battery), "wbw", "bcb", "wbw", 'w', "ingotIron", 'c', "ingotCopper", 'b', battery_item));
@@ -42,7 +47,7 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(transformer_mh), true, "vcv", "mch", "iii", 'h', part_copper_cable_high, 'm', part_copper_cable_medium, 'c', copper_coil, 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(kinetic), "ici", "ctc", "ici", 'c', copper_coil, 'i', "ingotIron", 't', "ingotCarbide"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(basic_gen), true, "cbc", "hag", "cmc", 'c', "ingotCopper", 'm', housing, 'b', small_battery, 'h', partheatcable, 'g', "blockGlass", 'a', alternator));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(partheatcable, 8), "bbb", "bsb", "bbb", 'b', Items.brick, 's', "dustSalt"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(partheatcable, 8), "bbb", "bsb", "bbb", 'b', Items.brick, 's', "blockSalt"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(firebox), "bbb", "fhf", "bbb", 'b', Items.brick, 'f', Blocks.furnace, 'h', partheatcable));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(boiler), "ccc", "chc", "ccc", 'h', housing, 'c', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(cooler), "viv", "ihi", "viv", 'h', partheatcable, 'i', "ingotIron"));
@@ -146,7 +151,6 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(part_copper_pipe, 8), "cvc", "cgc", "cvc", 'c', "ingotCopper", 'g', "blockGlass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(part_iron_pipe, 8), "cvc", "cgc", "cvc", 'c', "ingotIron", 'g', "blockGlass"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hammer_table), "xxx", "yzy", "yyy", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', "logWood", 'z', new ItemStack(hammer_iron, 1, OreDictionary.WILDCARD_VALUE)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hammer_table), "xxx", "yzy", "yyy", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', "logWood", 'z', new ItemStack(hammer_stone, 1, OreDictionary.WILDCARD_VALUE)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crushing_table), "xxx", "yyy", "yzy", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', "logWood"));
     }
 }

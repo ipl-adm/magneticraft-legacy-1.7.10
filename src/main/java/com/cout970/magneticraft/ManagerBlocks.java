@@ -126,7 +126,7 @@ public class ManagerBlocks {
     public static Block sifter;
     public static Block mb_controls;
     public static Block pressure_tank;
-    public static Block hammer_table;
+    public static Block crushing_table;
     public static BlockSlab slabOreLimeSingle;
     public static BlockSlab slabOreLimeDouble;
     public static Block stairsOreLime;
@@ -261,7 +261,7 @@ public class ManagerBlocks {
         dust_block_sulfur = new BlockOfIngots("block_sulfur");
         mb_controls = new BlockMB_Controls();
         pressure_tank = new BlockPressureTank();
-        hammer_table = new BlockHammerTable();
+        crushing_table = new BlockCrushingTable();
     }
 
     public static void registerBlocks() {
@@ -382,7 +382,7 @@ public class ManagerBlocks {
         addBlock(dust_block_sulfur, "Sulfur Block");
         addBlock(oreZinc, "Zinc Ore");
         addBlock(pressure_tank, "Pressure Tank");
-        addBlock(hammer_table, "Crushing Table");
+        addBlock(crushing_table, "Crushing Table");
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
@@ -477,7 +477,7 @@ public class ManagerBlocks {
         tileEntities.add(TileElectricPoleGap.class);
         tileEntities.add(TileMB_Controls.class);
         tileEntities.add(TilePressureTank.class);
-        tileEntities.add(TileHammerTable.class);
+        tileEntities.add(TileCrushingTable.class);
 
         for (Class<? extends TileEntity> c : tileEntities) {
             GameRegistry.registerTileEntity(c, c.getName() + "_Mg");

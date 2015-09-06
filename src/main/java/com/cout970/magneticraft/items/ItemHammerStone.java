@@ -1,6 +1,10 @@
 package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.api.tool.IHammer;
+import com.google.common.collect.Multimap;
+
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -30,5 +34,13 @@ public class ItemHammerStone extends ItemBasic implements IHammer {
     @Override
     public int getMaxHits(ItemStack hammer, World w, int x, int y, int z) {
         return 10;
+    }
+    
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Override
+    public Multimap getAttributeModifiers(ItemStack a) {
+    	Multimap multimap = super.getAttributeModifiers(a);
+    	multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 4, 0));
+    	return multimap;
     }
 }

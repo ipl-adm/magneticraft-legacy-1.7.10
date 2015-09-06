@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.client.tilerender;
 
 import com.cout970.magneticraft.client.model.ModelHammerTable;
-import com.cout970.magneticraft.tileentity.TileHammerTable;
+import com.cout970.magneticraft.tileentity.TileCrushingTable;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -44,7 +44,7 @@ public class TileRenderHammerTable extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
         GL11.glRotatef(180, 0, 0, 1);
-        TileHammerTable tile = (TileHammerTable) t;
+        TileCrushingTable tile = (TileCrushingTable) t;
 
         RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
         model.renderStatic(0.0625f);

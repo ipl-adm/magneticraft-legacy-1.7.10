@@ -1,7 +1,11 @@
 package com.cout970.magneticraft.world;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockInfo;
+
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -11,9 +15,6 @@ import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.fluids.FluidRegistry;
-
-import java.util.LinkedList;
-import java.util.Random;
 
 public class WorldGenManagerMg implements IWorldGenerator {
 
@@ -107,7 +108,6 @@ public class WorldGenManagerMg implements IWorldGenerator {
             if (veins > (conf.amount_per_chunk + conf.max_deviation)) {
                 veins = conf.amount_per_chunk + conf.max_deviation;
             }
-
             genChunk(random, world, chunkX, chunkZ, veins, conf.max_height, conf.min_height, mine);
         }
     }

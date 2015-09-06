@@ -26,7 +26,7 @@ public class ItemBlockMg extends ItemBlock {
 		
 		if (!tooltips.isEmpty()) {
 			if (!Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-				list.add(EnumChatFormatting.DARK_GRAY + "<press shift for more info>");
+				list.add(EnumChatFormatting.DARK_GRAY + "<Press Shift for more info>");
 				return;
 			}
 			list.addAll(tooltips);

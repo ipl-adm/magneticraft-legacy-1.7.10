@@ -41,7 +41,8 @@ public class ManagerConfig {
         WorldGenManagerMg.GenSalt = getOreConfig(config,     "salt",      6,  8, 80, 0);
         WorldGenManagerMg.GenZinc = getOreConfig(config,     "zinc",      4,  6, 80, 0);
 
-        WorldGenManagerMg.GenLime = getGaussOreConfig(config, "limestone", 5, 1F, 2, 40, 64, 16);
+        WorldGenManagerMg.GenLime = getGaussOreConfig(config, "limestone", 3, 0.9F, 0, 5, 50, 64, 16);
+        
         //@formatter:on
         WorldGenManagerMg.GenOil = config.getBoolean("Oil Generation", Configuration.CATEGORY_GENERAL, true, "Should spawn oil in the world?");
         WorldGenManagerMg.GenOilProbability = config.getInt("Oil Generation Amount", Configuration.CATEGORY_GENERAL, 2000, 200, 50000, "How rare should oil be? Higher value means less oil.");
@@ -67,14 +68,15 @@ public class ManagerConfig {
         return new OreGenConfig(active, amount_per_chunk, amount_per_vein, max_height, min_height);
     }
 
-    private static GaussOreGenConfig getGaussOreConfig(Configuration conf, String name, int chunk, float deviation, int max_deviation, int vein, int max, int min) {
+    private static GaussOreGenConfig getGaussOreConfig(Configuration conf, String name, int chunk, float deviation, int min_am, int max_am, int vein, int max, int min) {
         boolean active = conf.getBoolean(name + "_gen_active", Configuration.CATEGORY_GENERAL, true, "Generation of " + name);
         int amount_per_chunk = conf.getInt(name + "_amount_chunk", Configuration.CATEGORY_GENERAL, chunk, 0, 30, "Average number of veins of " + name + " per chunk");
         float amount_deviation = conf.getFloat(name + "_std_dev", Configuration.CATEGORY_GENERAL, deviation, 0F, 10F, "Standard deviation of number of veins per chunk.\nHigher value means more chunks with low/high amounts of veins, lower - more with medium amount");
-        int max_dev = conf.getInt(name + "_max_dev", Configuration.CATEGORY_GENERAL, max_deviation, 0, amount_per_chunk, "Maximal allowed deviation of number of veins per chunk");
+        int min_chunk = conf.getInt(name + "_min_per_chunk", Configuration.CATEGORY_GENERAL, min_am, 0, amount_per_chunk, "Minimal amount of veins per chunk");
+        int max_chunk = conf.getInt(name + "_max_per_chunk", Configuration.CATEGORY_GENERAL, max_am, 0, 100, "Maximal amount of veins per chunk");
         int amount_per_vein = conf.getInt(name + "_amount_vein", Configuration.CATEGORY_GENERAL, vein, 0, 50, "Max amount of blocks of " + name + " in a vein");
         int max_height = conf.getInt(name + "_max_height", Configuration.CATEGORY_GENERAL, max, 0, 256, "Max height for generation of " + name);
         int min_height = conf.getInt(name + "_min_height", Configuration.CATEGORY_GENERAL, min, 0, 256, "Min height for generation of " + name);
-        return new GaussOreGenConfig(active, amount_per_chunk, amount_deviation, max_dev, amount_per_vein, max_height, min_height);
+        return new GaussOreGenConfig(active, amount_per_chunk, amount_deviation, min_chunk, max_chunk, amount_per_vein, max_height, min_height);
     }
 }

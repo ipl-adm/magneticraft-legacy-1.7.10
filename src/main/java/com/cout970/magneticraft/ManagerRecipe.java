@@ -51,6 +51,8 @@ public class ManagerRecipe {
         GameRegistry.addSmelting(new ItemStack(oreZinc), new ItemStack(ingotZinc), 1.0F);
         GameRegistry.addSmelting(new ItemStack(dustBrass), new ItemStack(ingotBrass), 1.0F);
         GameRegistry.addSmelting(oreLime, new ItemStack(burntLime), 0.1F);
+        GameRegistry.addSmelting(cobbleLime, new ItemStack(oreLime), 0F);
+        GameRegistry.addSmelting(burntCobbleLime, new ItemStack(burntLime), 0F);
 
         MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.diamond), new ItemStack(dustDiamond), null, 0, null, 0);
         MgRecipeRegister.registerGrinderRecipe(new ItemStack(Items.quartz), new ItemStack(dustQuartz), new ItemStack(dustQuartz), 0.5f, null, 0);
@@ -64,6 +66,11 @@ public class ManagerRecipe {
         MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.emerald_ore, 1), new ItemStack(Items.emerald, 1), new ItemStack(Items.emerald, 1), 0.30f, new ItemStack(Items.emerald, 2), 0.01f);
         MgRecipeRegister.registerCrusherRecipe(new ItemStack(Blocks.quartz_ore, 1), new ItemStack(Items.quartz, 2), new ItemStack(Items.quartz, 1), 0.40f, new ItemStack(dustQuartz, 1), 0.05f);
         MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreSalt, 1), new ItemStack(dustSalt, 2), new ItemStack(dustSalt, 1), 0.40f, null, 0);
+        MgRecipeRegister.registerCrusherRecipe(new ItemStack(oreLime), new ItemStack(cobbleLime), null, 0, null, 0);
+        MgRecipeRegister.registerCrusherRecipe(new ItemStack(burntLime), new ItemStack(burntCobbleLime), null, 0, null, 0);
+
+        MgRecipeRegister.registerHammerTableRecipe(new ItemStack(oreLime), new ItemStack(cobbleLime));
+        MgRecipeRegister.registerHammerTableRecipe(new ItemStack(burntLime), new ItemStack(burntCobbleLime));
 
         MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.RFtoW(160));
         MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("hotcrude", 20), FluidRegistry.getFluidStack("lightoil", 7), FluidRegistry.getFluidStack("heavyoil", 6), FluidRegistry.getFluidStack("naturalgas", 7));

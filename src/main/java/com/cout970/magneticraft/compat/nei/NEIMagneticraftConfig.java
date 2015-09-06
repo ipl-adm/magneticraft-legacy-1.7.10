@@ -36,6 +36,10 @@ public class NEIMagneticraftConfig implements IConfigureNEI {
         API.hideItem(new ItemStack(ManagerBlocks.slabBurntLimeDouble));
         API.hideItem(new ItemStack(ManagerBlocks.slabBrickLimeDouble));
         API.hideItem(new ItemStack(ManagerBlocks.slabRoofTileDouble));
+        API.hideItem(new ItemStack(ManagerBlocks.slabBurntBrickLimeDouble));
+        API.hideItem(new ItemStack(ManagerBlocks.slabTileLimeDouble));
+        API.hideItem(new ItemStack(ManagerBlocks.slabCobbleLimeDouble));
+        API.hideItem(new ItemStack(ManagerBlocks.slabBurntCobbleLimeDouble));
 
         API.registerGuiOverlayHandler(GuiCrafter.class, new CrafterOverlayHandler(), "crafting");
     }

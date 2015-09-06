@@ -30,6 +30,8 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dustSulfur, 9), "i", 'i', "blockSulfur"));
         //decoration blocks
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(brickLime, 4), "xx", "xx", 'x', "limestone"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(burntBrickLime, 4), "xx", "xx", 'x', burntLime));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tileLime, 4), true, "xy", "yx", 'x', "limestone", 'y', burntLime));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(roofTile, 2), "x x", " x ", "x x", 'x', "ingotBrick"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slabRoofTileSingle, 6), "xxx", 'x', roofTile));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stairsRoofTile, 4), true, "x  ", "xx ", "xxx", 'x', roofTile));
@@ -151,6 +153,6 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(part_copper_pipe, 8), "cvc", "cgc", "cvc", 'c', "ingotCopper", 'g', "blockGlass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(part_iron_pipe, 8), "cvc", "cgc", "cvc", 'c', "ingotIron", 'g', "blockGlass"));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crushing_table), "xxx", "yyy", "yzy", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', "logWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crushing_table), "xxx", "yyy", "y y", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', "logWood"));
     }
 }

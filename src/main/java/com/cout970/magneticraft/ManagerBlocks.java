@@ -19,16 +19,19 @@ import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
 
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 public class ManagerBlocks {
 
     public static List<Class<? extends TileEntity>> tileEntities = new LinkedList<Class<? extends TileEntity>>();
     public static List<Block> blocks = new LinkedList<Block>();
+    public static List<Block> microblocks = new LinkedList<Block>();
     public static List<NamedBlock> named = new LinkedList<NamedBlock>();
 
     public static Block oreCopper;
@@ -322,58 +325,58 @@ public class ManagerBlocks {
 
         addBlock(oilSource, "Oil Source");
         addBlock(oilSourceDrained, "Drained Oil Source");
-        addBlock(oreCopper, "Copper Ore");
-        addBlock(oreSalt, "Salt Ore");
-        addBlock(oreSulfur, "Sulfur Ore");
-        addBlock(oreThorium, "Thorium Ore");
-        addBlock(oreTungsten, "Tungsten Ore");
-        addBlock(oreUranium, "Uranium Ore");
+        addBlock(oreCopper, "Copper Ore", true);
+        addBlock(oreSalt, "Salt Ore", true);
+        addBlock(oreSulfur, "Sulfur Ore", true);
+        addBlock(oreThorium, "Thorium Ore", true);
+        addBlock(oreTungsten, "Tungsten Ore", true);
+        addBlock(oreUranium, "Uranium Ore", true);
 
-        addBlock(oreLime, "Limestone");
+        addBlock(oreLime, "Limestone", true);
         addAltItemBlock(slabOreLimeSingle, ItemBlockMgSlab.class, "Limestone Slab");
         addAltItemBlock(slabOreLimeDouble, ItemBlockMgSlab.class, "Limestone Slab");
         addBlock(stairsOreLime, "Limestone Stairs");
 
-        addBlock(burntLime, "Burnt Limestone");
+        addBlock(burntLime, "Burnt Limestone", true);
         addAltItemBlock(slabBurntLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Slab");
         addAltItemBlock(slabBurntLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Slab");
         addBlock(stairsBurntLime, "Burnt Limestone Stairs");
 
-        addBlock(brickLime, "Limestone Bricks");
+        addBlock(brickLime, "Limestone Bricks", true);
         addAltItemBlock(slabBrickLimeSingle, ItemBlockMgSlab.class, "Limestone Brick Slab");
         addAltItemBlock(slabBrickLimeDouble, ItemBlockMgSlab.class, "Limestone Brick Slab");
         addBlock(stairsBrickLime, "Limestone Brick Stairs");
 
-        addBlock(roofTile, "Clay Roof Tiles");
+        addBlock(roofTile, "Clay Roof Tiles", true);
         addAltItemBlock(slabRoofTileSingle, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
         addAltItemBlock(slabRoofTileDouble, ItemBlockMgSlab.class, "Clay Roof Tile Slab");
         addBlock(stairsRoofTile, "Clay Roof Tile Stairs");
 
-        addBlock(tileLime, "Limestone Tiles");
+        addBlock(tileLime, "Limestone Tiles", true);
         addAltItemBlock(slabTileLimeSingle, ItemBlockMgSlab.class, "Limestone Tile Slab");
         addAltItemBlock(slabTileLimeDouble, ItemBlockMgSlab.class, "Limestone Tile Slab");
         addBlock(stairsTileLime, "Limestone Tile Stairs");
 
-        addBlock(burntBrickLime, "Burnt Limestone Bricks");
+        addBlock(burntBrickLime, "Burnt Limestone Bricks", true);
         addAltItemBlock(slabBurntBrickLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Brick Slab");
         addAltItemBlock(slabBurntBrickLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Brick Slab");
         addBlock(stairsBurntBrickLime, "Burnt Limestone Brick Stairs");
 
-        addBlock(cobbleLime, "Limestone Cobble");
+        addBlock(cobbleLime, "Limestone Cobble", true);
         addAltItemBlock(slabCobbleLimeSingle, ItemBlockMgSlab.class, "Limestone Cobble Slab");
         addAltItemBlock(slabCobbleLimeDouble, ItemBlockMgSlab.class, "Limestone Cobble Slab");
         addBlock(stairsCobbleLime, "Limestone Cobble Stairs");
 
-        addBlock(burntCobbleLime, "Burnt Limestone Cobble");
+        addBlock(burntCobbleLime, "Burnt Limestone Cobble", true);
         addAltItemBlock(slabBurntCobbleLimeSingle, ItemBlockMgSlab.class, "Burnt Limestone Cobble Slab");
         addAltItemBlock(slabBurntCobbleLimeDouble, ItemBlockMgSlab.class, "Burnt Limestone Cobble Slab");
         addBlock(stairsBurntCobbleLime, "Burnt Limestone Cobble Stairs");
 
-        addBlock(ingot_block_copper, "Copper Block");
-        addBlock(ingot_block_tungsten, "Tungsten Block");
-        addBlock(ingot_block_carbide, "Carbide Block");
-        addBlock(ingot_block_brass, "Brass Block");
-        addBlock(ingot_block_zinc, "Zinc Block");
+        addBlock(ingot_block_copper, "Copper Block", true);
+        addBlock(ingot_block_tungsten, "Tungsten Block", true);
+        addBlock(ingot_block_carbide, "Carbide Block", true);
+        addBlock(ingot_block_brass, "Brass Block", true);
+        addBlock(ingot_block_zinc, "Zinc Block", true);
         addBlock(solarpanel, "Solar Panel");
         addBlock(furnace, "Electric Furnace");
         addBlock(battery, "Battery");
@@ -457,14 +460,18 @@ public class ManagerBlocks {
         addBlock(infinite_energy, "Creative Infinite Energy");
         addBlock(sifter, "Sifter Control");
         addBlock(mb_controls, "Multiblock Controls");
-        addBlock(dust_block_salt, "Salt Block");
-        addBlock(dust_block_sulfur, "Sulfur Block");
-        addBlock(oreZinc, "Zinc Ore");
+        addBlock(dust_block_salt, "Salt Block", true);
+        addBlock(dust_block_sulfur, "Sulfur Block", true);
+        addBlock(oreZinc, "Zinc Ore", true);
         addBlock(pressure_tank, "Pressure Tank");
         addBlock(crushing_table, "Crushing Table");
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
+
+        for (Block b : microblocks) {
+            FMLInterModComms.sendMessage("ForgeMicroblock", "microMaterial", new ItemStack(b));
+        }
     }
 
 
@@ -563,11 +570,17 @@ public class ManagerBlocks {
         }
     }
 
-    private static void addBlock(Block b, String name) {
+    private static void addBlock(Block b, String name, boolean micro) {
         blocks.add(b);
+        if (micro) {
+            microblocks.add(b);
+        }
         named.add(new NamedBlock(b, name));
     }
 
+    private static void addBlock(Block b, String name) {
+        addBlock(b, name, false);
+    }
 
     private static void addAltItemBlock(Block b, Class<? extends ItemBlock> ic, String name) {
         named.add(new NamedBlock(b, name));

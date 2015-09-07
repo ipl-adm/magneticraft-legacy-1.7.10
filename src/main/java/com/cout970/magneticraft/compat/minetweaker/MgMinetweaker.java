@@ -20,7 +20,7 @@ public class MgMinetweaker {
         MineTweakerAPI.registerClass(Refinery.class);
         MineTweakerAPI.registerClass(Sifter.class);
         MineTweakerAPI.registerClass(Polymerizer.class);
-        MineTweakerAPI.registerClass(HammerTable.class);
+        MineTweakerAPI.registerClass(CrushingTable.class);
     }
 
     public static ItemStack toStack(IItemStack iStack) {

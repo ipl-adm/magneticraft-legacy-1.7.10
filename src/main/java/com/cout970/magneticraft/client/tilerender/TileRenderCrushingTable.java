@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import com.cout970.magneticraft.client.model.ModelHammerTable;
+import com.cout970.magneticraft.client.model.ModelCrushingTable;
 import com.cout970.magneticraft.tileentity.TileCrushingTable;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.block.Block;
@@ -17,14 +17,14 @@ import org.lwjgl.opengl.GL11;
 
 import static net.minecraftforge.client.IItemRenderer.ItemRenderType.ENTITY;
 
-public class TileRenderHammerTable extends TileEntitySpecialRenderer {
+public class TileRenderCrushingTable extends TileEntitySpecialRenderer {
 
     private final RenderItem RenderItemMG;
     private final EntityItem itemEntity = new EntityItem(null);
-    private ModelHammerTable model;
+    private ModelCrushingTable model;
 
-    public TileRenderHammerTable() {
-        model = new ModelHammerTable();
+    public TileRenderCrushingTable() {
+        model = new ModelCrushingTable();
         RenderItemMG = new RenderItem() {
             @Override
             public boolean shouldBob() {
@@ -46,7 +46,7 @@ public class TileRenderHammerTable extends TileEntitySpecialRenderer {
         GL11.glRotatef(180, 0, 0, 1);
         TileCrushingTable tile = (TileCrushingTable) t;
 
-        RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
+        RenderUtil.bindTexture(ModelTextures.CRUSHING_TABLE);
         model.renderStatic(0.0625f);
         if (tile.getInput() != null) {
             ItemStack itemstack = tile.getInput();

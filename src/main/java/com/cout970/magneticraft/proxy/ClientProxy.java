@@ -106,6 +106,6 @@ public class ClientProxy implements IProxy {
         }
         ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleCableWire.class, new TileRenderPoleCableWire());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSifter.class, new TileRenderSifter());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileCrushingTable.class, new TileRenderHammerTable());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCrushingTable.class, new TileRenderCrushingTable());
     }
 }

@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.block;
 
-import com.cout970.magneticraft.api.access.RecipeHammerTable;
+import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.api.tool.IHammer;
 import com.cout970.magneticraft.tileentity.TileCrushingTable;
 
@@ -42,7 +42,7 @@ public class BlockCrushingTable extends BlockMg {
 						if(tile.getInput() == null){
 							for (int j = 0; j < p.inventory.getSizeInventory(); j++) {
 								ItemStack stack = p.inventory.getStackInSlot(j);
-								if(stack != null && stack.stackSize > 0 && RecipeHammerTable.getRecipe(stack) != null){
+								if(stack != null && stack.stackSize > 0 && RecipeCrushingTable.getRecipe(stack) != null){
 									tile.setInput(p.inventory.decrStackSize(j, 1));
 									return true;
 								}
@@ -82,7 +82,7 @@ public class BlockCrushingTable extends BlockMg {
 
 	@Override
 	public String getName() {
-		return "hammer_table";
+		return "crushing_table";
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import java.util.Random;
 
 import com.cout970.magneticraft.ManagerConfig;
-import com.cout970.magneticraft.api.access.RecipeHammerTable;
+import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.block.BlockMg;
 
 import net.minecraft.block.Block;
@@ -77,7 +77,7 @@ public class TileCrushingTable extends TileBase {
     }
 
     public ItemStack getOutput() {
-        RecipeHammerTable rec = RecipeHammerTable.getRecipe(ore);
+        RecipeCrushingTable rec = RecipeCrushingTable.getRecipe(ore);
         if (rec == null)
             return null;
         return rec.getOutput().copy();
@@ -107,6 +107,6 @@ public class TileCrushingTable extends TileBase {
     }
 
     public boolean canWork() {
-        return (ore != null) && (RecipeHammerTable.getRecipe(ore) != null);
+        return (ore != null) && (RecipeCrushingTable.getRecipe(ore) != null);
     }
 }

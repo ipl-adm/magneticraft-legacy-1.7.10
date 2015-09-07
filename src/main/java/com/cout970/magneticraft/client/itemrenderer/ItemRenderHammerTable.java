@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.client.itemrenderer;
 
-import com.cout970.magneticraft.client.model.ModelHammerTable;
+import com.cout970.magneticraft.client.model.ModelCrushingTable;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ItemRenderHammerTable implements IItemRenderer {
 
-    public ModelHammerTable model = new ModelHammerTable();
+    public ModelCrushingTable model = new ModelCrushingTable();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -53,7 +53,7 @@ public class ItemRenderHammerTable implements IItemRenderer {
         GL11.glRotatef(180F, 0, 0, 1);
         GL11.glRotatef(180F, 0, 1, 0);
         GL11.glTranslatef(0, -1.5f, 0);
-        RenderUtil.bindTexture(ModelTextures.HAMMER_TABLE);
+        RenderUtil.bindTexture(ModelTextures.CRUSHING_TABLE);
         model.renderStatic(0.0625f);
         GL11.glPopMatrix();
     }

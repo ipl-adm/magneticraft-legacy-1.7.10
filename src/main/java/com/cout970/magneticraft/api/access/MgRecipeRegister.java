@@ -17,7 +17,7 @@ public class MgRecipeRegister {
     public static List<RecipeCrusher> crusher = new ArrayList<RecipeCrusher>();
     public static List<RecipeGrinder> grinder = new ArrayList<RecipeGrinder>();
     public static List<RecipeSifter> sifter = new ArrayList<RecipeSifter>();
-    public static List<RecipeHammerTable> hammer_table = new ArrayList<RecipeHammerTable>();
+    public static List<RecipeCrushingTable> crushing_table = new ArrayList<RecipeCrushingTable>();
     public static List<ThermopileFuel> thermopileSources = new ArrayList<ThermopileFuel>();
     public static List<IThermopileDecay> thermopileDecays = new ArrayList<IThermopileDecay>();
     public static List<RecipeBiomassBurner> biomassBurner = new ArrayList<RecipeBiomassBurner>();
@@ -126,9 +126,9 @@ public class MgRecipeRegister {
 
     public static boolean registerHammerTableRecipe(ItemStack in, ItemStack out) {
         if (in == null || out == null) return false;
-        RecipeHammerTable a = new RecipeHammerTable(in, out);
-        if (!hammer_table.contains(a)) {
-            hammer_table.add(a);
+        RecipeCrushingTable a = new RecipeCrushingTable(in, out);
+        if (!crushing_table.contains(a)) {
+            crushing_table.add(a);
             return true;
         }
         return false;

@@ -11,7 +11,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelHammerTable extends ModelBase {
+public class ModelCrushingTable extends ModelBase {
     //fields
     ModelRenderer Shape1;
     ModelRenderer Shape2;
@@ -20,7 +20,7 @@ public class ModelHammerTable extends ModelBase {
     ModelRenderer Shape5;
     ModelRenderer Shape6;
 
-    public ModelHammerTable() {
+    public ModelCrushingTable() {
         textureWidth = 64;
         textureHeight = 64;
 

@@ -58,15 +58,15 @@ public class ItemBlockMgSlab extends ItemSlab {
 
 					return true;
 				} else {
-					return this.placeDoubleSlab(stack, player, world, x, y, z, side) ? true : placeNewblock(
-							stack, player, world, x, y, z, side, clickX, clickY, clickZ);
+					return this.placeDoubleSlab(stack, world, x, y, z, side) || placeNewBlock(
+                            stack, player, world, x, y, z, side, clickX, clickY, clickZ);
 				}
 			}
 		}
 		return super.onItemUse(stack, player, world, x, y, z, side, clickX, clickY, clickZ);
 	}
 
-	private boolean placeDoubleSlab(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side) {
+	private boolean placeDoubleSlab(ItemStack stack, World world, int x, int y, int z, int side) {
 		if (side == 0) {
 			--y;
 		}
@@ -112,7 +112,7 @@ public class ItemBlockMgSlab extends ItemSlab {
 		}
 	}
 
-	public boolean placeNewblock(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ) {
+	public boolean placeNewBlock(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ) {
 		Block block = world.getBlock(x, y, z);
 
 		if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1) {
@@ -208,8 +208,8 @@ public class ItemBlockMgSlab extends ItemSlab {
 			}
 
 			Block block1 = world.getBlock(x, y, z);
-			return block1 == this.singleBlock ? true : super.func_150936_a(world, i, j, k, side, player,
-					stack);
+			return block1 == this.singleBlock || super.func_150936_a(world, i, j, k, side, player,
+                    stack);
 		}
 	}
 }

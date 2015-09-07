@@ -284,6 +284,7 @@ block_sulfur.name=Sulfur Block
 zinc_ore.name=Zinc Ore
 pressure_tank.name=Pressure Tank
 crushing_table.name=Crushing Table
+ElectricPoleCableConnectionSmall.name=Electrical Pole Connector
 itemGroup.name=Magneticraft
 fluid.steam=Steam
 fluid.oil=Crude Oil

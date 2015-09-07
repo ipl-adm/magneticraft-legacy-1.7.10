@@ -109,6 +109,7 @@ public class ManagerBlocks {
     public static Block cpu;
     public static Block multi_heat;
     public static Block pole_tier1;
+    public static Block pole_connector;
     public static Block droid_red;
     public static Block oil_distillery;
     public static Block grinding_mill;
@@ -284,6 +285,7 @@ public class ManagerBlocks {
         cpu = new BlockComputer();
         multi_heat = new BlockMB_Heat();
         pole_tier1 = new BlockElectricPoleTier1();
+        pole_connector = new BlockElectricConnector();
         droid_red = new BlockDroidRED();
         oil_distillery = new BlockOilDistillery();
         grinding_mill = new BlockGrindingMill();
@@ -465,6 +467,10 @@ public class ManagerBlocks {
         addBlock(oreZinc, "Zinc Ore", true);
         addBlock(pressure_tank, "Pressure Tank");
         addBlock(crushing_table, "Crushing Table");
+
+        if (Magneticraft.DEBUG) {
+            addBlock(pole_connector, "Electrical Pole Connector");
+        }
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());

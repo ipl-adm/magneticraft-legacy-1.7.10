@@ -1,7 +1,5 @@
 package com.cout970.magneticraft.block;
 
-import buildcraft.api.tools.IToolWrench;
-import cofh.api.item.IToolHammer;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
@@ -9,7 +7,9 @@ import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
 import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
-import com.cout970.magneticraft.tileentity.TileElectricPoleGap;
+
+import buildcraft.api.tools.IToolWrench;
+import cofh.api.item.IToolHammer;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -94,7 +94,7 @@ public class BlockElectricConnector extends BlockMg {
     }
 
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-        if (p.isSneaking()) {
+        if (p.isSneaking() && p.getCurrentEquippedItem() != null) {
             Item item = p.getCurrentEquippedItem().getItem();
             if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer))) {
                 TileEntity te = w.getTileEntity(x, y, z);

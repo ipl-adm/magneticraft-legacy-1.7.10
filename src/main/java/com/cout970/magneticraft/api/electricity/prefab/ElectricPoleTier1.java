@@ -1,18 +1,20 @@
 package com.cout970.magneticraft.api.electricity.prefab;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+
 import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricPole;
 import com.cout970.magneticraft.api.electricity.IInterPoleWire;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElectricPoleTier1 implements IElectricPole {
 

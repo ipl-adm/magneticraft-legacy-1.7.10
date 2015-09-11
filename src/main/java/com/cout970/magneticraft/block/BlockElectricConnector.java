@@ -5,11 +5,8 @@ import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConnector;
 import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
-
-import buildcraft.api.tools.IToolWrench;
-import cofh.api.item.IToolHammer;
+import com.cout970.magneticraft.tileentity.pole.TileElectricConnector;
+import com.cout970.magneticraft.tileentity.pole.TileElectricConnectorDown;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;

@@ -15,6 +15,7 @@ import com.cout970.magneticraft.block.stairs.*;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
 import com.cout970.magneticraft.tileentity.*;
+import com.cout970.magneticraft.tileentity.pole.*;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
@@ -570,6 +571,8 @@ public class ManagerBlocks {
         tileEntities.add(TileMB_Controls.class);
         tileEntities.add(TilePressureTank.class);
         tileEntities.add(TileCrushingTable.class);
+//      tileEntities.add(TileElectricConnector.class);
+//      tileEntities.add(TileElectricConnectorDown.class);
 
         for (Class<? extends TileEntity> c : tileEntities) {
             GameRegistry.registerTileEntity(c, c.getName() + "_Mg");

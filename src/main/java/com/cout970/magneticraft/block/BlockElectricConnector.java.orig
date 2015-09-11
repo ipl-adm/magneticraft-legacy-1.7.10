@@ -1,15 +1,20 @@
 package com.cout970.magneticraft.block;
 
-import buildcraft.api.tools.IToolWrench;
-import cofh.api.item.IToolHammer;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ITileElectricPole;
-import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConnector;
 import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.pole.TileElectricPoleCableWire;
-import com.cout970.magneticraft.tileentity.pole.TileElectricPoleCableWireDown;
-import com.cout970.magneticraft.tileentity.pole.TileElectricPoleGap;
+<<<<<<< Updated upstream
+import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
+import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
+
+import buildcraft.api.tools.IToolWrench;
+import cofh.api.item.IToolHammer;
+=======
+import com.cout970.magneticraft.tileentity.pole.TileElectricConnector;
+import com.cout970.magneticraft.tileentity.pole.TileElectricConnectorDown;
+>>>>>>> Stashed changes
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,9 +27,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockElectricPoleCableWire extends BlockMg {
+public class BlockElectricConnector extends BlockMg {
 
-    public BlockElectricPoleCableWire() {
+    public BlockElectricConnector() {
         super(Material.wood);
         setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
         float tam = 5f * 0.0625f;
@@ -33,9 +38,8 @@ public class BlockElectricPoleCableWire extends BlockMg {
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int meta) {
-        if (meta >= 6) return new TileElectricPoleCableWire();
-        if (meta == 0) return new TileElectricPoleCableWireDown();
-        return new TileElectricPoleGap();
+        if (meta >= 6) return new TileElectricConnector();
+        return new TileElectricConnectorDown();
     }
 
     @Override
@@ -45,7 +49,7 @@ public class BlockElectricPoleCableWire extends BlockMg {
 
     @Override
     public String getName() {
-        return "ElectricPoleCableConnection";
+        return "ElectricPoleCableConnectionSmall";
     }
 
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
@@ -66,19 +70,16 @@ public class BlockElectricPoleCableWire extends BlockMg {
 
         int meta = w.getBlockMetadata(x, y, z);
         if (meta == 0) {
-            for (int d = 1; d <= 3; d++) {
-                w.setBlock(x, y + d, z, this, d, 2);
-            }
             int m = p == null ? 0 : MathHelper.floor_double((double) ((p.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
             m >>= 1;
-            w.setBlock(x, y + 4, z, this, m + 6, 2);
+            w.setBlock(x, y + 1, z, this, m + 6, 2);
         }
     }
 
     @Override
     public boolean canPlaceBlockAt(World w, int x, int y, int z) {
-        for (int d = 0; d <= 4; d++) {
-            Block block = w.getBlock(x, y + d, z);
+        for (int d = 0; d <= 1; d++) {
+            Block block = w.getBlock(x, y + 1, z);
             if (block != null && !block.isReplaceable(w, x, y + d, z)) {
                 return false;
             }
@@ -90,14 +91,9 @@ public class BlockElectricPoleCableWire extends BlockMg {
     public void breakBlock(World w, int x, int y, int z, Block b, int meta) {
         super.breakBlock(w, x, y, z, b, meta);
         if (meta == 0) {
-            for (int d = 1; d <= 4; d++) {
-                w.setBlockToAir(x, y + d, z);
-            }
+            w.setBlockToAir(x, y + 1, z);
         } else {
-            if (meta < 6)
-                w.setBlockToAir(x, y - meta, z);
-            else
-                w.setBlockToAir(x, y - 4, z);
+            w.setBlockToAir(x, y - 1, z);
         }
     }
 
@@ -106,13 +102,13 @@ public class BlockElectricPoleCableWire extends BlockMg {
             Item item = p.getCurrentEquippedItem().getItem();
             if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer))) {
                 TileEntity te = w.getTileEntity(x, y, z);
-                TileElectricPoleCableWire tilePole = null;
+                TileElectricConnector tilePole = null;
                 if (te instanceof ITileElectricPole) {
-                    tilePole = (TileElectricPoleCableWire) ((ITileElectricPole) te).getMainTile();
+                    tilePole = (TileElectricConnector) ((ITileElectricPole) te).getMainTile();
                 }
                 if (tilePole != null) {
                     int currentMode = tilePole.pole.getConnectionMode();
-                    ElectricPoleTier1 pole = tilePole.pole;
+                    ElectricConnector pole = tilePole.pole;
                     String messageBase = "Connection mode set to ";
                     switch (currentMode) {
                         case 0: {

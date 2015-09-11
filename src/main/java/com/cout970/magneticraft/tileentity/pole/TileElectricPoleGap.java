@@ -1,8 +1,9 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.pole;
 
 import com.cout970.magneticraft.api.electricity.IElectricPole;
 import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tileentity.TileBase;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileElectricPoleGap extends TileBase implements ITileElectricPole {

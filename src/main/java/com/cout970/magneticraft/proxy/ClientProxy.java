@@ -7,6 +7,8 @@ import com.cout970.magneticraft.client.itemrenderer.*;
 import com.cout970.magneticraft.client.tilerender.*;
 import com.cout970.magneticraft.handlers.TooltipHandler;
 import com.cout970.magneticraft.tileentity.*;
+import com.cout970.magneticraft.tileentity.pole.TileElectricPoleCableWire;
+import com.cout970.magneticraft.tileentity.pole.TileElectricPoleTier1;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;

@@ -31,8 +31,8 @@ public class NEIMagneticraftConfig implements IConfigureNEI {
         API.registerUsageHandler(new CraftingBiomassBurner());
         API.registerRecipeHandler(new CraftingSifter());
         API.registerUsageHandler(new CraftingSifter());
-        API.registerRecipeHandler(new CraftingCrushingTable());
-        API.registerUsageHandler(new CraftingCrushingTable());
+//      API.registerRecipeHandler(new CraftingCrushingTable());
+//      API.registerUsageHandler(new CraftingCrushingTable());
 
         API.hideItem(new ItemStack(ManagerBlocks.slabOreLimeDouble));
         API.hideItem(new ItemStack(ManagerBlocks.slabBurntLimeDouble));

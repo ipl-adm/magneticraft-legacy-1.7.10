@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.pole;
 
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricPole;

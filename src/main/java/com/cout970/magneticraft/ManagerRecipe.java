@@ -43,6 +43,7 @@ public class ManagerRecipe {
 //				GameRegistry.addSmelting(new ItemStack(rubble_clean.get(i)), ingot, 1.0F);
                 GameRegistry.addSmelting(new ItemStack(pebbles, 1, i), ingot, 1.0F);
 //				GameRegistry.addSmelting(new ItemStack(pebbles_clean.get(i)), ingot, 1.0F);
+                ingot.stackSize = 1;
                 GameRegistry.addSmelting(new ItemStack(dust, 1, i), ingot, 1.0F);
             }
         }

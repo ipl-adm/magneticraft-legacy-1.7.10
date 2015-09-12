@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "0.4.5"
+version = "0.4.6"
 group= "com.cout970.magneticraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "magneticraft"
 
@@ -42,7 +42,7 @@ repositories {
 }
 
 dependencies {
-    compile files("./lib/NotEnoughItems-1.7.10-1.0.5.111-dev.jar")
+    compile files("./lib/NotEnoughItems-1.7.10-1.0.5.118-dev.jar")
     compile files("./lib/ForgeMultipart-1.7.10-1.1.2.331-dev.jar")
     compile files("./lib/CodeChickenLib-1.7.10-1.1.3.140-dev.jar")
     compile files("./lib/CodeChickenCore-1.7.10-1.0.7.47-dev.jar")

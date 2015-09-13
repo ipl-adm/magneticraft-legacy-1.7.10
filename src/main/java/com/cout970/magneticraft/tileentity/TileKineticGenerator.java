@@ -93,8 +93,8 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
                 IEnergyReceiver e = (IEnergyReceiver) t;
                 if (e.canConnectEnergy(getDirection().opposite().toForgeDir())) {
                     int transfer = Math.min(400, storage.getEnergyStored());
-                    int acepted = e.receiveEnergy(getDirection().opposite().toForgeDir(), transfer, false);
-                    storage.modifyEnergyStored(-acepted);
+                    int accepted = e.receiveEnergy(getDirection().opposite().toForgeDir(), transfer, false);
+                    storage.modifyEnergyStored(-accepted);
                 }
             }
         }

@@ -120,7 +120,7 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(voltmeter), "cgc", "cgc", "lmh", 'c', "ingotBrass", 'g', "paneGlass", 'l', part_copper_cable_low, 'm', part_copper_cable_medium, 'h', part_copper_cable_high));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(thermometer), "cgc", "cgc", "crc", 'c', "ingotIron", 'g', "paneGlass", 'r', "dustRedstone"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(map_positioner), "vpv", "ptp", "vpv", 'p', Items.paper, 't', new ItemStack(Items.dye, 1, 0)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wrench), true, "ii", "ti", "ti", 'i', "ingotIron", 't', new ItemStack(Items.dye, 1, 1)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wrench), true, "ii", "ti", "ti", 'i', "ingotIron", 't', "dyeRed"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(string_fabric), "iii", "iii", "iii", 'i', Items.string));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine_wing), true, "sf", "sf", "sv", 's', Items.stick, 'f', string_fabric));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine_0), "vwv", "wpw", "vwv", 'w', turbine_wing, 'p', "plankWood"));

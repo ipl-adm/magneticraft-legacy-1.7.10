@@ -77,7 +77,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
         }
         if (progress > 0) {
             //fuel to temp
-            if (heat.getTemperature() < maxHeat && isControled()) {
+            if (heat.getTemperature() < maxHeat && isControlled()) {
                 heat.applyCalories(EnergyConversor.FUELtoCALORIES(speed));
                 if (progress - speed < 0) {
                     progress = 0;
@@ -100,7 +100,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
         }
         //steam to power
         int gas = Math.min(steam.getFluidAmount(), (int) EnergyConversor.WtoSTEAM(2000));
-        if (gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControled()) {
+        if (gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControlled()) {
             cond.applyPower(EnergyConversor.STEAMtoW(gas));
             electricProduction += EnergyConversor.STEAMtoW(gas);
             steam.drain(gas, true);
@@ -108,7 +108,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 
         if (progress <= 0) {
             ItemStack a = getInv().getStackInSlot(0);
-            if (a != null && isControled()) {
+            if (a != null && isControlled()) {
                 int fuel = TileEntityFurnace.getItemBurnTime(a);
                 if (fuel > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && steam.getFluidAmount() < 1) {
                     progress = fuel;

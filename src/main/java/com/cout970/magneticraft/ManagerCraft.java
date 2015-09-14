@@ -47,7 +47,6 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(furnace), "iri", "ihi", "ibi", 'i', "ingotIron", 'r', "dustRedstone", 'b', small_battery, 'h', housing));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(transformer_lm), true, "vcv", "lcm", "iii", 'l', part_copper_cable_low, 'm', part_copper_cable_medium, 'c', copper_coil, 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(transformer_mh), true, "vcv", "mch", "iii", 'h', part_copper_cable_high, 'm', part_copper_cable_medium, 'c', copper_coil, 'i', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(kinetic), "ici", "ctc", "ici", 'c', copper_coil, 'i', "ingotIron", 't', "ingotCarbide"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(basic_gen), true, "cbc", "hag", "cmc", 'c', "ingotCopper", 'm', housing, 'b', small_battery, 'h', partheatcable, 'g', "blockGlass", 'a', alternator));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(partheatcable, 8), "bbb", "bsb", "bbb", 'b', Items.brick, 's', "blockSalt"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(firebox), "bbb", "fhf", "bbb", 'b', Items.brick, 'f', Blocks.furnace, 'h', partheatcable));
@@ -99,9 +98,16 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(pole_cable_wire), "cwc", "vwv", "vwa", 'w', "logWood", 'c', heavy_copper_coil, 'a', part_copper_cable_low));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sifter), "cbc", "mhm", "cbc", 'c', "ingotCarbide", 'b', refinery_gap, 'h', chassis, 'm', motor));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(electric_switch), "vlv", "chc", 'c', part_copper_cable_low, 'h', housing, 'l', Blocks.lever));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rc_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustLead"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(eu_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustQuartz"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rf_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustRedstone"));
+        if (Magneticraft.RAILCRAFT) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rc_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustLead"));
+        }
+        if (Magneticraft.IC2) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(eu_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustQuartz"));
+        }
+        if (Magneticraft.COFH_ENERGY) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rf_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustRedstone"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(kinetic), "ici", "ctc", "ici", 'c', copper_coil, 'i', "ingotIron", 't', "ingotCarbide"));
+        }
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(mb_controls), "tlt", "lhl", "tlt", 't', "ingotCarbide", 'l', Blocks.lever, 'h', chassis));
 
         //items

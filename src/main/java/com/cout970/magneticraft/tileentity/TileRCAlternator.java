@@ -25,7 +25,7 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid 
             @Override
             public void iterate() {
                 super.iterate();
-                if (!isControled()) return;
+                if (!isControlled()) return;
                 if (getVoltage() < level && charge.getCharge() > 0) {
                     int change;
                     change = (int) Math.min((level - getVoltage()) * 10, 512);

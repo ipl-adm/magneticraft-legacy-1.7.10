@@ -58,14 +58,14 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         if (worldObj.getTotalWorldTime() % 40 == 0) {
             refreshItemMatches();
         }
-        if (isControled()) {
+        if (isControlled()) {
             if (craft())
                 refreshItemMatches();
             nextCraft = false;
         }
     }
 
-    public boolean isControled() {
+    public boolean isControlled() {
         if (state == RedstoneState.NORMAL) return !powered;
         if (state == RedstoneState.INVERTED) return powered;
         return nextCraft;
@@ -73,12 +73,11 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 
     public void refreshRecipe() {
         craftRecipe = null;
-        for (Object rec : CraftingManager.getInstance().getRecipeList()) {
-            if (rec instanceof IRecipe) {
-                if (((IRecipe) rec).matches(recipe, worldObj)) {
-                    craftRecipe = (IRecipe) rec;
-                    break;
-                }
+        List<IRecipe> recipes = (List<IRecipe>) CraftingManager.getInstance().getRecipeList();
+        for (IRecipe rec : recipes) {
+            if (rec.matches(recipe, worldObj)) {
+                craftRecipe = rec;
+                break;
             }
         }
         if (craftRecipe != null) {
@@ -390,7 +389,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                     getRecipe().setInventorySlotContents(i, null);
                 refreshRecipe();
             } else if (value == 0) {
-                if(state == RedstoneState.PULSE)nextCraft = true;
+                if (state == RedstoneState.PULSE) nextCraft = true;
             }
         }
     }

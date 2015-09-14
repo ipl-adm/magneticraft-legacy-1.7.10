@@ -37,7 +37,7 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
             @Override
             public void iterate() {
                 super.iterate();
-                if (!isControled()) return;
+                if (!isControlled()) return;
                 if (getVoltage() < min && storage > 0) {
                     int change = (int) Math.min((min - getVoltage()) * 80, 512);
                     change = Math.min(change, storage);

@@ -49,7 +49,7 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
         }
 
         if (progress <= 0) {
-            if (getInv().getStackInSlot(0) != null && isControled()) {
+            if (getInv().getStackInSlot(0) != null && isControlled()) {
                 int fuel = TileEntityFurnace.getItemBurnTime(getInv().getStackInSlot(0));
                 if (fuel > 0 && heat.getTemperature() < heat.getMaxTemp()) {
                     progress = fuel;

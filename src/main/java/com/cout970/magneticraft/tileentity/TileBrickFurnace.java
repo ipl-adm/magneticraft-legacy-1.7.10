@@ -38,7 +38,7 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
                 setActive(false);
             }
         }
-        if (heat.getTemperature() > 80 && isControled()) {
+        if (heat.getTemperature() > 80 && isControlled()) {
             if (canSmelt()) {
                 double speed = getSpeed();
                 heat.drainCalories(speed);

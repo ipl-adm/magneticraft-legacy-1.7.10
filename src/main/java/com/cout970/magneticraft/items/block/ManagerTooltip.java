@@ -170,7 +170,7 @@ public class ManagerTooltip {
 			} else if (b == resistance) {
 				list.add(format + "Limit the energy flow");
 			} else if (b == rf_alternator) {
-				list.add(format + "Generates electrcity using Redstone Flux");
+				list.add(format + "Generates electricity using Redstone Flux");
 			} else if (b == sifter) {
 				list.add(format + "Multiblock Structure, place and right-click to see the blueprint");
 			} else if (b == solarpanel) {

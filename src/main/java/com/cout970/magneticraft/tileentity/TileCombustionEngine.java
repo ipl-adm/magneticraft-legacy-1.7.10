@@ -59,7 +59,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
             sendUpdateToClient();
             oldHeat = (int) heat.getTemperature();
         }
-        if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControled() && fuel != null) {
+        if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControlled() && fuel != null) {
             float speed = getSpeed();
             double p = EnergyConversor.RFtoW(fuel.getPowerPerCycle()) * speed;
             buffer -= speed;
@@ -91,7 +91,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
             sendUpdateToClient();
             oldHeat = (int) heat.getTemperature();
         }
-        if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControled() && fuelBC != null) {
+        if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControlled() && fuelBC != null) {
             float speed = getSpeed();
             double p = EnergyConversor.RFtoW(fuelBC.getPowerPerCycle()) * speed;
             buffer -= speed;

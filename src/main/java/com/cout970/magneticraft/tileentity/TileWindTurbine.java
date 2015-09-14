@@ -109,7 +109,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
             if (turbine == -1) {
                 production = 0;
                 productionPerSecond = 0;
-            } else if (cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()) {
+            } else if (cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControlled()) {
                 cond.applyPower(EnergyConversor.RFtoW(power * turbinePotency / 100));
                 production = (float) EnergyConversor.RFtoW(power * turbinePotency / 100);
             } else {

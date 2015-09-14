@@ -116,7 +116,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
         }
 
         if (in != null && out != null) {
-            if (((TileBase) in.tile).isControled()) {
+            if (((TileBase) in.tile).isControlled()) {
                 if (getInv().getStackInSlot(0) != null) {
                     int s = InventoryUtils.findCombination(in, getInv().getStackInSlot(0));
                     if (s != -1) {
@@ -126,7 +126,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
                     setInventorySlotContents(0, InventoryUtils.getItemStack(in));
                 }
             }
-            if (((TileBase) out.tile).isControled()) {
+            if (((TileBase) out.tile).isControlled()) {
                 for (int i = 0; i < 3; i++) {
                     if (getInv().getStackInSlot(i + 1) != null) {
                         int s = InventoryUtils.getSlotForStack(out, getInv().getStackInSlot(i + 1));

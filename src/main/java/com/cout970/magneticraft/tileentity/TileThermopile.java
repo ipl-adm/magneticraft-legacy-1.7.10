@@ -34,7 +34,7 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
         super.updateEntity();
 
         if (worldObj.isRemote) return;
-        if (this.cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()) {
+        if (this.cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControlled()) {
 
             ticks++;
             if (ticks > 20) {

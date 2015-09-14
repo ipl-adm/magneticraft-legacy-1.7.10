@@ -97,7 +97,7 @@ public class TileInserter extends TileBase implements IGuiListener {
             sendUpdateToClient();
 
         } else if (anim == InserterAnimation.SuckItem || anim == InserterAnimation.SuckItem_Large) {
-            if (isControled()) {
+            if (isControlled()) {
                 if (getInv().getStackInSlot(0) == null) {
                     TileEntity t = MgUtils.getTileEntity(this, getDir()), o = MgUtils.getTileEntity(this, getDir().opposite());
                     if (t instanceof IInventory) {

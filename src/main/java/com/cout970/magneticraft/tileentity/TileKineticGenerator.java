@@ -60,7 +60,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
         lastProd = 0;
         boolean working;
 
-        if (cond.getVoltage() > ElectricConstants.MACHINE_WORK * 100 && isControled()) {
+        if (cond.getVoltage() > ElectricConstants.MACHINE_WORK * 100 && isControlled()) {
             float f = (storage.getMaxEnergyStored() - storage.getEnergyStored()) * 10f / storage.getMaxEnergyStored();
             int min = (int) Math.min((cond.getVoltage() - ElectricConstants.MACHINE_WORK * 100) / 10, 40 * Math.ceil(f));
             min = Math.min(storage.getMaxEnergyStored() - storage.getEnergyStored(), min);

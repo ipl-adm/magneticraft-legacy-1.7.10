@@ -33,7 +33,7 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 
             public void iterate() {
                 super.iterate();
-                if (!isControled()) return;
+                if (!isControlled()) return;
                 if (getVoltage() > max && storage < maxStorage) {
                     int change;
                     change = (int) Math.min((getVoltage() - max) * 80, EnergyConversor.RFtoW(400));

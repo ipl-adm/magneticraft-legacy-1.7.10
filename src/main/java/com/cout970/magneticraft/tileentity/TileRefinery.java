@@ -31,7 +31,7 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
         }
         if (worldObj.isRemote) return;
         if (input == null || output0 == null || output1 == null || output2 == null) return;
-        if (input.getFluidAmount() > 0 && isControled()) {
+        if (input.getFluidAmount() > 0 && isControlled()) {
             RecipeRefinery recipe = RecipeRefinery.getRecipe(input.getFluid());
             if (recipe != null) {
                 if (input.getFluidAmount() >= recipe.getInput().amount) {

@@ -49,7 +49,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
             return;
         }
         if (worldObj.isRemote) return;
-        if (isControled() && canCraft()) {
+        if (isControlled() && canCraft()) {
             if (progress >= maxProgres) {
                 craft();
                 progress = 0;
@@ -65,7 +65,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 
     private void distributeItems() {
         if (in != null) {
-            if (((TileBase) in.tile).isControled()) {
+            if (((TileBase) in.tile).isControlled()) {
                 if (getInv().getStackInSlot(0) != null) {
                     int s = InventoryUtils.findCombination(in, getInv().getStackInSlot(0));
                     if (s != -1) {
@@ -77,7 +77,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
             }
         }
         if (out != null) {
-            if (((TileBase) out.tile).isControled()) {
+            if (((TileBase) out.tile).isControlled()) {
                 if (getInv().getStackInSlot(1) != null) {
                     int s = InventoryUtils.getSlotForStack(out, getInv().getStackInSlot(1));
                     if (s != -1) {

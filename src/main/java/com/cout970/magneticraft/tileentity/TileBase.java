@@ -57,7 +57,7 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
         sendUpdateToClient();
     }
 
-    public boolean isControled() {
+    public boolean isControlled() {
         if (redstone == RedstoneControl.NORMAL) return !powered;
         if (redstone == RedstoneControl.INVERSE) return powered;
         return true;

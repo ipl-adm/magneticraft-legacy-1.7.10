@@ -51,7 +51,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
                 setActive(false);
             }
         }
-        if (tank.getFluidAmount() > 0 && cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()) {
+        if (tank.getFluidAmount() > 0 && cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControlled()) {
             int steam = Math.min(tank.getFluidAmount(), STEAM_LIMIT);
             if (steam > 0) {
                 tank.drain(steam, true);

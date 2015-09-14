@@ -66,7 +66,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync {
                         pipes.remove(0);
                     }
                 }
-            } else if (isControled()) {
+            } else if (isControlled()) {
 
                 if (heat.getTemperature() < 1200 && buffer > 0) {
                     int i = Math.min(12, buffer);

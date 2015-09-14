@@ -24,13 +24,11 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -168,16 +166,6 @@ public class Magneticraft {
         ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());
 //		if(DEBUG)printOreDict();
         Log.info("postInit Done");
-    }
-
-    @EventHandler
-    public void remapChanges(FMLMissingMappingsEvent event) {
-        Log.info("Removing missing mappings");
-        event.applyModContainer(Loader.instance().activeModContainer());
-        List<FMLMissingMappingsEvent.MissingMapping> missingList = event.get();
-        for (FMLMissingMappingsEvent.MissingMapping missing : missingList) {
-            missing.ignore();
-        }
     }
 
 //	private void printOreDict() {

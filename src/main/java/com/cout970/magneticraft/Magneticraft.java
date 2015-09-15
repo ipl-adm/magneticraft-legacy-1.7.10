@@ -37,7 +37,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +
-        "after:BuildCraft|Core;after:CoFHCore;after:IC2;after:Railcraft")
+        "after:BuildCraft|Core;after:CoFHCore;after:IC2;after:Railcraft;after:ImmersiveEngineering")
 public class Magneticraft {
 
     public final static String ID = "Magneticraft";
@@ -52,6 +52,7 @@ public class Magneticraft {
     public static boolean IC2 = false;
     public static boolean COFH_ENERGY = false;
     public static boolean COFH_TOOLS = false;
+    public static boolean IE = false;
 
     @Instance(NAME)
     public static Magneticraft Instance;
@@ -74,6 +75,9 @@ public class Magneticraft {
         }
         if (Loader.isModLoaded("Railcraft")) {
             RAILCRAFT = true;
+        }
+        if (Loader.isModLoaded("ImmersiveEngineering")) {
+            IE = true;
         }
         if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy")) {
             COFH_ENERGY = true;
@@ -161,6 +165,10 @@ public class Magneticraft {
 
         if (RAILCRAFT) {
             ManagerFluids.registerRCFuels();
+        }
+
+        if (IE) {
+            ManagerFluids.registerIEFuels();
         }
 
         ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());

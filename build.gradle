@@ -53,10 +53,11 @@ repositories {
 }
 
 dependencies {
-    compile files("./lib/NotEnoughItems-1.7.10-1.0.5.118-dev.jar")
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.5.118:dev"
     compile files("./lib/ForgeMultipart-1.7.10-1.1.2.331-dev.jar")
-    compile files("./lib/CodeChickenLib-1.7.10-1.1.3.140-dev.jar")
-    compile files("./lib/CodeChickenCore-1.7.10-1.0.7.47-dev.jar")
+    compile files("./lib/ImmersiveEngineering-0.5.4-deobf.jar")
     compile files("./lib/MineTweaker3-Dev-1.7.10-3.0.9C.jar")
 	compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
 }

@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerWindMill extends ContainerBasic {
 
     public ContainerWindMill(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot((IInventory) t, 0, 80, 47));
         bindPlayerInventory(p);
     }

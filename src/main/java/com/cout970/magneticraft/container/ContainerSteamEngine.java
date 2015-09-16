@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerSteamEngine extends ContainerBasic {
 
     public ContainerSteamEngine(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         bindPlayerInventory(p);
     }
 

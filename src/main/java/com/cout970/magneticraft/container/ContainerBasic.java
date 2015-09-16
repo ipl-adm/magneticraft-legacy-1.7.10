@@ -14,7 +14,7 @@ public class ContainerBasic extends Container {
 
     public TileEntity tile;
 
-    public ContainerBasic(InventoryPlayer p, TileEntity t) {
+    public ContainerBasic(TileEntity t) {
         super();
         tile = t;
     }

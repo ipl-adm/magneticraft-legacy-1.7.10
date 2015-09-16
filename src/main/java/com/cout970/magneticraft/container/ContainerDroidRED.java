@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerDroidRED extends ContainerBasic {
 
     public ContainerDroidRED(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot(((TileDroidRED) t).extras, 0, 12, 292));
         addSlotToContainer(new Slot(((TileDroidRED) t).extras, 1, 35, 292));
 

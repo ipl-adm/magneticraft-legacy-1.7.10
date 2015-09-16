@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerStirlingGenerator extends ContainerBasic {
 
     public ContainerStirlingGenerator(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         this.addSlotToContainer(new Slot((IInventory) tile, 0, 80, 47));
         bindPlayerInventory(p);
     }

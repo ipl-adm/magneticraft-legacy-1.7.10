@@ -14,7 +14,7 @@ public class ContainerElectricFurnace extends ContainerBasic {
     public static final int slotCount = 3;
 
     public ContainerElectricFurnace(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         this.addSlotToContainer(new Slot((IInventory) tile, 0, 62, 17));
         this.addSlotToContainer(new Slot((IInventory) tile, 1, 118, 32) {
             public boolean isItemValid(ItemStack p_75214_1_) {

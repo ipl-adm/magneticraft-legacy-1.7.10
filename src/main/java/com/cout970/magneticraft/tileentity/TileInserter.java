@@ -278,7 +278,7 @@ public class TileInserter extends TileBase implements IGuiListener {
 
         if (t.removeItem(b, left, true)) {
             ItemStack x = b.getContent();
-            if (canInject(obj, x) && canExtract(t, x)) {
+            if (canInject(obj, x) && canExtract(x)) {
                 getInv().setInventorySlotContents(0, b.getContent());
                 t.removeItem(b, left, false);
                 t.onChange();
@@ -297,7 +297,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                 if (ts.getAccessibleSlotsFromSide(d.ordinal()) == null) {
                     for (int i : ts.getAccessibleSlotsFromSide(d.ordinal())) {
                         ItemStack s = t.getStackInSlot(i);
-                        if ((s != null) && (s.stackSize > 0) && ts.canExtractItem(i, s, d.ordinal()) && canInject(obj, s) && canExtract(t, s)) {
+                        if ((s != null) && (s.stackSize > 0) && ts.canExtractItem(i, s, d.ordinal()) && canInject(obj, s) && canExtract(s)) {
                             getInv().setInventorySlotContents(0, s);
                             t.setInventorySlotContents(i, null);
                             return;
@@ -309,7 +309,7 @@ public class TileInserter extends TileBase implements IGuiListener {
             for (int i = 0; i < t.getSizeInventory(); i++) {
                 if (t.getStackInSlot(i) != null) {
                     ItemStack s = t.getStackInSlot(i);
-                    if (canInject(obj, s) && canExtract(t, s)) {
+                    if (canInject(obj, s) && canExtract(s)) {
                         getInv().setInventorySlotContents(0, s);
                         t.setInventorySlotContents(i, null);
                         return;
@@ -319,7 +319,7 @@ public class TileInserter extends TileBase implements IGuiListener {
         }
     }
 
-    public boolean canExtract(Object obj, ItemStack s) {
+    public boolean canExtract(ItemStack s) {
         if (s == null) return false;
         if (whiteList) {
             for (int i = 0; i < filter.getSizeInventory(); i++) {
@@ -352,7 +352,7 @@ public class TileInserter extends TileBase implements IGuiListener {
     public boolean checkFilter(int slot, ItemStack i) {
         ItemStack f = filter.getStackInSlot(slot);
         if (f == null) return false;
-        if (!ignoreDict) {
+        if (!ignoreDict && (f.getItem() != i.getItem())) {
             int[] c = OreDictionary.getOreIDs(i);
             int[] d = OreDictionary.getOreIDs(f);
             if (c.length > 0 && d.length > 0) {

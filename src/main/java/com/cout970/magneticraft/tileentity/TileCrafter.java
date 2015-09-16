@@ -192,7 +192,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
             ItemStack content = inv.getStackInSlot(i);
             if (content != null && (content.stackSize > 0) && canAccess(inv, i, dir)) {
                 if (replaceMatrix(recipe, result, content, slot)) {
-                    InvSlot pos = new InvSlot(content, i, inv);
+                    InvSlot pos = new InvSlot(i, inv);
                     if (!visited.contains(pos)) {
                         visited.add(pos);
                         return true;
@@ -317,7 +317,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         public int slot;
         public IInventory inv;
 
-        public InvSlot(ItemStack stack, int slot, IInventory inv) {
+        public InvSlot(int slot, IInventory inv) {
             this.inv = inv;
             this.slot = slot;
             this.inv = inv;
@@ -345,15 +345,12 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         }
 
         public boolean equals(Object o) {
-            if (o instanceof TankInfo) {
-                return ((TankInfo) o).dir == this.dir && ((TankInfo) o).handler == this.handler;
-            }
-            return false;
+            return o instanceof TankInfo && ((TankInfo) o).dir == this.dir && ((TankInfo) o).handler == this.handler;
         }
     }
 
     public enum RedstoneState {
-        NORMAL, INVERTED, PULSE;
+        NORMAL, INVERTED, PULSE
     }
 
     public static RedstoneState step(RedstoneState state) {
@@ -366,8 +363,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     }
 
     public boolean found(int j) {
-        if (itemMatches == -1) return false;
-        return craftRecipe == null || (itemMatches & (1 << j)) > 0;
+        return itemMatches != -1 && (craftRecipe == null || (itemMatches & (1 << j)) > 0);
     }
 
     @Override

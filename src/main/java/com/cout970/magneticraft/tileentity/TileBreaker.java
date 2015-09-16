@@ -12,6 +12,7 @@ import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import net.minecraft.block.Block;
@@ -26,7 +27,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class TileBreaker extends TileConductorLow implements IInventory, IGuiListener, IGuiSync {
 
@@ -70,9 +70,12 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
             y = yCoord + d.offsetY * g;
             z = zCoord + d.offsetZ * g;
             if (!worldObj.getBlock(x, y, z).isAir(worldObj, x, y, z)) {
+                if (worldObj.getBlock(x, y, z) == ManagerBlocks.permagnet) {
+                    break;
+                }
                 BlockInfo bi = new BlockInfo(worldObj.getBlock(x, y, z), worldObj.getBlockMetadata(x, y, z), x, y, z);
-                if (worldObj.getBlock(x, y, z) != ManagerBlocks.permagnet && MgUtils.isMineableBlock(worldObj, bi) && canBeStored(bi)) {
-                    ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+                if (MgUtils.isMineableBlock(worldObj, bi) && canBeStored(bi)) {
+                    ArrayList<ItemStack> items;
                     Block id = worldObj.getBlock(x, y, z);
                     int metadata = worldObj.getBlockMetadata(x, y, z);
 
@@ -93,7 +96,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         for (ItemStack i : list) {
             if (i == null) continue;
             if (canPassFilter(i)) {
-                if (MgBeltUtils.dropItemStackIntoInventory((IInventory) inv, i, MgDirection.UP, true) != 0) {
+                if (MgBeltUtils.dropItemStackIntoInventory(inv, i, MgDirection.UP, true) != 0) {
                     return false;
                 }
             } else {
@@ -113,6 +116,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         } else {
             for (int i = 0; i < filter.getSizeInventory(); i++) {
                 if (checkFilter(i, s)) return false;
+                Log.info("Match on slot " + i);
             }
             return true;
         }
@@ -121,7 +125,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
     public boolean checkFilter(int slot, ItemStack i) {
         ItemStack f = filter.getStackInSlot(slot);
         if (f == null) return false;
-        if (!ignoreDict) {
+        if (!ignoreDict && (f.getItem() != i.getItem())) {
             int[] c = OreDictionary.getOreIDs(i);
             int[] d = OreDictionary.getOreIDs(f);
             if (c.length > 0 && d.length > 0) {
@@ -145,9 +149,8 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
             MgBeltUtils.dropItemStackIntoInventory(inv, i, MgDirection.UP, false);
             return;
         }
-        Random rand = worldObj.rand;
         if (i.stackSize > 0) {
-            BlockMg.dropItem(i, rand, xCoord, yCoord, zCoord, worldObj);
+            BlockMg.dropItem(i, worldObj.rand, xCoord, yCoord, zCoord, worldObj);
         }
     }
 
@@ -229,18 +232,18 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
-            whiteList = dato == 1;
+            whiteList = data == 1;
             sendUpdateToClient();
         } else if (id == 1) {
-            ignoreMeta = dato == 1;
+            ignoreMeta = data == 1;
             sendUpdateToClient();
         } else if (id == 2) {
-            ignoreNBT = dato == 1;
+            ignoreNBT = data == 1;
             sendUpdateToClient();
         } else if (id == 3) {
-            ignoreDict = dato == 1;
+            ignoreDict = data == 1;
             sendUpdateToClient();
         }
     }

@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerBreaker extends ContainerBasic {
 
     public ContainerBreaker(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 addSlotToContainer(new Slot((IInventory) tile, j + i * 3, 107 + j * 18, 26 + i * 18));

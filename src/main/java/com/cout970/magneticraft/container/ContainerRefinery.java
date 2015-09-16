@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerRefinery extends ContainerBasic {
 
     public ContainerRefinery(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         bindPlayerInventory(p);
     }
 }

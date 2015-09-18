@@ -1,13 +1,17 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.access.RecipePolymerizer;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.TileBase;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
+import com.cout970.magneticraft.tileentity.TileHeater;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
@@ -56,7 +60,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
             } else {
                 progress++;
             }
-            heater.drainCalories(EnergyConversor.RFtoCALORIES(40));
+            heater.drainCalories(EnergyConverter.RFtoCALORIES(40));
         } else {
             progress = 0;
         }
@@ -98,7 +102,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
             i.stackSize += recipe.getOutput().stackSize;
             getInv().setInventorySlotContents(1, i);
         }
-        heater.drainCalories(EnergyConversor.RFtoCALORIES(100));
+        heater.drainCalories(EnergyConverter.RFtoCALORIES(100));
         input.drain(500, true);
     }
 
@@ -240,7 +244,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        return TileEntity.INFINITE_EXTENT_AABB;
     }
 
     @Override

@@ -171,7 +171,7 @@ public class ElectricConductor implements IElectricConductor {
     }
 
     public double getInvCapacity() {
-        return getVoltageMultiplier() * EnergyConversor.RFtoW(0.1D);
+        return getVoltageMultiplier() * EnergyConverter.RFtoW(0.1D);
     }
 
     @Override

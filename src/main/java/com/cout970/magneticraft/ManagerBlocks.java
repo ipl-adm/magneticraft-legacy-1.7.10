@@ -15,6 +15,8 @@ import com.cout970.magneticraft.block.stairs.*;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
 import com.cout970.magneticraft.tileentity.*;
+import com.cout970.magneticraft.tileentity.multiblock.*;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.pole.*;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;

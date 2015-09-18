@@ -142,7 +142,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
                     validate();
                     worldObj.setTileEntity(xCoord, yCoord, zCoord, this);
                     setOrientation(ori);
-                    cond.drainPower(EnergyConversor.RFtoW(10));
+                    cond.drainPower(EnergyConverter.RFtoW(10));
                     markDirty();
                     onNeigChange();
                     sendUpdateToClient();
@@ -162,7 +162,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
                     validate();
                     worldObj.setTileEntity(xCoord, yCoord, zCoord, this);
                     setOrientation(ori);
-                    cond.drainPower(EnergyConversor.RFtoW(10));
+                    cond.drainPower(EnergyConverter.RFtoW(10));
                     markDirty();
                     onNeigChange();
                     sendUpdateToClient();
@@ -193,7 +193,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
         if (worldObj.isRemote) return;
         cpu.iterate();
         floppyDisk.iterate();
-        cond.drainPower(EnergyConversor.RFtoW(0.5D));
+        cond.drainPower(EnergyConverter.RFtoW(0.5D));
     }
 
     //axis == true rotate from y, else from x, dir == true, left or top, else right or bottom
@@ -374,7 +374,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
 
     @Override
     public IElectricConductor initConductor() {
-        return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, (int) EnergyConversor.RFtoW(50000), ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+        return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, (int) EnergyConverter.RFtoW(50000), ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
     }
 
     public boolean isRunning() {

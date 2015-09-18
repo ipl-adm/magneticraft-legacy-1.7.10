@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock;
 
 import com.cout970.magneticraft.api.kinetic.IKineticConductor;
 import com.cout970.magneticraft.api.kinetic.IKineticTile;

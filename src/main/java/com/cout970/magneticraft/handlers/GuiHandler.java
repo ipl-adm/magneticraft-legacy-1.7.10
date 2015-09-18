@@ -4,6 +4,8 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.*;
 import com.cout970.magneticraft.container.*;
 import com.cout970.magneticraft.tileentity.*;
+import com.cout970.magneticraft.tileentity.multiblock.*;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

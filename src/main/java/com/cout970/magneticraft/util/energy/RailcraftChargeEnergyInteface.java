@@ -2,7 +2,7 @@ package com.cout970.magneticraft.util.energy;
 
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IIndexedConnection;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.VecInt;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
@@ -24,24 +24,24 @@ public class RailcraftChargeEnergyInteface implements IEnergyInterface {
 
     @Override
     public double applyEnergy(double watts) {
-        double energy = Math.min(c.getCapacity() - c.getCharge(), EnergyConversor.WtoRC(watts));
+        double energy = Math.min(c.getCapacity() - c.getCharge(), EnergyConverter.WtoRC(watts));
         c.addCharge(energy);
-        return EnergyConversor.RCtoW(energy);
+        return EnergyConverter.RCtoW(energy);
     }
 
     @Override
     public double getCapacity() {
-        return EnergyConversor.RCtoW(c.getCapacity());
+        return EnergyConverter.RCtoW(c.getCapacity());
     }
 
     @Override
     public double getEnergyStored() {
-        return EnergyConversor.RCtoW(c.getCharge());
+        return EnergyConverter.RCtoW(c.getCharge());
     }
 
     @Override
     public double getMaxFlow() {
-        return EnergyConversor.RCtoW(512);
+        return EnergyConverter.RCtoW(512);
     }
 
     @Override

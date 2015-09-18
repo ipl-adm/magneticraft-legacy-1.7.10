@@ -2,7 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -42,7 +42,7 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
             if (canSmelt()) {
                 double speed = getSpeed();
                 heat.drainCalories(speed);
-                progress += EnergyConversor.CALORIEStoFUEL(speed);
+                progress += EnergyConverter.CALORIEStoFUEL(speed);
                 if (progress >= MAX_PROGRESS) {
                     smelt();
                     progress -= MAX_PROGRESS;
@@ -58,7 +58,7 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
     }
 
     private double getSpeed() {
-        return EnergyConversor.FUELtoCALORIES(heat.getTemperature() / 100d);
+        return EnergyConverter.FUELtoCALORIES(heat.getTemperature() / 100d);
     }
 
     @Override

@@ -1,13 +1,16 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.access.RecipeSifter;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.tileentity.TileBase;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Inv;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -68,7 +71,7 @@ public class TileSifter extends TileMB_Base {
             }
             if (canCraft()) {
                 if (cond.getVoltage() > ElectricConstants.MACHINE_WORK) {
-                    cond.drainPower(EnergyConversor.RFtoW(40) * (100F / speed));
+                    cond.drainPower(EnergyConverter.RFtoW(40) * (100F / speed));
                     progress++;
                     if (progress > speed) {
                         craft();

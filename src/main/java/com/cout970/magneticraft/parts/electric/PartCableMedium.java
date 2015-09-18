@@ -96,7 +96,7 @@ public class PartCableMedium extends PartElectric implements ISidedHollowConnect
 
             @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.1D);
+                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.1D);
 
             }
         };

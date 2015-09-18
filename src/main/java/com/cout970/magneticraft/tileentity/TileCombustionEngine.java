@@ -10,7 +10,7 @@ import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.fluids.BlockFuel;
@@ -61,11 +61,11 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
         }
         if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControlled() && fuel != null) {
             float speed = getSpeed();
-            double p = EnergyConversor.RFtoW(fuel.getPowerPerCycle()) * speed;
+            double p = EnergyConverter.RFtoW(fuel.getPowerPerCycle()) * speed;
             buffer -= speed;
             counter += p;
             cond.applyPower(p);
-            heat.applyCalories(EnergyConversor.RFtoCALORIES(0.2));
+            heat.applyCalories(EnergyConverter.RFtoCALORIES(0.2));
         }
 
         if (buffer <= 0 || (fuel == null && getTank().getFluidAmount() >= 10)) {
@@ -75,7 +75,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
                 if (f != null) {
                     buffer += f.getTotalBurningTime() / 100;
                     fuel = f;
-                    maxProd = (int) EnergyConversor.RFtoW(f.getPowerPerCycle());
+                    maxProd = (int) EnergyConverter.RFtoW(f.getPowerPerCycle());
                     getTank().drain(10, true);
                 }
             }
@@ -93,11 +93,11 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
         }
         if (buffer > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && heat.getTemperature() < 500 && isControlled() && fuelBC != null) {
             float speed = getSpeed();
-            double p = EnergyConversor.RFtoW(fuelBC.getPowerPerCycle()) * speed;
+            double p = EnergyConverter.RFtoW(fuelBC.getPowerPerCycle()) * speed;
             buffer -= speed;
             counter += p;
             cond.applyPower(p);
-            heat.applyCalories(EnergyConversor.RFtoCALORIES(0.2));
+            heat.applyCalories(EnergyConverter.RFtoCALORIES(0.2));
         }
 
         if (buffer <= 0 || (fuelBC == null && getTank().getFluidAmount() >= 10)) {
@@ -107,7 +107,7 @@ public class TileCombustionEngine extends TileConductorLow implements IFluidHand
                 if (f != null) {
                     buffer += f.getTotalBurningTime() / 100;
                     fuelBC = f;
-                    maxProd = (int) EnergyConversor.RFtoW(f.getPowerPerCycle());
+                    maxProd = (int) EnergyConverter.RFtoW(f.getPowerPerCycle());
                     getTank().drain(10, true);
                 }
             }

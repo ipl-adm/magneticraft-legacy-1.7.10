@@ -2,7 +2,7 @@ package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cofh.api.energy.IEnergyContainerItem;
@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class ItemToolCharger extends ItemCharged {
 
     public ItemToolCharger(String unlocalizedname) {
-        super(unlocalizedname, (int) EnergyConversor.RFtoW(500000));
+        super(unlocalizedname, (int) EnergyConverter.RFtoW(500000));
         setMaxStackSize(1);
         setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
     }
@@ -32,7 +32,7 @@ public class ItemToolCharger extends ItemCharged {
                         if (st.canProvideEnergy(item)) {
                             int space = getMaxCharge(item) - getCharge(item);
                             int toMove = Math.min(space, st.getCharge(s));
-                            toMove = (int) Math.min(toMove, EnergyConversor.RFtoW(500));
+                            toMove = (int) Math.min(toMove, EnergyConverter.RFtoW(500));
                             if (toMove > 0) {
                                 st.discharge(s, toMove);
                                 charge(item, toMove);
@@ -40,7 +40,7 @@ public class ItemToolCharger extends ItemCharged {
                         } else if (st.canAcceptCharge(item)) {
                             int space = st.getMaxCharge(s) - st.getCharge(s);
                             int toMove = Math.min(space, getCharge(item));
-                            toMove = (int) Math.min(toMove, EnergyConversor.RFtoW(500));
+                            toMove = (int) Math.min(toMove, EnergyConverter.RFtoW(500));
                             if (toMove > 0) {
                                 st.charge(s, toMove);
                                 discharge(item, toMove);
@@ -49,10 +49,10 @@ public class ItemToolCharger extends ItemCharged {
                     } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
                         int space = (int) (st.getMaxEnergyStored(s) - st.getEnergyStored(s));
-                        int toMove = (int) Math.min(space, EnergyConversor.WtoRF(getCharge(item)));
+                        int toMove = (int) Math.min(space, EnergyConverter.WtoRF(getCharge(item)));
                         if (toMove > 0) {
                             st.receiveEnergy(s, toMove, false);
-                            discharge(item, (int) EnergyConversor.RFtoW(toMove));
+                            discharge(item, (int) EnergyConverter.RFtoW(toMove));
                         }
                     }
                 }

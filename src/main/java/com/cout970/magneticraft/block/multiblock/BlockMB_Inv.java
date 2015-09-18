@@ -4,7 +4,7 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.tileentity.TileMB_Inv;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Inv;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;

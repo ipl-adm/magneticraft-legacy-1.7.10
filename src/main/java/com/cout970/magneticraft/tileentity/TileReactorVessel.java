@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
 import com.cout970.magneticraft.api.radiation.IRadiactiveItem;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -52,8 +52,8 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
                 double prod = ((initialMass - NewMass) * AVOGADROS_CONSTANT * item.getEnergyPerFision(g));
                 prod *= 1E-10;
                 g.setItemDamage(g.getItem().getDamage(g));
-                heat.applyCalories(EnergyConversor.RFtoCALORIES(prod));
-                production += EnergyConversor.RFtoCALORIES(prod);
+                heat.applyCalories(EnergyConverter.RFtoCALORIES(prod));
+                production += EnergyConverter.RFtoCALORIES(prod);
             }
         }
         neutrons = 0;

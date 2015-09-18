@@ -8,7 +8,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileCrusher;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileCrusher;
 import com.cout970.magneticraft.util.multiblock.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

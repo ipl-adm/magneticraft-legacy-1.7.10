@@ -2,7 +2,7 @@ package com.cout970.magneticraft.client.gui;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.*;
-import com.cout970.magneticraft.tileentity.TileOilDistillery;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileOilDistillery;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;

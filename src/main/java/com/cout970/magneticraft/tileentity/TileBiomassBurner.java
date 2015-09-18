@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.access.RecipeBiomassBurner;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -47,12 +47,12 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
             if (heat.getTemperature() < 1200 && isControlled()) {
                 int i = 4;//burning speed
                 if (progress - i < 0) {
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(progress));
                     progress = 0;
                     updated = false;
                 } else {
                     progress -= i;
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(i));
                 }
             }
         }

@@ -5,6 +5,7 @@ import com.cout970.magneticraft.api.kinetic.IKineticTile;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

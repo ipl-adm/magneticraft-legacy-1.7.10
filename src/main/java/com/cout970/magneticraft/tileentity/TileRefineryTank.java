@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.fluid.TankMg;

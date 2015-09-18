@@ -2,7 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -38,12 +38,12 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
             if (heat.getTemperature() < heat.getMaxTemp() - 200) {
                 int i = 6;//burning speed
                 if (progress - i < 0) {
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(progress));
                     progress = 0;
                     updated = false;
                 } else {
                     progress -= i;
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(i));
                 }
             }
         }

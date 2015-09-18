@@ -2,7 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
@@ -36,13 +36,13 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
         super.updateEntity();
         if (worldObj.isRemote) return;
         if (heat.getTemperature() > 100) {
-            int cs = Math.min(water.getFluidAmount(), EnergyConversor.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));//calcs in water mount
-            int boil = Math.min(Math.min(cs, (int) EnergyConversor.STEAMtoWATER(MAX_STEAM)), ((int) heat.getTemperature() - 100));
-            produce = EnergyConversor.WATERtoSTEAM(boil);
+            int cs = Math.min(water.getFluidAmount(), EnergyConverter.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));//calcs in water mount
+            int boil = Math.min(Math.min(cs, (int) EnergyConverter.STEAMtoWATER(MAX_STEAM)), ((int) heat.getTemperature() - 100));
+            produce = EnergyConverter.WATERtoSTEAM(boil);
             if (boil > 0) {
                 water.drain(boil, true);
-                steam.fill(FluidRegistry.getFluidStack("steam", (int) EnergyConversor.WATERtoSTEAM(boil)), true);
-                heat.drainCalories(EnergyConversor.WATERtoSTEAM_HEAT(boil));
+                steam.fill(FluidRegistry.getFluidStack("steam", (int) EnergyConverter.WATERtoSTEAM(boil)), true);
+                heat.drainCalories(EnergyConverter.WATERtoSTEAM_HEAT(boil));
             }
         }
 

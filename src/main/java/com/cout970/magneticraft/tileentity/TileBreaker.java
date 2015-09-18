@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
@@ -79,7 +79,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
                     Block id = worldObj.getBlock(x, y, z);
                     int metadata = worldObj.getBlockMetadata(x, y, z);
 
-                    cond.drainPower(EnergyConversor.RFtoW(500));
+                    cond.drainPower(EnergyConverter.RFtoW(500));
                     items = id.getDrops(worldObj, x, y, z, metadata, 0);
                     for (ItemStack i : items)
                         ejectItems(i);

@@ -6,7 +6,7 @@ import com.cout970.magneticraft.api.electricity.IInterPoleWire;
 import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import cpw.mods.fml.relauncher.Side;
@@ -82,7 +82,7 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
         cond = new ElectricConductor(this) {
             @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.8D);
+                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.8D);
             }
         };
         pole = new ElectricPoleTier1(this, cond) {

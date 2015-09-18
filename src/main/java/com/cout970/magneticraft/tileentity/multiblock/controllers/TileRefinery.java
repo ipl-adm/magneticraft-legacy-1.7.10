@@ -1,10 +1,12 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.access.RecipeRefinery;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.TileRefineryTank;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;

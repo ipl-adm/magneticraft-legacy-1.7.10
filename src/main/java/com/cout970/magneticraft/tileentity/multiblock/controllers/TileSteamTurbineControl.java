@@ -1,15 +1,17 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.TileCopperTank;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
@@ -40,7 +42,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
     public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
         @Override
         public double getInvCapacity() {
-            return EnergyConversor.RFtoW(1D);
+            return EnergyConverter.RFtoW(1D);
         }
 
         @Override
@@ -91,7 +93,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
         steam = (int) Math.min(steam, ((getFluidAmount() + 1000) / 64000f) * MAX_STEAM);
         if (steam > 0 && capacity.getVoltage() < ElectricConstants.MAX_VOLTAGE * 100) {
             drain(steam, true);
-            double power = EnergyConversor.STEAMtoW(steam);
+            double power = EnergyConverter.STEAMtoW(steam);
             capacity.applyPower(power);
             energyCounter += power;
             steamCounter += steam;
@@ -267,7 +269,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
             @Override
             public float getMaxLevel() {
-                return (float) EnergyConversor.STEAMtoW(MAX_STEAM);
+                return (float) EnergyConverter.STEAMtoW(MAX_STEAM);
             }
 
             @Override

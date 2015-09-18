@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -8,6 +8,7 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -77,11 +78,11 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
             if (heat.getTemperature() < heat.getMaxTemp() - 200 && isControlled()) {
                 int i = 12;//burning speed
                 if (progress - i < 0) {
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(progress));
                     progress = 0;
                 } else {
                     progress -= i;
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(i));
                 }
 
             }
@@ -107,7 +108,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 
         if (heat.getTemperature() > 30 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE) {
             int prod = (int) Math.min(MAX_PRODUCTION, (heat.getTemperature() - 30) * 10);
-            heat.drainCalories(EnergyConversor.WtoCALORIES(prod));
+            heat.drainCalories(EnergyConverter.WtoCALORIES(prod));
             cond.applyPower(prod);
             prodCounter += prod;
         }

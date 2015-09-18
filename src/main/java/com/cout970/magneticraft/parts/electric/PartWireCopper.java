@@ -128,7 +128,7 @@ public abstract class PartWireCopper extends PartElectric {
 
             @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.8D);
+                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.8D);
             }
         };
     }

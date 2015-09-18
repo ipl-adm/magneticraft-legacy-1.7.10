@@ -60,7 +60,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
         @Override
         public double getInvCapacity() {
-            return EnergyConversor.RFtoW(1D);
+            return EnergyConverter.RFtoW(1D);
         }
 
         @Override
@@ -103,7 +103,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                 p = (p * p / 500);
                 if (coolDown > 0) {
                     if (capacity.getVoltage() > ElectricConstants.MACHINE_WORK * 100) {
-                        coolDown -= EnergyConversor.WtoRF(p);
+                        coolDown -= EnergyConverter.WtoRF(p);
                         ConsumptionCounter += p;
                         capacity.drainPower(p);
                     }

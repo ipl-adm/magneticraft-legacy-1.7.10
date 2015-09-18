@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -70,7 +70,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync {
 
                 if (heat.getTemperature() < 1200 && buffer > 0) {
                     int i = Math.min(12, buffer);
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(i));
                     buffer -= i;
                     working = true;
                 } else {

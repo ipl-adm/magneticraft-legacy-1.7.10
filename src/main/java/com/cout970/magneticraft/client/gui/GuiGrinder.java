@@ -8,7 +8,7 @@ import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TileGrinder;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileGrinder;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;

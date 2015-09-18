@@ -6,7 +6,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.ThermopileFuel;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -46,7 +46,7 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
     }
 
     public double getCurrentFromDiff() {
-        return EnergyConversor.RFtoW(diff * 0.05);
+        return EnergyConverter.RFtoW(diff * 0.05);
     }
 
     private void updateTemps() {
@@ -96,6 +96,6 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
     }
 
     public double getMaxCurrentFromDiff() {
-        return EnergyConversor.RFtoW(10);
+        return EnergyConverter.RFtoW(10);
     }
 }

@@ -2,7 +2,7 @@ package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import cpw.mods.fml.relauncher.Side;
@@ -28,7 +28,7 @@ public class ItemManometer extends ItemBasic {
         TileEntity t = w.getTileEntity(x, y, z);
         List<IPressureConductor> list = PressureUtils.getPressureCond(t, VecInt.NULL_VECTOR);
         for (IPressureConductor cond : list) {
-            String s = String.format("Reading %.2fbar, %dpa", EnergyConversor.PAtoBAR(cond.getPressure()), (int) cond.getPressure());
+            String s = String.format("Reading %.2fbar, %dpa", EnergyConverter.PAtoBAR(cond.getPressure()), (int) cond.getPressure());
             p.addChatMessage(new ChatComponentText(s));
         }
         return false;

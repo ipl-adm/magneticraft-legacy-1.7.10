@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -55,8 +55,8 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
             int steam = Math.min(tank.getFluidAmount(), STEAM_LIMIT);
             if (steam > 0) {
                 tank.drain(steam, true);
-                cond.applyPower(EnergyConversor.STEAMtoW(steam));
-                electricProduction += EnergyConversor.STEAMtoW(steam);
+                cond.applyPower(EnergyConverter.STEAMtoW(steam));
+                electricProduction += EnergyConverter.STEAMtoW(steam);
                 steamConsumition += steam;
                 working = true;
             } else {
@@ -190,7 +190,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 
             @Override
             public float getMaxChange() {
-                return (float) (EnergyConversor.STEAMtoW(STEAM_LIMIT));
+                return (float) (EnergyConverter.STEAMtoW(STEAM_LIMIT));
             }
 
             @Override

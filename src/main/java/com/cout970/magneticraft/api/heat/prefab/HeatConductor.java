@@ -74,7 +74,7 @@ public class HeatConductor implements IHeatConductor {
                     if (h.isAbleToConnect(this, d.getOpposite()) && this.isAbleToConnect(h, d)) {
                         double diff = this.getTemperature() - h.getTemperature();
                         double resistance = this.getResistance() + h.getResistance();
-                        double change = ((diff * 0.5D) / resistance) * EnergyConversor.FUELtoCALORIES(1);
+                        double change = ((diff * 0.5D) / resistance) * EnergyConverter.FUELtoCALORIES(1);
                         drainCalories(change);
                         h.applyCalories(change);
                     }

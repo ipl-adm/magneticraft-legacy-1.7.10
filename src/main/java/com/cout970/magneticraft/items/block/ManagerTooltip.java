@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.items.ItemBasic;
 import com.cout970.magneticraft.items.ItemBattery;
@@ -43,25 +43,25 @@ public class ManagerTooltip {
 			Block b = ((ItemBlockMg) item.getItem()).field_150939_a;
 			if (b == airlock) {
 				list.add(format + "Removes all nearby water blocks every 10 seconds");
-				list.add(format + "Uses " + (int) EnergyConversor.RFtoW(10) + "J per block destroyed");
+				list.add(format + "Uses " + (int) EnergyConverter.RFtoW(10) + "J per block destroyed");
 			} else if (b == basic_gen) {
 				list.add(format + "Generates electricity from solid fuels or heat, needs water to work");
-				list.add(format + "Produces up to 400W using " + (EnergyConversor
+				list.add(format + "Produces up to 400W using " + (EnergyConverter
 						.FUELtoCALORIES(4) / 1000) + " kcal/t");
 			} else if (b == battery) {
-				list.add(format + "Stores up to " + (int) EnergyConversor.RFtoW(2000000) + "J");
+				list.add(format + "Stores up to " + (int) EnergyConverter.RFtoW(2000000) + "J");
 				list.add(format + "Keeps energy when broken");
 			} else if (b == biomass_burner) {
 				list.add(
 						format + "Generates heat from biomass, such as wood, saplings, flowers, or some types of plants");
-				list.add(format + "Produces up tp " + (EnergyConversor.RFtoCALORIES(40) / 1000) + " kcal/t");
+				list.add(format + "Produces up tp " + (EnergyConverter.RFtoCALORIES(40) / 1000) + " kcal/t");
 			} else if (b == boiler) {
 				list.add(format + "Generates steam from heat and water");
-				list.add(format + "Produces up to 80mB using " + (EnergyConversor
-						.WtoCALORIES(EnergyConversor.STEAMtoW(80)) / 1000) + " kcal/t");
+				list.add(format + "Produces up to 80mB using " + (EnergyConverter
+						.WtoCALORIES(EnergyConverter.STEAMtoW(80)) / 1000) + " kcal/t");
 			} else if (b == breaker) {
 				list.add(format + "Breaks up to 16 blocks in a straight line");
-				list.add(format + "Uses " + EnergyConversor.RFtoW(500) / 1000 + "kW per block mined");
+				list.add(format + "Uses " + EnergyConverter.RFtoW(500) / 1000 + "kW per block mined");
 			} else if (b == brickFurnace) {
 				list.add(format + "A furnace fueled by heat. Speed proportional to temperature");
 			} else if (b == combustion_engine) {
@@ -100,14 +100,14 @@ public class ManagerTooltip {
 				list.add(format + "Generates electricity from EU");
 			} else if (b == firebox) {
 				list.add(format + "Generate heat from solid fuel");
-				list.add(format + "Produces up tp " + (EnergyConversor.RFtoCALORIES(40) / 1000) + " kcal/t");
+				list.add(format + "Produces up tp " + (EnergyConverter.RFtoCALORIES(40) / 1000) + " kcal/t");
 			} else if (b == fluidhopper) {
 				list.add(format + "Transfers fluids from one tank to another through an internal buffer");
 				list.add(format + "Can be used to fill or empty buckets");
 			} else if (b == geothermal) {
 				list.add(format + "Pumps lava and uses it to generate heat");
 				list.add(format + "Will mine blocks on its way to lava");
-				list.add(format + "Produces " + EnergyConversor.FUELtoCALORIES(12) / 1000 + " kcal/t");
+				list.add(format + "Produces " + EnergyConverter.FUELtoCALORIES(12) / 1000 + " kcal/t");
 			} else if (b == grinder) {
 				list.add(format + "Multiblock Structure, place and right-click to see the blueprint");
 				list.add(format + "Grinds objects for further processing or any other use");
@@ -134,11 +134,11 @@ public class ManagerTooltip {
 				list.add(
 						format + "Mines blocks and puts them into adjacent inventories" + (Magneticraft.BUILDCRAFT ? " or Transport Pipes" : ""));
 				list.add(format + "Uses medium voltage. Mining speed scales with exact voltage");
-				list.add(format + "Uses " + (int) EnergyConversor.RFtoW(500) + "J per block mined");
+				list.add(format + "Uses " + (int) EnergyConverter.RFtoW(500) + "J per block mined");
 			} else if (b == mirror) {
 				list.add(
 						format + "Focuses sunlight onto a Solar Tower Core. Use Position Map to bind mirrors to the Core");
-				list.add(format + "Every mirror generates " + EnergyConversor
+				list.add(format + "Every mirror generates " + EnergyConverter
 						.RFtoCALORIES(2) / 1000 + " kcal/t if nothing is blocking the sunlight");
 			} else if (b == monitor) {
 				list.add(format + "[WIP] A means of interacting with adjacent computer");
@@ -174,18 +174,18 @@ public class ManagerTooltip {
 			} else if (b == sifter) {
 				list.add(format + "Multiblock Structure, place and right-click to see the blueprint");
 			} else if (b == solarpanel) {
-				list.add(format + "Generates " + (int) EnergyConversor.RFtoW(5) + "W");
+				list.add(format + "Generates " + (int) EnergyConverter.RFtoW(5) + "W");
 			} else if (b == solar_tower_core) {
 				list.add(
 						format + "Concentrates heat from nearby mirrors. Use Position Map to orient mirrors");
 			} else if (b == steam_engine) {
 				list.add(format + "Generates electricity from steam");
-				list.add(format + "Can consume up to 40mB/t and generate up to " + EnergyConversor
+				list.add(format + "Can consume up to 40mB/t and generate up to " + EnergyConverter
 						.STEAMtoW(40) / 1000 + " kW");
 			} else if (b == steam_turbine) {
 				list.add(format + "Multiblock Structure, place and right-click to see the blueprint");
 				list.add(format + "Generates electricity from steam");
-				list.add(format + "Can produce up to " + (EnergyConversor.STEAMtoW(1200) / 1000) + "kW");
+				list.add(format + "Can produce up to " + (EnergyConverter.STEAMtoW(1200) / 1000) + "kW");
 			} else if (b == stirling) {
 				list.add(format + "Multiblock Structure, place and right-click to see the blueprint");
 				list.add(format + "Generates electricity and heat from solid fuel");
@@ -254,11 +254,11 @@ public class ManagerTooltip {
 			}else if(i == tool_charger){
 				list.add(format + "Charges tools in the inventory using energy from batteries");
 			}else if(i == small_battery){
-				list.add(format + (int) EnergyConversor.WtoRF(((ItemSmallBattery) i).getCharge(item)) + "/" + (int) EnergyConversor.WtoRF(((ItemSmallBattery) i).getMaxCharge(item)) + " RF");
+				list.add(format + (int) EnergyConverter.WtoRF(((ItemSmallBattery) i).getCharge(item)) + "/" + (int) EnergyConverter.WtoRF(((ItemSmallBattery) i).getMaxCharge(item)) + " RF");
 			}else if(i == oil_prospector){
 				list.add(format + "Looks for underground oil deposits in 3x3 area");
 			}else if(i == battery_item){
-				list.add(format + (int) EnergyConversor.WtoRF(((ItemBattery) i).getCharge(item)) + "/" + (int) EnergyConversor.WtoRF(((ItemBattery) i).getMaxCharge(item)) + " RF");
+				list.add(format + (int) EnergyConverter.WtoRF(((ItemBattery) i).getCharge(item)) + "/" + (int) EnergyConverter.WtoRF(((ItemBattery) i).getMaxCharge(item)) + " RF");
 			}
 		}else if(item.getItem() instanceof ItemPartBase){
 			Item i = item.getItem();

@@ -4,7 +4,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.tool.IWindTurbine;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -110,8 +110,8 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
                 production = 0;
                 productionPerSecond = 0;
             } else if (cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControlled()) {
-                cond.applyPower(EnergyConversor.RFtoW(power * turbinePotency / 100));
-                production = (float) EnergyConversor.RFtoW(power * turbinePotency / 100);
+                cond.applyPower(EnergyConverter.RFtoW(power * turbinePotency / 100));
+                production = (float) EnergyConverter.RFtoW(power * turbinePotency / 100);
             } else {
                 production = 0;
             }

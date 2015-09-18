@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.api.electricity;
 
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 
 /**
  * @author Cout970
@@ -21,6 +21,6 @@ public class ElectricConstants {
     public static double RESISTANCE_COPPER_HIGH = 0.25D;
     public static double ALTERNATOR_DISCHARGE = MAX_VOLTAGE;
     public static double ENERGY_INTERFACE_LEVEL = MAX_VOLTAGE / 2;
-    public static double CONVERSION_SPEED = EnergyConversor.RFtoW(5);
+    public static double CONVERSION_SPEED = EnergyConverter.RFtoW(5);
     public static double RESISTANE_COPPER_WIRE = RESISTANCE_COPPER_LOW;
 }

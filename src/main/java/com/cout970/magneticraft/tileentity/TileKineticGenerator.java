@@ -6,7 +6,7 @@ import cofh.api.energy.IEnergyReceiver;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -39,7 +39,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
     public IElectricConductor initConductor() {
         return new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
             public double getInvCapacity() {
-                return EnergyConversor.RFtoW(1D);
+                return EnergyConverter.RFtoW(1D);
             }
         };
     }
@@ -65,7 +65,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
             int min = (int) Math.min((cond.getVoltage() - ElectricConstants.MACHINE_WORK * 100) / 10, 40 * Math.ceil(f));
             min = Math.min(storage.getMaxEnergyStored() - storage.getEnergyStored(), min);
             if (min > 0) {
-                cond.drainPower(EnergyConversor.RFtoW(min));
+                cond.drainPower(EnergyConverter.RFtoW(min));
                 storage.modifyEnergyStored(min);
                 lastProd = min;
                 prodCount += min;

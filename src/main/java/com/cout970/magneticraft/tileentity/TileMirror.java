@@ -5,7 +5,7 @@ import codechicken.lib.vec.Vector3;
 import codechicken.multipart.BlockMultipart;
 import com.cout970.magneticraft.api.heat.HeatUtils;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -35,7 +35,7 @@ public class TileMirror extends TileBase {
                     if (comp != null) {
                         IHeatConductor heat = comp[0];
                         if ((heat != null) && (heat.getTemperature() < 1200))
-                            heat.applyCalories(EnergyConversor.RFtoCALORIES(2));
+                            heat.applyCalories(EnergyConverter.RFtoCALORIES(2));
                     }
                 }
             }

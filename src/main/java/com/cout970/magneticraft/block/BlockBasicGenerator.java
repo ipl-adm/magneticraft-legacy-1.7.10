@@ -44,7 +44,7 @@ public class BlockBasicGenerator extends BlockMg {
                     p.inventory.setInventorySlotContents(p.inventory.currentItem, consumeItem(current));
                 }
                 if (qty == 0) {
-                    p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+                    p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
                 }
                 return true;
             } else {
@@ -54,7 +54,7 @@ public class BlockBasicGenerator extends BlockMg {
             h = true;
         }
         if (h) {
-            p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+            p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
             return true;
         }
         return false;

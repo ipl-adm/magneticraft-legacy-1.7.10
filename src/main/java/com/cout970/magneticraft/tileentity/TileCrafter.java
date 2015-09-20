@@ -37,7 +37,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     private List<TankInfo> checkedTanks = new ArrayList<TankInfo>();
     private int itemMatches = -1;
     private IRecipe craftRecipe;
-    private boolean nextCraft = false;
+    //private boolean nextCraft = false;
+    private int craftState = 0; // 0 = awaiting high signal, 1 = ready to craft, 2 = awaiting low signal
     public RedstoneState state = RedstoneState.NORMAL;
 
     public InventoryComponent getInv() {
@@ -46,12 +47,21 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 
     public void onNeigChange() {
         super.onNeigChange();
-        if (isPowered()) nextCraft = true;
+        if (isPowered() && (craftState == 0)) craftState = 1;
     }
 
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
+        if (isPowered()) {
+            if (craftState == 0) {
+                craftState = 1;
+            }
+        } else {
+            if (craftState == 2) {
+                craftState = 0;
+            }
+        }
         if (itemMatches == -1) {
             refreshItemMatches();
         }
@@ -61,14 +71,14 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         if (isControlled()) {
             if (craft())
                 refreshItemMatches();
-            nextCraft = false;
+            craftState = 2;
         }
     }
 
     public boolean isControlled() {
         if (state == RedstoneState.NORMAL) return !powered;
         if (state == RedstoneState.INVERTED) return powered;
-        return nextCraft;
+        return (craftState == 1);
     }
 
     public void refreshRecipe() {
@@ -378,14 +388,14 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     }
 
     @Override
-    public void onMessageReceive(int id, int value) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
-            if (value == 1) {
+            if (data == 1) {
                 for (int i = 0; i < 9; i++)
                     getRecipe().setInventorySlotContents(i, null);
                 refreshRecipe();
-            } else if (value == 0) {
-                if (state == RedstoneState.PULSE) nextCraft = true;
+            } else if (data == 0) {
+                if (state == RedstoneState.PULSE) craftState = 1;
             }
         }
     }

@@ -10,6 +10,7 @@ import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import java.awt.*;
 import java.util.ArrayList;

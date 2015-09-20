@@ -69,7 +69,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock {
                 else
                     ((TileGrinder) t).drawCounter = 200;
             } else {
-                p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+                p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
             }
         }
         return true;

@@ -213,7 +213,7 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (motherboard.isActive()) {
             if (id == 0) {
                 if (!procesor.isRunning()) {

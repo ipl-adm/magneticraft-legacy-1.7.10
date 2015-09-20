@@ -382,10 +382,10 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
             int old = dim;
-            dim = Math.min(MAX_DIMENSION, dim + dato);
+            dim = Math.min(MAX_DIMENSION, dim + data);
             if (old != dim) {
                 hole = 0;
                 state = WorkState.UNREADY;
@@ -394,7 +394,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             }
         } else if (id == 1) {
             int old = dim;
-            dim = Math.max(MIN_DIMENSION, dim - dato);
+            dim = Math.max(MIN_DIMENSION, dim - data);
             if (old != dim) {
                 hole = 0;
                 state = WorkState.UNREADY;
@@ -402,10 +402,10 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                 sendUpdateToClient();
             }
         } else if (id == 2) {
-            replaceWithDirt = dato == 1;
+            replaceWithDirt = data == 1;
             sendUpdateToClient();
         } else if (id == 3) {
-            removeWater = dato == 1;
+            removeWater = data == 1;
             sendUpdateToClient();
         }
     }
@@ -468,7 +468,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         isFirstTime = true;
         if (ManagerConfig.MINER_CHUNKLOADING) {
             if (chunkTicket == null) {
-                chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.Instance, worldObj, Type.NORMAL);
+                chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.INSTANCE, worldObj, Type.NORMAL);
             }
             chunkTicket.getModData().setInteger("quarryX", xCoord);
             chunkTicket.getModData().setInteger("quarryY", yCoord);

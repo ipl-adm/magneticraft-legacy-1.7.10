@@ -68,7 +68,7 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock {
                     MB_Watcher.watchStructure(w, new VecInt(x, y, z), MB_Register.getMBbyID(MB_Register.ID_POLIMERIZER), getDirection(w, new VecInt(x, y, z)), p);
                 else ((TilePolymerizer) t).drawCounter = 200;
             } else {
-                p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+                p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
             }
         }
         return true;

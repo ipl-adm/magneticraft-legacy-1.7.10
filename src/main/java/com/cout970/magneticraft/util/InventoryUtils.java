@@ -52,14 +52,19 @@ public class InventoryUtils {
     }
 
     public static int getSlotForStack(InventoryComponent in, ItemStack st) {
+        int firstEmpty = -1;
         for (int i = 0; i < in.getSizeInventory(); i++) {
             if (in.getStackInSlot(i) != null) {
                 if (canCombine(in.getStackInSlot(i), st, in.getStackInSlot(i).getMaxStackSize())) {
                     return i;
                 }
-            } else return i;
+            } else {
+                if (firstEmpty == -1) {
+                    firstEmpty = i;
+                }
+            }
         }
-        return -1;
+        return firstEmpty;
     }
 
     public static void traspass(IInventory a, IInventory b, int source, int target) {

@@ -55,7 +55,7 @@ public class Magneticraft {
     public static boolean IE = false;
 
     @Instance(NAME)
-    public static Magneticraft Instance;
+    public static Magneticraft INSTANCE;
 
     @SidedProxy(clientSide = "com.cout970.magneticraft.proxy.ClientProxy",
             serverSide = "com.cout970.magneticraft.proxy.ServerProxy")
@@ -128,7 +128,7 @@ public class Magneticraft {
     public void load(FMLInitializationEvent event) {
         Log.info("Starting Init");
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(Instance, new GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
         MB_Register.init();
         EnergyInterfaceFactory.init();
         registry = new ManagerMultiPart();
@@ -171,7 +171,7 @@ public class Magneticraft {
             ManagerFluids.registerIEFuels();
         }
 
-        ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());
+        ForgeChunkManager.setForcedChunkLoadingCallback(INSTANCE, new MinerChunkCallBack());
 //		if(DEBUG)printOreDict();
         Log.info("postInit Done");
     }

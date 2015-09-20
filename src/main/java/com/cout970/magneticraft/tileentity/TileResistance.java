@@ -96,15 +96,15 @@ public class TileResistance extends TileBase implements IGuiListener, IGuiSync, 
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
-            line1 = dato;
+            line1 = data;
         } else if (id == 1) {
-            line2 = dato;
+            line2 = data;
         } else if (id == 2) {
-            line3 = dato;
+            line3 = data;
         } else if (id == -2) {
-            select = dato;
+            select = data;
         }
         updateResistance();
         sendUpdateToClient();

@@ -382,7 +382,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
             if (!cpu.isRunning()) {
                 cpu.start();

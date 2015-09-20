@@ -12,107 +12,107 @@ public interface IElectricConductor extends IConnectable {
     /**
      * @return the voltage stored in the conductor
      */
-    public double getVoltage();
+    double getVoltage();
 
     /**
      * Used for high voltage cables
      *
      * @return 10^tier
      */
-    public double getVoltageMultiplier();
+    double getVoltageMultiplier();
 
     /**
      * @return the flow generated when energy pass through, should be constant
      */
-    public double getIndScale();
+    double getIndScale();
 
     /**
      * @return the inverse of the capacity of the block, voltge capacity, no storage capacity
      */
-    public double getInvCapacity();
+    double getInvCapacity();
 
     /**
      * this method should prepare the basic things for the iteration, like the connexions
      */
-    public void recache();
+    void recache();
 
     /**
      * this method add to the voltage the intensity in amps(I * 0.05 seconds/tick * getVoltageMultiplier())
      */
-    public void computeVoltage();
+    void computeVoltage();
 
     /**
      * @return Intensity that pass through in the last iteration, only for display
      */
-    public double getIntensity();
+    double getIntensity();
 
     /**
      * @return the constant of resistance, must be positive and non cero.
      */
-    public double getResistance();
+    double getResistance();
 
     /**
      * @return constant always 0.5, used to get (v2 - v1)/2 ==> (v2 - v1)*0.5
      */
-    public double getCondParallel();
+    double getCondParallel();
 
     /**
      * Adds an intensity to the conductor, allow negative values
      */
-    public void applyCurrent(double amps);
+    void applyCurrent(double amps);
 
     /**
      * adds Watts to the conductor, negative values are not allowed
      */
-    public void applyPower(double amps);
+    void applyPower(double amps);
 
     /**
      * remove Watts from the conductor, negative values are not allowed
      */
-    public void drainPower(double amps);
+    void drainPower(double amps);
 
     //sync client and server
-    public void setResistence(double d);
+    void setResistence(double d);
 
-    public void setVoltage(double d);
+    void setVoltage(double d);
 
     //storage in the internal buffer, only for machines and batteries
-    public int getStorage();
+    int getStorage();
 
-    public int getMaxStorage();
+    int getMaxStorage();
 
-    public void setStorage(int charge);
+    void setStorage(int charge);
 
-    public void applyCharge(int charge);
+    void applyCharge(int charge);
 
-    public void drainCharge(int charge);
+    void drainCharge(int charge);
 
     //cable connections
 
     /**
      * reset the connexions
      */
-    public void disconect();
+    void disconect();
 
     /**
      * @return true if recache method was called after to disconet()
      */
-    public boolean isConected();
+    boolean isConected();
 
     /**
      * @return the Indexed connexions established, used to not repeat them.
      */
-    public IIndexedConnection[] getConnections();
+    IIndexedConnection[] getConnections();
 
     /**
      * @param con connexion between two conductors
      * @return if the energy can flow on this connection
      */
-    public boolean canFlowPower(IIndexedConnection con);
+    boolean canFlowPower(IIndexedConnection con);
 
     /**
      * @return the tier of the conductor, used for high voltage.
      */
-    public int getTier();
+    int getTier();
 
 }

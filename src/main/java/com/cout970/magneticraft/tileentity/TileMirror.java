@@ -71,8 +71,8 @@ public class TileMirror extends TileBase {
                     y = (int) Math.floor(-t.y * (h / (distance * 10)) + yCoord + 0.5);
                     z = (int) Math.floor(-t.z * (h / (distance * 10)) + zCoord + 0.5);
 
-                    if (x == xCoord && y == yCoord && z == zCoord) continue;
-                    if (x == target.x && y == target.y && z == target.z) continue;
+                    if ((x == xCoord) && (y == yCoord) && (z == zCoord)) continue;
+                    if ((x == target.x) && (y == target.y) && (z == target.z)) continue;
 
                     Block block = this.worldObj.getBlock(x, y, z);
                     if (!isTransparent(block)) {
@@ -94,11 +94,11 @@ public class TileMirror extends TileBase {
     }
 
     private boolean isTransparent(Block block) {
-        if (block.getMaterial() == Material.air) return true;
-        if (Block.isEqualTo(block, Blocks.glass)) return true;
-        if (Block.isEqualTo(block, Blocks.stained_glass)) return true;
-        if (block instanceof BlockMultipart) return true;
-        return false;
+        //TODO find a better way to check transparency. Checking for vanilla blocks only is an awful idea in modded MC.
+        return (block.getMaterial() == Material.air)
+                || Block.isEqualTo(block, Blocks.glass)
+                || Block.isEqualTo(block, Blocks.stained_glass)
+                || (block instanceof BlockMultipart);
     }
 
     public void readFromNBT(NBTTagCompound nbt) {

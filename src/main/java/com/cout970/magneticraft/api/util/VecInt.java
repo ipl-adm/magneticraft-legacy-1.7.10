@@ -67,9 +67,7 @@ public class VecInt {
             return false;
         } else {
             VecInt vecInt = (VecInt) obj;
-            return this.getX() != vecInt.getX() ? false
-                    : (this.getY() != vecInt.getY() ? false
-                    : this.getZ() == vecInt.getZ());
+            return (this.getX() == vecInt.getX()) && ((this.getY() == vecInt.getY()) && (this.getZ() == vecInt.getZ()));
         }
     }
 

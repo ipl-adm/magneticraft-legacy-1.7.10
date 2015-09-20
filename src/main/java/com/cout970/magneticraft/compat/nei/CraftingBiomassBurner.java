@@ -65,8 +65,7 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        List<PositionedStack> a = new ArrayList<PositionedStack>();
-        return a;
+        return new ArrayList<PositionedStack>();
     }
 
     @Override

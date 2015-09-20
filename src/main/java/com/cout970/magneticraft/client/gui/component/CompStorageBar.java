@@ -26,7 +26,7 @@ public class CompStorageBar implements IGuiComp {
     @Override
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (cond != null) {
-            int scale = cond.getMaxStorage() > 0 ? (int) (cond.getStorage() * 50 / cond.getMaxStorage()) : 0;
+            int scale = cond.getMaxStorage() > 0 ? cond.getStorage() * 50 / cond.getMaxStorage() : 0;
             gui.mc.renderEngine.bindTexture(texture);
             RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (50 - scale), 59, 50 - scale, 11, scale, 70, 50);
         }

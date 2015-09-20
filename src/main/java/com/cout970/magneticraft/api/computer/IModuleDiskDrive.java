@@ -13,57 +13,57 @@ public interface IModuleDiskDrive extends IHardwareComponent {
     /**
      * called every tick by the tileEntity
      */
-    public void iterate();
+    void iterate();
 
     /**
      * Can't be null
      *
      * @return a 128 byte buffer
      */
-    public byte[] getRawBuffer();
+    byte[] getRawBuffer();
 
     /**
      * @return current sector to read or write
      */
-    public int getSector();
+    int getSector();
 
     /**
-     * @param the sector to read or write
+     * @param sector the sector to read or write
      */
-    public void setSector(int sector);
+    void setSector(int sector);
 
     /**
      * read from the disk to the buffer using the current sector
      */
-    public void readToBuffer();
+    void readToBuffer();
 
     /**
      * write the buffer into the disk in the current sector
      */
-    public void writeToFile();
+    void writeToFile();
 
     /**
      * @return the disk inside os the drive
      */
-    public ItemStack getDisk();
+    ItemStack getDisk();
 
     /**
      * @param i ItemStack with an IStorageDevice
      * @return true if the disk is acepted, false if already ocuped or invalid disk
      */
-    public boolean insertDisk(ItemStack i);
+    boolean insertDisk(ItemStack i);
 
     /**
      * This only load the buffer and the sector, not the item inside
      *
      * @param nbt
      */
-    public void load(NBTTagCompound nbt);
+    void load(NBTTagCompound nbt);
 
     /**
      * This only save the buffer and the sector, not the item inside
      *
      * @param nbt
      */
-    public void save(NBTTagCompound nbt);
+    void save(NBTTagCompound nbt);
 }

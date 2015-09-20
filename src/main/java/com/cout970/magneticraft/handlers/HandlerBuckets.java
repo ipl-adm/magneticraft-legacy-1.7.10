@@ -27,13 +27,13 @@ public class HandlerBuckets {
     public FluidStack getFluid(ItemStack item) {
         Item i = item.getItem();
         if (i instanceof ItemBucket) {
-            if (((ItemBucket) i).fluid == ManagerFluids.OIL_NAME)
+            if (((ItemBucket) i).fluid.equals(ManagerFluids.OIL_NAME))
                 return FluidRegistry.getFluidStack(ManagerFluids.OIL_NAME, 1000);
-            if (((ItemBucket) i).fluid == ManagerFluids.LIGHT_OIL)
+            if (((ItemBucket) i).fluid.equals(ManagerFluids.LIGHT_OIL))
                 return FluidRegistry.getFluidStack(ManagerFluids.LIGHT_OIL, 1000);
-            if (((ItemBucket) i).fluid == ManagerFluids.HEAVY_OIL)
+            if (((ItemBucket) i).fluid.equals(ManagerFluids.HEAVY_OIL))
                 return FluidRegistry.getFluidStack(ManagerFluids.HEAVY_OIL, 1000);
-            if (((ItemBucket) i).fluid == ManagerFluids.HOT_CRUDE)
+            if (((ItemBucket) i).fluid.equals(ManagerFluids.HOT_CRUDE))
                 return FluidRegistry.getFluidStack(ManagerFluids.HOT_CRUDE, 1000);
         }
         return null;

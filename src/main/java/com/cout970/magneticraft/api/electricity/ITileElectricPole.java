@@ -3,7 +3,7 @@ package com.cout970.magneticraft.api.electricity;
 
 public interface ITileElectricPole {
 
-    public IElectricPole getPoleConnection();
+    IElectricPole getPoleConnection();
 
-    public ITileElectricPole getMainTile();
+    ITileElectricPole getMainTile();
 }

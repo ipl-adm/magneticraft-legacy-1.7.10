@@ -2,11 +2,11 @@ package com.cout970.magneticraft.api.conveyor;
 
 public interface IHitBoxArray {
 
-    public int size();
+    int size();
 
-    public boolean hasSpace(int pos);
+    boolean hasSpace(int pos);
 
-    public void setOccupied(int pos, boolean occupied);
+    void setOccupied(int pos, boolean occupied);
 
-    public void clear();
+    void clear();
 }

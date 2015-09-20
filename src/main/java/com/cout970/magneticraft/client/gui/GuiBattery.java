@@ -43,7 +43,7 @@ public class GuiBattery extends GuiBasic {
         public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileBattery) {
                 IElectricConductor c = ((TileBattery) tile).cond;
-                int scale = (int) (c.getStorage() * 50 / c.getMaxStorage());
+                int scale = c.getStorage() * 50 / c.getMaxStorage();
                 gui.mc.renderEngine.bindTexture(texture);
                 RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (50 - scale), 30, 50 - scale, 16, scale, 70, 50);
 

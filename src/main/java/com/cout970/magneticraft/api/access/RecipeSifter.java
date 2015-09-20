@@ -41,8 +41,7 @@ public class RecipeSifter {
     }
 
     public boolean matches(ItemStack i) {
-        if (MgUtils.areEqual(input, i, true)) return true;
-        return false;
+        return MgUtils.areEqual(input, i, true);
     }
 
     @Override

@@ -92,7 +92,7 @@ public class GuiGrinder extends GuiBasic {
             if (tile instanceof TileGrinder) {
                 IElectricConductor c = ((TileGrinder) tile).cond;
                 if (c instanceof BufferedConductor) {
-                    int scale = (int) (((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage);
+                    int scale = ((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage;
                     gui.mc.renderEngine.bindTexture(texture);
                     RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (50 - scale), 59, 50 - scale, 11, scale, 70, 50);
                 }

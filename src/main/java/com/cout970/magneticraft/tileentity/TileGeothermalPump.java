@@ -81,7 +81,6 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync {
                         update = false;
                         blocked = false;
                         working = false;
-                        return;
                     } else {
                         VecInt b = lava.get(0);
                         Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());

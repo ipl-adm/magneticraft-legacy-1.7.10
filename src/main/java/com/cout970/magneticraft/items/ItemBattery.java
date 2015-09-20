@@ -30,7 +30,7 @@ public class ItemBattery extends ItemCharged {
                     if (it instanceof IBatteryItem) {
                         IBatteryItem st = (IBatteryItem) it;
                         if (st.canAcceptCharge(s) && !st.canProvideEnergy(s)) {
-                            int space = (int) (st.getMaxCharge(s) - st.getCharge(s));
+                            int space = st.getMaxCharge(s) - st.getCharge(s);
                             int toMove = Math.min(space, getCharge(stack));
                             if (toMove > 0) {
                                 st.charge(s, toMove);
@@ -39,7 +39,7 @@ public class ItemBattery extends ItemCharged {
                         }
                     } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
-                        int space = (int) (st.getMaxEnergyStored(s) - st.getEnergyStored(s));
+                        int space = st.getMaxEnergyStored(s) - st.getEnergyStored(s);
                         int toMove = (int) Math.min(space, EnergyConverter.WtoRF(getCharge(stack)));
                         if (toMove > 0) {
                             st.receiveEnergy(s, toMove, false);

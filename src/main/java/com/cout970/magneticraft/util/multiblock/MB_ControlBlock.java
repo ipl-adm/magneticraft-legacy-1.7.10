@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public interface MB_ControlBlock extends MB_Block {
 
-    public MgDirection getDirection(World w, VecInt p);
+    MgDirection getDirection(World w, VecInt p);
 
-    public Multiblock getStructure();
+    Multiblock getStructure();
 }

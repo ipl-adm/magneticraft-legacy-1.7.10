@@ -11,7 +11,7 @@ public interface ISteelAttribute {
      *
      * @return The name of the attribute
      */
-    public String getName();
+    String getName();
 
     /**
      * Gets the fully formatted text to display
@@ -19,6 +19,6 @@ public interface ISteelAttribute {
      * @param value The Value Of the Attribute
      * @return The Fully Formatted Text
      */
-    public String getDisplayText(int value);
+    String getDisplayText(int value);
 
 }

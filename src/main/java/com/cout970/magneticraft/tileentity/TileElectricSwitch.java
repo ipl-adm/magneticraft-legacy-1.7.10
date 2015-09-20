@@ -27,12 +27,7 @@ public class TileElectricSwitch extends TileConductorLow {
     }
 
     public void onNeigChange() {
-        powered = isPowered();
-        if (powered) {
-            powerCut = true;
-        } else {
-            powerCut = false;
-        }
+        powerCut = powered = isPowered();
     }
 
     public void setResistance(double res) {

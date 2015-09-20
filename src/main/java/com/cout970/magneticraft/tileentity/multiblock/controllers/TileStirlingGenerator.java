@@ -172,7 +172,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
     public void sendGUINetworkData(Container cont, ICrafting craft) {
         if (cond == null || heat == null) return;
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-        craft.sendProgressBarUpdate(cont, 1, (int) progress);
+        craft.sendProgressBarUpdate(cont, 1, progress);
         craft.sendProgressBarUpdate(cont, 2, cond.getStorage());
         craft.sendProgressBarUpdate(cont, 3, maxProgres);
         craft.sendProgressBarUpdate(cont, 4, (int) heat.getTemperature() * 10);

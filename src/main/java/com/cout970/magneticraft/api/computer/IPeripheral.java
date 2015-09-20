@@ -5,17 +5,17 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IPeripheral {
 
-    public int getAddress();
+    int getAddress();
 
-    public void setAddress(int address);
+    void setAddress(int address);
 
-    public boolean isActive();
+    boolean isActive();
 
-    public String getName();
+    String getName();
 
-    public int readByte(int pointer);
+    int readByte(int pointer);
 
-    public void writeByte(int pointer, int data);
+    void writeByte(int pointer, int data);
 
-    public TileEntity getParent();
+    TileEntity getParent();
 }

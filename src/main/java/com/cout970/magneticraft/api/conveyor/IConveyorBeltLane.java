@@ -7,23 +7,23 @@ import java.util.List;
 
 public interface IConveyorBeltLane {
 
-    public IConveyorBelt getConveyorBelt();
+    IConveyorBelt getConveyorBelt();
 
-    public List<IItemBox> getItemBoxes();
+    List<IItemBox> getItemBoxes();
 
-    public IHitBoxArray getHitBoxes();
+    IHitBoxArray getHitBoxes();
 
-    public boolean isOnLeft();
+    boolean isOnLeft();
 
-    public void setHitBoxSpace(int pos, boolean value);
+    void setHitBoxSpace(int pos, boolean value);
 
-    public void setHitBoxSpaceExtern(TileEntity tile, int pos, boolean value);
+    void setHitBoxSpaceExtern(TileEntity tile, int pos, boolean value);
 
-    public boolean hasHitBoxSpace(int pos);
+    boolean hasHitBoxSpace(int pos);
 
-    public boolean hasHitBoxSpaceExtern(TileEntity tile, int pos);
+    boolean hasHitBoxSpaceExtern(TileEntity tile, int pos);
 
-    public void save(NBTTagCompound nbt);
+    void save(NBTTagCompound nbt);
 
-    public void load(NBTTagCompound nbt);
+    void load(NBTTagCompound nbt);
 }

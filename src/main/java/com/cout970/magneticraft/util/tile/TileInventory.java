@@ -99,7 +99,7 @@ public class TileInventory extends TileBase implements IInventory {
         NBTTagList tagList = nbtTagCompound.getTagList("Inventory", 10);
         inventory = new ItemStack[this.getSizeInventory()];
         for (int i = 0; i < tagList.tagCount(); ++i) {
-            NBTTagCompound tagCompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
+            NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
             byte slot = tagCompound.getByte("Slot");
             if (slot >= 0 && slot < inventory.length) {
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tagCompound);

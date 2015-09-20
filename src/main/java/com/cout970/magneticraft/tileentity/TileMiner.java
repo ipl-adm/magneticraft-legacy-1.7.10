@@ -254,7 +254,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     }
 
     public enum WorkState {
-        UNREADY, FINISHED, WORKING, IDLE, BLOCKED;
+        UNREADY, FINISHED, WORKING, IDLE, BLOCKED
     }
 
     public InventoryComponent getInv() {
@@ -302,10 +302,10 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         if (!items.isEmpty()) {
             nbt.setInteger("BufferSize", items.size());
             NBTTagList list = new NBTTagList();
-            for (int i = 0; i < items.size(); i++) {
+            for (ItemStack item : items) {
                 NBTTagCompound t = new NBTTagCompound();
-                if (items.get(i) != null) {
-                    items.get(i).writeToNBT(t);
+                if (item != null) {
+                    item.writeToNBT(t);
                 }
                 list.appendTag(t);
             }

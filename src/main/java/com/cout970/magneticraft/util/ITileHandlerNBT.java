@@ -5,8 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 public interface ITileHandlerNBT {
 
 
-    public void saveInServer(NBTTagCompound nbt);
+    void saveInServer(NBTTagCompound nbt);
 
-    public void loadInClient(NBTTagCompound nbt);
+    void loadInClient(NBTTagCompound nbt);
 
 }

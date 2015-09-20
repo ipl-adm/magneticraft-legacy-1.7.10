@@ -47,7 +47,7 @@ public class BlockAirBubble extends Block {
     public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
         Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
 
-        return block == this ? false : super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+        return block != this && super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
     }
 
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {

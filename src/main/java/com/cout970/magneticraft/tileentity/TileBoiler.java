@@ -37,11 +37,11 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
         if (worldObj.isRemote) return;
         if (heat.getTemperature() > 100) {
             int cs = Math.min(water.getFluidAmount(), EnergyConverter.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));//calcs in water mount
-            int boil = Math.min(Math.min(cs, (int) EnergyConverter.STEAMtoWATER(MAX_STEAM)), ((int) heat.getTemperature() - 100));
+            int boil = Math.min(Math.min(cs, EnergyConverter.STEAMtoWATER(MAX_STEAM)), ((int) heat.getTemperature() - 100));
             produce = EnergyConverter.WATERtoSTEAM(boil);
             if (boil > 0) {
                 water.drain(boil, true);
-                steam.fill(FluidRegistry.getFluidStack("steam", (int) EnergyConverter.WATERtoSTEAM(boil)), true);
+                steam.fill(FluidRegistry.getFluidStack("steam", EnergyConverter.WATERtoSTEAM(boil)), true);
                 heat.drainCalories(EnergyConverter.WATERtoSTEAM_HEAT(boil));
             }
         }
@@ -146,39 +146,31 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+            return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
         return 0;
     }
 
     public FluidStack drain(ForgeDirection from, FluidStack resource,
                             boolean doDrain) {
         if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
+            return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
         return null;
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
-        return null;
+        return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
     }
 
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-        return null;
+        return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
 
     public IBarProvider getProductionBar() {

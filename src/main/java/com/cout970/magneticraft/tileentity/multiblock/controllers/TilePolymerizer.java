@@ -113,10 +113,8 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
         if (input.getFluidAmount() < recipe.getFluid().amount) return false;
         if (heater.getTemperature() < recipe.getTemperature()) return false;
         ItemStack output = getInv().getStackInSlot(1);
-        if (output == null || (MgUtils.areEqual(output, recipe.getOutput(), true)) && output.stackSize + recipe.getOutput().stackSize <= getInventoryStackLimit()) {
-            return true;
-        }
-        return false;
+        return (output == null)
+                || ((MgUtils.areEqual(output, recipe.getOutput(), true)) && ((output.stackSize + recipe.getOutput().stackSize) <= getInventoryStackLimit()));
     }
 
     private void searchTanks() {

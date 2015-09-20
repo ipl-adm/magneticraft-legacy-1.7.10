@@ -59,8 +59,7 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
 
     public boolean isControlled() {
         if (redstone == RedstoneControl.NORMAL) return !powered;
-        if (redstone == RedstoneControl.INVERSE) return powered;
-        return true;
+        return redstone != RedstoneControl.INVERSE || powered;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {
@@ -78,8 +77,7 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         this.writeToNBT(nbt);
-        S35PacketUpdateTileEntity p = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-        return p;
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
     }
 
     @Override

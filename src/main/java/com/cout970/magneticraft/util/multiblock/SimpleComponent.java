@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SimpleComponent extends Mg_Component {
@@ -24,8 +25,7 @@ public class SimpleComponent extends Mg_Component {
     }
 
     public SimpleComponent(Block... a) {
-        for (Block b : a)
-            blocks.add(b);
+        Collections.addAll(blocks, a);
     }
 
     public boolean isCorrect(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {

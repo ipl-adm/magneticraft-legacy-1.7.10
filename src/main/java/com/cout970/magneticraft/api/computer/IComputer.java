@@ -4,10 +4,10 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IComputer extends IPeripheralProvider {
 
-    public IModuleCPU getCPU();
+    IModuleCPU getCPU();
 
-    public IModuleMemoryController getMemory();
+    IModuleMemoryController getMemory();
 
-    public TileEntity getParent();
+    TileEntity getParent();
 
 }

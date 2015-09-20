@@ -126,8 +126,8 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
         MgDirection d = MgDirection.getDirection(side);
-        if (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) >= 6) return false;
-        return super.shouldSideBeRendered(w, x, y, z, side);
+        return (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) < 6)
+                && super.shouldSideBeRendered(w, x, y, z, side);
     }
 
 }

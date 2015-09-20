@@ -20,13 +20,12 @@ public class InventoryUtils {
     }
 
     public static boolean canCombine(ItemStack a, ItemStack b, int limit) {
-        if (a == null || b == null) return true;
-        if (a.getItem() != b.getItem()) return false;
-        if (a.getItemDamage() != b.getItemDamage()) return false;
-        if (!ItemStack.areItemStackTagsEqual(a, b)) return false;
-        if (a.stackSize + b.stackSize > limit) return false;
-        if (a.stackSize + b.stackSize > a.getMaxStackSize()) return false;
-        return true;
+        return (a == null) || (b == null)
+                || ((a.getItem() == b.getItem())
+                && (a.getItemDamage() == b.getItemDamage())
+                && ItemStack.areItemStackTagsEqual(a, b)
+                && ((a.stackSize + b.stackSize) <= limit)
+                && ((a.stackSize + b.stackSize) <= a.getMaxStackSize()));
     }
 
     public static ItemStack getItemStack(InventoryComponent in) {
@@ -140,7 +139,7 @@ public class InventoryUtils {
     public static void loadInventory(IInventory inv, NBTTagCompound nbtTagCompound, String name) {
         NBTTagList tagList = nbtTagCompound.getTagList(name, 10);
         for (int i = 0; i < tagList.tagCount(); ++i) {
-            NBTTagCompound tagCompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
+            NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
             byte slot = tagCompound.getByte("Slot");
             if (slot >= 0 && slot < inv.getSizeInventory()) {
                 inv.setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(tagCompound));

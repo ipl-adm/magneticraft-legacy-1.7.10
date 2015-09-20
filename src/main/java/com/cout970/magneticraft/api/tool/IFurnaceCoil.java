@@ -2,7 +2,7 @@ package com.cout970.magneticraft.api.tool;
 
 public interface IFurnaceCoil {
 
-    public int getCookTime();
+    int getCookTime();
 
-    public double getElectricConsumption();
+    double getElectricConsumption();
 }

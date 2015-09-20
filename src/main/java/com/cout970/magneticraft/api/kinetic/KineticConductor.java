@@ -114,7 +114,7 @@ public class KineticConductor implements IKineticConductor {
     public double getDelta() {
         long aux = time;
         time = System.nanoTime();
-        return (double) ((time - aux) * 1E-6);
+        return (time - aux) * 1E-6;
     }
 
 }

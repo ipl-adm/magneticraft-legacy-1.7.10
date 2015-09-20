@@ -28,8 +28,8 @@ public class BlockRefineryTank extends BlockMg implements MB_Block {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
         MgDirection d = MgDirection.getDirection(side);
-        if (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) == 1) return false;
-        return super.shouldSideBeRendered(w, x, y, z, side);
+        return (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) != 1)
+                && super.shouldSideBeRendered(w, x, y, z, side);
     }
 
     @Override

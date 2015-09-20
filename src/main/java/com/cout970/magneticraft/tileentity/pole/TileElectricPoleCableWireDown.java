@@ -25,10 +25,10 @@ public class TileElectricPoleCableWireDown extends TileConductorLow implements I
 
             @Override
             public boolean isAbleToConnect(IConnectable c, VecInt d) {
-                if (d.toMgDirection() != MgDirection.EAST && d.toMgDirection() != MgDirection.WEST) return false;
-                return c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_LOW
+                return !((d.toMgDirection() != MgDirection.EAST) && (d.toMgDirection() != MgDirection.WEST))
+                        && (c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_LOW
                         || c.getConnectionClass(d.getOpposite()) == ConnectionClass.SLAB_BOTTOM
-                        || c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK;
+                        || c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK);
             }
         };
     }

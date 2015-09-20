@@ -67,15 +67,13 @@ public class MgUtils {
      * @return
      */
     public static boolean isMineableBlock(World w, BlockInfo info) {
-        if (info.getBlock() == Blocks.air) return false;
-        if (info.getBlock() instanceof BlockLiquid) return false;
-        if (info.getBlock() instanceof BlockFluidBase) return false;
-        if (Block.isEqualTo(info.getBlock(), Blocks.mob_spawner)) return false;
-        if (info.getBlock() == Blocks.portal) return false;
-        if (info.getBlock() == Blocks.end_portal) return false;
-        if (info.getBlock() == Blocks.end_portal_frame) return false;
-        if (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) == -1) return false;
-        return true;
+        return (info.getBlock() != Blocks.air)
+                && !(info.getBlock() instanceof BlockLiquid)
+                && !(info.getBlock() instanceof BlockFluidBase)
+                && !Block.isEqualTo(info.getBlock(), Blocks.mob_spawner)
+                && (info.getBlock() != Blocks.portal) && (info.getBlock() != Blocks.end_portal)
+                && (info.getBlock() != Blocks.end_portal_frame)
+                && (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) != -1);
     }
 
     /**
@@ -86,10 +84,9 @@ public class MgUtils {
      * @return
      */
     public static boolean areEqual(FluidStack a, FluidStack b) {
-        if (a == null && b == null) return true;
-        if (a == null || b == null) return false;
-        if (FluidRegistry.getFluidName(a).equalsIgnoreCase(FluidRegistry.getFluidName(b))) return true;
-        return false;
+        return ((a == null) && (b == null))
+                || (!(a == null || b == null)
+                && FluidRegistry.getFluidName(a).equalsIgnoreCase(FluidRegistry.getFluidName(b)));
     }
 
     /**

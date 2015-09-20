@@ -284,7 +284,7 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer {
         lane.setHitBoxSpace(b.getPosition(), true);
 
         float pos = b.getPosition() + delta;
-        float d = (float) (pos) * 0.0625f - 0.5f + 0.125f;
+        float d = pos * 0.0625f - 0.5f + 0.125f;
         float renderScale = 0.7f;
         float h = 0;
 

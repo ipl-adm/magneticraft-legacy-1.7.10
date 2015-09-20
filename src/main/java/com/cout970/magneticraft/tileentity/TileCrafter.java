@@ -81,6 +81,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         return (craftState == 1);
     }
 
+    @SuppressWarnings({"unchecked"})
     public void refreshRecipe() {
         craftRecipe = null;
         List<IRecipe> recipes = (List<IRecipe>) CraftingManager.getInstance().getRecipeList();

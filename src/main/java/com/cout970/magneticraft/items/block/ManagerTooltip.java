@@ -209,11 +209,11 @@ public class ManagerTooltip {
 		}else if(item.getItem() instanceof ItemBasic){
 			Item i = item.getItem();
 			if(i == floppy_disk){
-				list.add(format + (int) (ItemFloppyDisk.DISK_SIZE / 1024) + "kB of storage");
+				list.add(format + ItemFloppyDisk.DISK_SIZE / 1024 + "kB of storage");
 				if(((ItemFloppyDisk) i).getDiskLabel(item) != null && !((ItemFloppyDisk) i).getDiskLabel(item).equals(""))
 				list.add(format + "Name: " + ((ItemFloppyDisk) i).getDiskLabel(item));
 			}else if(i == hard_drive){
-				list.add(format + (int) (ItemHardDrive.DISK_SIZE / 1024) + "kB of storage");
+				list.add(format + ItemHardDrive.DISK_SIZE / 1024 + "kB of storage");
 				if(((ItemHardDrive) i).getDiskLabel(item) != null && !((ItemHardDrive) i).getDiskLabel(item).equals(""))
 		        list.add(format + "Name: " + ((ItemHardDrive) i).getDiskLabel(item));
 			}else if(i == heatCoilCopper){

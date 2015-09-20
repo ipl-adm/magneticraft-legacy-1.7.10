@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IEnergyInterfaceFactory {
 
-    public boolean shouldHandleTile(TileEntity tile, VecInt f, int tier);
+    boolean shouldHandleTile(TileEntity tile, VecInt f, int tier);
 
-    public IEnergyInterface getEnergyInterface(TileEntity tile, VecInt f, int tier);
+    IEnergyInterface getEnergyInterface(TileEntity tile, VecInt f, int tier);
 }

@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
@@ -33,12 +34,9 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
         heat = new HeatConductor(getTile(), 1400, 1000) {
             @Override
             public boolean isAbleToConnect(IConnectable cond, VecInt d) {
-                if (d.equals(VecInt.NULL_VECTOR)) return true;
-                if (d.toMgDirection() == null) return false;
-                if (((TileMultipart) getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.toMgDirection().ordinal())))) {
-                    return true;
-                }
-                return false;
+                return d.equals(VecInt.NULL_VECTOR)
+                        || ((d.toMgDirection() != null)
+                        && ((TileMultipart) getTile()).canAddPart(new NormallyOccludedPart(boxes.get(d.toMgDirection().ordinal()))));
             }
         };
     }
@@ -84,7 +82,7 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
 
     @Override
     public List<Cuboid6> getOcclusionCubes() {
-        return Arrays.asList(new Cuboid6[]{boxes.get(6)});
+        return Collections.singletonList(boxes.get(6));
     }
 
     @Override

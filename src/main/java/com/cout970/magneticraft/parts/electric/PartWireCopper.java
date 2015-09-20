@@ -18,7 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class PartWireCopper extends PartElectric {
@@ -114,7 +114,7 @@ public abstract class PartWireCopper extends PartElectric {
                     VecInt g = dir.toVecInt().add(X(), Y(), Z());
                     Block b = W().getBlock(g.getX(), g.getY(), g.getZ());
                     return ((TileMultipart) getTile()).canAddPart(new NormallyOccludedPart(getBoxes().get(getBoxBySide(dir))))
-                            && isTranspasable(b)
+                            && isPassable(b)
                             && (c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK
                             || ConnectionClass.isSlabCompatible(c.getConnectionClass(d.getOpposite()), getConnectionClass(d)));
                 }
@@ -206,7 +206,7 @@ public abstract class PartWireCopper extends PartElectric {
             if (c != null || inter != null) {
                 VecInt g = d.toVecInt().copy().add(X(), Y(), Z());
                 Block b = W().getBlock(g.getX(), g.getY(), g.getZ());
-                if (isTranspasable(b)) {
+                if (isPassable(b)) {
                     if (c != null) {
                         for (IElectricConductor e : c) {
                             if (cond.isAbleToConnect(e, f) && e.isAbleToConnect(cond, f.getOpposite())) {
@@ -234,9 +234,8 @@ public abstract class PartWireCopper extends PartElectric {
         }
     }
 
-    private boolean isTranspasable(Block b) {
-        if (b == Blocks.air) return true;
-        return false;
+    private boolean isPassable(Block b) {
+        return b == Blocks.air;
     }
 
     @Override
@@ -246,7 +245,7 @@ public abstract class PartWireCopper extends PartElectric {
 
     @Override
     public List<Cuboid6> getOcclusionCubes() {
-        return Arrays.asList(getBoxes().get(0));
+        return Collections.singletonList(getBoxes().get(0));
     }
 
     @Override
@@ -267,8 +266,8 @@ public abstract class PartWireCopper extends PartElectric {
         render.render(this, pos);
     }
 
-    public boolean isUnconnected() {
-        return (Conn & getConMask()) == 0;
+    public boolean isConnected() {
+        return (Conn & getConMask()) != 0;
     }
 
     public int getConMask() {

@@ -5,5 +5,5 @@ package com.cout970.magneticraft.api.heat;
  */
 public interface IHeatMultipart {
 
-    public IHeatConductor getHeatConductor();
+    IHeatConductor getHeatConductor();
 }

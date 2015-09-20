@@ -20,9 +20,9 @@ public class TileMB_Controls extends TileMB_Base {
             if (!(tile instanceof TileSifter)) return false;
             Vector3 vec = new Vector3(hit.hitVec);
             List<IndexedCuboid6> box = getBoundingBoxes();
-            for (int i = 0; i < box.size(); i++) {
-                if (isHited(box.get(i), vec) && box.get(i).data != Integer.valueOf(0)) {
-                    ((TileSifter) tile).switchClick(((Integer) box.get(i).data).intValue() - 1);
+            for (IndexedCuboid6 aBox : box) {
+                if (isHited(aBox, vec) && aBox.data != Integer.valueOf(0)) {
+                    ((TileSifter) tile).switchClick((Integer) aBox.data - 1);
                     return true;
                 }
             }

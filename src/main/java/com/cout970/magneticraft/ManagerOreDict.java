@@ -4,6 +4,8 @@ import com.cout970.magneticraft.items.ItemBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+
 import static com.cout970.magneticraft.ManagerBlocks.*;
 import static com.cout970.magneticraft.ManagerItems.*;
 
@@ -58,10 +60,10 @@ public class ManagerOreDict {
 
     public static ItemStack getOre(String name) {
         if (OreDictionary.doesOreNameExist(name)) {
-            for (ItemStack i : OreDictionary.getOres(name)) {
-                return i;
+            ArrayList<ItemStack> ores = OreDictionary.getOres(name);
+            if (!ores.isEmpty()) {
+                return ores.get(0);
             }
-
         }
         return null;
     }

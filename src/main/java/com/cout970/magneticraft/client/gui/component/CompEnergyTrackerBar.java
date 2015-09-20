@@ -48,7 +48,7 @@ public class CompEnergyTrackerBar implements IGuiComp {
                 List<String> data = new ArrayList<String>();
                 float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick() : track.getChangeInTheLastSecond() / 20;
                 String s = track.isConsume() ? "Consumption " : "Production ";
-                data.add(String.format(s + "%.3f kW", Float.valueOf(((int) prod) / 1000f)));
+                data.add(String.format(s + "%.3f kW", ((int) prod) / 1000f));
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                 RenderHelper.enableGUIStandardItemLighting();
             }

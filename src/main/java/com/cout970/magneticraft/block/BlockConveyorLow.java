@@ -101,7 +101,7 @@ public class BlockConveyorLow extends BlockMg {
         if (l == 3) {
             dir = MgDirection.EAST;
         }
-        Orientation or = null;
+        Orientation or;
         VecInt vec = new VecInt(x, y, z).add(dir.toVecInt());
         VecInt opp = new VecInt(x, y, z).add(dir.toVecInt().getOpposite());
 

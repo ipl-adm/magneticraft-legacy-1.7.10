@@ -5,11 +5,11 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IGuiComp {
 
-    public void render(int mx, int my, TileEntity tile, GuiBasic gui);
+    void render(int mx, int my, TileEntity tile, GuiBasic gui);
 
-    public void onClick(int mx, int my, int buttom, GuiBasic gui);
+    void onClick(int mx, int my, int buttom, GuiBasic gui);
 
-    public boolean onKey(int n, char key, GuiBasic gui);
+    boolean onKey(int n, char key, GuiBasic gui);
 
-    public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui);
+    void renderTop(int mx, int my, TileEntity tile, GuiBasic gui);
 }

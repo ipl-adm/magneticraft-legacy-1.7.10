@@ -10,49 +10,49 @@ public interface IHeatConductor extends IConnectable {
     /**
      * @return the temperature in celsius degrees
      */
-    public double getTemperature();
+    double getTemperature();
 
     /**
      * Used for client side sync
      *
      * @param heat
      */
-    public void setTemperature(double heat);
+    void setTemperature(double heat);
 
     /**
      * the temperature before the block is melted
      */
-    public double getMaxTemp();
+    double getMaxTemp();
 
     /**
      * the amount of mass, usually 1000
      *
      * @return
      */
-    public double getMass();
+    double getMass();
 
-    public double getSpecificHeat();
+    double getSpecificHeat();
 
     /**
      * Add some calories to the block
      *
      * @param j
      */
-    public void applyCalories(double j);
+    void applyCalories(double j);
 
     /**
      * remove some calories from the block
      *
      * @param j
      */
-    public void drainCalories(double j);
+    void drainCalories(double j);
 
     /**
      * the resistance of the heat to cross the block
      *
      * @return
      */
-    public double getResistance();
+    double getResistance();
 
-    public void onBlockOverHeat();
+    void onBlockOverHeat();
 }

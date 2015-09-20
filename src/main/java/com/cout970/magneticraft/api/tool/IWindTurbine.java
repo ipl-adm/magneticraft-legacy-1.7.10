@@ -14,38 +14,38 @@ public interface IWindTurbine {
      *
      * @return unique id
      */
-    public int getID();
+    int getID();
 
     /**
      * number of blocks from the base block, equal to radio
      *
      * @return
      */
-    public int getHeight();
+    int getHeight();
 
     /**
      * number of blocks from the base block, equal to radio
      *
      * @return
      */
-    public int getLenght();
+    int getLenght();
 
     /**
      * @return amount of enery produced in the best conditions
      */
-    public double getPotency();
+    double getPotency();
 
     /**
      * the render scale
      *
      * @return
      */
-    public float getScale();
+    float getScale();
 
     /**
      * the the turbine item change, this method is called to generate an Object to render the new Turbine item
      *
      * @return the render object
      */
-    public IRenderizable initRender();
+    IRenderizable initRender();
 }

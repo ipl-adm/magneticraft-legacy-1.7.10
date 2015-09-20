@@ -60,7 +60,7 @@ public class ConectedTexture {
     }
 
     public static int getTex(int side, boolean... a) {
-        List<ST> use = null;
+        List<ST> use;
         if (side == 0 || side == 1 || side == 4 || side == 3) {
             use = COMMON;
         } else {

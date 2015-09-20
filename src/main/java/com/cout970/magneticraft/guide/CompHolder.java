@@ -56,7 +56,7 @@ public class CompHolder {
                     CompLargeText temp = new CompLargeText();
                     temp.x = toInt(map, "x");
                     temp.y = toInt(map, "y");
-                    temp.text = (String[]) ((ArrayList) map.get("text")).toArray(new String[0]);
+                    temp.text = (String[]) ((ArrayList) map.get("text")).toArray(new String[((ArrayList) map.get("text")).size()]);
                     temp.color = new Color((LinkedTreeMap<String, Object>) map.get("color"));
                     temp.centered = (Boolean) map.get("centered");
 

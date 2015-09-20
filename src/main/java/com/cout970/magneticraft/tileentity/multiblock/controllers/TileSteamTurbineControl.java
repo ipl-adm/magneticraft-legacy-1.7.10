@@ -294,7 +294,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
             @Override
             public float getLevel() {
-                return (float) Math.min(steamConsume, getMaxLevel());
+                return Math.min(steamConsume, getMaxLevel());
             }
         };
     }

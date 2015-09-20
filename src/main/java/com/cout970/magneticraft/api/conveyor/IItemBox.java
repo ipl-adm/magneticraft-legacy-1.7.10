@@ -5,23 +5,23 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface IItemBox {
 
-    public ItemStack getContent();
+    ItemStack getContent();
 
-    public void setContent(ItemStack content);
+    void setContent(ItemStack content);
 
-    public int getPosition();
+    int getPosition();
 
-    public void setPosition(int positions);
+    void setPosition(int positions);
 
-    public boolean isOnLeft();
+    boolean isOnLeft();
 
-    public void setOnLeft(boolean isLeft);
+    void setOnLeft(boolean isLeft);
 
-    public void save(NBTTagCompound t);
+    void save(NBTTagCompound t);
 
-    public void load(NBTTagCompound t);
+    void load(NBTTagCompound t);
 
-    public long getLastUpdateTick();
+    long getLastUpdateTick();
 
-    public void setLastUpdateTick(long tick);
+    void setLastUpdateTick(long tick);
 }

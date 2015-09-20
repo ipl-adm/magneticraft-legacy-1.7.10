@@ -24,7 +24,7 @@ public class CompRFBar implements IGuiComp {
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (tile instanceof IEnergyHandler) {
             IEnergyHandler c = (IEnergyHandler) tile;
-            int scale = (int) (c.getEnergyStored(null) * 41 / c.getMaxEnergyStored(null));
+            int scale = c.getEnergyStored(null) * 41 / c.getMaxEnergyStored(null);
             gui.mc.renderEngine.bindTexture(texture);
             RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (41 - scale), 1, 41 - scale, 12, scale, 28, 42);
         }
@@ -45,7 +45,7 @@ public class CompRFBar implements IGuiComp {
             IEnergyHandler c = (IEnergyHandler) tile;
             if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 12, 42)) {
                 List<String> data = new ArrayList<String>();
-                data.add(((int) c.getEnergyStored(null)) + "RF");
+                data.add(c.getEnergyStored(null) + "RF");
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                 RenderHelper.enableGUIStandardItemLighting();
             }

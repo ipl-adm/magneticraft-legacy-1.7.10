@@ -70,9 +70,7 @@ public class VecDouble {
             return false;
         } else {
             VecDouble vec = (VecDouble) obj;
-            return this.getX() != vec.getX() ? false
-                    : (this.getY() != vec.getY() ? false
-                    : this.getZ() == vec.getZ());
+            return (this.getX() == vec.getX()) && ((this.getY() == vec.getY()) && (this.getZ() == vec.getZ()));
         }
     }
 

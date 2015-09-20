@@ -98,17 +98,12 @@ public class FluidNetWorkManager implements IFluidHandler1_8 {
 
     @Override
     public boolean canFillMg(MgDirection from, Fluid fluid) {
-        if (fluid == null) return false;
-        if (net.fluid == null) return true;
-        if (net.fluid.equals(fluid)) return true;
-        return false;
+        return fluid != null && (net.fluid == null || net.fluid.equals(fluid));
     }
 
     @Override
     public boolean canDrainMg(MgDirection from, Fluid fluid) {
-        if (net.fluid == null) return false;
-        if (net.fluid.equals(fluid)) return true;
-        return false;
+        return net.fluid != null && net.fluid.equals(fluid);
     }
 
     @Override
@@ -119,40 +114,28 @@ public class FluidNetWorkManager implements IFluidHandler1_8 {
     //1.8 preparation
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-        return 0;
+        return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
     }
 
     public FluidStack drain(ForgeDirection from, FluidStack resource,
                             boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
-        return null;
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
-        return null;
+        return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
     }
 
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-        return null;
+        return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
 
 }

@@ -142,7 +142,7 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
             this.rom = null;
             return;
         }
-        ModuleType m = null;
+        ModuleType m;
         if (cpu.getItem() instanceof IHardwareProvider) {
             m = ((IHardwareProvider) cpu.getItem()).getModuleType(cpu);
             if (m == ModuleType.CPU) {

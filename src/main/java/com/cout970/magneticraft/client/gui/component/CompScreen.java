@@ -46,10 +46,10 @@ public class CompScreen implements IGuiComp {
         float aux2 = 0.00390625F;
         Tessellator tes = Tessellator.instance;
         tes.startDrawingQuads();
-        tes.addVertexWithUV((double) x, (double) (y + tamY), (double) this.zLevel, (double) ((float) u * aux), (double) ((float) (v + height) * aux2));
-        tes.addVertexWithUV((double) (x + tamX), (double) (y + tamY), (double) this.zLevel, (double) ((float) (u + width) * aux), (double) ((float) (v + height) * aux2));
-        tes.addVertexWithUV((double) (x + tamX), (double) y, (double) this.zLevel, (double) ((float) (u + width) * aux), (double) ((float) v * aux2));
-        tes.addVertexWithUV((double) x, (double) y, (double) this.zLevel, (double) ((float) u * aux), (double) ((float) v * aux2));
+        tes.addVertexWithUV((double) x, (double) (y + tamY), this.zLevel, (double) ((float) u * aux), (double) ((float) (v + height) * aux2));
+        tes.addVertexWithUV((double) (x + tamX), (double) (y + tamY), this.zLevel, (double) ((float) (u + width) * aux), (double) ((float) (v + height) * aux2));
+        tes.addVertexWithUV((double) (x + tamX), (double) y, this.zLevel, (double) ((float) (u + width) * aux), (double) ((float) v * aux2));
+        tes.addVertexWithUV((double) x, (double) y, this.zLevel, (double) ((float) u * aux), (double) ((float) v * aux2));
         tes.draw();
     }
 
@@ -59,12 +59,11 @@ public class CompScreen implements IGuiComp {
 
     @Override
     public boolean onKey(int num, char key, GuiBasic gui) {
-        int n = key;
-        if (n == 27) return false;
+        if ((int) key == 27) return false;
         int shift = 0;
         if (GuiScreen.isShiftKeyDown()) shift |= 64;
         if (GuiScreen.isCtrlKeyDown()) shift |= 32;
-        switch (n) {
+        switch ((int) key) {
             case 199:
                 this.sendKey(132 | shift, gui);
                 break;
@@ -77,8 +76,8 @@ public class CompScreen implements IGuiComp {
             case 206:
             case 209:
             default:
-                if (n > 0 && n <= 127) {
-                    this.sendKey(n, gui);
+                if ((int) key > 0 && (int) key <= 127) {
+                    this.sendKey((int) key, gui);
                 }
                 break;
 

@@ -3,11 +3,11 @@ package com.cout970.magneticraft.client.gui.component;
 public interface IEnergyTracker {
 
     //production in watts
-    public float getChangeInTheLastTick();
+    float getChangeInTheLastTick();
 
-    public float getChangeInTheLastSecond();
+    float getChangeInTheLastSecond();
 
-    public float getMaxChange();//per tick
+    float getMaxChange();//per tick
 
-    public boolean isConsume();
+    boolean isConsume();
 }

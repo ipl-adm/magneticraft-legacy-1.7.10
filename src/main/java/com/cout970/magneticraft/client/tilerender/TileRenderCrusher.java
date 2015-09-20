@@ -62,7 +62,7 @@ public class TileRenderCrusher extends TileEntitySpecialRenderer {
             } else if (tile.getDirection() == MgDirection.WEST) {
                 GL11.glRotatef(-90, 0, 1, 0);
             }
-            VecDouble vec = null;
+            VecDouble vec;
             switch (meta % 8) {
                 case 0:
                     vec = new VecDouble(-1.5f, -0.5f, 0.5f);

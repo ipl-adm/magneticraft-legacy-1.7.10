@@ -48,17 +48,14 @@ public class ItemRenderCopperTank implements IItemRenderer {
             }
             case EQUIPPED_FIRST_PERSON: {
                 render(0.5F, 0.0F, 0.5F, 1.0F, item);
-                return;
             }
-            default:
-                return;
         }
     }
 
     public void render(float x, float y, float z, float scale, ItemStack i) {
         GL11.glPushMatrix();
         GL11.glColor4f(1, 1, 1, 1);
-        GL11.glTranslatef((float) x - 0.5F, (float) y, (float) z - 0.5F);
+        GL11.glTranslatef(x - 0.5F, y, z - 0.5F);
         if (box == null) {
             box = new CubeRenderer_Util();
         }

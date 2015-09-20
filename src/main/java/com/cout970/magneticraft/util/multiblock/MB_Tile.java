@@ -6,19 +6,19 @@ import net.minecraft.world.World;
 
 public interface MB_Tile {
 
-    public void setControlPos(VecInt blockPosition);
+    void setControlPos(VecInt blockPosition);
 
-    public VecInt getControlPos();
+    VecInt getControlPos();
 
-    public void onDestroy(World w, VecInt p, Multiblock c, MgDirection e);
+    void onDestroy(World w, VecInt p, Multiblock c, MgDirection e);
 
-    public void onActivate(World w, VecInt p, Multiblock c, MgDirection e);
+    void onActivate(World w, VecInt p, Multiblock c, MgDirection e);
 
-    public Multiblock getMultiblock();
+    Multiblock getMultiblock();
 
-    public void setMultiblock(Multiblock m);
+    void setMultiblock(Multiblock m);
 
-    public void setDirection(MgDirection e);
+    void setDirection(MgDirection e);
 
-    public MgDirection getDirection();
+    MgDirection getDirection();
 }

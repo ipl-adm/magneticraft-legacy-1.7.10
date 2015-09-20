@@ -252,7 +252,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
         int metadata = worldObj.getBlockMetadata(xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ());
         if (MgUtils.isMineableBlock(worldObj, new BlockInfo(b, metadata))) {
 
-            ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+            ArrayList<ItemStack> items;
             items = b.getDrops(worldObj, xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ(), metadata, 0);
             worldObj.func_147480_a(xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ(), false);
 

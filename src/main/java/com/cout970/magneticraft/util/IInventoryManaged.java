@@ -4,5 +4,5 @@ import net.minecraft.inventory.IInventory;
 
 public interface IInventoryManaged extends IInventory {
 
-    public InventoryComponent getInv();
+    InventoryComponent getInv();
 }

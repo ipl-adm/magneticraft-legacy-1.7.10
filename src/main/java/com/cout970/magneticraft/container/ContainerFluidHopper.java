@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerFluidHopper extends ContainerBasic {
 
     public ContainerFluidHopper(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot((IInventory) t, 0, 53, 25));
         addSlotToContainer(new Slot((IInventory) t, 1, 53, 48));
         bindPlayerInventory(p);

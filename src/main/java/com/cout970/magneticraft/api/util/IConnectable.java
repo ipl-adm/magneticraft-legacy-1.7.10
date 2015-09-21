@@ -5,18 +5,18 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IConnectable {
 
-    public TileEntity getParent();
+    TileEntity getParent();
 
-    public void iterate();
+    void iterate();
 
-    public VecInt[] getValidConnections();
+    VecInt[] getValidConnections();
 
-    public boolean isAbleToConnect(IConnectable cond, VecInt dir);
+    boolean isAbleToConnect(IConnectable cond, VecInt dir);
 
-    public ConnectionClass getConnectionClass(VecInt v);
+    ConnectionClass getConnectionClass(VecInt v);
 
     //save and load data
-    public void save(NBTTagCompound nbt);
+    void save(NBTTagCompound nbt);
 
-    public void load(NBTTagCompound nbt);
+    void load(NBTTagCompound nbt);
 }

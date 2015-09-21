@@ -16,7 +16,7 @@ public class TileSolarPanel extends TileConductorLow {
             if (this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord, this.zCoord)) {
                 if (this.worldObj.isDaytime()) {
                     if (!this.worldObj.provider.hasNoSky) {
-                        this.cond.applyPower(EnergyConversor.RFtoW(5));
+                        this.cond.applyPower(EnergyConverter.RFtoW(5));
                     }
                 }
             }
@@ -39,7 +39,7 @@ public class TileSolarPanel extends TileConductorLow {
 
             @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.4D);
+                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.4D);
             }
         };
     }

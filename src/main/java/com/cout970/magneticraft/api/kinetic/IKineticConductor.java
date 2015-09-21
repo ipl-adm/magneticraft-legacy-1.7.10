@@ -5,35 +5,35 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IKineticConductor {
 
-    public double getWork();
+    double getWork();
 
-    public double getLose();
+    double getLose();
 
-    public void setLose(double lose);
+    void setLose(double lose);
 
-    public double getMass();
+    double getMass();
 
-    public void setMass(double mass);
+    void setMass(double mass);
 
-    public double getSpeed();
+    double getSpeed();
 
-    public void setSpeed(double speed);
+    void setSpeed(double speed);
 
-    public float getRotation();
+    float getRotation();
 
-    public void setRotation(float angle);
+    void setRotation(float angle);
 
-    public double getDelta();
+    double getDelta();
 
-    public void iterate();
+    void iterate();
 
-    public KineticNetwork getNetwork();
+    KineticNetwork getNetwork();
 
-    public void setNetwork(KineticNetwork net);
+    void setNetwork(KineticNetwork net);
 
-    public TileEntity getParent();
+    TileEntity getParent();
 
-    public KineticType getFunction();
+    KineticType getFunction();
 
-    public MgDirection[] getValidSides();
+    MgDirection[] getValidSides();
 }

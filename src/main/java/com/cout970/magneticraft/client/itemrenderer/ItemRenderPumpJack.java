@@ -43,10 +43,7 @@ public class ItemRenderPumpJack implements IItemRenderer {
             }
             case EQUIPPED_FIRST_PERSON: {
                 render(0.5F, 0.0F, 0.5F, 0.5F, item);
-                return;
             }
-            default:
-                return;
         }
     }
 

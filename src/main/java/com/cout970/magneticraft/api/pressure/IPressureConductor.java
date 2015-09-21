@@ -10,7 +10,7 @@ public interface IPressureConductor extends IConnectable {
      * Ideal Gas constant
      * units: (Pa*m^3)/(mol*K) or J/(mol*K)
      */
-    public static final double R = 8.3144621;
+    double R = 8.3144621;
 
     /**
      * the volume should be in mB mili Buckets
@@ -18,36 +18,36 @@ public interface IPressureConductor extends IConnectable {
      *
      * @return
      */
-    public double getVolume();
+    double getVolume();
 
-    public void setVolume(double c);
+    void setVolume(double c);
 
     /**
      * the pressure should be in Pa (Pascals)
      *
      * @return
      */
-    public double getPressure();
+    double getPressure();
 
-    public double getMaxPressure();
+    double getMaxPressure();
 
     /**
      * moles of gas in the conductor
      *
      * @return
      */
-    public double getMoles();
+    double getMoles();
 
-    public void setMoles(double moles);
+    void setMoles(double moles);
 
     /**
      * temperature of the gas in kelvin
      *
      * @return
      */
-    public double getTemperature();
+    double getTemperature();
 
-    public void setTemperature(double temp);
+    void setTemperature(double temp);
 
     /**
      * add or remove gass from the conductor, the values must be positive and the units moles
@@ -57,13 +57,13 @@ public interface IPressureConductor extends IConnectable {
      * @param gas
      * @return the amount accepted by the conductor, will be 0 if the fluid is not valid(no gas or diferent fluid) or the same amount as the fluidstack.
      */
-    public int applyGas(FluidStack gas, boolean doFill);
+    int applyGas(FluidStack gas, boolean doFill);
 
-    public FluidStack drainGas(int amount, boolean doDrain);
+    FluidStack drainGas(int amount, boolean doDrain);
 
-    public void onBlockExplode();
+    void onBlockExplode();
 
-    public Fluid getFluid();
+    Fluid getFluid();
 
-    public void setFluid(Fluid fluid);
+    void setFluid(Fluid fluid);
 }

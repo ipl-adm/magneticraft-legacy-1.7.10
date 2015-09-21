@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerFireBox extends ContainerBasic {
 
     public ContainerFireBox(InventoryPlayer inventory, TileEntity tile) {
-        super(inventory, tile);
+        super(tile);
         this.addSlotToContainer(new Slot((IInventory) tile, 0, 80, 47));
         this.bindPlayerInventory(inventory);
     }

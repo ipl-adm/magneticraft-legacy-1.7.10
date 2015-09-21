@@ -60,7 +60,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
         @Override
         public double getInvCapacity() {
-            return EnergyConversor.RFtoW(1D);
+            return EnergyConverter.RFtoW(1D);
         }
 
         @Override
@@ -103,7 +103,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                 p = (p * p / 500);
                 if (coolDown > 0) {
                     if (capacity.getVoltage() > ElectricConstants.MACHINE_WORK * 100) {
-                        coolDown -= EnergyConversor.WtoRF(p);
+                        coolDown -= EnergyConverter.WtoRF(p);
                         ConsumptionCounter += p;
                         capacity.drainPower(p);
                     }
@@ -254,7 +254,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     }
 
     public enum WorkState {
-        UNREADY, FINISHED, WORKING, IDLE, BLOCKED;
+        UNREADY, FINISHED, WORKING, IDLE, BLOCKED
     }
 
     public InventoryComponent getInv() {
@@ -302,10 +302,10 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         if (!items.isEmpty()) {
             nbt.setInteger("BufferSize", items.size());
             NBTTagList list = new NBTTagList();
-            for (int i = 0; i < items.size(); i++) {
+            for (ItemStack item : items) {
                 NBTTagCompound t = new NBTTagCompound();
-                if (items.get(i) != null) {
-                    items.get(i).writeToNBT(t);
+                if (item != null) {
+                    item.writeToNBT(t);
                 }
                 list.appendTag(t);
             }
@@ -382,10 +382,10 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
             int old = dim;
-            dim = Math.min(MAX_DIMENSION, dim + dato);
+            dim = Math.min(MAX_DIMENSION, dim + data);
             if (old != dim) {
                 hole = 0;
                 state = WorkState.UNREADY;
@@ -394,7 +394,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             }
         } else if (id == 1) {
             int old = dim;
-            dim = Math.max(MIN_DIMENSION, dim - dato);
+            dim = Math.max(MIN_DIMENSION, dim - data);
             if (old != dim) {
                 hole = 0;
                 state = WorkState.UNREADY;
@@ -402,10 +402,10 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                 sendUpdateToClient();
             }
         } else if (id == 2) {
-            replaceWithDirt = dato == 1;
+            replaceWithDirt = data == 1;
             sendUpdateToClient();
         } else if (id == 3) {
-            removeWater = dato == 1;
+            removeWater = data == 1;
             sendUpdateToClient();
         }
     }
@@ -468,7 +468,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         isFirstTime = true;
         if (ManagerConfig.MINER_CHUNKLOADING) {
             if (chunkTicket == null) {
-                chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.Instance, worldObj, Type.NORMAL);
+                chunkTicket = ForgeChunkManager.requestTicket(Magneticraft.INSTANCE, worldObj, Type.NORMAL);
             }
             chunkTicket.getModData().setInteger("quarryX", xCoord);
             chunkTicket.getModData().setInteger("quarryY", yCoord);

@@ -36,7 +36,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
                 setActive(false);
             }
         }
-        if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK && isControled()) {
+        if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK && isControlled()) {
             if (canSmelt()) {
                 progress++;
                 cond.drainPower(getConsumption());

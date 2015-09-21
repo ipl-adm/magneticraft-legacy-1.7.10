@@ -2,7 +2,7 @@ package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import net.minecraft.block.Block;
@@ -16,7 +16,7 @@ public class ItemOilProspector extends ItemCharged {
     public static int CONSUMPTION = 500;
 
     public ItemOilProspector(String unlocalizedname) {
-        super(unlocalizedname, (int) EnergyConversor.RFtoW(25000));
+        super(unlocalizedname, (int) EnergyConverter.RFtoW(25000));
         setMaxStackSize(1);
         setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
     }

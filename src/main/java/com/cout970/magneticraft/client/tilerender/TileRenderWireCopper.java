@@ -31,13 +31,13 @@ public class TileRenderWireCopper {
 
             rot = getRotation(p, conn);//dn up nh sh wt et
 
-            ext |= (1 & (aux >> rot[0])) << 0;
+            ext |= (1 & (aux >> rot[0]));
             ext |= (1 & (aux >> rot[1])) << 1;
             ext |= (1 & (aux >> rot[2])) << 2;
             ext |= (1 & (aux >> rot[3])) << 3;
 
 
-            fin |= (1 & (conn >> rot[0])) << 0;
+            fin |= (1 & (conn >> rot[0]));
             fin |= (1 & (conn >> rot[1])) << 1;
             fin |= (1 & (conn >> rot[2])) << 2;
             fin |= (1 & (conn >> rot[3])) << 3;
@@ -100,7 +100,6 @@ public class TileRenderWireCopper {
             glRotatef(-90, 1, 0, 0);
             glTranslatef(0.5f, -2.5f, 0.5f);
             glTranslatef(0f, PartWireCopper.pixel * 3f, 0f);
-            return;
         }
     }
 

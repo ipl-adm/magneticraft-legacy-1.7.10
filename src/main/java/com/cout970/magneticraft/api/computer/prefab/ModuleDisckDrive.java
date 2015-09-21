@@ -203,7 +203,6 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral {
                     //set the disk label from the buffer
                     int length;
                     for (length = 0; diskBuffer[length] != 0 && length < 64; length++) {
-                        ;
                     }
                     String label;
                     try {

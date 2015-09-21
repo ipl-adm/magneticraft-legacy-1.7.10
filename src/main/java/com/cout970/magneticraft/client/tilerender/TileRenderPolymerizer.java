@@ -2,7 +2,7 @@ package com.cout970.magneticraft.client.tilerender;
 
 import com.cout970.magneticraft.client.model.ModelPolymerizer;
 import com.cout970.magneticraft.tileentity.TileCopperTank;
-import com.cout970.magneticraft.tileentity.TilePolymerizer;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TilePolymerizer;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;

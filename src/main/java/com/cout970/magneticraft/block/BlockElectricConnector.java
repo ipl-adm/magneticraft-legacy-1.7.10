@@ -1,15 +1,14 @@
 package com.cout970.magneticraft.block;
 
-import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.electricity.ITileElectricPole;
-import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
-import com.cout970.magneticraft.api.tool.IWrench;
-import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWire;
-import com.cout970.magneticraft.tileentity.TileElectricPoleCableWireDown;
-
 import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
+import com.cout970.magneticraft.Magneticraft;
+import com.cout970.magneticraft.api.electricity.ITileElectricPole;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConnector;
+import com.cout970.magneticraft.api.tool.IWrench;
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
+import com.cout970.magneticraft.tileentity.pole.TileElectricConnector;
+import com.cout970.magneticraft.tileentity.pole.TileElectricConnectorDown;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,9 +32,8 @@ public class BlockElectricConnector extends BlockMg {
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int meta) {
-        //TODO add own entities
-        if (meta >= 6) return new TileElectricPoleCableWire();
-        return new TileElectricPoleCableWireDown();
+        if (meta >= 6) return new TileElectricConnector();
+        return new TileElectricConnectorDown();
     }
 
     @Override
@@ -98,13 +96,13 @@ public class BlockElectricConnector extends BlockMg {
             Item item = p.getCurrentEquippedItem().getItem();
             if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer))) {
                 TileEntity te = w.getTileEntity(x, y, z);
-                TileElectricPoleCableWire tilePole = null;
+                TileElectricConnector tilePole = null;
                 if (te instanceof ITileElectricPole) {
-                    tilePole = (TileElectricPoleCableWire) ((ITileElectricPole) te).getMainTile();
+                    tilePole = (TileElectricConnector) ((ITileElectricPole) te).getMainTile();
                 }
                 if (tilePole != null) {
                     int currentMode = tilePole.pole.getConnectionMode();
-                    ElectricPoleTier1 pole = tilePole.pole;
+                    ElectricConnector pole = tilePole.pole;
                     String messageBase = "Connection mode set to ";
                     switch (currentMode) {
                         case 0: {

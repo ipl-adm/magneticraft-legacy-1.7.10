@@ -129,10 +129,10 @@ public class ConveyorBeltLane implements IConveyorBeltLane {
         }
         NBTTagList list = new NBTTagList();
         nbt.setInteger(side + "Size", content.size());
-        for (int i = 0; i < content.size(); i++) {
+        for (IItemBox aContent : content) {
             NBTTagCompound t = new NBTTagCompound();
-            if (content.get(i) != null) {
-                content.get(i).save(t);
+            if (aContent != null) {
+                aContent.save(t);
             }
             list.appendTag(t);
         }
@@ -146,7 +146,7 @@ public class ConveyorBeltLane implements IConveyorBeltLane {
             getHitBoxes().setOccupied(i, nbt.getBoolean(side + "_" + i));
         }
         int content_size = nbt.getInteger(side + "Size");
-        IItemBox box = null;
+        IItemBox box;
 
         NBTTagList list = nbt.getTagList(side + "_Boxes", 10);
         for (int i = 0; i < content_size; i++) {

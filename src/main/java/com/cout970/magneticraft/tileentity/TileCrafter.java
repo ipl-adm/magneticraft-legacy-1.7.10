@@ -47,7 +47,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     private List<TankInfo> checkedTanks = new ArrayList<TankInfo>();
     private int itemMatches = -1;
     private IRecipe craftRecipe;
-    private boolean nextCraft = false;
+    //private boolean nextCraft = false;
+    private int craftState = 0; // 0 = awaiting high signal, 1 = ready to craft, 2 = awaiting low signal
     public RedstoneState state = RedstoneState.NORMAL;
 
     public InventoryComponent getInv() {
@@ -56,29 +57,38 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 
     public void onNeigChange() {
         super.onNeigChange();
-        if (isPowered()) nextCraft = true;
+        if (isPowered() && (craftState == 0)) craftState = 1;
     }
 
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
+        if (isPowered()) {
+            if (craftState == 0) {
+                craftState = 1;
+            }
+        } else {
+            if (craftState == 2) {
+                craftState = 0;
+            }
+        }
         if (itemMatches == -1) {
             refreshItemMatches();
         }
         if (worldObj.getTotalWorldTime() % 40 == 0) {
             refreshItemMatches();
         }
-        if (isControled()) {
+        if (isControlled()) {
             if (craft())
                 refreshItemMatches();
-            nextCraft = false;
+            craftState = 2;
         }
     }
 
-    public boolean isControled() {
+    public boolean isControlled() {
         if (state == RedstoneState.NORMAL) return !powered;
         if (state == RedstoneState.INVERTED) return powered;
-        return nextCraft;
+        return (craftState == 1);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,15 +104,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         		}
         	}
         }
-        //this maybe fix NEI Update Screen Event Issue #22
-//        for (Object rec : CraftingManager.getInstance().getRecipeList()) {
-//            if (rec instanceof IRecipe) {
-//                if (((IRecipe) rec).matches(recipe, worldObj)) {
-//                    craftRecipe = (IRecipe) rec;
-//                    break;
-//                }
-//            }
-//        }
+        
         if (craftRecipe != null) {
             ItemStack result = craftRecipe.getCraftingResult(recipe);
             if (result == null) {
@@ -215,7 +217,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
             ItemStack content = inv.getStackInSlot(i);
             if (content != null && (content.stackSize > 0) && canAccess(inv, i, dir)) {
                 if (replaceMatrix(recipe, result, content, slot)) {
-                    InvSlot pos = new InvSlot(content, i, inv);
+                    InvSlot pos = new InvSlot(i, inv);
                     if (!visited.contains(pos)) {
                         visited.add(pos);
                         return true;
@@ -340,7 +342,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         public int slot;
         public IInventory inv;
 
-        public InvSlot(ItemStack stack, int slot, IInventory inv) {
+        public InvSlot(int slot, IInventory inv) {
             this.inv = inv;
             this.slot = slot;
             this.inv = inv;
@@ -368,15 +370,12 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         }
 
         public boolean equals(Object o) {
-            if (o instanceof TankInfo) {
-                return ((TankInfo) o).dir == this.dir && ((TankInfo) o).handler == this.handler;
-            }
-            return false;
+            return o instanceof TankInfo && ((TankInfo) o).dir == this.dir && ((TankInfo) o).handler == this.handler;
         }
     }
 
     public enum RedstoneState {
-        NORMAL, INVERTED, PULSE;
+        NORMAL, INVERTED, PULSE
     }
 
     public static RedstoneState step(RedstoneState state) {
@@ -389,8 +388,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     }
 
     public boolean found(int j) {
-        if (itemMatches == -1) return false;
-        return craftRecipe == null || (itemMatches & (1 << j)) > 0;
+        return itemMatches != -1 && (craftRecipe == null || (itemMatches & (1 << j)) > 0);
     }
 
     @Override
@@ -405,14 +403,14 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     }
 
     @Override
-    public void onMessageReceive(int id, int value) {
+    public void onMessageReceive(int id, int data) {
         if (id == 0) {
-            if (value == 1) {
+            if (data == 1) {
                 for (int i = 0; i < 9; i++)
                     getRecipe().setInventorySlotContents(i, null);
                 refreshRecipe();
-            } else if (value == 0) {
-                if(state == RedstoneState.PULSE)nextCraft = true;
+            } else if (data == 0) {
+                if (state == RedstoneState.PULSE) craftState = 1;
             }
         }
     }

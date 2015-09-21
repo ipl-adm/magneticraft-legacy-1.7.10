@@ -7,9 +7,10 @@ import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,10 +55,10 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
                 sendUpdateToClient();
                 oldHeat = (int) heat.getTemperature();
             }
-            double i = EnergyConversor.RFtoCALORIES(getComsumption());
+            double i = EnergyConverter.RFtoCALORIES(getComsumption());
 
             if (i > 0) {
-                cond.drainPower(EnergyConversor.CALORIEStoW(i));
+                cond.drainPower(EnergyConverter.CALORIEStoW(i));
                 heat.applyCalories(i);
                 working = true;
             } else working = false;

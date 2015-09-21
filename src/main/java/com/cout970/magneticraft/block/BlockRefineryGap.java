@@ -3,7 +3,7 @@ package com.cout970.magneticraft.block;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileMB_Base;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
@@ -28,8 +28,8 @@ public class BlockRefineryGap extends BlockMg implements MB_Block {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
         MgDirection d = MgDirection.getDirection(side);
-        if (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) > 0) return false;
-        return super.shouldSideBeRendered(w, x, y, z, side);
+        return (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) <= 0)
+                && super.shouldSideBeRendered(w, x, y, z, side);
     }
 
     @Override

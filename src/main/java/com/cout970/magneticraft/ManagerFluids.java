@@ -11,6 +11,8 @@ import net.minecraft.block.Block;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import blusunrize.immersiveengineering.api.energy.DieselHandler;
+
 import java.util.HashMap;
 
 public class ManagerFluids {
@@ -111,6 +113,15 @@ public class ManagerFluids {
         BuildcraftFuelRegistry.fuel.addFuel(heavyOil, 60, 25000);
         BuildcraftFuelRegistry.fuel.addFuel(naturalGas, 40, 75000);
         BuildcraftFuelRegistry.fuel.addFuel(oil, 30, 5000);
+    }
+
+    @Optional.Method(modid = "ImmersiveEngineering")
+    public static void registerIEFuels() {
+        Log.info("Registering fuels for IE Diesel Generator");
+        DieselHandler.registerFuel(lightOil, 500);
+        DieselHandler.registerFuel(heavyOil, 375);
+        DieselHandler.registerFuel(naturalGas,750);
+        //Diesel doesn't accept BC oil, not adding magneticraft either.
     }
 
     @Optional.Method(modid = "Railcraft")

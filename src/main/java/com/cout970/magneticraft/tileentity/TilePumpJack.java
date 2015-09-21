@@ -109,7 +109,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
                     if (cond.getVoltage() > ElectricConstants.MACHINE_WORK) {
                         VecInt c = pipes.get(0);
                         replaceBlock(c.getX(), c.getY(), c.getZ(), ManagerBlocks.concreted_pipe);
-                        cond.drainPower(EnergyConversor.RFtoW(80));
+                        cond.drainPower(EnergyConverter.RFtoW(80));
                         pipes.remove(0);
                     }
                 }
@@ -119,7 +119,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
             if (cond.getVoltage() > ElectricConstants.MACHINE_WORK && tank.getSpace() > 0 && buffer > 0) {
                 int i = Math.min(speed, buffer);
                 buffer -= tank.fill(FluidRegistry.getFluidStack("oil", i), true);
-                cond.drainPower(EnergyConversor.RFtoW(i));
+                cond.drainPower(EnergyConverter.RFtoW(i));
             }
 
             if (buffer <= 0) {

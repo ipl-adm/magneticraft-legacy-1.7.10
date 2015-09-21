@@ -4,7 +4,7 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.tileentity.TileMB_Inv;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Inv;
 import com.cout970.magneticraft.util.multiblock.MB_Block;
 import com.cout970.magneticraft.util.multiblock.MB_Tile;
 import com.cout970.magneticraft.util.multiblock.MB_Watcher;
@@ -32,7 +32,7 @@ public class BlockMB_Inv extends BlockMg implements MB_Block {
 
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
-        p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
         return true;
     }
 
@@ -73,8 +73,8 @@ public class BlockMB_Inv extends BlockMg implements MB_Block {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
         MgDirection d = MgDirection.getDirection(side);
-        if (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) == 2) return false;
-        return super.shouldSideBeRendered(w, x, y, z, side);
+        return (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) != 2)
+                && super.shouldSideBeRendered(w, x, y, z, side);
     }
 
     @Override

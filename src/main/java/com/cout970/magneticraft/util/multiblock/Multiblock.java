@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public abstract class Multiblock {
 
-    public int x, y, z;//legths
+    public int x, y, z;//lengths
     public VecInt tran;
     public Mg_Component[][][] matrix;
 

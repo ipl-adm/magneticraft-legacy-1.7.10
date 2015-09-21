@@ -4,27 +4,27 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface IModuleMemoryController extends IHardwareComponent {
 
-    public int readWord(int pos);
+    int readWord(int pos);
 
-    public byte readByte(int pos);
+    byte readByte(int pos);
 
-    public void writeByte(int pos, byte dato);
+    void writeByte(int pos, byte dato);
 
-    public void writeWord(int pos, int dato);
+    void writeWord(int pos, int dato);
 
-    public boolean isLittleEndian();
+    boolean isLittleEndian();
 
-    public void setLittelEndian(boolean little);
+    void setLittelEndian(boolean little);
 
-    public int getMemorySize();
+    int getMemorySize();
 
-    public void clear();
+    void clear();
 
-    public void loadMemory(NBTTagCompound nbt);
+    void loadMemory(NBTTagCompound nbt);
 
-    public void saveMemory(NBTTagCompound nbt);
+    void saveMemory(NBTTagCompound nbt);
 
-    public IComputer getComputer();
+    IComputer getComputer();
 
-    public void setComputer(IComputer c);
+    void setComputer(IComputer c);
 }

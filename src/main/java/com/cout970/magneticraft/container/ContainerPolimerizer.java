@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerPolimerizer extends ContainerBasic {
 
     public ContainerPolimerizer(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot((IInventory) t, 0, 68, 36));
         addSlotToContainer(new Slot((IInventory) t, 1, 124, 36));
         bindPlayerInventory(p);

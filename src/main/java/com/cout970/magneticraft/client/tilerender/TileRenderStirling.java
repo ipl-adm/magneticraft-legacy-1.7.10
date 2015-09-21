@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.client.tilerender;
 
 import com.cout970.magneticraft.client.model.ModelStirlingGenerator;
-import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileStirlingGenerator;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.util.multiblock.Multiblock;

@@ -21,8 +21,7 @@ public class EnergyInterfaceFactory implements IEnergyInterfaceFactory {
 
     @Override
     public boolean shouldHandleTile(TileEntity tile, VecInt f, int tier) {
-        if (tier != 0) return false;
-        return (Magneticraft.RAILCRAFT && (tile instanceof IElectricGrid)) || (Magneticraft.COFH_ENERGY && (tile instanceof IEnergyHandler)) || (Magneticraft.IC2 && (tile instanceof IEnergySink));
+        return (tier == 0) && ((Magneticraft.RAILCRAFT && (tile instanceof IElectricGrid)) || (Magneticraft.COFH_ENERGY && (tile instanceof IEnergyHandler)) || (Magneticraft.IC2 && (tile instanceof IEnergySink)));
     }
 
     @Override

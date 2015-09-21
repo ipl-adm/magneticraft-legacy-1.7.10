@@ -4,7 +4,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.IInventoryManaged;
@@ -20,29 +20,29 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TileBattery extends TileConductorLow implements IGuiSync, IInventoryManaged, ISidedInventory, IBlockWithData {
 
     private InventoryComponent inv = new InventoryComponent(this, 2, "Battery");
-    public static int BATTERY_CHARGE_SPEED = (int) EnergyConversor.RFtoW(400);//RF
+    public static int BATTERY_CHARGE_SPEED = (int) EnergyConverter.RFtoW(400);//RF
 
     @Override
     public IElectricConductor initConductor() {
         return new ElectricConductor(this) {
 
             public int storage = 0;
-            public int maxStorage = (int) EnergyConversor.RFtoW(2000000);
+            public int maxStorage = (int) EnergyConverter.RFtoW(2000000);
             public double min = ElectricConstants.BATTERY_DISCHARGE;
             public double max = ElectricConstants.BATTERY_CHARGE;
 
             public void iterate() {
                 super.iterate();
-                if (!isControled()) return;
+                if (!isControlled()) return;
                 if (getVoltage() > max && storage < maxStorage) {
                     int change;
-                    change = (int) Math.min((getVoltage() - max) * 80, EnergyConversor.RFtoW(400));
+                    change = (int) Math.min((getVoltage() - max) * 80, EnergyConverter.RFtoW(400));
                     change = Math.min(change, maxStorage - storage);
                     drainPower(change);
                     storage += change;
                 } else if (getVoltage() < min && storage > 0) {
                     int change;
-                    change = (int) Math.min((min - getVoltage()) * 80, EnergyConversor.RFtoW(400));
+                    change = (int) Math.min((min - getVoltage()) * 80, EnergyConverter.RFtoW(400));
                     change = Math.min(change, storage);
                     applyPower(change);
                     storage -= change;

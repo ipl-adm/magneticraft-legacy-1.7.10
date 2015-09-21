@@ -24,13 +24,11 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -39,7 +37,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +
-        "after:BuildCraft|Core;after:CoFHCore;after:IC2;after:Railcraft")
+        "after:BuildCraft|Core;after:CoFHCore;after:IC2;after:Railcraft;after:ImmersiveEngineering")
 public class Magneticraft {
 
     public final static String ID = "Magneticraft";
@@ -47,16 +45,17 @@ public class Magneticraft {
     public final static String VERSION = "@VERSION@";
     public final static String ENERGY_STORED_NAME = "J";
     public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
-    public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+    public static final boolean DEBUG = false; //(Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     public static String DEV_HOME = null;
     public static boolean BUILDCRAFT = false;
     public static boolean RAILCRAFT = false;
     public static boolean IC2 = false;
     public static boolean COFH_ENERGY = false;
     public static boolean COFH_TOOLS = false;
+    public static boolean IE = false;
 
     @Instance(NAME)
-    public static Magneticraft Instance;
+    public static Magneticraft INSTANCE;
 
     @SidedProxy(clientSide = "com.cout970.magneticraft.proxy.ClientProxy",
             serverSide = "com.cout970.magneticraft.proxy.ServerProxy")
@@ -76,6 +75,9 @@ public class Magneticraft {
         }
         if (Loader.isModLoaded("Railcraft")) {
             RAILCRAFT = true;
+        }
+        if (Loader.isModLoaded("ImmersiveEngineering")) {
+            IE = true;
         }
         if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy")) {
             COFH_ENERGY = true;
@@ -126,7 +128,7 @@ public class Magneticraft {
     public void load(FMLInitializationEvent event) {
         Log.info("Starting Init");
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(Instance, new GuiHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
         MB_Register.init();
         EnergyInterfaceFactory.init();
         registry = new ManagerMultiPart();
@@ -165,19 +167,13 @@ public class Magneticraft {
             ManagerFluids.registerRCFuels();
         }
 
-        ForgeChunkManager.setForcedChunkLoadingCallback(Instance, new MinerChunkCallBack());
+        if (IE) {
+            ManagerFluids.registerIEFuels();
+        }
+
+        ForgeChunkManager.setForcedChunkLoadingCallback(INSTANCE, new MinerChunkCallBack());
 //		if(DEBUG)printOreDict();
         Log.info("postInit Done");
-    }
-
-    @EventHandler
-    public void remapChanges(FMLMissingMappingsEvent event) {
-        Log.info("Removing missing mappings");
-        event.applyModContainer(Loader.instance().activeModContainer());
-        List<FMLMissingMappingsEvent.MissingMapping> missingList = event.get();
-        for (FMLMissingMappingsEvent.MissingMapping missing : missingList) {
-            missing.ignore();
-        }
     }
 
 //	private void printOreDict() {

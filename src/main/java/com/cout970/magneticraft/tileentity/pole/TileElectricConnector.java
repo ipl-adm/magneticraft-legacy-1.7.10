@@ -1,12 +1,12 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.pole;
 
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricPole;
 import com.cout970.magneticraft.api.electricity.IInterPoleWire;
 import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConnector;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -16,9 +16,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileElectricPoleCableWire extends TileConductorLow implements ITileElectricPole {
+public class TileElectricConnector extends TileConductorLow implements ITileElectricPole {
 
-    public ElectricPoleTier1 pole;
+    public ElectricConnector pole;
     private double flow;
     public boolean clientUpdate = false;
     public boolean updateCables = true;
@@ -55,7 +55,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
         pole.iterate();
         TileEntity t = getBase();
         if (t != null) {
-            IElectricConductor[] comp = ((TileElectricPoleCableWireDown) t).getConds(VecInt.NULL_VECTOR, 0);
+            IElectricConductor[] comp = ((TileElectricConnectorDown) t).getConds(VecInt.NULL_VECTOR, 0);
             if (comp != null) {
                 IElectricConductor to = comp[0];
                 double resistance = (to.getResistance() + cond.getResistance());
@@ -87,7 +87,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
     }
 
     public void findConnections() {
-        ElectricPoleTier1.findConnections(pole);
+        ElectricConnector.findConnections(pole);
         clientUpdate = true;
     }
 
@@ -112,10 +112,10 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
         cond = new ElectricConductor(this) {
             @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.8D);
+                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.8D);
             }
         };
-        pole = new ElectricPoleTier1(this, cond) {
+        pole = new ElectricConnector(this, cond) {
             @Override
             public void onDisconnect(IInterPoleWire conn) {
                 super.onDisconnect(conn);
@@ -125,10 +125,10 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
         return cond;
     }
 
-    public TileElectricPoleCableWireDown getBase() {
-        VecInt vec = new VecInt(0, -4, 0);
+    public TileElectricConnectorDown getBase() {
+        VecInt vec = new VecInt(0, -1, 0);
         TileEntity t = MgUtils.getTileEntity(this, vec);
-        if (t instanceof TileElectricPoleCableWireDown) return (TileElectricPoleCableWireDown) t;
+        if (t instanceof TileElectricConnectorDown) return (TileElectricConnectorDown) t;
         return null;
     }
 

@@ -1,9 +1,10 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock;
 
 import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileSifter;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
@@ -19,9 +20,9 @@ public class TileMB_Controls extends TileMB_Base {
             if (!(tile instanceof TileSifter)) return false;
             Vector3 vec = new Vector3(hit.hitVec);
             List<IndexedCuboid6> box = getBoundingBoxes();
-            for (int i = 0; i < box.size(); i++) {
-                if (isHited(box.get(i), vec) && box.get(i).data != Integer.valueOf(0)) {
-                    ((TileSifter) tile).switchClick(((Integer) box.get(i).data).intValue() - 1);
+            for (IndexedCuboid6 aBox : box) {
+                if (isHited(aBox, vec) && aBox.data != Integer.valueOf(0)) {
+                    ((TileSifter) tile).switchClick((Integer) aBox.data - 1);
                     return true;
                 }
             }

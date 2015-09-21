@@ -285,7 +285,7 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     private void TipeI(int instruct) {
         int opcode, rs, rt, inmed, inmedU;
-        long m1 = 0, m2 = 0;
+        long m1, m2;
 
         opcode = ComputerUtils.getBitsFromInt(instruct, 26, 31, false);
         rs = ComputerUtils.getBitsFromInt(instruct, 21, 25, false);

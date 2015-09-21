@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.api.electricity.prefab;
 
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
@@ -24,13 +24,13 @@ public class BufferedConductor extends ElectricConductor {
         super.iterate();
         if (getVoltage() > max && storage < maxStorage) {
             int change;
-            change = (int) Math.min((getVoltage() - max) * 80, EnergyConversor.RFtoW(100));
+            change = (int) Math.min((getVoltage() - max) * 80, EnergyConverter.RFtoW(100));
             change = Math.min(change, maxStorage - storage);
             drainPower(change);
             storage += change;
         } else if (getVoltage() < min && storage > 0) {
             int change;
-            change = (int) Math.min((min - getVoltage()) * 80, EnergyConversor.RFtoW(100));
+            change = (int) Math.min((min - getVoltage()) * 80, EnergyConverter.RFtoW(100));
             change = Math.min(change, storage);
             applyPower(change);
             storage -= change;

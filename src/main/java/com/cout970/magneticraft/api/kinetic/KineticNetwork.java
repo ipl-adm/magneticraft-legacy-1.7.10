@@ -17,7 +17,6 @@ public class KineticNetwork {
     public void findComponents() {
         KineticPathFinder finder = new KineticPathFinder(world, componets.getFirst());
         while (finder.iterate()) {
-            ;
         }
         componets.clear();
         componets.addAll(finder.conds);

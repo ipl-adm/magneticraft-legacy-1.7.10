@@ -86,7 +86,7 @@ public class ModelOpticFiber extends ModelBase {
     }
 
     public void renderDynamic(float f5, int con) {
-        if ((con & (1 << 0)) > 0) down.render(f5);
+        if ((con & (1)) > 0) down.render(f5);
         if ((con & (1 << 1)) > 0) up.render(f5);
         if ((con & (1 << 2)) > 0) back.render(f5);
         if ((con & (1 << 3)) > 0) front.render(f5);

@@ -10,6 +10,7 @@ import com.cout970.magneticraft.client.tilerender.TileRenderOpticFiber;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PartOpticFiber extends MgPart implements IOpticFiber {
@@ -47,14 +48,14 @@ public class PartOpticFiber extends MgPart implements IOpticFiber {
 
     @Override
     public List<Cuboid6> getOcclusionCubes() {
-        return Arrays.asList(new Cuboid6[]{boxes.get(6)});
+        return Collections.singletonList(boxes.get(6));
     }
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
         List<Cuboid6> list = new ArrayList<Cuboid6>();
         list.add(boxes.get(6));
-        if ((connections & (1 << 0)) > 0) list.add(boxes.get(0));
+        if ((connections & (1)) > 0) list.add(boxes.get(0));
         if ((connections & (1 << 1)) > 0) list.add(boxes.get(1));
         if ((connections & (1 << 2)) > 0) list.add(boxes.get(2));
         if ((connections & (1 << 3)) > 0) list.add(boxes.get(3));

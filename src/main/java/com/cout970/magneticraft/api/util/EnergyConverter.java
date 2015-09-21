@@ -5,7 +5,7 @@ package com.cout970.magneticraft.api.util;
  *
  * @author Cout970
  */
-public class EnergyConversor {
+public class EnergyConverter {
 
     //1W = 1J/t
     public static final double RF_J = 10;            // 1RF = 10J | 1J = 0.1RF

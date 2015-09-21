@@ -18,7 +18,7 @@ public interface ISteelItem {
      * @param attribute The Attribute
      * @return
      */
-    public int getValue(ItemStack stack, ISteelAttribute attribute);
+    int getValue(ItemStack stack, ISteelAttribute attribute);
 
     /**
      * Sets the value of the specified attribute on the specified itemstack to the specified value
@@ -27,7 +27,7 @@ public interface ISteelItem {
      * @param attribute The Attribute
      * @param value     The Value
      */
-    public void setValue(ItemStack stack, ISteelAttribute attribute, int value);
+    void setValue(ItemStack stack, ISteelAttribute attribute, int value);
 
     /**
      * Get all the attributes that have a value for this item
@@ -35,7 +35,7 @@ public interface ISteelItem {
      * @param stack The ItemStack
      * @return A List of its attributes
      */
-    public List<ISteelAttribute> getAllApplicableAttributes(ItemStack stack);
+    List<ISteelAttribute> getAllApplicableAttributes(ItemStack stack);
 
     /**
      * Gets the attribute map
@@ -43,7 +43,7 @@ public interface ISteelItem {
      * @param stack The ItemStack
      * @return The Attribute map
      */
-    public Map<ISteelAttribute, Integer> getAttributeMap(ItemStack stack);
+    Map<ISteelAttribute, Integer> getAttributeMap(ItemStack stack);
 
     /**
      * Whether to disable the tooltip of information about the steel item for the specified ItemStack
@@ -51,5 +51,5 @@ public interface ISteelItem {
      * @param stack The ItemStack
      * @return Whether to disable the tooltip
      */
-    public boolean disableTooltip(ItemStack stack);
+    boolean disableTooltip(ItemStack stack);
 }

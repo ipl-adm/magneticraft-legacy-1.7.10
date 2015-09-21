@@ -49,9 +49,7 @@ public class TileDiode extends TileConductorLow {
                     } else {
                         if (currents.length != sides) {
                             double[] temp = new double[sides];
-                            for (int i = 0; i < Math.min(sides, currents.length); i++) {
-                                temp[i] = currents[i];
-                            }
+                            System.arraycopy(currents, 0, temp, 0, Math.min(sides, currents.length));
                             currents = temp;
                         }
                     }

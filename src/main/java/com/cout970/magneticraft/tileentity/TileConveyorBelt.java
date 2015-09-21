@@ -127,11 +127,7 @@ public class TileConveyorBelt extends TileBase implements IConveyorBelt {
         if (b == null) return false;
         boolean onLeft;
         if (dir.isPerpendicular(getDir())) {
-            if (dir == getDir().step(MgDirection.UP)) {
-                onLeft = true;
-            } else {
-                onLeft = false;
-            }
+            onLeft = dir == getDir().step(MgDirection.UP);
         } else {
             onLeft = b.isOnLeft();
         }

@@ -40,7 +40,7 @@ public class BlockConveyorLow extends BlockMg {
         if (p.isSneaking()) return false;
         Item item;
         if ((p.getCurrentEquippedItem() != null) && (Block.getBlockFromItem(item = p.getCurrentEquippedItem().getItem()) != this)) {
-            if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_ENERGY && (item instanceof IToolHammer))) {
+            if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer))) {
                 Orientation or = Orientation.fromMeta(w.getBlockMetadata(x, y, z) + 1);
                 w.setBlockMetadataWithNotify(x, y, z, or.toMeta(), 2);
             } else {
@@ -101,7 +101,7 @@ public class BlockConveyorLow extends BlockMg {
         if (l == 3) {
             dir = MgDirection.EAST;
         }
-        Orientation or = null;
+        Orientation or;
         VecInt vec = new VecInt(x, y, z).add(dir.toVecInt());
         VecInt opp = new VecInt(x, y, z).add(dir.toVecInt().getOpposite());
 

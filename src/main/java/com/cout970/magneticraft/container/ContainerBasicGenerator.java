@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerBasicGenerator extends ContainerBasic {
 
     public ContainerBasicGenerator(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         this.addSlotToContainer(new Slot((IInventory) tile, 0, 40, 51));
         bindPlayerInventory(p);
     }

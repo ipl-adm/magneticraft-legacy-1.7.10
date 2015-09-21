@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.access.RecipeOilDistillery;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
@@ -9,6 +9,9 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.TileRefineryTank;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Energy_Low;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -148,7 +151,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        return TileEntity.INFINITE_EXTENT_AABB;
     }
 
     public TankMg getInput() {

@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerCrafter extends ContainerBasic {
 
     public ContainerCrafter(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot(((TileCrafter) t).getResult(), 0, 71, 35) {
 
             public int getSlotStackLimit() {

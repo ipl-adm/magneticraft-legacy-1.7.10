@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerComputer extends ContainerBasic {
 
     public ContainerComputer(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot(((TileComputer) t).getInv(), 0, 29, 25));
         addSlotToContainer(new Slot(((TileComputer) t).getInv(), 1, 48, 25));
         addSlotToContainer(new Slot(((TileComputer) t).getInv(), 2, 29, 48));

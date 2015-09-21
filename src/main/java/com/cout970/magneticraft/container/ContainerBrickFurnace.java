@@ -12,7 +12,7 @@ public class ContainerBrickFurnace extends ContainerBasic {
     public static final int slotCount = 2;
 
     public ContainerBrickFurnace(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         this.addSlotToContainer(new Slot((IInventory) tile, 0, 62, 31));
         this.addSlotToContainer(new Slot((IInventory) tile, 1, 118, 32) {
             public boolean isItemValid(ItemStack p_75214_1_) {

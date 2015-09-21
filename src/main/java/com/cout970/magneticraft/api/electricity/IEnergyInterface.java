@@ -9,44 +9,44 @@ import net.minecraft.tileentity.TileEntity;
 public interface IEnergyInterface {
 
     /**
-     * @param wats
+     * @param watts
      * @return energy accepted from the other energy system
      */
-    public double applyEnergy(double watts);
+    double applyEnergy(double watts);
 
     /**
      * the capacity to store energy
      *
      * @return
      */
-    public double getCapacity();
+    double getCapacity();
 
     /**
      * amount of energy stored
      *
      * @return
      */
-    public double getEnergyStored();
+    double getEnergyStored();
 
     /**
      * max amount of energy per tick, should be in Watts
      *
      * @return
      */
-    public double getMaxFlow();
+    double getMaxFlow();
 
     /**
      * @param f
      * @return
      */
-    public boolean canConnect(VecInt f);
+    boolean canConnect(VecInt f);
 
     /**
      * the tileEntity that has the block
      *
      * @return
      */
-    public TileEntity getParent();
+    TileEntity getParent();
 
-    public boolean canAcceptEnergy(IIndexedConnection f);
+    boolean canAcceptEnergy(IIndexedConnection f);
 }

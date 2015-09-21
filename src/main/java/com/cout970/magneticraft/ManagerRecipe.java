@@ -2,7 +2,7 @@ package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.util.ThermopileDecay;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
@@ -43,7 +43,9 @@ public class ManagerRecipe {
 //				GameRegistry.addSmelting(new ItemStack(rubble_clean.get(i)), ingot, 1.0F);
                 GameRegistry.addSmelting(new ItemStack(pebbles, 1, i), ingot, 1.0F);
 //				GameRegistry.addSmelting(new ItemStack(pebbles_clean.get(i)), ingot, 1.0F);
-                GameRegistry.addSmelting(new ItemStack(dust, 1, i), ingot, 1.0F);
+                ItemStack ing2 = ingot.copy();
+                ing2.stackSize = 1;
+                GameRegistry.addSmelting(new ItemStack(dust, 1, i), ing2, 1.0F);
             }
         }
         GameRegistry.addSmelting(new ItemStack(oreCopper), new ItemStack(ingotCopper), 1.0F);
@@ -72,7 +74,7 @@ public class ManagerRecipe {
         MgRecipeRegister.registerHammerTableRecipe(new ItemStack(oreLime), new ItemStack(cobbleLime));
         MgRecipeRegister.registerHammerTableRecipe(new ItemStack(burntLime), new ItemStack(burntCobbleLime));
 
-        MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConversor.RFtoW(160));
+        MgRecipeRegister.registerOilDistilleryRecipe(FluidRegistry.getFluidStack("oil", 20), FluidRegistry.getFluidStack("hotcrude", 20), EnergyConverter.RFtoW(160));
         MgRecipeRegister.registerRefineryRecipe(FluidRegistry.getFluidStack("hotcrude", 20), FluidRegistry.getFluidStack("lightoil", 7), FluidRegistry.getFluidStack("heavyoil", 6), FluidRegistry.getFluidStack("naturalgas", 7));
 
         MgRecipeRegister.registerPolymerizerRecipe(FluidRegistry.getFluidStack(ManagerFluids.NATURAL_GAS, 500), new ItemStack(ManagerItems.dustSulfur), new ItemStack(ManagerItems.rubber), 200);

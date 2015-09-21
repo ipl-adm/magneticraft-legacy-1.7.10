@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -37,11 +37,11 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
             @Override
             public void iterate() {
                 super.iterate();
-                if (!isControled()) return;
+                if (!isControlled()) return;
                 if (getVoltage() < min && storage > 0) {
                     int change = (int) Math.min((min - getVoltage()) * 80, 512);
                     change = Math.min(change, storage);
-                    applyPower(EnergyConversor.EUtoW(change));
+                    applyPower(EnergyConverter.EUtoW(change));
                     storage -= change;//storage in EU
                 }
             }

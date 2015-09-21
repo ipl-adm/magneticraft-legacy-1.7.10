@@ -14,6 +14,6 @@
   "logoFile": "assets/magneticraft/textures/logo/logo.png",
   "screenshots": [],
   "requiredMods": [ "Forge", "ForgeMultipart" ],
-  "dependencies": [ "Railcraft", "ForgeMultipart", "BuildCraft|Core", "CoFHCore", "IC2" ]
+  "dependencies": [ "Railcraft", "ForgeMultipart", "BuildCraft|Core", "CoFHCore", "IC2", "ImmersiveEngineering" ]
 }
 ]

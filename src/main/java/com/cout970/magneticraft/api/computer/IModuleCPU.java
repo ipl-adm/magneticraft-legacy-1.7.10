@@ -4,28 +4,28 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface IModuleCPU extends IHardwareComponent {
 
-    public void iterate();
+    void iterate();
 
-    public boolean isRunning();
+    boolean isRunning();
 
-    public void start();
+    void start();
 
-    public void stop();
+    void stop();
 
-    public void haltTick();
+    void haltTick();
 
-    public int getRegister(int reg);
+    int getRegister(int reg);
 
-    public void setRegister(int reg, int value);
+    void setRegister(int reg, int value);
 
-    public int getRegPC();
+    int getRegPC();
 
-    public void setRegPC(int value);
+    void setRegPC(int value);
 
-    public void connectMemory(IModuleMemoryController ram);
+    void connectMemory(IModuleMemoryController ram);
 
-    public void loadRegisters(NBTTagCompound nbt);
+    void loadRegisters(NBTTagCompound nbt);
 
-    public void saveRegisters(NBTTagCompound nbt);
+    void saveRegisters(NBTTagCompound nbt);
 
 }

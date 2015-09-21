@@ -47,7 +47,7 @@ public class BlockResistance extends BlockMg {
             MgDirection or = MgDirection.getDirection(((i + 1) % 4) + 2);
             w.setBlockMetadataWithNotify(x, y, z, or.ordinal(), 2);
         } else {
-            p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+            p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
         }
         return true;
     }

@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.client.tilerender;
 
 import com.cout970.magneticraft.client.model.ModelRefinery;
-import com.cout970.magneticraft.tileentity.TileRefinery;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileRefinery;
 import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.RenderUtil;

@@ -58,7 +58,7 @@ public class GuiCrafter extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
             if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
                 if (gui.tile instanceof TileCrafter) {
                     RedstoneState state = ((TileCrafter) (gui.tile)).state;
@@ -67,7 +67,7 @@ public class GuiCrafter extends GuiBasic {
                 }
             }
             if (gui.isIn(mx, my, gui.xStart + 72, gui.yStart + 36, 16, 16)) {
-                MessageGuiClick msg = new MessageGuiClick(gui.tile, 0, buttom);
+                MessageGuiClick msg = new MessageGuiClick(gui.tile, 0, button);
                 ManagerNetwork.INSTANCE.sendToServer(msg);
             }
         }

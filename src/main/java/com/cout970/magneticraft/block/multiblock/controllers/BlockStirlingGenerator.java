@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-import com.cout970.magneticraft.tileentity.TileStirlingGenerator;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileStirlingGenerator;
 import com.cout970.magneticraft.util.multiblock.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -84,7 +84,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock {
                     MB_Watcher.watchStructure(w, new VecInt(x, y, z), MB_Register.getMBbyID(MB_Register.ID_STIRLING), getDirection(w, new VecInt(x, y, z)), p);
                 else ((TileStirlingGenerator) t).drawCounter = 200;
             } else {
-                p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+                p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
             }
         }
         return true;
@@ -126,7 +126,7 @@ public class BlockStirlingGenerator extends BlockMg implements MB_ControlBlock {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
         MgDirection d = MgDirection.getDirection(side);
-        if (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) >= 6) return false;
-        return super.shouldSideBeRendered(w, x, y, z, side);
+        return (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) < 6)
+                && super.shouldSideBeRendered(w, x, y, z, side);
     }
 }

@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.client.model.ModelCrusherLeft;
 import com.cout970.magneticraft.client.model.ModelCrusherRight;
-import com.cout970.magneticraft.tileentity.TileCrusher;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileCrusher;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
@@ -62,7 +62,7 @@ public class TileRenderCrusher extends TileEntitySpecialRenderer {
             } else if (tile.getDirection() == MgDirection.WEST) {
                 GL11.glRotatef(-90, 0, 1, 0);
             }
-            VecDouble vec = null;
+            VecDouble vec;
             switch (meta % 8) {
                 case 0:
                     vec = new VecDouble(-1.5f, -0.5f, 0.5f);

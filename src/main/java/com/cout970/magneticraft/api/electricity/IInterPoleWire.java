@@ -6,27 +6,27 @@ import net.minecraft.world.World;
 
 public interface IInterPoleWire {
 
-    public void setWorld(World w);
+    void setWorld(World w);
 
-    public World getWorld();
+    World getWorld();
 
-    public void iterate();
+    void iterate();
 
-    public double getEnergyFlow();
+    double getEnergyFlow();
 
-    public void setEnergyFlow(double energyFlow);
+    void setEnergyFlow(double energyFlow);
 
-    public IElectricPole getStart();
+    IElectricPole getStart();
 
-    public IElectricPole getEnd();
+    IElectricPole getEnd();
 
-    public VecInt vecStart();
+    VecInt vecStart();
 
-    public VecInt vecEnd();
+    VecInt vecEnd();
 
-    public double getDistance();
+    double getDistance();
 
-    public void save(NBTTagCompound nbt);
+    void save(NBTTagCompound nbt);
 
-    public void load(NBTTagCompound nbt);
+    void load(NBTTagCompound nbt);
 }

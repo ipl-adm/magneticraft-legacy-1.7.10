@@ -15,5 +15,5 @@ public interface IElectricTile {
      * if the args are NULL_VECTOR this should always return the conductor if the block has one or more.
      * the cablecompound can't be empty, it must be null or have at least one element
      */
-    public IElectricConductor[] getConds(VecInt dir, int Vtier);
+    IElectricConductor[] getConds(VecInt dir, int Vtier);
 }

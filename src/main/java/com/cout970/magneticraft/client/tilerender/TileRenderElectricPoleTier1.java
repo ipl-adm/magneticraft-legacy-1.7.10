@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.electricity.IInterPoleWire;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.client.model.ModelElectricalPoleTier1;
-import com.cout970.magneticraft.tileentity.TileElectricPoleTier1;
+import com.cout970.magneticraft.tileentity.pole.TileElectricPoleTier1;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

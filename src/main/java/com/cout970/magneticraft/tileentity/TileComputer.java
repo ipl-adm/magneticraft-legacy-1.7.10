@@ -142,7 +142,7 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
             this.rom = null;
             return;
         }
-        ModuleType m = null;
+        ModuleType m;
         if (cpu.getItem() instanceof IHardwareProvider) {
             m = ((IHardwareProvider) cpu.getItem()).getModuleType(cpu);
             if (m == ModuleType.CPU) {
@@ -213,7 +213,7 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
     }
 
     @Override
-    public void onMessageReceive(int id, int dato) {
+    public void onMessageReceive(int id, int data) {
         if (motherboard.isActive()) {
             if (id == 0) {
                 if (!procesor.isRunning()) {

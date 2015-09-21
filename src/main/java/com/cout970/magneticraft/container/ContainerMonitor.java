@@ -6,6 +6,6 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerMonitor extends ContainerBasic {
 
     public ContainerMonitor(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
     }
 }

@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerMiner extends ContainerBasic {
 
     public ContainerMiner(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         this.bindPlayerInventory(p);
     }
 }

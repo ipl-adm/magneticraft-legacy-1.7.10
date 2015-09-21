@@ -50,17 +50,13 @@ public class FluidUtils {
         }
     }
 
-    private static boolean isConectable(TileEntity a) {
-        if (a instanceof IFluidTransport || a instanceof IFluidHandler) {
-            return true;
-        }
-        return false;
+    private static boolean isConnectable(TileEntity a) {
+        return a instanceof IFluidTransport || a instanceof IFluidHandler;
     }
 
     public static boolean CanPassFluid(TileEntity a, TileEntity b) {
 
-        if (!(isConectable(b) && isConectable(a))) return false;
-        return true;
+        return isConnectable(b) && isConnectable(a);
     }
 
     public static List<TankConection> getTankConections(TileEntity tile) {

@@ -73,9 +73,7 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        List<PositionedStack> a = new ArrayList<PositionedStack>();
-
-        return a;
+        return new ArrayList<PositionedStack>();
     }
 
     @Override
@@ -106,10 +104,10 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
     public void drawTexturedModelRectFromIcon(int p_94065_1_, int p_94065_2_, IIcon p_94065_3_, int p_94065_4_, int p_94065_5_) {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (p_94065_1_ + 0), (double) (p_94065_2_ + p_94065_5_), (double) 0, (double) p_94065_3_.getMinU(), (double) p_94065_3_.getMaxV());
+        tessellator.addVertexWithUV((double) (p_94065_1_), (double) (p_94065_2_ + p_94065_5_), (double) 0, (double) p_94065_3_.getMinU(), (double) p_94065_3_.getMaxV());
         tessellator.addVertexWithUV((double) (p_94065_1_ + p_94065_4_), (double) (p_94065_2_ + p_94065_5_), (double) 0, (double) p_94065_3_.getMaxU(), (double) p_94065_3_.getMaxV());
-        tessellator.addVertexWithUV((double) (p_94065_1_ + p_94065_4_), (double) (p_94065_2_ + 0), (double) 0, (double) p_94065_3_.getMaxU(), (double) p_94065_3_.getMinV());
-        tessellator.addVertexWithUV((double) (p_94065_1_ + 0), (double) (p_94065_2_ + 0), (double) 0, (double) p_94065_3_.getMinU(), (double) p_94065_3_.getMinV());
+        tessellator.addVertexWithUV((double) (p_94065_1_ + p_94065_4_), (double) (p_94065_2_), (double) 0, (double) p_94065_3_.getMaxU(), (double) p_94065_3_.getMinV());
+        tessellator.addVertexWithUV((double) (p_94065_1_), (double) (p_94065_2_), (double) 0, (double) p_94065_3_.getMinU(), (double) p_94065_3_.getMinV());
         tessellator.draw();
     }
 }

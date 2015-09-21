@@ -42,7 +42,7 @@ public class ComputerUtils {
         if (nbt.hasKey("SerialNumber")) {
             return new File(getSaveDirectory(), "disk_" + nbt.getString("SerialNumber") + ".img");
         } else {
-            String aux = null;
+            String aux;
             while (true) {
                 aux = genSerialNumber();
                 File f = new File(getSaveDirectory(), "disk_" + aux + ".img");
@@ -80,7 +80,6 @@ public class ComputerUtils {
         p.addBlock(new VectorOffset(new VecInt(t), VecInt.NULL_VECTOR));
         p.addNeigBlocks(new VecInt(t));
         while (p.iterate()) {
-            ;
         }
         return p.result;
     }

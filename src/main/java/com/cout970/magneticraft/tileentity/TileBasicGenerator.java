@@ -6,7 +6,7 @@ import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
@@ -77,8 +77,8 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
         }
         if (progress > 0) {
             //fuel to temp
-            if (heat.getTemperature() < maxHeat && isControled()) {
-                heat.applyCalories(EnergyConversor.FUELtoCALORIES(speed));
+            if (heat.getTemperature() < maxHeat && isControlled()) {
+                heat.applyCalories(EnergyConverter.FUELtoCALORIES(speed));
                 if (progress - speed < 0) {
                     progress = 0;
                     working = false;
@@ -89,26 +89,26 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
         }
         //temp to steam
         if (heat.getTemperature() > 100) {
-            int change = Math.min(water.getFluidAmount(), EnergyConversor.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));
+            int change = Math.min(water.getFluidAmount(), EnergyConverter.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));
             change = Math.min(change, speed);
             if (change > 0) {
-                heat.drainCalories(EnergyConversor.WATERtoSTEAM_HEAT(change));
+                heat.drainCalories(EnergyConverter.WATERtoSTEAM_HEAT(change));
                 water.drain(change, true);
-                steam.fill(FluidRegistry.getFluidStack("steam", EnergyConversor.WATERtoSTEAM(change)), true);
-                steamProduction += EnergyConversor.WATERtoSTEAM(change);
+                steam.fill(FluidRegistry.getFluidStack("steam", EnergyConverter.WATERtoSTEAM(change)), true);
+                steamProduction += EnergyConverter.WATERtoSTEAM(change);
             }
         }
         //steam to power
-        int gas = Math.min(steam.getFluidAmount(), (int) EnergyConversor.WtoSTEAM(2000));
-        if (gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControled()) {
-            cond.applyPower(EnergyConversor.STEAMtoW(gas));
-            electricProduction += EnergyConversor.STEAMtoW(gas);
+        int gas = Math.min(steam.getFluidAmount(), (int) EnergyConverter.WtoSTEAM(2000));
+        if (gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControlled()) {
+            cond.applyPower(EnergyConverter.STEAMtoW(gas));
+            electricProduction += EnergyConverter.STEAMtoW(gas);
             steam.drain(gas, true);
         }
 
         if (progress <= 0) {
             ItemStack a = getInv().getStackInSlot(0);
-            if (a != null && isControled()) {
+            if (a != null && isControlled()) {
                 int fuel = TileEntityFurnace.getItemBurnTime(a);
                 if (fuel > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && steam.getFluidAmount() < 1) {
                     progress = fuel;

@@ -19,7 +19,7 @@ public enum Orientation {
     private int level;
     private MgDirection dir;
 
-    private Orientation(int l, MgDirection dir) {
+    Orientation(int l, MgDirection dir) {
         level = l;
         this.dir = dir;
     }

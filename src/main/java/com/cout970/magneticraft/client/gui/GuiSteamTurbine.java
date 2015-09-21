@@ -2,7 +2,7 @@ package com.cout970.magneticraft.client.gui;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.*;
-import com.cout970.magneticraft.tileentity.TileSteamTurbineControl;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileSteamTurbineControl;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureMap;

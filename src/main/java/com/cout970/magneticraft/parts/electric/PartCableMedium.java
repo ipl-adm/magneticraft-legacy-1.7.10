@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class PartCableMedium extends PartElectric implements ISidedHollowConnect, IElectricMultiPart {
@@ -39,7 +40,7 @@ public class PartCableMedium extends PartElectric implements ISidedHollowConnect
 
     @Override
     public List<Cuboid6> getOcclusionCubes() {
-        return Arrays.asList(new Cuboid6[]{boxes.get(6)});
+        return Collections.singletonList(boxes.get(6));
     }
 
     @Override
@@ -96,7 +97,7 @@ public class PartCableMedium extends PartElectric implements ISidedHollowConnect
 
             @Override
             public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConversor.RFtoW(0.1D);
+                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.1D);
 
             }
         };

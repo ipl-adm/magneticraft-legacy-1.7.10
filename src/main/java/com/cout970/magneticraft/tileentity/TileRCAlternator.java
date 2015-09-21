@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -25,18 +25,18 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid 
             @Override
             public void iterate() {
                 super.iterate();
-                if (!isControled()) return;
+                if (!isControlled()) return;
                 if (getVoltage() < level && charge.getCharge() > 0) {
                     int change;
                     change = (int) Math.min((level - getVoltage()) * 10, 512);
                     change = (int) Math.min(change, charge.getCharge());
-                    applyPower(EnergyConversor.RCtoW(change));
+                    applyPower(EnergyConverter.RCtoW(change));
                     charge.addCharge(-change);
                 } else if (getVoltage() > level && charge.getCharge() < maxStorage) {
                     int change;
                     change = (int) Math.min((getVoltage() - level) * 10, 512);
                     change = (int) Math.min(change, maxStorage - charge.getCharge());
-                    drainPower(EnergyConversor.RCtoW(change));
+                    drainPower(EnergyConverter.RCtoW(change));
                     charge.addCharge(change);
                 }
             }

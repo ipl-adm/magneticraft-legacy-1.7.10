@@ -6,8 +6,8 @@ import net.minecraft.world.World;
 
 public interface MB_Block {
 
-    public void mutates(World w, VecInt blockPosition, Multiblock c, MgDirection e);
+    void mutates(World w, VecInt blockPosition, Multiblock c, MgDirection e);
 
-    public void destroy(World w, VecInt blockPosition, Multiblock c, MgDirection e);
+    void destroy(World w, VecInt blockPosition, Multiblock c, MgDirection e);
 
 }

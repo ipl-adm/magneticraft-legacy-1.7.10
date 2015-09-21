@@ -14,7 +14,7 @@ public class ContainerBasic extends Container {
 
     public TileEntity tile;
 
-    public ContainerBasic(InventoryPlayer p, TileEntity t) {
+    public ContainerBasic(TileEntity t) {
         super();
         tile = t;
     }
@@ -22,8 +22,6 @@ public class ContainerBasic extends Container {
     public ItemStack transferStackInSlot(EntityPlayer p, int s) {
         return null;
     }
-
-    ;
 
     /**
      * io 1 = accept, 2 = can move, 3 both
@@ -55,7 +53,7 @@ public class ContainerBasic extends Container {
             }
 
             if (item.stackSize == 0) {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
             } else {
                 slot.onSlotChanged();
             }
@@ -84,8 +82,8 @@ public class ContainerBasic extends Container {
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         if (tile instanceof IGuiSync) {
-            for (int i = 0; i < crafters.size(); i++) {
-                ((IGuiSync) tile).sendGUINetworkData(this, (ICrafting) crafters.get(i));
+            for (Object crafter : crafters) {
+                ((IGuiSync) tile).sendGUINetworkData(this, (ICrafting) crafter);
             }
         }
     }

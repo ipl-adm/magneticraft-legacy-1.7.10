@@ -220,19 +220,19 @@ public class WorldGenManagerMg implements IWorldGenerator {
     }
 
     private boolean shouldVoid(Block bl) {
-        if (Block.isEqualTo(bl, Blocks.deadbush)) return true;
-        if (Block.isEqualTo(bl, Blocks.cactus)) return true;
-        if (Block.isEqualTo(bl, Blocks.yellow_flower)) return true;
-        return Block.isEqualTo(bl, Blocks.tallgrass);
+        return Block.isEqualTo(bl, Blocks.deadbush)
+                || Block.isEqualTo(bl, Blocks.cactus)
+                || Block.isEqualTo(bl, Blocks.yellow_flower)
+                || Block.isEqualTo(bl, Blocks.tallgrass);
     }
 
     public boolean canReplace(Block b) {
-        if (Block.isEqualTo(b, Blocks.dirt)) return true;
-        if (Block.isEqualTo(b, Blocks.stone)) return true;
-        if (Block.isEqualTo(b, Blocks.grass)) return true;
-        if (Block.isEqualTo(b, Blocks.sand)) return true;
-        if (Block.isEqualTo(b, Blocks.gravel)) return true;
-        if (Block.isEqualTo(b, Blocks.sandstone)) return true;
-        return Block.isEqualTo(b, Blocks.clay);
+        return Block.isEqualTo(b, Blocks.dirt)
+                || Block.isEqualTo(b, Blocks.stone)
+                || Block.isEqualTo(b, Blocks.grass)
+                || Block.isEqualTo(b, Blocks.sand)
+                || Block.isEqualTo(b, Blocks.gravel)
+                || Block.isEqualTo(b, Blocks.sandstone)
+                || Block.isEqualTo(b, Blocks.clay);
     }
 }

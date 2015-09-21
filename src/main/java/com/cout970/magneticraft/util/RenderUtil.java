@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -26,16 +27,16 @@ public class RenderUtil {
     public static ResourceLocation MISC_ICONS = new ResourceLocation(Magneticraft.NAME.toLowerCase(), "textures/gui/misc.png");
 
     public static void drawTexturedModalRectScaled(int x, int y, int u, int v, int w, int h, int mx, int my) {
-        float f = 0.00390625F;
-        float f1 = 0.00390625F;
+        float f;
+        float f1;
         f = 1f / mx;
         f1 = 1f / my;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (x + 0), (double) (y + h), (double) zLevel, (double) ((float) (u + 0) * f), (double) ((float) (v + h) * f1));
-        tessellator.addVertexWithUV((double) (x + w), (double) (y + h), (double) zLevel, (double) ((float) (u + w) * f), (double) ((float) (v + h) * f1));
-        tessellator.addVertexWithUV((double) (x + w), (double) (y + 0), (double) zLevel, (double) ((float) (u + w) * f), (double) ((float) (v + 0) * f1));
-        tessellator.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) zLevel, (double) ((float) (u + 0) * f), (double) ((float) (v + 0) * f1));
+        tessellator.addVertexWithUV((double) (x), (double) (y + h), zLevel, (double) ((float) (u) * f), (double) ((float) (v + h) * f1));
+        tessellator.addVertexWithUV((double) (x + w), (double) (y + h), zLevel, (double) ((float) (u + w) * f), (double) ((float) (v + h) * f1));
+        tessellator.addVertexWithUV((double) (x + w), (double) (y), zLevel, (double) ((float) (u + w) * f), (double) ((float) (v) * f1));
+        tessellator.addVertexWithUV((double) (x), (double) (y), zLevel, (double) ((float) (u) * f), (double) ((float) (v) * f1));
         tessellator.draw();
     }
 
@@ -188,7 +189,7 @@ public class RenderUtil {
                         GL11.glTranslatef(0.5f + p * rot.getX(), 0.5f + p * rot.getY(), 0.5f + p * rot.getZ());
                         if (comp.origin != Blocks.air) {
                             tess.startDrawingQuads();
-                            if (isSlab(comp.origin)) {
+                            if (comp.origin instanceof BlockSlab) {
                                 RenderUtil.renderSlab(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
                             } else {
                                 RenderUtil.renderBlock(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorldObj());
@@ -253,12 +254,6 @@ public class RenderUtil {
         t.addVertexWithUV(x + 1, y, z + 1, i.getInterpolatedU(0), i.getInterpolatedV(0));
         t.addVertexWithUV(x + 1, y + 0.5, z + 1, i.getInterpolatedU(0), i.getInterpolatedV(8));
         t.addVertexWithUV(x, y + 0.5, z + 1, i.getInterpolatedU(8), i.getInterpolatedV(8));
-    }
-
-    private static boolean isSlab(Block b) {
-        if (b == Blocks.stone_slab) return true;
-        if (b == Blocks.wooden_slab) return true;
-        return false;
     }
 
     public static double interpolate(double fa, double fb, double fc, double x) {

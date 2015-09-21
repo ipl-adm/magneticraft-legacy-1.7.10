@@ -6,7 +6,7 @@ import java.util.List;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.pressure.prefab.PressureConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.network.NetworkNode;
@@ -135,7 +135,7 @@ public class NodePressureConductor extends PressureConductor{
 
     @Override
     public double getMaxPressure() {
-        return EnergyConversor.BARtoPA(200);
+        return EnergyConverter.BARtoPA(200);
     }
 
     @Override

@@ -5,7 +5,7 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.access.RecipeBiomassBurner;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -65,8 +65,7 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        List<PositionedStack> a = new ArrayList<PositionedStack>();
-        return a;
+        return new ArrayList<PositionedStack>();
     }
 
     @Override
@@ -84,7 +83,7 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
     @Override
     public void drawExtras(int recipe) {
         Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"));
-        int heat = (int) (EnergyConversor.FUELtoCALORIES(recipes.get(recipe).getBurnTime()));
+        int heat = (int) (EnergyConverter.FUELtoCALORIES(recipes.get(recipe).getBurnTime()));
         int scale = (int) (44 * (heat / 750f) / 1400f);
         RenderUtil.drawTexturedModalRectScaled(102, 9 + (44 - scale), 0, 44 - scale, 6, scale, 12, 45);
         RenderUtil.drawString(String.format("%.1fkcal", (float) heat / 1000f), 115, 30, RenderUtil.fromRGB(255, 255, 255), false);

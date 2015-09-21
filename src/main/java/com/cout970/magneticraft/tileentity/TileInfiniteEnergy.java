@@ -37,8 +37,6 @@ public class TileInfiniteEnergy extends TileBase implements IElectricTile {
         cond2.iterate();
     }
 
-    ;
-
     @Override
     public IElectricConductor[] getConds(VecInt dir, int Vtier) {
         if (Vtier == 0) return new IElectricConductor[]{cond0};

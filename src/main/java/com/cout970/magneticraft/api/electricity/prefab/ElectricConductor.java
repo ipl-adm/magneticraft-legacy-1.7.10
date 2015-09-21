@@ -51,7 +51,7 @@ public class ElectricConductor implements IElectricConductor {
      */
     public double getVoltage() {
         long worldTime = this.getParent().getWorldObj().getTotalWorldTime();
-        if ((worldTime & 65535L) == (long) this.lastTick) {
+        if ((worldTime & 65535L) == this.lastTick) {
             return this.V;
         } else {
             this.lastTick = (int) (worldTime & 65535L);
@@ -93,9 +93,7 @@ public class ElectricConductor implements IElectricConductor {
             } else {
                 if (currents.length != sides) {
                     double[] temp = new double[sides];
-                    for (int i = 0; i < Math.min(sides, currents.length); i++) {
-                        temp[i] = currents[i];
-                    }
+                    System.arraycopy(currents, 0, temp, 0, Math.min(sides, currents.length));
                     currents = temp;
                 }
             }
@@ -171,7 +169,7 @@ public class ElectricConductor implements IElectricConductor {
     }
 
     public double getInvCapacity() {
-        return getVoltageMultiplier() * EnergyConversor.RFtoW(0.1D);
+        return getVoltageMultiplier() * EnergyConverter.RFtoW(0.1D);
     }
 
     @Override

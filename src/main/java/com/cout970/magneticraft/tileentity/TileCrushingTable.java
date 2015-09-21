@@ -6,6 +6,8 @@ import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.block.BlockMg;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityBlockDustFX;
@@ -61,7 +63,9 @@ public class TileCrushingTable extends TileBase {
     public void tick(int maxHits) {
         maxProgress = maxHits;
         progress++;
-        addParticles();
+        if (worldObj.isRemote) {
+            addParticles();
+        }
         if (progress >= maxProgress) {
             maxProgress = 0;
             progress = 0;
@@ -83,6 +87,7 @@ public class TileCrushingTable extends TileBase {
         return rec.getOutput().copy();
     }
 
+    @SideOnly(Side.CLIENT)
     private void addParticles() {
         if (worldObj.isRemote) {
             Item item = ore.getItem(); 

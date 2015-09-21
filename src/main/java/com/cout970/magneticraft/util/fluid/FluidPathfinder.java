@@ -42,8 +42,7 @@ public class FluidPathfinder {
     }
 
     public boolean canFluidGoToEnd() {
-        if (to == null) return false;
-        return visited.contains(to);
+        return (to != null) && visited.contains(to);
     }
 
 

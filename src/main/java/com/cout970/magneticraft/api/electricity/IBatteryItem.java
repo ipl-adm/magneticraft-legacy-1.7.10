@@ -13,7 +13,7 @@ public interface IBatteryItem {
      * @param it
      * @return
      */
-    public int getCharge(ItemStack it);
+    int getCharge(ItemStack it);
 
     /**
      * the amount of energy to drain from the battery, must always positive
@@ -21,7 +21,7 @@ public interface IBatteryItem {
      * @param it
      * @param energy
      */
-    public void discharge(ItemStack it, int energy);
+    void discharge(ItemStack it, int energy);
 
     /**
      * the amount of energy to add to the battery
@@ -30,18 +30,18 @@ public interface IBatteryItem {
      * @param energy
      * @return
      */
-    public int charge(ItemStack stack, int energy);
+    int charge(ItemStack stack, int energy);
 
     /**
      * the max amount of charge that the battery can store
      *
      * @return
      */
-    public int getMaxCharge(ItemStack stack);
+    int getMaxCharge(ItemStack stack);
 
-    public boolean canAcceptCharge(ItemStack stack);
+    boolean canAcceptCharge(ItemStack stack);
 
-    public boolean canExtractCharge(ItemStack stack);
+    boolean canExtractCharge(ItemStack stack);
 
-    public boolean canProvideEnergy(ItemStack stack);
+    boolean canProvideEnergy(ItemStack stack);
 }

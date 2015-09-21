@@ -2,7 +2,7 @@ package com.cout970.magneticraft.util.energy;
 
 import com.cout970.magneticraft.api.electricity.IEnergyInterface;
 import com.cout970.magneticraft.api.electricity.IIndexedConnection;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import ic2.api.energy.tile.IEnergySink;
@@ -20,7 +20,7 @@ public class EU_EnergyInterfaceSink implements IEnergyInterface {
 
     @Override
     public double applyEnergy(double watts) {
-        return watts - EnergyConversor.EUtoW(tile.injectEnergy(dir.toForgeDir(), EnergyConversor.WtoEU(watts), 512));
+        return watts - EnergyConverter.EUtoW(tile.injectEnergy(dir.toForgeDir(), EnergyConverter.WtoEU(watts), 512));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class EU_EnergyInterfaceSink implements IEnergyInterface {
 
     @Override
     public double getMaxFlow() {
-        return EnergyConversor.EUtoW(512);
+        return EnergyConverter.EUtoW(512);
     }
 
     @Override

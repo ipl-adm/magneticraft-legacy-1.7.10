@@ -30,7 +30,7 @@ public class BasicNetwork {
 	}
 	
 	public NetworkNode[] getNodes(){
-		return nodes.toArray(new NetworkNode[0]);
+		return nodes.toArray(new NetworkNode[nodes.size()]);
 	}
 	
 	public void addNode(NetworkNode node){
@@ -65,7 +65,8 @@ public class BasicNetwork {
 		pathfinder.init();
 		pathfinder.addBlock(new VectorOffset(new VecInt(startingPoint.getParent()), VecInt.NULL_VECTOR));
 		pathfinder.addNeigBlocks(new VecInt(startingPoint.getParent()));
-		while(pathfinder.iterate()){;}
+		while(pathfinder.iterate()){
+		}
 		for(NetworkNode nd : nodes){
 			if(!pathfinder.nodes.contains(nd)){
 				nd.setNetwork(null);

@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface MB_Tile_Replaced {
 
-    public void setDrops(List<ItemStack> drops);
+    void setDrops(List<ItemStack> drops);
 
-    public List<ItemStack> getDrops();
+    List<ItemStack> getDrops();
 
 }

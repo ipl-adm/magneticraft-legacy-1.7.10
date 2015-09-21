@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock;
 
 import com.cout970.magneticraft.util.multiblock.MB_Tile_Replaced;
 import net.minecraft.item.ItemStack;

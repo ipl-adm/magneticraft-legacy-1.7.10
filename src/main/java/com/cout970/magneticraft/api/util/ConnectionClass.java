@@ -20,16 +20,14 @@ public enum ConnectionClass {
 
     public MgDirection orientation;
 
-    private ConnectionClass(MgDirection dir) {
+    ConnectionClass(MgDirection dir) {
         orientation = dir;
     }
 
-    private ConnectionClass() {
+    ConnectionClass() {
     }
 
     public static boolean isSlabCompatible(ConnectionClass a, ConnectionClass b) {
-        if (a.orientation == null || b.orientation == null) return false;
-        if (a.orientation.isParallel(b.orientation)) return false;
-        return true;
+        return !(a.orientation == null || b.orientation == null) && !a.orientation.isParallel(b.orientation);
     }
 }

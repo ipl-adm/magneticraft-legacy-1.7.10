@@ -5,9 +5,9 @@ import net.minecraft.tileentity.TileEntity;
 
 public interface IClientInformer {
 
-    public TileEntity getParent();
+    TileEntity getParent();
 
-    public void saveInfoToMessage(NBTTagCompound nbt);
+    void saveInfoToMessage(NBTTagCompound nbt);
 
-    public void loadInfoFromMessage(NBTTagCompound nbt);
+    void loadInfoFromMessage(NBTTagCompound nbt);
 }

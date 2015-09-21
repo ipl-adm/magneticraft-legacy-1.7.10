@@ -149,7 +149,7 @@ public class ModelInserter extends ModelBase {
 
         ArmLower1.rotateAngleX = rad1;
         ArmLower2.rotateAngleX = rad1;
-        SuportBarLower.rotateAngleX = (float) rad1 + 0.7853981f;
+        SuportBarLower.rotateAngleX = rad1 + 0.7853981f;
 
         angle_0 = (float) -Math.sin(rad1) * pixel * 7;
         angle_1 = (float) -Math.cos(rad1) * pixel * 7;

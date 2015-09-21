@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerBattery extends ContainerBasic {
 
     public ContainerBattery(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
 
         addSlotToContainer(new Slot((IInventory) t, 0, 102, 16));
         addSlotToContainer(new Slot((IInventory) t, 1, 102, 48));

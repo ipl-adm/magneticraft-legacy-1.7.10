@@ -3,7 +3,7 @@ package com.cout970.magneticraft.tileentity;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -51,12 +51,12 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
                 setActive(false);
             }
         }
-        if (tank.getFluidAmount() > 0 && cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()) {
+        if (tank.getFluidAmount() > 0 && cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControlled()) {
             int steam = Math.min(tank.getFluidAmount(), STEAM_LIMIT);
             if (steam > 0) {
                 tank.drain(steam, true);
-                cond.applyPower(EnergyConversor.STEAMtoW(steam));
-                electricProduction += EnergyConversor.STEAMtoW(steam);
+                cond.applyPower(EnergyConverter.STEAMtoW(steam));
+                electricProduction += EnergyConverter.STEAMtoW(steam);
                 steamConsumition += steam;
                 working = true;
             } else {
@@ -144,40 +144,27 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
     }
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-        return 0;
+            return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
     }
 
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
-                            boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
-        return null;
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
-        return null;
+        return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
     }
 
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
-        return false;
+            return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
     }
 
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        if (this instanceof IFluidHandler1_8)
-            return ((IFluidHandler1_8) this).getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-        return null;
+            return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
 
     public IEnergyTracker getEnergyTracker() {
@@ -190,7 +177,7 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 
             @Override
             public float getMaxChange() {
-                return (float) (EnergyConversor.STEAMtoW(STEAM_LIMIT));
+                return (float) (EnergyConverter.STEAMtoW(STEAM_LIMIT));
             }
 
             @Override

@@ -4,9 +4,9 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface IBlockWithData {
 
-    public static final String KEY = "DATA";
+    String KEY = "DATA";
 
-    public void saveData(NBTTagCompound nbt);
+    void saveData(NBTTagCompound nbt);
 
-    public void loadData(NBTTagCompound nbt);
+    void loadData(NBTTagCompound nbt);
 }

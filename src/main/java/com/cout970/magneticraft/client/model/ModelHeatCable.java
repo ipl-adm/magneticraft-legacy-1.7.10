@@ -85,7 +85,7 @@ public class ModelHeatCable extends ModelBase {
     }
 
     public void renderDynamic(float f5, byte con) {
-        if ((con & (1 << 0)) > 0) bottom.render(f5);
+        if ((con & (1)) > 0) bottom.render(f5);
         if ((con & (1 << 1)) > 0) top.render(f5);
         if ((con & (1 << 3)) > 0) back.render(f5);
         if ((con & (1 << 2)) > 0) front.render(f5);

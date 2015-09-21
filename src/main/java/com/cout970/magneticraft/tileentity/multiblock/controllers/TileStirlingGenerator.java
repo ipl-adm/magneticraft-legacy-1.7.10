@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -8,6 +8,7 @@ import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
@@ -74,21 +75,21 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
         if (cond == null || heat == null) return;
         if (progress > 0) {
             //fuel to heat
-            if (heat.getTemperature() < heat.getMaxTemp() - 200 && isControled()) {
+            if (heat.getTemperature() < heat.getMaxTemp() - 200 && isControlled()) {
                 int i = 12;//burning speed
                 if (progress - i < 0) {
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(progress));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(progress));
                     progress = 0;
                 } else {
                     progress -= i;
-                    heat.applyCalories(EnergyConversor.FUELtoCALORIES(i));
+                    heat.applyCalories(EnergyConverter.FUELtoCALORIES(i));
                 }
 
             }
         }
         if (progress <= 0) {
             working = false;
-            if (getInv().getStackInSlot(0) != null && isControled()) {
+            if (getInv().getStackInSlot(0) != null && isControlled()) {
                 int fuel = TileEntityFurnace.getItemBurnTime(getInv().getStackInSlot(0));
                 if (fuel > 0 && heat.getTemperature() < heat.getMaxTemp()) {
                     progress = fuel;
@@ -107,7 +108,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 
         if (heat.getTemperature() > 30 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE) {
             int prod = (int) Math.min(MAX_PRODUCTION, (heat.getTemperature() - 30) * 10);
-            heat.drainCalories(EnergyConversor.WtoCALORIES(prod));
+            heat.drainCalories(EnergyConverter.WtoCALORIES(prod));
             cond.applyPower(prod);
             prodCounter += prod;
         }
@@ -171,7 +172,7 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
     public void sendGUINetworkData(Container cont, ICrafting craft) {
         if (cond == null || heat == null) return;
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-        craft.sendProgressBarUpdate(cont, 1, (int) progress);
+        craft.sendProgressBarUpdate(cont, 1, progress);
         craft.sendProgressBarUpdate(cont, 2, cond.getStorage());
         craft.sendProgressBarUpdate(cont, 3, maxProgres);
         craft.sendProgressBarUpdate(cont, 4, (int) heat.getTemperature() * 10);

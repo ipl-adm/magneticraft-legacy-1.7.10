@@ -2,9 +2,9 @@ package com.cout970.magneticraft.client.gui.component;
 
 public interface IBarProvider {
 
-    public String getMessage();
+    String getMessage();
 
-    public float getLevel();
+    float getLevel();
 
-    public float getMaxLevel();
+    float getMaxLevel();
 }

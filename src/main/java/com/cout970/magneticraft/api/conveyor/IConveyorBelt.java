@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
  */
 public interface IConveyorBelt {
 
-    public enum BeltInteraction {
+    enum BeltInteraction {
         DIRECT, INVERSE, LEFT_T, RIGHT_T, NOTHING;
 
         public static BeltInteraction InterBelt(MgDirection a, MgDirection b) {
@@ -21,21 +21,21 @@ public interface IConveyorBelt {
         }
     }
 
-    public boolean addItem(MgDirection in, int pos, IItemBox it, boolean simulated);
+    boolean addItem(MgDirection in, int pos, IItemBox it, boolean simulated);
 
-    public boolean removeItem(IItemBox it, boolean isLeft, boolean simulated);
+    boolean removeItem(IItemBox it, boolean isLeft, boolean simulated);
 
-    public IConveyorBeltLane getSideLane(boolean left);
+    IConveyorBeltLane getSideLane(boolean left);
 
-    public MgDirection getDir();
+    MgDirection getDir();
 
-    public boolean extract(IItemBox box, boolean isOnLeft, boolean simulated);
+    boolean extract(IItemBox box, boolean isOnLeft, boolean simulated);
 
-    public boolean inject(int pos, IItemBox box, boolean isOnLeft, boolean simulated);
+    boolean inject(int pos, IItemBox box, boolean isOnLeft, boolean simulated);
 
-    public TileEntity getParent();
+    TileEntity getParent();
 
-    public Orientation getOrientation();
+    Orientation getOrientation();
 
-    public void onChange();
+    void onChange();
 }

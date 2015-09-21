@@ -1,10 +1,12 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.access.RecipeRefinery;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.tileentity.TileRefineryTank;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import cpw.mods.fml.relauncher.Side;
@@ -31,7 +33,7 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
         }
         if (worldObj.isRemote) return;
         if (input == null || output0 == null || output1 == null || output2 == null) return;
-        if (input.getFluidAmount() > 0 && isControled()) {
+        if (input.getFluidAmount() > 0 && isControlled()) {
             RecipeRefinery recipe = RecipeRefinery.getRecipe(input.getFluid());
             if (recipe != null) {
                 if (input.getFluidAmount() >= recipe.getInput().amount) {

@@ -6,7 +6,7 @@ import java.util.List;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.util.ConnectionClass;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
@@ -148,7 +148,7 @@ public class PressureConductor implements IPressureConductor {
             
             setFluid(gas.getFluid());
             setTemperature(currentGas.getTemperature());
-            moles += EnergyConversor.MBtoMOL(gas.amount);
+            moles += EnergyConverter.MBtoMOL(gas.amount);
             return gas.amount;
         }
         return 0;
@@ -158,10 +158,10 @@ public class PressureConductor implements IPressureConductor {
     public FluidStack drainGas(int amount, boolean doDrain) {
         if (currentGas == null) return null;
         if (amount <= 0) return null;
-        int mB = (int) Math.min(amount, EnergyConversor.MOLtoMB(moles));
+        int mB = (int) Math.min(amount, EnergyConverter.MOLtoMB(moles));
         if (mB > 0) {
             if (!doDrain) return new FluidStack(currentGas, mB);
-            moles -= EnergyConversor.MBtoMOL(mB);
+            moles -= EnergyConverter.MBtoMOL(mB);
             return new FluidStack(currentGas, mB);
         }
         return null;
@@ -169,7 +169,7 @@ public class PressureConductor implements IPressureConductor {
 
     @Override
     public double getMaxPressure() {
-        return EnergyConversor.BARtoPA(200);
+        return EnergyConverter.BARtoPA(200);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cofh.api.energy.IEnergyContainerItem;
@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class ItemBattery extends ItemCharged {
 
     public ItemBattery(String unlocalizedname) {
-        super(unlocalizedname, (int) EnergyConversor.RFtoW(500000));
+        super(unlocalizedname, (int) EnergyConverter.RFtoW(500000));
         setMaxStackSize(1);
         setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
     }
@@ -30,7 +30,7 @@ public class ItemBattery extends ItemCharged {
                     if (it instanceof IBatteryItem) {
                         IBatteryItem st = (IBatteryItem) it;
                         if (st.canAcceptCharge(s) && !st.canProvideEnergy(s)) {
-                            int space = (int) (st.getMaxCharge(s) - st.getCharge(s));
+                            int space = st.getMaxCharge(s) - st.getCharge(s);
                             int toMove = Math.min(space, getCharge(stack));
                             if (toMove > 0) {
                                 st.charge(s, toMove);
@@ -39,11 +39,11 @@ public class ItemBattery extends ItemCharged {
                         }
                     } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
-                        int space = (int) (st.getMaxEnergyStored(s) - st.getEnergyStored(s));
-                        int toMove = (int) Math.min(space, EnergyConversor.WtoRF(getCharge(stack)));
+                        int space = st.getMaxEnergyStored(s) - st.getEnergyStored(s);
+                        int toMove = (int) Math.min(space, EnergyConverter.WtoRF(getCharge(stack)));
                         if (toMove > 0) {
                             st.receiveEnergy(s, toMove, false);
-                            discharge(stack, (int) EnergyConversor.RFtoW(toMove));
+                            discharge(stack, (int) EnergyConverter.RFtoW(toMove));
                         }
                     }
 

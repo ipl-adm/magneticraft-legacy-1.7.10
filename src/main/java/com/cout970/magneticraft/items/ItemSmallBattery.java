@@ -2,7 +2,7 @@ package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cofh.api.energy.IEnergyContainerItem;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class ItemSmallBattery extends ItemCharged {
 
     public ItemSmallBattery(String unlocalizedname) {
-        super(unlocalizedname, (int) EnergyConversor.RFtoW(8000));
+        super(unlocalizedname, (int) EnergyConverter.RFtoW(8000));
         setMaxStackSize(1);
         setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
     }
@@ -39,10 +39,10 @@ public class ItemSmallBattery extends ItemCharged {
                     } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
                         int space = st.getMaxEnergyStored(s) - st.getEnergyStored(s);
-                        int toMove = (int) Math.min(space, EnergyConversor.WtoRF(getCharge(stack)));
+                        int toMove = (int) Math.min(space, EnergyConverter.WtoRF(getCharge(stack)));
                         if (toMove > 0) {
                             st.receiveEnergy(s, toMove, false);
-                            discharge(stack, (int) EnergyConversor.RFtoW(toMove));
+                            discharge(stack, (int) EnergyConverter.RFtoW(toMove));
                         }
                     }
 

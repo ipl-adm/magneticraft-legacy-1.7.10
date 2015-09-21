@@ -8,7 +8,7 @@ import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompProgresBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.client.gui.component.IGuiComp;
-import com.cout970.magneticraft.tileentity.TileGrinder;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TileGrinder;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
@@ -92,7 +92,7 @@ public class GuiGrinder extends GuiBasic {
             if (tile instanceof TileGrinder) {
                 IElectricConductor c = ((TileGrinder) tile).cond;
                 if (c instanceof BufferedConductor) {
-                    int scale = (int) (((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage);
+                    int scale = ((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage;
                     gui.mc.renderEngine.bindTexture(texture);
                     RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (50 - scale), 59, 50 - scale, 11, scale, 70, 50);
                 }

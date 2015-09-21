@@ -2,6 +2,7 @@ package com.cout970.magneticraft.parts.fluid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.cout970.magneticraft.ManagerItems;
@@ -89,7 +90,7 @@ public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConne
 
     @Override
     public List<Cuboid6> getOcclusionCubes() {
-        return Arrays.asList(new Cuboid6[]{boxes.get(6)});
+        return Collections.singletonList(boxes.get(6));
     }
 
     @Override

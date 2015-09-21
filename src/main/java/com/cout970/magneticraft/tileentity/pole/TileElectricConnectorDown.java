@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.pole;
 
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricPole;
@@ -11,7 +11,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileElectricPoleCableWireDown extends TileConductorLow implements ITileElectricPole {
+public class TileElectricConnectorDown extends TileConductorLow implements ITileElectricPole {
 
     public int mask = -1;
 
@@ -25,7 +25,6 @@ public class TileElectricPoleCableWireDown extends TileConductorLow implements I
 
             @Override
             public boolean isAbleToConnect(IConnectable c, VecInt d) {
-                if (d.toMgDirection() != MgDirection.EAST && d.toMgDirection() != MgDirection.WEST) return false;
                 return c.getConnectionClass(d.getOpposite()) == ConnectionClass.CABLE_LOW
                         || c.getConnectionClass(d.getOpposite()) == ConnectionClass.SLAB_BOTTOM
                         || c.getConnectionClass(d.getOpposite()) == ConnectionClass.FULL_BLOCK;
@@ -40,7 +39,7 @@ public class TileElectricPoleCableWireDown extends TileConductorLow implements I
 
     @Override
     public ITileElectricPole getMainTile() {
-        TileEntity pole = new VecInt(this).add(0, 4, 0).getTileEntity(getWorldObj());
+        TileEntity pole = new VecInt(this).add(0, 1, 0).getTileEntity(getWorldObj());
         if (pole instanceof ITileElectricPole) return (ITileElectricPole) pole;
         return null;
     }

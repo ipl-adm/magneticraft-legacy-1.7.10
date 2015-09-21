@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface IThermopileDecay {
 
-    public void onCheck(World w, List<BlockInfo> b, double tempHot, double tempCold);
+    void onCheck(World w, List<BlockInfo> b, double tempHot, double tempCold);
 }

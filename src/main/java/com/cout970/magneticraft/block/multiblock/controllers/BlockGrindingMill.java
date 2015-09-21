@@ -56,7 +56,7 @@ public class BlockGrindingMill extends BlockMg implements MB_ControlBlock {
                 else
                     ((TileGrindingMill) t).drawCounter = 200;
             } else {
-                p.openGui(Magneticraft.Instance, 0, w, x, y, z);
+                p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
             }
         }
         return true;
@@ -112,8 +112,8 @@ public class BlockGrindingMill extends BlockMg implements MB_ControlBlock {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockAccess w, int x, int y, int z, int side) {
         MgDirection d = MgDirection.getDirection(side);
-        if (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) >= 6) return false;
-        return super.shouldSideBeRendered(w, x, y, z, side);
+        return (w.getBlockMetadata(x - d.getOffsetX(), y - d.getOffsetY(), z - d.getOffsetZ()) < 6)
+                && super.shouldSideBeRendered(w, x, y, z, side);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.cout970.magneticraft.client.gui;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.client.gui.component.*;
-import com.cout970.magneticraft.tileentity.TilePolymerizer;
+import com.cout970.magneticraft.tileentity.multiblock.controllers.TilePolymerizer;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;

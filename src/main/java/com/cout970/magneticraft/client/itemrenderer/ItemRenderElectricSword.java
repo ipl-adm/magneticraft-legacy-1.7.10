@@ -40,10 +40,7 @@ public class ItemRenderElectricSword implements IItemRenderer {
             }
             case EQUIPPED_FIRST_PERSON: {
                 render(0.3F, -0.1F, 0.5F, 1.25F, item, type);
-                return;
             }
-            default:
-                return;
         }
     }
 

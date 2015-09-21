@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerReactorVessel extends ContainerBasic {
 
     public ContainerReactorVessel(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot((IInventory) t, 0, 66, 30));
         bindPlayerInventory(p);
     }

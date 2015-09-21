@@ -4,7 +4,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.tool.IWindTurbine;
-import com.cout970.magneticraft.api.util.EnergyConversor;
+import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IRenderizable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -109,9 +109,9 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
             if (turbine == -1) {
                 production = 0;
                 productionPerSecond = 0;
-            } else if (cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControled()) {
-                cond.applyPower(EnergyConversor.RFtoW(power * turbinePotency / 100));
-                production = (float) EnergyConversor.RFtoW(power * turbinePotency / 100);
+            } else if (cond.getVoltage() <= ElectricConstants.MAX_VOLTAGE && isControlled()) {
+                cond.applyPower(EnergyConverter.RFtoW(power * turbinePotency / 100));
+                production = (float) EnergyConverter.RFtoW(power * turbinePotency / 100);
             } else {
                 production = 0;
             }
@@ -189,7 +189,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         int l = item.getLenght();
         for (int y = -h + 1; y < h; y++) {
             for (int v = -l + 1; v < l; v++) {
-                int i = 0, k = 0;
+                int i, k;
                 switch (facing) {
                     case NORTH:
                         k = -1;
@@ -224,7 +224,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         turbinePotency = 0;
         for (int y = -height + 1; y < height; y++) {
             for (int v = -lenght + 1; v < lenght; v++) {
-                int i = 0, k = 0;
+                int i, k;
                 switch (facing) {
                     case NORTH:
                         k = -1;
@@ -257,7 +257,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         turbinePotency = w.getPotency();
         for (int y = -height + 1; y < height; y++) {
             for (int v = -lenght + 1; v < lenght; v++) {
-                int i = 0, k = 0;
+                int i, k;
                 switch (facing) {
                     case NORTH:
                         k = -1;

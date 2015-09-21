@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 public class ContainerCrusher extends ContainerBasic {
 
     public ContainerCrusher(InventoryPlayer p, TileEntity t) {
-        super(p, t);
+        super(t);
         addSlotToContainer(new Slot((IInventory) t, 0, 51, 31));
         addSlotToContainer(new Slot((IInventory) t, 1, 101, 31));
         addSlotToContainer(new Slot((IInventory) t, 2, 119, 31));

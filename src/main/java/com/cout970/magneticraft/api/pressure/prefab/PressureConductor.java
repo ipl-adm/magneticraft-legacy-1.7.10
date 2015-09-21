@@ -90,6 +90,10 @@ public class PressureConductor implements IPressureConductor {
         nbt.setDouble("vol", volume);
         nbt.setDouble("temp", temperature);
         nbt.setDouble("mol", moles);
+        if(currentGas != null){
+        	FluidStack stack = new FluidStack(currentGas, 0);
+        	stack.writeToNBT(nbt);
+        }
     }
 
     @Override
@@ -97,6 +101,10 @@ public class PressureConductor implements IPressureConductor {
         volume = nbt.getDouble("vol");
         temperature = nbt.getDouble("temp");
         moles = nbt.getDouble("mol");
+        FluidStack stack = FluidStack.loadFluidStackFromNBT(nbt);
+        if(stack != null){
+        	currentGas = stack.getFluid();
+        }
     }
 
     @Override

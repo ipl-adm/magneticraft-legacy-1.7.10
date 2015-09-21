@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.pressure.prefab.PressureConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.tile.TilePressure;
 
 import net.minecraft.init.Blocks;
@@ -19,7 +20,9 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 public class TilePressureTank extends TilePressure implements IFluidHandler, IExplodable {
 
-    @Override
+    public CubeRenderer_Util cubeRenderer;
+
+	@Override
     public IPressureConductor initConductor() {
         return new PressureConductor(this, 16000);
     }
@@ -29,6 +32,9 @@ public class TilePressureTank extends TilePressure implements IFluidHandler, IEx
         if (worldObj.isRemote) return;
         if (pressure.getPressure() > pressure.getMaxPressure()) {
             this.explode(this.worldObj, this.xCoord, this.yCoord, this.zCoord, true);
+        }
+        if(worldObj.getTotalWorldTime() % 20 == 0){
+        	sendUpdateToClient();
         }
     }
 

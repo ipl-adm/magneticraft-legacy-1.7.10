@@ -18,6 +18,7 @@ public class EnergyConverter {
     public static final double MOL_MB = 8192;
     public static final double AVOGADROS_CONSTANT = 6.022E23;
     public static final double BAR_PA = 100000;
+    public static final double PSI_PA = 6894.75729;
 
     //RF
     public static double RFtoW(double rf) {
@@ -127,4 +128,11 @@ public class EnergyConverter {
         return amount * BAR_PA;
     }
 
+	public static double PAtoPSI(double amount) {
+		return amount / PSI_PA;
+	}
+	
+	public static double PSItoPA(double amount) {
+		return amount * PSI_PA;
+	}
 }

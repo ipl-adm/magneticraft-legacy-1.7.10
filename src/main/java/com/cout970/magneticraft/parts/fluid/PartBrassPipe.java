@@ -1,7 +1,6 @@
 package com.cout970.magneticraft.parts.fluid;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +16,8 @@ import com.cout970.magneticraft.util.network.BasicNetwork;
 import com.cout970.magneticraft.util.network.pressure.NodePressureConductor;
 import com.cout970.magneticraft.util.network.pressure.PressureNetwork;
 
+import codechicken.lib.data.MCDataInput;
+import codechicken.lib.data.MCDataOutput;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
@@ -25,6 +26,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConnect, IExplodable{
 
@@ -65,6 +68,9 @@ public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConne
             tempNBT = null;
         }
         pressure.iterate();
+        if(W().getTotalWorldTime() % 100 == 0 && !W().isRemote){
+        	sendDescUpdate();
+        }
     }
 
     public void onRemoved(){
@@ -152,6 +158,34 @@ public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConne
     public void load(NBTTagCompound nbt) {
         super.load(nbt);
         tempNBT = nbt;
+    }
+    
+    public void writeDesc(MCDataOutput p) {
+        super.writeDesc(p);
+        if(p == null || pressure == null)return;
+        p.writeDouble(pressure.getVolume());
+        p.writeDouble(pressure.getTemperature());
+        p.writeDouble(pressure.getMoles());
+        if(pressure.getFluid() != null){
+        	p.writeString(FluidRegistry.getFluidName(pressure.getFluid()));
+        }else{
+        	p.writeString("null");
+        }
+    }
+
+    public void readDesc(MCDataInput p) {
+        super.readDesc(p);
+        if(p == null || pressure == null)return;
+        pressure.setVolume(p.readDouble());
+        pressure.setTemperature(p.readDouble());
+        pressure.setMoles(p.readDouble());
+        String s = p.readString();
+        if(!s.equals("null")){
+        	Fluid f = FluidRegistry.getFluid(s);
+        	if(f != null){
+        		pressure.setFluid(f);
+        	}
+        }
     }
 
 	@Override

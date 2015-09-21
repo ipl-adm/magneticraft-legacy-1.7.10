@@ -1,13 +1,26 @@
 package com.cout970.magneticraft.tileentity;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.*;
+import com.cout970.magneticraft.util.IGuiListener;
+import com.cout970.magneticraft.util.IInventoryManaged;
+import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.InventoryCrafterAux;
+import com.cout970.magneticraft.util.InventoryUtils;
+
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -17,9 +30,6 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener {
 
@@ -81,16 +91,20 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         return (craftState == 1);
     }
 
-    @SuppressWarnings({"unchecked"})
-    public void refreshRecipe() {
+    @SuppressWarnings("unchecked")
+	public void refreshRecipe() {
         craftRecipe = null;
-        List<IRecipe> recipes = (List<IRecipe>) CraftingManager.getInstance().getRecipeList();
-        for (IRecipe rec : recipes) {
-            if (rec.matches(recipe, worldObj)) {
-                craftRecipe = rec;
-                break;
-            }
+        Iterator<Object> iterator = CraftingManager.getInstance().getRecipeList().iterator();
+        while(iterator.hasNext()){
+        	Object rec = iterator.next();
+        	if (rec instanceof IRecipe) {
+        		if (((IRecipe) rec).matches(recipe, worldObj)) {
+        			craftRecipe = (IRecipe) rec;
+        			break;
+        		}
+        	}
         }
+        
         if (craftRecipe != null) {
             ItemStack result = craftRecipe.getCraftingResult(recipe);
             if (result == null) {

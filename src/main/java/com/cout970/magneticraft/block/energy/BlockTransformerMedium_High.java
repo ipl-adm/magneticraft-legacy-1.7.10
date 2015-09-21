@@ -49,6 +49,7 @@ public class BlockTransformerMedium_High extends BlockMg {
     }
 
     public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i) {
+        //TODO vertical placement
         int l = MathHelper.floor_double((double) (p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         if (l == 0) {
             w.setBlockMetadataWithNotify(x, y, z, 2, 2);

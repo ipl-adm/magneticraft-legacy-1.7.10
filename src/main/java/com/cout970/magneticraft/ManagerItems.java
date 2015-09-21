@@ -296,7 +296,8 @@ public class ManagerItems {
         addItem(part_brass_pipe, "Brass Pipe");
         addItem(hammer_stone, "Stone Hammer");
         addItem(hammer_iron, "Iron Hammer");
-        if(Magneticraft.DEBUG) addItem(manometer, "Manometer");
+//        if(Magneticraft.DEBUG) for some reason this no work for me
+        	addItem(manometer, "Manometer");
 
         for (Item i : items) {
             GameRegistry.registerItem(i, i.getUnlocalizedName());

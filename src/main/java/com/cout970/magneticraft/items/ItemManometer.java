@@ -28,7 +28,7 @@ public class ItemManometer extends ItemBasic {
         TileEntity t = w.getTileEntity(x, y, z);
         List<IPressureConductor> list = PressureUtils.getPressureCond(t, VecInt.NULL_VECTOR);
         for (IPressureConductor cond : list) {
-            String s = String.format("Reading %.2fbar, %dpa", EnergyConverter.PAtoBAR(cond.getPressure()), (int) cond.getPressure());
+            String s = String.format("Reading %.2fbar, %dpa, %.2fpsi", EnergyConverter.PAtoBAR(cond.getPressure()), (int) cond.getPressure(), EnergyConverter.PAtoPSI(cond.getPressure()));
             p.addChatMessage(new ChatComponentText(s));
         }
         return false;

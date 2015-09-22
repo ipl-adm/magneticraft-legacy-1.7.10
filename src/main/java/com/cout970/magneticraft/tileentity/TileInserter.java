@@ -366,7 +366,7 @@ public class TileInserter extends TileBase implements IGuiListener {
         if (!ignoreMeta)
             if (f.getItemDamage() != i.getItemDamage()) return false;
         if (!ignoreNBT)
-            if (f.getTagCompound() != i.getTagCompound()) return false;
+            if (!f.getTagCompound().equals(i.getTagCompound())) return false;
         return true;
     }
 

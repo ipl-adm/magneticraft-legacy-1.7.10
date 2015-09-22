@@ -55,7 +55,7 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crusher), "pvp", "mhm", "ibi", 'h', chassis, 'i', "ingotIron", 'm', motor, 'b', small_battery, 'p', Blocks.piston));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(chassis, 9), "viv", "ihi", "viv", 'h', housing, 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_io), "hc", 'h', chassis, 'c', Blocks.chest));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(conveyor_l, 6), "ggg", "iii", 'g', "itemPlastic", 'i', "ingotIron"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(conveyor_l, 6), "ggg", "iii", 'g', "sheetPlastic", 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(pumpJack), true, "iii", "viv", "mid", 'i', "ingotIron", 'm', motor, 'd', drill));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(mirror), "viv", "ihi", "viv", 'h', "stickIron", 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(mirror), "viv", "ihi", "viv", 'h', "stickIron", 'i', "ingotSilver"));
@@ -70,7 +70,7 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_energy_low), "mc", 'm', chassis, 'c', part_copper_cable_low));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(inserter), true, "vvi", "viv", "cmc", 'm', motor, 'i', "ingotIron", 'c', "ingotCarbide"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(grinder), "cmc", "ihi", "cbc", 'm', motor, 'i', "ingotIron", 'c', "ingotCarbide", 'h', chassis, 'b', small_battery));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(miner), "pcp", "mhm", "pdp", 'm', motor, 'd', drill, 'c', part_copper_cable_medium, 'h', housing, 'p', "itemPlastic"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(miner), "pcp", "mhm", "pdp", 'm', motor, 'd', drill, 'c', part_copper_cable_medium, 'h', housing, 'p', "sheetPlastic"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tesla_coil), "cic", "cic", "bib", 'i', "ingotIron", 'b', "ingotCopper", 'c', copper_coil));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(airlock), "gmg", "ghg", "gbg", 'g', "blockGlass", 'h', housing, 'm', motor, 'b', Items.bucket));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(biomass_burner), "bbb", "fhf", "bbb", 'b', "ingotCarbide", 'f', Blocks.furnace, 'h', partheatcable));
@@ -82,17 +82,17 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(copper_tank, 2), "cgc", "gvg", "cgc", 'c', "ingotCopper", 'g', "blockGlass"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heater), "iti", "tht", "iti", 't', heatCoilCopper, 'h', housing, 'i', "ingotCarbide"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(solar_tower_core), "ttt", "tht", "ttt", 'h', partheatcable, 't', "ingotTungsten"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(solarpanel), "qqq", "iii", "ccc", 'q', "dustQuartz", 'i', photoelectricDust, 'c', "itemPlastic"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(solarpanel), "qqq", "iii", "ccc", 'q', "dustQuartz", 'i', photoelectricDust, 'c', "sheetPlastic"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(polimerizer), "cgc", "ghg", "cgc", 'c', "ingotCarbide", 'h', chassis, 'g', Items.glass_bottle));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_energy_medium), "mc", 'm', chassis, 'c', part_copper_cable_medium));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(combustion_engine), "ivi", "imi", "pbp", 'i', "ingotIron", 'm', alternator, 'p', "itemPlastic", 'b', small_battery));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(combustion_engine), "ivi", "imi", "pbp", 'i', "ingotIron", 'm', alternator, 'p', "sheetPlastic", 'b', small_battery));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heat_sink), "bbb", "iii", 'i', "ingotIron", 'b', Blocks.iron_bars));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(steam_turbine), "ccc", "mmm", "chc", 'c', "ingotCarbide", 'm', alternator, 'h', chassis));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(brickFurnace), "bbb", "bfb", "bcb", 'b', Items.brick, 'c', partheatcable, 'f', Blocks.furnace));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crafter), "bbb", "bfb", "bcb", 'b', "ingotIron", 'c', Items.redstone, 'f', Blocks.crafting_table));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(multi_heat), "hc", 'c', partheatcable, 'h', chassis));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(oil_distillery), "ihi", "iti", "ici", 't', refinery_gap, 'i', "ingotCarbide", 'c', chassis, 'h', heater));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diode), "vpv", "cqc", "vpv", 'p', "itemPlastic", 'q', "dustQuartz", 'c', part_copper_cable_low));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(diode), "vpv", "cqc", "vpv", 'p', "sheetPlastic", 'q', "dustQuartz", 'c', part_copper_cable_low));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(resistance), "cbc", 'b', Items.brick, 'c', part_copper_cable_low));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(pole_tier1), "cwc", "vwv", "vwv", 'w', "logWood", 'c', heavy_copper_coil));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(pole_cable_wire), "cwc", "vwv", "vwa", 'w', "logWood", 'c', heavy_copper_coil, 'a', part_copper_cable_low));
@@ -140,10 +140,10 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(magnet), "lrl", "rir", "lrl", 'r', Items.redstone, 'l', "dyeBlue", 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tool_charger), "cic", "ibi", 'c', part_copper_cable_low, 'b', battery_item, 'i', "ingotIron"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(tool_jackhammer), "ibi", "vmv", "vdv", 'm', motor, 'd', drill, 'b', small_battery, 'i', "ingotIron"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_drop), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', "ingotCopper"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_suck), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', "ingotCarbide"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_speed), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', motor));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_slow), "ppp", "pip", "ppp", 'p', "itemPlastic", 'i', magnet));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_drop), "ppp", "pip", "ppp", 'p', "sheetPlastic", 'i', "ingotCopper"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_suck), "ppp", "pip", "ppp", 'p', "sheetPlastic", 'i', "ingotCarbide"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_speed), "ppp", "pip", "ppp", 'p', "sheetPlastic", 'i', motor));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(upgrade_slow), "ppp", "pip", "ppp", 'p', "sheetPlastic", 'i', magnet));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hammer_stone), true, "xx ", "xzx", " z ", 'x', "cobblestone", 'z', "stickWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(hammer_iron), true, "xx ", "xzx", " z ", 'x', "ingotIron", 'z', "stickWood"));
 

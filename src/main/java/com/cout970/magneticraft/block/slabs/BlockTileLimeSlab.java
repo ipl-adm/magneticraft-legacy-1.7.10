@@ -10,6 +10,7 @@ public class BlockTileLimeSlab extends BlockMgSlab {
         setHardness(1.5F);
         setStepSound(soundTypeStone);
         setBlockTextureName("magneticraft:tile_limestone");
+        setHarvestLevel(ManagerBlocks.tileLime.getHarvestTool(0), ManagerBlocks.tileLime.getHarvestLevel(0));
     }
 
     @Override

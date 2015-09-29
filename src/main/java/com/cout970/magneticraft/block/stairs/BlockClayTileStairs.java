@@ -11,6 +11,7 @@ public class BlockClayTileStairs extends BlockMgStairs {
         super(ManagerBlocks.roofTile, ManagerBlocks.roofTile.getUnlocalizedName() + "Stairs");
         setHardness(1.5F);
         setStepSound(soundTypeStone);
+        setHarvestLevel(ManagerBlocks.roofTile.getHarvestTool(0), ManagerBlocks.roofTile.getHarvestLevel(0));
     }
 
     @SideOnly(Side.CLIENT)

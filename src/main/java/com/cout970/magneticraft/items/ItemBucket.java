@@ -18,6 +18,7 @@ public class ItemBucket extends ItemBasic {
     public ItemBucket(String unlocalizedname, String fluid) {
         super(unlocalizedname);
         this.fluid = fluid;
+        setContainerItem(Items.bucket);
         setMaxStackSize(1);
         setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
     }
@@ -46,9 +47,5 @@ public class ItemBucket extends ItemBasic {
             }
         }
         return i;
-    }
-
-    public ItemStack getContainerItem(ItemStack i) {
-        return new ItemStack(Items.bucket);
     }
 }

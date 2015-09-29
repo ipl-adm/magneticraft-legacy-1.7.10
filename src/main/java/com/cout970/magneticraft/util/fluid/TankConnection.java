@@ -6,12 +6,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 
-public class TankConection {
+public class TankConnection {
 
     public IFluidHandler tank;
     public MgDirection side;
 
-    public TankConection(IFluidHandler t, MgDirection enumFacing) {
+    public TankConnection(IFluidHandler t, MgDirection enumFacing) {
         tank = t;
         side = enumFacing;
     }

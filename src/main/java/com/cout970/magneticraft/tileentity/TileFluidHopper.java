@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.InventoryUtils;
-import com.cout970.magneticraft.util.fluid.TankConection;
+import com.cout970.magneticraft.util.fluid.TankConnection;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +32,6 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8, IGuiS
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
-
         if (inventory[0] != null) {
             if (tank.getSpace() >= 1000) {
                 FluidStack f = FluidContainerRegistry.getFluidForFilledItem(inventory[0]);
@@ -45,16 +44,17 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8, IGuiS
                         tank.fill(f, true);
                     }
                 }
-            }
-            if (tank.getFluidAmount() >= 1000) {
-                if (FluidContainerRegistry.isEmptyContainer(inventory[0])) {
-                    ItemStack h = FluidContainerRegistry.fillFluidContainer(tank.drain(1000, false), inventory[0]);
-                    if (h != null) {
-                        if (inventory[1] == null || InventoryUtils.canCombine(h, inventory[1], 64)) {
-                            inventory[1] = InventoryUtils.addition(h, inventory[1]);
-                            inventory[0].splitStack(1);
-                            if (inventory[0].stackSize <= 0) inventory[0] = null;
-                            tank.drain(1000, true);
+            } else {
+                if (tank.getFluidAmount() >= 1000) {
+                    if (FluidContainerRegistry.isEmptyContainer(inventory[0])) {
+                        ItemStack h = FluidContainerRegistry.fillFluidContainer(tank.drain(1000, false), inventory[0]);
+                        if (h != null) {
+                            if (inventory[1] == null || InventoryUtils.canCombine(h, inventory[1], 64)) {
+                                inventory[1] = InventoryUtils.addition(h, inventory[1]);
+                                inventory[0].splitStack(1);
+                                if (inventory[0].stackSize <= 0) inventory[0] = null;
+                                tank.drain(1000, true);
+                            }
                         }
                     }
                 }
@@ -64,7 +64,7 @@ public class TileFluidHopper extends TileBase implements IFluidHandler1_8, IGuiS
         if (tank.getSpace() >= 1000) {
             TileEntity t = MgUtils.getTileEntity(this, MgDirection.UP);
             if (t instanceof IFluidHandler) {
-                TankConection tan = new TankConection((IFluidHandler) t, MgDirection.DOWN);
+                TankConnection tan = new TankConnection((IFluidHandler) t, MgDirection.DOWN);
                 FluidTankInfo[] info = tan.getTankInfo(MgDirection.DOWN);
                 for (FluidTankInfo i : info) {
                     if (i.fluid != null) {

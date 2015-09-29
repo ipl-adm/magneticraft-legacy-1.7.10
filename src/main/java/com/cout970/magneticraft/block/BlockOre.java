@@ -16,13 +16,14 @@ public class BlockOre extends Block {
 
     public String name;
 
-    public BlockOre(String n) {
+    public BlockOre(String n, String tool, int harvestLevel) {
         super(Material.rock);
         name = n;
         setHardness(1.5f);
         setBlockTextureName("magneticraft:" + name);
         setCreativeTab(CreativeTabsMg.MainTab);
         setStepSound(Block.soundTypeStone);
+        setHarvestLevel(tool, harvestLevel);
     }
 
     public String getUnlocalizedName() {

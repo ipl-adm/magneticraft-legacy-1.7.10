@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.util;
 
 import com.cout970.magneticraft.block.BlockMg;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,8 +13,8 @@ public class InventoryUtils {
 
     public static ItemStack addition(ItemStack a, ItemStack b) {
         if (a == null && b == null) return null;
-        if (a == null && b != null) return b.copy();
-        if (b == null && a != null) return a.copy();
+        if (a == null) return b.copy();
+        if (b == null) return a.copy();
         ItemStack it = new ItemStack(a.getItem(), a.stackSize + b.stackSize, a.getItemDamage());
         it.stackTagCompound = a.stackTagCompound;
         return it;
@@ -54,7 +55,7 @@ public class InventoryUtils {
         int firstEmpty = -1;
         for (int i = 0; i < in.getSizeInventory(); i++) {
             if (in.getStackInSlot(i) != null) {
-                if (canCombine(in.getStackInSlot(i), st, in.getStackInSlot(i).getMaxStackSize())) {
+                if (canCombine(in.getStackInSlot(i), st, in.getInventoryStackLimit())) {
                     return i;
                 }
             } else {
@@ -114,13 +115,24 @@ public class InventoryUtils {
         }
     }
 
-    public static boolean dropIntoInventory(ItemStack item, InventoryComponent in) {
+    public static boolean dropIntoInventory(final ItemStack item, InventoryComponent in) {
         if (item == null) return true;
         int s = getSlotForStack(in, item);
         if (s == -1) return false;
         ItemStack itemStack = InventoryUtils.addition(item, in.getStackInSlot(s));
         in.setInventorySlotContents(s, itemStack);
         return true;
+    }
+    
+    public static boolean giveToPlayer(final ItemStack is, InventoryPlayer inv) {
+        if (canCombine(inv.getCurrentItem(), is, inv.getCurrentItem().getMaxStackSize())) {
+            inv.setInventorySlotContents(inv.currentItem, InventoryUtils.addition(inv.getCurrentItem(), is));
+            return true;
+        }
+        if (inv.addItemStackToInventory(is)) {
+            return true;
+        }
+        return false;
     }
 
     public static void saveInventory(IInventory inv, NBTTagCompound nbtTagCompound, String name) {
@@ -147,7 +159,7 @@ public class InventoryUtils {
         }
     }
 
-    public static boolean areExaticlyEqual(ItemStack a, ItemStack b) {
+    public static boolean areExactlyEqual(ItemStack a, ItemStack b) {
         if (a == null && b == null) return true;
         if (a != null && b != null && a.getItem() != null && b.getItem() != null) {
             if (OreDictionary.itemMatches(a, b, true)) return true;

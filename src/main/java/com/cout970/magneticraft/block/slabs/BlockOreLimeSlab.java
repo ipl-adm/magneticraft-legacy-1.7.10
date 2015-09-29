@@ -9,6 +9,7 @@ public class BlockOreLimeSlab extends BlockMgSlab {
         super(full, ManagerBlocks.oreLime.getMaterial(), ManagerBlocks.oreLime.getUnlocalizedName() + "Slab" + (full ? "Full" : ""));
         setHardness(1.5F);
         setStepSound(soundTypeStone);
+        setHarvestLevel(ManagerBlocks.oreLime.getHarvestTool(0), ManagerBlocks.oreLime.getHarvestLevel(0));
         setBlockTextureName("magneticraft:limestone");
     }
 

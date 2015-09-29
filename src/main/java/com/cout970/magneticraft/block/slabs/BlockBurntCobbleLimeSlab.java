@@ -10,6 +10,7 @@ public class BlockBurntCobbleLimeSlab extends BlockMgSlab {
         setHardness(1.5F);
         setStepSound(soundTypeStone);
         setBlockTextureName("magneticraft:burnt_cobble_limestone");
+        setHarvestLevel(ManagerBlocks.burntCobbleLime.getHarvestTool(0), ManagerBlocks.burntCobbleLime.getHarvestLevel(0));
     }
 
     @Override

@@ -26,6 +26,7 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -177,55 +178,57 @@ public class ManagerBlocks {
     public static void initBlocks() {
         //ores & resources
         oilSource = new BlockOilSource();
-        oreCopper = new BlockOre("copper_ore");
-        oreTungsten = new BlockOre("tungsten_ore");
-        oreUranium = new BlockOre("uranium_ore");
-        oreSulfur = new BlockOre("sulfur_ore");
-        oreThorium = new BlockOre("thorium_ore");
-        oreSalt = new BlockOre("salt_ore");
-        oreZinc = new BlockOre("zinc_ore");
+        oreCopper = new BlockOre("copper_ore", "pickaxe", 1);
+        oreTungsten = new BlockOre("tungsten_ore", "pickaxe", 2);
+        oreUranium = new BlockOre("uranium_ore", "pickaxe", 2);
+        oreSulfur = new BlockOre("sulfur_ore", "pickaxe", 1);
+        oreThorium = new BlockOre("thorium_ore", "pickaxe", 2);
+        oreSalt = new BlockOre("salt_ore", "pickaxe", 1);
+        oreZinc = new BlockOre("zinc_ore", "pickaxe", 1);
 
-        oreLime = new BlockOre("limestone");
+        oreLime = new BlockOre("limestone", "pickaxe", 0);
         slabOreLimeSingle = new BlockOreLimeSlab(false);
         slabOreLimeDouble = new BlockOreLimeSlab(true);
         stairsOreLime = new BlockOreLimeStairs();
 
         burntLime = new BlockSimple("burnt_limestone");
+        burntLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBurntLimeSingle = new BlockBurntLimeSlab(false);
         slabBurntLimeDouble = new BlockBurntLimeSlab(true);
         stairsBurntLime = new BlockBurntLimeStairs();
 
         brickLime = new BlockSimple("brick_limestone");
+        brickLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBrickLimeSingle = new BlockBrickLimeSlab(false);
         slabBrickLimeDouble = new BlockBrickLimeSlab(true);
         stairsBrickLime = new BlockBrickLimeStairs();
 
         roofTile = new BlockClayTile();
+        roofTile.setHarvestLevel(Blocks.hardened_clay.getHarvestTool(0), Blocks.hardened_clay.getHarvestLevel(0));
         slabRoofTileSingle = new BlockClayTileSlab(false);
         slabRoofTileDouble = new BlockClayTileSlab(true);
         stairsRoofTile = new BlockClayTileStairs();
 
         tileLime = new BlockSimple("tile_limestone");
-        slabTileLimeSingle = new BlockTileLimeSlab(false);
-        slabTileLimeDouble = new BlockTileLimeSlab(true);
-        stairsTileLime = new BlockTileLimeStairs();
-
-        tileLime = new BlockSimple("tile_limestone");
+        tileLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabTileLimeSingle = new BlockTileLimeSlab(false);
         slabTileLimeDouble = new BlockTileLimeSlab(true);
         stairsTileLime = new BlockTileLimeStairs();
 
         cobbleLime = new BlockSimple("cobble_limestone");
+        cobbleLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabCobbleLimeSingle = new BlockCobbleLimeSlab(false);
         slabCobbleLimeDouble = new BlockCobbleLimeSlab(true);
         stairsCobbleLime = new BlockCobbleLimeStairs();
 
         burntBrickLime = new BlockSimple("burnt_brick_limestone");
+        burntBrickLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBurntBrickLimeSingle = new BlockBurntBrickLimeSlab(false);
         slabBurntBrickLimeDouble = new BlockBurntBrickLimeSlab(true);
         stairsBurntBrickLime = new BlockBurntBrickLimeStairs();
 
         burntCobbleLime = new BlockSimple("burnt_cobble_limestone");
+        burntCobbleLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBurntCobbleLimeSingle = new BlockBurntCobbleLimeSlab(false);
         slabBurntCobbleLimeDouble = new BlockBurntCobbleLimeSlab(true);
         stairsBurntCobbleLime = new BlockBurntCobbleLimeStairs();

@@ -29,6 +29,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -45,7 +46,7 @@ public class Magneticraft {
     public final static String VERSION = "@VERSION@";
     public final static String ENERGY_STORED_NAME = "J";
     public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
-    public static final boolean DEBUG = false; //(Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+    public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     public static String DEV_HOME = null;
     public static boolean BUILDCRAFT = false;
     public static boolean RAILCRAFT = false;

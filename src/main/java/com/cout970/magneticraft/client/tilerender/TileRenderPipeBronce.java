@@ -56,8 +56,8 @@ public class TileRenderPipeBronce {
                 boolean[] b2 = new boolean[6];
                 b2[d.opposite().ordinal()] = true;
                 if (partPipe.side[d.ordinal()] == ConnectionMode.OUTPUT)
-                    RenderUtil.bindTexture(ModelTextures.PIPE_CONECTION_1_IRON);
-                else RenderUtil.bindTexture(ModelTextures.PIPE_CONECTION_2_IRON);
+                    RenderUtil.bindTexture(ModelTextures.PIPE_CONNECTION_1_IRON);
+                else RenderUtil.bindTexture(ModelTextures.PIPE_CONNECTION_2_IRON);
                 if (partPipe.side[d.ordinal()] != ConnectionMode.NOTHING)
                     model.render(0.0625f, b2, true);//render connections
             }

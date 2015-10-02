@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class ModuleHardDrive extends ModuleDisckDrive {
+public class ModuleHardDrive extends ModuleDiskDrive {
 
 
     public ModuleHardDrive(TileEntity t) {

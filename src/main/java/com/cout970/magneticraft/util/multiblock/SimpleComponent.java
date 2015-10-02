@@ -57,7 +57,7 @@ public class SimpleComponent extends Mg_Component {
     }
 
     public void destroy(World w, VecInt p, int x, int y, int z, Multiblock c, MgDirection e, int meta) {
-//		Log.debug("Destroing: "+p+", x: "+x+", y: "+y+", z: "+z+", MgDir: "+e+", meta: "+meta);
+//		Log.debug("Destroying: "+p+", x: "+x+", y: "+y+", z: "+z+", MgDir: "+e+", meta: "+meta);
         VecInt te = c.translate(w, p, x, y, z, c, e, meta);
 //		Log.debug("Offset: "+te);
         Block t = w.getBlock(te.getX() + p.getX(), te.getY() + p.getY(), te.getZ() + p.getZ());

@@ -107,7 +107,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack item) {
-        return slot == 0;
+        return (slot == 0) || ((slot == 2) && (item.getItem() instanceof IFurnaceCoil));
     }
 
     @Override

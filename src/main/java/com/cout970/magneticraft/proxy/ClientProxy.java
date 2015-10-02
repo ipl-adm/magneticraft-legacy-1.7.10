@@ -10,6 +10,7 @@ import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.pole.TileElectricPoleCableWire;
 import com.cout970.magneticraft.tileentity.pole.TileElectricPoleTier1;
+import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -62,9 +63,12 @@ public class ClientProxy implements IProxy {
         if (Magneticraft.RAILCRAFT) {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rc_alternator), new ItemRenderRCAlternator());
         }
+        if (Magneticraft.DEBUG) {
+        }
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.copper_tank), new ItemRenderCopperTank());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_cable_wire), new ItemRenderPoleCableWire());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.crushing_table), new ItemRenderHammerTable());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.shelving_unit), new ItemRenderShelvingUnit());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class, new TileRenderPumpJack());
         ClientRegistry.bindTileEntitySpecialRenderer(TileMirror.class, new TileRenderMirror());
@@ -107,9 +111,12 @@ public class ClientProxy implements IProxy {
         if (Magneticraft.RAILCRAFT) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileRCAlternator.class, new TileRenderRCAlternator());
         }
+        if (Magneticraft.DEBUG) {
+        }
         ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleCableWire.class, new TileRenderPoleCableWire());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSifter.class, new TileRenderSifter());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCrushingTable.class, new TileRenderCrushingTable());
         ClientRegistry.bindTileEntitySpecialRenderer(TilePressureTank.class, new TileRenderPressureTank());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileShelvingUnit.class, new TileRenderShelvingUnit());
     }
 }

@@ -63,18 +63,18 @@ public class TileInserter extends TileBase implements IGuiListener {
             return;
         }
         if (anim == null) {
-            anim = InserterAnimation.Extending_Short;
+            anim = InserterAnimation.EXTENDING_SHORT;
             counter = 0;
             return;
         }
         if ((getInv().getStackInSlot(0) != null) && (getInv().getStackInSlot(0).stackSize == 0)) {
             getInv().setInventorySlotContents(0, null);
-            anim = InserterAnimation.Extending_Short;
+            anim = InserterAnimation.EXTENDING_SHORT;
             counter = 0;
             return;
         }
         if (cooldown > 0) cooldown--;
-        if (anim == InserterAnimation.DropItem || anim == InserterAnimation.DropItem_Large) {
+        if (anim == InserterAnimation.DROP_ITEM || anim == InserterAnimation.DROP_ITEM_LARGE) {
             if (getInv().getStackInSlot(0) != null) {
                 TileEntity o = MgUtils.getTileEntity(this, getDir().opposite());
                 if (o instanceof IInventory)
@@ -87,16 +87,16 @@ public class TileInserter extends TileBase implements IGuiListener {
                 }
             }
             if (getInv().getStackInSlot(0) == null) {
-                if (anim == InserterAnimation.DropItem) {
-                    anim = InserterAnimation.Retracting_INV_Short;
+                if (anim == InserterAnimation.DROP_ITEM) {
+                    anim = InserterAnimation.RETRACTING_INV_SHORT;
                 } else {
-                    anim = InserterAnimation.Retracting_INV_Large;
+                    anim = InserterAnimation.RETRACTING_INV_LARGE;
                 }
                 counter = 0;
             }
             sendUpdateToClient();
 
-        } else if (anim == InserterAnimation.SuckItem || anim == InserterAnimation.SuckItem_Large) {
+        } else if (anim == InserterAnimation.SUCK_ITEM || anim == InserterAnimation.SUCK_ITEM_LARGE) {
             if (isControlled()) {
                 if (getInv().getStackInSlot(0) == null) {
                     TileEntity t = MgUtils.getTileEntity(this, getDir()), o = MgUtils.getTileEntity(this, getDir().opposite());
@@ -110,10 +110,10 @@ public class TileInserter extends TileBase implements IGuiListener {
                     }
                 }
                 if (getInv().getStackInSlot(0) != null) {
-                    if (anim == InserterAnimation.SuckItem) {
-                        anim = InserterAnimation.Retracting_Short;
+                    if (anim == InserterAnimation.SUCK_ITEM) {
+                        anim = InserterAnimation.RETRACTING_SHORT;
                     } else {
-                        anim = InserterAnimation.Retracting_Large;
+                        anim = InserterAnimation.RETRACTING_LARGE;
                     }
                     counter = 0;
                     sendUpdateToClient();
@@ -132,30 +132,30 @@ public class TileInserter extends TileBase implements IGuiListener {
     }
 
     private InserterAnimation getNextAnimation() {
-        if (anim == InserterAnimation.Retracting_Short || anim == InserterAnimation.Retracting_Large)
-            return InserterAnimation.Rotating;
-        if (anim == InserterAnimation.Retracting_INV_Short || anim == InserterAnimation.Retracting_INV_Large)
-            return InserterAnimation.Rotating_INV;
-        if (anim == InserterAnimation.Rotating) {
+        if (anim == InserterAnimation.RETRACTING_SHORT || anim == InserterAnimation.RETRACTING_LARGE)
+            return InserterAnimation.ROTATING;
+        if (anim == InserterAnimation.RETRACTING_INV_SHORT || anim == InserterAnimation.RETRACTING_INV_LARGE)
+            return InserterAnimation.ROTATING_INV;
+        if (anim == InserterAnimation.ROTATING) {
             TileEntity o = MgUtils.getTileEntity(this, getDir().opposite());
             if (o instanceof IConveyorBelt && ((IConveyorBelt) o).getOrientation().getLevel() == 0 && ((IConveyorBelt) o).getDir().isPerpendicular(getDir())) {
-                return InserterAnimation.Extending_INV_Large;
+                return InserterAnimation.EXTENDING_INV_LARGE;
             } else {
-                return InserterAnimation.Extending_INV_Short;
+                return InserterAnimation.EXTENDING_INV_SHORT;
             }
         }
-        if (anim == InserterAnimation.Rotating_INV) return InserterAnimation.Extending_Short;
-        if (anim == InserterAnimation.Extending_INV_Short) {//drop
-            return InserterAnimation.DropItem;
+        if (anim == InserterAnimation.ROTATING_INV) return InserterAnimation.EXTENDING_SHORT;
+        if (anim == InserterAnimation.EXTENDING_INV_SHORT) {//drop
+            return InserterAnimation.DROP_ITEM;
         }
-        if (anim == InserterAnimation.Extending_INV_Large) {//suck
-            return InserterAnimation.DropItem_Large;
+        if (anim == InserterAnimation.EXTENDING_INV_LARGE) {//suck
+            return InserterAnimation.DROP_ITEM_LARGE;
         }
-        if (anim == InserterAnimation.Extending_Short) {
-            return InserterAnimation.SuckItem;
+        if (anim == InserterAnimation.EXTENDING_SHORT) {
+            return InserterAnimation.SUCK_ITEM;
         }
-        if (anim == InserterAnimation.Extending_Large) {
-            return InserterAnimation.SuckItem_Large;
+        if (anim == InserterAnimation.EXTENDING_LARGE) {
+            return InserterAnimation.SUCK_ITEM_LARGE;
         }
         return anim;
     }
@@ -404,7 +404,7 @@ public class TileInserter extends TileBase implements IGuiListener {
         super.writeToNBT(nbt);
         getInv().writeToNBT(nbt);
         nbt.setInteger("Stage", counter);
-        nbt.setInteger("Animation", anim == null ? InserterAnimation.Extending_Short.ordinal() : anim.ordinal());
+        nbt.setInteger("Animation", anim == null ? InserterAnimation.EXTENDING_SHORT.ordinal() : anim.ordinal());
         nbt.setBoolean("WhiteList", whiteList);
         nbt.setBoolean("IgnoreMeta", ignoreMeta);
         nbt.setBoolean("IgnoreNBT", ignoreNBT);
@@ -415,7 +415,7 @@ public class TileInserter extends TileBase implements IGuiListener {
     }
 
     public enum InserterAnimation {
-        Rotating, Rotating_INV, Retracting_Short, Extending_Short, Retracting_INV_Short, Extending_INV_Short, Retracting_Large, Extending_Large, Retracting_INV_Large, Extending_INV_Large, DropItem, SuckItem, DropItem_Large, SuckItem_Large
+        ROTATING, ROTATING_INV, RETRACTING_SHORT, EXTENDING_SHORT, RETRACTING_INV_SHORT, EXTENDING_INV_SHORT, RETRACTING_LARGE, EXTENDING_LARGE, RETRACTING_INV_LARGE, EXTENDING_INV_LARGE, DROP_ITEM, SUCK_ITEM, DROP_ITEM_LARGE, SUCK_ITEM_LARGE
     }
 
     @Override

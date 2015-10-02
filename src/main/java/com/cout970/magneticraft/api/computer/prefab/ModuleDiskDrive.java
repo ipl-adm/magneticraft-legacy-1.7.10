@@ -13,7 +13,7 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral {
+public class ModuleDiskDrive implements IModuleDiskDrive, IPeripheral {
 
     protected ItemStack disk;
     protected byte[] diskBuffer;
@@ -23,7 +23,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral {
     protected int accessTime = 0;
     protected TileEntity tile;
 
-    public ModuleDisckDrive(TileEntity t) {
+    public ModuleDiskDrive(TileEntity t) {
         tile = t;
     }
 
@@ -50,7 +50,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral {
         if (item != null) {
             IStorageDevice storage = (IStorageDevice) item.getItem();
             if (storage.getSize(item) >= getSector()) return;
-            File f = storage.getAsociateFile(item);
+            File f = storage.getAssociateFile(item);
             if (f == null) return;
             RandomAccessFile acces = null;
             try {
@@ -80,7 +80,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral {
         if (item != null) {
             IStorageDevice storage = (IStorageDevice) item.getItem();
             if (storage.getSize(item) >= getSector()) return;
-            File f = storage.getAsociateFile(item);
+            File f = storage.getAssociateFile(item);
             if (f == null) return;
             RandomAccessFile acces = null;
             try {
@@ -215,7 +215,7 @@ public class ModuleDisckDrive implements IModuleDiskDrive, IPeripheral {
                 } else if (regAction == 3) {
                     //copy in the buffer the serial number
                     Arrays.fill(diskBuffer, (byte) 0);
-                    drive.getAsociateFile(getDisk());
+                    drive.getAssociateFile(getDisk());
                     byte[] serial;
                     try {
                         serial = drive.getSerialNumber(getDisk()).getBytes("US-ASCII");

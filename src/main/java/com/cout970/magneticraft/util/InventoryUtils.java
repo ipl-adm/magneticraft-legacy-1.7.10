@@ -125,7 +125,16 @@ public class InventoryUtils {
     }
     
     public static boolean giveToPlayer(final ItemStack is, InventoryPlayer inv) {
-        if (canCombine(inv.getCurrentItem(), is, inv.getCurrentItem().getMaxStackSize())) {
+        int maxStack = 64;
+        if (inv.getCurrentItem() != null) {
+            maxStack = inv.getCurrentItem().getMaxStackSize();
+        } else {
+            if (is != null) {
+                maxStack = is.getMaxStackSize();
+            }
+        }
+
+        if (canCombine(inv.getCurrentItem(), is, maxStack)) {
             inv.setInventorySlotContents(inv.currentItem, InventoryUtils.addition(inv.getCurrentItem(), is));
             return true;
         }

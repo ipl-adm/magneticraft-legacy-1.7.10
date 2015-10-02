@@ -10,12 +10,12 @@ import java.io.File;
 public interface IStorageDevice {
 
     /**
-     * If is null, an IOException was occurred
+     * If is null, an IOException has occurred
      *
      * @param i device ItemStack
      * @return
      */
-    File getAsociateFile(ItemStack i);
+    File getAssociateFile(ItemStack i);
 
     /**
      * Can be null
@@ -28,7 +28,7 @@ public interface IStorageDevice {
     void setDiskLabel(ItemStack i, String label);
 
     /**
-     * Can be null, but after call getAsociateFile, must be a valid number, Also It's a 16 digits number in hexadecimal
+     * Can be null, but after call getAssociateFile, must be a valid number, Also it's a 16 digits number in hexadecimal
      *
      * @param i device ItemStack
      * @return the unique serial number used to get the save file, "disk_"+serialNumber+".img"

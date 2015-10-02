@@ -2,7 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.computer.*;
 import com.cout970.magneticraft.api.computer.IHardwareProvider.ModuleType;
-import com.cout970.magneticraft.api.computer.prefab.ModuleDisckDrive;
+import com.cout970.magneticraft.api.computer.prefab.ModuleDiskDrive;
 import com.cout970.magneticraft.api.computer.prefab.ModuleHardDrive;
 import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.IConnectable;
@@ -30,7 +30,7 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
     private IModuleMemoryController memory;
     private IModuleROM rom;
     private ModuleHardDrive hardDrive;
-    private ModuleDisckDrive floppyDrive;
+    private ModuleDiskDrive floppyDrive;
     private boolean isRuning;
     public int addres = 0;
 
@@ -97,7 +97,7 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
 
     public TileComputer() {
         hardDrive = new ModuleHardDrive(this);
-        floppyDrive = new ModuleDisckDrive(this);
+        floppyDrive = new ModuleDiskDrive(this);
     }
 
     public void onBlockBreaks() {

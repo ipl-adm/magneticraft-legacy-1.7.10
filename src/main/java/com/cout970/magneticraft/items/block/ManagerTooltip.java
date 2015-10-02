@@ -205,6 +205,8 @@ public class ManagerTooltip {
 				list.add(format + "Uses wind to generate electricity. Power depends on a turbine used");
 			} else if (b == wooden_shaft) {
 				list.add(format + "[WIP]");
+			} else if (b == shelving_unit) {
+				list.add(format + "Item storage of variable size. Right-click with chest to add space. Shift-right-click with empty hand to remove chest from shelf.");
 			}
 		}else if(item.getItem() instanceof ItemBasic){
 			Item i = item.getItem();

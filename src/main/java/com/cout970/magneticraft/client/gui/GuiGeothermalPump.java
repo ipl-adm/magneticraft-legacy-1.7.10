@@ -19,7 +19,7 @@ public class GuiGeothermalPump extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation("magneticraft:textures/gui/geothermal.png")));
         comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileGeothermalPump) tile).heat));
         comp.add(new CompLavaStorage(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/lavabar.png"), new GuiPoint(98, 20)));

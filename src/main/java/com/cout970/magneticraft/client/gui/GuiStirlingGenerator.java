@@ -14,7 +14,7 @@ public class GuiStirlingGenerator extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/stirling_generator.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16), ((TileStirlingGenerator) tile).cond));
         comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/fire.png"), new GuiPoint(80, 28), ((TileStirlingGenerator) tile).getBurningTimeBar()));

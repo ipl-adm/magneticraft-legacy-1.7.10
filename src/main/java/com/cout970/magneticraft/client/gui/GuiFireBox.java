@@ -14,7 +14,7 @@ public class GuiFireBox extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/firebox.png")));
         comp.add(new CompBurningTime(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/fire.png"), new GuiPoint(80, 28), ((TileFireBox) tile).getBurningTimeBar()));
         comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileFireBox) tile).heat));

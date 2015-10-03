@@ -6,6 +6,7 @@ import com.cout970.magneticraft.container.*;
 import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.*;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
+import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -73,7 +74,7 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerRefinery(player.inventory, tile);
         }
         if (tile instanceof TilePolymerizer) {
-            return new ContainerPolimerizer(player.inventory, tile);
+            return new ContainerPolymerizer(player.inventory, tile);
         }
         if (tile instanceof TileSteamTurbineControl) {
             return new ContainerTurbine(player.inventory, tile);
@@ -110,6 +111,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (tile instanceof TileBreaker) {
             return new ContainerBreaker(player.inventory, tile);
+        }
+        if (tile instanceof TileShelvingUnit) {
+            return new ContainerShelvingUnit(player.inventory, tile);
         }
         return null;
     }
@@ -174,7 +178,7 @@ public class GuiHandler implements IGuiHandler {
             return new GuiRefinery(new ContainerRefinery(player.inventory, tile), tile);
         }
         if (tile instanceof TilePolymerizer) {
-            return new GuiPolimerizer(new ContainerPolimerizer(player.inventory, tile), tile);
+            return new GuiPolimerizer(new ContainerPolymerizer(player.inventory, tile), tile);
         }
         if (tile instanceof TileSteamTurbineControl) {
             return new GuiSteamTurbine(new ContainerTurbine(player.inventory, tile), tile);
@@ -211,6 +215,9 @@ public class GuiHandler implements IGuiHandler {
         }
         if (tile instanceof TileBreaker) {
             return new GuiBreaker(new ContainerBreaker(player.inventory, tile), tile);
+        }
+        if (tile instanceof TileShelvingUnit) {
+            return new ContainerShelvingUnit(player.inventory, tile);
         }
         return null;
     }

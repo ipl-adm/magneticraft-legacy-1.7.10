@@ -18,7 +18,7 @@ public class GuiKineticGenerator extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/kinetic.png")));
         comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar2.png"), new GuiPoint(23, 16), ((TileKineticGenerator) tile).cond));
         comp.add(new CompRFBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/rfbar.png"), new GuiPoint(42, 23)));

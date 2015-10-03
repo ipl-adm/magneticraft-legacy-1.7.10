@@ -17,7 +17,7 @@ public class GuiBasicGenerator extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US) + ":textures/gui/basic_generator.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US) + ":textures/gui/energybar.png"), new GuiPoint(15, 19), ((TileBasicGenerator) tile).cond));
         comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US) + ":textures/gui/energybar.png"), new GuiPoint(23, 19), ((TileBasicGenerator) tile).cond));

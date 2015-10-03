@@ -22,7 +22,7 @@ public class GuiResistance extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/resistance.png")));
 //		comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/energybar.png"),new GuiPoint(11,16)));
         comp.add(new CompResistance(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/resistance.png"), new GuiPoint(25, 60)));

@@ -14,7 +14,7 @@ public class GuiBrickFurnace extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/brick_furnace.png")));
         comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"), new GuiPoint(87, 31), ((TileBrickFurnace) tile).getProgresBar()));
         comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(43, 16), ((TileBrickFurnace) tile).heat));

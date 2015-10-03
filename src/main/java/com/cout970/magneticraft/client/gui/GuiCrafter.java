@@ -26,7 +26,7 @@ public class GuiCrafter extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/crafter.png")));
         comp.add(new CompCrafter(new GuiPoint(70, 10)));
     }

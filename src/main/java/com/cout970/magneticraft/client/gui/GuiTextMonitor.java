@@ -19,7 +19,7 @@ public class GuiTextMonitor extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/monitor.png")));
         comp.add(new CompScreen(((TileTextMonitor) tile).monitor));
     }

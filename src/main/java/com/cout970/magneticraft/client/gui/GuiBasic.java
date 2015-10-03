@@ -23,10 +23,10 @@ public abstract class GuiBasic extends GuiContainer {
         this.tile = tile;
         xTam = xSize;
         yTam = ySize;
-        initComponenets();
+        initComponents();
     }
 
-    public abstract void initComponenets();
+    public abstract void initComponents();
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float fps, int mx, int my) {

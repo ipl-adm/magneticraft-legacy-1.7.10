@@ -9,6 +9,7 @@ public class SlotUnitary extends Slot {
         super(inv, id, x, y);
     }
 
+    @Override
     public int getSlotStackLimit() {
         return 1;
     }

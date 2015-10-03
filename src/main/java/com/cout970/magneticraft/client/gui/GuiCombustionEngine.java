@@ -14,7 +14,7 @@ public class GuiCombustionEngine extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/combustion_engine.png")));
         comp.add(new CompFluidRender(((TileCombustionEngine) tile).getTank(), new GuiPoint(47, 25), new GuiPoint(65, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16), ((TileCombustionEngine) tile).cond));

@@ -22,6 +22,7 @@ public class ContainerBrickFurnace extends ContainerBasic {
         bindPlayerInventory(p);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
         if (slot >= slotCount) {
             Slot slotObject = (Slot) inventorySlots.get(slot);

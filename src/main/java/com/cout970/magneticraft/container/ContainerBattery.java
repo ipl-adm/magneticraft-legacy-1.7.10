@@ -17,6 +17,7 @@ public class ContainerBattery extends ContainerBasic {
         bindPlayerInventory(p);
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
         return transfer(player, slot, new int[]{3, 3});
     }

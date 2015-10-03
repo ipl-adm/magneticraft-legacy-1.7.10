@@ -21,7 +21,7 @@ public class GuiBreaker extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/breaker.png")));
         comp.add(new CompButtonRedstoneControl(new GuiPoint(152, 5)));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(85, 30), ((TileBreaker) tile).cond));

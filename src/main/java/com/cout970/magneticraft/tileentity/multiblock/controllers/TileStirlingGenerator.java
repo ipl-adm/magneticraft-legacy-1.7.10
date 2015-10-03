@@ -148,8 +148,8 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        progress = nbt.getInteger("Progres");
-        maxProgres = nbt.getInteger("maxProgres");
+        progress = nbt.getInteger("Progress");
+        maxProgres = nbt.getInteger("maxProgress");
         burning = nbt.getBoolean("Burning");
         working = nbt.getBoolean("Working");
         getInv().readFromNBT(nbt);
@@ -157,8 +157,8 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        nbt.setInteger("Progres", progress);
-        nbt.setInteger("maxProgres", maxProgres);
+        nbt.setInteger("Progress", progress);
+        nbt.setInteger("maxProgress", maxProgres);
         nbt.setBoolean("Burning", burning);
         nbt.setBoolean("Working", working);
         getInv().writeToNBT(nbt);
@@ -244,12 +244,16 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 
     @Override
     public MgDirection getDirection() {
-        return MgDirection.getDirection(getBlockMetadata() % 6);
+        return MgDirection.getDirection(getBlockMetadata());
     }
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection().opposite(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 1, 0, 2);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     @Override

@@ -57,6 +57,7 @@ public class TileGrindingMill extends TileMB_Base {
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
+        //TODO Change AABB
         return INFINITE_EXTENT_AABB;
     }
 }

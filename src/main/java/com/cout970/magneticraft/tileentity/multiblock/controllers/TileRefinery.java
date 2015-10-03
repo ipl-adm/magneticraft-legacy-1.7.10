@@ -4,6 +4,7 @@ import com.cout970.magneticraft.api.access.RecipeRefinery;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
@@ -88,7 +89,7 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
     }
 
     public MgDirection getDirectionMeta() {
-        return MgDirection.getDirection(getBlockMetadata() % 6);
+        return MgDirection.getDirection(getBlockMetadata());
     }
 
     @Override
@@ -109,7 +110,11 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection().opposite(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 1, 6, 2);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     @Override

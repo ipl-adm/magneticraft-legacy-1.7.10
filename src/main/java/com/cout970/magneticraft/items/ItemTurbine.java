@@ -3,7 +3,7 @@ package com.cout970.magneticraft.items;
 import org.lwjgl.opengl.GL11;
 
 import com.cout970.magneticraft.api.tool.IWindTurbine;
-import com.cout970.magneticraft.api.util.IRenderizable;
+import com.cout970.magneticraft.api.util.IRenderable;
 import com.cout970.magneticraft.client.model.ModelWindMillBig;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
@@ -39,7 +39,7 @@ public class ItemTurbine extends ItemBasic implements IWindTurbine {
     }
 
     @Override
-    public int getLenght() {
+    public int getLength() {
         return lenght;
     }
 
@@ -54,8 +54,8 @@ public class ItemTurbine extends ItemBasic implements IWindTurbine {
     }
 
     @Override
-    public IRenderizable initRender() {
-        return new IRenderizable() {
+    public IRenderable initRender() {
+        return new IRenderable() {
 
             private ModelWindMillBig big = new ModelWindMillBig();
 

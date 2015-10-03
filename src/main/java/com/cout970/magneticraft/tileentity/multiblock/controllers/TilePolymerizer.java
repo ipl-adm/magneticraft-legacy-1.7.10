@@ -2,10 +2,7 @@ package com.cout970.magneticraft.tileentity.multiblock.controllers;
 
 import com.cout970.magneticraft.api.access.RecipePolymerizer;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
-import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tileentity.TileBase;
@@ -33,7 +30,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 
     public int progress;
     public int maxProgres = 200;
-    public InventoryComponent inv = new InventoryComponent(this, 2, "Polimerizer");
+    public InventoryComponent inv = new InventoryComponent(this, 2, "Polymerizer");
     public TankMg input;
     public IHeatConductor heater;
     public InventoryComponent in, out;
@@ -242,15 +239,19 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return TileEntity.INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection().opposite(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 1, 1, 4);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     @Override
     public MgDirection getDirection() {
-        return MgDirection.getDirection(getBlockMetadata() % 6);
+        return MgDirection.getDirection(getBlockMetadata());
     }
 
-    public IBarProvider getProgresBar() {
+    public IBarProvider getProgressBar() {
         return new IBarProvider() {
 
             @Override

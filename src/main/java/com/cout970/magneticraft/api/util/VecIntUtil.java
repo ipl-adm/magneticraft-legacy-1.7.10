@@ -1,6 +1,8 @@
 package com.cout970.magneticraft.api.util;
 
 
+import net.minecraft.util.AxisAlignedBB;
+
 /**
  * @author Cout970
  */
@@ -115,30 +117,30 @@ public class VecIntUtil {
      * @param dir Direction you're looking in.
      * @param right offset to the right, negative for left.
      * @param up Y-axis offset, will not be changed
-     * @param back offset to the back (away from point of view), negative for towards the point of view.
+     * @param forward forward offset (away from point of view, negative for towards the point of view).
      * @return new {@link VecInt}
      * @throws IllegalArgumentException is thrown if direction is not horizontal
      */
-    public static VecInt getRotatedOffset(MgDirection dir, int right, int up, int back) {
+    public static VecInt getRotatedOffset(MgDirection dir, int right, int up, int forward) {
         int x, y, z;
         switch (dir) {
             case NORTH:
                 x = right;
                 y = up;
-                z = -back;
+                z = -forward;
                 break;
             case EAST:
-                x = back;
+                x = forward;
                 y = up;
                 z = right;
                 break;
             case SOUTH:
                 x = -right;
                 y = up;
-                z = back;
+                z = forward;
                 break;
             case WEST:
-                x = -back;
+                x = -forward;
                 y = up;
                 z = -right;
                 break;
@@ -146,5 +148,15 @@ public class VecIntUtil {
                 throw new IllegalArgumentException("Rotation for vertical direction is not defined");
         }
         return new VecInt(x, y, z);
+    }
+
+    public static AxisAlignedBB getAABBFromVectors(VecInt a, VecInt b) {
+        int x1 = Math.min(a.getX(), b.getX());
+        int x2 = Math.max(a.getX(), b.getX());
+        int y1 = Math.min(a.getY(), b.getY());
+        int y2 = Math.max(a.getY(), b.getY());
+        int z1 = Math.min(a.getZ(), b.getZ());
+        int z2 = Math.max(a.getZ(), b.getZ());
+        return AxisAlignedBB.getBoundingBox(x1, y1, z1, x2, y2, z2);
     }
 }

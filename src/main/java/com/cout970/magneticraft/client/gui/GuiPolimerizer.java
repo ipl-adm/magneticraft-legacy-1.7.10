@@ -24,7 +24,7 @@ public class GuiPolimerizer extends GuiBasic {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/polimerizer.png")));
         comp.add(new CompHeaterBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(20, 20)));
         comp.add(new CompFluidRender(((TilePolymerizer) tile).input, new GuiPoint(41, 25), new GuiPoint(59, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
-        comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"), new GuiPoint(93, 35), ((TilePolymerizer) tile).getProgresBar()));
+        comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"), new GuiPoint(93, 35), ((TilePolymerizer) tile).getProgressBar()));
     }
 
     public class CompHeaterBar implements IGuiComp {

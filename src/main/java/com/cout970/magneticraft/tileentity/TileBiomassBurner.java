@@ -86,7 +86,7 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         progress = nbt.getInteger("Progres");
-        maxProgres = nbt.getInteger("maxProgres");
+        maxProgres = nbt.getInteger("maxProgress");
         getInv().readFromNBT(nbt);
     }
 
@@ -94,7 +94,7 @@ public class TileBiomassBurner extends TileHeatConductor implements IInventoryMa
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("Progres", progress);
-        nbt.setInteger("maxProgres", maxProgres);
+        nbt.setInteger("maxProgress", maxProgres);
         getInv().writeToNBT(nbt);
     }
 

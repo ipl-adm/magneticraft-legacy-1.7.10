@@ -4,7 +4,6 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryComponent;
 import net.minecraft.nbt.NBTTagCompound;

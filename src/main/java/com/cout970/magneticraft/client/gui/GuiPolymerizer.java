@@ -13,9 +13,9 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiPolimerizer extends GuiBasic {
+public class GuiPolymerizer extends GuiBasic {
 
-    public GuiPolimerizer(Container c, TileEntity tile) {
+    public GuiPolymerizer(Container c, TileEntity tile) {
         super(c, tile);
     }
 
@@ -24,7 +24,7 @@ public class GuiPolimerizer extends GuiBasic {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/polimerizer.png")));
         comp.add(new CompHeaterBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(20, 20)));
         comp.add(new CompFluidRender(((TilePolymerizer) tile).input, new GuiPoint(41, 25), new GuiPoint(59, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
-        comp.add(new CompProgresBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"), new GuiPoint(93, 35), ((TilePolymerizer) tile).getProgressBar()));
+        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"), new GuiPoint(93, 35), ((TilePolymerizer) tile).getProgressBar()));
     }
 
     public class CompHeaterBar implements IGuiComp {

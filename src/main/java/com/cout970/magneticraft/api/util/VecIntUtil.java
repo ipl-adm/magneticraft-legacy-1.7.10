@@ -152,11 +152,11 @@ public class VecIntUtil {
 
     public static AxisAlignedBB getAABBFromVectors(VecInt a, VecInt b) {
         int x1 = Math.min(a.getX(), b.getX());
-        int x2 = Math.max(a.getX(), b.getX());
+        int x2 = Math.max(a.getX(), b.getX()) + 1;
         int y1 = Math.min(a.getY(), b.getY());
-        int y2 = Math.max(a.getY(), b.getY());
+        int y2 = Math.max(a.getY(), b.getY()) + 1;
         int z1 = Math.min(a.getZ(), b.getZ());
-        int z2 = Math.max(a.getZ(), b.getZ());
+        int z2 = Math.max(a.getZ(), b.getZ()) + 1;
         return AxisAlignedBB.getBoundingBox(x1, y1, z1, x2, y2, z2);
     }
 }

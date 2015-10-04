@@ -10,7 +10,7 @@ public class TileShelfFiller extends TileBase implements ITileShelf {
 
     @Override
     public TileShelvingUnit getMainTile() {
-        return null;
+        return (TileShelvingUnit) worldObj.getTileEntity(xCoord - offset.getX(), yCoord - offset.getY(), zCoord - offset.getZ());
     }
 
     public VecInt getOffset() {

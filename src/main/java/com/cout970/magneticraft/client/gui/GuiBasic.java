@@ -65,13 +65,13 @@ public abstract class GuiBasic extends GuiContainer {
         return false;
     }
 
-    protected void keyTyped(char letra, int num) {
+    protected void keyTyped(char letter, int num) {
         boolean block = false;
         for (IGuiComp c : comp) {
-            if (c.onKey(num, letra, this)) block = true;
+            if (c.onKey(num, letter, this)) block = true;
         }
         if (!block)
-            super.keyTyped(letra, num);
+            super.keyTyped(letter, num);
     }
 
     public FontRenderer getFontRenderer() {

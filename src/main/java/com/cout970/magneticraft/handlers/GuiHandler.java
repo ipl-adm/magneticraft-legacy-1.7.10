@@ -178,7 +178,7 @@ public class GuiHandler implements IGuiHandler {
             return new GuiRefinery(new ContainerRefinery(player.inventory, tile), tile);
         }
         if (tile instanceof TilePolymerizer) {
-            return new GuiPolimerizer(new ContainerPolymerizer(player.inventory, tile), tile);
+            return new GuiPolymerizer(new ContainerPolymerizer(player.inventory, tile), tile);
         }
         if (tile instanceof TileSteamTurbineControl) {
             return new GuiSteamTurbine(new ContainerTurbine(player.inventory, tile), tile);
@@ -217,7 +217,7 @@ public class GuiHandler implements IGuiHandler {
             return new GuiBreaker(new ContainerBreaker(player.inventory, tile), tile);
         }
         if (tile instanceof TileShelvingUnit) {
-            return new ContainerShelvingUnit(player.inventory, tile);
+            return new GuiShelvingUnit(new ContainerShelvingUnit(player.inventory, tile), tile);
         }
         return null;
     }

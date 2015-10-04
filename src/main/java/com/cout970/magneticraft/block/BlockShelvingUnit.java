@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.block;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
@@ -45,11 +46,17 @@ public class BlockShelvingUnit extends BlockMg {
         } else {
             if ((p.getCurrentEquippedItem() != null) && (p.getCurrentEquippedItem().getItem() == Item.getItemFromBlock(Blocks.chest))) {
                 if (shelf.addCrate()) {
-                    p.inventory.decrStackSize(p.inventory.currentItem, 1);
+                    if (!p.capabilities.isCreativeMode) {
+                        p.inventory.decrStackSize(p.inventory.currentItem, 1);
+                    }
+                } else {
+                    p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
                 }
-
                 return true;
             }
+            shelf.xCoord += 0;
+            p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
+            return true;
         }
 
         return super.onBlockActivated(w, x, y, z, p, side, p_149727_7_, p_149727_8_, p_149727_9_);

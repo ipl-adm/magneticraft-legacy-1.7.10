@@ -5,13 +5,13 @@ import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class CompProgresBar implements IGuiComp {
+public class CompProgressBar implements IGuiComp {
 
     public ResourceLocation texture;
     public GuiPoint pos;
     public IBarProvider bar;
 
-    public CompProgresBar(ResourceLocation tex, GuiPoint p, IBarProvider bar) {
+    public CompProgressBar(ResourceLocation tex, GuiPoint p, IBarProvider bar) {
         texture = tex;
         pos = p;
         this.bar = bar;
@@ -28,7 +28,7 @@ public class CompProgresBar implements IGuiComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    public void onClick(int mx, int my, int button, GuiBasic gui) {
     }
 
     @Override

@@ -118,7 +118,7 @@ public class VecIntUtil {
      * @param right offset to the right, negative for left.
      * @param up Y-axis offset, will not be changed
      * @param forward forward offset (away from point of view, negative for towards the point of view).
-     * @return new {@link VecInt}
+     * @return new {@link VecInt} containing rotated offset as (x, y, z)
      * @throws IllegalArgumentException is thrown if direction is not horizontal
      */
     public static VecInt getRotatedOffset(MgDirection dir, int right, int up, int forward) {

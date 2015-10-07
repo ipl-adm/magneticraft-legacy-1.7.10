@@ -1,26 +1,55 @@
 package com.cout970.magneticraft.client.gui.component;
 
 import com.cout970.magneticraft.client.gui.GuiBasic;
+import com.cout970.magneticraft.util.Log;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class CompScrollBar implements IGuiComp {
-    private int xSize, ySize, curScroll, maxScroll;
+    public GuiPoint posA, posB;
+    public int curScroll, maxScroll, width, height, section;
+    private boolean tracking;
+    public static ResourceLocation slider = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
 
-    public CompScrollBar(int x, int y, int maxScroll) {
-        xSize = x;
-        ySize = y;
+    public CompScrollBar(GuiPoint a, GuiPoint b, int maxScroll) {
+        posA = a;
+        posB = b;
+        width = b.x - a.x;
+        height = b.y - a.y;
         curScroll = 0;
         this.maxScroll = maxScroll;
+        tracking = false;
+        recalculateSections();
+    }
+
+    public void recalculateSections() {
+        section = Math.round((height - 15F) / maxScroll);
+    }
+
+    public int getScroll() {
+        return Math.round((curScroll + 0F) / section);
+    }
+
+    public void setTracking(boolean b) {
+        tracking = b;
     }
 
     @Override
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-
+        gui.mc.getTextureManager().bindTexture(slider);
+        gui.drawTexturedModalRect(gui.xStart + posA.x, gui.yStart + curScroll + posA.y, 232, 0, width, 15);
     }
 
     @Override
     public void onClick(int mx, int my, int button, GuiBasic gui) {
-
+        if (button == 0) {
+            if (((mx >= (gui.xStart + posA.x)) && (mx <= (gui.xStart + posB.x)) && (my >= (gui.yStart + posA.y)) && (my <= (gui.yStart + posB.y))) || tracking) {
+                setTracking(true);
+                curScroll = my - posA.y - gui.yStart - 8;
+                applyScrollBounds();
+            }
+        }
     }
 
     @Override
@@ -30,38 +59,17 @@ public class CompScrollBar implements IGuiComp {
 
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-
     }
 
-    public int getXSize() {
-        return xSize;
+    public void applyScrollBounds() {
+        curScroll =  Math.min(Math.max(0, curScroll), height - 15);
     }
 
-    public void setXSize(int xSize) {
-        this.xSize = xSize;
-    }
-
-    public int getYSize() {
-        return ySize;
-    }
-
-    public void setYSize(int ySize) {
-        this.ySize = ySize;
-    }
-
-    public int getCurrentScroll() {
-        return curScroll;
-    }
-
-    public void setCurrentScroll(int curScroll) {
-        this.curScroll = curScroll;
-    }
-
-    public int getMaxScroll() {
-        return maxScroll;
-    }
-
-    public void setMaxScroll(int maxScroll) {
-        this.maxScroll = maxScroll;
+    public void onWheel(int direction) {
+        if (tracking) {
+            return;
+        }
+        curScroll -= direction * section;
+        applyScrollBounds();
     }
 }

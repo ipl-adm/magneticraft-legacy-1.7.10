@@ -11,12 +11,21 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileShelvingUnit extends TileBase implements ITileShelf {
     private int crates;
-    private static final int MAX_CRATES = 24;
+    public static final int MAX_CRATES = 24;
+    public static final int MAX_SHELVES = 3;
+    public static final int CRATE_SIZE = 27;
 
-    private InventoryComponent rowInv1, rowInv2, rowInv3;
+    private InventoryComponent[] rowInv = new InventoryComponent[MAX_SHELVES];
 
     public TileShelvingUnit() {
         crates = 0;
+        for (int i = 0; i < MAX_SHELVES; i++) {
+            rowInv[i] = new InventoryComponent(this, CRATE_SIZE * MAX_CRATES / MAX_SHELVES, "Shelf " + i);
+        }
+    }
+
+    public InventoryComponent getInv(int i) {
+        return rowInv[i];
     }
 
     @Override
@@ -61,11 +70,17 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         crates = nbt.getInteger("crates");
+        for (int i = 0; i < MAX_SHELVES; i++) {
+            rowInv[i].readFromNBT(nbt, rowInv[i].name);
+        }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("crates", crates);
+        for (int i = 0; i < MAX_SHELVES; i++) {
+            rowInv[i].writeToNBT(nbt, rowInv[i].name);
+        }
     }
 }

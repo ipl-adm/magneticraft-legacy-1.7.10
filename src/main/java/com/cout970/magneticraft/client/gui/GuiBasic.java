@@ -49,6 +49,7 @@ public abstract class GuiBasic extends GuiContainer {
      * b == 0 => left
      * b == 1 => right
      */
+    @Override
     protected void mouseClicked(int x, int y, int b) {
         super.mouseClicked(x, y, b);
         for (IGuiComp c : comp) {
@@ -56,7 +57,7 @@ public abstract class GuiBasic extends GuiContainer {
         }
     }
 
-    public boolean isIn(int mx, int my, int x, int y, int w, int h) {
+    public static boolean isIn(int mx, int my, int x, int y, int w, int h) {
         if (mx > x && mx < x + w) {
             if (my > y && my < y + h) {
                 return true;

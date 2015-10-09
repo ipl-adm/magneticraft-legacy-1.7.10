@@ -91,7 +91,6 @@ public class BlockShelvingUnit extends BlockMg {
                     for (int u = 0; u < 3; u++) {
                         VecInt offset = VecIntUtil.getRotatedOffset(MgDirection.getDirection(meta), r, u, b);
                         if (!offset.equals(VecInt.NULL_VECTOR)) {
-                            Log.info("Deleting " + (x - offset.getX()) + " " + (y - offset.getY()) + " " + (z - offset.getZ()));
                             w.setBlockToAir(x + offset.getX(), y + offset.getY(), z + offset.getZ());
                         }
                     }

@@ -5,9 +5,8 @@ import com.cout970.magneticraft.client.gui.component.CompBackground;
 import com.cout970.magneticraft.client.gui.component.CompScrollBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.container.ContainerShelvingUnit;
-import com.cout970.magneticraft.container.SlotToggleable;
+import com.cout970.magneticraft.container.SlotShelvingUnit;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
-import com.cout970.magneticraft.util.Log;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -17,10 +16,11 @@ import org.lwjgl.input.Mouse;
 
 public class GuiShelvingUnit extends GuiBasic {
     private CompScrollBar scrollBar;
-    private int curInv;
+    private ContainerShelvingUnit shelfContainer;
 
     public GuiShelvingUnit(Container c, TileEntity tile) {
         super(c, tile);
+        shelfContainer = (ContainerShelvingUnit) c;
         xTam = xSize = 195;
         yTam = ySize = 204;
     }
@@ -29,14 +29,16 @@ public class GuiShelvingUnit extends GuiBasic {
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/shelving_unit.png")));
         scrollBar = new CompScrollBar(new GuiPoint(175, 18), new GuiPoint(187, 106), 19);
-        curInv = 0;
+        if (shelfContainer != null) {
+            shelfContainer.curInv = 0;
+        }
     }
 
     @Override
     public Slot getSlotAtPosition(int x, int y) {
         IInventory inv = mc.thePlayer.inventory;
         if ((x >= (guiLeft + 8)) && (x <= (guiLeft + 187)) && (y >= (guiTop + 17)) && (y <= (guiTop + 106))) {
-            inv = ((ContainerShelvingUnit) inventorySlots).shelf.getInv(curInv);
+            inv = ((ContainerShelvingUnit) inventorySlots).shelf.getInv(shelfContainer.curInv);
         }
 
         for (int k = 0; k < this.inventorySlots.inventorySlots.size(); k++) {
@@ -53,13 +55,19 @@ public class GuiShelvingUnit extends GuiBasic {
     @Override
     protected void drawGuiContainerBackgroundLayer(float fps, int mx, int my) {
         super.drawGuiContainerBackgroundLayer(fps, mx, my);
-        for (Object s : inventorySlots.inventorySlots) {
-            if (s instanceof SlotToggleable) {
-                SlotToggleable st = (SlotToggleable) s;
+        TileShelvingUnit shelf = shelfContainer.shelf;
+        for (int i = 0; i < inventorySlots.inventorySlots.size(); i++) {
+            Object s = inventorySlots.inventorySlots.get(i);
+            if (s instanceof SlotShelvingUnit) {
+                SlotShelvingUnit st = (SlotShelvingUnit) s;
                 st.show();
+                st.unlock();
                 st.yDisplayPosition = st.baseY - 18 * scrollBar.getScroll();
-                if ((st.yDisplayPosition < 17) || (st.yDisplayPosition > 106) || (!st.inventory.equals(((ContainerShelvingUnit) inventorySlots).shelf.getInv(curInv)))) {
+                if ((st.yDisplayPosition < 17) || (st.yDisplayPosition > 106) || (st.invNum != shelfContainer.curInv)) {
                     st.hide();
+                }
+                if (i >= shelf.getCrateCount() * TileShelvingUnit.CRATE_SIZE) {
+                    st.lock();
                 }
             }
         }

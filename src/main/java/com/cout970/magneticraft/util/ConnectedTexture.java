@@ -6,13 +6,13 @@ import net.minecraft.world.IBlockAccess;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConectedTexture {
+public class ConnectedTexture {
 
     public static List<ST> COMMON = new ArrayList<ST>();
     public static List<ST> EXCEPTION = new ArrayList<ST>();
-    public static ConectedTexture INSTANCE = new ConectedTexture().init();
+    public static ConnectedTexture INSTANCE = new ConnectedTexture().init();
 
-    public ConectedTexture init() {
+    public ConnectedTexture init() {
         COMMON.add(new ST(2, 0, 2, 0, 1, 0, 2, 0, 2));//0 - 0
         COMMON.add(new ST(2, 1, 2, 1, 1, 1, 2, 1, 2));//1 - all sides
         COMMON.add(new ST(2, 1, 2, 0, 1, 0, 2, 0, 2));//2
@@ -71,7 +71,7 @@ public class ConectedTexture {
         return 0;
     }
 
-    public static int getConectedTexturesIcon(IBlockAccess BA, int x, int y,
+    public static int getConnectedTexturesIcon(IBlockAccess BA, int x, int y,
                                               int z, int side) {
         Block t = BA.getBlock(x, y, z);
         Block[] w = new Block[9];

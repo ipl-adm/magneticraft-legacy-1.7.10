@@ -55,11 +55,11 @@ public class GuiMiner extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
-            if (gui.isIn(mx, my, gui.xStart + 61, gui.yStart + 56, 9, 9)) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
+            if (isIn(mx, my, gui.xStart + 61, gui.yStart + 56, 9, 9)) {
                 MessageGuiClick msg = new MessageGuiClick(gui.tile, 0, isShiftKeyDown() ? 10 : 1);
                 ManagerNetwork.INSTANCE.sendToServer(msg);
-            } else if (gui.isIn(mx, my, gui.xStart + 72, gui.yStart + 56, 9, 9)) {
+            } else if (isIn(mx, my, gui.xStart + 72, gui.yStart + 56, 9, 9)) {
                 MessageGuiClick msg = new MessageGuiClick(gui.tile, 1, isShiftKeyDown() ? 10 : 1);
                 ManagerNetwork.INSTANCE.sendToServer(msg);
             }
@@ -74,7 +74,7 @@ public class GuiMiner extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileMiner) {
                 TileMiner c = (TileMiner) tile;
-                if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
                     List<String> data = new ArrayList<String>();
                     float prod = c.hole * 100 / (c.dim * c.dim);
                     data.add("Mined " + ((int) prod) + "%");
@@ -114,9 +114,9 @@ public class GuiMiner extends GuiBasic {
         @Override
         public void onClick(int mx, int my, int button, GuiBasic gui) {
             if (gui.tile instanceof TileMiner) {
-                if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
+                if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 2, ((TileMiner) gui.tile).replaceWithDirt ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 21, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 21, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 3, ((TileMiner) gui.tile).removeWater ? 0 : 1));
                 }
             }
@@ -131,12 +131,12 @@ public class GuiMiner extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (gui.tile instanceof TileMiner) {
                 TileMiner t = (TileMiner) gui.tile;
-                if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
+                if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
                     List<String> data = new ArrayList<String>();
                     data.add(t.replaceWithDirt ? "Replace Blocks with Dirt" : "Leave Spaces");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 21, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 21, pos.y + gui.yStart, 17, 17)) {
                     List<String> data = new ArrayList<String>();
                     data.add(t.removeWater ? "Remove Water and Lava" : "Leave Water and Lava");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

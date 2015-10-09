@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.InventoryResizable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 
@@ -14,18 +15,27 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     public static final int MAX_CRATES = 24;
     public static final int MAX_SHELVES = 3;
     public static final int CRATE_SIZE = 27;
+    public static final int SHELF_CRATES = MAX_CRATES / MAX_SHELVES;
 
-    private InventoryComponent[] rowInv = new InventoryComponent[MAX_SHELVES];
+    private InventoryResizable[] rowInv = new InventoryResizable[MAX_SHELVES];
 
     public TileShelvingUnit() {
         crates = 0;
         for (int i = 0; i < MAX_SHELVES; i++) {
-            rowInv[i] = new InventoryComponent(this, CRATE_SIZE * MAX_CRATES / MAX_SHELVES, "Shelf " + i);
+            rowInv[i] = new InventoryResizable(this, CRATE_SIZE * SHELF_CRATES, "Shelf " + i);
+            rowInv[i].lock();
         }
     }
 
     public InventoryComponent getInv(int i) {
         return rowInv[i];
+    }
+
+    @Override
+    public void updateEntity() {
+        if (worldObj.getTotalWorldTime() % 400 == 0) {
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
     }
 
     @Override
@@ -35,16 +45,22 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
 
     public boolean addCrate() {
         if (crates < MAX_CRATES) {
-            crates++;
-            return true;
+            if (rowInv[crates / SHELF_CRATES].resize(CRATE_SIZE)) {
+                crates++;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                return true;
+            }
         }
         return false;
     }
 
     public boolean removeCrate() {
         if (crates > 0) {
-            crates--;
-            return true;
+            if (rowInv[(crates - 1) / SHELF_CRATES].resize(-CRATE_SIZE)) {
+                crates--;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                return true;
+            }
         }
         return false;
     }

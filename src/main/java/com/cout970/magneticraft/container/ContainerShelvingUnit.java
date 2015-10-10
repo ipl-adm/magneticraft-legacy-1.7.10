@@ -55,10 +55,9 @@ public class ContainerShelvingUnit extends ContainerBasic {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
-        player.addChatMessage(new ChatComponentText("transfer"));
         int[] slots = new int[MAX_CRATES * CRATE_SIZE];
         Arrays.fill(slots, 0);
-        Arrays.fill(slots, SHELF_CRATES * CRATE_SIZE * curInv, shelf.getCrateCount() * CRATE_SIZE, 3);
+        Arrays.fill(slots, SHELF_CRATES * CRATE_SIZE * curInv, Math.min(shelf.getCrateCount() * CRATE_SIZE, SHELF_CRATES * CRATE_SIZE * (curInv + 1)), 3);
         return transfer(player, slot, slots);
     }
 

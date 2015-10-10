@@ -76,7 +76,7 @@ public class TileRenderInserter extends TileEntitySpecialRenderer {
             result[2] = 100;
         } else {
             switch (anim) {
-                case RETRACTING_SHORT: {//bring the itm from the belt/inv
+                case RETRACTING_SHORT: {//bring the item from the belt/inv
                     d0 = (counter) / 180f;
                     result[0] = 45 * d0;
                     result[1] = -85 + 40 * d0;
@@ -111,7 +111,7 @@ public class TileRenderInserter extends TileEntitySpecialRenderer {
                     break;
                 }
 
-                case ROTATING_INV: {//rotating from inveted to default
+                case ROTATING_INV: {//rotating from inverted to default
                     result[0] = 45;
                     result[1] = -45;
                     result[2] = 100;

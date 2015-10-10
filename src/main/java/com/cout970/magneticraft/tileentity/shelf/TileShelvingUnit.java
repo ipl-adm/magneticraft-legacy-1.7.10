@@ -3,10 +3,12 @@ package com.cout970.magneticraft.tileentity.shelf;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
+import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryResizable;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 
@@ -32,13 +34,6 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     }
 
     @Override
-    public void updateEntity() {
-        if (worldObj.getTotalWorldTime() % 400 == 0) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-    }
-
-    @Override
     public TileShelvingUnit getMainTile() {
         return this;
     }
@@ -47,7 +42,6 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
         if (crates < MAX_CRATES) {
             if (rowInv[crates / SHELF_CRATES].resize(CRATE_SIZE)) {
                 crates++;
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 return true;
             }
         }
@@ -58,11 +52,20 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
         if (crates > 0) {
             if (rowInv[(crates - 1) / SHELF_CRATES].resize(-CRATE_SIZE)) {
                 crates--;
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public void onBlockBreaks() {
+        if (worldObj.isRemote) return;
+        for (InventoryResizable inv : rowInv) {
+            for (int i = 0; i < inv.getSizeInventory(); i++) {
+                BlockMg.dropItem(inv.getStackInSlot(i), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
+            }
+        }
     }
 
     public int getCrateCount() {

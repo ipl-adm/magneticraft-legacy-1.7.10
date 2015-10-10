@@ -125,7 +125,15 @@ public class InventoryUtils {
     }
     
     public static boolean giveToPlayer(final ItemStack is, InventoryPlayer inv) {
-        int maxStack = 64;
+        if (inv.getCurrentItem() != null) {
+            if (canCombine(inv.getCurrentItem(), is, inv.getCurrentItem().getMaxStackSize())) {
+                inv.setInventorySlotContents(inv.currentItem, InventoryUtils.addition(inv.getCurrentItem(), is));
+                return true;
+            }
+        }
+
+        return inv.addItemStackToInventory(is);
+        /*int maxStack = 64;
         if (inv.getCurrentItem() != null) {
             maxStack = inv.getCurrentItem().getMaxStackSize();
         } else {
@@ -141,7 +149,7 @@ public class InventoryUtils {
         if (inv.addItemStackToInventory(is)) {
             return true;
         }
-        return false;
+        return false;*/
     }
 
     public static void saveInventory(IInventory inv, NBTTagCompound nbtTagCompound, String name) {

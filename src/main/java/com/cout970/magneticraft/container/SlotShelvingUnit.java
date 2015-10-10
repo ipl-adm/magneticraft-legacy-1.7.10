@@ -1,19 +1,17 @@
 package com.cout970.magneticraft.container;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.util.Log;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 public class SlotShelvingUnit extends Slot implements ISlotToggleable, ISlotLockable {
     public static final int HIDE_OFFSET = 1 << 20;
     public int baseX, baseY, invNum;
     public boolean hidden, locked;
-    private static ResourceLocation BG_LOCKED = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/slot_locked.png");
+    public static ResourceLocation BG_LOCKED = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/slot_locked.png");
 
     public SlotShelvingUnit(IInventory inv, int index, int dx, int dy, int number) {
         super(inv, index, dx, dy);
@@ -62,7 +60,6 @@ public class SlotShelvingUnit extends Slot implements ISlotToggleable, ISlotLock
 
     @Override
     public boolean isItemValid(ItemStack is) {
-        Log.debug(!locked);
         return !locked;
     }
 

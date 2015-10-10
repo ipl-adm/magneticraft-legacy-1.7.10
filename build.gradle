@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 
-version = "0.5.1"
+version = "0.6.0-beta1"
 group= "com.cout970.magneticraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "magneticraft"
 
@@ -79,8 +79,15 @@ processResources
             // copy everything else, thats not the mcmod.info
             from(sourceSets.main.resources.srcDirs) {
                 exclude 'mcmod.info'
+                exclude 'mgc_at.cfg'
             }
         }
+
+jar {
+    manifest {
+        attributes 'FMLAT': 'magneticraft_at.cfg'
+    }
+}
 task devJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'dev'

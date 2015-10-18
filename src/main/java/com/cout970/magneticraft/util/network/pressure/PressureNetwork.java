@@ -17,4 +17,12 @@ public class PressureNetwork extends BasicNetwork{
 		}
 		return pressure;
 	}
+	
+	public void addNode(NetworkNode node){
+		super.addNode(node);
+		if(node instanceof PressureNetworkNode && ((PressureNetworkNode) node).getConductor() != null){
+			((PressureNetworkNode) node).getConductor().setFluid(getPressureCond().getFluid());
+			((PressureNetworkNode) node).getConductor().setTemperature(getPressureCond().getTemperature());
+		}
+	}
 }

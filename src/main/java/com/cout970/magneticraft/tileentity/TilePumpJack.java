@@ -122,7 +122,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
                 cond.drainPower(EnergyConverter.RFtoW(i));
             }
 
-            if (buffer <= 0) {
+            if (buffer <= 0 && cond.getVoltage() > ElectricConstants.MACHINE_WORK) {
                 if (fluid.isEmpty()) {
                     if (oil.isEmpty()) {
                         update = false;
@@ -311,7 +311,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        VecInt v1 = VecIntUtil.getRotatedOffset(getOrientation(getBlockMetadata()).opposite(), 0, 2, 1);
+        VecInt v1 = VecIntUtil.getRotatedOffset(getOrientation(getBlockMetadata()).opposite(), 0, 0, 1);
         VecInt v2 = VecIntUtil.getRotatedOffset(getOrientation(getBlockMetadata()), 0, 2, 1);
         VecInt block = new VecInt(xCoord, yCoord, zCoord);
 

@@ -1,5 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
+import java.util.ArrayList;
+
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -12,9 +14,9 @@ import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -25,8 +27,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
 
 public class TileBreaker extends TileConductorLow implements IInventory, IGuiListener, IGuiSync {
 
@@ -116,7 +116,6 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         } else {
             for (int i = 0; i < filter.getSizeInventory(); i++) {
                 if (checkFilter(i, s)) return false;
-                Log.info("Match on slot " + i);
             }
             return true;
         }

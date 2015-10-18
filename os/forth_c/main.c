@@ -5,7 +5,6 @@
 
 //data tipes
 typedef unsigned char byte;
-typedef unsigned int word;
 
 typedef struct dictionarys{
 	byte count;
@@ -16,11 +15,11 @@ typedef struct dictionarys{
 
 //stacks
 
-word fpStack[128];
-word spStack[128];
+int fpStack[128];
+int spStack[128];
 
-word *fp = fpStack;
-word *sp = spStack;
+int *fp = fpStack;
+int *sp = spStack;
 
 //msg
 char mgs_unknow[] = "\0x14Unknow Token: ";
@@ -29,8 +28,8 @@ char mgs_unknow[] = "\0x14Unknow Token: ";
 byte temp[128];
 byte output[128];
 byte word_buf[80];
-word *R0 = fpStack;
-word *S0 = spStack;
+int *R0 = fpStack;
+int *S0 = spStack;
 
 //dictionary
 int indexHelp = 0;
@@ -38,8 +37,8 @@ dictionary *dict;
 
 //funtions
 
-void push(word data);
-word pop();
+void push(int data);
+int pop();
 void abortStacks();
 void checkStack(int elements);
 
@@ -49,13 +48,13 @@ void at();
 
 //functionalities
 
-void push(word data){
+void push(int data){
 	*fp = data;
 	fp++;
 }
 
-word pop(){
-	word data = *fp;
+int pop(){
+	int data = *fp;
 	fp--;
 	return data;
 }

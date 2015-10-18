@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.util.network.pressure;
 
+import com.cout970.magneticraft.api.pressure.PressurizedFluid;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.IConnectable;
@@ -107,10 +108,9 @@ public class NetworkPressureConductor implements IPressureConductor{
 	public double getTemperature() {
 		for(NetworkNode nd : network.getNodes()){
 			if(nd instanceof PressureNetworkNode && ((PressureNetworkNode) nd).getConductor() != null){
-				return ((PressureNetworkNode) nd).getConductor().getTemperature();
+				return ((PressureNetworkNode) nd).getConductor().getTemperatureNode();
 			}
 		}
-		
 		return 0;
 	}
 
@@ -130,7 +130,7 @@ public class NetworkPressureConductor implements IPressureConductor{
 	public Fluid getFluid() {
 		for(NetworkNode nd : network.getNodes()){
 			if(nd instanceof PressureNetworkNode && ((PressureNetworkNode) nd).getConductor() != null){
-				return ((PressureNetworkNode) nd).getConductor().getFluid();
+				return ((PressureNetworkNode) nd).getConductor().getFluidNode();
 			}
 		}
 		return null;
@@ -140,7 +140,7 @@ public class NetworkPressureConductor implements IPressureConductor{
 	public void setFluid(Fluid fluid) {
 		for(NetworkNode nd : network.getNodes()){
 			if(nd instanceof PressureNetworkNode && ((PressureNetworkNode) nd).getConductor() != null){
-				((PressureNetworkNode) nd).getConductor().setFluid(fluid);
+				((PressureNetworkNode) nd).getConductor().setFluidNode(fluid);
 			}
 		}
 	}
@@ -152,6 +152,16 @@ public class NetworkPressureConductor implements IPressureConductor{
 
 	@Override
 	public FluidStack drainGas(int amount, boolean doDrain) {
+		return null;
+	}
+
+	@Override
+	public PressurizedFluid moveFluid(PressurizedFluid pack) {
+		if(pack.getAmount() < 0 || pack.getFluid() == null)return pack;
+		setFluid(pack.getFluid());
+		double total = getMoles() + pack.getAmount();
+		setTemperature(getTemperature()*(getMoles()/total)+pack.getTemperature()*(pack.getAmount()/total));
+		setMoles(total);
 		return null;
 	}
 }

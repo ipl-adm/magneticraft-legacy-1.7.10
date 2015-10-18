@@ -3,12 +3,12 @@ package com.cout970.magneticraft.api.pressure.prefab;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cout970.magneticraft.api.pressure.PressurizedFluid;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IConnectable;
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
@@ -30,6 +30,7 @@ public class PressureConductor implements IPressureConductor {
     public PressureConductor(TileEntity t, double volume) {
         parent = t;
         this.volume = volume;
+        temperature = 293.15;
     }
 
     @Override
@@ -44,30 +45,40 @@ public class PressureConductor implements IPressureConductor {
             return;
         if (getFluid() == null)
             return;
-        for (MgDirection dir : MgDirection.values()) {
-            TileEntity tile = MgUtils.getTileEntity(parent, dir);
-            if (tile != null) {
-                List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, dir.opposite().toVecInt());
+        for (VecInt vec : getValidConnections()) {
+			TileEntity tile = MgUtils.getTileEntity(parent, vec);
+			if (tile != null) {
+				List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, vec.getOpposite());
                 List<IPressureConductor> conds = new ArrayList<IPressureConductor>();
 
-                for (IPressureConductor p : pre) {
-                    if (p.getFluid() == null) {
-                        p.setFluid(getFluid());
-                        p.setTemperature(getTemperature());
-                        conds.add(p);
-                    } else if (p.getFluid() == getFluid()) {
-                        conds.add(p);
-                    }
-                }
+                filter(pre, conds);
 
-                for (IPressureConductor p : conds) {
-                    double sum = getMoles() + p.getMoles();
+                for (IPressureConductor p : conds) {  
+                	double sum = getMoles() + p.getMoles();
                     double vol = getVolume() + p.getVolume();
-                    setMoles(sum * (getVolume() / vol));
-                    p.setMoles(sum * (p.getVolume() / vol));
+                    double toMove = (sum * (p.getVolume() / vol)) - p.getMoles();
+                    double remaining = sum * (getVolume() / vol);
+                    
+                    if(toMove > 0){
+                    	PressurizedFluid pack = new PressurizedFluid(getFluid(), toMove, getTemperature());
+                    	pack = p.moveFluid(pack);
+                    	if(pack == null){
+                    		setMoles(remaining);
+                    	}else{
+                    		setMoles(remaining-pack.getAmount());
+                    	}
+                    }
                 }
             }
         }
+    }
+
+    public void filter(List<IPressureConductor> data, List<IPressureConductor> result){
+    	for (IPressureConductor p : data) {
+    		if (p.getFluid() == null || p.getFluid() == getFluid()) {
+    			result.add(p);
+    		}
+    	}
     }
 
     @Override
@@ -170,6 +181,10 @@ public class PressureConductor implements IPressureConductor {
         if (mB > 0) {
             if (!doDrain) return new FluidStack(currentGas, mB);
             moles -= EnergyConverter.MBtoMOL(mB);
+            if(moles <= 0){
+            	setTemperature(293.15);
+            	setFluid(null);
+            }
             return new FluidStack(currentGas, mB);
         }
         return null;
@@ -189,4 +204,14 @@ public class PressureConductor implements IPressureConductor {
     public void setFluid(Fluid f) {
         currentGas = f;
     }
+
+	@Override
+	public PressurizedFluid moveFluid(PressurizedFluid pack) {
+		if(pack.getAmount() < 0 || pack.getFluid() == null)return pack;
+		setFluid(pack.getFluid());
+		double total = getMoles() + pack.getAmount();
+		setTemperature(getTemperature()*(getMoles()/total)+pack.getTemperature()*(pack.getAmount()/total));
+		setMoles(total);
+		return null;
+	}
 }

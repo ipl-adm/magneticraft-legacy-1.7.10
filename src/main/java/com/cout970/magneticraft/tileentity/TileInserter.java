@@ -1,5 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
 import com.cout970.magneticraft.api.conveyor.IConveyorBeltLane;
@@ -13,6 +16,7 @@ import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -22,9 +26,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileInserter extends TileBase implements IGuiListener {
 
@@ -102,9 +103,11 @@ public class TileInserter extends TileBase implements IGuiListener {
                     TileEntity t = MgUtils.getTileEntity(this, getDir()), o = MgUtils.getTileEntity(this, getDir().opposite());
                     if (t instanceof IInventory) {
                         suckFromInv((IInventory) t, o);
-                    } else if (t instanceof IConveyorBelt && ((IConveyorBelt) t).getOrientation().getLevel() == 0) {
+                    }
+                    if (getInv().getStackInSlot(0) == null && t instanceof IConveyorBelt && ((IConveyorBelt) t).getOrientation().getLevel() == 0) {
                         suckFromBelt((IConveyorBelt) t, o);
-                    } else if (canSuckDroppedItems() && cooldown == 0) {
+                    }
+                    if (getInv().getStackInSlot(0) == null && canSuckDroppedItems() && cooldown == 0) {
                         suckFromGround();
                         cooldown = 10;
                     }
@@ -162,23 +165,21 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     @SuppressWarnings("rawtypes")
     private void suckFromGround() {
-        if (worldObj.isRemote) return;
+        if (worldObj.isRemote) return; 
         VecInt vec1 = new VecInt(this).add(getDir().toVecInt());
-        Block b = worldObj.getBlock(vec1.getX(), vec1.getY(), vec1.getZ());
-        if (b.isAir(worldObj, vec1.getX(), vec1.getY(), vec1.getZ())) {
-            List l = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec1.getX() + 1, vec1.getY() + 1, vec1.getZ() + 1));
-            if (!l.isEmpty()) {
-                for (Object aL : l) {
-                    if (aL instanceof EntityItem) {
-                        EntityItem entity = (EntityItem) aL;
-                        if (entity.getEntityItem() != null) {
-                            getInv().setInventorySlotContents(0, entity.getEntityItem());
-                            entity.setDead();
-                            break;
-                        }
-                    }
-                }
-            }
+        List l = worldObj.getEntitiesWithinAABB(EntityItem.class, 
+        		AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec1.getX() + 1, vec1.getY() + 1, vec1.getZ() + 1));
+        if (!l.isEmpty()) {
+        	for (Object aL : l) {
+        		if (aL instanceof EntityItem) {
+        			EntityItem entity = (EntityItem) aL;
+        			if (entity.getEntityItem() != null) {
+        				getInv().setInventorySlotContents(0, entity.getEntityItem());
+        				entity.setDead();
+        				break;
+        			}
+        		}
+        	}
         }
     }
 

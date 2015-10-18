@@ -1,10 +1,9 @@
 package com.cout970.magneticraft.parts.heat;
 
-import codechicken.lib.vec.Cuboid6;
-import codechicken.lib.vec.Vector3;
-import codechicken.microblock.ISidedHollowConnect;
-import codechicken.multipart.NormallyOccludedPart;
-import codechicken.multipart.TileMultipart;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.heat.HeatUtils;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
@@ -14,12 +13,13 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.client.tilerender.TileRenderHeatCable;
-import net.minecraft.tileentity.TileEntity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import codechicken.lib.vec.Cuboid6;
+import codechicken.lib.vec.Vector3;
+import codechicken.microblock.ISidedHollowConnect;
+import codechicken.multipart.NormallyOccludedPart;
+import codechicken.multipart.TileMultipart;
+import net.minecraft.tileentity.TileEntity;
 
 public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
 

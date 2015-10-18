@@ -59,16 +59,15 @@ public class GuiCrafter extends GuiBasic {
 
         @Override
         public void onClick(int mx, int my, int button, GuiBasic gui) {
-            if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
+            if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
                 if (gui.tile instanceof TileCrafter) {
                     RedstoneState state = ((TileCrafter) (gui.tile)).state;
                     state = TileCrafter.step(state);
                     ManagerNetwork.INSTANCE.sendToServer(new MessageRedstoneStateUpdate(gui.tile, state));
                 }
             }
-            if (gui.isIn(mx, my, gui.xStart + 72, gui.yStart + 36, 16, 16)) {
-                MessageGuiClick msg = new MessageGuiClick(gui.tile, 0, button);
-                ManagerNetwork.INSTANCE.sendToServer(msg);
+            if (isIn(mx, my, gui.xStart + 72, gui.yStart + 36, 16, 16)) {
+                ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 0, button));
             }
         }
 
@@ -79,7 +78,7 @@ public class GuiCrafter extends GuiBasic {
 
         @Override
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-            if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
+            if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
                 if (gui.tile instanceof TileCrafter) {
                     RedstoneState state = ((TileCrafter) (gui.tile)).state;
                     List<String> data = new ArrayList<String>();

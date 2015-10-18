@@ -59,7 +59,8 @@ dependencies {
     compile files("./lib/ForgeMultipart-1.7.10-1.1.2.331-dev.jar")
     compile files("./lib/ImmersiveEngineering-0.5.4-deobf.jar")
     compile files("./lib/MineTweaker3-Dev-1.7.10-3.0.9C.jar")
-	compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
+	compile files("./lib/InventoryTweaks-api-1.58-147.jar")
+    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
 }
 
 processResources

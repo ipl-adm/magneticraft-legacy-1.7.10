@@ -67,13 +67,13 @@ public class GuiBreaker extends GuiBasic {
         @Override
         public void onClick(int mx, int my, int buttom, GuiBasic gui) {
             if (gui.tile instanceof TileBreaker) {
-                if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
+                if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 0, ((TileBreaker) gui.tile).whiteList ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 1, ((TileBreaker) gui.tile).ignoreMeta ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 2, ((TileBreaker) gui.tile).ignoreNBT ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 3, ((TileBreaker) gui.tile).ignoreDict ? 0 : 1));
                 }
             }
@@ -88,22 +88,22 @@ public class GuiBreaker extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (gui.tile instanceof TileBreaker) {
                 TileBreaker t = (TileBreaker) gui.tile;
-                if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
+                if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
                     List<String> data = new ArrayList<String>();
                     data.add(t.whiteList ? "Whitelist" : "Blacklist");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
                     List<String> data = new ArrayList<String>();
                     data.add(t.ignoreMeta ? "Ignore Metadata" : "Check Metadata");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
                     List<String> data = new ArrayList<String>();
                     data.add(t.ignoreNBT ? "Ignore NBT" : "Check NBT");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
                     List<String> data = new ArrayList<String>();
                     data.add(t.ignoreDict ? "Ignore Ore Dictionary" : "Check Ore Dictionary");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

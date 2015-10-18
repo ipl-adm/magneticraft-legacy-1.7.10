@@ -47,8 +47,8 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     public List<BlockInfo> well = new ArrayList<BlockInfo>();
     public ArrayList<ItemStack> items = new ArrayList<ItemStack>();
     public float coolDown = MINING_COST_PER_BLOCK;
-    public float ConsumptionCounter;
-    public float Consume;
+    public float consumptionCounter;
+    public float consume;
     public int minedLastSecond;
     public int hole = 0;
     public int dim = 11;
@@ -104,7 +104,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                 if (coolDown > 0) {
                     if (capacity.getVoltage() > ElectricConstants.MACHINE_WORK * 100) {
                         coolDown -= EnergyConverter.WtoRF(p);
-                        ConsumptionCounter += p;
+                        consumptionCounter += p;
                         capacity.drainPower(p);
                     }
                 }
@@ -123,19 +123,19 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             }
         }
         if (worldObj.getTotalWorldTime() % 20 == 0) {
-            Consume = ConsumptionCounter;
+            consume = consumptionCounter;
             minedLastSecond = mined;
-            ConsumptionCounter = 0;
+            consumptionCounter = 0;
             mined = 0;
         }
 //		Log.debug((System.nanoTime()-time)/1E6);
     }
 
     private void updateConductor() {
-        double resistence = cond.getResistance() + capacity.getResistance();
+        double resistance = cond.getResistance() + capacity.getResistance();
         double difference = cond.getVoltage() - capacity.getVoltage();
         double change = flow;
-        flow += ((difference - change * resistence) * cond.getIndScale()) / cond.getVoltageMultiplier();
+        flow += ((difference - change * resistance) * cond.getIndScale()) / cond.getVoltageMultiplier();
         change += (difference * cond.getCondParallel()) / cond.getVoltageMultiplier();
         cond.applyCurrent(-change);
         capacity.applyCurrent(change);
@@ -318,7 +318,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         craft.sendProgressBarUpdate(cont, 0, (int) capacity.getVoltage());
         craft.sendProgressBarUpdate(cont, 1, (int) coolDown);
         craft.sendProgressBarUpdate(cont, 2, state.ordinal());
-        craft.sendProgressBarUpdate(cont, 3, (int) Consume);
+        craft.sendProgressBarUpdate(cont, 3, (int) consume);
         craft.sendProgressBarUpdate(cont, 4, minedLastSecond);
         craft.sendProgressBarUpdate(cont, 5, hole);
         craft.sendProgressBarUpdate(cont, 6, dim);
@@ -329,7 +329,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         if (id == 0) capacity.setVoltage(value);
         if (id == 1) coolDown = value;
         if (id == 2) state = WorkState.values()[value % WorkState.values().length];
-        if (id == 3) Consume = value;
+        if (id == 3) consume = value;
         if (id == 4) minedLastSecond = value;
         if (id == 5) hole = value;
         if (id == 6) dim = value;
@@ -425,12 +425,12 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
             @Override
             public float getChangeInTheLastTick() {
-                return ConsumptionCounter;
+                return consumptionCounter;
             }
 
             @Override
             public float getChangeInTheLastSecond() {
-                return Consume;
+                return consume;
             }
         };
     }

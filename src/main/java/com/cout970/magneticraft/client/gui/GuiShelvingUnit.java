@@ -7,16 +7,12 @@ import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.container.ContainerShelvingUnit;
 import com.cout970.magneticraft.container.SlotShelvingUnit;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import static com.cout970.magneticraft.util.RenderUtil.drawTexturedModalRectScaled;
 
 public class GuiShelvingUnit extends GuiBasic {
     private CompScrollBar scrollBar;
@@ -106,6 +102,14 @@ public class GuiShelvingUnit extends GuiBasic {
         int dw = Mouse.getEventDWheel();
         if (dw != 0) {
             scrollBar.onWheel(dw / Math.abs(dw));
+        }
+    }
+
+    @Override
+    protected void mouseClicked(int x, int y, int b) {
+        super.mouseClicked(x, y, b);
+        if (isIn(x, y, xStart + 175, yStart + 122, 16, 16) && (b == 0)) {
+            mc.playerController.sendEnchantPacket(shelfContainer.windowId, (shelfContainer.curInv = (shelfContainer.curInv + 1) % 3));
         }
     }
 }

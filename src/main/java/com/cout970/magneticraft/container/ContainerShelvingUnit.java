@@ -2,6 +2,7 @@ package com.cout970.magneticraft.container;
 
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.Log;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -67,5 +68,11 @@ public class ContainerShelvingUnit extends ContainerBasic {
         for (int i = 0; i < TileShelvingUnit.MAX_SHELVES; i++) {
             shelf.getInv(i).closeInventory();
         }
+    }
+
+    @Override
+    public boolean enchantItem(EntityPlayer player, int data) {
+        curInv = data;
+        return true;
     }
 }

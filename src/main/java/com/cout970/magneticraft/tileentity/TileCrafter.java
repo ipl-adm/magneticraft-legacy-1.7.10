@@ -94,15 +94,13 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     @SuppressWarnings("unchecked")
 	public void refreshRecipe() {
         craftRecipe = null;
-        Iterator<Object> iterator = CraftingManager.getInstance().getRecipeList().iterator();
-        while(iterator.hasNext()){
-        	Object rec = iterator.next();
-        	if (rec instanceof IRecipe) {
-        		if (((IRecipe) rec).matches(recipe, worldObj)) {
-        			craftRecipe = (IRecipe) rec;
-        			break;
-        		}
-        	}
+        for (Object rec : CraftingManager.getInstance().getRecipeList()) {
+            if (rec instanceof IRecipe) {
+                if (((IRecipe) rec).matches(recipe, worldObj)) {
+                    craftRecipe = (IRecipe) rec;
+                    break;
+                }
+            }
         }
         
         if (craftRecipe != null) {

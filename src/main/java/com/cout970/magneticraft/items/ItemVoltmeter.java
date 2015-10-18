@@ -54,7 +54,7 @@ public class ItemVoltmeter extends ItemBasic {
             p.addChatMessage(new ChatComponentText(s));
         }
 
-        if (t instanceof IEnergyHandler) {
+        if ((Magneticraft.COFH_ENERGY) && t instanceof IEnergyHandler) {
             IEnergyHandler h = (IEnergyHandler) t;
             int stored = h.getEnergyStored(ForgeDirection.getOrientation(side));
             int max = h.getMaxEnergyStored(ForgeDirection.getOrientation(side));

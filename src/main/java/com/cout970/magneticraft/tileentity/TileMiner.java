@@ -85,7 +85,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             updateTicket();
             scheduleUpdate = false;
         }
-//		long time = System.nanoTime();
         updateConductor();
         if (state == WorkState.UNREADY) {
             scanWell();
@@ -96,7 +95,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             } else
                 state = WorkState.WORKING;
         }
-        if (state == WorkState.WORKING) {
+        if (state == WorkState.WORKING && isControlled()) {
 
             if (items.isEmpty()) {
                 double p = (capacity.getVoltage() - ElectricConstants.MACHINE_WORK * 100);//in J
@@ -128,7 +127,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             ConsumptionCounter = 0;
             mined = 0;
         }
-//		Log.debug((System.nanoTime()-time)/1E6);
     }
 
     private void updateConductor() {

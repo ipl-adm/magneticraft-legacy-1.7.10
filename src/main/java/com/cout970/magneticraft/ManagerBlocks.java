@@ -573,6 +573,7 @@ public class ManagerBlocks {
         tileEntities.add(TileElectricSwitch.class);
         tileEntities.add(TileDiode.class);
         tileEntities.add(TileResistance.class);
+        
         if (Magneticraft.COFH_ENERGY) {
             tileEntities.add(TileRFAlternator.class);
             tileEntities.add(TileKineticGenerator.class);
@@ -584,6 +585,8 @@ public class ManagerBlocks {
             tileEntities.add(TileEUAlternator.class);
         }
         if (Magneticraft.DEBUG) {
+        	tileEntities.add(TileElectricConnector.class);
+        	tileEntities.add(TileElectricConnectorDown.class);
         }
         tileEntities.add(TileElectricPoleCableWire.class);
         tileEntities.add(TileElectricPoleCableWireDown.class);
@@ -595,9 +598,6 @@ public class ManagerBlocks {
         tileEntities.add(TileCrushingTable.class);
         tileEntities.add(TileShelvingUnit.class);
         tileEntities.add(TileShelfFiller.class);
-
-//      tileEntities.add(TileElectricConnector.class);
-//      tileEntities.add(TileElectricConnectorDown.class);
 
         for (Class<? extends TileEntity> c : tileEntities) {
             GameRegistry.registerTileEntity(c, c.getName() + "_Mg");

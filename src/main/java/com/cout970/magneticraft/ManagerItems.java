@@ -52,9 +52,9 @@ public class ManagerItems {
     public static List<Item> items = new ArrayList<Item>();
     public static List<NamedItem> named = new ArrayList<NamedItem>();
 
-    public static String[] oreNames = new String[]{"Iron", "Gold", "Copper", "Tin", "Tungsten", "Lead", "Silver", "Uranium", "Thorium", "Nickel", "Ardite", "Cobalt", "Zinc", "Aluminium", "Platinum", "Titanium", "Osmium", "Bismuth", "Chromium", "Mithril", "Lithium", "Iridium", "Manganese"};
+    public static String[] oreNames = new String[]{"Iron", "Gold", "Copper", "Tin", "Tungsten", "Lead", "Silver", "Uranium", "Thorium", "Nickel", "Ardite", "Cobalt", "Zinc", "Aluminium", "Platinum", "Titanium", "Osmium", "Bismuth", "Chromium", "Mithril", "Lithium", "Iridium", "Manganese", "Galena"};
     public static String[][] extraNames = new String[][]{{"Nickel", "Aluminium"}, {"Copper", "Silver"}, {"Gold", "Iron"}, {"Iron", "Silver"}, {"Iron", "Aluminium"}, {"Silver", "Thorium"}, {"Lead", "Copper"}, {"Thorium", "Plutonium"}, {"Uranium", "Plutonium"}, {"Iron", "Zinc"}, {"Cobalt", null},
-            {"Ardite", null}, {"Iron", "Nickel"}, {"Iron", "Titanium"}, {"Nickel", "Silver"}, {"Iron", "Nickel"}, {null, "Iron"}, {null, "Zinc"}, {null, "Nickel"}, {null, "Zinc"}, {null, "Iron"}, {null, "Iron"}, {"Iron", null}};
+            {"Ardite", null}, {"Iron", "Nickel"}, {"Iron", "Titanium"}, {"Nickel", "Silver"}, {"Iron", "Nickel"}, {null, "Iron"}, {null, "Zinc"}, {null, "Nickel"}, {null, "Zinc"}, {null, "Iron"}, {null, "Iron"}, {"Iron", null}, {"Gold", "Silver"}};
 
     private static int oreAmount = oreNames.length;
     public static ItemMeta chunks = new ItemMeta("chunks", oreAmount)

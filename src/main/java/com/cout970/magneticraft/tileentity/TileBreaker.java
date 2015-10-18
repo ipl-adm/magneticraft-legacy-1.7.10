@@ -116,7 +116,6 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         } else {
             for (int i = 0; i < filter.getSizeInventory(); i++) {
                 if (checkFilter(i, s)) return false;
-                Log.info("Match on slot " + i);
             }
             return true;
         }

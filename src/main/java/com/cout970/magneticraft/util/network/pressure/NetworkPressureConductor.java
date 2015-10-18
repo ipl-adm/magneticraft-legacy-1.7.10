@@ -107,10 +107,9 @@ public class NetworkPressureConductor implements IPressureConductor{
 	public double getTemperature() {
 		for(NetworkNode nd : network.getNodes()){
 			if(nd instanceof PressureNetworkNode && ((PressureNetworkNode) nd).getConductor() != null){
-				return ((PressureNetworkNode) nd).getConductor().getTemperature();
+				return ((PressureNetworkNode) nd).getConductor().getTemperatureNode();
 			}
 		}
-		
 		return 0;
 	}
 

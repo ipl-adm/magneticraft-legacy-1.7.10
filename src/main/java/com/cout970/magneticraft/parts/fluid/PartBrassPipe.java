@@ -29,164 +29,178 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConnect, IExplodable{
+public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConnect, IExplodable {
 
-    public byte connections = -1;
-    public int interactions;
-    public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
-    public NodePressureConductor pressure;
-    public NBTTagCompound tempNBT;
-    private static TileRenderBrassPipe render;
+	public byte connections = -1;
+	public int interactions;
+	public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+	public NodePressureConductor pressure;
+	public NBTTagCompound tempNBT;
+	private static TileRenderBrassPipe render;
 
-    static {
-        double w = 2 / 16d;
-        boxes.add(new Cuboid6(0.5 - w, 0, 0.5 - w, 0.5 + w, 0.5 - w, 0.5 + w));// down
-        boxes.add(new Cuboid6(0.5 - w, 0.5 + w, 0.5 - w, 0.5 + w, 1, 0.5 + w));// up
-        boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0, 0.5 + w, 0.5 + w, 0.5 - w));// north
-        boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w, 0.5 + w, 1));// south
-        boxes.add(new Cuboid6(0, 0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w));// west
-        boxes.add(new Cuboid6(0.5 + w, 0.5 - w, 0.5 - w, 1, 0.5 + w, 0.5 + w));// east
-        boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w, 0.5 + w));// base
-    }
+	static {
+		double w = 2 / 16d;
+		boxes.add(new Cuboid6(0.5 - w, 0, 0.5 - w, 0.5 + w, 0.5 - w, 0.5 + w));// down
+		boxes.add(new Cuboid6(0.5 - w, 0.5 + w, 0.5 - w, 0.5 + w, 1, 0.5 + w));// up
+		boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0, 0.5 + w, 0.5 + w, 0.5 - w));// north
+		boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w, 0.5 + w, 1));// south
+		boxes.add(new Cuboid6(0, 0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w));// west
+		boxes.add(new Cuboid6(0.5 + w, 0.5 - w, 0.5 - w, 1, 0.5 + w, 0.5 + w));// east
+		boxes.add(new Cuboid6(0.5 - w, 0.5 - w, 0.5 - w, 0.5 + w, 0.5 + w, 0.5 + w));// base
+	}
 
-    public PartBrassPipe() {
-        super(ManagerItems.part_brass_pipe);
-    }
+	public PartBrassPipe() {
+		super(ManagerItems.part_brass_pipe);
+	}
 
-    public void update() {
-        super.update();
-        if (pressure == null && tile() != null) {
-            create();
-        }
-        if ((connections == -1 || W().isRemote) && W().getTotalWorldTime() % 20 == 0) {
-            recache();
-        }
-        if (W().isRemote)
-            return;
-        if (tempNBT != null) {
-            pressure.load(tempNBT);
-            tempNBT = null;
-        }
-        pressure.iterate();
-        if(W().getTotalWorldTime() % 100 == 0 && !W().isRemote){
-        	sendDescUpdate();
-        }
-    }
+	public void update() {
+		super.update();
+		if (pressure == null && tile() != null) {
+			create();
+		}
+		if ((connections == -1 || W().isRemote) && W().getTotalWorldTime() % 20 == 0) {
+			recache();
+		}
+		if (W().isRemote)
+			return;
+		if (tempNBT != null) {
+			pressure.load(tempNBT);
+			tempNBT = null;
+		}
+		pressure.iterate();
+		if (W().getTotalWorldTime() % 200 == 0 && !W().isRemote) {
+			sendDescUpdate();
+		}
+	}
 
-    public void onRemoved(){
-    	if(network != null){
-    		network.removeNode(this);
-    	}
-    }
-    
-    private void create() {
-        pressure = new NodePressureConductor(tile(), 360, this);
-    }
+	public void onRemoved() {
+		if (network != null) {
+			network.removeNode(this);
+		}
+	}
 
-    public void recache() {
-        connections = 0;
-        for (MgDirection dir : MgDirection.values()) {
-            TileEntity t = MgUtils.getTileEntity(tile(), dir);
-            List<IPressureConductor> conds = PressureUtils.getPressureCond(t, dir.opposite().toVecInt());
-            if (!conds.isEmpty()) {
-                connections |= 1 << dir.ordinal();
-            }
-        }
-    }
+	private void create() {
+		pressure = new NodePressureConductor(tile(), 360, this);
+	}
 
-    @Override
-    public List<Cuboid6> getOcclusionCubes() {
-        return Collections.singletonList(boxes.get(6));
-    }
+	public void recache() {
+		connections = 0;
+		for (MgDirection dir : MgDirection.values()) {
+			TileEntity t = MgUtils.getTileEntity(tile(), dir);
+			List<IPressureConductor> conds = PressureUtils.getPressureCond(t, dir.opposite().toVecInt());
+			if (!conds.isEmpty()) {
+				connections |= 1 << dir.ordinal();
+			}
+		}
+	}
 
-    @Override
-    public List<Cuboid6> getCollisionCubes() {
-        ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
-        t2.add(boxes.get(6));
-        for (byte i = 0; i < 6; i++) {
-            if ((connections & (1 << i)) > 0) {
-                t2.add(boxes.get(i));
-            }
-        }
-        return t2;
-    }
+	@Override
+	public List<Cuboid6> getOcclusionCubes() {
+		return Collections.singletonList(boxes.get(6));
+	}
 
-    @Override
-    public int getHollowSize(int arg0) {
-        return 4;
-    }
+	@Override
+	public List<Cuboid6> getCollisionCubes() {
+		ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
+		t2.add(boxes.get(6));
+		for (byte i = 0; i < 6; i++) {
+			if ((connections & (1 << i)) > 0) {
+				t2.add(boxes.get(i));
+			}
+		}
+		return t2;
+	}
 
-    @Override
-    public void renderPart(Vector3 pos) {
-        if (render == null)
-            render = new TileRenderBrassPipe();
-        render.render(this, pos);
-    }
+	@Override
+	public int getHollowSize(int arg0) {
+		return 4;
+	}
 
-    @Override
-    public void explode(World world, int x, int y, int z, boolean explodeNeighbors) {
-        if (!world.isRemote) {
-            world.setBlock(x, y, z, Blocks.air);
+	@Override
+	public void renderPart(Vector3 pos) {
+		if (render == null)
+			render = new TileRenderBrassPipe();
+		render.render(this, pos);
+	}
 
-            if (explodeNeighbors) {
-                for (MgDirection dir : MgDirection.values()) {
-                    VecInt pos = new VecInt(tile()).add(dir);
-                    IExplodable exp = PressureUtils.getExplodable(world, pos);
-                    if (exp != null) {
-                        exp.explode(world, pos.getX(), pos.getY(), pos.getZ(), explodeNeighbors);
-                    }
-                }
-            }
-            Explosion e = world.createExplosion(null, x, y, z, 1f, true);
-            e.doExplosionA();
-        }
-    }
+	@Override
+	public void explode(World world, int x, int y, int z, boolean explodeNeighbors) {
+		if (!world.isRemote) {
+			world.setBlock(x, y, z, Blocks.air);
 
-    @Override
-    public IPressureConductor getPressureConductor() {
-        return pressure;
-    }
+			if (explodeNeighbors) {
+				for (MgDirection dir : MgDirection.values()) {
+					VecInt pos = new VecInt(tile()).add(dir);
+					IExplodable exp = PressureUtils.getExplodable(world, pos);
+					if (exp != null) {
+						exp.explode(world, pos.getX(), pos.getY(), pos.getZ(), explodeNeighbors);
+					}
+				}
+			}
+			Explosion e = world.createExplosion(null, x, y, z, 1f, true);
+			e.doExplosionA();
+		}
+	}
 
-    public void save(NBTTagCompound nbt) {
-        super.save(nbt);
-        if (tile() == null)
-            return;
-        if (pressure != null)
-            pressure.save(nbt);
-    }
+	@Override
+	public IPressureConductor getPressureConductor() {
+		return pressure;
+	}
 
-    public void load(NBTTagCompound nbt) {
-        super.load(nbt);
-        tempNBT = nbt;
-    }
-    
-    public void writeDesc(MCDataOutput p) {
-        super.writeDesc(p);
-        if(p == null || pressure == null)return;
-        p.writeDouble(pressure.getVolume());
-        p.writeDouble(pressure.getTemperature());
-        p.writeDouble(pressure.getMoles());
-        if(pressure.getFluid() != null){
-        	p.writeString(FluidRegistry.getFluidName(pressure.getFluid()));
-        }else{
-        	p.writeString("null");
-        }
-    }
+	public void save(NBTTagCompound nbt) {
+		super.save(nbt);
+		if (tile() == null)
+			return;
+		if (pressure != null)
+			pressure.save(nbt);
+	}
 
-    public void readDesc(MCDataInput p) {
-        super.readDesc(p);
-        if(p == null || pressure == null)return;
-        pressure.setVolume(p.readDouble());
-        pressure.setTemperature(p.readDouble());
-        pressure.setMoles(p.readDouble());
-        String s = p.readString();
-        if(!s.equals("null")){
-        	Fluid f = FluidRegistry.getFluid(s);
-        	if(f != null){
-        		pressure.setFluid(f);
-        	}
-        }
-    }
+	public void load(NBTTagCompound nbt) {
+		super.load(nbt);
+		tempNBT = nbt;
+	}
+
+	public void writeDesc(MCDataOutput p) {
+		super.writeDesc(p);
+		if (pressure == null) {
+			p.writeDouble(0);
+			p.writeDouble(0);
+			p.writeDouble(0);
+			p.writeString("null");
+		} else {
+			p.writeDouble(pressure.getVolume());
+			p.writeDouble(pressure.getTemperature());
+			p.writeDouble(pressure.getMoles());
+			if (pressure.getFluid() != null) {
+				p.writeString(FluidRegistry.getFluidName(pressure.getFluid()));
+			} else {
+				p.writeString("null");
+			}
+		}
+	}
+
+	public void readDesc(MCDataInput p) {
+		super.readDesc(p);
+		if (pressure == null) {
+			p.readDouble();
+			p.readDouble();
+			p.readDouble();
+			p.readString();
+		} else {
+			pressure.setVolume(p.readDouble());
+			pressure.setTemperature(p.readDouble());
+			pressure.setMoles(p.readDouble());
+			String s = p.readString();
+			if (!s.equals("null")) {
+				Fluid f = FluidRegistry.getFluid(s);
+				if (f != null) {
+					pressure.setFluid(f);
+				}
+			} else {
+				pressure.setFluid(null);
+			}
+		}
+	}
 
 	@Override
 	public NodePressureConductor getConductor() {
@@ -197,12 +211,12 @@ public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConne
 	public BasicNetwork createNetwork() {
 		return new PressureNetwork(this);
 	}
-	
+
 	@Override
 	public BasicNetwork getNetwork() {
-		if(network == null){
+		if (network == null) {
 			network = createNetwork();
-			((PressureNetwork)network).getPressureCond().network = (PressureNetwork) network;
+			((PressureNetwork) network).getPressureCond().network = (PressureNetwork) network;
 			network.refresh();
 		}
 		return network;

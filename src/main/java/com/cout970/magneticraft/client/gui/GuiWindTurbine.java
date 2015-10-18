@@ -19,7 +19,7 @@ public class GuiWindTurbine extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation("magneticraft:textures/gui/windmill.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16), ((TileWindTurbine) tile).cond));
         comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(31, 16), ((TileWindTurbine) tile).cond));

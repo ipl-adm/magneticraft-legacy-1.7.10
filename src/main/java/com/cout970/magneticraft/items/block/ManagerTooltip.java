@@ -205,6 +205,10 @@ public class ManagerTooltip {
 				list.add(format + "Uses wind to generate electricity. Power depends on a turbine used");
 			} else if (b == wooden_shaft) {
 				list.add(format + "[WIP]");
+			} else if (b == shelving_unit) {
+				list.add(format + "Item storage of variable size.");
+				list.add(format + "Right-click with chest to add space.");
+				list.add(format + "Shift-right-click with empty hand to remove chest from shelf.");
 			}
 		}else if(item.getItem() instanceof ItemBasic){
 			Item i = item.getItem();
@@ -271,13 +275,13 @@ public class ManagerTooltip {
 				list.add(format + "Transfers fluids. Right-click connection with a wrench to change mode");
 		        list.add(format + "Can transfer " + PartCopperPipe.MAX_EXTRACT + "mB/t per side");
 			}else if(i == part_copper_wire){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Omhs");
+				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Ohms");
 			}else if(i == part_copper_cable_low){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Omhs");
+				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Ohms");
 			}else if(i == part_copper_cable_medium){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_MED + " Omhs");
+				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_MED + " Ohms");
 			}else if(i == part_copper_cable_high){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_HIGH + " Omhs");
+				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_HIGH + " Ohms");
 			}
 		}
 		return list;

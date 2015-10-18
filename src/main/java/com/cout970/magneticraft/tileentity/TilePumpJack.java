@@ -311,7 +311,11 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getOrientation(getBlockMetadata()).opposite(), 0, 2, 1);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getOrientation(getBlockMetadata()), 0, 2, 1);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

@@ -17,6 +17,7 @@ public class BlockClayTileSlab extends BlockMgSlab {
         super(full, ManagerBlocks.roofTile.getMaterial(), ManagerBlocks.roofTile.getUnlocalizedName() + "Slab" + (full ? "Full" : ""));
         setHardness(1.5F);
         setStepSound(soundTypeStone);
+        setHarvestLevel(ManagerBlocks.roofTile.getHarvestTool(0), ManagerBlocks.roofTile.getHarvestLevel(0));
     }
 
     @Override

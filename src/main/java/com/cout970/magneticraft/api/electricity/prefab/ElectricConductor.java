@@ -11,17 +11,17 @@ import java.util.List;
 
 public class ElectricConductor implements IElectricConductor {
 
-    protected List<IIndexedConnection> con = new ArrayList<IIndexedConnection>(); //connexions between conductors
+    protected List<IIndexedConnection> con = new ArrayList<IIndexedConnection>(); //connections between conductors
     protected boolean connected = false;    //true if recache method was called.
     protected TileEntity tile;    //the tileEntity with this conductor, used to get the coords of this conductor, and the world
-    protected double V;            //the voltage difference between this conductor an the grownd
+    protected double V;            //the voltage difference between this conductor an the ground
     protected double I;            //the current flowing in the conductor, aka the charge moved.
     protected double R;            //the electric resistance of the conductor
     protected int tier;            //the tier of the conductor, 0 low voltage, 2 medium voltage, 4 high voltage
     protected long lastTick;        //this var save the world.getWorldTime() to not repeat the method computeVoltage
-    protected double Iabs;            //the sum of all currents currents flowing on this conductor
+    protected double Iabs;            //the sum of all currents flowing in this conductor
     protected double Itot;        //the value of Iabs in the last tick
-    protected double[] currents;    //the different currents flowing on this conductor
+    protected double[] currents;    //the different currents flowing in this conductor
 
 
     public ElectricConductor(TileEntity tile, double resist) {

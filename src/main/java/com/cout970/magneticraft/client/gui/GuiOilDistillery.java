@@ -14,7 +14,7 @@ public class GuiOilDistillery extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/distillery.png")));
         comp.add(new CompFluidRender(((TileOilDistillery) tile).getInput(), new GuiPoint(63, 25), new GuiPoint(81, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
         comp.add(new CompFluidRender(((TileOilDistillery) tile).getOutput(), new GuiPoint(96, 25), new GuiPoint(114, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));

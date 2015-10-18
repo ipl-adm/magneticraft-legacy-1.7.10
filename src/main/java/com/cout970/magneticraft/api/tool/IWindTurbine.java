@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.api.tool;
 
-import com.cout970.magneticraft.api.util.IRenderizable;
+import com.cout970.magneticraft.api.util.IRenderable;
 
 /**
  * Interface to implement in an Item to be able to work in the Wind Turbine
@@ -28,7 +28,7 @@ public interface IWindTurbine {
      *
      * @return
      */
-    int getLenght();
+    int getLength();
 
     /**
      * @return amount of enery produced in the best conditions
@@ -47,5 +47,5 @@ public interface IWindTurbine {
      *
      * @return the render object
      */
-    IRenderizable initRender();
+    IRenderable initRender();
 }

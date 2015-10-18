@@ -5,10 +5,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
-import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tileentity.TileBase;
@@ -33,7 +30,7 @@ import java.util.List;
 public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync {
 
     public float speed;
-    public int maxProgres = 100;
+    public int maxProgress = 100;
     public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
     private float progress;
     private double flow;
@@ -68,10 +65,10 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
                 if (speed > 0) {
                     progress += speed;
                     cond.drainPower(EnergyConverter.RFtoW(speed * 10));
-                    if (progress >= maxProgres) {
+                    if (progress >= maxProgress) {
                         craft();
                         markDirty();
-                        progress %= maxProgres;
+                        progress %= maxProgress;
                     }
                     working = true;
                 }
@@ -365,7 +362,11 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return TileEntity.INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection().opposite(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 1, 3, 2);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     public float getDelta() {
@@ -384,7 +385,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
 
             @Override
             public float getMaxLevel() {
-                return maxProgres;
+                return maxProgress;
             }
 
             @Override

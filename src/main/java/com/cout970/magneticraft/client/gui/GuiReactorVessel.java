@@ -16,7 +16,7 @@ public class GuiReactorVessel extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/reactor_vessel.png")));
         comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileReactorVessel) tile).heat));
 //		comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase()+":textures/gui/efficiencybar.png"),new GuiPoint(116,20)));

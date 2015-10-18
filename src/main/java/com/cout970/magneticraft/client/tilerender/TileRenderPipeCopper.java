@@ -58,8 +58,8 @@ public class TileRenderPipeCopper {
                 boolean[] b2 = new boolean[6];
                 b2[d.opposite().ordinal()] = true;
                 if (mc.side[d.ordinal()] == ConnectionMode.OUTPUT)
-                    RenderUtil.bindTexture(ModelTextures.PIPE_CONECTION_1_COPPER);
-                else RenderUtil.bindTexture(ModelTextures.PIPE_CONECTION_2_COPPER);
+                    RenderUtil.bindTexture(ModelTextures.PIPE_CONNECTION_1_COPPER);
+                else RenderUtil.bindTexture(ModelTextures.PIPE_CONNECTION_2_COPPER);
                 if (mc.side[d.ordinal()] != ConnectionMode.NOTHING)
                     model.render(0.0625f, b2, true);//render connections
             }

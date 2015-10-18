@@ -2,6 +2,8 @@ package com.cout970.magneticraft.api.util;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
+import java.awt.geom.AffineTransform;
+
 /**
  * Own Implementation of ForgeDirection to be able to update to 1.8 faster
  *
@@ -18,6 +20,7 @@ public enum MgDirection {
 
     public static final MgDirection[] VALID_DIRECTIONS = {DOWN, UP, NORTH, SOUTH, WEST, EAST};
     public static final MgDirection[] OPPOSITES = {UP, DOWN, SOUTH, NORTH, EAST, WEST};
+    public static final MgDirection[] CARDINAL_DIRECTIONS = {SOUTH, WEST, NORTH, EAST};
     public static final int[][] rotation = {
             {0, 1, 5, 4, 2, 3},
             {0, 1, 4, 5, 3, 2},
@@ -51,6 +54,15 @@ public enum MgDirection {
 
     public static MgDirection getDirection(int i) {
         return values()[i % VALID_DIRECTIONS.length];
+    }
+
+    /**
+     *
+     * @param c
+     * @return
+     */
+    public static MgDirection getDirectionFromCardinal(int c) {
+        return CARDINAL_DIRECTIONS[c % 4];
     }
 
     public VecInt toVecInt() {

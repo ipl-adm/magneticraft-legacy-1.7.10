@@ -22,7 +22,7 @@ public class GuiBattery extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US) + ":textures/gui/battery.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US) + ":textures/gui/energybar.png"), new GuiPoint(47, 16), ((TileBattery) tile).cond));
         comp.add(new CompBatteryBar(new ResourceLocation(Magneticraft.NAME.toLowerCase(Locale.US) + ":textures/gui/energybar.png"), new GuiPoint(69, 16)));

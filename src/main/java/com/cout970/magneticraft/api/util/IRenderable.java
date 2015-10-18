@@ -5,12 +5,12 @@ import net.minecraft.util.ResourceLocation;
 /**
  * @author Cout970
  */
-public interface IRenderizable {
+public interface IRenderable {
 
     ResourceLocation getTexture();
 
     /**
-     * both methods render at the same time but the statir is not afected by rotation or translation
+     * both methods render at the same time but the static is not affected by rotation or translation
      *
      * @param f5 render scale usually 0.0625f
      */

@@ -4,10 +4,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.tool.IWindTurbine;
-import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.IRenderizable;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -40,7 +37,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
     public long time;
     public InventoryComponent inv = new InventoryComponent(this, 1, "Wind Turbine");
     public boolean isDisplayed;
-    public IRenderizable rend;
+    public IRenderable rend;
     public int oldTurbine = -2;
 
     private int tracer;
@@ -50,7 +47,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
     private int power;
     public float speed;
     private int height;
-    private int lenght;
+    private int length;
     private double turbinePotency;
     private float production;
     private float productionPerSecond;
@@ -158,7 +155,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
     public void onBlockBreaks() {
         if (isDisplayed)
-            desactivateTurbine();
+            deactivateTurbine();
     }
 
     private void check() {
@@ -167,26 +164,26 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
             if (a.getItem() instanceof IWindTurbine && turbine != ((IWindTurbine) a.getItem()).getID()) {
                 if (hasSpace((IWindTurbine) a.getItem())) {
                     turbine = -1;
-                    desactivateTurbine();
+                    deactivateTurbine();
                     turbine = ((IWindTurbine) a.getItem()).getID();
                     activateTurbine((IWindTurbine) a.getItem());
                     sendUpdateToClient();
                 }
             } else {
                 if (isDisplayed)
-                    desactivateTurbine();
+                    deactivateTurbine();
                 turbine = -1;
             }
         } else {
             if (isDisplayed)
-                desactivateTurbine();
+                deactivateTurbine();
             turbine = -1;
         }
     }
 
     private boolean hasSpace(IWindTurbine item) {
         int h = item.getHeight();
-        int l = item.getLenght();
+        int l = item.getLength();
         for (int y = -h + 1; y < h; y++) {
             for (int v = -l + 1; v < l; v++) {
                 int i, k;
@@ -219,11 +216,11 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         return true;
     }
 
-    public void desactivateTurbine() {
+    public void deactivateTurbine() {
         isDisplayed = false;
         turbinePotency = 0;
         for (int y = -height + 1; y < height; y++) {
-            for (int v = -lenght + 1; v < lenght; v++) {
+            for (int v = -length + 1; v < length; v++) {
                 int i, k;
                 switch (facing) {
                     case NORTH:
@@ -253,10 +250,10 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
     public void activateTurbine(IWindTurbine w) {
         isDisplayed = true;
         height = w.getHeight();
-        lenght = w.getLenght();
+        length = w.getLength();
         turbinePotency = w.getPotency();
         for (int y = -height + 1; y < height; y++) {
-            for (int v = -lenght + 1; v < lenght; v++) {
+            for (int v = -length + 1; v < length; v++) {
                 int i, k;
                 switch (facing) {
                     case NORTH:
@@ -303,7 +300,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         isDisplayed = nbt.getBoolean("Disp");
         turbine = nbt.getInteger("turbine");
         height = nbt.getInteger("H");
-        lenght = nbt.getInteger("L");
+        length = nbt.getInteger("L");
         getInv().readFromNBT(nbt);
         tracer = nbt.getInteger("Tracer");
         efficiency = nbt.getInteger("Eff");
@@ -325,7 +322,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         if (rayTrace != null)
             nbt.setByteArray("rayTrace", rayTrace);
         nbt.setInteger("H", height);
-        nbt.setInteger("L", lenght);
+        nbt.setInteger("L", length);
         nbt.setDouble("P", turbinePotency);
     }
 
@@ -404,7 +401,7 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
     }
 
     public void onTurbineBreaks() {
-        desactivateTurbine();
+        deactivateTurbine();
         if (turbine == -1) return;
         Random rand = worldObj.rand;
         ItemStack i = getInv().getStackInSlot(0);
@@ -431,7 +428,11 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(MgDirection.getDirection(getBlockMetadata()), length - 1, height - 1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(MgDirection.getDirection(getBlockMetadata()), 1 - length, 1 - height, 1);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     public int getSizeInventory() {

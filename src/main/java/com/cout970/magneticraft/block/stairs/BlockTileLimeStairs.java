@@ -8,5 +8,6 @@ public class BlockTileLimeStairs extends BlockMgStairs {
         setHardness(1.5F);
         setStepSound(soundTypeStone);
         setBlockTextureName("magneticraft:tile_limestone");
+        setHarvestLevel(ManagerBlocks.tileLime.getHarvestTool(0), ManagerBlocks.tileLime.getHarvestLevel(0));
     }
 }

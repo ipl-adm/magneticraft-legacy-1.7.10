@@ -16,7 +16,7 @@ public class GuiRefinery extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/refinery.png")));
         comp.add(new CompFluidRender(((TileRefinery) tile).input, new GuiPoint(41, 25), new GuiPoint(59, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
         comp.add(new CompFluidRender(((TileRefinery) tile).output0, new GuiPoint(74, 25), new GuiPoint(92, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));

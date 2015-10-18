@@ -7,6 +7,7 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
@@ -189,7 +190,10 @@ public class TileSifter extends TileMB_Base {
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return INFINITE_EXTENT_AABB;
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 1, 2, 3);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(block, v2.add(block));
     }
 
     public void switchClick(int id) {

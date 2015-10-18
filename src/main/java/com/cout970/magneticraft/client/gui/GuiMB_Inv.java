@@ -15,7 +15,7 @@ public class GuiMB_Inv extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/mb_inv.png")));
         comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
     }

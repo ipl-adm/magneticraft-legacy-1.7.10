@@ -18,7 +18,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.tilerender.TileRenderPipeBronce;
 import com.cout970.magneticraft.util.fluid.FluidUtils;
 import com.cout970.magneticraft.util.fluid.IFluidTransport;
-import com.cout970.magneticraft.util.fluid.TankConection;
+import com.cout970.magneticraft.util.fluid.TankConnection;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -93,7 +93,7 @@ public class PartIronPipe extends PartFluidPipe implements ISidedHollowConnect {
 
     public static final int MAX_ACCEPT = 360;
     public static final int MAX_EXTRACT = 360;
-    public Map<MgDirection, TankConection> tanks = new HashMap<MgDirection, TankConection>();
+    public Map<MgDirection, TankConnection> tanks = new HashMap<MgDirection, TankConnection>();
     public ConnectionMode[] side = {ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT};//sides input and output
     public boolean[] locked = new boolean[6];
     public boolean toUpdate = true;
@@ -113,7 +113,7 @@ public class PartIronPipe extends PartFluidPipe implements ISidedHollowConnect {
             } else if (t instanceof IFluidHandler) {
                 if (this.canConnectOnSide(d)) {
                     connections[d.ordinal()] = true;
-                    tanks.put(d, new TankConection((IFluidHandler) t, d.opposite()));
+                    tanks.put(d, new TankConnection((IFluidHandler) t, d.opposite()));
                 }
             }
         }
@@ -150,7 +150,7 @@ public class PartIronPipe extends PartFluidPipe implements ISidedHollowConnect {
                     if (toD <= 0) continue;
                     if (getNetwork().getFluid() == null || !FluidRegistry.isFluidRegistered(getNetwork().fluid.getName()))
                         continue;
-                    TankConection t = tanks.get(d);//get the tank
+                    TankConnection t = tanks.get(d);//get the tank
                     if (t != null) {
                         toD = Math.min(toD, t.fill(t.side, new FluidStack(getNetwork().fluid, toD), false));//min (this can transfer and tank can transfer)
                         if (toD > 0) {
@@ -161,7 +161,7 @@ public class PartIronPipe extends PartFluidPipe implements ISidedHollowConnect {
                         }
                     }
                 } else if (side[d.ordinal()] == ConnectionMode.INPUT) {
-                    TankConection t = tanks.get(d);//get tank
+                    TankConnection t = tanks.get(d);//get tank
                     if (t != null) {
                         FluidStack f = t.drain(t.side, MAX_EXTRACT, false);//simulated extraction
                         if (f != null && f.getFluid() != null && (getNetwork().getFluid() == null || getNetwork().getFluid().getName().equals(f.getFluid().getName()))) {

@@ -15,7 +15,6 @@ import net.minecraftforge.common.util.ForgeDirection;
  * @author Cout970
  */
 public class VecInt {
-
     public static final VecInt NULL_VECTOR = new VecInt(0, 0, 0);
     protected int x;
     protected int y;

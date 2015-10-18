@@ -8,6 +8,7 @@ import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tileentity.TileRefineryTank;
 import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
@@ -126,7 +127,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 
     @Override
     public MgDirection getDirection() {
-        return MgDirection.getDirection(getBlockMetadata() % 6);
+        return MgDirection.getDirection(getBlockMetadata());
     }
 
     public boolean isActive() {
@@ -151,7 +152,11 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return TileEntity.INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection().opposite(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 1, 1, 2);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     public TankMg getInput() {

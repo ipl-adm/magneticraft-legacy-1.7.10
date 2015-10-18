@@ -19,7 +19,7 @@ public class GuiComputer extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/cpu.png")));
         comp.add(new CompCPU(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/cpu.png")));
     }

@@ -5,10 +5,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
 import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
-import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.tileentity.TileBase;
@@ -33,7 +30,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
     public float animation;
     public boolean auto;
     public float progress = 0;
-    public int maxProgres = 100;
+    public int maxProgress = 100;
     public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
     private double flow;
     private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
@@ -210,10 +207,10 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
         if (c instanceof IElectricTile) {
             IElectricConductor[] comp = ((IElectricTile) c).getConds(VecInt.NULL_VECTOR, 0);
             IElectricConductor cond2 = comp[0];
-            double resistence = cond.getResistance() + cond2.getResistance();
+            double resistance = cond.getResistance() + cond2.getResistance();
             double difference = cond.getVoltage() - cond2.getVoltage();
             double change = flow;
-            double slow = change * resistence;
+            double slow = change * resistance;
             flow += ((difference - slow) * cond.getIndScale())
                     / cond.getVoltageMultiplier();
             change += (difference * cond.getCondParallel())
@@ -330,7 +327,11 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        return TileEntity.INFINITE_EXTENT_AABB;
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection(), 3, 1, 3);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
     }
 
     public float getDelta() {
@@ -339,7 +340,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
         return time - aux;
     }
 
-    public IBarProvider getProgresBar() {
+    public IBarProvider getProgressBar() {
         return new IBarProvider() {
 
             @Override

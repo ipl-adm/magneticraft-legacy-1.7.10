@@ -111,10 +111,6 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
         return getBlockMetadata() > 5;
     }
 
-    public void onNeigChange() {
-        super.onNeigChange();
-    }
-
     public float getDelta() {
         long aux = time;
         time = System.nanoTime();

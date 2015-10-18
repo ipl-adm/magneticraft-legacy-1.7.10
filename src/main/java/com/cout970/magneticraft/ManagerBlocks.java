@@ -14,10 +14,13 @@ import com.cout970.magneticraft.block.slabs.*;
 import com.cout970.magneticraft.block.stairs.*;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
+import com.cout970.magneticraft.items.block.ItemBlockShelvingUnit;
 import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.*;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.pole.*;
+import com.cout970.magneticraft.tileentity.shelf.TileShelfFiller;
+import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
@@ -26,6 +29,7 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -134,6 +138,7 @@ public class ManagerBlocks {
     public static Block mb_controls;
     public static Block pressure_tank;
     public static Block crushing_table;
+    public static Block shelving_unit;
 
     public static BlockSlab slabOreLimeSingle;
     public static BlockSlab slabOreLimeDouble;
@@ -177,55 +182,57 @@ public class ManagerBlocks {
     public static void initBlocks() {
         //ores & resources
         oilSource = new BlockOilSource();
-        oreCopper = new BlockOre("copper_ore");
-        oreTungsten = new BlockOre("tungsten_ore");
-        oreUranium = new BlockOre("uranium_ore");
-        oreSulfur = new BlockOre("sulfur_ore");
-        oreThorium = new BlockOre("thorium_ore");
-        oreSalt = new BlockOre("salt_ore");
-        oreZinc = new BlockOre("zinc_ore");
+        oreCopper = new BlockOre("copper_ore", "pickaxe", 1);
+        oreTungsten = new BlockOre("tungsten_ore", "pickaxe", 2);
+        oreUranium = new BlockOre("uranium_ore", "pickaxe", 2);
+        oreSulfur = new BlockOre("sulfur_ore", "pickaxe", 1);
+        oreThorium = new BlockOre("thorium_ore", "pickaxe", 2);
+        oreSalt = new BlockOre("salt_ore", "pickaxe", 1);
+        oreZinc = new BlockOre("zinc_ore", "pickaxe", 1);
 
-        oreLime = new BlockOre("limestone");
+        oreLime = new BlockOre("limestone", "pickaxe", 0);
         slabOreLimeSingle = new BlockOreLimeSlab(false);
         slabOreLimeDouble = new BlockOreLimeSlab(true);
         stairsOreLime = new BlockOreLimeStairs();
 
         burntLime = new BlockSimple("burnt_limestone");
+        burntLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBurntLimeSingle = new BlockBurntLimeSlab(false);
         slabBurntLimeDouble = new BlockBurntLimeSlab(true);
         stairsBurntLime = new BlockBurntLimeStairs();
 
         brickLime = new BlockSimple("brick_limestone");
+        brickLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBrickLimeSingle = new BlockBrickLimeSlab(false);
         slabBrickLimeDouble = new BlockBrickLimeSlab(true);
         stairsBrickLime = new BlockBrickLimeStairs();
 
         roofTile = new BlockClayTile();
+        roofTile.setHarvestLevel(Blocks.hardened_clay.getHarvestTool(0), Blocks.hardened_clay.getHarvestLevel(0));
         slabRoofTileSingle = new BlockClayTileSlab(false);
         slabRoofTileDouble = new BlockClayTileSlab(true);
         stairsRoofTile = new BlockClayTileStairs();
 
         tileLime = new BlockSimple("tile_limestone");
-        slabTileLimeSingle = new BlockTileLimeSlab(false);
-        slabTileLimeDouble = new BlockTileLimeSlab(true);
-        stairsTileLime = new BlockTileLimeStairs();
-
-        tileLime = new BlockSimple("tile_limestone");
+        tileLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabTileLimeSingle = new BlockTileLimeSlab(false);
         slabTileLimeDouble = new BlockTileLimeSlab(true);
         stairsTileLime = new BlockTileLimeStairs();
 
         cobbleLime = new BlockSimple("cobble_limestone");
+        cobbleLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabCobbleLimeSingle = new BlockCobbleLimeSlab(false);
         slabCobbleLimeDouble = new BlockCobbleLimeSlab(true);
         stairsCobbleLime = new BlockCobbleLimeStairs();
 
         burntBrickLime = new BlockSimple("burnt_brick_limestone");
+        burntBrickLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBurntBrickLimeSingle = new BlockBurntBrickLimeSlab(false);
         slabBurntBrickLimeDouble = new BlockBurntBrickLimeSlab(true);
         stairsBurntBrickLime = new BlockBurntBrickLimeStairs();
 
         burntCobbleLime = new BlockSimple("burnt_cobble_limestone");
+        burntCobbleLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
         slabBurntCobbleLimeSingle = new BlockBurntCobbleLimeSlab(false);
         slabBurntCobbleLimeDouble = new BlockBurntCobbleLimeSlab(true);
         stairsBurntCobbleLime = new BlockBurntCobbleLimeStairs();
@@ -311,19 +318,29 @@ public class ManagerBlocks {
         if (Magneticraft.IC2) {
             eu_alternator = new BlockEUAlternator();
         }
+        if (Magneticraft.DEBUG) {
+        }
         pole_cable_wire = new BlockElectricPoleCableWire();
         infinite_energy = new BlockInfiniteEnergy();
         sifter = new BlockSifter();
         ingot_block_copper = new BlockOfIngots("block_copper");
+        ingot_block_copper.setHarvestLevel(oreCopper.getHarvestTool(0), oreCopper.getHarvestLevel(0));
         ingot_block_tungsten = new BlockOfIngots("block_tungsten");
+        ingot_block_tungsten.setHarvestLevel(oreTungsten.getHarvestTool(0), oreTungsten.getHarvestLevel(0));
         ingot_block_carbide = new BlockOfIngots("block_carbide");
+        ingot_block_carbide.setHarvestLevel(oreTungsten.getHarvestTool(0), oreTungsten.getHarvestLevel(0));
         ingot_block_brass = new BlockOfIngots("block_brass");
+        ingot_block_brass.setHarvestLevel(oreCopper.getHarvestTool(0), oreCopper.getHarvestLevel(0));
         ingot_block_zinc = new BlockOfIngots("block_zinc");
+        ingot_block_zinc.setHarvestLevel(oreZinc.getHarvestTool(0), oreZinc.getHarvestLevel(0));
         dust_block_salt = new BlockOfIngots("block_salt");
+        dust_block_salt.setHarvestLevel(oreSalt.getHarvestTool(0), oreSalt.getHarvestLevel(0));
         dust_block_sulfur = new BlockOfIngots("block_sulfur");
+        dust_block_sulfur.setHarvestLevel(oreSulfur.getHarvestTool(0), oreSulfur.getHarvestLevel(0));
         mb_controls = new BlockMB_Controls();
         pressure_tank = new BlockPressureTank();
         crushing_table = new BlockCrushingTable();
+        shelving_unit = new BlockShelvingUnit();
     }
 
     public static void registerBlocks() {
@@ -461,6 +478,9 @@ public class ManagerBlocks {
         if (Magneticraft.IC2) {
             addBlock(eu_alternator, "EU Alternator");
         }
+        if (Magneticraft.DEBUG) {
+            addBlock(pole_connector, "Electrical Pole Connector");
+        }
         addBlock(pole_cable_wire, "Electrical Pole With Transformer");
         addBlock(infinite_energy, "Creative Infinite Energy");
         addBlock(sifter, "Sifter Control");
@@ -470,10 +490,8 @@ public class ManagerBlocks {
         addBlock(oreZinc, "Zinc Ore", true);
         addBlock(pressure_tank, "Pressure Tank");
         addBlock(crushing_table, "Crushing Table");
+        addAltItemBlock(shelving_unit, ItemBlockShelvingUnit.class, "Shelving Unit");
 
-        if (Magneticraft.DEBUG) {
-            addBlock(pole_connector, "Electrical Pole Connector");
-        }
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
@@ -565,6 +583,8 @@ public class ManagerBlocks {
         if (Magneticraft.IC2) {
             tileEntities.add(TileEUAlternator.class);
         }
+        if (Magneticraft.DEBUG) {
+        }
         tileEntities.add(TileElectricPoleCableWire.class);
         tileEntities.add(TileElectricPoleCableWireDown.class);
         tileEntities.add(TileInfiniteEnergy.class);
@@ -573,6 +593,9 @@ public class ManagerBlocks {
         tileEntities.add(TileMB_Controls.class);
         tileEntities.add(TilePressureTank.class);
         tileEntities.add(TileCrushingTable.class);
+        tileEntities.add(TileShelvingUnit.class);
+        tileEntities.add(TileShelfFiller.class);
+
 //      tileEntities.add(TileElectricConnector.class);
 //      tileEntities.add(TileElectricConnectorDown.class);
 

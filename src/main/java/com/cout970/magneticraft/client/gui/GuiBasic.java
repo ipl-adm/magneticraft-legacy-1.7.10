@@ -23,10 +23,10 @@ public abstract class GuiBasic extends GuiContainer {
         this.tile = tile;
         xTam = xSize;
         yTam = ySize;
-        initComponenets();
+        initComponents();
     }
 
-    public abstract void initComponenets();
+    public abstract void initComponents();
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float fps, int mx, int my) {
@@ -49,6 +49,7 @@ public abstract class GuiBasic extends GuiContainer {
      * b == 0 => left
      * b == 1 => right
      */
+    @Override
     protected void mouseClicked(int x, int y, int b) {
         super.mouseClicked(x, y, b);
         for (IGuiComp c : comp) {
@@ -56,7 +57,7 @@ public abstract class GuiBasic extends GuiContainer {
         }
     }
 
-    public boolean isIn(int mx, int my, int x, int y, int w, int h) {
+    public static boolean isIn(int mx, int my, int x, int y, int w, int h) {
         if (mx > x && mx < x + w) {
             if (my > y && my < y + h) {
                 return true;
@@ -65,13 +66,13 @@ public abstract class GuiBasic extends GuiContainer {
         return false;
     }
 
-    protected void keyTyped(char letra, int num) {
+    protected void keyTyped(char letter, int num) {
         boolean block = false;
         for (IGuiComp c : comp) {
-            if (c.onKey(num, letra, this)) block = true;
+            if (c.onKey(num, letter, this)) block = true;
         }
         if (!block)
-            super.keyTyped(letra, num);
+            super.keyTyped(letter, num);
     }
 
     public FontRenderer getFontRenderer() {

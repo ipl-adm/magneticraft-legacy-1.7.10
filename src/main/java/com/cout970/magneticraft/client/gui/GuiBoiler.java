@@ -14,7 +14,7 @@ public class GuiBoiler extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/boiler.png")));
         comp.add(new CompHeatBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(107, 20), ((TileBoiler) tile).heat));
         comp.add(new CompFluidRender(((TileBoiler) tile).water, new GuiPoint(54, 25), new GuiPoint(72, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));

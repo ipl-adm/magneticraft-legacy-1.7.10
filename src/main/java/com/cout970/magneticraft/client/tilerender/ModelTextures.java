@@ -11,14 +11,14 @@ public class ModelTextures {
     public static final ResourceLocation PIPE_BASE_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/base.png");
     public static final ResourceLocation PIPE_IN_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/in.png");
     public static final ResourceLocation PIPE_BASE_2_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/base2.png");
-    public static final ResourceLocation PIPE_CONECTION_1_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/conection1.png");
-    public static final ResourceLocation PIPE_CONECTION_2_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/conection2.png");
+    public static final ResourceLocation PIPE_CONNECTION_1_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/conection1.png");
+    public static final ResourceLocation PIPE_CONNECTION_2_COPPER = new ResourceLocation("magneticraft", "textures/misc/pipe/copper/conection2.png");
     //bronce pipe
     public static final ResourceLocation PIPE_BASE_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/base.png");
     public static final ResourceLocation PIPE_IN_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/in.png");
     public static final ResourceLocation PIPE_BASE_2_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/base2.png");
-    public static final ResourceLocation PIPE_CONECTION_1_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/conection1.png");
-    public static final ResourceLocation PIPE_CONECTION_2_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/conection2.png");
+    public static final ResourceLocation PIPE_CONNECTION_1_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/conection1.png");
+    public static final ResourceLocation PIPE_CONNECTION_2_IRON = new ResourceLocation("magneticraft", "textures/misc/pipe/iron/conection2.png");
     //electric cables
     public static final ResourceLocation CABLE_LOW = new ResourceLocation("magneticraft", "textures/misc/modelcablelow.png");
     public static final ResourceLocation CABLE_MEDIUM = new ResourceLocation("magneticraft", "textures/misc/modelcablemedium.png");
@@ -81,4 +81,5 @@ public class ModelTextures {
     public static final ResourceLocation GAUGE = new ResourceLocation("magneticraft", "textures/misc/gauge.png");
     public static final ResourceLocation BRASS_PIPE = new ResourceLocation("magneticraft", "textures/misc/pipe/brass/base.png");
     public static final ResourceLocation CRUSHING_TABLE = new ResourceLocation("magneticraft", "textures/misc/modelcrushingtable.png");
+    public static final ResourceLocation SHELVING_UNIT = new ResourceLocation("magneticraft", "textures/misc/modelshelvingunit.png");
 }

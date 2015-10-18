@@ -24,18 +24,18 @@ public class GuiInserter extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/inserter.png")));
         comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 52)));
-        comp.add(new CompInseterGui(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/inserter.png"), new GuiPoint(74, 53)));
+        comp.add(new CompInserterGui(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/inserter.png"), new GuiPoint(74, 53)));
     }
 
-    public class CompInseterGui implements IGuiComp {
+    public class CompInserterGui implements IGuiComp {
 
         public GuiPoint pos;
         public ResourceLocation texture;
 
-        public CompInseterGui(ResourceLocation resourceLocation, GuiPoint guiPoint) {
+        public CompInserterGui(ResourceLocation resourceLocation, GuiPoint guiPoint) {
             texture = resourceLocation;
             pos = guiPoint;
         }

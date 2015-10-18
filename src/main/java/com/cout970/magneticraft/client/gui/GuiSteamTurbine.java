@@ -22,7 +22,7 @@ public class GuiSteamTurbine extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/turbine.png")));
         comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/efficiencybar.png"), new GuiPoint(29, 20), ((TileSteamTurbineControl) tile).getProductionBar()));
         comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/consumptionbar.png"), new GuiPoint(39, 20), ((TileSteamTurbineControl) tile).getSteamConsumtionBar()));

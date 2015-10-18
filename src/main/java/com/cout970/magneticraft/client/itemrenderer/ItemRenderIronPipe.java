@@ -62,7 +62,7 @@ public class ItemRenderIronPipe implements IItemRenderer {
         model_1.render(0.0625f, new boolean[]{true, true, true, true, true, true});
         RenderUtil.bindTexture(ModelTextures.PIPE_IN_IRON);
         model_2.render(0.0625f, b);
-        RenderUtil.bindTexture(ModelTextures.PIPE_CONECTION_1_IRON);
+        RenderUtil.bindTexture(ModelTextures.PIPE_CONNECTION_1_IRON);
         model_0.render(0.0625f, b, true);
 //		GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glPopMatrix();

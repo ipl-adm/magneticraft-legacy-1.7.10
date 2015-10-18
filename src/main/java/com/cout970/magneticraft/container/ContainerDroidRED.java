@@ -23,6 +23,7 @@ public class ContainerDroidRED extends ContainerBasic {
         bindPlayerInventory(p);
     }
 
+    @Override
     public void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
@@ -35,6 +36,7 @@ public class ContainerDroidRED extends ContainerBasic {
         }
     }
 
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
         return transfer(player, slot, new int[]{2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3});
     }

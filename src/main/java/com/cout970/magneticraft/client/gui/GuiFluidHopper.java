@@ -16,7 +16,7 @@ public class GuiFluidHopper extends GuiBasic {
     }
 
     @Override
-    public void initComponenets() {
+    public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/hopper.png")));
         comp.add(new CompFluidRender(((TileFluidHopper) tile).tank, new GuiPoint(81, 25), new GuiPoint(99, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
     }

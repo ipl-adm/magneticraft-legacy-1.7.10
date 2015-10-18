@@ -138,7 +138,8 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         if (!ignoreMeta)
             if (f.getItemDamage() != i.getItemDamage()) return false;
         if (!ignoreNBT)
-            if (f.getTagCompound() != i.getTagCompound()) return false;
+            if (((f.getTagCompound() != null) && (!f.getTagCompound().equals(i.getTagCompound()))) || ((f.getTagCompound() == null) && (i.getTagCompound() == null)))
+                return false;
         return true;
     }
 

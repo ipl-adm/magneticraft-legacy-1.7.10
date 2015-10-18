@@ -9,6 +9,7 @@ public class BlockBurntLimeSlab extends BlockMgSlab {
         super(full, ManagerBlocks.burntLime.getMaterial(), ManagerBlocks.burntLime.getUnlocalizedName() + "Slab" + (full ? "Full" : ""));
         setHardness(1.5F);
         setStepSound(soundTypeStone);
+        setHarvestLevel(ManagerBlocks.burntLime.getHarvestTool(0), ManagerBlocks.burntLime.getHarvestLevel(0));
         setBlockTextureName("magneticraft:burnt_limestone");
     }
 

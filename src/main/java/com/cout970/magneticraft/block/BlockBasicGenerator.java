@@ -53,11 +53,8 @@ public class BlockBasicGenerator extends BlockMg {
         } else {
             h = true;
         }
-        if (h) {
-            p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
-            return true;
-        }
-        return false;
+        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
+        return true;
     }
 
     public static ItemStack consumeItem(ItemStack stack) {

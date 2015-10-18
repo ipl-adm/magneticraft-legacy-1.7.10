@@ -34,7 +34,7 @@ public class ManagerOreDict {
         OreDictionary.registerOre("ingotCarbide", ingotCarbide);
         OreDictionary.registerOre("ingotZinc", ingotZinc);
         OreDictionary.registerOre("ingotBrass", ingotBrass);
-        OreDictionary.registerOre("itemPlastic", plastic);
+        OreDictionary.registerOre("sheetPlastic", plastic);
         OreDictionary.registerOre("itemRubber", rubber);
 
         OreDictionary.registerOre("blockCopper", ingot_block_copper);

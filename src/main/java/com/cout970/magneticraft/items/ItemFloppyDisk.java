@@ -19,7 +19,7 @@ public class ItemFloppyDisk extends ItemBasic implements IStorageDevice {
     }
 
     @Override
-    public File getAsociateFile(ItemStack i) {
+    public File getAssociateFile(ItemStack i) {
         NBTUtils.sanityCheck(i);
         return ComputerUtils.getFileFromItemStack(i);
     }

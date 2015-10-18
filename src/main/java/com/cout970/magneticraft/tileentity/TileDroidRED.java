@@ -113,7 +113,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
     public void create() {
         memory = new ModuleMemoryController(0x10000, false, 8);
         cpu = new ModuleCPU_MIPS();
-        floppyDisk = new ModuleDisckDrive(this);
+        floppyDisk = new ModuleDiskDrive(this);
         rom = new ModuleROM();
         cpu.connectMemory(memory);
         memory.setComputer(this);

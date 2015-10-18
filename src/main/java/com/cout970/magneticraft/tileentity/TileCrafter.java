@@ -352,7 +352,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         public boolean equals(Object obj) {
             if (obj instanceof InvSlot) {
                 InvSlot pos = (InvSlot) obj;
-                return pos.slot == slot && pos.inv == inv && InventoryUtils.areExaticlyEqual(content, pos.content);
+                return pos.slot == slot && pos.inv == inv && InventoryUtils.areExactlyEqual(content, pos.content);
             }
             return false;
         }

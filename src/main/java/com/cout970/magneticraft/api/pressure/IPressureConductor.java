@@ -50,8 +50,11 @@ public interface IPressureConductor extends IConnectable {
     void setTemperature(double temp);
 
     /**
-     * add or remove gass from the conductor, the values must be positive and the units moles
+     * adds fluid to this conductor
+     * @param pack fluid input
+     * @return excess fluid
      */
+    PressurizedFluid moveFluid(PressurizedFluid pack);
 
     /**
      * @param gas

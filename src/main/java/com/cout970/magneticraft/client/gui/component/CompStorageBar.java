@@ -44,7 +44,7 @@ public class CompStorageBar implements IGuiComp {
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (cond != null) {
-            if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 11, 50)) {
+            if (GuiBasic.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 11, 50)) {
                 List<String> data = new ArrayList<String>();
                 data.add(String.format("%.3fk" + Magneticraft.ENERGY_STORED_NAME, cond.getStorage() / 1000f));
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

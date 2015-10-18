@@ -35,7 +35,7 @@ public class CompButtonRedstoneControl implements IGuiComp {
 
     @Override
     public void onClick(int mx, int my, int buttom, GuiBasic gui) {
-        if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
+        if (GuiBasic.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
             if (gui.tile instanceof TileBase) {
                 RedstoneControl state = ((TileBase) (gui.tile)).redstone;
                 state = TileBase.step(state);
@@ -51,7 +51,7 @@ public class CompButtonRedstoneControl implements IGuiComp {
 
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-        if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
+        if (GuiBasic.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
             if (gui.tile instanceof TileBase) {
                 RedstoneControl state = ((TileBase) (gui.tile)).redstone;
                 List<String> data = new ArrayList<String>();

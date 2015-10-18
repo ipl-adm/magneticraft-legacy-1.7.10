@@ -1,22 +1,31 @@
 package com.cout970.magneticraft.parts.electric;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.cout970.magneticraft.ManagerItems;
+import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.electricity.IElectricConductor;
+import com.cout970.magneticraft.api.electricity.IElectricMultiPart;
+import com.cout970.magneticraft.api.electricity.IEnergyInterface;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
+import com.cout970.magneticraft.api.util.ConnectionClass;
+import com.cout970.magneticraft.api.util.EnergyConverter;
+import com.cout970.magneticraft.api.util.IConnectable;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
+
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.microblock.ISidedHollowConnect;
 import codechicken.multipart.NormallyOccludedPart;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
-import com.cout970.magneticraft.ManagerItems;
-import com.cout970.magneticraft.api.electricity.*;
-import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.*;
-import com.cout970.magneticraft.client.tilerender.TileRenderCableLow;
 import net.minecraft.tileentity.TileEntity;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class PartCableLow extends PartElectric implements ISidedHollowConnect, IElectricMultiPart {
 

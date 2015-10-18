@@ -2,8 +2,6 @@ package com.cout970.magneticraft.api.util;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.awt.geom.AffineTransform;
-
 /**
  * Own Implementation of ForgeDirection to be able to update to 1.8 faster
  *
@@ -56,11 +54,6 @@ public enum MgDirection {
         return values()[i % VALID_DIRECTIONS.length];
     }
 
-    /**
-     *
-     * @param c
-     * @return
-     */
     public static MgDirection getDirectionFromCardinal(int c) {
         return CARDINAL_DIRECTIONS[c % 4];
     }

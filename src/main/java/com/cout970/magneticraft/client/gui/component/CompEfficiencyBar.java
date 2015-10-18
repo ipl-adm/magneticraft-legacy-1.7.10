@@ -42,9 +42,9 @@ public class CompEfficiencyBar implements IGuiComp {
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (bar != null) {
-            if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+            if (GuiBasic.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
                 List<String> data = new ArrayList<String>();
-                data.add(String.format("Efficiency %.1f", (float) ((bar.getLevel() / bar.getMaxLevel()) * 100)) + "%");
+                data.add(String.format("Efficiency %.1f", (bar.getLevel() / bar.getMaxLevel()) * 100) + "%");
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                 RenderHelper.enableGUIStandardItemLighting();
             }

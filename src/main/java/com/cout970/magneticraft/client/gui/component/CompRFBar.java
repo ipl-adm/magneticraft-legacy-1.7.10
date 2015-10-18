@@ -43,7 +43,7 @@ public class CompRFBar implements IGuiComp {
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (tile instanceof IEnergyHandler) {
             IEnergyHandler c = (IEnergyHandler) tile;
-            if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 12, 42)) {
+            if (GuiBasic.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 12, 42)) {
                 List<String> data = new ArrayList<String>();
                 data.add(c.getEnergyStored(null) + "RF");
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

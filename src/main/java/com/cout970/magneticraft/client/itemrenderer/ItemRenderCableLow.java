@@ -22,7 +22,7 @@ public class ItemRenderCableLow implements IItemRenderer {
         return true;
     }
 
-    @Override
+	@Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         switch (type) {
             case ENTITY: {
@@ -40,6 +40,8 @@ public class ItemRenderCableLow implements IItemRenderer {
             case EQUIPPED_FIRST_PERSON: {
                 render(0.5F, 0.0F, 0.5F, 1.0F, item);
             }
+            default:
+            	break;
         }
     }
 

@@ -46,10 +46,10 @@ public class CompScreen implements IGuiComp {
         float aux2 = 0.00390625F;
         Tessellator tes = Tessellator.instance;
         tes.startDrawingQuads();
-        tes.addVertexWithUV((double) x, (double) (y + tamY), this.zLevel, (double) ((float) u * aux), (double) ((float) (v + height) * aux2));
-        tes.addVertexWithUV((double) (x + tamX), (double) (y + tamY), this.zLevel, (double) ((float) (u + width) * aux), (double) ((float) (v + height) * aux2));
-        tes.addVertexWithUV((double) (x + tamX), (double) y, this.zLevel, (double) ((float) (u + width) * aux), (double) ((float) v * aux2));
-        tes.addVertexWithUV((double) x, (double) y, this.zLevel, (double) ((float) u * aux), (double) ((float) v * aux2));
+        tes.addVertexWithUV(x, y + tamY, this.zLevel, u * aux, (v + height) * aux2);
+        tes.addVertexWithUV(x + tamX, y + tamY, this.zLevel, (u + width) * aux, (v + height) * aux2);
+        tes.addVertexWithUV(x + tamX, y, this.zLevel, (u + width) * aux, v * aux2);
+        tes.addVertexWithUV(x, y, this.zLevel, u * aux, v * aux2);
         tes.draw();
     }
 
@@ -59,11 +59,11 @@ public class CompScreen implements IGuiComp {
 
     @Override
     public boolean onKey(int num, char key, GuiBasic gui) {
-        if ((int) key == 27) return false;
+        if (key == 27) return false;
         int shift = 0;
         if (GuiScreen.isShiftKeyDown()) shift |= 64;
         if (GuiScreen.isCtrlKeyDown()) shift |= 32;
-        switch ((int) key) {
+        switch (key) {
             case 199:
                 this.sendKey(132 | shift, gui);
                 break;
@@ -76,8 +76,8 @@ public class CompScreen implements IGuiComp {
             case 206:
             case 209:
             default:
-                if ((int) key > 0 && (int) key <= 127) {
-                    this.sendKey((int) key, gui);
+                if (key > 0 && key <= 127) {
+                    this.sendKey(key, gui);
                 }
                 break;
 

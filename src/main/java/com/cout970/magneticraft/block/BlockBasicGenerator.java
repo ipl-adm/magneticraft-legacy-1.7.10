@@ -33,7 +33,7 @@ public class BlockBasicGenerator extends BlockMg {
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int par6, float par7, float par8, float par9) {
 
         if (p.isSneaking()) return false;
-        boolean h;
+        
         ItemStack current = p.inventory.getCurrentItem();
         if (current != null) {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
@@ -47,11 +47,7 @@ public class BlockBasicGenerator extends BlockMg {
                     p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
                 }
                 return true;
-            } else {
-                h = true;
             }
-        } else {
-            h = true;
         }
         p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
         return true;

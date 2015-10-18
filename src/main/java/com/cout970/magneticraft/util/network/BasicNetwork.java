@@ -30,7 +30,7 @@ public class BasicNetwork {
 	}
 	
 	public NetworkNode[] getNodes(){
-		return nodes.toArray(new NetworkNode[nodes.size()]);
+		return nodes.toArray(new NetworkNode[0]);
 	}
 	
 	public void addNode(NetworkNode node){

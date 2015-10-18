@@ -1,18 +1,13 @@
 package com.cout970.magneticraft.util.network.pressure;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
-import com.cout970.magneticraft.api.pressure.PressureUtils;
 import com.cout970.magneticraft.api.pressure.prefab.PressureConductor;
 import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.network.NetworkNode;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -28,56 +23,23 @@ public class NodePressureConductor extends PressureConductor {
 	public PressureNetwork getNet() {
 		return ((PressureNetwork) node.getNetwork());
 	}
-
-	@Override
-	public void iterate() {
-		World w = parent.getWorldObj();
-		if (w.isRemote)
-			return;
-		if (getFluid() == null)
-			return;
-		for (MgDirection dir : MgDirection.values()) {
-			TileEntity tile = MgUtils.getTileEntity(parent, dir);
-			if (tile != null) {
-				List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, dir.opposite().toVecInt());
-				List<IPressureConductor> conds = new ArrayList<IPressureConductor>();
-				for (IPressureConductor p : pre) {
-					if (p instanceof NodePressureConductor) {
-						if (((NodePressureConductor) p).node.getNetwork() != node.getNetwork()) {
-							if (p.getFluid() == null && getFluid() != null) {
-								p.setFluid(getFluid());
-								p.setTemperature(getTemperature());
-								conds.add(p);
-							} else if (p.getFluid() == getFluid()) {
-								conds.add(p);
-							}
-						}
-					} else {
-						if (p.getFluid() == null) {
-							p.setFluid(getFluid());
-							p.setTemperature(getTemperature());
-							conds.add(p);
-						} else if (p.getFluid() == getFluid()) {
-							conds.add(p);
-						}
+	
+	public void filter(List<IPressureConductor> data, List<IPressureConductor> result){
+    	for (IPressureConductor p : data) {
+    		
+    		if (p instanceof NodePressureConductor) {
+				if (((NodePressureConductor) p).node.getNetwork() != node.getNetwork()) {
+					if (p.getFluid() == null || p.getFluid() == getFluid()) {
+						result.add(p);
 					}
 				}
-				for (IPressureConductor p : conds) {
-					double old = getMoles();
-					double sum = getMoles() + p.getMoles();
-					double vol = getVolume() + p.getVolume();
-					setMoles(sum * (getVolume() / vol));
-					p.setMoles(sum * (p.getVolume() / vol));
-
-					if (old > getMoles()) {
-						p.setTemperature(getTemperature());
-					} else {
-						setTemperature(p.getTemperature());
-					}
+			}else{
+				if (p.getFluid() == null || p.getFluid() == getFluid()) {
+					result.add(p);
 				}
 			}
-		}
-	}
+    	}
+    }
 
 	@Override
 	public double getVolume() {
@@ -148,14 +110,22 @@ public class NodePressureConductor extends PressureConductor {
 	public double getMaxPressure() {
 		return EnergyConverter.BARtoPA(200);
 	}
-
+	
 	@Override
-	public Fluid getFluid() {
-		return currentGas;
-	}
+    public Fluid getFluid() {
+		return getNet().getPressureCond().getFluid();
+    }
 
-	@Override
-	public void setFluid(Fluid f) {
-		currentGas = f;
-	}
+    @Override
+    public void setFluid(Fluid f) {
+    	getNet().getPressureCond().setFluid(f);
+    }
+	
+    public Fluid getFluidNode() {
+        return currentGas;
+    }
+
+    public void setFluidNode(Fluid f) {
+        currentGas = f;
+    }
 }

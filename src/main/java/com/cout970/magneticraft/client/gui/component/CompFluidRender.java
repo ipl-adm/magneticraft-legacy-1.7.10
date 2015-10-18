@@ -62,7 +62,7 @@ public class CompFluidRender implements IGuiComp {
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (tank != null && tank.getFluid() != null) {
-            if (gui.isIn(mx, my, gui.xStart + posA.x, gui.yStart + posA.y, Math.abs(posA.x - posB.x), Math.abs(posA.y - posB.y))) {
+            if (GuiBasic.isIn(mx, my, gui.xStart + posA.x, gui.yStart + posA.y, Math.abs(posA.x - posB.x), Math.abs(posA.y - posB.y))) {
                 List<String> data = new ArrayList<String>();
                 data.add("Fluid: " + tank.getFluid().getLocalizedName());
                 data.add("Amount: " + tank.getFluidAmount());

@@ -42,7 +42,7 @@ public class CompGenericBar implements IGuiComp {
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (bar != null) {
-            if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+            if (GuiBasic.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
                 List<String> data = new ArrayList<String>();
                 data.add(bar.getMessage());
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

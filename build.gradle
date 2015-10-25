@@ -22,6 +22,9 @@ version = "0.6.0-beta1"
 group= "com.cout970.magneticraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "magneticraft"
 
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
 curse {
     projectId = '224808'
     displayName = 'Magneticraft ' + version
@@ -94,10 +97,6 @@ task devJar(type: Jar) {
     classifier = 'dev'
 }
 
-tasks.withType(JavaCompile) {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
-}
 
 artifacts {
     archives devJar

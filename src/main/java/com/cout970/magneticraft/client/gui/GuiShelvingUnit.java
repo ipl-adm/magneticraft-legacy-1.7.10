@@ -31,18 +31,21 @@ public class GuiShelvingUnit extends GuiBasic {
         xTam = xSize = 195;
         yTam = ySize = 204;
     }
+
     @Override
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/shelving_unit.png")));
         scrollBar = new CompScrollBar(new GuiPoint(175, 18), new GuiPoint(187, 106), 19);
         tabButtons = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            int tab = i;
-            CompButton button = new CompButton(new GuiPoint(173, 158 - 18 * i), 16, 16, new GuiPoint(0, 32 - 16 * i), "textures/gui/buttons.png", (n) -> apply(tab, n));
-            button.setUVForState(ButtonState.ACTIVE, new GuiPoint(16, 32 - 16 * i));
+            final int tab = i;
+            CompButton button = new CompButton(new GuiPoint(173, 158 - 18 * i), 16, 16, new GuiPoint(0, 32 - 16 * i), "textures/gui/buttons.png", (n) -> apply(tab, n))
+                    .setUVForState(ButtonState.HOVER, new GuiPoint(16, 32 - 16 * i))
+                    .setUVForState(ButtonState.DISABLED, new GuiPoint(32, 32 - 16 * i))
+                    .setUVForState(ButtonState.ACTIVE, new GuiPoint(48, 32 - 16 * i))
+                    .setClickable(ButtonState.ACTIVE, false);
             tabButtons.add(button);
         }
-        tabButtons.get(2).setUVForState(ButtonState.DISABLED, new GuiPoint(32, 0));
         comp.addAll(tabButtons);
         if (shelfContainer != null) {
             shelfContainer.curInv = 0;
@@ -72,6 +75,12 @@ public class GuiShelvingUnit extends GuiBasic {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float fps, int mx, int my) {
+        int allowed = (int) Math.ceil(((float) shelfContainer.shelf.getCrateCount()) / TileShelvingUnit.SHELF_CRATES) - 1;
+        if (allowed < 0) {
+            //draw tip over the whole thing
+            allowed = 0;
+        }
+        assertTabStates(allowed);
         super.drawGuiContainerBackgroundLayer(fps, mx, my);
         TileShelvingUnit shelf = shelfContainer.shelf;
 
@@ -120,16 +129,22 @@ public class GuiShelvingUnit extends GuiBasic {
         }
     }
 
-    public Void apply(int tab, int mouseButton) {
+    public boolean apply(int tab, int mouseButton) {
         if (mouseButton == 0) {
             mc.playerController.sendEnchantPacket(shelfContainer.windowId, (shelfContainer.curInv = tab));
         }
+        return true;
+    }
 
-        for (CompButton button : tabButtons) {
-            button.setCurrentState(ButtonState.NORMAL);
+    public void assertTabStates(int allowed) {
+        tabButtons.stream().forEach(n -> n.setCurrentState(ButtonState.NORMAL));
+        if (shelfContainer.curInv > allowed) {
+            mc.playerController.sendEnchantPacket(shelfContainer.windowId, (shelfContainer.curInv = allowed));
         }
-        tabButtons.get(tab).setCurrentState(ButtonState.ACTIVE);
-        return null;
+        tabButtons.get(shelfContainer.curInv).setCurrentState(ButtonState.ACTIVE);
+        for (int i = allowed + 1; i < tabButtons.size(); i++) {
+            tabButtons.get(i).setCurrentState(ButtonState.DISABLED);
+        }
     }
 
 }

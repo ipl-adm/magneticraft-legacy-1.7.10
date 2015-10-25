@@ -187,9 +187,7 @@ public abstract class PartWireCopper extends PartElectric {
                     }
                 }
             }
-            tile().jPartList().stream().filter(t -> t instanceof PartWireCopper && t != this).filter(t -> ((PartWireCopper) t).getDirection() == f).forEach(t -> {
-                Conn |= 1 << f.ordinal();
-            });
+            tile().jPartList().stream().filter(t -> t instanceof PartWireCopper && t != this).filter(t -> ((PartWireCopper) t).getDirection() == f).forEach(t -> Conn |= 1 << f.ordinal());
             if (inter != null) {
                 Conn |= 1 << f.ordinal();
             }

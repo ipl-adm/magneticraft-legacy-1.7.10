@@ -15,9 +15,7 @@ public class ThermopileDecay implements IThermopileDecay {
         if (tempHot > 100 && tempCold > 100) {
             if (b.contains(new BlockInfo(Blocks.lava, -1))) {
                 Random r = new Random();
-                b.stream().filter(i -> i.getBlock() == Blocks.lava).filter(i -> r.nextInt(300) == 0).forEach(i -> {
-                    w.setBlock(i.getPosition()[0], i.getPosition()[1], i.getPosition()[2], Blocks.obsidian);
-                });
+                b.stream().filter(i -> i.getBlock() == Blocks.lava).filter(i -> r.nextInt(300) == 0).forEach(i -> w.setBlock(i.getPosition()[0], i.getPosition()[1], i.getPosition()[2], Blocks.obsidian));
             }
         }
     }

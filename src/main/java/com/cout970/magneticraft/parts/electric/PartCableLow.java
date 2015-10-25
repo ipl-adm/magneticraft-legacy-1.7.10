@@ -126,9 +126,7 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
                     connections = (byte) (connections | (1 << d.ordinal()));
             }
         }
-        tile().jPartList().stream().filter(t -> t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getElectricConductor(getTier()) != null).filter(t -> t instanceof PartWireCopper).forEach(t -> {
-            connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal()));
-        });
+        tile().jPartList().stream().filter(t -> t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getElectricConductor(getTier()) != null).filter(t -> t instanceof PartWireCopper).forEach(t -> connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal())));
     }
 
 

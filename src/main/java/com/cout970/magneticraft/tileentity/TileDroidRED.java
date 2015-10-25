@@ -256,9 +256,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
             items = b.getDrops(worldObj, xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ(), metadata, 0);
             worldObj.func_147480_a(xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ(), false);
 
-            items.stream().filter(itemStack -> !InventoryUtils.dropIntoInventory(itemStack, getInv())).forEach(itemStack -> {
-                BlockMg.dropItem(itemStack, worldObj.rand, xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ(), worldObj);
-            });
+            items.stream().filter(itemStack -> !InventoryUtils.dropIntoInventory(itemStack, getInv())).forEach(itemStack -> BlockMg.dropItem(itemStack, worldObj.rand, xCoord + dire.getOffsetX(), yCoord + dire.getOffsetY(), zCoord + dire.getOffsetZ(), worldObj));
         }
     }
 

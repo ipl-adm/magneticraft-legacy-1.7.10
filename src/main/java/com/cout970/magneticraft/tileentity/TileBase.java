@@ -25,6 +25,7 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
     public void onBlockBreaks() {
     }
 
+    @SuppressWarnings("unchecked")
     public void sendUpdateToClient() {
         if (worldObj.isRemote) return;
         NBTTagCompound nbt = new NBTTagCompound();

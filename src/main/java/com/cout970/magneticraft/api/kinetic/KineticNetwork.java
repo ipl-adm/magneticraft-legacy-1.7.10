@@ -60,9 +60,7 @@ public class KineticNetwork {
     }
 
     public void preventUpdates() {
-        componets.stream().filter(cond -> cond instanceof IKineticController).forEach(cond -> {
-            ((IKineticController) cond).preventUpdate();
-        });
+        componets.stream().filter(cond -> cond instanceof IKineticController).forEach(cond -> ((IKineticController) cond).preventUpdate());
     }
 
     public void stop(IKineticConductor kinetic) {

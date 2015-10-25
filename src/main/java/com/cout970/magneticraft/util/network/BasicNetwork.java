@@ -67,9 +67,7 @@ public class BasicNetwork {
 		pathfinder.addNeigBlocks(new VecInt(startingPoint.getParent()));
 		while(pathfinder.iterate()){
 		}
-		nodes.stream().filter(nd -> !pathfinder.nodes.contains(nd)).forEach(nd -> {
-			nd.setNetwork(null);
-		});
+		nodes.stream().filter(nd -> !pathfinder.nodes.contains(nd)).forEach(nd -> nd.setNetwork(null));
 		nodes.clear();
 		pathfinder.nodes.forEach(this::addNode);
 		onNetworkChange();

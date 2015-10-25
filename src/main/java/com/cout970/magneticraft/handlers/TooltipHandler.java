@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Handler for steel tooltip
@@ -19,9 +20,7 @@ public class TooltipHandler {
             ItemStack stack = event.itemStack;
             ISteelItem steel = (ISteelItem) stack.getItem();
             Map<ISteelAttribute, Integer> map = steel.getAttributeMap(stack);
-            for (ISteelAttribute attribute : map.keySet()) {
-                event.toolTip.add(attribute.getDisplayText(map.get(attribute)));
-            }
+            event.toolTip.addAll(map.keySet().stream().map(attribute -> attribute.getDisplayText(map.get(attribute))).collect(Collectors.toList()));
         }
     }
 }

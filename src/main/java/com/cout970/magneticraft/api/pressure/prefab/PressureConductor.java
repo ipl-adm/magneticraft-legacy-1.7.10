@@ -2,6 +2,7 @@ package com.cout970.magneticraft.api.pressure.prefab;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cout970.magneticraft.api.pressure.PressurizedFluid;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
@@ -49,7 +50,7 @@ public class PressureConductor implements IPressureConductor {
 			TileEntity tile = MgUtils.getTileEntity(parent, vec);
 			if (tile != null) {
 				List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, vec.getOpposite());
-                List<IPressureConductor> conds = new ArrayList<IPressureConductor>();
+                List<IPressureConductor> conds = new ArrayList<>();
 
                 filter(pre, conds);
 
@@ -74,11 +75,7 @@ public class PressureConductor implements IPressureConductor {
     }
 
     public void filter(List<IPressureConductor> data, List<IPressureConductor> result){
-    	for (IPressureConductor p : data) {
-    		if (p.getFluid() == null || p.getFluid() == getFluid()) {
-    			result.add(p);
-    		}
-    	}
+        result.addAll(data.stream().filter(p -> p.getFluid() == null || p.getFluid() == getFluid()).collect(Collectors.toList()));
     }
 
     @Override

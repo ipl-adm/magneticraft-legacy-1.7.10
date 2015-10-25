@@ -36,10 +36,10 @@ import net.minecraft.tileentity.TileEntity;
 
 public class ManagerBlocks {
 
-    public static List<Class<? extends TileEntity>> tileEntities = new LinkedList<Class<? extends TileEntity>>();
-    public static List<Block> blocks = new LinkedList<Block>();
-    public static List<Block> microblocks = new LinkedList<Block>();
-    public static List<NamedBlock> named = new LinkedList<NamedBlock>();
+    public static List<Class<? extends TileEntity>> tileEntities = new LinkedList<>();
+    public static List<Block> blocks = new LinkedList<>();
+    public static List<Block> microblocks = new LinkedList<>();
+    public static List<NamedBlock> named = new LinkedList<>();
 
     public static Block oreCopper;
     public static Block oreTungsten;

@@ -19,7 +19,7 @@ import java.util.List;
 public class ConveyorBeltLane implements IConveyorBeltLane {
 
     protected IConveyorBelt parent;
-    protected List<IItemBox> content = new ArrayList<IItemBox>();
+    protected List<IItemBox> content = new ArrayList<>();
     protected HitBoxArray hitBox = new HitBoxArray();
     protected boolean isLeft;
 

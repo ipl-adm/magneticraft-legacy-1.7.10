@@ -25,32 +25,32 @@ public class FluidNetWorkManager implements IFluidHandler1_8 {
     @Override
     public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
 
-        if (resource == null) return 0;//chech if is null
+        if (resource == null) return 0;//check if is null
         if (!this.canFillMg(from, resource.getFluid())) return 0;//check if can enter
         int pipes = net.getPipes().size();//number of pipes
         if (pipes <= 0) return 0;//error
         int space = net.getCapacity() - net.getFluidAmount();
         int toFill = Math.min(resource.amount, space);//min fluid, space
-        int aceptPerPipe = toFill / pipes;//divided amount per tank
-        int acepted = 0;
+        int acceptPerPipe = toFill / pipes;//divided amount per tank
+        int accepted = 0;
 
-        if (aceptPerPipe > 0) {
+        if (acceptPerPipe > 0) {
             for (IFluidTransport t : net.getPipes()) {
-                FluidStack f = new FluidStack(resource, aceptPerPipe);
+                FluidStack f = new FluidStack(resource, acceptPerPipe);
                 int filled = t.getTank().fill(f, doFill);
-                acepted += filled;
+                accepted += filled;
             }
         }
-        if (aceptPerPipe * pipes != toFill) {
+        if (acceptPerPipe * pipes != toFill) {
             for (IFluidTransport t : net.getPipes()) {
-                if (toFill - acepted > 0) {
+                if (toFill - accepted > 0) {
                     FluidStack f = new FluidStack(resource, 1);
                     int filled = t.getTank().fill(f, doFill);
-                    acepted += filled;
+                    accepted += filled;
                 }
             }
         }
-        return acepted;
+        return accepted;
     }
 
     @Override

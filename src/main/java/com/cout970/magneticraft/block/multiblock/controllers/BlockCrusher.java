@@ -39,7 +39,7 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"crusher", "chasis", "crusher_inv"};
+        return new String[]{"crusher", "chassis", "crusher_inv"};
     }
 
     public boolean isOpaqueCube() {

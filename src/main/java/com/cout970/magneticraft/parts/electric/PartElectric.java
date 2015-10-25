@@ -50,7 +50,7 @@ public abstract class PartElectric extends MgPart implements IElectricMultiPart 
         super.onNeighborChanged();
         toUpdate = true;
         if (cond != null) {
-            cond.disconect();
+            cond.disconnect();
         }
     }
 

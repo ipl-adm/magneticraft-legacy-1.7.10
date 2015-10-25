@@ -50,7 +50,7 @@ public class BlockMB_Chassis extends BlockMg implements MB_Block {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"chasis", "multi"};
+        return new String[]{"chassis", "multi"};
     }
 
     public boolean isOpaqueCube() {

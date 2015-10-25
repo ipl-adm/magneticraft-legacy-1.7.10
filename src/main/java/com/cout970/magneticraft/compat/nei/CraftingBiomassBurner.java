@@ -14,10 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
-    List<RecipeBiomassBurner> recipes = new ArrayList<RecipeBiomassBurner>();
+    List<RecipeBiomassBurner> recipes = new ArrayList<>();
 
     @Override
     public String getRecipeName() {
@@ -41,8 +42,7 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(getRecipesID())) {
-            for (RecipeBiomassBurner recipe : MgRecipeRegister.biomassBurner)
-                recipes.add(recipe);
+            recipes.addAll(MgRecipeRegister.biomassBurner.stream().collect(Collectors.toList()));
         } else super.loadCraftingRecipes(outputId, results);
     }
 
@@ -53,9 +53,7 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeBiomassBurner recipe : MgRecipeRegister.biomassBurner) {
-            if (recipe.matches(ingredient)) recipes.add(recipe);
-        }
+        recipes.addAll(MgRecipeRegister.biomassBurner.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override
@@ -65,12 +63,12 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        return new ArrayList<PositionedStack>();
+        return new ArrayList<>();
     }
 
     @Override
     public List<PositionedStack> getIngredientStacks(int recipe) {
-        List<PositionedStack> need = new ArrayList<PositionedStack>();
+        List<PositionedStack> need = new ArrayList<>();
         need.add(new PositionedStack(recipes.get(recipe).getFuel(), 75, 36));
         return need;
     }

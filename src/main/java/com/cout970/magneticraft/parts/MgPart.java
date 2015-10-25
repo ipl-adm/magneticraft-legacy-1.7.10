@@ -68,7 +68,7 @@ public abstract class MgPart extends TMultiPart implements JNormalOcclusion {
 
     @Override
     public Iterable<ItemStack> getDrops() {
-        LinkedList<ItemStack> items = new LinkedList<ItemStack>();
+        LinkedList<ItemStack> items = new LinkedList<>();
         items.add(new ItemStack(item, 1));
         return items;
     }
@@ -85,7 +85,7 @@ public abstract class MgPart extends TMultiPart implements JNormalOcclusion {
     @Override
     public Iterable<IndexedCuboid6> getSubParts() {
         Iterable<Cuboid6> boxList = getCollisionBoxes();
-        LinkedList<IndexedCuboid6> partList = new LinkedList<IndexedCuboid6>();
+        LinkedList<IndexedCuboid6> partList = new LinkedList<>();
         for (Cuboid6 c : boxList)
             partList.add(new IndexedCuboid6(0, c));
         return partList;

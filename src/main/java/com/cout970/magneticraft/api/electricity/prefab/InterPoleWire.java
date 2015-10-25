@@ -82,7 +82,7 @@ public class InterPoleWire implements IInterPoleWire {
     public static void valanceConductors(IInterPoleWire con) {
         if (con.getStart() == null || con.getEnd() == null) return;
         //the resistance of the connection
-        double resistence = con.getDistance() * ElectricConstants.RESISTANE_COPPER_WIRE;
+        double resistence = con.getDistance() * ElectricConstants.RESISTANCE_COPPER_WIRE;
         IElectricConductor cond_start = con.getStart().getConductor();
         IElectricConductor cond_end = con.getEnd().getConductor();
         //the voltage differennce

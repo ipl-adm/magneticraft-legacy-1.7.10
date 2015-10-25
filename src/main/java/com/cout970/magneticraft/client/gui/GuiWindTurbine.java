@@ -51,7 +51,7 @@ public class GuiWindTurbine extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -63,8 +63,8 @@ public class GuiWindTurbine extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileWindTurbine) {
                 TileWindTurbine c = (TileWindTurbine) tile;
-                if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                    List<String> data = new ArrayList<>();
                     data.add("Wind " + c.getWindScaled(1000) / 10f + "%");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

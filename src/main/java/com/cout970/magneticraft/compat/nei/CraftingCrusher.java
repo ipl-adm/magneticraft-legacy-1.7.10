@@ -14,10 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CraftingCrusher extends TemplateRecipeHandler {
 
-    List<RecipeCrusher> recipes = new ArrayList<RecipeCrusher>();
+    List<RecipeCrusher> recipes = new ArrayList<>();
 
     @Override
     public String getRecipeName() {
@@ -43,8 +44,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
     public void loadCraftingRecipes(String outputId, Object... results) {
 
         if (outputId.equals(getRecipesID())) {
-            for (RecipeCrusher recipe : MgRecipeRegister.crusher)
-                recipes.add(recipe);
+            recipes.addAll(MgRecipeRegister.crusher.stream().collect(Collectors.toList()));
         } else super.loadCraftingRecipes(outputId, results);
     }
 
@@ -60,9 +60,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeCrusher recipe : MgRecipeRegister.crusher) {
-            if (recipe.matches(ingredient)) recipes.add(recipe);
-        }
+        recipes.addAll(MgRecipeRegister.crusher.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override
@@ -72,7 +70,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        List<PositionedStack> a = new ArrayList<PositionedStack>();
+        List<PositionedStack> a = new ArrayList<>();
         if (recipes.get(recipe).getOutput2() != null)
             a.add(new PositionedStack(recipes.get(recipe).getOutput2(), 114, 20));
         if (recipes.get(recipe).getOutput3() != null)
@@ -82,7 +80,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getIngredientStacks(int recipe) {
-        List<PositionedStack> need = new ArrayList<PositionedStack>();
+        List<PositionedStack> need = new ArrayList<>();
         need.add(new PositionedStack(recipes.get(recipe).getInput(), 46, 20));
         return need;
     }
@@ -95,7 +93,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
     @Override
     public void drawExtras(int recipe) {
         int ticks = 100;
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"));
+        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"));
         RenderUtil.drawTexturedModalRectScaled(69, 20, 0, 0, (int) (22 * ((cycleticks % ticks / (float) ticks))), 16, 22 * 2, 16);
         if (recipes.get(recipe).getOutput2() != null) {
             String s = (int) (recipes.get(recipe).getProb2() * 100) + "%";

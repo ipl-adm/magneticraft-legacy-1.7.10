@@ -23,12 +23,12 @@ import java.util.List;
 
 public abstract class PartWireCopper extends PartElectric {
 
-    public static List<Cuboid6> Down_Boxes = new ArrayList<Cuboid6>();
-    public static List<Cuboid6> Up_Boxes = new ArrayList<Cuboid6>();
-    public static List<Cuboid6> North_Boxes = new ArrayList<Cuboid6>();
-    public static List<Cuboid6> South_Boxes = new ArrayList<Cuboid6>();
-    public static List<Cuboid6> West_Boxes = new ArrayList<Cuboid6>();
-    public static List<Cuboid6> East_Boxes = new ArrayList<Cuboid6>();
+    public static List<Cuboid6> Down_Boxes = new ArrayList<>();
+    public static List<Cuboid6> Up_Boxes = new ArrayList<>();
+    public static List<Cuboid6> North_Boxes = new ArrayList<>();
+    public static List<Cuboid6> South_Boxes = new ArrayList<>();
+    public static List<Cuboid6> West_Boxes = new ArrayList<>();
+    public static List<Cuboid6> East_Boxes = new ArrayList<>();
 
     static {
         float width = 2 / 16f;
@@ -187,13 +187,9 @@ public abstract class PartWireCopper extends PartElectric {
                     }
                 }
             }
-            for (TMultiPart t : tile().jPartList()) {
-                if (t instanceof PartWireCopper && t != this) {
-                    if (((PartWireCopper) t).getDirection() == f) {
-                        Conn |= 1 << f.ordinal();
-                    }
-                }
-            }
+            tile().jPartList().stream().filter(t -> t instanceof PartWireCopper && t != this).filter(t -> ((PartWireCopper) t).getDirection() == f).forEach(t -> {
+                Conn |= 1 << f.ordinal();
+            });
             if (inter != null) {
                 Conn |= 1 << f.ordinal();
             }
@@ -250,7 +246,7 @@ public abstract class PartWireCopper extends PartElectric {
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
-        List<Cuboid6> l = new ArrayList<Cuboid6>();
+        List<Cuboid6> l = new ArrayList<>();
         l.add(getBoxes().get(0));
         for (MgDirection d : MgDirection.values()) {
             if (getBoxBySide(d) != 0 && (Conn & (1 << d.ordinal())) > 0) {

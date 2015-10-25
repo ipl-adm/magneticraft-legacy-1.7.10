@@ -9,7 +9,7 @@ import java.util.List;
 public class FluidNetwork {
 
     public FluidNetWorkManager manager = new FluidNetWorkManager(this);
-    private List<IFluidTransport> pipes = new ArrayList<IFluidTransport>();
+    private List<IFluidTransport> pipes = new ArrayList<>();
     private TileEntity tile;
     public Fluid fluid;
 
@@ -48,12 +48,10 @@ public class FluidNetwork {
         }
 
         if (base != null) {
-            List<IFluidTransport> things = new ArrayList<IFluidTransport>();
+            List<IFluidTransport> things = new ArrayList<>();
             FluidPathfinder found = new FluidPathfinder(base, null);
             things.addAll(found.getPipes());
-            for (IFluidTransport ft : pipes) {
-                if (!things.contains(ft)) ft.setNetwork(null);
-            }
+            pipes.stream().filter(ft -> !things.contains(ft)).forEach(ft -> ft.setNetwork(null));
             pipes = things;
         }
 
@@ -67,9 +65,7 @@ public class FluidNetwork {
         for (IFluidTransport te : pipes) {
             te.setNetwork(net);
         }
-        for (IFluidTransport e : pipes) {
-            e.onNetworkUpdate();
-        }
+        pipes.forEach(com.cout970.magneticraft.util.fluid.IFluidTransport::onNetworkUpdate);
     }
 
     public void exclude(IFluidTransport te) {

@@ -51,7 +51,7 @@ public class CompFluidRender implements IGuiComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    public void onClick(int mx, int my, int button, GuiBasic gui) {
     }
 
     @Override
@@ -63,7 +63,7 @@ public class CompFluidRender implements IGuiComp {
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (tank != null && tank.getFluid() != null) {
             if (GuiBasic.isIn(mx, my, gui.xStart + posA.x, gui.yStart + posA.y, Math.abs(posA.x - posB.x), Math.abs(posA.y - posB.y))) {
-                List<String> data = new ArrayList<String>();
+                List<String> data = new ArrayList<>();
                 data.add("Fluid: " + tank.getFluid().getLocalizedName());
                 data.add("Amount: " + tank.getFluidAmount());
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

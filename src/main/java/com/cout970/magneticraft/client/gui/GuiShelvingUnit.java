@@ -2,6 +2,7 @@ package com.cout970.magneticraft.client.gui;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.CompBackground;
+import com.cout970.magneticraft.client.gui.component.CompButton;
 import com.cout970.magneticraft.client.gui.component.CompScrollBar;
 import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.container.ContainerShelvingUnit;
@@ -14,9 +15,15 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.cout970.magneticraft.client.gui.component.CompButton.*;
+
 public class GuiShelvingUnit extends GuiBasic {
     private CompScrollBar scrollBar;
     private ContainerShelvingUnit shelfContainer;
+    List<CompButton> tabButtons;
 
     public GuiShelvingUnit(Container c, TileEntity tile) {
         super(c, tile);
@@ -24,11 +31,19 @@ public class GuiShelvingUnit extends GuiBasic {
         xTam = xSize = 195;
         yTam = ySize = 204;
     }
-
     @Override
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/shelving_unit.png")));
         scrollBar = new CompScrollBar(new GuiPoint(175, 18), new GuiPoint(187, 106), 19);
+        tabButtons = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            int tab = i;
+            CompButton button = new CompButton(new GuiPoint(173, 158 - 18 * i), 16, 16, new GuiPoint(0, 32 - 16 * i), "textures/gui/buttons.png", (n) -> apply(tab, n));
+            button.setUVForState(ButtonState.ACTIVE, new GuiPoint(16, 32 - 16 * i));
+            tabButtons.add(button);
+        }
+        tabButtons.get(2).setUVForState(ButtonState.DISABLED, new GuiPoint(32, 0));
+        comp.addAll(tabButtons);
         if (shelfContainer != null) {
             shelfContainer.curInv = 0;
         }
@@ -105,11 +120,16 @@ public class GuiShelvingUnit extends GuiBasic {
         }
     }
 
-    @Override
-    protected void mouseClicked(int x, int y, int b) {
-        super.mouseClicked(x, y, b);
-        if (isIn(x, y, xStart + 175, yStart + 122, 16, 16) && (b == 0)) {
-            mc.playerController.sendEnchantPacket(shelfContainer.windowId, (shelfContainer.curInv = (shelfContainer.curInv + 1) % 3));
+    public Void apply(int tab, int mouseButton) {
+        if (mouseButton == 0) {
+            mc.playerController.sendEnchantPacket(shelfContainer.windowId, (shelfContainer.curInv = tab));
         }
+
+        for (CompButton button : tabButtons) {
+            button.setCurrentState(ButtonState.NORMAL);
+        }
+        tabButtons.get(tab).setCurrentState(ButtonState.ACTIVE);
+        return null;
     }
+
 }

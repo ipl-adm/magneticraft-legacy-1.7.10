@@ -33,11 +33,11 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
     //server
     public TankMg tank = new TankMg(this, 4000);
     public long time;
-    private List<VecInt> pipes = new LinkedList<VecInt>();
-    private List<VecInt> oil = new LinkedList<VecInt>();
-    private List<VecInt> fluid = new LinkedList<VecInt>();
-    private List<VecInt> finder = new LinkedList<VecInt>();
-    private List<VecInt> visited = new LinkedList<VecInt>();
+    private List<VecInt> pipes = new LinkedList<>();
+    private List<VecInt> oil = new LinkedList<>();
+    private List<VecInt> fluid = new LinkedList<>();
+    private List<VecInt> finder = new LinkedList<>();
+    private List<VecInt> visited = new LinkedList<>();
     private int alt;
     private boolean update;
     private int cooldown;
@@ -221,7 +221,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
                 if (!finder.contains(bc)) finder.add(bc);
             }
         }
-        List<VecInt> temp = new ArrayList<VecInt>(finder.size());
+        List<VecInt> temp = new ArrayList<>(finder.size());
         temp.addAll(finder);
         for (VecInt cc : temp) {
             finder.remove(cc);

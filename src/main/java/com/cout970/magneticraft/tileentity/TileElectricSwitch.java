@@ -31,7 +31,7 @@ public class TileElectricSwitch extends TileConductorLow {
     }
 
     public void setResistance(double res) {
-        cond.setResistence(res);
+        cond.setResistance(res);
     }
 
     public double getResistance() {

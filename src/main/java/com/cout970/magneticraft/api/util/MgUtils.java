@@ -51,7 +51,7 @@ public class MgUtils {
      * @return
      */
     public static List<TileEntity> getNeig(TileEntity t) {
-        List<TileEntity> list = new ArrayList<TileEntity>();
+        List<TileEntity> list = new ArrayList<>();
         for (MgDirection d : MgDirection.values()) {
             TileEntity f = getTileEntity(t, d);
             if (f != null) list.add(f);

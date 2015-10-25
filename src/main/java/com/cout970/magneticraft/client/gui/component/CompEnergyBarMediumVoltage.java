@@ -32,7 +32,7 @@ public class CompEnergyBarMediumVoltage implements IGuiComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    public void onClick(int mx, int my, int button, GuiBasic gui) {
     }
 
     @Override
@@ -44,7 +44,7 @@ public class CompEnergyBarMediumVoltage implements IGuiComp {
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (cond == null) return;
         if (GuiBasic.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 50)) {
-            List<String> data = new ArrayList<String>();
+            List<String> data = new ArrayList<>();
             data.add(((int) cond.getVoltage()) + "V");
             gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
             RenderHelper.enableGUIStandardItemLighting();

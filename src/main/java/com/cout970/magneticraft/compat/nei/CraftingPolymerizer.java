@@ -16,10 +16,11 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CraftingPolymerizer extends TemplateRecipeHandler {
 
-    public List<RecipePolymerizer> recipes = new ArrayList<RecipePolymerizer>();
+    public List<RecipePolymerizer> recipes = new ArrayList<>();
     private static ResourceLocation tank = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png");
     private static ResourceLocation heat = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png");
 
@@ -50,20 +51,12 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipePolymerizer rec : MgRecipeRegister.polymerizer) {
-            if (MgUtils.areEqual(result, rec.getOutput(), true)) {
-                recipes.add(rec);
-            }
-        }
+        recipes.addAll(MgRecipeRegister.polymerizer.stream().filter(rec -> MgUtils.areEqual(result, rec.getOutput(), true)).collect(Collectors.toList()));
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipePolymerizer rec : MgRecipeRegister.polymerizer) {
-            if (MgUtils.areEqual(ingredient, rec.getInput(), true)) {
-                recipes.add(rec);
-            }
-        }
+        recipes.addAll(MgRecipeRegister.polymerizer.stream().filter(rec -> MgUtils.areEqual(ingredient, rec.getInput(), true)).collect(Collectors.toList()));
     }
 
     @Override
@@ -73,12 +66,12 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        return new ArrayList<PositionedStack>();
+        return new ArrayList<>();
     }
 
     @Override
     public List<PositionedStack> getIngredientStacks(int recipe) {
-        List<PositionedStack> need = new ArrayList<PositionedStack>();
+        List<PositionedStack> need = new ArrayList<>();
         need.add(new PositionedStack(recipes.get(recipe).getInput(), 63, 25));
         return need;
     }

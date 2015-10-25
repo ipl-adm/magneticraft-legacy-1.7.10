@@ -31,7 +31,7 @@ public class TileMB_Controls extends TileMB_Base {
     }
 
     public List<IndexedCuboid6> getBoundingBoxes() {
-        ArrayList<IndexedCuboid6> list = new ArrayList<IndexedCuboid6>();
+        ArrayList<IndexedCuboid6> list = new ArrayList<>();
         float dist = 2 / 16F;
 
         if (multi != null && multi.getID() == MB_Register.ID_SIFTER) {

@@ -24,7 +24,7 @@ public class GuiPolymerizer extends GuiBasic {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/polimerizer.png")));
         comp.add(new CompHeaterBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png"), new GuiPoint(20, 20)));
         comp.add(new CompFluidRender(((TilePolymerizer) tile).input, new GuiPoint(41, 25), new GuiPoint(59, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
-        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"), new GuiPoint(93, 35), ((TilePolymerizer) tile).getProgressBar()));
+        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"), new GuiPoint(93, 35), ((TilePolymerizer) tile).getProgressBar()));
     }
 
     public class CompHeaterBar implements IGuiComp {
@@ -53,7 +53,7 @@ public class GuiPolymerizer extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -67,8 +67,8 @@ public class GuiPolymerizer extends GuiBasic {
                 TilePolymerizer ref = (TilePolymerizer) tile;
                 IHeatConductor c = ref.heater;
                 if (c == null) return;
-                if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                    List<String> data = new ArrayList<>();
                     data.add((int) c.getTemperature() + "C");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class InteractionHelper {
 
-    private static List<IEnergyInterfaceFactory> handlers = new ArrayList<IEnergyInterfaceFactory>();
+    private static List<IEnergyInterfaceFactory> handlers = new ArrayList<>();
 
     public static IEnergyInterface processTile(TileEntity tile, VecInt f, int tier) {
         for (IEnergyInterfaceFactory factory : handlers) {

@@ -22,5 +22,5 @@ public class ElectricConstants {
     public static double ALTERNATOR_DISCHARGE = MAX_VOLTAGE;
     public static double ENERGY_INTERFACE_LEVEL = MAX_VOLTAGE / 2;
     public static double CONVERSION_SPEED = EnergyConverter.RFtoW(5);
-    public static double RESISTANE_COPPER_WIRE = RESISTANCE_COPPER_LOW;
+    public static double RESISTANCE_COPPER_WIRE = RESISTANCE_COPPER_LOW;
 }

@@ -62,7 +62,7 @@ public class GuiSteamTurbine extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -73,8 +73,8 @@ public class GuiSteamTurbine extends GuiBasic {
         @Override
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (turbine != null && turbine.getFluidAmount() > 0) {
-                if (gui.isIn(mx, my, gui.xStart + posA.x, gui.yStart + posA.y, Math.abs(posA.x - posB.x), Math.abs(posA.y - posB.y))) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, gui.xStart + posA.x, gui.yStart + posA.y, Math.abs(posA.x - posB.x), Math.abs(posA.y - posB.y))) {
+                    List<String> data = new ArrayList<>();
                     data.add("Fluid: " + FluidRegistry.getFluidStack("steam", 1).getLocalizedName());
                     data.add("Amount: " + turbine.getFluidAmount());
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

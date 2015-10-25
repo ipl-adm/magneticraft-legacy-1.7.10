@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class HeatUtils {
 
@@ -19,12 +20,7 @@ public class HeatUtils {
     public static IHeatConductor[] getHeatCond(TileEntity tile, VecInt d) {
         if (tile instanceof IHeatTile) return ((IHeatTile) tile).getHeatCond(d.getOpposite());
         if (tile instanceof TileMultipart) {
-            ArrayList<IHeatConductor> comp = new ArrayList<IHeatConductor>();
-            for (TMultiPart m : ((TileMultipart) tile).jPartList()) {
-                if (m instanceof IHeatMultipart) {
-                    comp.add(((IHeatMultipart) m).getHeatConductor());
-                }
-            }
+            ArrayList<IHeatConductor> comp = ((TileMultipart) tile).jPartList().stream().filter(m -> m instanceof IHeatMultipart).map(m -> ((IHeatMultipart) m).getHeatConductor()).collect(Collectors.toList());
             return comp.toArray(new IHeatConductor[comp.size()]);
         }
         return null;

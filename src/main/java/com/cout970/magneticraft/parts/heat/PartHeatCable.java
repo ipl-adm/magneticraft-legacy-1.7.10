@@ -66,7 +66,7 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
         conMask = -1;
     }
 
-    public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+    public static List<Cuboid6> boxes = new ArrayList<>();
 
     static {
         double w = 6 / 16d;
@@ -87,7 +87,7 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
-        ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
+        ArrayList<Cuboid6> t2 = new ArrayList<>();
         t2.add(boxes.get(6));
         for (int i = 0; i < 6; i++) {
             if ((conMask & (1 << i)) > 0) {

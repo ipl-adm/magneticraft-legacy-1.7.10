@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ElectricConnector implements IElectricPole {
 
-    protected List<IInterPoleWire> connections = new ArrayList<IInterPoleWire>();
+    protected List<IInterPoleWire> connections = new ArrayList<>();
     private int connectionsBlocked;
     protected IElectricConductor cond;
     protected TileEntity parent;
@@ -33,7 +33,7 @@ public class ElectricConnector implements IElectricPole {
     @Override
     public void disconnectAll() {
         update = true;
-        ArrayList<IInterPoleWire> list = new ArrayList<IInterPoleWire>();
+        ArrayList<IInterPoleWire> list = new ArrayList<>();
         list.addAll(connections);
         for (IInterPoleWire con : list) {
             if (con.getWorld() == null) {
@@ -55,11 +55,7 @@ public class ElectricConnector implements IElectricPole {
             refreshList();
         }
         if (parent.getWorldObj().isRemote) return;
-        for (IInterPoleWire c : connections) {
-            if (c.getStart() == this) {
-                c.iterate();
-            }
-        }
+        connections.stream().filter(c -> c.getStart() == this).forEach(com.cout970.magneticraft.api.electricity.IInterPoleWire::iterate);
     }
 
     @Override

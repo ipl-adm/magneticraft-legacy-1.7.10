@@ -94,6 +94,11 @@ task devJar(type: Jar) {
     classifier = 'dev'
 }
 
+tasks.withType(JavaCompile) {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
 artifacts {
     archives devJar
 }

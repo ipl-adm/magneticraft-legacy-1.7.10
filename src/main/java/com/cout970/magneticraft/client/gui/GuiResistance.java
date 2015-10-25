@@ -73,7 +73,7 @@ public class GuiResistance extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
             boolean clear = true;
             for (int i = 0; i < 10; i++) {
                 if (isIn(mx, my, gui.xStart + pos.x + 14 * i, gui.yStart + pos.y, 14, 14)) {

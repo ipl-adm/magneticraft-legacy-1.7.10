@@ -139,7 +139,7 @@ public class BlockCopperTank extends BlockMg implements MB_Block {
     }
 
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> ret = new ArrayList<>();
         if (world.isRemote) return ret;
         if (!world.isRemote) {
             TileEntity b = world.getTileEntity(x, y, z);

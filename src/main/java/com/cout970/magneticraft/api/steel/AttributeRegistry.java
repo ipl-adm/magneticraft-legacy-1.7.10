@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A Registry that holds a list of all IStellAttribute's
+ * A Registry that holds a list of all ISteelAttribute's
  *
  * @author minecreatr
  */
@@ -15,7 +15,7 @@ public class AttributeRegistry {
 
     }
 
-    private static List<ISteelAttribute> unbakedList = new ArrayList<ISteelAttribute>();
+    private static List<ISteelAttribute> unbakedList = new ArrayList<>();
 
     private static Map<Integer, ISteelAttribute> attributeMap;
 

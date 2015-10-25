@@ -35,7 +35,7 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
     @Override
     public void onNeigChange() {
         super.onNeigChange();
-        cond.disconect();
+        cond.disconnect();
     }
 
     public void updateEntity() {

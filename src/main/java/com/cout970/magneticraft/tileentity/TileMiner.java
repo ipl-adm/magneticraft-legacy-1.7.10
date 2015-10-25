@@ -44,8 +44,8 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     private static final int MIN_DIMENSION = 10;
     public InventoryComponent inv = new InventoryComponent(this, 1, "Miner");
     public WorkState state = WorkState.UNREADY;
-    public List<BlockInfo> well = new ArrayList<BlockInfo>();
-    public ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+    public List<BlockInfo> well = new ArrayList<>();
+    public ArrayList<ItemStack> items = new ArrayList<>();
     public float coolDown = MINING_COST_PER_BLOCK;
     public float consumptionCounter;
     public float consume;

@@ -81,8 +81,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
 
                     cond.drainPower(EnergyConverter.RFtoW(500));
                     items = id.getDrops(worldObj, x, y, z, metadata, 0);
-                    for (ItemStack i : items)
-                        ejectItems(i);
+                    items.forEach(this::ejectItems);
                     markDirty();
                     worldObj.setBlockToAir(x, y, z);
                     break;

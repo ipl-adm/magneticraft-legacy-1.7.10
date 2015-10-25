@@ -12,7 +12,7 @@ public class NetworkPathFinder extends PathFinder {
 	public NetworkNode start;
 
 	public NetworkPathFinder(NetworkNode start) {
-		nodes = new LinkedList<NetworkNode>();
+		nodes = new LinkedList<>();
 		this.start = start;
 	}
 

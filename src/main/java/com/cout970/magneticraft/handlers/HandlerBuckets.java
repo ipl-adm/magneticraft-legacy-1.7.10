@@ -39,7 +39,7 @@ public class HandlerBuckets {
         return null;
     }
 
-    public Map<Block, Item> buckets = new HashMap<Block, Item>();
+    public Map<Block, Item> buckets = new HashMap<>();
 
     public HandlerBuckets() {
         buckets.put(ManagerFluids.oilBlock, ManagerItems.bucket_oil);

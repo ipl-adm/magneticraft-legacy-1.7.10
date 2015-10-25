@@ -52,7 +52,7 @@ public class CompItemRender implements IPageComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiGuideBook gui, BookPage page, BookGuide guide) {
+    public void onClick(int mx, int my, int button, GuiGuideBook gui, BookPage page, BookGuide guide) {
     }
 
     @Override

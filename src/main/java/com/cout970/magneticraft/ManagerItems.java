@@ -49,8 +49,8 @@ import net.minecraft.item.Item;
 public class ManagerItems {
 
 
-    public static List<Item> items = new ArrayList<Item>();
-    public static List<NamedItem> named = new ArrayList<NamedItem>();
+    public static List<Item> items = new ArrayList<>();
+    public static List<NamedItem> named = new ArrayList<>();
 
     public static String[] oreNames = new String[]{"Iron", "Gold", "Copper", "Tin", "Tungsten", "Lead", "Silver", "Uranium", "Thorium", "Nickel", "Ardite", "Cobalt", "Zinc", "Aluminium", "Platinum", "Titanium", "Osmium", "Bismuth", "Chromium", "Mithril", "Lithium", "Iridium", "Manganese", "Galena"};
     public static String[][] extraNames = new String[][]{{"Nickel", "Aluminium"}, {"Copper", "Silver"}, {"Gold", "Iron"}, {"Iron", "Silver"}, {"Iron", "Aluminium"}, {"Silver", "Thorium"}, {"Lead", "Copper"}, {"Thorium", "Plutonium"}, {"Uranium", "Plutonium"}, {"Iron", "Zinc"}, {"Cobalt", null},

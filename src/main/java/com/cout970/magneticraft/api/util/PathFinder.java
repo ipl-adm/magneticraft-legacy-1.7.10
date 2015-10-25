@@ -9,8 +9,8 @@ public abstract class PathFinder {
     public HashSet<VecInt> scanMap;
 
     public void init() {
-        scanPosition = new LinkedList<VectorOffset>();
-        scanMap = new HashSet<VecInt>();
+        scanPosition = new LinkedList<>();
+        scanMap = new HashSet<>();
     }
 
     public void addBlock(VectorOffset v) {

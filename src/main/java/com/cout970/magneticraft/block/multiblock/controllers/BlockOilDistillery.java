@@ -39,7 +39,7 @@ public class BlockOilDistillery extends BlockMg implements MB_ControlBlock {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"distillery", "chasis"};
+        return new String[]{"distillery", "chassis"};
     }
 
     @Override

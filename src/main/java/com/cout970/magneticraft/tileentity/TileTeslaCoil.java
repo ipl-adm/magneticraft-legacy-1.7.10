@@ -17,10 +17,11 @@ import net.minecraft.util.AxisAlignedBB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TileTeslaCoil extends TileConductorLow {
 
-    private List<EntityPlayer> nearPlayers = new ArrayList<EntityPlayer>();
+    private List<EntityPlayer> nearPlayers = new ArrayList<>();
 
     @Override
     public IElectricConductor initConductor() {
@@ -46,11 +47,7 @@ public class TileTeslaCoil extends TileConductorLow {
             if (worldObj.getTotalWorldTime() % 20 == 0) {
                 nearPlayers.clear();
                 List e = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - 10, yCoord - 10, zCoord - 10, xCoord + 10, yCoord + 10, zCoord + 10));
-                for (Object o : e) {
-                    if (o instanceof EntityPlayer) {
-                        nearPlayers.add((EntityPlayer) o);
-                    }
-                }
+                nearPlayers.addAll(e.stream().filter(o -> o instanceof EntityPlayer).map(o -> (EntityPlayer) o).collect(Collectors.toList()));
             }
 
             for (EntityPlayer p : nearPlayers) {

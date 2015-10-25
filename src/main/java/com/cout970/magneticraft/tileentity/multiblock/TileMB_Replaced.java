@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TileMB_Replaced extends TileMB_Base implements MB_Tile_Replaced {
 
-    public List<ItemStack> drops = new ArrayList<ItemStack>();
+    public List<ItemStack> drops = new ArrayList<>();
 
     @Override
     public void setDrops(List<ItemStack> drop) {

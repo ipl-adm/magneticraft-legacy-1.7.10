@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 
-public abstract class BlockFluidClasicMg extends BlockFluidClassic {
+public abstract class BlockFluidClassicMg extends BlockFluidClassic {
 
     public static Material fluidMaterial = Material.water;
 
@@ -22,7 +22,7 @@ public abstract class BlockFluidClasicMg extends BlockFluidClassic {
 
     public Fluid toIcon;
 
-    public BlockFluidClasicMg(Fluid fluid, Material material) {
+    public BlockFluidClassicMg(Fluid fluid, Material material) {
         super(fluid, material);
         setCreativeTab(CreativeTabsMg.MainTab);
         setBlockName("mg_" + getName() + "_block");

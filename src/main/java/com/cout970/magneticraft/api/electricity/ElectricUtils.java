@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ElectricUtils {
 
@@ -34,12 +35,7 @@ public class ElectricUtils {
      */
     public static IElectricConductor[] getElectricCond(TileEntity tile, VecInt f, int tier) {
         if (tile instanceof TileMultipart) {
-            ArrayList<IElectricConductor> list = new ArrayList<IElectricConductor>();
-            for (TMultiPart m : ((TileMultipart) tile).jPartList()) {
-                if (m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getElectricConductor(tier) != null) {
-                    list.add(((IElectricMultiPart) m).getElectricConductor(tier));
-                }
-            }
+            ArrayList<IElectricConductor> list = ((TileMultipart) tile).jPartList().stream().filter(m -> m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getElectricConductor(tier) != null).map(m -> ((IElectricMultiPart) m).getElectricConductor(tier)).collect(Collectors.toList());
             return list.toArray(new IElectricConductor[list.size()]);
         }
         if (tile instanceof IElectricTile) return ((IElectricTile) tile).getConds(f, tier);

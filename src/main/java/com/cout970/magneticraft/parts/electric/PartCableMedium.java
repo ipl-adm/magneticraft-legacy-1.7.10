@@ -20,7 +20,7 @@ import java.util.List;
 public class PartCableMedium extends PartElectric implements ISidedHollowConnect, IElectricMultiPart {
 
     public boolean[] connections = new boolean[6];
-    public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+    public static List<Cuboid6> boxes = new ArrayList<>();
 
     static {
         double w = 3 / 16d;
@@ -45,7 +45,7 @@ public class PartCableMedium extends PartElectric implements ISidedHollowConnect
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
-        ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
+        ArrayList<Cuboid6> t2 = new ArrayList<>();
         t2.add(boxes.get(6));
         for (int i = 0; i < 6; i++) {
             if (connections[i]) {

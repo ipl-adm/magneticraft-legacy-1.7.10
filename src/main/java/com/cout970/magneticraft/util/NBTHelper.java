@@ -55,7 +55,7 @@ public class NBTHelper {
      */
     public static Map<ISteelAttribute, Integer> getSteelAttributeMap(ItemStack stack) {
         NBTTagList list = getSteelAttributes(stack);
-        Map<ISteelAttribute, Integer> map = new HashMap<ISteelAttribute, Integer>();
+        Map<ISteelAttribute, Integer> map = new HashMap<>();
         for (int i = 0; i < list.tagCount(); i++) {
             NBTTagCompound compound = list.getCompoundTagAt(i);
             int id = compound.getInteger("id");

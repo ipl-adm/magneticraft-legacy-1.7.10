@@ -14,17 +14,17 @@ import java.util.List;
 public class MgRecipeRegister {
 
     //solids
-    public static List<RecipeCrusher> crusher = new ArrayList<RecipeCrusher>();
-    public static List<RecipeGrinder> grinder = new ArrayList<RecipeGrinder>();
-    public static List<RecipeSifter> sifter = new ArrayList<RecipeSifter>();
-    public static List<RecipeCrushingTable> crushing_table = new ArrayList<RecipeCrushingTable>();
-    public static List<ThermopileFuel> thermopileSources = new ArrayList<ThermopileFuel>();
-    public static List<IThermopileDecay> thermopileDecays = new ArrayList<IThermopileDecay>();
-    public static List<RecipeBiomassBurner> biomassBurner = new ArrayList<RecipeBiomassBurner>();
+    public static List<RecipeCrusher> crusher = new ArrayList<>();
+    public static List<RecipeGrinder> grinder = new ArrayList<>();
+    public static List<RecipeSifter> sifter = new ArrayList<>();
+    public static List<RecipeCrushingTable> crushing_table = new ArrayList<>();
+    public static List<ThermopileFuel> thermopileSources = new ArrayList<>();
+    public static List<IThermopileDecay> thermopileDecays = new ArrayList<>();
+    public static List<RecipeBiomassBurner> biomassBurner = new ArrayList<>();
     //fluids
-    public static List<RecipeRefinery> refinery = new ArrayList<RecipeRefinery>();
-    public static List<RecipeOilDistillery> oilDistillery = new ArrayList<RecipeOilDistillery>();
-    public static List<RecipePolymerizer> polymerizer = new ArrayList<RecipePolymerizer>();
+    public static List<RecipeRefinery> refinery = new ArrayList<>();
+    public static List<RecipeOilDistillery> oilDistillery = new ArrayList<>();
+    public static List<RecipePolymerizer> polymerizer = new ArrayList<>();
 
 
     public static boolean registerCrusherRecipe(ItemStack in, ItemStack out0, ItemStack out1, float prob1, ItemStack out2, float prob2) {

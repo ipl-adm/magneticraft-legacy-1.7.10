@@ -8,7 +8,6 @@ import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryResizable;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 

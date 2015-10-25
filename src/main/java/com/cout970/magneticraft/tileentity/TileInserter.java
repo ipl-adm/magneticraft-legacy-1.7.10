@@ -283,8 +283,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                 getInv().setInventorySlotContents(0, b.getContent());
                 t.removeItem(b, left, false);
                 t.onChange();
-                for (TileEntity tile : MgUtils.getNeig(t.getParent()))
-                    if (tile instanceof IConveyorBelt) ((IConveyorBelt) tile).onChange();
+                MgUtils.getNeig(t.getParent()).stream().filter(tile -> tile instanceof IConveyorBelt).forEach(tile -> ((IConveyorBelt) tile).onChange());
                 return true;
             }
         }
@@ -344,7 +343,7 @@ public class TileInserter extends TileBase implements IGuiListener {
     }
 
     private List<MgDirection> getValidDirections() {
-        List<MgDirection> list = new ArrayList<MgDirection>();
+        List<MgDirection> list = new ArrayList<>();
         for (MgDirection d : MgDirection.values())
             if ((valid_dirs & (1 << d.ordinal())) > 0) list.add(d);
         return list;

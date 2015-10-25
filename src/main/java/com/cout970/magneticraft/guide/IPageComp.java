@@ -6,7 +6,7 @@ public interface IPageComp {
 
     void render(int mx, int my, GuiGuideBook gui, BookPage page, BookGuide guide);
 
-    void onClick(int mx, int my, int buttom, GuiGuideBook gui, BookPage page, BookGuide guide);
+    void onClick(int mx, int my, int button, GuiGuideBook gui, BookPage page, BookGuide guide);
 
     boolean onKey(int n, char key, GuiGuideBook gui, BookPage page, BookGuide guide);
 

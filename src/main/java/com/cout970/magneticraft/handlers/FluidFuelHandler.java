@@ -12,7 +12,7 @@ import java.util.Map;
 @Optional.Interface(iface = "buildcraft.api.fuels.IFuelManager", modid = "BuildCraft|Core")
 public class FluidFuelHandler implements IFuelManager {
 
-    public Map<Fluid, IFuel> fluids = new HashMap<Fluid, IFuel>();
+    public Map<Fluid, IFuel> fluids = new HashMap<>();
 
     @Override
     public IFuel addFuel(IFuel fuel) {

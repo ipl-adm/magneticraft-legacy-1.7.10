@@ -10,7 +10,7 @@ public class BookGuide {
     public HashMap<String, BookPage> pages;
 
     public BookGuide() {
-        pages = new HashMap<String, BookPage>();
+        pages = new HashMap<>();
     }
 
     public void addPage(String name, BookPage page) {

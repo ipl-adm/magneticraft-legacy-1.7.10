@@ -32,7 +32,7 @@ import java.util.*;
 public class PartCopperPipe extends PartFluidPipe implements ISidedHollowConnect {
 
     public boolean[] connections = new boolean[7];
-    public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+    public static List<Cuboid6> boxes = new ArrayList<>();
 
     public PartCopperPipe() {
         super(ManagerItems.part_copper_pipe);
@@ -57,7 +57,7 @@ public class PartCopperPipe extends PartFluidPipe implements ISidedHollowConnect
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
-        ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
+        ArrayList<Cuboid6> t2 = new ArrayList<>();
         t2.add(boxes.get(6));
         for (int i = 0; i < 6; i++) {
             if (connections[i]) {// && side[i] != ConnectionMode.NOTHING){
@@ -82,7 +82,7 @@ public class PartCopperPipe extends PartFluidPipe implements ISidedHollowConnect
 
     public static final int MAX_ACCEPT = 180;
     public static final int MAX_EXTRACT = 180;
-    public Map<MgDirection, TankConnection> tanks = new HashMap<MgDirection, TankConnection>();
+    public Map<MgDirection, TankConnection> tanks = new HashMap<>();
     public ConnectionMode[] side = {ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT, ConnectionMode.OUTPUT};//sides input and output
     public boolean[] locked = new boolean[6];
     public boolean toUpdate = true;

@@ -9,7 +9,6 @@ import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryUtils;
 
-import com.cout970.magneticraft.util.Log;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;

@@ -20,7 +20,7 @@ public class TileMB_Energy_Medium extends TileMB_Base implements IElectricTile {
     @Override
     public void onNeigChange() {
         super.onNeigChange();
-        cond.disconect();
+        cond.disconnect();
     }
 
     @Override

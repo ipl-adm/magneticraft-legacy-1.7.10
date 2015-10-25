@@ -47,7 +47,7 @@ public class BlockGrindingMillGap extends BlockMg implements MB_Block {
 
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 
-        ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
+        ArrayList<ItemStack> ret = new ArrayList<>();
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof MB_Tile_Replaced) {
             List<ItemStack> t = ((MB_Tile_Replaced) tile).getDrops();

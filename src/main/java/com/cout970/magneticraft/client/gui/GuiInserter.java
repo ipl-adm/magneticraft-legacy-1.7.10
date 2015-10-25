@@ -67,15 +67,15 @@ public class GuiInserter extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
             if (gui.tile instanceof TileInserter) {
-                if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
+                if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 0, ((TileInserter) gui.tile).whiteList ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 1, ((TileInserter) gui.tile).ignoreMeta ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 2, ((TileInserter) gui.tile).ignoreNBT ? 0 : 1));
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
+                } else if (isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 3, ((TileInserter) gui.tile).ignoreDict ? 0 : 1));
                 }
             }
@@ -90,23 +90,23 @@ public class GuiInserter extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (gui.tile instanceof TileInserter) {
                 TileInserter t = (TileInserter) gui.tile;
-                if (gui.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
+                    List<String> data = new ArrayList<>();
                     data.add(t.whiteList ? "Whitelist" : "Blacklist");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                } else if (isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
+                    List<String> data = new ArrayList<>();
                     data.add(t.ignoreMeta ? "Ignore Metadata" : "Check Metadata");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                } else if (isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
+                    List<String> data = new ArrayList<>();
                     data.add(t.ignoreNBT ? "Ignore NBT" : "Check NBT");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                } else if (isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
+                    List<String> data = new ArrayList<>();
                     data.add(t.ignoreDict ? "Ignore Ore Dictionary" : "Check Ore Dictionary");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

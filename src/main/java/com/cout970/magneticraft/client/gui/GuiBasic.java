@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class GuiBasic extends GuiContainer {
 
-    public List<IGuiComp> comp = new ArrayList<IGuiComp>();
+    public List<IGuiComp> comp = new ArrayList<>();
     public TileEntity tile;
     public int xStart;
     public int yStart;

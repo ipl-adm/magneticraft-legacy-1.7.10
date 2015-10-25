@@ -36,7 +36,7 @@ public class ManagerTooltip {
 	public static String energy = EnumChatFormatting.GREEN + "";
 
 	public static List<String> getTootip(ItemStack item, EntityPlayer player, boolean flag) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 
 		// I think this class should be moved to other package
 		if (item.getItem() instanceof ItemBlockMg) {

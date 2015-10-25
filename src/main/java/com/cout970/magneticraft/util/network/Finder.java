@@ -2,6 +2,7 @@ package com.cout970.magneticraft.util.network;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cout970.magneticraft.api.util.VecInt;
 
@@ -15,7 +16,7 @@ public class Finder {
 
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> find(T obj, World w, VecInt pos, boolean blocks){
-		List<T> list = new ArrayList<T>();
+		List<T> list = new ArrayList<>();
 		if(blocks){
 			Block b = pos.getBlock(w);
 			if(obj.getClass().isAssignableFrom(b.getClass())){
@@ -26,11 +27,7 @@ public class Finder {
 		if(tile != null && obj.getClass().isAssignableFrom(tile.getClass())){
 			list.add((T) tile);
 		}else if(tile instanceof TileMultipart){
-			for(TMultiPart part : ((TileMultipart) tile).jPartList()){
-				if(part != null && obj.getClass().isAssignableFrom(part.getClass())){
-					list.add((T) part);
-				}
-			}
+			list.addAll(((TileMultipart) tile).jPartList().stream().filter(part -> part != null && obj.getClass().isAssignableFrom(part.getClass())).map(part -> (T) part).collect(Collectors.toList()));
 		}
 		return list;
 	}

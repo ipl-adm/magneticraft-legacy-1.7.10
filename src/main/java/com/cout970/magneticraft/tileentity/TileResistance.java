@@ -30,8 +30,8 @@ public class TileResistance extends TileBase implements IGuiListener, IGuiSync, 
     @Override
     public void onNeigChange() {
         super.onNeigChange();
-        cond1.disconect();
-        cond2.disconect();
+        cond1.disconnect();
+        cond2.disconnect();
     }
 
     public void updateEntity() {

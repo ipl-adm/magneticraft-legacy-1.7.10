@@ -33,7 +33,7 @@ public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConne
 
 	public byte connections = -1;
 	public int interactions;
-	public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+	public static List<Cuboid6> boxes = new ArrayList<>();
 	public NodePressureConductor pressure;
 	public NBTTagCompound tempNBT;
 	private static TileRenderBrassPipe render;
@@ -101,7 +101,7 @@ public class PartBrassPipe extends PartPressurePipe implements ISidedHollowConne
 
 	@Override
 	public List<Cuboid6> getCollisionCubes() {
-		ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
+		ArrayList<Cuboid6> t2 = new ArrayList<>();
 		t2.add(boxes.get(6));
 		for (byte i = 0; i < 6; i++) {
 			if ((connections & (1 << i)) > 0) {

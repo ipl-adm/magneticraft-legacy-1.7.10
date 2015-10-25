@@ -294,7 +294,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
     @Override
     public void onNeigChange() {
         super.onNeigChange();
-        cond.disconect();
+        cond.disconnect();
     }
 
     @Override

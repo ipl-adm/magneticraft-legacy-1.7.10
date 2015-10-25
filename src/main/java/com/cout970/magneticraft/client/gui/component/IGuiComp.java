@@ -7,7 +7,7 @@ public interface IGuiComp {
 
     void render(int mx, int my, TileEntity tile, GuiBasic gui);
 
-    void onClick(int mx, int my, int buttom, GuiBasic gui);
+    void onClick(int mx, int my, int button, GuiBasic gui);
 
     boolean onKey(int n, char key, GuiBasic gui);
 

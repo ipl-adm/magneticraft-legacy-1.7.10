@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
@@ -19,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class CraftingCrushingTable extends TemplateRecipeHandler {
 
-    List<RecipeCrushingTable> recipes = new ArrayList<RecipeCrushingTable>();
+    List<RecipeCrushingTable> recipes = new ArrayList<>();
 
     @Override
     public String getRecipeName() {
@@ -45,24 +46,19 @@ public class CraftingCrushingTable extends TemplateRecipeHandler {
     public void loadCraftingRecipes(String outputId, Object... results) {
 
         if (outputId.equals(getRecipesID())) {
-            for (RecipeCrushingTable recipe : MgRecipeRegister.crushing_table)
-                recipes.add(recipe);
+            recipes.addAll(MgRecipeRegister.crushing_table.stream().collect(Collectors.toList()));
         } else super.loadCraftingRecipes(outputId, results);
     }
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipeCrushingTable recipe : MgRecipeRegister.crushing_table) {
-            if (MgUtils.areEqual(recipe.getOutput(), result, true)) recipes.add(recipe);
-        }
+        recipes.addAll(MgRecipeRegister.crushing_table.stream().filter(recipe -> MgUtils.areEqual(recipe.getOutput(), result, true)).collect(Collectors.toList()));
     }
 
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeCrushingTable recipe : MgRecipeRegister.crushing_table) {
-            if (recipe.matches(ingredient)) recipes.add(recipe);
-        }
+        recipes.addAll(MgRecipeRegister.crushing_table.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override
@@ -82,7 +78,7 @@ public class CraftingCrushingTable extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getIngredientStacks(int recipe) {
-        List<PositionedStack> need = new ArrayList<PositionedStack>();
+        List<PositionedStack> need = new ArrayList<>();
         need.add(new PositionedStack(recipes.get(recipe).getInput(), 46, 20));
         return need;
     }
@@ -95,7 +91,7 @@ public class CraftingCrushingTable extends TemplateRecipeHandler {
     @Override
     public void drawExtras(int recipe) {
         int ticks = 100;
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"));
+        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"));
         RenderUtil.drawTexturedModalRectScaled(69, 20, 0, 0, (int) (22 * ((cycleticks % ticks / (float) ticks))), 16, 22 * 2, 16);
     }
 }

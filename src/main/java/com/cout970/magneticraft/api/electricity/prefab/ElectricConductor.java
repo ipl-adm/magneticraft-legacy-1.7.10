@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ElectricConductor implements IElectricConductor {
 
-    protected List<IIndexedConnection> con = new ArrayList<IIndexedConnection>(); //connections between conductors
+    protected List<IIndexedConnection> con = new ArrayList<>(); //connections between conductors
     protected boolean connected = false;    //true if recache method was called.
     protected TileEntity tile;    //the tileEntity with this conductor, used to get the coords of this conductor, and the world
     protected double V;            //the voltage difference between this conductor an the ground
@@ -248,7 +248,7 @@ public class ElectricConductor implements IElectricConductor {
 
 
     @Override
-    public void setResistence(double d) {
+    public void setResistance(double d) {
         R = d;
     }
 
@@ -276,12 +276,12 @@ public class ElectricConductor implements IElectricConductor {
     }
 
     @Override
-    public void disconect() {
+    public void disconnect() {
         connected = false;
     }
 
     @Override
-    public boolean isConected() {
+    public boolean isConnected() {
         return connected;
     }
 

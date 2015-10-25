@@ -33,7 +33,7 @@ public class CompEnergyTrackerBar implements IGuiComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    public void onClick(int mx, int my, int button, GuiBasic gui) {
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CompEnergyTrackerBar implements IGuiComp {
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (track != null) {
             if (GuiBasic.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                List<String> data = new ArrayList<String>();
+                List<String> data = new ArrayList<>();
                 float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick() : track.getChangeInTheLastSecond() / 20;
                 String s = track.isConsume() ? "Consumption " : "Production ";
                 data.add(String.format(s + "%.3f kW", ((int) prod) / 1000f));

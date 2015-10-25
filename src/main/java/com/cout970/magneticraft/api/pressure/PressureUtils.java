@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PressureUtils {
 
@@ -33,7 +34,7 @@ public class PressureUtils {
     }
 
     public static List<IPressureConductor> getPressureCond(TileEntity tile, VecInt f) {
-        List<IPressureConductor> conds = new ArrayList<IPressureConductor>();
+        List<IPressureConductor> conds = new ArrayList<>();
         if (tile instanceof IPressurePipe) {
             for (IPressureConductor con : ((IPressurePipe) tile).getPressureConductor()) {
                 if (con != null) {
@@ -42,12 +43,7 @@ public class PressureUtils {
             }
         }
         if (tile instanceof TileMultipart) {
-            for (TMultiPart part : ((TileMultipart) tile).jPartList()) {
-                if (part instanceof IPressureMultipart) {
-                    if (((IPressureMultipart) part).getPressureConductor() != null)
-                        conds.add(((IPressureMultipart) part).getPressureConductor());
-                }
-            }
+            conds.addAll(((TileMultipart) tile).jPartList().stream().filter(part -> part instanceof IPressureMultipart).filter(part -> ((IPressureMultipart) part).getPressureConductor() != null).map(part -> ((IPressureMultipart) part).getPressureConductor()).collect(Collectors.toList()));
         }
         return conds;
     }

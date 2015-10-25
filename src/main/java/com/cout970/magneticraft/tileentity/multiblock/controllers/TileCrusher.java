@@ -257,7 +257,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
     @Override
     public void onNeigChange() {
         super.onNeigChange();
-        cond.disconect();
+        cond.disconnect();
         in = null;
         out = null;
     }

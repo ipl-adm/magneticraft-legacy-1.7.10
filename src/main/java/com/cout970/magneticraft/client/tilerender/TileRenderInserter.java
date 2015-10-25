@@ -4,7 +4,6 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelInserter;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileInserter.InserterAnimation;
-import com.cout970.magneticraft.tileentity.TileInserter.InserterAnimation.*;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;

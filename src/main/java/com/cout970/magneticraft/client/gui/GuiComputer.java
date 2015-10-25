@@ -76,7 +76,7 @@ public class GuiComputer extends GuiBasic {
 //		}
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
             if (isIn(mx, my, gui.xStart + 158, gui.yStart + 9, 10, 10)) {
                 MessageGuiClick msg = new MessageGuiClick(tile, 0, 1);
                 ManagerNetwork.INSTANCE.sendToServer(msg);

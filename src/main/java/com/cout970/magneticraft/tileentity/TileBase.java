@@ -30,14 +30,12 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
         NBTTagCompound nbt = new NBTTagCompound();
         saveInServer(nbt);
         MessageNBTUpdate message = new MessageNBTUpdate(this, nbt);
-        for (Object obj : worldObj.playerEntities) {
-            if (obj instanceof EntityPlayerMP) {
-                EntityPlayerMP player = (EntityPlayerMP) obj;
-                if (getDistanceSquaredFrom(player, this) <= 16384) {
-                    ManagerNetwork.INSTANCE.sendTo(message, player);
-                }
+        worldObj.playerEntities.stream().filter(obj -> obj instanceof EntityPlayerMP).forEach(obj -> {
+            EntityPlayerMP player = (EntityPlayerMP) obj;
+            if (getDistanceSquaredFrom(player, this) <= 16384) {
+                ManagerNetwork.INSTANCE.sendTo(message, player);
             }
-        }
+        });
     }
 
     @SideOnly(Side.CLIENT)

@@ -176,4 +176,13 @@ public class VecInt {
 	public void setBlock(World world, Block block){
 		world.setBlock(x, y, z, block);
 	}
+
+    public boolean isBlockReplaceable(World world) {
+        return getBlock(world).isReplaceable(world, x, y, z);
+    }
+
+    public void setBlockWithMetadata(World world, Block block, int meta, int flags) {
+        setBlock(world, block);
+        setBlockMetadata(world, meta, flags);
+    }
 }

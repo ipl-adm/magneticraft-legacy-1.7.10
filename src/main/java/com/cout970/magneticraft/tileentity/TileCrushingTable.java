@@ -34,20 +34,20 @@ public class TileCrushingTable extends TileBase {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         NBTTagCompound tag = (NBTTagCompound) nbt.getTag("item");
-        if (tag != null) {
-            ore = ItemStack.loadItemStackFromNBT(tag);
-        }
+
+        ore = ItemStack.loadItemStackFromNBT(tag);
+
         progress = nbt.getInteger("progress");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
+        NBTTagCompound tag = new NBTTagCompound();
         if (ore != null) {
-            NBTTagCompound tag = new NBTTagCompound();
             ore.writeToNBT(tag);
-            nbt.setTag("item", tag);
         }
+        nbt.setTag("item", tag);
         nbt.setInteger("progress", progress);
     }
 

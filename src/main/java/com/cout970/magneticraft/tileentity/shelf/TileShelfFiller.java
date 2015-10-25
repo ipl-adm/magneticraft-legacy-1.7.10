@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class TileShelfFiller extends TileBase implements ITileShelf {
     private VecInt offset;
+    public boolean silentRemoval = false;
 
     @Override
     public TileShelvingUnit getMainTile() {

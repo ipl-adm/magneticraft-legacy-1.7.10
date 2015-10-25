@@ -46,6 +46,10 @@ public class BlockCrushingTable extends BlockMg {
                                 ItemStack stack = p.inventory.getStackInSlot(j);
                                 if (stack != null && stack.stackSize > 0 && RecipeCrushingTable.getRecipe(stack) != null) {
                                     tile.setInput(p.inventory.decrStackSize(j, 1));
+
+                                    tile.getWorldObj().markBlockForUpdate(x, y, z);
+                                    tile.markDirty();
+
                                     return true;
                                 }
                             }
@@ -55,6 +59,10 @@ public class BlockCrushingTable extends BlockMg {
                             }
                         }
 
+
+                        tile.getWorldObj().markBlockForUpdate(x, y, z);
+                        tile.markDirty();
+
                         return true;
                     }
 
@@ -62,6 +70,10 @@ public class BlockCrushingTable extends BlockMg {
                     ItemStack split = i.splitStack(1);
                     p.setCurrentItemOrArmor(0, (i.stackSize > 0) ? i : null);
                     tile.setInput(split);
+
+                    tile.getWorldObj().markBlockForUpdate(x, y, z);
+                    tile.markDirty();
+
                     return true;
                 }
             }
@@ -71,6 +83,8 @@ public class BlockCrushingTable extends BlockMg {
                     tile.setInput(null);
                 }
             }
+            tile.getWorldObj().markBlockForUpdate(x, y, z);
+            tile.markDirty();
         }
         return true;
     }

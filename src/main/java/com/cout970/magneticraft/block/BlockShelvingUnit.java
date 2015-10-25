@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,6 +40,10 @@ public class BlockShelvingUnit extends BlockMg {
             if (p.getCurrentEquippedItem() == null) {
                 if (shelf.removeCrate()) {
                     InventoryUtils.giveToPlayer(new ItemStack(Blocks.chest), p.inventory);
+
+                    shelf.getWorldObj().markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
+
+                    shelf.markDirty();
                     return true;
                 }
             }
@@ -51,6 +56,8 @@ public class BlockShelvingUnit extends BlockMg {
                 } else {
                     p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
                 }
+                w.markBlockForUpdate(x, y, z);
+                shelf.markDirty();
                 return true;
             }
             shelf.xCoord += 0;
@@ -83,11 +90,17 @@ public class BlockShelvingUnit extends BlockMg {
 
     @Override
     public void breakBlock(World w, int x, int y, int z, Block bl, int meta) {
-        if (meta < 6) {
+        if (w.isRemote) {
             super.breakBlock(w, x, y, z, bl, meta);
+            return;
+        }
+        if (meta < 6) {
+            TileShelvingUnit shelf = (TileShelvingUnit) w.getTileEntity(x, y, z);
+            super.breakBlock(w, x, y, z, bl, meta);
+            int height = (shelf.getCrateCount() > (TileShelvingUnit.MAX_CRATES - TileShelvingUnit.SHELF_CRATES)) ? 4 : 3;
             for (int r = -2; r <= 2; r++) {
                 for (int b = 0; b < 2; b++) {
-                    for (int u = 0; u < 3; u++) {
+                    for (int u = 0; u < height; u++) {
                         VecInt offset = VecIntUtil.getRotatedOffset(MgDirection.getDirection(meta), r, u, b);
                         if (!offset.equals(VecInt.NULL_VECTOR)) {
                             w.setBlockToAir(x + offset.getX(), y + offset.getY(), z + offset.getZ());
@@ -97,8 +110,10 @@ public class BlockShelvingUnit extends BlockMg {
             }
         } else {
             TileShelfFiller bt = (TileShelfFiller) w.getTileEntity(x, y, z);
-            VecInt offset = bt.getOffset();
-            w.setBlockToAir(x - offset.getX(), y - offset.getY(), z - offset.getZ());
+            if (!bt.silentRemoval) {
+                VecInt offset = bt.getOffset();
+                w.setBlockToAir(x - offset.getX(), y - offset.getY(), z - offset.getZ());
+            }
             super.breakBlock(w, x, y, z, bl, meta);
         }
     }

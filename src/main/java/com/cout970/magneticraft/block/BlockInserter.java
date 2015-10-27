@@ -3,6 +3,7 @@ package com.cout970.magneticraft.block;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import cpw.mods.fml.relauncher.Side;
@@ -40,7 +41,7 @@ public class BlockInserter extends BlockMg {
 
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
-        if (p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() == ManagerItems.wrench) {
+        if (p.getCurrentEquippedItem() != null && MgUtils.isWrench(p.getCurrentEquippedItem().getItem())) {
             int i = w.getBlockMetadata(x, y, z) - 2;
             MgDirection or = MgDirection.getDirection(((i + 1) % 4) + 2);
             w.setBlockMetadataWithNotify(x, y, z, or.ordinal(), 2);

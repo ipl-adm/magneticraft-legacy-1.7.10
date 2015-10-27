@@ -93,7 +93,6 @@ public class TileInserter extends TileBase implements IGuiListener {
                 }
                 counter = 0;
             }
-            sendUpdateToClient();
 
         } else if (anim == InserterAnimation.SUCK_ITEM || anim == InserterAnimation.SUCK_ITEM_LARGE) {
             if (isControlled()) {
@@ -117,7 +116,6 @@ public class TileInserter extends TileBase implements IGuiListener {
                         anim = InserterAnimation.RETRACTING_LARGE;
                     }
                     counter = 0;
-                    sendUpdateToClient();
 
                 }
             }
@@ -129,7 +127,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                 counter += getSpeed();
             }
         }
-        sendUpdateToClient();
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     private InserterAnimation getNextAnimation() {
@@ -403,16 +401,13 @@ public class TileInserter extends TileBase implements IGuiListener {
     public void onMessageReceive(int id, int data) {
         if (id == 0) {
             whiteList = data == 1;
-            sendUpdateToClient();
         } else if (id == 1) {
             ignoreMeta = data == 1;
-            sendUpdateToClient();
         } else if (id == 2) {
             ignoreNBT = data == 1;
-            sendUpdateToClient();
         } else if (id == 3) {
             ignoreDict = data == 1;
-            sendUpdateToClient();
         }
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 }

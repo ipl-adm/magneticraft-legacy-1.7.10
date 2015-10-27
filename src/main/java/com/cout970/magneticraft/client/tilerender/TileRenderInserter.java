@@ -4,6 +4,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelInserter;
 import com.cout970.magneticraft.tileentity.TileInserter;
 import com.cout970.magneticraft.tileentity.TileInserter.InserterAnimation;
+import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -123,6 +124,7 @@ public class TileRenderInserter extends TileEntitySpecialRenderer {
                     d0 = 1 - (counter / 180f);
                     result[0] = 45 * d0;
                     result[1] = -85 + 40 * d0;
+                    result[2] = 90 + 10 * d0;
                     break;
                 }
 

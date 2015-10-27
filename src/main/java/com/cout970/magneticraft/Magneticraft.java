@@ -11,30 +11,32 @@ import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.proxy.IProxy;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.OutdatedJavaException;
 import com.cout970.magneticraft.util.URLConnectionReader;
 import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 import com.google.common.collect.Lists;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.ModAPIManager;
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +
@@ -44,6 +46,7 @@ public class Magneticraft {
     public final static String ID = "Magneticraft";
     public final static String NAME = "Magneticraft";
     public final static String VERSION = "@VERSION@";
+    public final static String MIN_JAVA = "Java 8";
     public final static String ENERGY_STORED_NAME = "J";
     public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
     public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");

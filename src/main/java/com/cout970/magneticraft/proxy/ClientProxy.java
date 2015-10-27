@@ -11,16 +11,25 @@ import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.pole.TileElectricPoleCableWire;
 import com.cout970.magneticraft.tileentity.pole.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
+import com.cout970.magneticraft.util.Log;
+import com.cout970.magneticraft.util.OutdatedJavaException;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 
 
 public class ClientProxy implements IProxy {
 
     @Override
     public void init() {
+        if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_8)) {
+            Log.info("Java is outdated, throwing exception");
+            throw new OutdatedJavaException();
+        }
+
         MinecraftForge.EVENT_BUS.register(new TooltipHandler());
 
         MinecraftForgeClient.registerItemRenderer(ManagerItems.part_copper_cable_low, new ItemRenderCableLow());

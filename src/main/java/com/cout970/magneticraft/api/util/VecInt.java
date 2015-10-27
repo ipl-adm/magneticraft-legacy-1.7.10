@@ -51,7 +51,7 @@ public class VecInt {
         return new VecInt(d.getOffsetX(), d.getOffsetY(), d.getOffsetZ());
     }
 
-    public static VecInt getConnexion(ForgeDirection d) {
+    public static VecInt getConnection(ForgeDirection d) {
         return new VecInt(d.offsetX, d.offsetY, d.offsetZ);
     }
 

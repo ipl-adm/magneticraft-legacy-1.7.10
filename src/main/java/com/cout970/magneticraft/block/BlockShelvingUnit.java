@@ -13,7 +13,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,8 +40,7 @@ public class BlockShelvingUnit extends BlockMg {
                 if (shelf.removeCrate()) {
                     InventoryUtils.giveToPlayer(new ItemStack(Blocks.chest), p.inventory);
 
-                    shelf.getWorldObj().markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
-
+                    w.markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
                     shelf.markDirty();
                     return true;
                 }
@@ -56,7 +54,8 @@ public class BlockShelvingUnit extends BlockMg {
                 } else {
                     p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
                 }
-                w.markBlockForUpdate(x, y, z);
+
+                w.markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
                 shelf.markDirty();
                 return true;
             }

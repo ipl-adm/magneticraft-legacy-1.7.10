@@ -1,11 +1,16 @@
 package com.cout970.magneticraft.api.util;
 
+import buildcraft.api.tools.IToolWrench;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
+import cofh.api.item.IToolHammer;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.computer.IOpticFiber;
+import com.cout970.magneticraft.api.tool.IWrench;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -133,5 +138,9 @@ public class MgUtils {
             }
         }
         return null;
+    }
+
+    public static boolean isWrench(Item item) {
+        return (item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer));
     }
 }

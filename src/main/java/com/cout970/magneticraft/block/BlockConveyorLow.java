@@ -7,6 +7,7 @@ import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
 import com.cout970.magneticraft.api.conveyor.prefab.ItemBox;
 import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.Orientation;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
@@ -40,7 +41,7 @@ public class BlockConveyorLow extends BlockMg {
         if (p.isSneaking()) return false;
         Item item;
         if ((p.getCurrentEquippedItem() != null) && (Block.getBlockFromItem(item = p.getCurrentEquippedItem().getItem()) != this)) {
-            if ((item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer))) {
+            if (MgUtils.isWrench(item)) {
                 Orientation or = Orientation.fromMeta(w.getBlockMetadata(x, y, z) + 1);
                 w.setBlockMetadataWithNotify(x, y, z, or.toMeta(), 2);
             } else {

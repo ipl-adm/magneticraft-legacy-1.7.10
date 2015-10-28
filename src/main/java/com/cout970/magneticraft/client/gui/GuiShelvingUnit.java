@@ -8,7 +8,7 @@ import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.container.ContainerShelvingUnit;
 import com.cout970.magneticraft.container.SlotShelvingUnit;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
-import net.minecraft.client.gui.FontRenderer;
+import com.cout970.magneticraft.util.MultilineString;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
@@ -23,8 +23,7 @@ import static com.cout970.magneticraft.client.gui.component.CompButton.*;
 
 public class GuiShelvingUnit extends GuiBasic {
     private static final ResourceLocation BG_DISABLED = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/shelving_unit_disabled.png");
-    private static final double upscale = 2;
-    private static final double downscale = 0.5d;
+    private static final MultilineString CRATE_MESSAGE = new MultilineString("{{0:-20}}This shelving unit{{0:-10}}has no crates!{{0:0}}Right-click it with a chest{{0:10}}to add one.");
     private CompScrollBar scrollBar;
     private ContainerShelvingUnit shelfContainer;
     List<CompButton> tabButtons;
@@ -102,13 +101,7 @@ public class GuiShelvingUnit extends GuiBasic {
 
             mc.getTextureManager().bindTexture(BG_DISABLED);
             drawTexturedModalRect(xStart + 7, yStart + 17, 0, 0, 162, 90);
-            if (!shade) {
-                drawCenteredStringWithoutShadow(fontRendererObj, "This shelving unit has no crates!", xStart + 88, yStart + 57, 0xFFFFFF);
-                drawCenteredStringWithoutShadow(fontRendererObj, "Right-click it with a chest to add one.", xStart + 88, yStart + 67, 0xFFFFFF);
-            } else {
-                drawCenteredString/*WithoutShadow*/(fontRendererObj, "This shelving unit has no crates!", xStart + 88, yStart + 57, 0xFFFFFF);
-                drawCenteredString/*WithoutShadow*/(fontRendererObj, "Right-click it with a chest to add one.", xStart + 88, yStart + 67, 0xFFFFFF);
-            }
+            CRATE_MESSAGE.drawCentered(this, fontRendererObj, xStart + 88, yStart + 62, 0xFFFFFF);
         } else {
             for (int i = 0; i < inventorySlots.inventorySlots.size(); i++) {
                 Object s = inventorySlots.inventorySlots.get(i);
@@ -158,7 +151,7 @@ public class GuiShelvingUnit extends GuiBasic {
 
     public void assertTabStates(int allowed) {
         if (allowed >= 0) {
-            tabButtons.stream().forEach(n -> n.setCurrentState(ButtonState.NORMAL));
+            tabButtons.forEach(n -> n.setCurrentState(ButtonState.NORMAL));
             if (shelfContainer.curInv > allowed) {
                 mc.playerController.sendEnchantPacket(shelfContainer.windowId, (shelfContainer.curInv = allowed));
             }

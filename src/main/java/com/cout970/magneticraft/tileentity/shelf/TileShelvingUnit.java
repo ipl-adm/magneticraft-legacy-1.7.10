@@ -18,7 +18,8 @@ import net.minecraft.util.ChatComponentText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileShelvingUnit extends TileShelf {
+public class TileShelvingUnit extends TileBase implements ITileShelf {
+    private int crates;
     public static final int MAX_CRATES = 24;
     public static final int MAX_SHELVES = 3;
     public static final int CRATE_SIZE = 27;

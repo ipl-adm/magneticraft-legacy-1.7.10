@@ -10,15 +10,24 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 public abstract class TileShelf extends TileBase implements IInventory {
+    @Nullable
     public abstract TileShelvingUnit getMainTile();
 
     public InventoryResizable getInventory() {
         int invNum = getOffset().getY() - 1;
         if (invNum < 0) {
             if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ManagerBlocks.shelving_unit) {
-                return ((TileShelf) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord)).getMainTile().getInv(2);
+                TileShelvingUnit below = ((TileShelf) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord)).getMainTile();
+                if (below != null) {
+                    return below.getInv(2);
+                }
             }
+            return null;
+        }
+        if (getMainTile() == null) {
             return null;
         }
         return getMainTile().getInv(invNum);
@@ -29,7 +38,7 @@ public abstract class TileShelf extends TileBase implements IInventory {
     @Override
     public int getSizeInventory() {
         int size = getRealSize();
-        if (size == 0 && getMainTile().isPlacing()) {
+        if ((size == 0) && (getMainTile() != null) && getMainTile().isPlacing()) {
             size = 1;
         }
         return size;
@@ -40,16 +49,19 @@ public abstract class TileShelf extends TileBase implements IInventory {
     }
 
     @Override
+    @Nullable
     public ItemStack getStackInSlot(int i) {
         return (getInventory() != null) ? getInventory().getStackInSlot(i) : null;
     }
 
     @Override
+    @Nullable
     public ItemStack decrStackSize(int i, int i1) {
         return (getInventory() != null) ? getInventory().decrStackSize(i, i1) : null;
     }
 
     @Override
+    @Nullable
     public ItemStack getStackInSlotOnClosing(int i) {
         return (getInventory() != null) ? getInventory().getStackInSlotOnClosing(i) : null;
     }
@@ -57,6 +69,9 @@ public abstract class TileShelf extends TileBase implements IInventory {
     @Override
     public void setInventorySlotContents(int i, ItemStack itemStack) {
         TileShelvingUnit main = getMainTile();
+        if (main == null) {
+            return;
+        }
         if (main.isPlacing() && (itemStack.getItem() == Item.getItemFromBlock(Blocks.chest))) {
             ItemStack old = getStackInSlot(i);
             if ((old == null) || (old.getItem() != itemStack.getItem())) {
@@ -81,6 +96,7 @@ public abstract class TileShelf extends TileBase implements IInventory {
     }
 
     @Override
+    @Nullable
     public String getInventoryName() {
         return (getInventory() != null) ? getInventory().getInventoryName() : null;
     }
@@ -116,7 +132,8 @@ public abstract class TileShelf extends TileBase implements IInventory {
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemStack) {
-        return (itemStack.getItem() == Item.getItemFromBlock(Blocks.chest)) && getMainTile().isPlacing() && (getMainTile().getCrateCount() < TileShelvingUnit.MAX_CRATES)
-                || (getInventory() != null) && getInventory().isItemValidForSlot(i, itemStack);
+        return getMainTile() != null &&
+                ((itemStack.getItem() == Item.getItemFromBlock(Blocks.chest)) && getMainTile().isPlacing() && (getMainTile().getCrateCount() < TileShelvingUnit.MAX_CRATES)
+                        || (getInventory() != null) && getInventory().isItemValidForSlot(i, itemStack));
     }
 }

@@ -26,19 +26,19 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryManaged, ISidedInventory {
 
-    private float MAX_PROGRESS = 100;
     public float animation;
     public boolean auto;
     public float progress = 0;
     public int maxProgress = 100;
     public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+    public int drawCounter;
+    public boolean working;
+    private float MAX_PROGRESS = 100;
     private double flow;
     private InventoryComponent inv = new InventoryComponent(this, 4, "Crusher");
     private InventoryComponent in;
     private InventoryComponent out;
-    public int drawCounter;
     private long time;
-    public boolean working;
 
     public InventoryComponent getInv() {
         return inv;
@@ -143,6 +143,7 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
         return MgDirection.getDirection(meta % 4 + 2);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void craft() {
         ItemStack a = getInv().getStackInSlot(0);
         RecipeCrusher r = RecipeCrusher.getRecipe(a);

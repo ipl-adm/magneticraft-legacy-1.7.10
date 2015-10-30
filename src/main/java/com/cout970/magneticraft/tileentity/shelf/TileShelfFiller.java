@@ -10,6 +10,9 @@ public class TileShelfFiller extends TileShelf {
 
     @Override
     public TileShelvingUnit getMainTile() {
+        if (!worldObj.blockExists(xCoord - offset.getX(), yCoord - offset.getY(), zCoord - offset.getZ())) {
+            return null;
+        }
         return (TileShelvingUnit) worldObj.getTileEntity(xCoord - offset.getX(), yCoord - offset.getY(), zCoord - offset.getZ());
     }
 

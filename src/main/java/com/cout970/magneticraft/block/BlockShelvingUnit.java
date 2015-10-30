@@ -30,12 +30,16 @@ public class BlockShelvingUnit extends BlockMg {
 
 
     @Override
-    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float hitX, float hitY, float hitZ) {
         TileEntity t = w.getTileEntity(x, y, z);
         if (!(t instanceof TileShelf)) {
             return true;
         }
         TileShelvingUnit shelf = ((TileShelf) t).getMainTile();
+
+        if (shelf == null) {
+            return super.onBlockActivated(w, x, y, z, p, side, hitX, hitY, hitZ);
+        }
 
         if (p.isSneaking()) {
             if (p.getCurrentEquippedItem() == null) {
@@ -67,7 +71,6 @@ public class BlockShelvingUnit extends BlockMg {
                 shelf.markDirty();
                 return true;
             }
-            shelf.xCoord += 0;
             if (MgUtils.isWrench(p.getCurrentEquippedItem())) {
                 shelf.setPlacing(!shelf.isPlacing(), p);
             } else {
@@ -76,7 +79,7 @@ public class BlockShelvingUnit extends BlockMg {
             return true;
         }
 
-        return super.onBlockActivated(w, x, y, z, p, side, p_149727_7_, p_149727_8_, p_149727_9_);
+        return super.onBlockActivated(w, x, y, z, p, side, hitX, hitY, hitZ);
     }
 
     @Override

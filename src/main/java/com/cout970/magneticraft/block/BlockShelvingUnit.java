@@ -2,6 +2,7 @@ package com.cout970.magneticraft.block;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.tileentity.shelf.TileShelfFiller;
@@ -17,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -26,6 +28,7 @@ public class BlockShelvingUnit extends BlockMg {
     public BlockShelvingUnit() {
         super(Material.iron);
     }
+
 
     @Override
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
@@ -43,6 +46,12 @@ public class BlockShelvingUnit extends BlockMg {
                     w.markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
                     shelf.markDirty();
                     return true;
+                } else if (!w.isRemote) {
+                    if (shelf.getCrateCount() > 0) {
+                        p.addChatComponentMessage(new ChatComponentText("Crate is not empty and cannot be removed!"));
+                    } else {
+                        p.addChatComponentMessage(new ChatComponentText("There are no crates on this Shelving Unit!"));
+                    }
                 }
             }
         } else {
@@ -60,7 +69,11 @@ public class BlockShelvingUnit extends BlockMg {
                 return true;
             }
             shelf.xCoord += 0;
-            p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
+            if (MgUtils.isWrench(p.getCurrentEquippedItem())) {
+                shelf.setPlacing(!shelf.isPlacing(), p);
+            } else {
+                p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
+            }
             return true;
         }
 

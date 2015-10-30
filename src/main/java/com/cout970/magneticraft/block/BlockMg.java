@@ -2,6 +2,7 @@ package com.cout970.magneticraft.block;
 
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBase;
+import com.cout970.magneticraft.util.ITileShelf;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -70,7 +71,7 @@ public abstract class BlockMg extends BlockContainer {
         super.onBlockPreDestroy(w, x, y, z, meta);
         if (w.isRemote) return;
         TileEntity tileEntity = w.getTileEntity(x, y, z);
-        if (tileEntity instanceof IInventory) {
+        if ((tileEntity instanceof IInventory) && !(tileEntity instanceof ITileShelf)) {
             IInventory inventory = (IInventory) tileEntity;
             Random rand = w.rand;
             for (int i = 0; i < inventory.getSizeInventory(); i++) {

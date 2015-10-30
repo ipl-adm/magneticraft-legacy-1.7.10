@@ -7,6 +7,7 @@ import com.google.common.base.Function;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ public class CompButton implements IGuiComp {
         GuiPoint curUV = getUV(drawState);
 
         gui.mc.renderEngine.bindTexture(texture);
+        GL11.glColor4f(1, 1, 1, 1);
         gui.drawTexturedModalRect(gui.xStart + pos.x, gui.yStart + pos.y, curUV.x, curUV.y, width, height);
     }
 

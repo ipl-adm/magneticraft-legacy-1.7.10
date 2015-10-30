@@ -29,7 +29,7 @@ public class GuiGrinder extends GuiBasic {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/crusher.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16)));
         comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(31, 16)));
-        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"), new GuiPoint(75, 31), ((TileGrinder) tile).getProgresBar()));
+        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"), new GuiPoint(75, 31), ((TileGrinder) tile).getProgressBar()));
     }
 
     public class CompEnergyBar implements IGuiComp {
@@ -91,7 +91,7 @@ public class GuiGrinder extends GuiBasic {
         public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileGrinder) {
                 IElectricConductor c = ((TileGrinder) tile).cond;
-                if (c instanceof BufferedConductor) {
+                if (c != null) {
                     int scale = ((BufferedConductor) c).storage * 50 / ((BufferedConductor) c).maxStorage;
                     gui.mc.renderEngine.bindTexture(texture);
                     RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (50 - scale), 59, 50 - scale, 11, scale, 70, 50);

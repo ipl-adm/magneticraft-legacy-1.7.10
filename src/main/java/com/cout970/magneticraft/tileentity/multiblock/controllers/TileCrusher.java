@@ -327,8 +327,8 @@ public class TileCrusher extends TileMB_Base implements IGuiSync, IInventoryMana
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection(), -1, -1, 0);
-        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection(), 3, 1, 3);
+        VecInt v1 = VecIntUtil.getRotatedOffset(getDirection().opposite(), -1, -1, 0);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getDirection().opposite(), 3, 1, 3);
         VecInt block = new VecInt(xCoord, yCoord, zCoord);
 
         return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));

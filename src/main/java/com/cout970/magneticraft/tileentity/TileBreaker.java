@@ -41,7 +41,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         super.updateEntity();
         if (worldObj.isRemote) return;
         if (worldObj.getTotalWorldTime() % 20 == 0 && isControlled() && cond.getVoltage() > ElectricConstants.MACHINE_WORK)
-            BreakBlock();
+            breakBlock();
         ejectFromInv();
     }
 
@@ -62,7 +62,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
         }
     }
 
-    public void BreakBlock() {
+    public void breakBlock() {
         ForgeDirection d = ForgeDirection.getOrientation(getBlockMetadata());
         for (int g = 1; g <= 16; g++) {
             int x, y, z;

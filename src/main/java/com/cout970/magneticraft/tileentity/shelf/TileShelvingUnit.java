@@ -10,8 +10,12 @@ import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryResizable;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     public static final int SHELF_CRATES = MAX_CRATES / MAX_SHELVES;
 
     private InventoryResizable[] rowInv = new InventoryResizable[MAX_SHELVES];
+    private boolean placing;
 
     public TileShelvingUnit() {
         crates = 0;
@@ -40,7 +45,7 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
         }
     }
 
-    public InventoryComponent getInv(int i) {
+    public InventoryResizable getInv(int i) {
         return rowInv[i];
     }
 
@@ -118,6 +123,9 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
                 BlockMg.dropItem(inv.getStackInSlot(i), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
             }
         }
+        if (getCrateCount() > 0) {
+            BlockMg.dropItem(new ItemStack(Blocks.chest, getCrateCount()), worldObj.rand, xCoord, yCoord, zCoord, worldObj);
+        }
     }
 
     public int getCrateCount() {
@@ -141,6 +149,7 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         crates = nbt.getInteger("crates");
+        placing = nbt.getBoolean("isPlacing");
         for (int i = 0; i < MAX_SHELVES; i++) {
             rowInv[i].readFromNBT(nbt, rowInv[i].name);
         }
@@ -150,8 +159,27 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("crates", crates);
+        nbt.setBoolean("isPlacing", placing);
         for (int i = 0; i < MAX_SHELVES; i++) {
             rowInv[i].writeToNBT(nbt, rowInv[i].name);
         }
+    }
+
+    public InventoryResizable getInventory() {
+        if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ManagerBlocks.shelving_unit) {
+            return ((ITileShelf) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord)).getMainTile().getInv(2);
+        }
+        return null;
+    }
+
+    public void setPlacing(boolean placing, EntityPlayer p) {
+        if (p != null && !worldObj.isRemote) {
+            p.addChatComponentMessage(new ChatComponentText(placing ? "Switched to placement mode" : "Switched to inventory mode"));
+        }
+        this.placing = placing;
+    }
+
+    public boolean isPlacing() {
+        return placing;
     }
 }

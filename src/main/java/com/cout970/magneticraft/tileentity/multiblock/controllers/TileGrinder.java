@@ -375,7 +375,7 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
         return time - aux;
     }
 
-    public IBarProvider getProgresBar() {
+    public IBarProvider getProgressBar() {
         return new IBarProvider() {
 
             @Override

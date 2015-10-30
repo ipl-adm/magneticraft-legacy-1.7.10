@@ -5,11 +5,10 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
+import com.cout970.magneticraft.tileentity.TileShelf;
 import com.cout970.magneticraft.tileentity.shelf.TileShelfFiller;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
-import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -33,10 +32,10 @@ public class BlockShelvingUnit extends BlockMg {
     @Override
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         TileEntity t = w.getTileEntity(x, y, z);
-        if (!(t instanceof ITileShelf)) {
+        if (!(t instanceof TileShelf)) {
             return true;
         }
-        TileShelvingUnit shelf = ((ITileShelf) t).getMainTile();
+        TileShelvingUnit shelf = ((TileShelf) t).getMainTile();
 
         if (p.isSneaking()) {
             if (p.getCurrentEquippedItem() == null) {

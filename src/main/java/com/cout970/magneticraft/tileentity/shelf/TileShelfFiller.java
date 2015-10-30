@@ -1,17 +1,12 @@
 package com.cout970.magneticraft.tileentity.shelf;
 
-import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.util.ITileShelf;
-import com.cout970.magneticraft.util.InventoryResizable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import com.cout970.magneticraft.tileentity.TileShelf;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileShelfFiller extends TileBase implements ITileShelf {
-    private VecInt offset;
+public class TileShelfFiller extends TileShelf {
     public boolean silentRemoval = false;
+    private VecInt offset;
 
     @Override
     public TileShelvingUnit getMainTile() {
@@ -38,16 +33,5 @@ public class TileShelfFiller extends TileBase implements ITileShelf {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         offset = new VecInt(nbt.getInteger("offsetX"), nbt.getInteger("offsetY"), nbt.getInteger("offsetZ"));
-    }
-
-    public InventoryResizable getInventory() {
-        int invNum = offset.getY() - 1;
-        if (invNum < 0) {
-            if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ManagerBlocks.shelving_unit) {
-                return ((ITileShelf) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord)).getMainTile().getInv(2);
-            }
-            return null;
-        }
-        return getMainTile().getInv(invNum);
     }
 }

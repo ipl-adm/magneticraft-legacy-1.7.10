@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.util;
 
-import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -11,9 +11,18 @@ import net.minecraft.item.ItemStack;
 public interface ITileShelf extends IInventory {
     TileShelvingUnit getMainTile();
     InventoryResizable getInventory();
+    VecInt getOffset();
 
     @Override
     default int getSizeInventory() {
+        int size = getRealSize();
+        if (size == 0 && getMainTile().isPlacing()) {
+            size = 1;
+        }
+        return size;
+    }
+
+    default int getRealSize() {
         return (getInventory() != null) ? getInventory().getCurSlots() : 0;
     }
 
@@ -53,7 +62,7 @@ public interface ITileShelf extends IInventory {
             main.getWorldObj().markBlockForUpdate(main.xCoord, main.yCoord, main.zCoord);
         }
 
-        if (getInventory() != null) {
+        if ((getInventory() != null) && ((i > 0) || (getRealSize() > 0))) {
             getInventory().setInventorySlotContents(i, itemStack);
         }
     }

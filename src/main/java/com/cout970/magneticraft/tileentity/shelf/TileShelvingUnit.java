@@ -50,6 +50,11 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
     }
 
     @Override
+    public VecInt getOffset() {
+        return VecInt.NULL_VECTOR;
+    }
+
+    @Override
     public TileShelvingUnit getMainTile() {
         return this;
     }

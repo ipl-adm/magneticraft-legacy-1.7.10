@@ -39,6 +39,7 @@ public class TileShelfFiller extends TileBase implements ITileShelf {
         super.readFromNBT(nbt);
         offset = new VecInt(nbt.getInteger("offsetX"), nbt.getInteger("offsetY"), nbt.getInteger("offsetZ"));
     }
+
     public InventoryResizable getInventory() {
         int invNum = offset.getY() - 1;
         if (invNum < 0) {

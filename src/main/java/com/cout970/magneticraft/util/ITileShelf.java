@@ -14,6 +14,14 @@ public interface ITileShelf extends IInventory {
 
     @Override
     default int getSizeInventory() {
+        int size = getRealSize();
+        if (size == 0 && getMainTile().isPlacing()) {
+            size = 1;
+        }
+        return size;
+    }
+
+    default int getRealSize() {
         return (getInventory() != null) ? getInventory().getCurSlots() : 0;
     }
 
@@ -53,7 +61,7 @@ public interface ITileShelf extends IInventory {
             main.getWorldObj().markBlockForUpdate(main.xCoord, main.yCoord, main.zCoord);
         }
 
-        if (getInventory() != null) {
+        if ((getInventory() != null) && ((i > 0) || (getRealSize() > 0))) {
             getInventory().setInventorySlotContents(i, itemStack);
         }
     }

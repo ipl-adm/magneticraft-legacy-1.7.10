@@ -1,7 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.List;
-
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
 import com.cout970.magneticraft.api.conveyor.IConveyorBeltLane;
@@ -15,7 +13,6 @@ import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -25,6 +22,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 public class TileInserter extends TileBase implements IGuiListener {
 
@@ -59,6 +58,12 @@ public class TileInserter extends TileBase implements IGuiListener {
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) {
+            if (counter >= 180) {
+                anim = getNextAnimation();
+                counter = 0;
+            } else {
+                counter += getSpeed();
+            }
             return;
         }
         if (anim == null) {
@@ -92,6 +97,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                     anim = InserterAnimation.RETRACTING_INV_LARGE;
                 }
                 counter = 0;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
 
         } else if (anim == InserterAnimation.SUCK_ITEM || anim == InserterAnimation.SUCK_ITEM_LARGE) {
@@ -118,6 +124,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                     counter = 0;
 
                 }
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         } else {
             if (counter >= 180) {
@@ -127,7 +134,6 @@ public class TileInserter extends TileBase implements IGuiListener {
                 counter += getSpeed();
             }
         }
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     private InserterAnimation getNextAnimation() {
@@ -165,15 +171,13 @@ public class TileInserter extends TileBase implements IGuiListener {
         VecInt vec1 = new VecInt(this).add(getDir().toVecInt());
         List l = worldObj.getEntitiesWithinAABB(EntityItem.class,
                 AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec1.getX() + 1, vec1.getY() + 1, vec1.getZ() + 1));
-        if (!l.isEmpty()) {
-            for (Object aL : l) {
-                if (aL instanceof EntityItem) {
-                    EntityItem entity = (EntityItem) aL;
-                    if (entity.getEntityItem() != null) {
-                        getInv().setInventorySlotContents(0, entity.getEntityItem());
-                        entity.setDead();
-                        break;
-                    }
+        for (Object aL : l) {
+            if (aL instanceof EntityItem) {
+                EntityItem entity = (EntityItem) aL;
+                if (entity.getEntityItem() != null) {
+                    getInv().setInventorySlotContents(0, entity.getEntityItem());
+                    entity.setDead();
+                    break;
                 }
             }
         }
@@ -393,10 +397,6 @@ public class TileInserter extends TileBase implements IGuiListener {
         upgrades.writeToNBT(nbt, "Upgrades");
     }
 
-    public enum InserterAnimation {
-        ROTATING, ROTATING_INV, RETRACTING_SHORT, EXTENDING_SHORT, RETRACTING_INV_SHORT, EXTENDING_INV_SHORT, RETRACTING_LARGE, EXTENDING_LARGE, RETRACTING_INV_LARGE, EXTENDING_INV_LARGE, DROP_ITEM, SUCK_ITEM, DROP_ITEM_LARGE, SUCK_ITEM_LARGE
-    }
-
     @Override
     public void onMessageReceive(int id, int data) {
         if (id == 0) {
@@ -409,5 +409,9 @@ public class TileInserter extends TileBase implements IGuiListener {
             ignoreDict = data == 1;
         }
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    public enum InserterAnimation {
+        ROTATING, ROTATING_INV, RETRACTING_SHORT, EXTENDING_SHORT, RETRACTING_INV_SHORT, EXTENDING_INV_SHORT, RETRACTING_LARGE, EXTENDING_LARGE, RETRACTING_INV_LARGE, EXTENDING_INV_LARGE, DROP_ITEM, SUCK_ITEM, DROP_ITEM_LARGE, SUCK_ITEM_LARGE
     }
 }

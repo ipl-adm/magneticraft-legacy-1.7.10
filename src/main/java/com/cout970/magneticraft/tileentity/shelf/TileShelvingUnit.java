@@ -5,9 +5,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.util.ITileShelf;
-import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.tileentity.TileShelf;
 import com.cout970.magneticraft.util.InventoryResizable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,13 +18,12 @@ import net.minecraft.util.ChatComponentText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileShelvingUnit extends TileBase implements ITileShelf {
-    private int crates;
+public class TileShelvingUnit extends TileShelf {
     public static final int MAX_CRATES = 24;
     public static final int MAX_SHELVES = 3;
     public static final int CRATE_SIZE = 27;
     public static final int SHELF_CRATES = MAX_CRATES / MAX_SHELVES;
-
+    private int crates;
     private InventoryResizable[] rowInv = new InventoryResizable[MAX_SHELVES];
     private boolean placing;
 
@@ -40,8 +37,8 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
 
     @Override
     public void updateEntity() {
-        if ((crates > (MAX_CRATES - SHELF_CRATES)) && !createTopShelf()) {
-            worldObj.createExplosion(null, xCoord, yCoord, zCoord, 10, false);
+        if ((crates > (MAX_CRATES - SHELF_CRATES))) {
+            createTopShelf();
         }
     }
 
@@ -88,8 +85,11 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
             }
         }
         for (VecInt coord : placeCoords) {
+            if (!worldObj.getChunkFromBlockCoords(coord.getX(), coord.getZ()).isChunkLoaded)
+                return false;
+        }
+        for (VecInt coord : placeCoords) {
             coord.setBlockWithMetadata(worldObj, ManagerBlocks.shelving_unit, 10, 7);
-            worldObj.removeTileEntity(coord.getX(), coord.getY(), coord.getZ());
             ((TileShelfFiller) coord.getTileEntity(worldObj)).setOffset(coord.copy().add(-xCoord, -yCoord, -zCoord));
         }
         return true;
@@ -168,13 +168,6 @@ public class TileShelvingUnit extends TileBase implements ITileShelf {
         for (int i = 0; i < MAX_SHELVES; i++) {
             rowInv[i].writeToNBT(nbt, rowInv[i].name);
         }
-    }
-
-    public InventoryResizable getInventory() {
-        if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ManagerBlocks.shelving_unit) {
-            return ((ITileShelf) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord)).getMainTile().getInv(2);
-        }
-        return null;
     }
 
     public void setPlacing(boolean placing, EntityPlayer p) {

@@ -2,7 +2,7 @@ package com.cout970.magneticraft.block;
 
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.util.ITileShelf;
+import com.cout970.magneticraft.tileentity.TileShelf;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -28,6 +28,26 @@ public abstract class BlockMg extends BlockContainer {
         super(m);
         setCreativeTab(CreativeTabsMg.MainTab);
         setHardness(2.0f);
+    }
+
+    public static void dropItem(ItemStack item, Random rand, int x, int y, int z, World w) {
+        if (item != null && item.stackSize > 0) {
+            float rx = rand.nextFloat() * 0.8F + 0.1F;
+            float ry = rand.nextFloat() * 0.8F + 0.1F;
+            float rz = rand.nextFloat() * 0.8F + 0.1F;
+            EntityItem entityItem = new EntityItem(w,
+                    x + rx, y + ry, z + rz,
+                    new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
+            if (item.hasTagCompound()) {
+                entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+            }
+            float factor = 0.05F;
+            entityItem.motionX = rand.nextGaussian() * factor;
+            entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+            entityItem.motionZ = rand.nextGaussian() * factor;
+            w.spawnEntityInWorld(entityItem);
+            item.stackSize = 0;
+        }
     }
 
     public void onNeighborBlockChange(World w, int x, int y, int z, Block b) {
@@ -71,32 +91,12 @@ public abstract class BlockMg extends BlockContainer {
         super.onBlockPreDestroy(w, x, y, z, meta);
         if (w.isRemote) return;
         TileEntity tileEntity = w.getTileEntity(x, y, z);
-        if ((tileEntity instanceof IInventory) && !(tileEntity instanceof ITileShelf)) {
+        if ((tileEntity instanceof IInventory) && !(tileEntity instanceof TileShelf)) {
             IInventory inventory = (IInventory) tileEntity;
             Random rand = w.rand;
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 dropItem(inventory.getStackInSlot(i), rand, x, y, z, w);
             }
-        }
-    }
-
-    public static void dropItem(ItemStack item, Random rand, int x, int y, int z, World w) {
-        if (item != null && item.stackSize > 0) {
-            float rx = rand.nextFloat() * 0.8F + 0.1F;
-            float ry = rand.nextFloat() * 0.8F + 0.1F;
-            float rz = rand.nextFloat() * 0.8F + 0.1F;
-            EntityItem entityItem = new EntityItem(w,
-                    x + rx, y + ry, z + rz,
-                    new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
-            if (item.hasTagCompound()) {
-                entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-            }
-            float factor = 0.05F;
-            entityItem.motionX = rand.nextGaussian() * factor;
-            entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-            entityItem.motionZ = rand.nextGaussian() * factor;
-            w.spawnEntityInWorld(entityItem);
-            item.stackSize = 0;
         }
     }
 }

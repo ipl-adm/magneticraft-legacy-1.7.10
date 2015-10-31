@@ -30,6 +30,13 @@ curse {
     displayName = 'Magneticraft ' + version
     apiKey = project.curseForgeApiKey
     releaseType = 'release'
+    changelog = new File('./changelogs/' + version + '.txt').text
+    if (version.contains('beta')) {
+        releaseType = 'beta'
+    }
+    if (version.contains('alpha')) {
+        releaseType = 'alpha'
+    }
     addGameVersion '1.7.10'
     relatedProject 'forge-multi-part'
     relatedProject 'codechickencore'
@@ -92,7 +99,6 @@ task devJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'dev'
 }
-
 
 artifacts {
     archives devJar

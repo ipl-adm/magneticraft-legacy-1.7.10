@@ -1,13 +1,17 @@
 package com.cout970.magneticraft;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.cout970.magneticraft.block.*;
-import com.cout970.magneticraft.block.compat.*;
-import com.cout970.magneticraft.block.computer.*;
+import com.cout970.magneticraft.block.compat.BlockEUAlternator;
+import com.cout970.magneticraft.block.compat.BlockKineticGenerator;
+import com.cout970.magneticraft.block.compat.BlockRCAlternator;
+import com.cout970.magneticraft.block.compat.BlockRFAlternator;
+import com.cout970.magneticraft.block.computer.BlockComputer;
+import com.cout970.magneticraft.block.computer.BlockDroidRED;
+import com.cout970.magneticraft.block.computer.BlockMonitor;
 import com.cout970.magneticraft.block.energy.*;
-import com.cout970.magneticraft.block.heat.*;
+import com.cout970.magneticraft.block.heat.BlockCooler;
+import com.cout970.magneticraft.block.heat.BlockHeatResistance;
+import com.cout970.magneticraft.block.heat.BlockHeatSink;
 import com.cout970.magneticraft.block.multiblock.*;
 import com.cout970.magneticraft.block.multiblock.controllers.*;
 import com.cout970.magneticraft.block.slabs.*;
@@ -24,7 +28,6 @@ import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileHeatConductor;
-
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -33,6 +36,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class ManagerBlocks {
 
@@ -422,12 +428,8 @@ public class ManagerBlocks {
         addBlock(geothermal, "Geothermal Pump");
         addBlock(permagnet, "Permanent Magnet");
         addBlock(concreted_pipe, "Concrete");
-        addBlock(reactor_vessel, "Reactor Vessel");
         addBlock(thermopile, "Thermopile");
         addBlock(multi_energy_low, "Multiblock Energy I/O (Low Voltage)");
-        addBlock(reactor_control_rods, "Reactor Control");
-        addBlock(reactor_wall, "Reactor Wall");
-        addBlock(reactor_activator, "Reactor Accelerator");
         addBlock(inserter, "Inserter");
         addBlock(housing, "Machine Housing");
         addBlock(grinder, "Grinder Control");
@@ -445,23 +447,15 @@ public class ManagerBlocks {
         addBlock(air_bubble, "Air Bubble");
         addBlock(solar_tower_core, "Solar Tower Core");
         addBlock(polimerizer, "Polymerizer Control");
-        addBlock(reactor_controller, "Reactor Controller");
         addBlock(multi_energy_medium, "Multiblock Energy I/O (Medium Voltage)");
         addBlock(steam_turbine, "Turbine Control");
         addBlock(combustion_engine, "Combustion Engine");
         addBlock(heat_sink, "Heat Sink");
         addBlock(brickFurnace, "Brick Furnace");
         addBlock(crafter, "Crafter");
-        addBlock(monitor, "Text Monitor");
-        addBlock(cpu, "CPU");
         addBlock(multi_heat, "Multiblock Heat I/O");
-        addBlock(droid_red, "R.E.D.");
         addBlock(oil_distillery, "Oil Distillery Control");
         addBlock(pole_tier1, "Electrical Wooden Pole");
-        addBlock(grinding_mill, "Grinding Mill");
-        addBlock(grinding_mill_gap, "Grinding Mill");
-        addBlock(wooden_shaft, "Wooden Shaft");
-        addBlock(hand_crank_gen, "Hand Crank");
         addBlock(multi_kinetic, "Multiblock Kinetic I/O");
         addBlock(infinite_steam, "Creative Infinite Steam");
         addBlock(void_inv, "Void Inventory");
@@ -480,6 +474,19 @@ public class ManagerBlocks {
         }
         if (Magneticraft.DEBUG) {
             addBlock(pole_connector, "Electrical Pole Connector");
+            addBlock(reactor_vessel, "Reactor Vessel");
+            addBlock(reactor_control_rods, "Reactor Control");
+            addBlock(reactor_wall, "Reactor Wall");
+            addBlock(reactor_activator, "Reactor Accelerator");
+            addBlock(grinding_mill, "Grinding Mill");
+            addBlock(grinding_mill_gap, "Grinding Mill");
+            addBlock(wooden_shaft, "Wooden Shaft");
+            addBlock(hand_crank_gen, "Hand Crank");
+            addBlock(reactor_controller, "Reactor Controller");
+            addBlock(monitor, "Text Monitor");
+            addBlock(cpu, "CPU");
+            addBlock(droid_red, "R.E.D.");
+            addBlock(pressure_tank, "Pressure Tank");
         }
         addBlock(pole_cable_wire, "Electrical Pole With Transformer");
         addBlock(infinite_energy, "Creative Infinite Energy");
@@ -488,7 +495,6 @@ public class ManagerBlocks {
         addBlock(dust_block_salt, "Salt Block", true);
         addBlock(dust_block_sulfur, "Sulfur Block", true);
         addBlock(oreZinc, "Zinc Ore", true);
-        addBlock(pressure_tank, "Pressure Tank");
         addBlock(crushing_table, "Crushing Table");
         addAltItemBlock(shelving_unit, ItemBlockShelvingUnit.class, "Shelving Unit");
 

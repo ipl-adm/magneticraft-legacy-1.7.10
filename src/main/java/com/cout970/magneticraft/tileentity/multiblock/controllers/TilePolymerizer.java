@@ -29,7 +29,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync {
 
     public int progress;
-    public int maxProgres = 200;
+    public int maxProgress = 200;
     public InventoryComponent inv = new InventoryComponent(this, 2, "Polymerizer");
     public TankMg input;
     public IHeatConductor heater;
@@ -51,7 +51,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
         }
         if (worldObj.isRemote) return;
         if (isControlled() && canCraft()) {
-            if (progress >= maxProgres) {
+            if (progress >= maxProgress) {
                 craft();
                 progress = 0;
             } else {
@@ -261,7 +261,7 @@ public class TilePolymerizer extends TileMB_Base implements IInventoryManaged, I
 
             @Override
             public float getMaxLevel() {
-                return maxProgres;
+                return maxProgress;
             }
 
             @Override

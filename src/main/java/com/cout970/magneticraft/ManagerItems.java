@@ -1,50 +1,12 @@
 package com.cout970.magneticraft;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.cout970.magneticraft.items.ItemBasic;
-import com.cout970.magneticraft.items.ItemBattery;
-import com.cout970.magneticraft.items.ItemBucket;
-import com.cout970.magneticraft.items.ItemChainSaw;
-import com.cout970.magneticraft.items.ItemElectricSword;
-import com.cout970.magneticraft.items.ItemFloppyDisk;
-import com.cout970.magneticraft.items.ItemHammerIron;
-import com.cout970.magneticraft.items.ItemHammerStone;
-import com.cout970.magneticraft.items.ItemHardDrive;
-import com.cout970.magneticraft.items.ItemHeatCoilCopper;
-import com.cout970.magneticraft.items.ItemHeatCoilIron;
-import com.cout970.magneticraft.items.ItemHeatCoilTungsten;
-import com.cout970.magneticraft.items.ItemHeavyCopperCoil;
-import com.cout970.magneticraft.items.ItemJackHammer;
-import com.cout970.magneticraft.items.ItemManometer;
-import com.cout970.magneticraft.items.ItemMapPositioner;
-import com.cout970.magneticraft.items.ItemMeta;
-import com.cout970.magneticraft.items.ItemModuleCPU_MIPS;
-import com.cout970.magneticraft.items.ItemModuleROM;
-import com.cout970.magneticraft.items.ItemModuleRam64K;
-import com.cout970.magneticraft.items.ItemOilProspector;
-import com.cout970.magneticraft.items.ItemPartBrassPipe;
-import com.cout970.magneticraft.items.ItemPartCableHigh;
-import com.cout970.magneticraft.items.ItemPartCableLow;
-import com.cout970.magneticraft.items.ItemPartCableMedium;
-import com.cout970.magneticraft.items.ItemPartCopperPipe;
-import com.cout970.magneticraft.items.ItemPartCopperWire;
-import com.cout970.magneticraft.items.ItemPartHeatCable;
-import com.cout970.magneticraft.items.ItemPartIronPipe;
-import com.cout970.magneticraft.items.ItemPartOpticFiber;
-import com.cout970.magneticraft.items.ItemSmallBattery;
-import com.cout970.magneticraft.items.ItemThermometer;
-import com.cout970.magneticraft.items.ItemThoriumRod;
-import com.cout970.magneticraft.items.ItemToolCharger;
-import com.cout970.magneticraft.items.ItemTurbine;
-import com.cout970.magneticraft.items.ItemUraniumRod;
-import com.cout970.magneticraft.items.ItemVoltmeter;
-import com.cout970.magneticraft.items.ItemWrench;
+import com.cout970.magneticraft.items.*;
 import com.cout970.magneticraft.util.NamedItem;
-
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManagerItems {
 
@@ -54,47 +16,22 @@ public class ManagerItems {
 
     public static String[] oreNames = new String[]{"Iron", "Gold", "Copper", "Tin", "Tungsten", "Lead", "Silver", "Uranium", "Thorium", "Nickel", "Ardite", "Cobalt", "Zinc", "Aluminium", "Platinum", "Titanium", "Osmium", "Bismuth", "Chromium", "Mithril", "Lithium", "Iridium", "Manganese", "Galena"};
     public static String[][] extraNames = new String[][]{{"Nickel", "Aluminium"}, {"Copper", "Silver"}, {"Gold", "Iron"}, {"Iron", "Silver"}, {"Iron", "Aluminium"}, {"Silver", "Thorium"}, {"Lead", "Copper"}, {"Thorium", "Plutonium"}, {"Uranium", "Plutonium"}, {"Iron", "Zinc"}, {"Cobalt", null},
-            {"Ardite", null}, {"Iron", "Nickel"}, {"Iron", "Titanium"}, {"Nickel", "Silver"}, {"Iron", "Nickel"}, {null, "Iron"}, {null, "Zinc"}, {null, "Nickel"}, {null, "Zinc"}, {null, "Iron"}, {null, "Iron"}, {"Iron", null}, {"Gold", "Silver"}};
-
-    private static int oreAmount = oreNames.length;
-    public static ItemMeta chunks = new ItemMeta("chunks", oreAmount)
-            .setUnlocByPattern("chunk_!lower_name!", oreNames)
-            .setTextureByPattern("ores/chunk_!lower_name!", oreNames)
-            .setOreDictByPattern("chunk!name!", oreNames)
-            .setNameByPattern("!name! Chunk", oreNames);
-    public static ItemMeta rubble = new ItemMeta("rubble", oreAmount)
-            .setUnlocByPattern("rubble_!lower_name!", oreNames)
-            .setTextureByPattern("ores/rubble_!lower_name!", oreNames)
-            .setOreDictByPattern("rubble!name!", oreNames)
-            .setNameByPattern("!name! Rubble", oreNames);
-    public static ItemMeta pebbles = new ItemMeta("pebbles", oreAmount)
-            .setUnlocByPattern("pebbles_!lower_name!", oreNames)
-            .setTextureByPattern("ores/pebbles_!lower_name!", oreNames)
-            .setOreDictByPattern("pebbles!name!", oreNames)
-            .setNameByPattern("!name! Pebbles", oreNames);
-    public static ItemMeta dust = new ItemMeta("dust", oreAmount)
-            .setUnlocByPattern("dust_!lower_name!", oreNames)
-            .setTextureByPattern("ores/dust_!lower_name!", oreNames)
-            .setOreDictByPattern("dust!name!", oreNames)
-            .setNameByPattern("!name! Dust", oreNames);
-
+            {"Ardite", null}, {"Iron", "Nickel"}, {"Iron", "Titanium"}, {"Nickel", "Silver"}, {"Iron", "Nickel"}, {null, "Iron"}, {null, "Zinc"}, {null, "Nickel"}, {null, "Zinc"}, {null, "Iron"}, {null, "Iron"}, {"Iron", null}, {"Silver", null}};
+    public static int[] altNames = new int[]{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5};
     public static Item ingotCopper;
     public static Item ingotTungsten;
     public static Item ingotZinc;
     public static Item ingotBrass;
     public static Item ingotCarbide;
-
     public static Item dustSulfur;
     public static Item dustQuartz;
     public static Item dustObsidian;
     public static Item dustSalt;
-
     public static Item part_copper_cable_low;
     public static Item part_copper_cable_medium;
     public static Item part_copper_cable_high;
     public static Item part_copper_wire;
     public static Item part_copper_pipe;
-
     public static Item heatCoilCopper;
     public static Item heatCoilIron;
     public static Item heatCoilTungsten;
@@ -148,6 +85,27 @@ public class ManagerItems {
     public static Item hammer_stone;
     public static Item hammer_iron;
     public static Item manometer;
+    private static int oreAmount = oreNames.length;
+    public static ItemMeta chunks = new ItemMeta("chunks", oreAmount)
+            .setUnlocByPattern("chunk_!lower_name!", oreNames)
+            .setTextureByPattern("ores/chunk_!lower_name!", oreNames)
+            .setOreDictByPattern("chunk!name!", oreNames)
+            .setNameByPattern("!name! Chunk", oreNames);
+    public static ItemMeta rubble = new ItemMeta("rubble", oreAmount)
+            .setUnlocByPattern("rubble_!lower_name!", oreNames)
+            .setTextureByPattern("ores/rubble_!lower_name!", oreNames)
+            .setOreDictByPattern("rubble!name!", oreNames)
+            .setNameByPattern("!name! Rubble", oreNames);
+    public static ItemMeta pebbles = new ItemMeta("pebbles", oreAmount)
+            .setUnlocByPattern("pebbles_!lower_name!", oreNames)
+            .setTextureByPattern("ores/pebbles_!lower_name!", oreNames)
+            .setOreDictByPattern("pebbles!name!", oreNames)
+            .setNameByPattern("!name! Pebbles", oreNames);
+    public static ItemMeta dust = new ItemMeta("dust", oreAmount)
+            .setUnlocByPattern("dust_!lower_name!", oreNames)
+            .setTextureByPattern("ores/dust_!lower_name!", oreNames)
+            .setOreDictByPattern("dust!name!", oreNames)
+            .setNameByPattern("!name! Dust", oreNames);
 
     public static void initItems() {
 
@@ -272,11 +230,6 @@ public class ManagerItems {
         addItem(bucket_heavy_oil, "Heavy Oil Bucket");
         addItem(bucket_hot_crude, "Hot Crude Bucket");
 
-        addItem(chip_cpu_mips, "Mips CPU");
-        addItem(chip_ram, "RAM Module");
-        addItem(chip_rom, "ROM Module");
-        addItem(floppy_disk, "Floppy Disk");
-        addItem(hard_drive, "Hard Drive");
         addItem(part_iron_pipe, "Iron Pipe");
         addItem(partheatcable, "Heat Cable");
         addItem(tool_jackhammer, "Jackhammer");
@@ -296,8 +249,14 @@ public class ManagerItems {
         addItem(part_brass_pipe, "Brass Pipe");
         addItem(hammer_stone, "Stone Hammer");
         addItem(hammer_iron, "Iron Hammer");
-//        if(Magneticraft.DEBUG) for some reason this no work for me
-        	addItem(manometer, "Manometer");
+        if (Magneticraft.DEBUG) {
+            addItem(manometer, "Manometer");
+            addItem(chip_cpu_mips, "Mips CPU");
+            addItem(chip_ram, "RAM Module");
+            addItem(chip_rom, "ROM Module");
+            addItem(floppy_disk, "Floppy Disk");
+            addItem(hard_drive, "Hard Drive");
+        }
 
         for (Item i : items) {
             GameRegistry.registerItem(i, i.getUnlocalizedName());

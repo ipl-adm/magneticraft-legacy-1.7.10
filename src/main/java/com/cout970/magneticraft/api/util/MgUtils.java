@@ -7,7 +7,6 @@ import cofh.api.item.IToolHammer;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.computer.IOpticFiber;
 import com.cout970.magneticraft.api.tool.IWrench;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
@@ -21,12 +20,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import javax.annotation.RegEx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -42,6 +39,9 @@ public class MgUtils {
      * @return
      */
     public static TileEntity getTileEntity(TileEntity tile, VecInt d) {
+        if (!tile.getWorldObj().blockExists(tile.xCoord + d.getX(), tile.yCoord + d.getY(), tile.zCoord + d.getZ())) {
+            return null;
+        }
         return tile.getWorldObj().getTileEntity(tile.xCoord + d.getX(), tile.yCoord + d.getY(), tile.zCoord + d.getZ());
     }
 
@@ -53,6 +53,9 @@ public class MgUtils {
      * @return
      */
     public static TileEntity getTileEntity(TileEntity tile, MgDirection d) {
+        if (!tile.getWorldObj().blockExists(tile.xCoord + d.getOffsetX(), tile.yCoord + d.getOffsetY(), tile.zCoord + d.getOffsetZ())) {
+            return null;
+        }
         return tile.getWorldObj().getTileEntity(tile.xCoord + d.getOffsetX(), tile.yCoord + d.getOffsetY(), tile.zCoord + d.getOffsetZ());
     }
 

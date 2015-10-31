@@ -258,10 +258,11 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     private void dropToInv(IInventory t) {
         ItemStack s = getInv().getStackInSlot(0);
-        if (MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), true) == 0) {
-            getInv().setInventorySlotContents(0, null);
-            MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), false);
+        s.stackSize = MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), false);
+        if (s.stackSize == 0) {
+            s = null;
         }
+        getInv().setInventorySlotContents(0, s);
     }
 
     private void suckFromBelt(IConveyorBelt t, Object obj) {

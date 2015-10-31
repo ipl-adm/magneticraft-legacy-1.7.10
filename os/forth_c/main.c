@@ -5,6 +5,7 @@
 
 //data tipes
 typedef unsigned char byte;
+typedef unsigned int word;
 
 typedef struct dictionarys{
 	byte count;
@@ -15,11 +16,11 @@ typedef struct dictionarys{
 
 //stacks
 
-int fpStack[128];
-int spStack[128];
+word fpStack[128];
+word spStack[128];
 
-int *fp = fpStack;
-int *sp = spStack;
+word *fp = fpStack;
+word *sp = spStack;
 
 //msg
 char mgs_unknow[] = "\0x14Unknow Token: ";
@@ -28,8 +29,8 @@ char mgs_unknow[] = "\0x14Unknow Token: ";
 byte temp[128];
 byte output[128];
 byte word_buf[80];
-int *R0 = fpStack;
-int *S0 = spStack;
+word *R0 = fpStack;
+word *S0 = spStack;
 
 //dictionary
 int indexHelp = 0;
@@ -42,18 +43,15 @@ int pop();
 void abortStacks();
 void checkStack(int elements);
 
-void forth();
-void set();
-void at();
 
 //functionalities
 
-void push(int data){
+void push(word data){
 	*fp = data;
 	fp++;
 }
 
-int pop(){
+word pop(){
 	int data = *fp;
 	fp--;
 	return data;
@@ -72,10 +70,6 @@ void abortStacks(){
 }
 //words
 
-void forth(){
-
-}
-
 void set(){
 	checkStack(2);
 	int *addr = (int*)pop();
@@ -89,9 +83,66 @@ void at(){
 	push(*addr);
 }
 
+void plus(){
+	checkStack(2);
+	word num1 = pop(), num2 = pop();
+	push(num1 + num2);
+}
+
+void minus(){
+	checkStack(2);
+	word num1 = pop(), num2 = pop();
+	push(num1 - num2);
+}
+
+void star(){
+	checkStack(2);
+	word num1 = pop(), num2 = pop();
+	push(num1 * num2);
+}
+
+void slash(){
+	checkStack(2);
+	word num1 = pop(), num2 = pop();
+	push(num1 / num2);
+}
+
+void slash_mod(){
+	checkStack(2);
+	word num1 = pop(), num2 = pop();
+	push(num1 / num2);
+	push(num1 % num2);
+}
+
+void star_slash(){
+	checkStack(3);
+	word num1 = pop(), num2 = pop(), num3 = pop();
+	push(num1 * num2 / mun3);
+}
+
+
+void star_slash_mod(){
+	checkStack(3);
+	word num1 = pop(), num2 = pop(), num3 = pop();
+	push(num1 * num2 / mun3);
+	push(num1 * num2 % mun3);
+}
+
+void plus_set(){
+	checkStack(2);
+	word num1 = pop();
+	word* addr = (word*) pop();
+	*addr = num1;
+}
+
+void forth(){
+
+}
+
 //start
 
 int main(){
+	forth();
 	return 0;
 }
 
@@ -110,4 +161,12 @@ void loadDictionary(){
 	addEntry(5, "FORTH", &forth);
 	addEntry(1, "!", &set);
 	addEntry(1, "@", &at);
+	addEntry(1, "+", &plus);
+	addEntry(1, "-", &minus);
+	addEntry(1, "*", &star);
+	addEntry(1, "/", &slash);
+	addEntry(4, "/MOD", &slash_mod);
+	addEntry(2, "*/", &star_slash);
+	addEntry(5, "*/MOD", &star_slash_mod);
+	addEntry(5, "*/MOD", &plus_set);
 }

@@ -189,6 +189,10 @@ public class VecInt implements Comparable<VecInt> {
         setBlockMetadata(world, meta, flags);
     }
 
+    public void setTileEntity(World world, TileEntity tile) {
+        world.setTileEntity(x, y, z, tile);
+    }
+
     public boolean blockExists(World world) {
         return world.blockExists(x, y, z);
     }

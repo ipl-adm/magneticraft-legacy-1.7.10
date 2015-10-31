@@ -108,6 +108,9 @@ public abstract class TileShelf extends TileBase implements IInventory {
 
     @Override
     public int getInventoryStackLimit() {
+        if ((getOffset().getY() == 0) && (getRealSize() == 0)) {
+            return 64;
+        }
         return (getInventory() != null)? getInventory().getInventoryStackLimit() : 0;
     }
 

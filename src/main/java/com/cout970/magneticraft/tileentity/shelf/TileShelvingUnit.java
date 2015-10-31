@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 
@@ -89,8 +90,13 @@ public class TileShelvingUnit extends TileShelf {
                 return false;
         }
         for (VecInt coord : placeCoords) {
-            coord.setBlockWithMetadata(worldObj, ManagerBlocks.shelving_unit, 10, 7);
-            ((TileShelfFiller) coord.getTileEntity(worldObj)).setOffset(coord.copy().add(-xCoord, -yCoord, -zCoord));
+            coord.setBlockWithMetadata(worldObj, ManagerBlocks.shelving_unit, 10, 3);
+            TileEntity tile = coord.getTileEntity(worldObj);
+            if (!(tile instanceof TileShelfFiller)) {
+                tile = new TileShelfFiller();
+                coord.setTileEntity(worldObj, tile);
+            }
+            ((TileShelfFiller) tile).setOffset(coord.copy().add(-xCoord, -yCoord, -zCoord));
         }
         return true;
     }

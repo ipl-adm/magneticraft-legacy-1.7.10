@@ -1,8 +1,5 @@
 package com.cout970.magneticraft;
 
-import java.io.File;
-import java.util.List;
-
 import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.compat.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
@@ -11,32 +8,32 @@ import com.cout970.magneticraft.handlers.SolidFuelHandler;
 import com.cout970.magneticraft.proxy.IProxy;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import com.cout970.magneticraft.util.Log;
-import com.cout970.magneticraft.util.OutdatedJavaException;
 import com.cout970.magneticraft.util.URLConnectionReader;
 import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 import com.google.common.collect.Lists;
-
-import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.ModAPIManager;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
+
+import java.io.File;
+import java.util.List;
 
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +
@@ -69,6 +66,7 @@ public class Magneticraft {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        Log.init(event.getModLog());
         Log.info("Starting preInit");
 
         if (Loader.isModLoaded("BuildCraft|Core")) {
@@ -186,6 +184,16 @@ public class Magneticraft {
 //		}
 //	}
 
+    public void checkVersion() {
+        try {
+            String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
+            Log.info("Last Version: " + version);
+            Log.info("Current Version: " + VERSION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {
 
         @Override
@@ -217,16 +225,6 @@ public class Magneticraft {
                 }
             }
             return validTickets;
-        }
-    }
-
-    public void checkVersion() {
-        try {
-            String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
-            Log.info("Last Version: " + version);
-            Log.info("Current Version: " + VERSION);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

@@ -125,7 +125,7 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ingotCarbide, 8), "ccc", "ctc", "ccc", 'c', Items.coal, 't', "ingotTungsten"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(voltmeter), "cgc", "cgc", "lmh", 'c', "ingotBrass", 'g', "paneGlass", 'l', part_copper_cable_low, 'm', part_copper_cable_medium, 'h', part_copper_cable_high));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(thermometer), "cgc", "cgc", "crc", 'c', "ingotIron", 'g', "paneGlass", 'r', "dustRedstone"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(map_positioner), "vpv", "ptp", "vpv", 'p', Items.paper, 't', new ItemStack(Items.dye, 1, 0)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(map_positioner), "vpv", "ptp", "vpv", 'p', Items.paper, 't', "dyeBlack"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(wrench), true, "ii", "ti", "ti", 'i', "ingotIron", 't', "dyeRed"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(string_fabric), "iii", "iii", "iii", 'i', Items.string));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(turbine_wing), true, "sf", "sf", "sv", 's', Items.stick, 'f', string_fabric));
@@ -160,5 +160,6 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(part_iron_pipe, 8), "cvc", "cgc", "cvc", 'c', "ingotIron", 'g', "blockGlass"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crushing_table), "xxx", "yyy", "y y", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', "logWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(shelving_unit), "xyx", "xyx", "xyx", 'x', new ItemStack(Blocks.stone_slab, 1, 0), 'y', Blocks.iron_bars));
     }
 }

@@ -1,9 +1,6 @@
 package com.cout970.magneticraft.block.multiblock.controllers;
 
-import buildcraft.api.tools.IToolWrench;
-import cofh.api.item.IToolHammer;
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
@@ -17,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -63,7 +59,6 @@ public class BlockCrusher extends BlockMg implements MB_ControlBlock {
 
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
-        Item item;
         if ((p.getCurrentEquippedItem() != null) && MgUtils.isWrench(p.getCurrentEquippedItem().getItem())) {
             TileEntity t = w.getTileEntity(x, y, z);
             if (!w.isRemote) {

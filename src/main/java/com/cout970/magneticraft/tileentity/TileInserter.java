@@ -59,8 +59,10 @@ public class TileInserter extends TileBase implements IGuiListener {
         super.updateEntity();
         if (worldObj.isRemote) {
             if (counter >= 180) {
-                anim = getNextAnimation();
-                counter = 0;
+                if ((anim != InserterAnimation.SUCK_ITEM) && (anim != InserterAnimation.SUCK_ITEM_LARGE) && (anim != InserterAnimation.DROP_ITEM) && (anim != InserterAnimation.DROP_ITEM_LARGE)) {
+                    anim = getNextAnimation();
+                    counter = 0;
+                }
             } else {
                 counter += getSpeed();
             }
@@ -122,9 +124,8 @@ public class TileInserter extends TileBase implements IGuiListener {
                         anim = InserterAnimation.RETRACTING_LARGE;
                     }
                     counter = 0;
-
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 }
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         } else {
             if (counter >= 180) {

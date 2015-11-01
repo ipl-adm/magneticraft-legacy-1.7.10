@@ -72,7 +72,7 @@ public abstract class TileShelf extends TileBase implements IInventory {
         if (main == null) {
             return;
         }
-        if (main.isPlacing() && (itemStack.getItem() == Item.getItemFromBlock(Blocks.chest))) {
+        if (main.isPlacing() && (itemStack != null) && (itemStack.getItem() == Item.getItemFromBlock(Blocks.chest))) {
             ItemStack old = getStackInSlot(i);
             if ((old == null) || (old.getItem() != itemStack.getItem())) {
                 old = itemStack.copy();

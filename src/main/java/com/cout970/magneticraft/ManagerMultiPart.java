@@ -4,7 +4,7 @@ import codechicken.multipart.MultiPartRegistry;
 import codechicken.multipart.MultiPartRegistry.IPartFactory;
 import codechicken.multipart.TMultiPart;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.parts.*;
+import com.cout970.magneticraft.parts.PartOpticFiber;
 import com.cout970.magneticraft.parts.electric.PartCableHigh;
 import com.cout970.magneticraft.parts.electric.PartCableLow;
 import com.cout970.magneticraft.parts.electric.PartCableMedium;
@@ -23,8 +23,10 @@ public class ManagerMultiPart {
         MultiPartRegistry.registerParts(new CopperPipeFactory(), new String[]{ManagerItems.part_copper_pipe.getUnlocalizedName()});
         MultiPartRegistry.registerParts(new IronPipeFactory(), new String[]{ManagerItems.part_iron_pipe.getUnlocalizedName()});
         MultiPartRegistry.registerParts(new HeatCableFactory(), new String[]{ManagerItems.partheatcable.getUnlocalizedName()});
-        MultiPartRegistry.registerParts(new OpticFiberFactory(), new String[]{ManagerItems.part_optic_fiber.getUnlocalizedName()});
-        MultiPartRegistry.registerParts(new BrassPipeFactory(), new String[]{ManagerItems.part_brass_pipe.getUnlocalizedName()});
+        if (Magneticraft.DEBUG) {
+            MultiPartRegistry.registerParts(new OpticFiberFactory(), new String[]{ManagerItems.part_optic_fiber.getUnlocalizedName()});
+            MultiPartRegistry.registerParts(new BrassPipeFactory(), new String[]{ManagerItems.part_brass_pipe.getUnlocalizedName()});
+        }
         for (MgDirection d : MgDirection.values())
             MultiPartRegistry.registerParts(new CopperWireFactory(), new String[]{ManagerItems.part_copper_wire.getUnlocalizedName() + "_" + d.name()});
     }

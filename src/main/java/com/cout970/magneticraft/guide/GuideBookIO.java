@@ -1,10 +1,11 @@
 package com.cout970.magneticraft.guide;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import com.cout970.magneticraft.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class GuideBookIO {
 
@@ -23,14 +24,11 @@ public class GuideBookIO {
     }
 
     public static void saveBook() {
-//		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        book = null;
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         if (book == null) {
             book = new BookGuide();
-            //TODO REMOVE some tests with the guide book
+//            //TODO REMOVE some tests with the guide book
 //			BookPage page = new BookPage();
-//			// page.addComponent(new CompItemRender(new ItemStack(Blocks.stone,
-//			// 10), 15, 23));
 //			page.addComponent(new CompCraftingRecipe(new ItemStack[] { new ItemStack(Blocks.diamond_block),
 //					new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond),
 //					new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond),
@@ -51,8 +49,8 @@ public class GuideBookIO {
 //			book.addPage("main", page);
 //			book.addPage("index", page2);
         }
-//		String json = gson.toJson(book);
-//		Log.debug(json);
+		String json = gson.toJson(book);
+		Log.debug(json);
     }
 
     public static BookGuide getBook() {

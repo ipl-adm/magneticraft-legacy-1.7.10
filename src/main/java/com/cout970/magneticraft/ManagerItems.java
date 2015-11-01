@@ -85,6 +85,8 @@ public class ManagerItems {
     public static Item hammer_stone;
     public static Item hammer_iron;
     public static Item manometer;
+    public static Item guide_book;
+    
     private static int oreAmount = oreNames.length;
     public static ItemMeta chunks = new ItemMeta("chunks", oreAmount)
             .setUnlocByPattern("chunk_!lower_name!", oreNames)
@@ -180,6 +182,7 @@ public class ManagerItems {
         hammer_stone = new ItemHammerStone("stone_hammer");
         hammer_iron = new ItemHammerIron("iron_hammer");
         manometer = new ItemManometer("manometer");
+        guide_book = new ItemGuideBook("guide_book");
     }
 
     public static void registerItems() {
@@ -256,6 +259,7 @@ public class ManagerItems {
             addItem(chip_rom, "ROM Module");
             addItem(floppy_disk, "Floppy Disk");
             addItem(hard_drive, "Hard Drive");
+            addItem(guide_book, "Guide Book");
         }
 
         for (Item i : items) {

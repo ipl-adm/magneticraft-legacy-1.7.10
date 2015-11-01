@@ -3,6 +3,7 @@ package com.cout970.magneticraft.client.gui.component;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.util.DefaultEnumMap;
+import com.cout970.magneticraft.util.Log;
 import com.google.common.base.Function;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.tileentity.TileEntity;

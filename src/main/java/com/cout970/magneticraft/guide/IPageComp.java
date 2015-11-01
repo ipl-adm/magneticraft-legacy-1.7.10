@@ -13,4 +13,6 @@ public interface IPageComp {
     void renderTop(int mx, int my, GuiGuideBook gui, BookPage page, BookGuide guide);
 
     String getID();
+    
+    Box2D getBox();
 }

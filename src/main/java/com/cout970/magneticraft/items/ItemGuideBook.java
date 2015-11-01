@@ -13,9 +13,10 @@ public class ItemGuideBook extends ItemBasic {
 
     @Override
     public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player) {
-        if (player.isSneaking()) return item;
-        player.openGui(Magneticraft.INSTANCE, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
-        return item;
+    	if (player.isSneaking()) return item;
+    	if(!world.isRemote)
+    		player.openGui(Magneticraft.INSTANCE, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
+    	return item;
     }
 
 }

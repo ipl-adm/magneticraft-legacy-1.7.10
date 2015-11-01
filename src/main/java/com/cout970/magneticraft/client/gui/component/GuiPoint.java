@@ -7,4 +7,8 @@ public class GuiPoint {
         x = i;
         y = j;
     }
+
+	public GuiPoint copy() {
+		return new GuiPoint(x, y);
+	}
 }

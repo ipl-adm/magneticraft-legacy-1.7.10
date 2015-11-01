@@ -3,6 +3,7 @@ package com.cout970.magneticraft.guide.comps;
 import com.cout970.magneticraft.client.gui.GuiGuideBook;
 import com.cout970.magneticraft.guide.BookGuide;
 import com.cout970.magneticraft.guide.BookPage;
+import com.cout970.magneticraft.guide.Box2D;
 import com.cout970.magneticraft.guide.Color;
 import com.cout970.magneticraft.guide.IPageComp;
 import com.google.gson.annotations.Expose;
@@ -37,10 +38,10 @@ public class CompLargeText implements IPageComp {
             return;
         for (int line = 0; line < text.length; line++) {
             if (centered) {
-                gui.drawCenteredString(gui.getFontRenderer(), text[line], gui.xStart + x, gui.yStart + y + line * 15,
+                gui.drawCenteredString(gui.getFontRenderer(), text[line], gui.xStart + x + 1, gui.yStart + y + 1 + line * 15,
                         color != null ? color.toInteger() : 0);
             } else {
-                gui.drawString(gui.getFontRenderer(), text[line], gui.xStart + x, gui.yStart + y + line * 15,
+                gui.drawString(gui.getFontRenderer(), text[line], gui.xStart + x + 1, gui.yStart + y + 1 + line * 15,
                         color != null ? color.toInteger() : 0);
             }
         }
@@ -63,4 +64,19 @@ public class CompLargeText implements IPageComp {
     @Override
     public void renderTop(int mx, int my, GuiGuideBook gui, BookPage page, BookGuide guide) {
     }
+
+	@Override
+	public Box2D getBox() {
+		return new Box2D(x, y, x+getLenght()*6, y+text.length*14);
+	}
+
+	private int getLenght() {
+		int length = 0;
+		for(String t : text){
+			if(t != null){
+				length = Math.max(length, t.length());
+			}
+		}
+		return length;
+	}
 }

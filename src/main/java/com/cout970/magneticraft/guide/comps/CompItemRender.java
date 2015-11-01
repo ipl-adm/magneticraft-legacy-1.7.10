@@ -1,8 +1,10 @@
 package com.cout970.magneticraft.guide.comps;
 
+import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.client.gui.GuiGuideBook;
 import com.cout970.magneticraft.guide.BookGuide;
 import com.cout970.magneticraft.guide.BookPage;
+import com.cout970.magneticraft.guide.Box2D;
 import com.cout970.magneticraft.guide.IPageComp;
 import com.cout970.magneticraft.guide.Stack;
 import com.google.gson.annotations.Expose;
@@ -69,12 +71,17 @@ public class CompItemRender implements IPageComp {
     @Override
     public void renderTop(int mx, int my, GuiGuideBook gui, BookPage page, BookGuide guide) {
         if (item != null && item.getStack() != null) {
-            if (gui.isIn(mx, my, gui.xStart + x, gui.yStart + y, 16, 16)) {
+            if (GuiBasic.isIn(mx, my, gui.xStart + x, gui.yStart + y, 16, 16)) {
                 List data = item.getStack().getTooltip(gui.mc.thePlayer, false);
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                 RenderHelper.enableGUIStandardItemLighting();
             }
         }
     }
+
+	@Override
+	public Box2D getBox() {
+		return new Box2D(x, y, x+16, y+16);
+	}
 
 }

@@ -17,6 +17,10 @@ public class GuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world,
                                       int x, int y, int z) {
+    	if(ID == 1){
+    		return new ContainerGuideBook(player.inventory, null);
+    	}
+    	
         TileEntity tile = world.getTileEntity(x, y, z);
 
         if (tile instanceof TileElectricFurnace) {
@@ -121,6 +125,11 @@ public class GuiHandler implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world,
                                       int x, int y, int z) {
+    	
+    	if(ID == 1){
+    		return new GuiGuideBook(new ContainerGuideBook(player.inventory, null));
+    	}
+    	
         TileEntity tile = world.getTileEntity(x, y, z);
 
         if (tile instanceof TileElectricFurnace) {

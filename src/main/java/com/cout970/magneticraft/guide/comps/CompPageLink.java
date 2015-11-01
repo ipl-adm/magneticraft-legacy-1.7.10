@@ -1,8 +1,10 @@
 package com.cout970.magneticraft.guide.comps;
 
+import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.client.gui.GuiGuideBook;
 import com.cout970.magneticraft.guide.BookGuide;
 import com.cout970.magneticraft.guide.BookPage;
+import com.cout970.magneticraft.guide.Box2D;
 import com.cout970.magneticraft.guide.IPageComp;
 import com.cout970.magneticraft.util.RenderUtil;
 import com.google.gson.annotations.Expose;
@@ -38,11 +40,11 @@ public class CompPageLink implements IPageComp {
     public void onClick(int mx, int my, int button, GuiGuideBook gui, BookPage current, BookGuide guide) {
         if (page != null) {
             if (left) {
-                if (gui.isIn(mx, my, gui.xStart + 25, gui.yStart + 195, 18, 12)) {
+                if (GuiBasic.isIn(mx, my, gui.xStart + 25, gui.yStart + 195, 18, 12)) {
                     gui.changePage(page);
                 }
             } else {
-                if (gui.isIn(mx, my, gui.xStart + 305, gui.yStart + 195, 18, 12)) {
+                if (GuiBasic.isIn(mx, my, gui.xStart + 305, gui.yStart + 195, 18, 12)) {
                     gui.changePage(page);
                 }
             }
@@ -62,4 +64,9 @@ public class CompPageLink implements IPageComp {
     public String getID() {
         return "page_link";
     }
+
+	@Override
+	public Box2D getBox() {
+		return new Box2D(0, 0, 0, 0);
+	}
 }

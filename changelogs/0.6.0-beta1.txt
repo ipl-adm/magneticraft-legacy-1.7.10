@@ -1,0 +1,47 @@
+!!WARNING!!
+
+MAGNETICRAFT WILL NO LONGER WORK WITH JAVA 7 AND OLDER! PLEASE UPDATE TO JAVA 8!
+
+!!WARNING END!!
+
+
+ADDED
+
+-Shelving Unit: a storage multiblock that stores up to 648 (24 chests) stacks, has a search bar (Name or Ore Dictionary search) and is well-suited for early game storage.
+
+-Magneticraft is now available in Chinese (zh_CN).
+
+-Galena can now be processed by Magneticraft machines.
+
+
+CHANGED:
+
+-Multiblocks are somewhat safer to use on chunk loading borders now. Still unrecommended.
+
+-Inserters will now place items as space for them appears instead of trying to place whole stack at once and failing.
+
+
+FIXED:
+
+-Infinite water no longer pretends it's an actual water block.
+
+-Inserters now properly interact with sided inventories.
+
+-Inserters and Block Breakers no longer crash when asked to compare NBT of items that don't have NBT.
+
+-Inserters now send much lower amount of sync packets, will significantly reduce bandwidth usage.
+
+-Ingot blocks now have proper pickaxe level requirements (same level as their ore counterparts).
+
+-Diodes no longer allow reverse current flow.
+
+-All multiblocks now have proper render boxes, no longer rendered when out of view.
+
+-Pumpjack no longer drains one block of oil without power.
+
+-Oil Distillery and Refinery no longer allow piping fluids in their output tanks.
+
+
+REMOVED:
+
+-WIP items and blocks that shouldn't have been there in the first place.

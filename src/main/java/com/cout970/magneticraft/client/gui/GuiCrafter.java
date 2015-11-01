@@ -81,7 +81,7 @@ public class GuiCrafter extends GuiBasic {
             if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
                 if (gui.tile instanceof TileCrafter) {
                     RedstoneState state = ((TileCrafter) (gui.tile)).state;
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(state == RedstoneState.NORMAL ? "Signal off" : state == RedstoneState.INVERTED ? "Signal on" : "Pulse");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

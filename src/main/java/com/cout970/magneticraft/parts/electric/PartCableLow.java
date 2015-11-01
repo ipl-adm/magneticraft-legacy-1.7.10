@@ -30,7 +30,7 @@ import net.minecraft.tileentity.TileEntity;
 public class PartCableLow extends PartElectric implements ISidedHollowConnect, IElectricMultiPart {
 
     public byte connections;
-    public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+    public static List<Cuboid6> boxes = new ArrayList<>();
 
     static {
         double w = 2 / 16d;
@@ -54,7 +54,7 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
-        ArrayList<Cuboid6> t2 = new ArrayList<Cuboid6>();
+        ArrayList<Cuboid6> t2 = new ArrayList<>();
         t2.add(boxes.get(6));
         for (byte i = 0; i < 6; i++) {
             if ((connections & (1 << i)) > 0) {
@@ -126,13 +126,7 @@ public class PartCableLow extends PartElectric implements ISidedHollowConnect, I
                     connections = (byte) (connections | (1 << d.ordinal()));
             }
         }
-        for (TMultiPart t : tile().jPartList()) {
-            if (t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getElectricConductor(getTier()) != null) {
-                if (t instanceof PartWireCopper) {
-                    connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal()));
-                }
-            }
-        }
+        tile().jPartList().stream().filter(t -> t instanceof IElectricMultiPart && ((IElectricMultiPart) t).getElectricConductor(getTier()) != null).filter(t -> t instanceof PartWireCopper).forEach(t -> connections = (byte) (connections | (1 << ((PartWireCopper) t).getDirection().ordinal())));
     }
 
 

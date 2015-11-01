@@ -72,7 +72,7 @@ public interface IElectricConductor extends IConnectable {
     void drainPower(double amps);
 
     //sync client and server
-    void setResistence(double d);
+    void setResistance(double d);
 
     void setVoltage(double d);
 
@@ -92,12 +92,12 @@ public interface IElectricConductor extends IConnectable {
     /**
      * reset the connexions
      */
-    void disconect();
+    void disconnect();
 
     /**
      * @return true if recache method was called after to disconet()
      */
-    boolean isConected();
+    boolean isConnected();
 
     /**
      * @return the Indexed connexions established, used to not repeat them.

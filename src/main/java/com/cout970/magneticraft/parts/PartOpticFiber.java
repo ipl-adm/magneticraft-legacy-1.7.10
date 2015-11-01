@@ -16,7 +16,7 @@ import codechicken.lib.vec.Vector3;
 public class PartOpticFiber extends MgPart implements IOpticFiber {
 
     public TileRenderOpticFiber renderer;
-    public static List<Cuboid6> boxes = new ArrayList<Cuboid6>();
+    public static List<Cuboid6> boxes = new ArrayList<>();
     public int connections;
 
     static {
@@ -53,7 +53,7 @@ public class PartOpticFiber extends MgPart implements IOpticFiber {
 
     @Override
     public List<Cuboid6> getCollisionCubes() {
-        List<Cuboid6> list = new ArrayList<Cuboid6>();
+        List<Cuboid6> list = new ArrayList<>();
         list.add(boxes.get(6));
         if ((connections & (1)) > 0) list.add(boxes.get(0));
         if ((connections & (1 << 1)) > 0) list.add(boxes.get(1));

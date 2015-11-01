@@ -50,7 +50,7 @@ public class GuiSteamEngine extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -85,7 +85,7 @@ public class GuiSteamEngine extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -97,8 +97,8 @@ public class GuiSteamEngine extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileSteamEngine) {
                 TileSteamEngine c = (TileSteamEngine) tile;
-                if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                    List<String> data = new ArrayList<>();
                     float prod = c.steamConsumitionM / 20f;
                     data.add("Steam consumption " + ((int) prod) + "mB/t");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FluidPathfinder {
 
-    private List<IFluidTransport> visited = new ArrayList<IFluidTransport>();
+    private List<IFluidTransport> visited = new ArrayList<>();
 
     private IFluidTransport from;
     private IFluidTransport to;

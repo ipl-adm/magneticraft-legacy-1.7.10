@@ -11,6 +11,10 @@ public class InventoryResizable extends InventoryComponent {
         curSlots = maxSlots = slots;
     }
 
+    public int getCurSlots() {
+        return curSlots;
+    }
+
     public void unlock() {
         markDirty();
         curSlots = maxSlots;

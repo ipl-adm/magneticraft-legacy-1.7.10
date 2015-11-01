@@ -18,7 +18,7 @@ public abstract class PartHeat extends MgPart implements IHeatMultipart {
     public IHeatConductor heat;
     public boolean toUpdate = true;
     public int oldHeat = -1;
-    public List<NBTTagCompound> tempNBT = new ArrayList<NBTTagCompound>();
+    public List<NBTTagCompound> tempNBT = new ArrayList<>();
     private int counter;
 
     public PartHeat(Item i) {

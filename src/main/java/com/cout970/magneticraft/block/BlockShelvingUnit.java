@@ -2,14 +2,13 @@ package com.cout970.magneticraft.block;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
+import com.cout970.magneticraft.tileentity.TileShelf;
 import com.cout970.magneticraft.tileentity.shelf.TileShelfFiller;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
-import com.cout970.magneticraft.util.ITileShelf;
 import com.cout970.magneticraft.util.InventoryUtils;
-
-import com.cout970.magneticraft.util.Log;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,6 +17,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -28,19 +28,33 @@ public class BlockShelvingUnit extends BlockMg {
         super(Material.iron);
     }
 
+
     @Override
-    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float hitX, float hitY, float hitZ) {
         TileEntity t = w.getTileEntity(x, y, z);
-        if (!(t instanceof ITileShelf)) {
+        if (!(t instanceof TileShelf)) {
             return true;
         }
-        TileShelvingUnit shelf = ((ITileShelf) t).getMainTile();
+        TileShelvingUnit shelf = ((TileShelf) t).getMainTile();
+
+        if (shelf == null) {
+            return super.onBlockActivated(w, x, y, z, p, side, hitX, hitY, hitZ);
+        }
 
         if (p.isSneaking()) {
             if (p.getCurrentEquippedItem() == null) {
                 if (shelf.removeCrate()) {
                     InventoryUtils.giveToPlayer(new ItemStack(Blocks.chest), p.inventory);
+
+                    w.markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
+                    shelf.markDirty();
                     return true;
+                } else if (!w.isRemote) {
+                    if (shelf.getCrateCount() > 0) {
+                        p.addChatComponentMessage(new ChatComponentText("Crate is not empty and cannot be removed!"));
+                    } else {
+                        p.addChatComponentMessage(new ChatComponentText("There are no crates on this Shelving Unit!"));
+                    }
                 }
             }
         } else {
@@ -52,14 +66,20 @@ public class BlockShelvingUnit extends BlockMg {
                 } else {
                     p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
                 }
+
+                w.markBlockForUpdate(shelf.xCoord, shelf.yCoord, shelf.zCoord);
+                shelf.markDirty();
                 return true;
             }
-            shelf.xCoord += 0;
-            p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
+            if (MgUtils.isWrench(p.getCurrentEquippedItem())) {
+                shelf.setPlacing(!shelf.isPlacing(), p);
+            } else {
+                p.openGui(Magneticraft.INSTANCE, 0, w, shelf.xCoord, shelf.yCoord, shelf.zCoord);
+            }
             return true;
         }
 
-        return super.onBlockActivated(w, x, y, z, p, side, p_149727_7_, p_149727_8_, p_149727_9_);
+        return super.onBlockActivated(w, x, y, z, p, side, hitX, hitY, hitZ);
     }
 
     @Override
@@ -84,11 +104,17 @@ public class BlockShelvingUnit extends BlockMg {
 
     @Override
     public void breakBlock(World w, int x, int y, int z, Block bl, int meta) {
-        if (meta < 6) {
+        if (w.isRemote) {
             super.breakBlock(w, x, y, z, bl, meta);
+            return;
+        }
+        if (meta < 6) {
+            TileShelvingUnit shelf = (TileShelvingUnit) w.getTileEntity(x, y, z);
+            super.breakBlock(w, x, y, z, bl, meta);
+            int height = (shelf.getCrateCount() > (TileShelvingUnit.MAX_CRATES - TileShelvingUnit.SHELF_CRATES)) ? 4 : 3;
             for (int r = -2; r <= 2; r++) {
                 for (int b = 0; b < 2; b++) {
-                    for (int u = 0; u < 3; u++) {
+                    for (int u = 0; u < height; u++) {
                         VecInt offset = VecIntUtil.getRotatedOffset(MgDirection.getDirection(meta), r, u, b);
                         if (!offset.equals(VecInt.NULL_VECTOR)) {
                             w.setBlockToAir(x + offset.getX(), y + offset.getY(), z + offset.getZ());
@@ -98,8 +124,10 @@ public class BlockShelvingUnit extends BlockMg {
             }
         } else {
             TileShelfFiller bt = (TileShelfFiller) w.getTileEntity(x, y, z);
-            VecInt offset = bt.getOffset();
-            w.setBlockToAir(x - offset.getX(), y - offset.getY(), z - offset.getZ());
+            if (!bt.silentRemoval) {
+                VecInt offset = bt.getOffset();
+                w.setBlockToAir(x - offset.getX(), y - offset.getY(), z - offset.getZ());
+            }
             super.breakBlock(w, x, y, z, bl, meta);
         }
     }

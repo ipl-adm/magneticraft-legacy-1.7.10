@@ -15,8 +15,8 @@ import java.util.Locale;
 
 public class LangHelper {
 
-    public static List<String> unloc = new ArrayList<String>();
-    public static List<String> name = new ArrayList<String>();
+    public static List<String> unloc = new ArrayList<>();
+    public static List<String> name = new ArrayList<>();
 
     public static void addName(Object obj, String name) {
         if (obj == null) return;
@@ -62,10 +62,6 @@ public class LangHelper {
                 w.write("eu_alternator.name=EU Alternator\n");
             }
             w.close();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

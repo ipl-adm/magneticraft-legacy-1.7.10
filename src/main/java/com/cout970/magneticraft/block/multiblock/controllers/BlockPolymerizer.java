@@ -43,7 +43,7 @@ public class BlockPolymerizer extends BlockMg implements MB_ControlBlock {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"polimerizer", "chasis"};
+        return new String[]{"polimerizer", "chassis"};
     }
 
     @Override

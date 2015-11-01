@@ -20,10 +20,10 @@ import java.util.List;
 
 public class TileGeothermalPump extends TileHeatConductor implements IGuiSync {
 
-    private List<VecInt> pipes = new LinkedList<VecInt>();
-    private List<VecInt> lava = new LinkedList<VecInt>();
-    private List<VecInt> finder = new LinkedList<VecInt>();
-    private List<VecInt> Visited = new LinkedList<VecInt>();
+    private List<VecInt> pipes = new LinkedList<>();
+    private List<VecInt> lava = new LinkedList<>();
+    private List<VecInt> finder = new LinkedList<>();
+    private List<VecInt> Visited = new LinkedList<>();
     private int alt;
     private boolean update;
     private boolean working;
@@ -150,7 +150,7 @@ public class TileGeothermalPump extends TileHeatConductor implements IGuiSync {
                 if (!finder.contains(bc)) finder.add(bc);
             }
         }
-        List<VecInt> temp = new ArrayList<VecInt>();
+        List<VecInt> temp = new ArrayList<>();
         temp.addAll(finder);
         for (VecInt cc : temp) {
             finder.remove(cc);

@@ -59,18 +59,25 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
 
         if (tile instanceof TileRefineryTank) {
             input = ((TileRefineryTank) tile).getTank();
+            input.setAllowInOut(true);
         }
         tile = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(new VecInt(0, 2, 0)));
         if (tile instanceof TileRefineryTank) {
             output0 = ((TileRefineryTank) tile).getTank();
+            output0.setAllowInput(false);
+            output0.setAllowOutput(true);
         }
         tile = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(new VecInt(0, 4, 0)));
         if (tile instanceof TileRefineryTank) {
             output1 = ((TileRefineryTank) tile).getTank();
+            output1.setAllowInput(false);
+            output1.setAllowOutput(true);
         }
         tile = MgUtils.getTileEntity(this, vec.copy().multiply(2).add(new VecInt(0, 6, 0)));
         if (tile instanceof TileRefineryTank) {
             output2 = ((TileRefineryTank) tile).getTank();
+            output2.setAllowInput(false);
+            output2.setAllowOutput(true);
         }
     }
 
@@ -97,15 +104,15 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
         return getDirectionMeta();
     }
 
+    public boolean isActive() {
+        return getBlockMetadata() > 5;
+    }
+
     private void setActive(boolean b) {
         if (b)
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6 + 6, 2);
         else
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6, 2);
-    }
-
-    public boolean isActive() {
-        return getBlockMetadata() > 5;
     }
 
     @SideOnly(Side.CLIENT)

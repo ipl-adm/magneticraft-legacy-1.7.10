@@ -18,23 +18,30 @@ public class ManagerRecipe {
     public static void registerFurnaceRecipes() {
 
         for (int i = 0; i < oreNames.length; i++) {
+            int i1 = altNames[i] == -1 ? i : altNames[i];
             ItemStack extra_1 = extraNames[i][0] == null ? null : ManagerOreDict.getOreWithPreference("dust" + extraNames[i][0]);
             //Crusher Recipes
-            MgRecipeRegister.registerCrusherRecipe(ManagerOreDict.getOre("ore" + oreNames[i]), new ItemStack(chunks, 1, i), new ItemStack(dust, 1, i), 0.05F, extra_1, 0.05F);
+            MgRecipeRegister.registerCrusherRecipe(ManagerOreDict.getOre("ore" + oreNames[i]), new ItemStack(chunks, 1, i), new ItemStack(dust, 1, i1), 0.05F, extra_1, 0.05F);
+
             //Crushing Table Recipes
             MgRecipeRegister.registerHammerTableRecipe(ManagerOreDict.getOre("ore" + oreNames[i]), new ItemStack(chunks, 1, i));
+
             //Grinder Recipes
-            MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks, 1, i), new ItemStack(rubble, 1, i), new ItemStack(dust, 1, i), 0.05F, extra_1, 0.05F);
+            MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks, 1, i), new ItemStack(rubble, 1, i), new ItemStack(dust, 1, i1), 0.05F, extra_1, 0.05F);
 //			MgRecipeRegister.registerGrinderRecipe(new ItemStack(chunks_clean.get(i)), new ItemStack(rubble.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
+
             //Grinder Recipes
-            MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble, 1, i), new ItemStack(pebbles, 1, i), new ItemStack(dust, 1, i), 0.05F, extra_1, 0.05F);
+            MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble, 1, i), new ItemStack(pebbles, 1, i), new ItemStack(dust, 1, i1), 0.05F, extra_1, 0.05F);
 //			MgRecipeRegister.registerGrinderRecipe(new ItemStack(rubble_clean.get(i)), new ItemStack(pebbles.get(i)), new ItemStack(dust.get(i)), 0.05F, extra_1, 0.05F);
 
 //			MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles_clean, 1, i), new ItemStack(dust.get(i), 2), extra_1, 0.05F);
-            MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles, 1, i), new ItemStack(dust, 3, i), extra_1, 0.05F);
-            ItemStack ingot = ManagerOreDict.getOreWithPreference("ingot" + oreNames[i]);
+            MgRecipeRegister.registerSifterRecipe(new ItemStack(pebbles, 1, i), new ItemStack(dust, 3, i1), extra_1, 0.05F);
+
+            ItemStack ingot = ManagerOreDict.getOreWithPreference("ingot" + oreNames[i1]);
             if (ingot != null) {
-                MgRecipeRegister.registerGrinderRecipe(ingot, new ItemStack(dust, 1, i), null, 0F, null, 0F);
+                if (!oreNames[i].equals("Galena")) {
+                    MgRecipeRegister.registerGrinderRecipe(ingot, new ItemStack(dust, 1, i), null, 0F, null, 0F);
+                }
                 ingot = ingot.copy();
                 ingot.stackSize = 2;
                 GameRegistry.addSmelting(new ItemStack(chunks, 1, i), ingot, 1.0F);

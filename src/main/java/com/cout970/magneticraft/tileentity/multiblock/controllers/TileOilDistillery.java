@@ -27,9 +27,9 @@ import net.minecraftforge.fluids.FluidStack;
 public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectricTile {
 
     public int drawCounter;
+    public IElectricConductor side1, side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
     private TankMg input;
     private TankMg output;
-    public IElectricConductor side1, side2, own = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 8000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
     private double[] flow = new double[3];
 
     public void updateEntity() {
@@ -72,11 +72,14 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
         TileEntity t = MgUtils.getTileEntity(this, vec);
         if (t instanceof TileRefineryTank) {
             input = ((TileRefineryTank) t).getTank();
+            input.setAllowInOut(true); //in case fluid was pumped accidentally
         }
         vec = getDirection().opposite().toVecInt().add(0, 1, 0);
         t = MgUtils.getTileEntity(this, vec);
         if (t instanceof TileRefineryTank) {
             output = ((TileRefineryTank) t).getTank();
+            output.setAllowInput(false);
+            output.setAllowOutput(true);
         }
         vec = getDirection().opposite().toVecInt().multiply(2).add(0, -1, 0);
         vec.add(getDirection().opposite().step(MgDirection.UP).toVecInt());

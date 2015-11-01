@@ -18,9 +18,9 @@ public class KineticPathFinder {
 
     public KineticPathFinder(World w, IKineticConductor cond) {
         this.w = w;
-        conds = new LinkedList<IKineticConductor>();
-        scanPosition = new LinkedList<ExtendedVec>();
-        scanMap = new HashSet<VecInt>();
+        conds = new LinkedList<>();
+        scanPosition = new LinkedList<>();
+        scanMap = new HashSet<>();
         conds.addLast(cond);
         scanMap.add(new VecInt(cond.getParent()));
         for (MgDirection dir : cond.getValidSides()) {

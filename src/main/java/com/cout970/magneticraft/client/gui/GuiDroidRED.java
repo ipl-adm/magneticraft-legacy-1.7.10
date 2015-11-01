@@ -44,7 +44,7 @@ public class GuiDroidRED extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -83,7 +83,7 @@ public class GuiDroidRED extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
             if (isIn(mx, my, gui.xStart + 40, gui.yStart + 235, 10, 10)) {
                 MessageGuiClick msg = new MessageGuiClick(tile, 0, 1);
                 ManagerNetwork.INSTANCE.sendToServer(msg);

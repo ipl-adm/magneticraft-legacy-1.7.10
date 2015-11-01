@@ -82,18 +82,18 @@ public class InterPoleWire implements IInterPoleWire {
     public static void valanceConductors(IInterPoleWire con) {
         if (con.getStart() == null || con.getEnd() == null) return;
         //the resistance of the connection
-        double resistence = con.getDistance() * ElectricConstants.RESISTANE_COPPER_WIRE;
+        double resistance = con.getDistance() * ElectricConstants.RESISTANCE_COPPER_WIRE;
         IElectricConductor cond_start = con.getStart().getConductor();
         IElectricConductor cond_end = con.getEnd().getConductor();
-        //the voltage differennce
+        //the voltage difference
         double deltaV = cond_start.getVoltage() - cond_end.getVoltage();
         //sanity check for infinite current
         if (Double.isNaN(con.getEnergyFlow())) con.setEnergyFlow(0);
         //the extra current from the last tick
         double current = con.getEnergyFlow();
         // (V - I*R) I*R is the voltage difference that this conductor should have using the ohm's law, and V the actual one
-        //vDiff is the voltage difference between the current voltager difference and the proper voltage difference using the ohm's law
-        double vDiff = (deltaV - current * resistence);
+        //vDiff is the voltage difference between the current voltage difference and the proper voltage difference using the ohm's law
+        double vDiff = (deltaV - current * resistance);
         //make sure the vDiff is not in the incorrect direction when the resistance is too big
         vDiff = Math.min(vDiff, Math.abs(deltaV));
         vDiff = Math.max(vDiff, -Math.abs(deltaV));

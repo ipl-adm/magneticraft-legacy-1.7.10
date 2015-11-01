@@ -52,7 +52,7 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
     private void updateTemps() {
         tempHot = 0;
         tempCold = 0;
-        List<BlockInfo> list = new ArrayList<BlockInfo>();
+        List<BlockInfo> list = new ArrayList<>();
         for (MgDirection d : MgDirection.VALID_DIRECTIONS) {
             Block bl = worldObj.getBlock(xCoord + d.getOffsetX(), yCoord + d.getOffsetY(), zCoord + d.getOffsetZ());
             int meta = worldObj.getBlockMetadata(xCoord + d.getOffsetX(), yCoord + d.getOffsetY(), zCoord + d.getOffsetZ());

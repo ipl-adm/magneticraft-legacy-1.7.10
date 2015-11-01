@@ -1,13 +1,19 @@
 package com.cout970.magneticraft.api.util;
 
+import buildcraft.api.tools.IToolWrench;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
+import cofh.api.item.IToolHammer;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.computer.IOpticFiber;
+import com.cout970.magneticraft.api.tool.IWrench;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -16,6 +22,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+import java.util.stream.IntStream;
 
 /**
  * @author Cout970
@@ -30,6 +39,9 @@ public class MgUtils {
      * @return
      */
     public static TileEntity getTileEntity(TileEntity tile, VecInt d) {
+        if (!tile.getWorldObj().blockExists(tile.xCoord + d.getX(), tile.yCoord + d.getY(), tile.zCoord + d.getZ())) {
+            return null;
+        }
         return tile.getWorldObj().getTileEntity(tile.xCoord + d.getX(), tile.yCoord + d.getY(), tile.zCoord + d.getZ());
     }
 
@@ -41,6 +53,9 @@ public class MgUtils {
      * @return
      */
     public static TileEntity getTileEntity(TileEntity tile, MgDirection d) {
+        if (!tile.getWorldObj().blockExists(tile.xCoord + d.getOffsetX(), tile.yCoord + d.getOffsetY(), tile.zCoord + d.getOffsetZ())) {
+            return null;
+        }
         return tile.getWorldObj().getTileEntity(tile.xCoord + d.getOffsetX(), tile.yCoord + d.getOffsetY(), tile.zCoord + d.getOffsetZ());
     }
 
@@ -51,7 +66,7 @@ public class MgUtils {
      * @return
      */
     public static List<TileEntity> getNeig(TileEntity t) {
-        List<TileEntity> list = new ArrayList<TileEntity>();
+        List<TileEntity> list = new ArrayList<>();
         for (MgDirection d : MgDirection.values()) {
             TileEntity f = getTileEntity(t, d);
             if (f != null) list.add(f);
@@ -133,5 +148,34 @@ public class MgUtils {
             }
         }
         return null;
+    }
+
+    public static boolean isWrench(ItemStack is) {
+        return (is != null) && isWrench(is.getItem());
+    }
+
+    public static boolean isWrench(Item item) {
+        return (item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer));
+    }
+
+    public static boolean matchesPattern(ItemStack stack, String pattern) {
+        String realPattern = ".*(?i:" + pattern + ").*";
+        try {
+            //noinspection ResultOfMethodCallIgnored
+            Pattern.compile(realPattern);
+        } catch (PatternSyntaxException e) {
+            return false;
+        }
+
+        if (StringUtils.isNullOrEmpty(pattern)) {
+            return true;
+        }
+        if ((stack != null) && (stack.getDisplayName().matches(realPattern))) {
+            return true;
+        }
+        if (IntStream.of(OreDictionary.getOreIDs(stack)).mapToObj(OreDictionary::getOreName).anyMatch(s -> s.matches(realPattern))) {
+            return true;
+        }
+        return false;
     }
 }

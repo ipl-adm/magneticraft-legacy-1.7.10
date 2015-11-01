@@ -9,12 +9,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import javax.annotation.Nonnull;
+
+
 /**
  * This api is similar to BlockCoord in minecraft 1.8
  *
  * @author Cout970
  */
-public class VecInt {
+public class VecInt implements Comparable<VecInt> {
     public static final VecInt NULL_VECTOR = new VecInt(0, 0, 0);
     protected int x;
     protected int y;
@@ -51,8 +54,12 @@ public class VecInt {
         return new VecInt(d.getOffsetX(), d.getOffsetY(), d.getOffsetZ());
     }
 
-    public static VecInt getConnexion(ForgeDirection d) {
+    public static VecInt getConnection(ForgeDirection d) {
         return new VecInt(d.offsetX, d.offsetY, d.offsetZ);
+    }
+
+    public static VecInt load(NBTTagCompound nbt) {
+        return new VecInt(nbt.getInteger("X"), nbt.getInteger("Y"), nbt.getInteger("Z"));
     }
 
     public VecInt getOpposite() {
@@ -74,7 +81,7 @@ public class VecInt {
         return (this.getY() + this.getZ() * 31) * 31 + this.getX();
     }
 
-    public int compareTo(VecInt vec) {
+    public int compareTo(@Nonnull VecInt vec) {
         return this.getY() == vec.getY() ? (this.getZ() == vec.getZ() ? this
                 .getX() - vec.getX() : this.getZ() - vec.getZ()) : this.getY()
                 - vec.getY();
@@ -135,10 +142,6 @@ public class VecInt {
         nbt.setInteger("Z", z);
     }
 
-    public static VecInt load(NBTTagCompound nbt) {
-        return new VecInt(nbt.getInteger("X"), nbt.getInteger("Y"), nbt.getInteger("Z"));
-    }
-
     public int[] intArray() {
         return new int[]{x, y, z};
     }
@@ -176,4 +179,21 @@ public class VecInt {
 	public void setBlock(World world, Block block){
 		world.setBlock(x, y, z, block);
 	}
+
+    public boolean isBlockReplaceable(World world) {
+        return getBlock(world).isReplaceable(world, x, y, z);
+    }
+
+    public void setBlockWithMetadata(World world, Block block, int meta, int flags) {
+        setBlock(world, block);
+        setBlockMetadata(world, meta, flags);
+    }
+
+    public void setTileEntity(World world, TileEntity tile) {
+        world.setTileEntity(x, y, z, tile);
+    }
+
+    public boolean blockExists(World world) {
+        return world.blockExists(x, y, z);
+    }
 }

@@ -48,7 +48,7 @@ public class GuiGeothermalPump extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -60,8 +60,8 @@ public class GuiGeothermalPump extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileGeothermalPump) {
                 TileGeothermalPump c = (TileGeothermalPump) tile;
-                if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                    List<String> data = new ArrayList<>();
                     float prod = c.buffer / 20000f;
                     data.add("Buffer " + (int) (prod * 1000) + " mB");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

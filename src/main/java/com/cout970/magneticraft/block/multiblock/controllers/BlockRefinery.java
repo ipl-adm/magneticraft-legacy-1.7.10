@@ -35,7 +35,7 @@ public class BlockRefinery extends BlockMg implements MB_ControlBlock {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"refinery", "chasis"};
+        return new String[]{"refinery", "chassis"};
     }
 
     public boolean renderAsNormalBlock() {

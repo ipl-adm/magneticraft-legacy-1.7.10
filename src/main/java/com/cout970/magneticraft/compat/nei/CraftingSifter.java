@@ -14,10 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CraftingSifter extends TemplateRecipeHandler {
 
-    List<RecipeSifter> recipes = new ArrayList<RecipeSifter>();
+    List<RecipeSifter> recipes = new ArrayList<>();
 
     @Override
     public String getRecipeName() {
@@ -42,8 +43,7 @@ public class CraftingSifter extends TemplateRecipeHandler {
     public void loadCraftingRecipes(String outputId, Object... results) {
 
         if (outputId.equals(getRecipesID())) {
-            for (RecipeSifter recipe : MgRecipeRegister.sifter)
-                recipes.add(recipe);
+            recipes.addAll(MgRecipeRegister.sifter.stream().collect(Collectors.toList()));
         } else super.loadCraftingRecipes(outputId, results);
     }
 
@@ -58,9 +58,7 @@ public class CraftingSifter extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        for (RecipeSifter recipe : MgRecipeRegister.sifter) {
-            if (recipe.matches(ingredient)) recipes.add(recipe);
-        }
+        recipes.addAll(MgRecipeRegister.sifter.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override
@@ -70,14 +68,14 @@ public class CraftingSifter extends TemplateRecipeHandler {
 
     @Override
     public List<PositionedStack> getOtherStacks(int recipe) {
-        List<PositionedStack> a = new ArrayList<PositionedStack>();
+        List<PositionedStack> a = new ArrayList<>();
         if (recipes.get(recipe).getExtra() != null) a.add(new PositionedStack(recipes.get(recipe).getExtra(), 114, 20));
         return a;
     }
 
     @Override
     public List<PositionedStack> getIngredientStacks(int recipe) {
-        List<PositionedStack> need = new ArrayList<PositionedStack>();
+        List<PositionedStack> need = new ArrayList<>();
         need.add(new PositionedStack(recipes.get(recipe).getInput(), 46, 20));
         return need;
     }
@@ -90,7 +88,7 @@ public class CraftingSifter extends TemplateRecipeHandler {
     @Override
     public void drawExtras(int recipe) {
         int ticks = 100;
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progresbar1.png"));
+        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"));
         RenderUtil.drawTexturedModalRectScaled(69, 20, 0, 0, (int) (22 * ((cycleticks % ticks / (float) ticks))), 16, 22 * 2, 16);
         if (recipes.get(recipe).getExtra() != null) {
             String s = (int) (recipes.get(recipe).getProb() * 100) + "%";

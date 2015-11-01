@@ -46,29 +46,27 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
             }
         }
 
-        for (TileEntity t : MgUtils.getNeig(this)) {
-            if (t instanceof TileBoiler) {
-                TileBoiler b = (TileBoiler) t;
-                int dif = water.getFluidAmount() - b.water.getFluidAmount();
-                if (dif > 0) {
-                    int pass = dif / 2;
-                    if (pass > 0) {
-                        FluidStack d = water.drain(pass, false);
-                        int a = b.water.fill(d, true);
-                        water.drain(a, true);
-                    }
-                }
-                int dif2 = steam.getFluidAmount() - b.steam.getFluidAmount();
-                if (dif2 > 0) {
-                    int pass = dif2 / 2;
-                    if (pass > 0) {
-                        FluidStack d = steam.drain(pass, false);
-                        int a = b.steam.fill(d, true);
-                        steam.drain(a, true);
-                    }
+        MgUtils.getNeig(this).stream().filter(t -> t instanceof TileBoiler).forEach(t -> {
+            TileBoiler b = (TileBoiler) t;
+            int dif = water.getFluidAmount() - b.water.getFluidAmount();
+            if (dif > 0) {
+                int pass = dif / 2;
+                if (pass > 0) {
+                    FluidStack d = water.drain(pass, false);
+                    int a = b.water.fill(d, true);
+                    water.drain(a, true);
                 }
             }
-        }
+            int dif2 = steam.getFluidAmount() - b.steam.getFluidAmount();
+            if (dif2 > 0) {
+                int pass = dif2 / 2;
+                if (pass > 0) {
+                    FluidStack d = steam.drain(pass, false);
+                    int a = b.steam.fill(d, true);
+                    steam.drain(a, true);
+                }
+            }
+        });
     }
 
     @Override

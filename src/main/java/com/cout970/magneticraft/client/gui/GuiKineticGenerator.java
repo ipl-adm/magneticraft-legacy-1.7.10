@@ -27,8 +27,8 @@ public class GuiKineticGenerator extends GuiBasic {
             @Override
             public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
                 if (track != null) {
-                    if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                        List<String> data = new ArrayList<String>();
+                    if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
+                        List<String> data = new ArrayList<>();
                         float prod = track.getChangeInTheLastSecond() <= 0 ? track.getChangeInTheLastTick() : track.getChangeInTheLastSecond() / 20;
                         data.add((int) prod + "RF/t");
                         gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);

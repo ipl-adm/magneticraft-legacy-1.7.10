@@ -39,7 +39,7 @@ public class BlockGrinder extends BlockMg implements MB_ControlBlock {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"grinder", "chasis"};
+        return new String[]{"grinder", "chassis"};
     }
 
     public boolean renderAsNormalBlock() {

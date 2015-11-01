@@ -8,8 +8,8 @@ import java.util.List;
 
 public class ConnectedTexture {
 
-    public static List<ST> COMMON = new ArrayList<ST>();
-    public static List<ST> EXCEPTION = new ArrayList<ST>();
+    public static List<ST> COMMON = new ArrayList<>();
+    public static List<ST> EXCEPTION = new ArrayList<>();
     public static ConnectedTexture INSTANCE = new ConnectedTexture().init();
 
     public ConnectedTexture init() {

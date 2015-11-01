@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TileReactorControlRods extends TileHeatConductor implements IReactorComponent {
 
-    public List<TileReactorVessel> vessels = new ArrayList<TileReactorVessel>();
+    public List<TileReactorVessel> vessels = new ArrayList<>();
     public int level;
 
     @Override

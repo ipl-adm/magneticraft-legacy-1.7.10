@@ -3,7 +3,7 @@ package com.cout970.magneticraft.api.util;
 import net.minecraft.block.Block;
 
 /**
- * An Object to store all posible data from a single block
+ * An Object to store all possible data from a single block
  *
  * @author Cout970
  */

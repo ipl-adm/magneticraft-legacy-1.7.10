@@ -65,7 +65,7 @@ public class GuiBreaker extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
             if (gui.tile instanceof TileBreaker) {
                 if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
                     ManagerNetwork.INSTANCE.sendToServer(new MessageGuiClick(gui.tile, 0, ((TileBreaker) gui.tile).whiteList ? 0 : 1));
@@ -89,22 +89,22 @@ public class GuiBreaker extends GuiBasic {
             if (gui.tile instanceof TileBreaker) {
                 TileBreaker t = (TileBreaker) gui.tile;
                 if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(t.whiteList ? "Whitelist" : "Blacklist");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
                 } else if (isIn(mx, my, pos.x + gui.xStart + 19, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(t.ignoreMeta ? "Ignore Metadata" : "Check Metadata");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
                 } else if (isIn(mx, my, pos.x + gui.xStart + 38, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(t.ignoreNBT ? "Ignore NBT" : "Check NBT");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
                 } else if (isIn(mx, my, pos.x + gui.xStart + 57, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(t.ignoreDict ? "Ignore Ore Dictionary" : "Check Ore Dictionary");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

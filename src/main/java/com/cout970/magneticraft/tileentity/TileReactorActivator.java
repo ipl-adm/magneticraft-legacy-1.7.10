@@ -12,7 +12,7 @@ import java.util.List;
 
 public class TileReactorActivator extends TileHeatConductor {
 
-    public List<TileReactorVessel> vessels = new ArrayList<TileReactorVessel>();
+    public List<TileReactorVessel> vessels = new ArrayList<>();
     private int level;
 
     @Override

@@ -1,8 +1,5 @@
 package com.cout970.magneticraft;
 
-import java.io.File;
-import java.util.List;
-
 import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.compat.minetweaker.MgMinetweaker;
 import com.cout970.magneticraft.handlers.GuiHandler;
@@ -16,7 +13,6 @@ import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -36,6 +32,9 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.io.File;
+import java.util.List;
+
 
 @Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +
         "after:BuildCraft|Core;after:CoFHCore;after:IC2;after:Railcraft;after:ImmersiveEngineering")
@@ -44,6 +43,7 @@ public class Magneticraft {
     public final static String ID = "Magneticraft";
     public final static String NAME = "Magneticraft";
     public final static String VERSION = "@VERSION@";
+    public final static String MIN_JAVA = "Java 8";
     public final static String ENERGY_STORED_NAME = "J";
     public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
     public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
@@ -66,6 +66,7 @@ public class Magneticraft {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        Log.init(event.getModLog());
         Log.info("Starting preInit");
 
         if (Loader.isModLoaded("BuildCraft|Core")) {
@@ -183,6 +184,16 @@ public class Magneticraft {
 //		}
 //	}
 
+    public void checkVersion() {
+        try {
+            String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
+            Log.info("Last Version: " + version);
+            Log.info("Current Version: " + VERSION);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {
 
         @Override
@@ -214,16 +225,6 @@ public class Magneticraft {
                 }
             }
             return validTickets;
-        }
-    }
-
-    public void checkVersion() {
-        try {
-            String version = URLConnectionReader.getText("https://raw.githubusercontent.com/cout970/Versions/master/MgVersion.txt");
-            Log.info("Last Version: " + version);
-            Log.info("Current Version: " + VERSION);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MB_Register {
 
-    private static List<Multiblock> mb = new ArrayList<Multiblock>();
+    private static List<Multiblock> mb = new ArrayList<>();
     public static final int ID_REFINERY = 0;
     public static final int ID_CRUSHER = 1;
     public static final int ID_GRINDER = 2;
@@ -30,8 +30,7 @@ public class MB_Register {
         mb.add(new MultiblockGrindingMill());
         mb.add(new MultiblockSifter());
 
-        for (Multiblock b : mb)
-            b.init();
+        mb.forEach(com.cout970.magneticraft.util.multiblock.Multiblock::init);
     }
 
 

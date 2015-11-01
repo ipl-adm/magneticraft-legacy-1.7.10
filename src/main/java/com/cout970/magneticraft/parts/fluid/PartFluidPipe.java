@@ -113,7 +113,7 @@ public abstract class PartFluidPipe extends MgPart implements IFluidTransport, T
 
     @Override
     public LinkedList<IFluidHandler> tankList() {
-        LinkedList<IFluidHandler> l = new LinkedList<IFluidHandler>();
+        LinkedList<IFluidHandler> l = new LinkedList<>();
         l.add(this);
         return l;
     }

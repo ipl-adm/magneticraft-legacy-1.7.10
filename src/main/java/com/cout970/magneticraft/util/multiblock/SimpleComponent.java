@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SimpleComponent extends Mg_Component {
 
-    public List<Block> blocks = new ArrayList<Block>();
+    public List<Block> blocks = new ArrayList<>();
 
     public SimpleComponent(Block b) {
         blocks.add(b);

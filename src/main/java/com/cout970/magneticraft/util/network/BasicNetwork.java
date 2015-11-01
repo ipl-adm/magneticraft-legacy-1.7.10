@@ -9,7 +9,7 @@ import com.cout970.magneticraft.api.util.VectorOffset;
 
 public class BasicNetwork {
 
-	protected List<NetworkNode> nodes = new LinkedList<NetworkNode>();
+	protected List<NetworkNode> nodes = new LinkedList<>();
 	protected NetworkNode start;
 	
 	public BasicNetwork(NetworkNode startPoint){
@@ -30,7 +30,7 @@ public class BasicNetwork {
 	}
 	
 	public NetworkNode[] getNodes(){
-		return nodes.toArray(new NetworkNode[0]);
+		return nodes.toArray(new NetworkNode[nodes.size()]);
 	}
 	
 	public void addNode(NetworkNode node){
@@ -67,24 +67,16 @@ public class BasicNetwork {
 		pathfinder.addNeigBlocks(new VecInt(startingPoint.getParent()));
 		while(pathfinder.iterate()){
 		}
-		for(NetworkNode nd : nodes){
-			if(!pathfinder.nodes.contains(nd)){
-				nd.setNetwork(null);
-			}
-		}
+		nodes.stream().filter(nd -> !pathfinder.nodes.contains(nd)).forEach(nd -> nd.setNetwork(null));
 		nodes.clear();
-		for(NetworkNode nd : pathfinder.nodes){
-			addNode(nd);
-		}
+		pathfinder.nodes.forEach(this::addNode);
 		onNetworkChange();
 	}
 	
 	protected void onNetworkChange() {}
 
 	public void mergeWith(BasicNetwork net){
-		for(NetworkNode node : nodes){
-			net.addNode(node);
-		}
+		nodes.forEach(net::addNode);
 		nodes.clear();
 		net.onNetworkChange();
 	}

@@ -43,13 +43,13 @@ public class GuideBookIO {
 //					45, 95));
 //			page.addComponent(new CompLargeText(26, 22, new String[] { "Line1", "Line2", "Line3", "Line4", "Line5" },
 //					new Color(1, 1, 1), false));
-//			page.addComponent(new CompPageLink("idex", false));
+//			page.addComponent(new CompPageLink("index", false));
 //			BookPage page2 = new BookPage();
 //			page2.addComponent(new CompLargeText(26, 22, new String[] { "Line1", "Line2", "Line3", "Line4", "Line5" },
 //					new Color(1, 1, 1), false));
 //			page2.addComponent(new CompPageLink("main", true));
 //			book.addPage("main", page);
-//			book.addPage("idex", page2);
+//			book.addPage("index", page2);
         }
 //		String json = gson.toJson(book);
 //		Log.debug(json);

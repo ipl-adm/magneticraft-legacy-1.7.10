@@ -16,7 +16,7 @@ public class MgBeltUtils {
             ISidedInventory s = (ISidedInventory) v;
             if (s.getAccessibleSlotsFromSide(dir.ordinal()) == null) return it.stackSize;
             for (int i : s.getAccessibleSlotsFromSide(dir.ordinal())) {
-                if ((s.getStackInSlot(i) != null) && s.getStackInSlot(i).getItem().equals(it.getItem()) && s.canInsertItem(i, it, dir.ordinal())) {
+                if ((s.getStackInSlot(i) != null) && s.getStackInSlot(i).getItem().equals(it.getItem()) && s.canInsertItem(i, it, dir.ordinal()) && s.isItemValidForSlot(i, stack)) {
                     int noAccepted = placeInSlot(v, i, it, simulated);
                     if (noAccepted == 0) return 0;
                     it.stackSize = noAccepted;
@@ -54,6 +54,9 @@ public class MgBeltUtils {
     }
 
     public static int placeInSlot(IInventory a, int slot, ItemStack b, boolean simulated) {
+        if (!a.isItemValidForSlot(slot, b)) {
+            return b.stackSize;
+        }
         ItemStack c = a.getStackInSlot(slot);
         if (c == null) {
             int accepted = Math.min(a.getInventoryStackLimit(), b.stackSize);

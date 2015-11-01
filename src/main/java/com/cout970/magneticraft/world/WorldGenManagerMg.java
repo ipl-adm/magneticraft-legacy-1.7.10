@@ -128,7 +128,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
         float rad_square_2 = (rad + 1) * (rad + 1);
         boolean ore = true;
         int offX = 8, offZ = 8, level = max_it, count = 0, water = 0, extension = 1;
-        LinkedList<BlockInfo> list = new LinkedList<BlockInfo>();
+        LinkedList<BlockInfo> list = new LinkedList<>();
 
         for (; y > 0; y--) {
             if (canReplace(world.getBlock(x, y, z))) break;
@@ -191,7 +191,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
         int max_it = (int) (Math.ceil(rad) + 1);
         float rad_square = rad * rad;
         float rad_square_2 = (rad + 1) * (rad + 1);
-        LinkedList<BlockInfo> list = new LinkedList<BlockInfo>();
+        LinkedList<BlockInfo> list = new LinkedList<>();
         int count = 0, water = 0;
 
         for (int j = -max_it; j <= max_it; j++) {

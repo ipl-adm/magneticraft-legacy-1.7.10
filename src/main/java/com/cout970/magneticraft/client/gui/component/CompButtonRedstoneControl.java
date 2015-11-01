@@ -34,7 +34,7 @@ public class CompButtonRedstoneControl implements IGuiComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    public void onClick(int mx, int my, int button, GuiBasic gui) {
         if (GuiBasic.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
             if (gui.tile instanceof TileBase) {
                 RedstoneControl state = ((TileBase) (gui.tile)).redstone;
@@ -54,7 +54,7 @@ public class CompButtonRedstoneControl implements IGuiComp {
         if (GuiBasic.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 18, 18)) {
             if (gui.tile instanceof TileBase) {
                 RedstoneControl state = ((TileBase) (gui.tile)).redstone;
-                List<String> data = new ArrayList<String>();
+                List<String> data = new ArrayList<>();
                 data.add(state == RedstoneControl.NORMAL ? "Signal off" : state == RedstoneControl.INVERSE ? "Signal on" : "Ignore");
                 gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                 RenderHelper.enableGUIStandardItemLighting();

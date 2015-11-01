@@ -59,8 +59,8 @@ public class FluidUtils {
         return isConnectable(b) && isConnectable(a);
     }
 
-    public static List<TankConnection> getTankConections(TileEntity tile) {
-        List<TankConnection> t = new ArrayList<TankConnection>();
+    public static List<TankConnection> getTankConnections(TileEntity tile) {
+        List<TankConnection> t = new ArrayList<>();
         for (MgDirection d : MgDirection.values()) {
             TileEntity y = MgUtils.getTileEntity(tile, d);
             if (y instanceof IFluidHandler) {

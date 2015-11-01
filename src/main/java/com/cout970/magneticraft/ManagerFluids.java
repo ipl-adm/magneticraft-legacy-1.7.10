@@ -45,7 +45,7 @@ public class ManagerFluids {
         //steam
         steam = new Fluid(STEAM_NAME).setDensity(-5000).setViscosity(1000).setTemperature(373).setGaseous(true);
         FluidRegistry.registerFluid(steam);
-        steamBlock = new BlockFluidSteam(steam, BlockFluidClasicMg.fluidMaterial);
+        steamBlock = new BlockFluidSteam(steam, BlockFluidClassicMg.fluidMaterial);
         GameRegistry.registerBlock(steamBlock, "block" + STEAM_NAME);
         steam.setBlock(steamBlock);
 
@@ -53,7 +53,7 @@ public class ManagerFluids {
         //oil
         oil = new Fluid(OIL_NAME).setDensity(800).setViscosity(1500);
         FluidRegistry.registerFluid(oil);
-        oilBlock = new BlockFluidOil(oil, BlockFluidClasicMg.fluidMaterial);
+        oilBlock = new BlockFluidOil(oil, BlockFluidClassicMg.fluidMaterial);
         GameRegistry.registerBlock(oilBlock, "block" + OIL_NAME);
         oil.setBlock(oilBlock);
 
@@ -61,7 +61,7 @@ public class ManagerFluids {
         //heavy oil
         heavyOil = new Fluid(HEAVY_OIL).setDensity(600).setViscosity(2000);
         FluidRegistry.registerFluid(heavyOil);
-        heavyOilBlock = new BlockFluidHeavyOil(heavyOil, BlockFluidClasicMg.fluidMaterial);
+        heavyOilBlock = new BlockFluidHeavyOil(heavyOil, BlockFluidClassicMg.fluidMaterial);
         GameRegistry.registerBlock(heavyOilBlock, "block" + HEAVY_OIL);
         heavyOil.setBlock(heavyOilBlock);
 
@@ -69,7 +69,7 @@ public class ManagerFluids {
         //light oil
         lightOil = new Fluid(LIGHT_OIL).setDensity(300).setViscosity(1200);
         FluidRegistry.registerFluid(lightOil);
-        lightOilBlock = new BlockFluidLightOil(lightOil, BlockFluidClasicMg.fluidMaterial);
+        lightOilBlock = new BlockFluidLightOil(lightOil, BlockFluidClassicMg.fluidMaterial);
         GameRegistry.registerBlock(lightOilBlock, "block" + LIGHT_OIL);
         lightOil.setBlock(lightOilBlock);
 
@@ -77,14 +77,14 @@ public class ManagerFluids {
         //natural gas
         naturalGas = new Fluid(NATURAL_GAS).setDensity(-1000).setViscosity(1000).setGaseous(true);
         FluidRegistry.registerFluid(naturalGas);
-        naturalGasBlock = new BlockFluidNaturalGas(naturalGas, BlockFluidClasicMg.fluidMaterial);
+        naturalGasBlock = new BlockFluidNaturalGas(naturalGas, BlockFluidClassicMg.fluidMaterial);
         GameRegistry.registerBlock(naturalGasBlock, "block" + NATURAL_GAS);
         naturalGas.setBlock(naturalGasBlock);
 
         //hot crude
         hotCrude = new Fluid(HOT_CRUDE).setDensity(800).setViscosity(1000).setTemperature(450);
         FluidRegistry.registerFluid(hotCrude);
-        hotCrudeBlock = new BlockFluidHotCrude(hotCrude, BlockFluidClasicMg.fluidMaterial);
+        hotCrudeBlock = new BlockFluidHotCrude(hotCrude, BlockFluidClassicMg.fluidMaterial);
         GameRegistry.registerBlock(hotCrudeBlock, "block" + HOT_CRUDE);
         hotCrude.setBlock(hotCrudeBlock);
     }
@@ -95,7 +95,7 @@ public class ManagerFluids {
         BlockFuel naturalGasFuel = new BlockFuel(naturalGas, 40, 75000);
         BlockFuel oilFuel = new BlockFuel(oil, 30, 5000);
 
-        fuels = new HashMap<Fluid, BlockFuel>();
+        fuels = new HashMap<>();
         fuels.put(lightOil, lightOilFuel);
         fuels.put(heavyOil, heavyOilFuel);
         fuels.put(naturalGas, naturalGasFuel);

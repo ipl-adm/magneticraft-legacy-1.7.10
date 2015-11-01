@@ -30,6 +30,13 @@ public class SlotShelvingUnit extends Slot implements ISlotToggleable, ISlotLock
         }
     }
 
+    public void reset() {
+        xDisplayPosition = baseX;
+        yDisplayPosition = baseY;
+        hidden = false;
+        locked = false;
+    }
+
     @Override
     public void show() {
         if (hidden) {

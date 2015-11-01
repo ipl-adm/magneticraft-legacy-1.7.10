@@ -11,7 +11,7 @@ public class BookPage {
     public List<CompHolder> gadgets;
 
     public BookPage() {
-        gadgets = new ArrayList<CompHolder>();
+        gadgets = new ArrayList<>();
     }
 
     public void addComponent(IPageComp comp) {

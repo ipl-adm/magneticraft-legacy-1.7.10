@@ -17,10 +17,11 @@ import net.minecraft.util.AxisAlignedBB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TileTeslaCoil extends TileConductorLow {
 
-    private List<EntityPlayer> nearPlayers = new ArrayList<EntityPlayer>();
+    private List<EntityPlayer> nearPlayers = new ArrayList<>();
 
     @Override
     public IElectricConductor initConductor() {
@@ -38,19 +39,15 @@ public class TileTeslaCoil extends TileConductorLow {
         };
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
         if (cond.getVoltage() > ElectricConstants.MACHINE_WORK) {
             if (worldObj.getTotalWorldTime() % 20 == 0) {
                 nearPlayers.clear();
-                List e = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - 10, yCoord - 10, zCoord - 10, xCoord + 10, yCoord + 10, zCoord + 10));
-                for (Object o : e) {
-                    if (o instanceof EntityPlayer) {
-                        nearPlayers.add((EntityPlayer) o);
-                    }
-                }
+                List<EntityPlayer> e = worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(xCoord - 10, yCoord - 10, zCoord - 10, xCoord + 10, yCoord + 10, zCoord + 10));
+                nearPlayers.addAll(e.stream().filter(o -> o != null).collect(Collectors.toList()));
             }
 
             for (EntityPlayer p : nearPlayers) {

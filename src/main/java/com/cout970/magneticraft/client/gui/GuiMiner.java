@@ -75,7 +75,7 @@ public class GuiMiner extends GuiBasic {
             if (tile instanceof TileMiner) {
                 TileMiner c = (TileMiner) tile;
                 if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 44)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     float prod = c.hole * 100 / (c.dim * c.dim);
                     data.add("Mined " + ((int) prod) + "%");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
@@ -132,12 +132,12 @@ public class GuiMiner extends GuiBasic {
             if (gui.tile instanceof TileMiner) {
                 TileMiner t = (TileMiner) gui.tile;
                 if (isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(t.replaceWithDirt ? "Replace Blocks with Dirt" : "Leave Spaces");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
                 } else if (isIn(mx, my, pos.x + gui.xStart + 21, pos.y + gui.yStart, 17, 17)) {
-                    List<String> data = new ArrayList<String>();
+                    List<String> data = new ArrayList<>();
                     data.add(t.removeWater ? "Remove Water and Lava" : "Leave Water and Lava");
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

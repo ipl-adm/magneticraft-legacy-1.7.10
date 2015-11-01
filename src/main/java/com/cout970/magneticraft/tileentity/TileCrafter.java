@@ -2,7 +2,6 @@ package com.cout970.magneticraft.tileentity;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.cout970.magneticraft.api.util.MgDirection;
@@ -43,8 +42,8 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
     };
     private InventoryComponent invResult = new InventoryComponent(this, 1, "Result");
     private InventoryCrafting recipe = new InventoryCrafterAux(this, 3, 3);
-    private List<InvSlot> checkedInvs = new ArrayList<InvSlot>();
-    private List<TankInfo> checkedTanks = new ArrayList<TankInfo>();
+    private List<InvSlot> checkedInvs = new ArrayList<>();
+    private List<TankInfo> checkedTanks = new ArrayList<>();
     private int itemMatches = -1;
     private IRecipe craftRecipe;
     //private boolean nextCraft = false;

@@ -1,24 +1,29 @@
 package com.cout970.magneticraft.container;
 
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.Log;
+import invtweaks.api.container.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.CRATE_SIZE;
 import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.MAX_CRATES;
 import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.SHELF_CRATES;
 
+@SuppressWarnings("unchecked")
+@ChestContainer
 public class ContainerShelvingUnit extends ContainerBasic {
     public TileShelvingUnit shelf;
     public int curInv;
+    public List<SlotShelvingUnit> currentSlots = new ArrayList<>();
+    private boolean isFiltered = false;
 
     public ContainerShelvingUnit(InventoryPlayer inv, TileEntity t) {
         super(t);
@@ -54,6 +59,30 @@ public class ContainerShelvingUnit extends ContainerBasic {
 
     }
 
+    @ContainerSectionCallback
+    public Map<ContainerSection, List<Slot>> getSections() {
+        Map<ContainerSection, List<Slot>> retMap = new EnumMap<>(ContainerSection.class);
+        List<Slot> inventory = (List<Slot>) inventorySlots.stream()
+                .filter(s -> !(s instanceof SlotShelvingUnit))
+                .sorted((s1, s2) -> Integer.compare(((Slot) s1).slotNumber, ((Slot) s2).slotNumber))
+                .collect(Collectors.toList());
+        List<? extends Slot> curSlots;
+        if (isFiltered) {
+            curSlots = currentSlots;
+        } else {
+            curSlots = (List<Slot>) inventorySlots.stream()
+                    .filter(s -> s instanceof SlotShelvingUnit)
+                    .filter(s -> ((SlotShelvingUnit) s).invNum == curInv)
+                    .collect(Collectors.toList());
+        }
+
+        //DON'T add mappings for INVENTORY, it breaks everything. All hail InvTweaks...
+        retMap.put(ContainerSection.INVENTORY_HOTBAR, inventory.subList(0, 9));
+        retMap.put(ContainerSection.INVENTORY_NOT_HOTBAR, inventorySlots.subList(10, 36));
+        retMap.put(ContainerSection.CHEST, (List<Slot>) curSlots);
+        return retMap;
+    }
+
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
         int[] slots = new int[MAX_CRATES * CRATE_SIZE];
@@ -74,5 +103,80 @@ public class ContainerShelvingUnit extends ContainerBasic {
     public boolean enchantItem(EntityPlayer player, int data) {
         curInv = data;
         return true;
+    }
+
+    public void adjustSlots(int scroll, String filter, int level) {
+        adjustSlots(curInv, scroll, filter, level);
+    }
+
+    public void adjustSlots(int curInv, int scroll, String filter) {
+        adjustSlots(curInv, scroll, filter, 2);
+    }
+
+    public void adjustSlots(int curInv, int scroll, String filter, int level) {
+        if (shelf.getCrateCount() == 0) {
+            inventorySlots.stream().filter(s -> s instanceof SlotShelvingUnit).forEach(s -> {
+                ((SlotShelvingUnit) s).lock();
+                ((SlotShelvingUnit) s).hide();
+            });
+            return;
+        }
+        if (curInv != this.curInv) {
+            this.curInv = curInv;
+            level = 2;
+        }
+
+        renewSlots(level, filter);
+        isFiltered = filter.isEmpty();
+        if (isFiltered) {
+            for (int i = 0; i < inventorySlots.size(); i++) {
+                Object s = inventorySlots.get(i);
+                if (s instanceof SlotShelvingUnit) {
+                    SlotShelvingUnit st = (SlotShelvingUnit) s;
+                    st.reset();
+                    st.yDisplayPosition = st.baseY - 18 * scroll;
+                    if ((st.yDisplayPosition < 17) || (st.yDisplayPosition > 106) || (st.invNum != curInv)) {
+                        st.hide();
+                    }
+                    if ((i >= (shelf.getCrateCount() * TileShelvingUnit.CRATE_SIZE)) || (st.invNum != curInv)) {
+                        st.lock();
+                    }
+                }
+            }
+        } else {
+            inventorySlots.stream().filter(s -> s instanceof SlotShelvingUnit).forEach(s -> {
+                ((SlotShelvingUnit) s).reset();
+                ((SlotShelvingUnit) s).hide();
+                ((SlotShelvingUnit) s).lock();
+            });
+
+            for (int i = 0; i < currentSlots.size(); i++) {
+                SlotShelvingUnit st = currentSlots.get(i);
+                st.unlock();
+                st.xDisplayPosition = 8 + 18 * (i % 9);
+                st.yDisplayPosition = 18 + 18 * (i / 9 - scroll);
+                if ((st.yDisplayPosition < 17) || (st.yDisplayPosition > 106)) {
+                    st.hide();
+                }
+            }
+        }
+    }
+
+    public void renewSlots(int mode, String filter) {
+        if (mode == 0) {
+            return;
+        }
+        if (mode == 1) {
+            currentSlots = currentSlots.stream()
+                    .filter(s -> MgUtils.matchesPattern(s.getStack(), filter))
+                    .collect(Collectors.toList());
+        }
+        if (mode == 2) {
+            currentSlots = (List<SlotShelvingUnit>) inventorySlots.stream()
+                    .filter(s -> s instanceof SlotShelvingUnit)
+                    .filter(s -> (((SlotShelvingUnit) s).invNum == curInv) && MgUtils.matchesPattern(((SlotShelvingUnit) s).getStack(), filter))
+                    .collect(Collectors.toList());
+
+        }
     }
 }

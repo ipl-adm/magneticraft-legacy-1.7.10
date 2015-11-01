@@ -21,7 +21,7 @@ public abstract class TileConductorLow extends TileBase implements IElectricTile
     @Override
     public void onNeigChange() {
         super.onNeigChange();
-        cond.disconect();
+        cond.disconnect();
     }
 
     @Override

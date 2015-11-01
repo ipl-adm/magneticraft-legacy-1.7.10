@@ -55,7 +55,7 @@ public class GuiThermopile extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override
@@ -67,18 +67,18 @@ public class GuiThermopile extends GuiBasic {
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
             if (tile instanceof TileThermopile) {
                 TileThermopile t = (TileThermopile) tile;
-                if (gui.isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 50)) {
-                    List<String> data = new ArrayList<String>();
+                if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 50)) {
+                    List<String> data = new ArrayList<>();
                     data.add(String.format("%dW", (int) t.getCurrentFromDiff()));
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, gui.xStart + pos.x + 9, gui.yStart + pos.y, 6, 50)) {
-                    List<String> data = new ArrayList<String>();
+                } else if (isIn(mx, my, gui.xStart + pos.x + 9, gui.yStart + pos.y, 6, 50)) {
+                    List<String> data = new ArrayList<>();
                     data.add(String.format("Hot Source: %d", t.tempHot));
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();
-                } else if (gui.isIn(mx, my, gui.xStart + pos.x + 18, gui.yStart + pos.y, 6, 50)) {
-                    List<String> data = new ArrayList<String>();
+                } else if (isIn(mx, my, gui.xStart + pos.x + 18, gui.yStart + pos.y, 6, 50)) {
+                    List<String> data = new ArrayList<>();
                     data.add(String.format("Cold Source: %d", t.tempCold));
                     gui.drawHoveringText2(data, mx - gui.xStart, my - gui.yStart);
                     RenderHelper.enableGUIStandardItemLighting();

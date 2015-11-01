@@ -35,7 +35,7 @@ public class CompPageLink implements IPageComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiGuideBook gui, BookPage current, BookGuide guide) {
+    public void onClick(int mx, int my, int button, GuiGuideBook gui, BookPage current, BookGuide guide) {
         if (page != null) {
             if (left) {
                 if (gui.isIn(mx, my, gui.xStart + 25, gui.yStart + 195, 18, 12)) {

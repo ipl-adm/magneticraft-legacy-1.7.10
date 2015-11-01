@@ -39,7 +39,7 @@ public class BlockSifter extends BlockMg implements MB_ControlBlock {
 
     @Override
     public String[] getTextures() {
-        return new String[]{"sifter", "chasis"};
+        return new String[]{"sifter", "chassis"};
     }
 
     public boolean renderAsNormalBlock() {

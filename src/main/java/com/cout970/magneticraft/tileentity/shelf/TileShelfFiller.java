@@ -1,15 +1,18 @@
 package com.cout970.magneticraft.tileentity.shelf;
 
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.util.ITileShelf;
+import com.cout970.magneticraft.tileentity.TileShelf;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TileShelfFiller extends TileBase implements ITileShelf {
+public class TileShelfFiller extends TileShelf {
+    public boolean silentRemoval = false;
     private VecInt offset;
 
     @Override
     public TileShelvingUnit getMainTile() {
+        if (!worldObj.blockExists(xCoord - offset.getX(), yCoord - offset.getY(), zCoord - offset.getZ())) {
+            return null;
+        }
         return (TileShelvingUnit) worldObj.getTileEntity(xCoord - offset.getX(), yCoord - offset.getY(), zCoord - offset.getZ());
     }
 

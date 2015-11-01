@@ -16,5 +16,6 @@ public class ManagerNetwork {
         INSTANCE.registerMessage(MessageClientStream.class, MessageClientStream.class, 3, Side.SERVER);
         INSTANCE.registerMessage(MessageGuiClick.class, MessageGuiClick.class, 4, Side.SERVER);
         INSTANCE.registerMessage(MessageClientCrafterUpdate.class, MessageClientCrafterUpdate.class, 5, Side.SERVER);
+        INSTANCE.registerMessage(MessageShelfSlotUpdate.class, MessageShelfSlotUpdate.class, 6, Side.SERVER);
     }
 }

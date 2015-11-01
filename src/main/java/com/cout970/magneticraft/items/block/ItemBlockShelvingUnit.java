@@ -23,8 +23,8 @@ public class ItemBlockShelvingUnit extends ItemBlockMg {
         for (int r = -2; r <= 2; r++) {
             for (int b = 0; b < 2; b++) {
                 for (int u = 0; u < 3; u++) {
-                    VecInt offset = VecIntUtil.getRotatedOffset(facing, r, u, b);
-                    Block block = world.getBlock(x + offset.getX(), y + offset.getY(), z + offset.getZ());
+                    VecInt coords = VecIntUtil.getRotatedOffset(facing, r, u, b).add(x, y, z);
+                    Block block = coords.getBlock(world);
                     if ((block != null) && !block.isReplaceable(world, x, y, z)) {
                         return false;
                     }

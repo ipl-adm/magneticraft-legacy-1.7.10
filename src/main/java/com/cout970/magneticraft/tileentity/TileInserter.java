@@ -1,8 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.conveyor.IConveyorBelt;
 import com.cout970.magneticraft.api.conveyor.IConveyorBeltLane;
@@ -16,7 +13,6 @@ import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
@@ -26,6 +22,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 public class TileInserter extends TileBase implements IGuiListener {
 
@@ -41,7 +39,6 @@ public class TileInserter extends TileBase implements IGuiListener {
     public boolean ignoreNBT;
     public boolean ignoreMeta;
     public boolean ignoreDict;
-    public byte valid_dirs = 0xF;
     public int counter = 0;
     public InserterAnimation anim = null;
     private int cooldown;
@@ -61,6 +58,12 @@ public class TileInserter extends TileBase implements IGuiListener {
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) {
+            if (counter >= 180) {
+                anim = getNextAnimation();
+                counter = 0;
+            } else {
+                counter += getSpeed();
+            }
             return;
         }
         if (anim == null) {
@@ -94,8 +97,8 @@ public class TileInserter extends TileBase implements IGuiListener {
                     anim = InserterAnimation.RETRACTING_INV_LARGE;
                 }
                 counter = 0;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
-            sendUpdateToClient();
 
         } else if (anim == InserterAnimation.SUCK_ITEM || anim == InserterAnimation.SUCK_ITEM_LARGE) {
             if (isControlled()) {
@@ -119,9 +122,9 @@ public class TileInserter extends TileBase implements IGuiListener {
                         anim = InserterAnimation.RETRACTING_LARGE;
                     }
                     counter = 0;
-                    sendUpdateToClient();
 
                 }
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         } else {
             if (counter >= 180) {
@@ -131,7 +134,6 @@ public class TileInserter extends TileBase implements IGuiListener {
                 counter += getSpeed();
             }
         }
-        sendUpdateToClient();
     }
 
     private InserterAnimation getNextAnimation() {
@@ -165,21 +167,19 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     @SuppressWarnings("rawtypes")
     private void suckFromGround() {
-        if (worldObj.isRemote) return; 
+        if (worldObj.isRemote) return;
         VecInt vec1 = new VecInt(this).add(getDir().toVecInt());
-        List l = worldObj.getEntitiesWithinAABB(EntityItem.class, 
-        		AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec1.getX() + 1, vec1.getY() + 1, vec1.getZ() + 1));
-        if (!l.isEmpty()) {
-        	for (Object aL : l) {
-        		if (aL instanceof EntityItem) {
-        			EntityItem entity = (EntityItem) aL;
-        			if (entity.getEntityItem() != null) {
-        				getInv().setInventorySlotContents(0, entity.getEntityItem());
-        				entity.setDead();
-        				break;
-        			}
-        		}
-        	}
+        List l = worldObj.getEntitiesWithinAABB(EntityItem.class,
+                AxisAlignedBB.getBoundingBox(vec1.getX(), vec1.getY(), vec1.getZ(), vec1.getX() + 1, vec1.getY() + 1, vec1.getZ() + 1));
+        for (Object aL : l) {
+            if (aL instanceof EntityItem) {
+                EntityItem entity = (EntityItem) aL;
+                if (entity.getEntityItem() != null) {
+                    getInv().setInventorySlotContents(0, entity.getEntityItem());
+                    entity.setDead();
+                    break;
+                }
+            }
         }
     }
 
@@ -258,10 +258,11 @@ public class TileInserter extends TileBase implements IGuiListener {
 
     private void dropToInv(IInventory t) {
         ItemStack s = getInv().getStackInSlot(0);
-        if (MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), true) == 0) {
-            getInv().setInventorySlotContents(0, null);
-            MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), false);
+        s.stackSize = MgBeltUtils.dropItemStackIntoInventory(t, s, getDir(), false);
+        if (s.stackSize == 0) {
+            s = null;
         }
+        getInv().setInventorySlotContents(0, s);
     }
 
     private void suckFromBelt(IConveyorBelt t, Object obj) {
@@ -283,8 +284,7 @@ public class TileInserter extends TileBase implements IGuiListener {
                 getInv().setInventorySlotContents(0, b.getContent());
                 t.removeItem(b, left, false);
                 t.onChange();
-                for (TileEntity tile : MgUtils.getNeig(t.getParent()))
-                    if (tile instanceof IConveyorBelt) ((IConveyorBelt) tile).onChange();
+                MgUtils.getNeig(t.getParent()).stream().filter(tile -> tile instanceof IConveyorBelt).forEach(tile -> ((IConveyorBelt) tile).onChange());
                 return true;
             }
         }
@@ -294,15 +294,14 @@ public class TileInserter extends TileBase implements IGuiListener {
     private void suckFromInv(IInventory t, Object obj) {
         if (t instanceof ISidedInventory) {
             ISidedInventory ts = (ISidedInventory) t;
-            for (MgDirection d : getValidDirections()) {
-                if (ts.getAccessibleSlotsFromSide(d.ordinal()) == null) {
-                    for (int i : ts.getAccessibleSlotsFromSide(d.ordinal())) {
-                        ItemStack s = t.getStackInSlot(i);
-                        if ((s != null) && (s.stackSize > 0) && ts.canExtractItem(i, s, d.ordinal()) && canInject(obj, s) && canExtract(s)) {
-                            getInv().setInventorySlotContents(0, s);
-                            t.setInventorySlotContents(i, null);
-                            return;
-                        }
+            MgDirection d = getDir().opposite();
+            if (ts.getAccessibleSlotsFromSide(d.ordinal()) != null) {
+                for (int i : ts.getAccessibleSlotsFromSide(d.ordinal())) {
+                    ItemStack s = t.getStackInSlot(i);
+                    if ((s != null) && (s.stackSize > 0) && ts.canExtractItem(i, s, d.ordinal()) && canInject(obj, s) && canExtract(s)) {
+                        getInv().setInventorySlotContents(0, s);
+                        t.setInventorySlotContents(i, null);
+                        return;
                     }
                 }
             }
@@ -333,21 +332,6 @@ public class TileInserter extends TileBase implements IGuiListener {
             }
             return true;
         }
-    }
-
-    public int getSlotWithItemStack(IInventory i) {
-        for (MgDirection d : getValidDirections()) {
-            int s = MgBeltUtils.getSlotWithItemStack(i, d, false);
-            if (s != -1) return s;
-        }
-        return -1;
-    }
-
-    private List<MgDirection> getValidDirections() {
-        List<MgDirection> list = new ArrayList<MgDirection>();
-        for (MgDirection d : MgDirection.values())
-            if ((valid_dirs & (1 << d.ordinal())) > 0) list.add(d);
-        return list;
     }
 
     public boolean checkFilter(int slot, ItemStack i) {
@@ -396,7 +380,6 @@ public class TileInserter extends TileBase implements IGuiListener {
         ignoreMeta = nbt.getBoolean("IgnoreMeta");
         ignoreNBT = nbt.getBoolean("IgnoreNBT");
         ignoreDict = nbt.getBoolean("IgnoreDict");
-        valid_dirs = nbt.getByte("ValidDirs");
         filter.readFromNBT(nbt, "Filter");
         upgrades.readFromNBT(nbt, "Upgrades");
     }
@@ -411,29 +394,25 @@ public class TileInserter extends TileBase implements IGuiListener {
         nbt.setBoolean("IgnoreMeta", ignoreMeta);
         nbt.setBoolean("IgnoreNBT", ignoreNBT);
         nbt.setBoolean("IgnoreDict", ignoreDict);
-        nbt.setByte("ValidDirs", valid_dirs);
         filter.writeToNBT(nbt, "Filter");
         upgrades.writeToNBT(nbt, "Upgrades");
-    }
-
-    public enum InserterAnimation {
-        ROTATING, ROTATING_INV, RETRACTING_SHORT, EXTENDING_SHORT, RETRACTING_INV_SHORT, EXTENDING_INV_SHORT, RETRACTING_LARGE, EXTENDING_LARGE, RETRACTING_INV_LARGE, EXTENDING_INV_LARGE, DROP_ITEM, SUCK_ITEM, DROP_ITEM_LARGE, SUCK_ITEM_LARGE
     }
 
     @Override
     public void onMessageReceive(int id, int data) {
         if (id == 0) {
             whiteList = data == 1;
-            sendUpdateToClient();
         } else if (id == 1) {
             ignoreMeta = data == 1;
-            sendUpdateToClient();
         } else if (id == 2) {
             ignoreNBT = data == 1;
-            sendUpdateToClient();
         } else if (id == 3) {
             ignoreDict = data == 1;
-            sendUpdateToClient();
         }
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    public enum InserterAnimation {
+        ROTATING, ROTATING_INV, RETRACTING_SHORT, EXTENDING_SHORT, RETRACTING_INV_SHORT, EXTENDING_INV_SHORT, RETRACTING_LARGE, EXTENDING_LARGE, RETRACTING_INV_LARGE, EXTENDING_INV_LARGE, DROP_ITEM, SUCK_ITEM, DROP_ITEM_LARGE, SUCK_ITEM_LARGE
     }
 }

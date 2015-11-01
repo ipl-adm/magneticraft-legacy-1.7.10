@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class GuiBasic extends GuiContainer {
 
-    public List<IGuiComp> comp = new ArrayList<IGuiComp>();
+    public List<IGuiComp> comp = new ArrayList<>();
     public TileEntity tile;
     public int xStart;
     public int yStart;
@@ -27,6 +27,10 @@ public abstract class GuiBasic extends GuiContainer {
     }
 
     public abstract void initComponents();
+
+    protected void drawCenteredStringWithoutShadow(FontRenderer fontRenderer, String string, int x, int y, int color) {
+        fontRenderer.drawString(string, x - fontRenderer.getStringWidth(string) / 2, y, color);
+    }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float fps, int mx, int my) {

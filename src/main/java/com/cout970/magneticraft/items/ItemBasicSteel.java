@@ -38,7 +38,7 @@ public class ItemBasicSteel extends ItemBasic implements ISteelItem {
 
     @Override
     public List<ISteelAttribute> getAllApplicableAttributes(ItemStack stack) {
-        return new ArrayList<ISteelAttribute>(NBTHelper.getSteelAttributeMap(stack).keySet());
+        return new ArrayList<>(NBTHelper.getSteelAttributeMap(stack).keySet());
     }
 
     @Override

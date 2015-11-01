@@ -98,7 +98,7 @@ public class CubeRenderer_Util {
             Tessellator t = Tessellator.instance;
             excluded = ex;
             for (int g = 0; g < 6; g++) icons[g] = i;
-            List<Integer> l = new ArrayList<Integer>();
+            List<Integer> l = new ArrayList<>();
             for (int h : excluded) l.add(h);
             if (!l.contains(0)) drawTop(t, 0, 0, deep, width, height);        //0
             if (!l.contains(1)) drawBottom(t, 0, 0, deep, width, 0);                //1

@@ -33,7 +33,7 @@ public class GuiGuideBook extends GuiContainer {
         yTam = ySize;
         book = GuideBookIO.getBook();
         currentPage = book.getMainPage();
-        oldPages = new Stack<BookPage>();
+        oldPages = new Stack<>();
     }
 
     @Override
@@ -45,28 +45,24 @@ public class GuiGuideBook extends GuiContainer {
         RenderUtil.drawTexturedModalRectScaled(xStart, yStart, 0, 0, (int) (140 * scale), (int) (93 * scale),
                 (int) (180 * scale), (int) (132 * scale));
         if (currentPage != null) {
-            for (CompHolder holder : currentPage.gadgets) {
-                if (holder != null) {
-                    IPageComp comp = holder.getComponent();
-                    if (comp != null) {
-                        comp.render(mx, my, this, currentPage, book);
-                    }
+            currentPage.gadgets.stream().filter(holder -> holder != null).forEach(holder -> {
+                IPageComp comp = holder.getComponent();
+                if (comp != null) {
+                    comp.render(mx, my, this, currentPage, book);
                 }
-            }
+            });
         }
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
         if (currentPage != null) {
-            for (CompHolder holder : currentPage.gadgets) {
-                if (holder != null) {
-                    IPageComp comp = holder.getComponent();
-                    if (comp != null) {
-                        comp.renderTop(x, y, this, currentPage, book);
-                    }
+            currentPage.gadgets.stream().filter(holder -> holder != null).forEach(holder -> {
+                IPageComp comp = holder.getComponent();
+                if (comp != null) {
+                    comp.renderTop(x, y, this, currentPage, book);
                 }
-            }
+            });
         }
     }
 
@@ -76,14 +72,12 @@ public class GuiGuideBook extends GuiContainer {
     protected void mouseClicked(int x, int y, int b) {
         super.mouseClicked(x, y, b);
         if (currentPage != null) {
-            for (CompHolder holder : currentPage.gadgets) {
-                if (holder != null) {
-                    IPageComp comp = holder.getComponent();
-                    if (comp != null) {
-                        comp.onClick(x, y, b, this, currentPage, book);
-                    }
+            currentPage.gadgets.stream().filter(holder -> holder != null).forEach(holder -> {
+                IPageComp comp = holder.getComponent();
+                if (comp != null) {
+                    comp.onClick(x, y, b, this, currentPage, book);
                 }
-            }
+            });
         }
     }
 

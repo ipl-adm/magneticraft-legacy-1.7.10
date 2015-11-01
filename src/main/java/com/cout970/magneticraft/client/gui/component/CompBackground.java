@@ -23,7 +23,7 @@ public class CompBackground implements IGuiComp {
     }
 
     @Override
-    public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+    public void onClick(int mx, int my, int button, GuiBasic gui) {
     }
 
     @Override

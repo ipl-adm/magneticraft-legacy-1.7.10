@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class KineticNetwork {
 
-    public LinkedList<IKineticConductor> componets = new LinkedList<IKineticConductor>();
+    public LinkedList<IKineticConductor> componets = new LinkedList<>();
     public World world;
 
     public KineticNetwork(IKineticConductor firts) {
@@ -60,11 +60,7 @@ public class KineticNetwork {
     }
 
     public void preventUpdates() {
-        for (IKineticConductor cond : componets) {
-            if (cond instanceof IKineticController) {
-                ((IKineticController) cond).preventUpdate();
-            }
-        }
+        componets.stream().filter(cond -> cond instanceof IKineticController).forEach(cond -> ((IKineticController) cond).preventUpdate());
     }
 
     public void stop(IKineticConductor kinetic) {

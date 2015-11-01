@@ -53,7 +53,7 @@ public class GuiBasicGenerator extends GuiBasic {
         }
 
         @Override
-        public void onClick(int mx, int my, int buttom, GuiBasic gui) {
+        public void onClick(int mx, int my, int button, GuiBasic gui) {
         }
 
         @Override

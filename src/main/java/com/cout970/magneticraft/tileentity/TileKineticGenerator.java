@@ -47,7 +47,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
         if (tier != 2) return null;
-        if (VecInt.NULL_VECTOR == dir) {
+        if (VecInt.NULL_VECTOR.equals(dir)) {
             return new IElectricConductor[]{cond};
         }
         if (dir.toMgDirection() == getDirection().opposite()) return new IElectricConductor[]{cond};

@@ -17,6 +17,9 @@ public enum MgDirection {
     EAST(1, 0, 0);
 
     public static final MgDirection[] VALID_DIRECTIONS = {DOWN, UP, NORTH, SOUTH, WEST, EAST};
+    public static final MgDirection[] AXIX_X = {DOWN, UP, NORTH, SOUTH};
+    public static final MgDirection[] AXIX_Y = {NORTH, SOUTH, WEST, EAST};
+    public static final MgDirection[] AXIX_Z = {DOWN, UP, WEST, EAST};
     public static final MgDirection[] OPPOSITES = {UP, DOWN, SOUTH, NORTH, EAST, WEST};
     public static final MgDirection[] CARDINAL_DIRECTIONS = {SOUTH, WEST, NORTH, EAST};
     public static final int[][] rotation = {
@@ -66,7 +69,7 @@ public enum MgDirection {
         return ForgeDirection.getOrientation(ordinal());
     }
 
-    //anti-clock
+    //anti-clockwise
     public MgDirection step(MgDirection axix) {
         return MgDirection.getDirection(rotation[axix.ordinal()][ordinal()]);
     }
@@ -78,4 +81,30 @@ public enum MgDirection {
     public boolean isParallel(MgDirection dir) {
         return !isPerpendicular(dir);
     }
+
+	public static MgDirection getDirectionFromRotaton(float cameraYaw) {
+		float yaw = wrapTo180(cameraYaw);
+		
+		if(yaw > -135 && yaw <= -45)
+			return EAST;
+		if(yaw > -45 && yaw <= 45)
+			return SOUTH;
+		if(yaw > 45 && yaw <= 135)
+			return WEST;
+		return NORTH;
+	}
+	
+	private static float wrapTo180(float angle) {
+		angle %= 360.0F;
+
+		if (angle >= 180.0F) {
+			angle -= 360.0F;
+		}
+
+		if (angle < -180.0F) {
+			angle += 360.0F;
+		}
+
+		return angle;
+	}
 }

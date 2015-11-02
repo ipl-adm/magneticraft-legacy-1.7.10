@@ -82,7 +82,7 @@ public class TileResistance extends TileBase implements IGuiListener, IGuiSync, 
             return new IElectricConductor[]{cond2};
         if (getDirection().toVecInt().equals(dir))
             return new IElectricConductor[]{cond1};
-        if (dir == VecInt.NULL_VECTOR)
+        if (VecInt.NULL_VECTOR.equals(dir))
             return new IElectricConductor[]{cond1, cond2};
         return null;
     }

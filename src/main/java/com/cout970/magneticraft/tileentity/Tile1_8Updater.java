@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
+import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.InventoryComponent;
 import net.minecraft.tileentity.TileEntity;
 
@@ -12,6 +13,10 @@ public class Tile1_8Updater extends TileEntity {
     public void updateEntity() {
     }
 
+    public VecInt getPosition(){
+    	return new VecInt(this);
+    }
+    
 //	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
 //		if(this instanceof IFluidHandler1_8)return((IFluidHandler1_8)this).fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
 //		return 0;

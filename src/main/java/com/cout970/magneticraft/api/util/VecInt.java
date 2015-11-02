@@ -18,7 +18,9 @@ import javax.annotation.Nonnull;
  * @author Cout970
  */
 public class VecInt implements Comparable<VecInt> {
-    public static final VecInt NULL_VECTOR = new VecInt(0, 0, 0);
+	
+    public static final VecInt NULL_VECTOR = new InmutVecInt(0, 0, 0);
+    
     protected int x;
     protected int y;
     protected int z;
@@ -194,5 +196,24 @@ public class VecInt implements Comparable<VecInt> {
 
     public boolean blockExists(World world) {
         return world.blockExists(x, y, z);
+    }
+    
+    private static class InmutVecInt extends VecInt{
+
+		public InmutVecInt(int x, int y, int z) {
+			super(x, y, z);
+		}
+    	
+		public VecInt multiply(int i) {
+	        return this;
+	    }
+
+	    public VecInt add(VecInt v) {
+	        return this;
+	    }
+
+	    public VecInt add(int a, int b, int c) {
+	        return this;
+	    }
     }
 }

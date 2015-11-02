@@ -16,7 +16,7 @@ public class TileTransformerMedium_High extends TileBase implements IElectricTil
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
-        if (VecInt.NULL_VECTOR == dir) {
+        if (VecInt.NULL_VECTOR.equals(dir)) {
             return tier == 2 ? new IElectricConductor[]{medium} : tier == 4 ? new IElectricConductor[]{high} : null;
         }
         MgDirection d = dir.toMgDirection();

@@ -18,6 +18,7 @@ import com.cout970.magneticraft.block.slabs.*;
 import com.cout970.magneticraft.block.stairs.*;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
+import com.cout970.magneticraft.items.block.ItemBlockPumpjack;
 import com.cout970.magneticraft.items.block.ItemBlockShelvingUnit;
 import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.*;
@@ -416,7 +417,7 @@ public class ManagerBlocks {
         addBlock(heat_resist, "Heat Resistance");
         addBlock(fluidhopper, "Fluid Hopper");
         addBlock(basic_gen, "Basic Generator");
-        addBlock(pumpJack, "Pumpjack");
+        addAltItemBlock(pumpJack, ItemBlockPumpjack.class, "Pumpjack");
         addBlock(steam_engine, "Steam Engine");
         addBlock(crusher, "Crusher Control");
         addBlock(chassis, "Multiblock Chassis");
@@ -604,6 +605,7 @@ public class ManagerBlocks {
         tileEntities.add(TileCrushingTable.class);
         tileEntities.add(TileShelvingUnit.class);
         tileEntities.add(TileShelfFiller.class);
+        tileEntities.add(TilePumpjackEnergyLink.class);
 
         for (Class<? extends TileEntity> c : tileEntities) {
             GameRegistry.registerTileEntity(c, c.getName() + "_Mg");

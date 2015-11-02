@@ -93,7 +93,7 @@ public class TileElectricPoleCableWire extends TileConductorLow implements ITile
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int Vtier) {
-        if (dir == VecInt.NULL_VECTOR && Vtier == 0) return new IElectricConductor[]{cond};
+        if (VecInt.NULL_VECTOR.equals(dir) && Vtier == 0) return new IElectricConductor[]{cond};
         return null;
     }
 

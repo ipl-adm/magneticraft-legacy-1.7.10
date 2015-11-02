@@ -172,7 +172,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int Vtier) {
-        if (dir == VecInt.NULL_VECTOR) return new IElectricConductor[]{own};
+        if (VecInt.NULL_VECTOR.equals(dir)) return new IElectricConductor[]{own};
         return null;
     }
 }

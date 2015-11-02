@@ -132,7 +132,7 @@ public class TileDiode extends TileConductorLow {
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
         if (tier != 0 && tier != -1) return null;
-        if (dir == VecInt.NULL_VECTOR || getDirection().toVecInt().equals(dir) || getDirection().opposite().toVecInt().equals(dir))
+        if (VecInt.NULL_VECTOR.equals(dir) || getDirection().toVecInt().equals(dir) || getDirection().opposite().toVecInt().equals(dir))
             return new IElectricConductor[]{cond};
         return null;
     }

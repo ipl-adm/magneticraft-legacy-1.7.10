@@ -2,7 +2,6 @@ package com.cout970.magneticraft.client.tilerender;
 
 import org.lwjgl.opengl.GL11;
 
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelPumpjack;
 import com.cout970.magneticraft.tileentity.TilePumpJack;
 import com.cout970.magneticraft.util.RenderUtil;
@@ -27,15 +26,21 @@ public class TileRenderPumpjack extends TileEntitySpecialRenderer {
         GL11.glRotatef(180, 1, 0, 0);
         GL11.glTranslatef(0, -2, 0);
         
-        if (tile.facing == MgDirection.SOUTH) {
-            GL11.glRotatef(180, 0, 1, 0);
-        } else if (tile.facing == MgDirection.EAST) {
-            GL11.glRotatef(90, 0, 1, 0);
-        } else if (tile.facing == MgDirection.WEST) {
-            GL11.glRotatef(-90, 0, 1, 0);
+        switch(tile.getOrientation()){
+        case SOUTH:
+        	GL11.glRotatef(180, 0, 1, 0);
+        	break;
+        case EAST:
+        	 GL11.glRotatef(90, 0, 1, 0);
+        	 break;
+        case WEST:
+        	GL11.glRotatef(-90, 0, 1, 0);
+        	break;
+		default:
+			break;
         }
         
-        GL11.glRotatef(180, 0, 1, 0);
+        GL11.glRotatef(90, 0, 1, 0);
         GL11.glTranslated(-2, 0, 0);
         
         if (tile.isActive())

@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelTextures {
 
-
+	
     public static final ResourceLocation NO_TEXTURE = new ResourceLocation("magneticraft", "textures/misc/no_texture.png");
 
     //copper pipe
@@ -24,9 +24,11 @@ public class ModelTextures {
     public static final ResourceLocation CABLE_MEDIUM = new ResourceLocation("magneticraft", "textures/misc/modelcablemedium.png");
     public static final ResourceLocation CABLE_HIGH = new ResourceLocation("magneticraft", "textures/misc/modelcablehigh.png");
 
+    //TODO remove this shit
     public static final ResourceLocation PUMP_HEAD = new ResourceLocation("magneticraft", "textures/misc/head.png");
     public static final ResourceLocation PUMP_PISTON = new ResourceLocation("magneticraft", "textures/misc/piston.png");
     public static final ResourceLocation PUMP_MOTOR = new ResourceLocation("magneticraft", "textures/misc/motor.png");
+    
     public static final ResourceLocation MIRROR = new ResourceLocation("magneticraft", "textures/misc/mirror.png");
     public static final ResourceLocation HOPPER = new ResourceLocation("magneticraft", "textures/misc/hopper.png");
     public static final ResourceLocation STEAM_ENGINE = new ResourceLocation("magneticraft", "textures/misc/steam_engine.png");
@@ -82,4 +84,5 @@ public class ModelTextures {
     public static final ResourceLocation BRASS_PIPE = new ResourceLocation("magneticraft", "textures/misc/pipe/brass/base.png");
     public static final ResourceLocation CRUSHING_TABLE = new ResourceLocation("magneticraft", "textures/misc/modelcrushingtable.png");
     public static final ResourceLocation SHELVING_UNIT = new ResourceLocation("magneticraft", "textures/misc/modelshelvingunit.png");
+	public static final ResourceLocation PUMPJACK = new ResourceLocation("magneticraft", "textures/misc/model_pumpjack.png");
 }

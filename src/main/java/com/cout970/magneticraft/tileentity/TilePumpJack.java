@@ -342,4 +342,8 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
     }
+
+	public int getConnections() {
+		return -1;
+	}
 }

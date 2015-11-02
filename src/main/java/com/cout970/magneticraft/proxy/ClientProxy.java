@@ -79,7 +79,7 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.crushing_table), new ItemRenderHammerTable());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.shelving_unit), new ItemRenderShelvingUnit());
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class, new TileRenderPumpJack());
+        ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class, new TileRenderPumpjack());
         ClientRegistry.bindTileEntitySpecialRenderer(TileMirror.class, new TileRenderMirror());
         ClientRegistry.bindTileEntitySpecialRenderer(TileWindTurbine.class, new TileRenderWindTurbine());
         ClientRegistry.bindTileEntitySpecialRenderer(TileFluidHopper.class, new TileRenderFluidHopper());

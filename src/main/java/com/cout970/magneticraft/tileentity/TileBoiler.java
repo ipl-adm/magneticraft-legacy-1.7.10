@@ -13,7 +13,6 @@ import com.cout970.magneticraft.util.tile.TileHeatConductor;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -22,9 +21,9 @@ import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, IGuiSync {
 
+    public static final int MAX_STEAM = 80;
     public TankMg water = new TankMg(this, 2000);
     public TankMg steam = new TankMg(this, 8000);
-    public static final int MAX_STEAM = 80;
     public int produce;
 
     @Override
@@ -36,7 +35,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
         super.updateEntity();
         if (worldObj.isRemote) return;
         if (heat.getTemperature() > 100) {
-            int cs = Math.min(water.getFluidAmount(), EnergyConverter.STEAMtoWATER(steam.getCapacity() - steam.getFluidAmount()));//calcs in water mount
+            int cs = Math.min(water.getFluidAmount(), EnergyConverter.STEAMtoWATER(steam.getSpace()));//calcs in water mount
             int boil = Math.min(Math.min(cs, EnergyConverter.STEAMtoWATER(MAX_STEAM)), ((int) heat.getTemperature() - 100));
             produce = EnergyConverter.WATERtoSTEAM(boil);
             if (boil > 0) {
@@ -143,16 +142,12 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
     }
 
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (this instanceof IFluidHandler1_8)
-            return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-        return 0;
+        return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
     }
 
     public FluidStack drain(ForgeDirection from, FluidStack resource,
                             boolean doDrain) {
-        if (this instanceof IFluidHandler1_8)
-            return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
-        return null;
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
     }
 
     public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {

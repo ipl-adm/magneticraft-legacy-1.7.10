@@ -49,7 +49,7 @@ public class TileOilDistillery extends TileMB_Base implements IGuiSync, IElectri
                 RecipeOilDistillery recipe = RecipeOilDistillery.getRecipe(input.getFluid());
                 if (recipe != null && (MgUtils.areEqual(recipe.getOutput(), output.getFluid()) || output.getFluid() == null) && output.getSpace() >= recipe.getOutput().amount) {
                     input.drain(recipe.getInput().amount, true);
-                    output.fill(recipe.getOutput(), true);
+                    output.fill(recipe.getOutput(), true, false);
                     own.drainPower(recipe.getEnergyCost());
                 }
             }

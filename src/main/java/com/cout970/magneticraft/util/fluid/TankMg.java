@@ -67,20 +67,28 @@ public class TankMg extends FluidTank {
         this.allowOutput = allowOutput;
     }
 
-    @Override
-    public int fill(FluidStack resource, boolean doFill) {
-        if (!isInputAllowed()) {
+    public int fill(FluidStack resource, boolean doFill, boolean respectMode) {
+        if (respectMode && !isInputAllowed()) {
             return 0;
         }
         return super.fill(resource, doFill);
     }
 
     @Override
-    public FluidStack drain(int maxDrain, boolean doDrain) {
-        if (!isOutputAllowed()) {
+    public int fill(FluidStack resource, boolean doFill) {
+        return fill(resource, doFill, true);
+    }
+
+    public FluidStack drain(int maxDrain, boolean doDrain, boolean respectMode) {
+        if (respectMode && !isOutputAllowed()) {
             return null;
         }
         return super.drain(maxDrain, doDrain);
+    }
+
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return drain(maxDrain, doDrain, true);
     }
 
     public void setAllowInOut(boolean allowInOut) {

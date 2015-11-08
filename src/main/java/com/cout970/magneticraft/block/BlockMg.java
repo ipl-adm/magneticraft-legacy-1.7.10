@@ -2,7 +2,7 @@ package com.cout970.magneticraft.block;
 
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBase;
-import com.cout970.magneticraft.tileentity.TileShelf;
+import com.cout970.magneticraft.tileentity.shelf.TileShelf;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;

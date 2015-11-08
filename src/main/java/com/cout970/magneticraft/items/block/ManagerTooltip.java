@@ -1,34 +1,23 @@
 package com.cout970.magneticraft.items.block;
 
-import static com.cout970.magneticraft.ManagerBlocks.*;
-import static com.cout970.magneticraft.ManagerItems.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.NBTUtils;
-import com.cout970.magneticraft.items.ItemBasic;
-import com.cout970.magneticraft.items.ItemBattery;
-import com.cout970.magneticraft.items.ItemFloppyDisk;
-import com.cout970.magneticraft.items.ItemHardDrive;
-import com.cout970.magneticraft.items.ItemHeatCoilCopper;
-import com.cout970.magneticraft.items.ItemHeatCoilIron;
-import com.cout970.magneticraft.items.ItemHeatCoilTungsten;
-import com.cout970.magneticraft.items.ItemPartBase;
-import com.cout970.magneticraft.items.ItemSmallBattery;
-import com.cout970.magneticraft.items.ItemThoriumRod;
-import com.cout970.magneticraft.items.ItemUraniumRod;
+import com.cout970.magneticraft.items.*;
 import com.cout970.magneticraft.parts.fluid.PartCopperPipe;
 import com.cout970.magneticraft.parts.fluid.PartIronPipe;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.cout970.magneticraft.ManagerBlocks.*;
+import static com.cout970.magneticraft.ManagerItems.*;
 
 public class ManagerTooltip {
 
@@ -54,7 +43,7 @@ public class ManagerTooltip {
 			} else if (b == biomass_burner) {
 				list.add(
 						format + "Generates heat from biomass, such as wood, saplings, flowers, or some types of plants");
-				list.add(format + "Produces up tp " + (EnergyConverter.RFtoCALORIES(40) / 1000) + " kcal/t");
+				list.add(format + "Produces up to " + (EnergyConverter.RFtoCALORIES(40) / 1000) + " kcal/t");
 			} else if (b == boiler) {
 				list.add(format + "Generates steam from heat and water");
 				list.add(format + "Produces up to 80mB using " + (EnergyConverter
@@ -100,7 +89,7 @@ public class ManagerTooltip {
 				list.add(format + "Generates electricity from EU");
 			} else if (b == firebox) {
 				list.add(format + "Generate heat from solid fuel");
-				list.add(format + "Produces up tp " + (EnergyConverter.RFtoCALORIES(40) / 1000) + " kcal/t");
+				list.add(format + "Produces up tp " + (EnergyConverter.RFtoCALORIES(60) / 1000) + " kcal/t");
 			} else if (b == fluidhopper) {
 				list.add(format + "Transfers fluids from one tank to another through an internal buffer");
 				list.add(format + "Can be used to fill or empty buckets");

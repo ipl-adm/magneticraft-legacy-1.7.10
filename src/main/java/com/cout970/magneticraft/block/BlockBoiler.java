@@ -20,6 +20,19 @@ public class BlockBoiler extends BlockMg {
         setCreativeTab(CreativeTabsMg.SteamAgeTab);
     }
 
+    public static ItemStack consumeItem(ItemStack stack) {
+        if (stack.stackSize == 1) {
+            if (stack.getItem().hasContainerItem(stack)) {
+                return stack.getItem().getContainerItem(stack);
+            } else {
+                return null;
+            }
+        } else {
+            stack.splitStack(1);
+            return stack;
+        }
+    }
+
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
         return new TileBoiler();
@@ -38,7 +51,6 @@ public class BlockBoiler extends BlockMg {
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int par6, float par7, float par8, float par9) {
 
         if (p.isSneaking()) return false;
-        boolean h;
         ItemStack current = p.inventory.getCurrentItem();
         if (current != null) {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
@@ -52,29 +64,9 @@ public class BlockBoiler extends BlockMg {
                     p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
                 }
                 return true;
-            } else {
-                h = true;
             }
-        } else {
-            h = true;
         }
-        if (h) {
-            p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
-            return true;
-        }
-        return false;
-    }
-
-    public static ItemStack consumeItem(ItemStack stack) {
-        if (stack.stackSize == 1) {
-            if (stack.getItem().hasContainerItem(stack)) {
-                return stack.getItem().getContainerItem(stack);
-            } else {
-                return null;
-            }
-        } else {
-            stack.splitStack(1);
-            return stack;
-        }
+        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
+        return true;
     }
 }

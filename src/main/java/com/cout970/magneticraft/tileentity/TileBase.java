@@ -18,6 +18,10 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
     public boolean powered;
     public RedstoneControl redstone = RedstoneControl.NORMAL;
 
+    public static RedstoneControl step(RedstoneControl state) {
+        return state == RedstoneControl.NORMAL ? RedstoneControl.INVERSE : state == RedstoneControl.INVERSE ? RedstoneControl.DISABLE : RedstoneControl.NORMAL;
+    }
+
     public void onNeigChange() {
         powered = isPowered();
     }
@@ -82,10 +86,6 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         this.readFromNBT(pkt.func_148857_g());
-    }
-
-    public static RedstoneControl step(RedstoneControl state) {
-        return state == RedstoneControl.NORMAL ? RedstoneControl.INVERSE : state == RedstoneControl.INVERSE ? RedstoneControl.DISBLE : RedstoneControl.NORMAL;
     }
 
     @Override

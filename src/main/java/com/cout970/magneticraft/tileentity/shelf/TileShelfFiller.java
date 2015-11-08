@@ -1,7 +1,6 @@
 package com.cout970.magneticraft.tileentity.shelf;
 
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.TileShelf;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TileShelfFiller extends TileShelf {

@@ -5,7 +5,6 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 import com.cout970.magneticraft.block.BlockMg;
-import com.cout970.magneticraft.tileentity.TileShelf;
 import com.cout970.magneticraft.util.InventoryResizable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

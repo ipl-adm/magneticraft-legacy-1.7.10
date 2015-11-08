@@ -5,7 +5,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
-import com.cout970.magneticraft.tileentity.TileShelf;
+import com.cout970.magneticraft.tileentity.shelf.TileShelf;
 import com.cout970.magneticraft.tileentity.shelf.TileShelfFiller;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.InventoryUtils;

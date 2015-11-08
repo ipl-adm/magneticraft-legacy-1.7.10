@@ -37,7 +37,7 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
             //fuel to heat
             if (heat.getTemperature() < heat.getMaxTemp() - 200) {
                 int i = 6;//burning speed
-                if (progress - i < 0) {
+                if (progress - i <= 0) {
                     heat.applyCalories(EnergyConverter.FUELtoCALORIES(progress));
                     progress = 0;
                     updated = false;
@@ -60,9 +60,9 @@ public class TileFireBox extends TileHeatConductor implements IInventoryManaged,
                             getInv().setInventorySlotContents(0, getInv().getStackInSlot(0).getItem().getContainerItem(getInv().getStackInSlot(0)));
                         }
                     }
+                    updated = false;
                     markDirty();
                 }
-                updated = false;
             }
         }
     }

@@ -41,10 +41,10 @@ public class TileRefinery extends TileMB_Base implements IGuiSync {
                     if (recipe.getOut0() == null || output0.getFluid() == null || (MgUtils.areEqual(recipe.getOut0(), output0.getFluid()) && recipe.getOut0().amount <= output0.getSpace())) {
                         if (recipe.getOut1() == null || output1.getFluid() == null || (MgUtils.areEqual(recipe.getOut1(), output1.getFluid()) && recipe.getOut1().amount <= output1.getSpace())) {
                             if (recipe.getOut2() == null || output2.getFluid() == null || (MgUtils.areEqual(recipe.getOut2(), output2.getFluid()) && recipe.getOut2().amount <= output2.getSpace())) {
-                                input.drain(recipe.getInput().amount, true);
-                                output0.fill(recipe.getOut0().copy(), true);
-                                output1.fill(recipe.getOut1().copy(), true);
-                                output2.fill(recipe.getOut2().copy(), true);
+                                input.drain(recipe.getInput().amount, true, false);
+                                output0.fill(recipe.getOut0().copy(), true, false);
+                                output1.fill(recipe.getOut1().copy(), true, false);
+                                output2.fill(recipe.getOut2().copy(), true, false);
                             }
                         }
                     }

@@ -27,7 +27,7 @@ public class CompButtonRedstoneControl implements IGuiComp {
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (tile instanceof TileBase) {
             GL11.glColor4f(1, 1, 1, 1);
-            int i = ((TileBase) tile).redstone == RedstoneControl.DISBLE ? 0 : ((TileBase) tile).redstone == RedstoneControl.INVERSE ? 18 : 36;
+            int i = ((TileBase) tile).redstone == RedstoneControl.DISABLE ? 0 : ((TileBase) tile).redstone == RedstoneControl.INVERSE ? 18 : 36;
             RenderUtil.bindTexture(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/button_rs.png"));
             RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y, 0, i, 18, 18, 18, 54);
         }

@@ -1,8 +1,8 @@
-package com.cout970.magneticraft.tileentity;
+package com.cout970.magneticraft.tileentity.shelf;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
+import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.util.InventoryResizable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

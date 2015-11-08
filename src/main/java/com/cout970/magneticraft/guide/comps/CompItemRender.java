@@ -2,6 +2,7 @@ package com.cout970.magneticraft.guide.comps;
 
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.client.gui.GuiGuideBook;
+import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.guide.BookGuide;
 import com.cout970.magneticraft.guide.BookPage;
 import com.cout970.magneticraft.guide.Box2D;
@@ -84,4 +85,14 @@ public class CompItemRender implements IPageComp {
 		return new Box2D(x, y, x+16, y+16);
 	}
 
+    @Override
+    public GuiPoint getPosition() {
+        return new GuiPoint(x,y);
+    }
+
+    @Override
+    public void setPosition(GuiPoint pos) {
+        x = pos.x;
+        y = pos.y;
+    }
 }

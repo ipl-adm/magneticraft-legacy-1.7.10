@@ -20,6 +20,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.ModAPIManager;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -159,8 +160,6 @@ public class Magneticraft {
             MgMinetweaker.init();
         }
 
-        // ManagerFluids.registerCrossModFuels();
-
         if (BUILDCRAFT) {
             ManagerFluids.registerBCFuels();
         }
@@ -192,6 +191,11 @@ public class Magneticraft {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @EventHandler
+    public void deleteOldBlocks(FMLMissingMappingsEvent event){
+        event.get().stream().forEach(s -> s.ignore());
     }
 
     public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {

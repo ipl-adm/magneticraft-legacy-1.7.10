@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.guide;
 
 import com.cout970.magneticraft.client.gui.GuiGuideBook;
+import com.cout970.magneticraft.client.gui.component.GuiPoint;
 
 public interface IPageComp {
 
@@ -15,4 +16,8 @@ public interface IPageComp {
     String getID();
     
     Box2D getBox();
+
+    GuiPoint getPosition();
+
+    void setPosition(GuiPoint newPos);
 }

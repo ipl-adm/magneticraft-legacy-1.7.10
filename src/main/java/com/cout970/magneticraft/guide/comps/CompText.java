@@ -1,6 +1,7 @@
 package com.cout970.magneticraft.guide.comps;
 
 import com.cout970.magneticraft.client.gui.GuiGuideBook;
+import com.cout970.magneticraft.client.gui.component.GuiPoint;
 import com.cout970.magneticraft.guide.BookGuide;
 import com.cout970.magneticraft.guide.BookPage;
 import com.cout970.magneticraft.guide.Box2D;
@@ -63,6 +64,17 @@ public class CompText implements IPageComp {
 
 	@Override
 	public Box2D getBox() {
-		return new Box2D(x, y, x+ text == null ? 6 : text.length()*13, y+10);
+		return new Box2D(x, y, x + (text == null ? 6 : text.length()*6), y + 10);
 	}
+
+    @Override
+    public GuiPoint getPosition() {
+        return new GuiPoint(x,y);
+    }
+
+    @Override
+    public void setPosition(GuiPoint pos) {
+        x = pos.x;
+        y = pos.y;
+    }
 }

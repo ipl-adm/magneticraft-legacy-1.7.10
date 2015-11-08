@@ -23,11 +23,6 @@ public class ModelTextures {
     public static final ResourceLocation CABLE_LOW = new ResourceLocation("magneticraft", "textures/misc/modelcablelow.png");
     public static final ResourceLocation CABLE_MEDIUM = new ResourceLocation("magneticraft", "textures/misc/modelcablemedium.png");
     public static final ResourceLocation CABLE_HIGH = new ResourceLocation("magneticraft", "textures/misc/modelcablehigh.png");
-
-    //TODO remove this shit
-    public static final ResourceLocation PUMP_HEAD = new ResourceLocation("magneticraft", "textures/misc/head.png");
-    public static final ResourceLocation PUMP_PISTON = new ResourceLocation("magneticraft", "textures/misc/piston.png");
-    public static final ResourceLocation PUMP_MOTOR = new ResourceLocation("magneticraft", "textures/misc/motor.png");
     
     public static final ResourceLocation MIRROR = new ResourceLocation("magneticraft", "textures/misc/mirror.png");
     public static final ResourceLocation HOPPER = new ResourceLocation("magneticraft", "textures/misc/hopper.png");

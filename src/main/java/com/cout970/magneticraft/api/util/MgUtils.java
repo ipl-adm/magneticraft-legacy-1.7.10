@@ -30,6 +30,8 @@ import java.util.stream.IntStream;
  * @author Cout970
  */
 public class MgUtils {
+    private MgUtils() {
+    }
 
     /**
      * Useful method to get an adjacent TileEntity

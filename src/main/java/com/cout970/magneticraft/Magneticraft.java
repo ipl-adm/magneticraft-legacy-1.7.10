@@ -195,7 +195,7 @@ public class Magneticraft {
 
     @EventHandler
     public void deleteOldBlocks(FMLMissingMappingsEvent event){
-        event.get().stream().forEach(s -> s.ignore());
+        event.get().stream().forEach(FMLMissingMappingsEvent.MissingMapping::ignore);
     }
 
     public class MinerChunkCallBack implements ForgeChunkManager.OrderedLoadingCallback {

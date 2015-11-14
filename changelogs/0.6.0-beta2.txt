@@ -1,0 +1,20 @@
+FIXED:
+
+-No more crashes when extracting items from the Shelving Unit
+
+-Oil Distillery and Refinery now produce output again
+
+-Fixed minor Shelving Unit GUI issues
+
+-Fixed Inserters spamming packets when idle
+
+-Fixed biomass burners and fireboxes causing lag when idle
+
+-Fixed firebox tooltip
+
+
+CHANGED:
+
+-Minor texture changes
+
+-New Pumpjack model

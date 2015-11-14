@@ -3,29 +3,25 @@ package com.cout970.magneticraft.client.gui.component;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.GuiBasic;
 import com.cout970.magneticraft.util.DefaultEnumMap;
-import com.cout970.magneticraft.util.Log;
 import com.google.common.base.Function;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import java.util.EnumSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
-
 
 public class CompButton implements IGuiComp {
     public ResourceLocation texture;
-    Function<Integer, Boolean> function;
-    GuiPoint pos;
     protected ButtonState curState;
-    DefaultEnumMap<ButtonState, GuiPoint> uvMap;
     protected Set<ButtonState> blockedStates;
     protected int width, height;
     protected boolean isDown;
+    Function<Integer, Boolean> function;
+    GuiPoint pos;
+    DefaultEnumMap<ButtonState, GuiPoint> uvMap;
 
     public CompButton(GuiPoint start, int width, int height, GuiPoint uv, String texture, Function<Integer, Boolean> func) {
         this.texture = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":" + texture);
@@ -43,6 +39,9 @@ public class CompButton implements IGuiComp {
 
     @Override
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
+        if (!Mouse.isButtonDown(0) && !Mouse.isButtonDown(1)) {
+            isDown = false;
+        }
         ButtonState drawState = getState(mx, my, tile, gui);
         GuiPoint curUV = getUV(drawState);
 
@@ -64,6 +63,7 @@ public class CompButton implements IGuiComp {
     public void onClick(int mx, int my, int button, GuiBasic gui) {
         if (GuiBasic.isIn(mx, my, pos.x + gui.xStart, pos.y + gui.yStart, width, height) && (!blockedStates.contains(curState))) {
             if (function.apply(button)) {
+                isDown = true;
                 gui.mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
             }
         }

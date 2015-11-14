@@ -54,7 +54,7 @@ public class FluidUtils {
         return a instanceof IFluidTransport || a instanceof IFluidHandler;
     }
 
-    public static boolean CanPassFluid(TileEntity a, TileEntity b) {
+    public static boolean canPassFluid(TileEntity a, TileEntity b) {
 
         return isConnectable(b) && isConnectable(a);
     }

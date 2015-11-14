@@ -62,6 +62,10 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
+    maven {
+        name = "tehnut"
+        url = "http://tehnut.info/maven/"
+    }
 }
 
 dependencies {
@@ -69,6 +73,7 @@ dependencies {
     compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
     compile "codechicken:NotEnoughItems:1.7.10-1.0.5.118:dev"
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
+    compile "info.amerifrance.guideapi:Guide-API:1.7.10-1.0.1-20:deobf"
 }
 
 processResources

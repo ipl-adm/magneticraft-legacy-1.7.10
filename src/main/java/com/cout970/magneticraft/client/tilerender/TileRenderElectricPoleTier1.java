@@ -10,6 +10,7 @@ import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
 
 public class TileRenderElectricPoleTier1 extends TileEntitySpecialRenderer {
@@ -75,8 +76,13 @@ public class TileRenderElectricPoleTier1 extends TileEntitySpecialRenderer {
 
                 VecDouble dist = new VecDouble(pole2.getParent()).add(off);
                 RenderUtil.bindTexture(ModelTextures.ELECTRIC_WIRE_TIER_1);
+                VecDouble[] startConnectors = pole1.getWireConnectors();
+                VecDouble[] endConnectors = pole2.getWireConnectors();
+                if (Math.abs(te.getBlockMetadata() - pole2.getParent().getBlockMetadata()) > 3) {
+                    ArrayUtils.reverse(endConnectors);
+                }
                 for (int i = 0; i < count; i++) {
-                    VecDouble a = pole1.getWireConnectors()[i], b = pole2.getWireConnectors()[i];
+                    VecDouble a = startConnectors[i], b = endConnectors[i];
                     b.add(dist);//b relative to a
                     VecDouble ab = b.copy().add(a.getOpposite());//(b-a)
                     double lenght = ab.mag();//distance between a and b

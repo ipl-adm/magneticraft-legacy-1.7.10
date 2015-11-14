@@ -3,7 +3,7 @@ package com.cout970.magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.util.ThermopileDecay;
+import com.cout970.magneticraft.util.ThermophileDecay;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -89,7 +89,7 @@ public class ManagerRecipe {
     }
 
     public static void registerThermopileRecipes() {
-        MgRecipeRegister.addThermopileDecay(new ThermopileDecay());
+        MgRecipeRegister.addThermopileDecay(new ThermophileDecay());
         MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.air, -1), 1, false);
         MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow, -1), 100, false);
         MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.ice, -1), 100, false);

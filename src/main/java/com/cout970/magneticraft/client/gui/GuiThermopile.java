@@ -2,7 +2,7 @@ package com.cout970.magneticraft.client.gui;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.component.*;
-import com.cout970.magneticraft.tileentity.TileThermopile;
+import com.cout970.magneticraft.tileentity.TileThermophile;
 import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
@@ -21,7 +21,7 @@ public class GuiThermopile extends GuiBasic {
     @Override
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation("magneticraft:textures/gui/thermopile.png")));
-        comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16), ((TileThermopile) tile).cond));
+        comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16), ((TileThermophile) tile).cond));
         comp.add(new CompHeatDifference(new GuiPoint(32, 20)));
         comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
     }
@@ -40,8 +40,8 @@ public class GuiThermopile extends GuiBasic {
 
         @Override
         public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
-            if (tile instanceof TileThermopile) {
-                TileThermopile t = (TileThermopile) tile;
+            if (tile instanceof TileThermophile) {
+                TileThermophile t = (TileThermophile) tile;
                 int scale = (int) (44d * Math.min(t.getCurrentFromDiff() / t.getMaxCurrentFromDiff(), 1d));
                 gui.mc.renderEngine.bindTexture(texture0);
                 RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (44 - scale), 0, 44 - scale, 6, scale, 12, 45);
@@ -65,8 +65,8 @@ public class GuiThermopile extends GuiBasic {
 
         @Override
         public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
-            if (tile instanceof TileThermopile) {
-                TileThermopile t = (TileThermopile) tile;
+            if (tile instanceof TileThermophile) {
+                TileThermophile t = (TileThermophile) tile;
                 if (isIn(mx, my, gui.xStart + pos.x, gui.yStart + pos.y, 6, 50)) {
                     List<String> data = new ArrayList<>();
                     data.add(String.format("%dW", (int) t.getCurrentFromDiff()));

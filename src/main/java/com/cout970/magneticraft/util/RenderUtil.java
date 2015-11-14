@@ -89,8 +89,27 @@ public class RenderUtil {
     }
 
     public static Vector3 getHeatColor(double t) {
-        double r = Math.min(0.95, t / 1000);
-        return new Vector3(1, 1 - r, 1 - r);
+
+        if(t < 200) {
+            return new Vector3(1, 1, 1);
+
+        }else if(t < 500){
+            double per = (t-200)/300d;
+            Vector3 vec = new Vector3(0.87, 0.33, 0.35);
+            return new Vector3(1-((1-vec.x)*per), 1-((1-vec.y)*per), 1-((1-vec.z)*per));
+
+        }else if(t < 700){
+            double per = (t-500)/200d;
+            Vector3 vec1 = new Vector3(0.87, 0.33, 0.35);
+            Vector3 vec2 = new Vector3(0.9, 0.05, 0.05);
+            return new Vector3(vec1.x-((vec1.x-vec2.x)*per), vec1.y-((vec1.y-vec2.y)*per), vec1.z-((vec1.z-vec2.z)*per));
+
+        }else{
+            double per = Math.min(1, (t-700)/300d);
+            Vector3 vec1 = new Vector3(0.9, 0.05, 0.05);
+            Vector3 vec2 = new Vector3(1, 0, 0);
+            return new Vector3(vec1.x-((vec1.x-vec2.x)*per), vec1.y-((vec1.y-vec2.y)*per), vec1.z-((vec1.z-vec2.z)*per));
+        }
     }
 
     public static void renderBlock(Block b, int meta, int x, int y, int z, World w) {

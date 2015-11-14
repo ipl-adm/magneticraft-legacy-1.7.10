@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.access.IThermopileDecay;
+import com.cout970.magneticraft.api.access.IThermophileDecay;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -8,7 +8,7 @@ import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.ThermopileFuel;
+import com.cout970.magneticraft.api.util.ThermophileFuel;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import net.minecraft.block.Block;
@@ -18,7 +18,7 @@ import net.minecraft.inventory.ICrafting;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileThermopile extends TileConductorLow implements IGuiSync {
+public class TileThermophile extends TileConductorLow implements IGuiSync {
 
     public int ticks;
     public double diff;
@@ -46,7 +46,7 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
     }
 
     public double getCurrentFromDiff() {
-        return EnergyConverter.RFtoW(diff * 0.05);
+        return EnergyConverter.RFtoW(diff / 10);
     }
 
     private void updateTemps() {
@@ -62,19 +62,19 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
             tempCold += getCold(b);
         }
         diff = Math.min(tempHot, tempCold);
-        for (IThermopileDecay t : MgRecipeRegister.thermopileDecays) {
+        for (IThermophileDecay t : MgRecipeRegister.thermopileDecays) {
             t.onCheck(worldObj, list, tempHot, tempCold);
         }
     }
 
     public double getHeat(BlockInfo b) {
-        for (ThermopileFuel f : MgRecipeRegister.thermopileSources)
+        for (ThermophileFuel f : MgRecipeRegister.thermopileSources)
             if (f.heat && f.source.equals(b)) return f.temp;
         return 0;
     }
 
     public double getCold(BlockInfo b) {
-        for (ThermopileFuel f : MgRecipeRegister.thermopileSources)
+        for (ThermophileFuel f : MgRecipeRegister.thermopileSources)
             if (!f.heat && f.source.equals(b)) return f.temp;
         return 0;
     }
@@ -96,6 +96,6 @@ public class TileThermopile extends TileConductorLow implements IGuiSync {
     }
 
     public double getMaxCurrentFromDiff() {
-        return EnergyConverter.RFtoW(10);
+        return EnergyConverter.RFtoW(20);
     }
 }

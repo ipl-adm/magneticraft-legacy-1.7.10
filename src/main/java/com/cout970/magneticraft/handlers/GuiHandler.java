@@ -110,7 +110,7 @@ public class GuiHandler implements IGuiHandler {
         if (tile instanceof TileResistance) {
             return new ContainerResistance(player.inventory, tile);
         }
-        if (tile instanceof TileThermopile) {
+        if (tile instanceof TileThermophile) {
             return new ContainerThermopile(player.inventory, tile);
         }
         if (tile instanceof TileBreaker) {
@@ -219,7 +219,7 @@ public class GuiHandler implements IGuiHandler {
         if (tile instanceof TileResistance) {
             return new GuiResistance(new ContainerResistance(player.inventory, tile), tile);
         }
-        if (tile instanceof TileThermopile) {
+        if (tile instanceof TileThermophile) {
             return new GuiThermopile(new ContainerThermopile(player.inventory, tile), tile);
         }
         if (tile instanceof TileBreaker) {

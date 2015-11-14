@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.util;
 
-import com.cout970.magneticraft.api.access.IThermopileDecay;
+import com.cout970.magneticraft.api.access.IThermophileDecay;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
-public class ThermopileDecay implements IThermopileDecay {
+public class ThermophileDecay implements IThermophileDecay {
 
     @Override
     public void onCheck(World w, List<BlockInfo> b, double tempHot, double tempCold) {

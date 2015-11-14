@@ -537,7 +537,7 @@ public class ManagerBlocks {
         tileEntities.add(TileMB_Base.class);
         tileEntities.add(TileConveyorBelt.class);
         tileEntities.add(TileReactorVessel.class);
-        tileEntities.add(TileThermopile.class);
+        tileEntities.add(TileThermophile.class);
         tileEntities.add(TileMB_Energy_Low.class);
         tileEntities.add(TileReactorControlRods.class);
         tileEntities.add(TileReactorWall.class);

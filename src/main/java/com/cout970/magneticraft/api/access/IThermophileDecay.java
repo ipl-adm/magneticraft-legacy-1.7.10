@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Cout970
  */
-public interface IThermopileDecay {
+public interface IThermophileDecay {
 
     void onCheck(World w, List<BlockInfo> b, double tempHot, double tempCold);
 }

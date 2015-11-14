@@ -30,7 +30,6 @@ public class BookEditMenu {
     }
 
     public boolean apply(int id, int b) {
-        c
         return false;
     }
 

@@ -7,20 +7,20 @@ import com.cout970.magneticraft.api.access.MgRecipeRegister;
  *
  * @author Cout970
  */
-public class ThermopileFuel {
+public class ThermophileFuel {
 
     public boolean heat;//true == heat source, false == cold source
     public BlockInfo source;
     public double temp;//always positive
 
-    public ThermopileFuel(BlockInfo s, double t, boolean heat) {
+    public ThermophileFuel(BlockInfo s, double t, boolean heat) {
         source = s;
         temp = t;
         this.heat = heat;
     }
 
-    public static ThermopileFuel getRecipe(BlockInfo p) {
-        for (ThermopileFuel f : MgRecipeRegister.thermopileSources) {
+    public static ThermophileFuel getRecipe(BlockInfo p) {
+        for (ThermophileFuel f : MgRecipeRegister.thermopileSources) {
             if (f.source.equals(p)) {
                 return f;
             }

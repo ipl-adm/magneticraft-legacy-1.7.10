@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class ModuleCPU_MIPS implements IModuleCPU {
 
     public IModuleMemoryController memory;
-    public int[] registes = new int[32];
+    public int[] registers = new int[32];
     public int HI = 0;
     public int LO = 0;
     public int regPC = 0;
@@ -16,7 +16,7 @@ public class ModuleCPU_MIPS implements IModuleCPU {
     public int regCause = 0;
     public int regEPC = 0;
 
-    public int cpuCicles = -1;
+    public int cpuCycles = -1;
 
     public ModuleCPU_MIPS() {
     }
@@ -27,12 +27,12 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     @Override
     public boolean isRunning() {
-        return cpuCicles >= 0;
+        return cpuCycles >= 0;
     }
 
     @Override
     public void start() {
-        cpuCicles = 0;
+        cpuCycles = 0;
         memory.clear();
         regPC = 0x00400000;
         regStatus = 0x0000FFFF;
@@ -45,20 +45,20 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     @Override
     public void stop() {
-        cpuCicles = -1;
+        cpuCycles = -1;
     }
 
     @Override
     public void iterate() {
-        if (cpuCicles >= 0) {
-            cpuCicles += 10000;//2000
+        if (cpuCycles >= 0) {
+            cpuCycles += 10000;//2000
 
-            if (cpuCicles > 10000) {
-                cpuCicles = 10000;
+            if (cpuCycles > 10000) {
+                cpuCycles = 10000;
             }
 
-            while (cpuCicles > 0) {
-                --cpuCicles;
+            while (cpuCycles > 0) {
+                --cpuCycles;
                 executeInsntruction();
             }
         }
@@ -70,11 +70,11 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     public void setRegister(int s, int val) {
         if (s == 0) return;
-        registes[s] = val;
+        registers[s] = val;
     }
 
     public int getRegister(int t) {
-        return registes[t];
+        return registers[t];
     }
 
     private void executeInsntruction() {
@@ -466,9 +466,9 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     @Override
     public void loadRegisters(NBTTagCompound nbt) {
-        registes = nbt.getIntArray("Regs");
-        if (registes.length != 32) registes = new int[32];
-        cpuCicles = nbt.getInteger("Cicles");
+        registers = nbt.getIntArray("Regs");
+        if (registers.length != 32) registers = new int[32];
+        cpuCycles = nbt.getInteger("Cicles");
         regPC = nbt.getInteger("PC");
         HI = nbt.getInteger("HI");
         LO = nbt.getInteger("LO");
@@ -479,8 +479,8 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     @Override
     public void saveRegisters(NBTTagCompound nbt) {
-        nbt.setIntArray("Regs", registes);
-        nbt.setInteger("Cicles", cpuCicles);
+        nbt.setIntArray("Regs", registers);
+        nbt.setInteger("Cicles", cpuCycles);
         nbt.setInteger("PC", regPC);
         nbt.setInteger("HI", HI);
         nbt.setInteger("LO", LO);
@@ -501,6 +501,6 @@ public class ModuleCPU_MIPS implements IModuleCPU {
 
     @Override
     public void haltTick() {
-        cpuCicles = 0;
+        cpuCycles = 0;
     }
 }

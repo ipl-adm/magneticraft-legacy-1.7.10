@@ -2,7 +2,7 @@ package com.cout970.magneticraft.compat.minetweaker;
 
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.ThermopileFuel;
+import com.cout970.magneticraft.api.util.ThermophileFuel;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.block.IBlock;
@@ -28,17 +28,17 @@ public class Thermopile {
     @ZenMethod
     public static void removeHeatSource(IBlock block, int metadata) {
         Block b = MgMinetweaker.getBlock(block);
-        ThermopileFuel r = ThermopileFuel.getRecipe(new BlockInfo(b, metadata));
+        ThermophileFuel r = ThermophileFuel.getRecipe(new BlockInfo(b, metadata));
         if (r == null) return;
         MineTweakerAPI.apply(new RemoveSource(r));
     }
 
     public static class HotSource implements IUndoableAction {
 
-        private final ThermopileFuel r;
+        private final ThermophileFuel r;
 
         public HotSource(BlockInfo b, int temp) {
-            this.r = new ThermopileFuel(b, temp, true);
+            this.r = new ThermophileFuel(b, temp, true);
         }
 
         @Override
@@ -74,10 +74,10 @@ public class Thermopile {
 
     public static class ColdSource implements IUndoableAction {
 
-        private final ThermopileFuel r;
+        private final ThermophileFuel r;
 
         public ColdSource(BlockInfo b, int temp) {
-            this.r = new ThermopileFuel(b, temp, false);
+            this.r = new ThermophileFuel(b, temp, false);
         }
 
         @Override
@@ -113,9 +113,9 @@ public class Thermopile {
 
     public static class RemoveSource implements IUndoableAction {
 
-        private final ThermopileFuel r;
+        private final ThermophileFuel r;
 
-        public RemoveSource(ThermopileFuel b) {
+        public RemoveSource(ThermophileFuel b) {
             this.r = b;
         }
 

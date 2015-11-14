@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.api.access;
 
 import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.ThermopileFuel;
+import com.cout970.magneticraft.api.util.ThermophileFuel;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -18,8 +18,8 @@ public class MgRecipeRegister {
     public static List<RecipeGrinder> grinder = new ArrayList<>();
     public static List<RecipeSifter> sifter = new ArrayList<>();
     public static List<RecipeCrushingTable> crushing_table = new ArrayList<>();
-    public static List<ThermopileFuel> thermopileSources = new ArrayList<>();
-    public static List<IThermopileDecay> thermopileDecays = new ArrayList<>();
+    public static List<ThermophileFuel> thermopileSources = new ArrayList<>();
+    public static List<IThermophileDecay> thermopileDecays = new ArrayList<>();
     public static List<RecipeBiomassBurner> biomassBurner = new ArrayList<>();
     //fluids
     public static List<RecipeRefinery> refinery = new ArrayList<>();
@@ -87,7 +87,7 @@ public class MgRecipeRegister {
     public static boolean addThermopileSource(BlockInfo b, double temp, boolean heat) {
         if (b == null || temp == 0) return false;
         if (temp < 0) return false;
-        ThermopileFuel f = new ThermopileFuel(b, temp, heat);
+        ThermophileFuel f = new ThermophileFuel(b, temp, heat);
         if (!thermopileSources.contains(f)) {
             thermopileSources.add(f);
         }
@@ -98,7 +98,7 @@ public class MgRecipeRegister {
      * @param t thermopile listener
      * @return false if the registry fails
      */
-    public static boolean addThermopileDecay(IThermopileDecay t) {
+    public static boolean addThermopileDecay(IThermophileDecay t) {
         if (t == null || thermopileDecays.contains(t)) return false;
         thermopileDecays.add(t);
         return true;

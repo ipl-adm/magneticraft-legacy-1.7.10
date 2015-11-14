@@ -31,6 +31,8 @@ curse {
     apiKey = project.curseForgeApiKey
     releaseType = 'release'
     changelog = new File('./changelogs/' + version + '.txt').text
+	//Why i don't have this changelogs?
+	//i get errors because this line
     if (version.contains('beta')) {
         releaseType = 'beta'
     }

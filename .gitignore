@@ -10,6 +10,7 @@ bin
 *.iml
 *.ipr
 *.iws
+*.eml
 out
 
 #gradle

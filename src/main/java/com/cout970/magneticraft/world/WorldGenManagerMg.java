@@ -1,11 +1,7 @@
 package com.cout970.magneticraft.world;
 
-import java.util.LinkedList;
-import java.util.Random;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockInfo;
-
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -14,7 +10,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.BiomeGenBase.TempCategory;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraftforge.fluids.FluidRegistry;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 public class WorldGenManagerMg implements IWorldGenerator {
 
@@ -72,7 +70,6 @@ public class WorldGenManagerMg implements IWorldGenerator {
                     if (base.getTempCategory() == TempCategory.OCEAN) run *= 0.85;
                     if (base.getTempCategory() == TempCategory.COLD) run *= 0.75;
                 }
-
                 if (random.nextInt(run) == 0) {
                     if (GenOilMaxHeight - GenOilMinHeight >= 0) {
                         for (int d = 0; d < GenOilMaxAmount; d++) {
@@ -80,7 +77,7 @@ public class WorldGenManagerMg implements IWorldGenerator {
                             int cX = chunkX - 3 + random.nextInt(6);
                             int cZ = chunkZ - 3 + random.nextInt(6);
                             int y = world.getHeightValue(cX << 4, cZ << 4);
-                            generateSphere(world, cX << 4, y + 10, cZ << 4, FluidRegistry.getFluid("oil").getBlock(), 0, false, 2.5f + random.nextInt(3));
+                            generateSphere(world, cX << 4, y + 10, cZ << 4, ManagerBlocks.blockTar, 0, false, 2.5f + random.nextInt(3));
                             generateSphere_ore(world, cX << 4, height, cZ << 4, ManagerBlocks.oilSource, 15, false, 2.5f + random.nextInt(4));
                         }
                     }

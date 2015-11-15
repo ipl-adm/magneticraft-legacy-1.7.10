@@ -186,6 +186,8 @@ public class ManagerBlocks {
     public static BlockSlab slabBurntCobbleLimeDouble;
     public static Block stairsBurntCobbleLime;
 
+    public static Block blockTar;
+
     public static void initBlocks() {
         //ores & resources
         oilSource = new BlockOilSource();
@@ -348,6 +350,7 @@ public class ManagerBlocks {
         pressure_tank = new BlockPressureTank();
         crushing_table = new BlockCrushingTable();
         shelving_unit = new BlockShelvingUnit();
+        blockTar = new BlockTar();
     }
 
     public static void registerBlocks() {
@@ -498,7 +501,7 @@ public class ManagerBlocks {
         addBlock(oreZinc, "Zinc Ore", true);
         addBlock(crushing_table, "Crushing Table");
         addAltItemBlock(shelving_unit, ItemBlockShelvingUnit.class, "Shelving Unit");
-
+        addBlock(blockTar, "Tar");
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());

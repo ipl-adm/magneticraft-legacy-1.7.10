@@ -1,23 +1,14 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
-import com.cout970.magneticraft.api.util.BlockInfo;
-import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VecIntUtil;
+import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
+import com.cout970.magneticraft.util.pathfinding.OilPathFinding;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -28,356 +19,315 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
+
+import java.util.*;
 
 public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
-	// client
-	public float m;
-	public boolean active;
-	// server
-	public TankMg tank = new TankMg(this, 4000);
-	public long time;
-	private List<VecInt> pipes = new LinkedList<>();
-	private List<VecInt> oil = new LinkedList<>();
-	private List<VecInt> fluid = new LinkedList<>();
-	private List<VecInt> finder = new LinkedList<>();
-	private List<VecInt> visited = new LinkedList<>();
-	private int alt;
-	private boolean update;
-	private int cooldown;
-	private boolean blocked;
-	private MgDirection[] sides = { MgDirection.NORTH, MgDirection.EAST, MgDirection.SOUTH, MgDirection.WEST, MgDirection.DOWN, MgDirection.UP };
-	private int buffer;
-	public static Block replacement = ManagerBlocks.oilSourceDrained;
-	private static int speed = 50;
-	private static Block fluidOil;
+    private static final int speed = 50;
+    private static Block fluidOil;
 
-	@Override
-	public IElectricConductor[] getConds(VecInt dir, int tier) {
-		if (tier != 0)
-			return null;
-		if (VecInt.NULL_VECTOR.equals(dir))
-			return new IElectricConductor[] { cond };
-		return null;
-	}
+    // client
+    public float m;
+    public boolean active;
+    public long time;
+    // server
+    public TankMg tank = new TankMg(this, 4000);
+    private List<VecInt> pipes = new LinkedList<>();
+    private Set<VecInt> oilBlocks = new HashSet<>();
+    private Set<VecInt> fluid = new HashSet<>();
 
-	@Override
-	public IElectricConductor initConductor() {
-		return new ElectricConductor(this){
-			@Override
-		    public VecInt[] getValidConnections() {
-		        return new VecInt[]{getOrientation().toVecInt()};
-		    }
-		};
-	}
+    private boolean pipesPlaced;
+    private boolean foundOilDeposit;
+    private int cooldown;
+    private int buffer;
 
-	public MgDirection getOrientation() {
-		return MgDirection.AXIX_Y[getBlockMetadata() % MgDirection.AXIX_Y.length];
-	}
 
-	public void updateEntity() {
-		super.updateEntity();
-		boolean working = cond.getVoltage() > ElectricConstants.MACHINE_WORK;
+    @Override
+    public IElectricConductor[] getConds(VecInt dir, int tier) {
+        if (tier != 0)
+            return null;
+        if (VecInt.NULL_VECTOR.equals(dir))
+            return new IElectricConductor[]{cond};
+        return null;
+    }
 
-		if (worldObj.getTotalWorldTime() % 20 == 0) {
-			if (working && !isActive()) {
-				setActive(true);
-			} else if (!working && isActive()) {
-				setActive(false);
-			}
-		}
+    @Override
+    public IElectricConductor initConductor() {
+        return new ElectricConductor(this) {
+            @Override
+            public VecInt[] getValidConnections() {
+                return new VecInt[]{getOrientation().toVecInt()};
+            }
+        };
+    }
 
-		if (worldObj.isRemote)
-			return;
+    public MgDirection getOrientation() {
+        return MgDirection.AXIX_Y[getBlockMetadata() % MgDirection.AXIX_Y.length];
+    }
 
-		if (!update) {
-			if (fluidOil == null)
-				fluidOil = FluidRegistry.getFluid("oil").getBlock();
-			if (worldObj.getTotalWorldTime() % 80 == 0)
-				update = searchForOil();
-			export();
-			return;
-		}
+    public void updateEntity() {
+        super.updateEntity();
+        boolean working = cond.getVoltage() > ElectricConstants.MACHINE_WORK;
 
-		if (worldObj.getTotalWorldTime() % 80 == 0) {
-			if (alt != 0) {
-				pipes.clear();
-				for (int y = yCoord - 1; y > 0; y--) {
-					Block b = worldObj.getBlock(xCoord, y, zCoord);
-					if (Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b,
-							replacement) || Block.isEqualTo(b, fluidOil)) {
-						break;
-					} else if (!Block.isEqualTo(b, ManagerBlocks.concreted_pipe)) {
-						pipes.add(new VecInt(xCoord, y, zCoord));
-					}
-				}
-			}
-			blocked = false;
-		}
 
-		export();
-		if (!blocked) {
-			if (cooldown > 0)
-				cooldown--;
-			if (cooldown <= 0) {
-				cooldown = 20;
-				if (pipes.size() == 0) {
-					update = false;
-					blocked = true;
-				} else {
-					if (cond.getVoltage() > ElectricConstants.MACHINE_WORK) {
-						VecInt c = pipes.get(0);
-						replaceBlock(c.getX(), c.getY(), c.getZ(), ManagerBlocks.concreted_pipe);
-						cond.drainPower(EnergyConverter.RFtoW(80));
-						pipes.remove(0);
-					}
-				}
-			}
-		}
-		if (blocked) {
-			if (cond.getVoltage() > ElectricConstants.MACHINE_WORK && tank.getSpace() > 0 && buffer > 0) {
-				int i = Math.min(speed, buffer);
-				buffer -= tank.fill(FluidRegistry.getFluidStack("oil", i), true);
-				cond.drainPower(EnergyConverter.RFtoW(i));
-			}
+        if (worldObj.getTotalWorldTime() % 20 == 0) {
+            if (working && !isActive()) {
+                setActive(true);
+            } else if (!working && isActive()) {
+                setActive(false);
+            }
+        }
 
-			if (buffer <= 0 && cond.getVoltage() > ElectricConstants.MACHINE_WORK) {
-				if (fluid.isEmpty()) {
-					if (oil.isEmpty()) {
-						update = false;
-						blocked = false;
-					} else {
-						VecInt b = oil.get(0);
-						int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
-						if (m > 0) {
-							worldObj.setBlockMetadataWithNotify(b.getX(), b.getY(), b.getZ(), m - 1, 2);
-						} else {
-							worldObj.setBlock(b.getX(), b.getY(), b.getZ(), replacement);
-							oil.remove(0);
-						}
-						buffer = 1000;
-					}
-				} else {
-					VecInt b = fluid.get(0);
-					int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
-					Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());
-					if (m == 0 && bl == fluidOil) {
-						worldObj.setBlock(b.getX(), b.getY(), b.getZ(), Blocks.air);
-						buffer = 1000;
-					}
-					fluid.remove(0);
-				}
-			}
-		}
-	}
+        if (worldObj.isRemote || !working)
+            return;
 
-	public void replaceBlock(int x, int y, int z, Block replace) {
-		if (worldObj.getBlock(x, y, z).isAir(worldObj, x, y, z) || MgUtils.isMineableBlock(worldObj,
-				new BlockInfo(worldObj.getBlock(x, y, z), worldObj.getBlockMetadata(x, y, z), x, y, z))) {
-			ArrayList<ItemStack> items;
-			Block id = worldObj.getBlock(x, y, z);
-			int metadata = worldObj.getBlockMetadata(x, y, z);
-			items = id.getDrops(worldObj, x, y, z, metadata, 0);
-			for (ItemStack item : items){
-				if (item != null && item.stackSize > 0) {
-		            float rx = 0F;
-		            float ry = 0.1F;
-		            float rz = 0F;
-		            EntityItem entityItem = new EntityItem(worldObj,
-		                    xCoord + rx, yCoord + ry, zCoord + rz,
-		                    new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
-		            if (item.hasTagCompound()) {
-		                entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-		            }
-		            worldObj.spawnEntityInWorld(entityItem);
-		        }
-			}
+        if (fluidOil == null)
+            fluidOil = FluidRegistry.getFluid("oil").getBlock();
 
-			worldObj.setBlock(x, y, z, replace);
-		}
-	}
+        if (!foundOilDeposit) {
+            if (worldObj.getTotalWorldTime() % 80 == 0)
+                updateOilDeposit();
 
-	private void setActive(boolean b) {
-		active = b;
-		sendUpdateToClient();
-	}
+        } else {
+            if (!pipesPlaced) {
+                if (worldObj.getTotalWorldTime() % 40 == 0) {
+                    placePipes();
+                }
+            } else {
 
-	public boolean isActive() {
-		return active;
-	}
+                if (tank.getSpace() > 0 && buffer > 0) {//fill tank
 
-	private void export() {
-		if (tank.getFluidAmount() > 0) {
-			for (MgDirection d : MgDirection.VALID_DIRECTIONS) {
-				TileEntity t = MgUtils.getTileEntity(this, d);
-				if (t instanceof IFluidHandler) {
-					IFluidHandler f = (IFluidHandler) t;
-					if (f.canFill(d.toForgeDir(), FluidRegistry.getFluid("oil"))) {
-						int m = f.fill(d.toForgeDir(), tank.drain(100, false), true);
-						tank.drain(m, true);
-					}
-					if (tank.getFluidAmount() == 0)
-						break;
-				}
-			}
-		}
-	}
+                    int i = Math.min(speed, buffer);
+                    buffer -= tank.fill(FluidRegistry.getFluidStack("oil", i), true);
+                    cond.drainPower(EnergyConverter.RFtoW(i));
 
-	private void getOil() {
-		oil.clear();
-		fluid.clear();
-		pathFinder(new VecInt(xCoord, alt, zCoord));
-		visited.clear();
-		finder.clear();
-	}
+                } else if (buffer < 1) {//drain one block
 
-	public void pathFinder(VecInt c) {
-		if (oil.size() > 20)
-			return;
-		if (visited.size() > 4000) {
-			alt--;
-			return;
-		}
-		for (MgDirection d : sides) {
-			VecInt bc = new VecInt(c.getX() + d.getOffsetX(), c.getY() + d.getOffsetY(),
-					c.getZ() + d.getOffsetZ());
-			if (visited.contains(bc))
-				continue;
-			visited.add(bc);
+                    if (!fluid.isEmpty()) {
+                        VecInt b = fluid.iterator().next();
+                        int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
+                        Block bl = worldObj.getBlock(b.getX(), b.getY(), b.getZ());
+                        if (m == 0 && bl == fluidOil) {
+                            worldObj.setBlock(b.getX(), b.getY(), b.getZ(), Blocks.air);
+                            buffer = 1000;
+                        }
+                        fluid.remove(b);
 
-			Block b = worldObj.getBlock(bc.getX(), bc.getY(), bc.getZ());
+                    } else if (!oilBlocks.isEmpty()) {
 
-			if (Block.isEqualTo(b, ManagerBlocks.oilSource)) {
-				oil.add(bc);
-				if (!finder.contains(bc))
-					finder.add(bc);
-			} else if (Block.isEqualTo(b, replacement)) {
-				if (!finder.contains(bc))
-					finder.add(bc);
-			} else if (Block.isEqualTo(b, fluidOil)) {
-				fluid.add(bc);
-				if (!finder.contains(bc))
-					finder.add(bc);
-			}
-		}
-		List<VecInt> temp = new ArrayList<>(finder.size());
-		temp.addAll(finder);
-		for (VecInt cc : temp) {
-			finder.remove(cc);
-			pathFinder(cc);
-		}
-	}
+                        VecInt b = oilBlocks.iterator().next();
+                        int m = worldObj.getBlockMetadata(b.getX(), b.getY(), b.getZ());
+                        if (m > 0) {
+                            worldObj.setBlockMetadataWithNotify(b.getX(), b.getY(), b.getZ(), m - 1, 2);
+                        } else {
+                            worldObj.setBlock(b.getX(), b.getY(), b.getZ(), ManagerBlocks.oilSourceDrained);
+                            oilBlocks.remove(b);
+                        }
+                        buffer = 1000;
+                    } else {
+                        foundOilDeposit = false;
+                    }
+                }
+            }
+        }
+        export();
+    }
 
-	public boolean searchForOil() {
-		pipes.clear();
-		for (int y = yCoord - 1; y > 0; y--) {
-			Block b = worldObj.getBlock(xCoord, y, zCoord);
+    private void updateOilDeposit() {
+        Set<VecInt> scanned = new HashSet<>();
+        fluid.clear();
+        oilBlocks.clear();
+        foundOilDeposit = false;
 
-			if (Block.isEqualTo(b, ManagerBlocks.oilSource) || Block.isEqualTo(b, replacement) || Block
-					.isEqualTo(b, fluidOil)) {
-				alt = y;
-				getOil();
-				if (oil.isEmpty() && fluid.isEmpty()) {
-					alt = 0;
-				} else {
-					return true;
-				}
-			} else if (!Block.isEqualTo(b, ManagerBlocks.concreted_pipe)) {
-				pipes.add(new VecInt(xCoord, y, zCoord));
-			}
-		}
-		return false;
-	}
+        for (int i = 0; i < yCoord; i++) {
+            VecInt pos = new VecInt(xCoord, yCoord - i, zCoord);
+            Block b = worldObj.getBlock(pos.getX(), pos.getY(), pos.getZ());
 
-	@Override
-	public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-		return 0;
-	}
+            if (!scanned.contains(pos) && (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil))) {
+                OilPathFinding pathFinding = new OilPathFinding(worldObj);
+                pathFinding.setStart(pos);
+                pathFinding.getPathEnd();
+                scanned.addAll(pathFinding.getScannedBlocks());
+                oilBlocks.addAll(pathFinding.getOilBlocks());
+                fluid.addAll(pathFinding.getFluidOilBlocks());
+                if (!oilBlocks.isEmpty() || !fluid.isEmpty()) {
+                    foundOilDeposit = true;
+                    break;
+                }
+            }
+        }
+        pipesPlaced = false;
+    }
 
-	@Override
-	public FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
-		return drainMg(from, resource.amount, doDrain);
-	}
+    private void placePipes() {
 
-	@Override
-	public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
-		return tank.drain(maxDrain, doDrain);
-	}
+        if (pipes.isEmpty()) {
+            findPipeSpots();
+            pipesPlaced = pipes.isEmpty();
+        } else {
+            VecInt c = pipes.iterator().next();
+            replaceBlock(c.getX(), c.getY(), c.getZ(), ManagerBlocks.concreted_pipe);
+            cond.drainPower(EnergyConverter.RFtoW(80));
+            pipes.remove(c);
+        }
+    }
 
-	@Override
-	public boolean canFillMg(MgDirection from, Fluid fluid) {
-		return false;
-	}
+    private void findPipeSpots() {
+        pipes.clear();
 
-	@Override
-	public boolean canDrainMg(MgDirection from, Fluid fluid) {
-		return fluid.getName().equals("oil");
-	}
+        for (int i = 1; i < yCoord; i++) {
+            Block b = worldObj.getBlock(xCoord, yCoord - i, zCoord);
+            int meta = worldObj.getBlockMetadata(xCoord, yCoord - i, zCoord);
 
-	@Override
-	public FluidTankInfo[] getTankInfoMg(MgDirection from) {
-		return new FluidTankInfo[] { tank.getInfo() };
-	}
+            if (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil)) {
+                break;
+            } else if (MgUtils.isMineableBlock(worldObj, new BlockInfo(b, meta)) && !b.equals(ManagerBlocks.concreted_pipe) && !b.equals(ManagerBlocks.oilSourceDrained)) {
+                pipes.add(new VecInt(xCoord, yCoord - i, zCoord));
+            }
+        }
+    }
 
-	public float getDelta() {
-		long aux = time;
-		time = System.nanoTime();
-		return time - aux;
-	}
+    public void replaceBlock(int x, int y, int z, Block replace) {
+        if (worldObj.getBlock(x, y, z).isAir(worldObj, x, y, z) || MgUtils.isMineableBlock(worldObj,
+                new BlockInfo(worldObj.getBlock(x, y, z), worldObj.getBlockMetadata(x, y, z), x, y, z))) {
+            ArrayList<ItemStack> items;
+            Block id = worldObj.getBlock(x, y, z);
+            int metadata = worldObj.getBlockMetadata(x, y, z);
+            items = id.getDrops(worldObj, x, y, z, metadata, 0);
+            items.stream().filter(item -> item != null && item.stackSize > 0).forEach(item -> {
+                MgDirection dir = getOrientation().opposite();
+                float rx = dir.getOffsetX()+0.5f;
+                float ry = 0.5F;
+                float rz = dir.getOffsetZ()+0.5f;
+                EntityItem entityItem = new EntityItem(worldObj,
+                        xCoord + rx, yCoord + ry, zCoord + rz,
+                        new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
+                if (item.hasTagCompound()) {
+                    entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+                }
+                entityItem.motionX = 0;
+                entityItem.motionY = 0;
+                entityItem.motionZ = 0;
+                worldObj.spawnEntityInWorld(entityItem);
+            });
 
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
-		tank.readFromNBT(nbt, "oil");
-		buffer = nbt.getInteger("Buffer");
-	}
+            worldObj.setBlock(x, y, z, replace);
+        }
+    }
 
-	@Override
-	public void writeToNBT(NBTTagCompound nbt) {
-		super.writeToNBT(nbt);
-		tank.writeToNBT(nbt, "oil");
-		nbt.setInteger("Buffer", buffer);
-	}
+    private void setActive(boolean b) {
+        active = b;
+        sendUpdateToClient();
+    }
 
-	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getRenderBoundingBox() {
-		VecInt v1 = VecIntUtil.getRotatedOffset(getOrientation().opposite(), 0, 0, 1);
-		VecInt v2 = VecIntUtil.getRotatedOffset(getOrientation(), 0, 3, 2);
-		VecInt block = new VecInt(xCoord, yCoord, zCoord);
+    public boolean isActive() {
+        return active;
+    }
 
-		return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
-	}
+    private void export() {
+        if (tank.getFluidAmount() > 0) {
+            for (MgDirection d : MgDirection.VALID_DIRECTIONS) {
+                TileEntity t = MgUtils.getTileEntity(this, d);
+                if (t instanceof IFluidHandler) {
+                    IFluidHandler f = (IFluidHandler) t;
+                    if (f.canFill(d.toForgeDir(), FluidRegistry.getFluid("oil"))) {
+                        int m = f.fill(d.toForgeDir(), tank.drain(100, false), true);
+                        tank.drain(m, true);
+                    }
+                    if (tank.getFluidAmount() == 0)
+                        break;
+                }
+            }
+        }
+    }
 
-	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-		return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
-	}
+    @Override
+    public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
+        return 0;
+    }
 
-	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-		return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
-	}
+    @Override
+    public FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
+        return drainMg(from, resource.amount, doDrain);
+    }
 
-	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-		return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
-	}
+    @Override
+    public FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
+        return tank.drain(maxDrain, doDrain);
+    }
 
-	public boolean canFill(ForgeDirection from, Fluid fluid) {
-		return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
-	}
+    @Override
+    public boolean canFillMg(MgDirection from, Fluid fluid) {
+        return false;
+    }
 
-	public boolean canDrain(ForgeDirection from, Fluid fluid) {
-		return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
-	}
+    @Override
+    public boolean canDrainMg(MgDirection from, Fluid fluid) {
+        return fluid.getName().equals("oil");
+    }
 
-	public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-		return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
-	}
+    @Override
+    public FluidTankInfo[] getTankInfoMg(MgDirection from) {
+        return new FluidTankInfo[]{tank.getInfo()};
+    }
 
-	public int getConnections() {
-		return -1;
-	}
+    public float getDelta() {
+        long aux = time;
+        time = System.nanoTime();
+        return time - aux;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        tank.readFromNBT(nbt, "oil");
+        buffer = nbt.getInteger("Buffer");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        tank.writeToNBT(nbt, "oil");
+        nbt.setInteger("Buffer", buffer);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
+        VecInt v1 = VecIntUtil.getRotatedOffset(getOrientation().opposite(), 0, 0, 1);
+        VecInt v2 = VecIntUtil.getRotatedOffset(getOrientation(), 0, 3, 2);
+        VecInt block = new VecInt(xCoord, yCoord, zCoord);
+
+        return VecIntUtil.getAABBFromVectors(v1.add(block), v2.add(block));
+    }
+
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
+        return this.fillMg(MgDirection.getDirection(from.ordinal()), resource, doFill);
+    }
+
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        return this.drainMg_F(MgDirection.getDirection(from.ordinal()), resource, doDrain);
+    }
+
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
+        return this.drainMg(MgDirection.getDirection(from.ordinal()), maxDrain, doDrain);
+    }
+
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        return this.canFillMg(MgDirection.getDirection(from.ordinal()), fluid);
+    }
+
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        return this.canDrainMg(MgDirection.getDirection(from.ordinal()), fluid);
+    }
+
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        return this.getTankInfoMg(MgDirection.getDirection(from.ordinal()));
+    }
+
+    public int getConnections() {
+        return -1;
+    }
+
 }

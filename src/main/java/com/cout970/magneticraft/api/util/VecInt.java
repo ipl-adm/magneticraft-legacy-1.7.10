@@ -68,19 +68,25 @@ public class VecInt implements Comparable<VecInt> {
         return new VecInt(-x, -y, -z);
     }
 
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        } else if (!(obj instanceof VecInt)) {
-            return false;
-        } else {
-            VecInt vecInt = (VecInt) obj;
-            return (this.getX() == vecInt.getX()) && ((this.getY() == vecInt.getY()) && (this.getZ() == vecInt.getZ()));
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VecInt)) return false;
+
+        VecInt vecInt = (VecInt) o;
+
+        if (getX() != vecInt.getX()) return false;
+        if (getY() != vecInt.getY()) return false;
+        return getZ() == vecInt.getZ();
+
     }
 
+    @Override
     public int hashCode() {
-        return (this.getY() + this.getZ() * 31) * 31 + this.getX();
+        int result = getX();
+        result = 31 * result + getY();
+        result = 31 * result + getZ();
+        return result;
     }
 
     public int compareTo(@Nonnull VecInt vec) {

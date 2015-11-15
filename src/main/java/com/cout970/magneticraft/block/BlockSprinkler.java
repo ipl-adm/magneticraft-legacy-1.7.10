@@ -11,6 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockSprinkler extends BlockMg {
+
     public BlockSprinkler() {
         super(Material.iron);
         setCreativeTab(CreativeTabsMg.SteamAgeTab);

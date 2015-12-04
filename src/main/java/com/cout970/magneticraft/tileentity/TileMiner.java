@@ -39,7 +39,7 @@ import java.util.Set;
 
 public class TileMiner extends TileConductorMedium implements IInventoryManaged, IGuiSync, IGuiListener {
 
-    public static final int MINING_COST_PER_BLOCK = 500;//500 RF
+    public static final int MINING_COST_PER_BLOCK = 1000;//1000 RF
     private static final int MAX_DIMENSION = 80;
     private static final int MIN_DIMENSION = 10;
     public InventoryComponent inv = new InventoryComponent(this, 1, "Miner");

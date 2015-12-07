@@ -26,7 +26,7 @@ public class CompEnergyBarMediumVoltage implements IGuiComp {
     @Override
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
         if (cond == null) return;
-        int scale = (int) (cond.getVoltage() >= ElectricConstants.MAX_VOLTAGE * 100 ? 50 : 50 * (cond.getVoltage() / (ElectricConstants.MAX_VOLTAGE * 100)));
+        int scale = (int) (cond.getVoltage() >= ElectricConstants.MAX_VOLTAGE * cond.getVoltageMultiplier() ? 50 : 50 * (cond.getVoltage() / (ElectricConstants.MAX_VOLTAGE * cond.getVoltageMultiplier())));
         gui.mc.renderEngine.bindTexture(texture);
         RenderUtil.drawTexturedModalRectScaled(gui.xStart + pos.x, gui.yStart + pos.y + (50 - scale), 25, 50 - scale, 5, scale, 70, 50);
     }

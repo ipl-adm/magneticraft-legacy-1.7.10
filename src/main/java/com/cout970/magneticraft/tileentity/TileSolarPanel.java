@@ -38,8 +38,8 @@ public class TileSolarPanel extends TileConductorLow {
             }
 
             @Override
-            public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.4D);
+            public double getVoltageCapacity() {
+                return ElectricConstants.MACHINE_CAPACITY * 0.5D;
             }
         };
     }

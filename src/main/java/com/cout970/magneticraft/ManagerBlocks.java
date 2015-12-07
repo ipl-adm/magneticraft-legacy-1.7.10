@@ -328,6 +328,7 @@ public class ManagerBlocks {
             eu_alternator = new BlockEUAlternator();
         }
         if (Magneticraft.DEBUG) {
+
         }
         pole_cable_wire = new BlockElectricPoleCableWire();
         infinite_energy = new BlockInfiniteEnergy();

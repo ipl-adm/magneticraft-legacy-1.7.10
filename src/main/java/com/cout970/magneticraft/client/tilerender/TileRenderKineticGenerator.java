@@ -23,6 +23,8 @@ public class TileRenderKineticGenerator extends TileEntitySpecialRenderer {
         GL11.glRotatef(180, 0, 0, 1);
         TileKineticGenerator tile = (TileKineticGenerator) t;
 
+        GL11.glRotatef(-90, 0, 1, 0);
+
         if (tile.getDirection() == MgDirection.NORTH) {
             GL11.glRotatef(180, 0, 1, 0);
         } else if (tile.getDirection() == MgDirection.WEST) {
@@ -30,11 +32,11 @@ public class TileRenderKineticGenerator extends TileEntitySpecialRenderer {
         } else if (tile.getDirection() == MgDirection.EAST) {
             GL11.glRotatef(-90, 0, 1, 0);
         } else if (tile.getDirection() == MgDirection.DOWN) {
-            GL11.glRotatef(-90, 1, 0, 0);
-            GL11.glTranslatef(0, -1, 1);
+            GL11.glRotatef(90, 0, 0, 1);
+            GL11.glTranslatef(1, -1, 0);
         } else if (tile.getDirection() == MgDirection.UP) {
-            GL11.glRotatef(90, 1, 0, 0);
-            GL11.glTranslatef(0, -1, -1);
+            GL11.glRotatef(-90, 0, 0, 1);
+            GL11.glTranslatef(-1, -1, 0);
         }
 
         RenderUtil.bindTexture(ModelTextures.KINETIC_GEN);

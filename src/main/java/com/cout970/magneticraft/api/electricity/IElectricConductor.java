@@ -8,6 +8,7 @@ import com.cout970.magneticraft.api.util.IConnectable;
 public interface IElectricConductor extends IConnectable {
 
     //basic energy utility
+    double[] ENERGY_TIERS = {100, 360, 12500, 65000, 130000, 580000, 1200000};
 
     /**
      * @return the voltage stored in the conductor
@@ -27,9 +28,9 @@ public interface IElectricConductor extends IConnectable {
     double getIndScale();
 
     /**
-     * @return the inverse of the capacity of the block, voltge capacity, no storage capacity
+     * @return the capacity of the block, voltage capacity, no storage capacity
      */
-    double getInvCapacity();
+    double getVoltageCapacity();
 
     /**
      * this method should prepare the basic things for the iteration, like the connexions
@@ -50,11 +51,6 @@ public interface IElectricConductor extends IConnectable {
      * @return the constant of resistance, must be positive and non cero.
      */
     double getResistance();
-
-    /**
-     * @return constant always 0.5, used to get (v2 - v1)/2 ==> (v2 - v1)*0.5
-     */
-    double getCondParallel();
 
     /**
      * Adds an intensity to the conductor, allow negative values

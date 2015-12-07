@@ -79,8 +79,8 @@ public class PartCableHigh extends PartElectric implements ISidedHollowConnect {
                 return ConnectionClass.CABLE_HIGH;
             }
 
-            public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.05D);
+            public double getVoltageCapacity() {
+                return ElectricConstants.CABLE_HIGH_CAPACITY;
             }
         };
     }
@@ -117,6 +117,6 @@ public class PartCableHigh extends PartElectric implements ISidedHollowConnect {
 
     @Override
     public int getTier() {
-        return 4;
+        return 2;
     }
 }

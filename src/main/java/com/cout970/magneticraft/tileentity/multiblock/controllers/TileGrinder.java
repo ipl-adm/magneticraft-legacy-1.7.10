@@ -4,7 +4,7 @@ import com.cout970.magneticraft.api.access.RecipeGrinder;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricTile;
-import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
+import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
@@ -13,6 +13,9 @@ import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.InventoryUtils;
+import com.cout970.magneticraft.util.tile.AverageBar;
+import com.cout970.magneticraft.util.tile.MachineElectricConductor;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.item.EntityItem;
@@ -29,19 +32,21 @@ import java.util.List;
 
 public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISidedInventory, IGuiSync {
 
-    public float speed;
-    public int maxProgress = 100;
-    public BufferedConductor cond = new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
-    private float progress;
-    private double flow;
+    public MachineElectricConductor cond = new MachineElectricConductor(this);
     private InventoryComponent inv = new InventoryComponent(this, 4, "Grinder");
     private InventoryComponent in;
     private InventoryComponent out;
+
+    public static final int maxProgress = 100;
+    private float progress;
+
+    private double[] flow = new double[2];
     public int drawCounter;
     public float rotation;
     private long time;
     private boolean working;
     private boolean active_w;
+    private AverageBar energy = new AverageBar(20);
 
     public void updateEntity() {
         super.updateEntity();
@@ -55,28 +60,30 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
                 setActive(false);
             }
         }
+        energy.tick();
         if (worldObj.getTotalWorldTime() % 10 == 0) {
             catchDrops();
         }
         updateConductor();
         if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK) {
-            speed = cond.getStorage() * 10f / cond.getMaxStorage();
             if (canCraft()) {
+                double speed = TileConductorLow.getEfficiency(cond.getVoltage(), ElectricConstants.MACHINE_WORK, ElectricConstants.BATTERY_CHARGE);
                 if (speed > 0) {
+                    speed *= 10;
                     progress += speed;
+                    energy.addValue((float) EnergyConverter.RFtoW(speed * 10));
                     cond.drainPower(EnergyConverter.RFtoW(speed * 10));
                     if (progress >= maxProgress) {
                         craft();
                         markDirty();
                         progress %= maxProgress;
                     }
-                    working = true;
                 }
             } else {
                 progress = 0;
-                working = false;
             }
         }
+        working = energy.getAverage() > 0;
         distributeItems();
     }
 
@@ -132,26 +139,19 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
         VecInt vec = d.toVecInt().add(d.step(MgDirection.UP).toVecInt());
         TileEntity c = MgUtils.getTileEntity(this, vec);
         if (c instanceof IElectricTile) {
-            valance((IElectricTile) c);
+            valance((IElectricTile) c, 0);
         }
         vec = d.toVecInt().add(d.step(MgDirection.DOWN).toVecInt());
         c = MgUtils.getTileEntity(this, vec);
         if (c instanceof IElectricTile) {
-            valance((IElectricTile) c);
+            valance((IElectricTile) c, 1);
         }
     }
 
-    public void valance(IElectricTile c) {
+    public void valance(IElectricTile c, int i) {
         IElectricConductor[] comp = c.getConds(VecInt.NULL_VECTOR, 0);
         IElectricConductor cond2 = comp[0];
-        double resistance = cond.getResistance() + cond2.getResistance();
-        double difference = cond.getVoltage() - cond2.getVoltage();
-        double change = flow;
-        double slow = change * resistance;
-        flow += ((difference - slow) * cond.getIndScale()) / cond.getVoltageMultiplier();
-        change += (difference * cond.getCondParallel()) / cond.getVoltageMultiplier();
-        cond.applyCurrent(-change);
-        cond2.applyCurrent(change);
+        ElectricConductor.valance(cond, cond2, flow, i);
     }
 
     private void distributeItems() {
@@ -258,36 +258,24 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
     }
 
     @Override
-    public void sendGUINetworkData(Container cont, ICrafting craft) { //rework with custom packets
-        //Log.info("Encoded " + Integer.toString(cond.getStorage()));
-        //String t = String.format("%32s", Integer.toBinaryString(cond.getStorage())).replace(' ', '0'); //ensures leading zeros are present
-        //int[] splitStorage = new int[]{Integer.parseInt(t.substring(16), 2), Integer.parseInt(t.substring(0, 16), 2)};
+    public void sendGUINetworkData(Container cont, ICrafting craft) {
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-        //craft.sendProgressBarUpdate(cont, 1, splitStorage[0]);
-        //craft.sendProgressBarUpdate(cont, 2, splitStorage[1]);
-        craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
-        craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
+        craft.sendProgressBarUpdate(cont, 1, (int) energy.getAverage()*16);
         craft.sendProgressBarUpdate(cont, 3, (int) progress);
     }
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0) {
-            cond.setVoltage(value);
-        }
-        /*if (id == 1) {
-            storageBuilder = value;
-        }
-        if (id == 2) {
-            storageBuilder += value << 16;
-            cond.setStorage(storageBuilder);
-            Log.info("Decoded " + Integer.toString(storageBuilder));
-            storageBuilder = 0;
-        }*/
-        if (id == 1) cond.setStorage(value & 0xFFFF);
-        if (id == 2) cond.setStorage(cond.getStorage() | (value << 16));
-        if (id == 3) {
-            progress = value;
+        switch (id) {
+            case 0:
+                cond.setVoltage(value);
+                break;
+            case 1:
+                energy.setStorage(value/16f);
+                break;
+            case 3:
+                progress = value;
+                break;
         }
     }
 
@@ -391,6 +379,25 @@ public class TileGrinder extends TileMB_Base implements IInventoryManaged, ISide
             @Override
             public float getLevel() {
                 return progress;
+            }
+        };
+    }
+
+    public IBarProvider getConsumptionBar() {
+        return new IBarProvider() {
+            @Override
+            public String getMessage() {
+                return String.format("Consumption %.3f kW", energy.getStorage()/1000);
+            }
+
+            @Override
+            public float getLevel() {
+                return energy.getStorage();
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return (float) EnergyConverter.RFtoW(100);
             }
         };
     }

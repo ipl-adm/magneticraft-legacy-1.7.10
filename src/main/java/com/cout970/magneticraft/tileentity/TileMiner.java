@@ -56,25 +56,17 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
     public boolean removeWater = false;
     public boolean replaceWithDirt = true;
     public boolean scheduleUpdate = false;
-
-    public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
-        @Override
-        public double getInvCapacity() {
-            return EnergyConverter.RFtoW(1D);
-        }
-
-        @Override
-        public double getVoltageMultiplier() {
-            return 100;
-        }
-    };
-    private double flow;
     private boolean isFirstTime = false;
     private Ticket chunkTicket;
 
     @Override
     public IElectricConductor initConductor() {
-        return new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED);
+        return new ElectricConductor(this, 1, ElectricConstants.RESISTANCE_COPPER_MED){
+            @Override
+            public double getVoltageCapacity() {
+                return ElectricConstants.MACHINE_CAPACITY*10;
+            }
+        };
     }
 
     public void updateEntity() {
@@ -85,7 +77,9 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             updateTicket();
             scheduleUpdate = false;
         }
-        updateConductor();
+
+
+
         if (state == WorkState.UNREADY) {
             scanWell();
             hole++;
@@ -98,13 +92,16 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         if (state == WorkState.WORKING && isControlled()) {
 
             if (items.isEmpty()) {
-                double p = (capacity.getVoltage() - ElectricConstants.MACHINE_WORK * 100);//in J
-                p = (p * p / 500);
+                double work = ElectricConstants.MAX_VOLTAGE*0.5;
+                double eff = cond.getVoltage()-work * cond.getVoltageMultiplier();
+                double p = eff*3;
+                p = p*p;
+
                 if (coolDown > 0) {
-                    if (capacity.getVoltage() > ElectricConstants.MACHINE_WORK * 100) {
+                    if (cond.getVoltage() > work * cond.getVoltageMultiplier()) {
                         coolDown -= EnergyConverter.WtoRF(p);
                         consumptionCounter += p;
-                        capacity.drainPower(p);
+                        cond.drainPower(p);
                     }
                 }
                 while (coolDown <= 0) {
@@ -127,16 +124,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             consumptionCounter = 0;
             mined = 0;
         }
-    }
-
-    private void updateConductor() {
-        double resistance = cond.getResistance() + capacity.getResistance();
-        double difference = cond.getVoltage() - capacity.getVoltage();
-        double change = flow;
-        flow += ((difference - change * resistance) * cond.getIndScale()) / cond.getVoltageMultiplier();
-        change += (difference * cond.getCondParallel()) / cond.getVoltageMultiplier();
-        cond.applyCurrent(-change);
-        capacity.applyCurrent(change);
     }
 
     private boolean mineOneBlock() {
@@ -264,9 +251,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         super.readFromNBT(nbt);
         inv.readFromNBT(nbt);
 
-        NBTTagList conduit = nbt.getTagList("Capacity_cond", 10);
-        NBTTagCompound conduit_nbt = conduit.getCompoundTagAt(0);
-        capacity.load(conduit_nbt);
         dim = nbt.getInteger("Dimension");
         hole = nbt.getInteger("Hole");
         replaceWithDirt = nbt.getBoolean("Replace");
@@ -287,11 +271,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         super.writeToNBT(nbt);
         inv.writeToNBT(nbt);
 
-        NBTTagList conduit = new NBTTagList();
-        NBTTagCompound conduit_nbt = new NBTTagCompound();
-        capacity.save(conduit_nbt);
-        conduit.appendTag(conduit_nbt);
-        nbt.setTag("Capacity_cond", conduit);
         nbt.setInteger("Dimension", dim);
         nbt.setInteger("Hole", hole);
         nbt.setBoolean("Replace", replaceWithDirt);
@@ -313,7 +292,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
     @Override
     public void sendGUINetworkData(Container cont, ICrafting craft) {
-        craft.sendProgressBarUpdate(cont, 0, (int) capacity.getVoltage());
+        craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
         craft.sendProgressBarUpdate(cont, 1, (int) coolDown);
         craft.sendProgressBarUpdate(cont, 2, state.ordinal());
         craft.sendProgressBarUpdate(cont, 3, (int) consume);
@@ -324,7 +303,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0) capacity.setVoltage(value);
+        if (id == 0) cond.setVoltage(value);
         if (id == 1) coolDown = value;
         if (id == 2) state = WorkState.values()[value % WorkState.values().length];
         if (id == 3) consume = value;
@@ -443,12 +422,12 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
             @Override
             public float getMaxLevel() {
-                return 280;
+                return 150;
             }
 
             @Override
             public float getLevel() {
-                return Math.min(minedLastSecond, 280);
+                return Math.min(minedLastSecond, 150);
             }
         };
     }

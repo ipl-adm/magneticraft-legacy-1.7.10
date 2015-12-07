@@ -9,6 +9,7 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IBlockWithData;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.tile.AverageBar;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -21,6 +22,8 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
 
     private InventoryComponent inv = new InventoryComponent(this, 2, "Battery");
     public static int BATTERY_CHARGE_SPEED = (int) EnergyConverter.RFtoW(400);//RF
+    private AverageBar chargeRate = new AverageBar(10);
+    private AverageBar dischargeRate = new AverageBar(10);
 
     @Override
     public IElectricConductor initConductor() {
@@ -39,12 +42,14 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
                     change = (int) Math.min((getVoltage() - max) * 80, EnergyConverter.RFtoW(400));
                     change = Math.min(change, maxStorage - storage);
                     drainPower(change);
+                    chargeRate.addValue(change);
                     storage += change;
                 } else if (getVoltage() < min && storage > 0) {
                     int change;
                     change = (int) Math.min((min - getVoltage()) * 80, EnergyConverter.RFtoW(400));
                     change = Math.min(change, storage);
                     applyPower(change);
+                    dischargeRate.addValue(change);
                     storage -= change;
                 }
             }
@@ -101,6 +106,8 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, amount, 3);
                 }
             }
+            chargeRate.tick();
+            dischargeRate.tick();
             ItemStack i = getInv().getStackInSlot(0);
             if (i != null) {
                 if (i.getItem() instanceof IBatteryItem) {
@@ -141,16 +148,29 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
         craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
         craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
+        craft.sendProgressBarUpdate(cont, 3, (int) (chargeRate.getAverage()*1024));
+        craft.sendProgressBarUpdate(cont, 4, (int) (dischargeRate.getAverage()*1024));
     }
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0)
-            cond.setVoltage(value);
-        if (id == 1)
-            cond.setStorage(value & 0xFFFF);
-        if (id == 2)
-            cond.setStorage(cond.getStorage() | (value << 16));
+        switch (id) {
+            case 0:
+                cond.setVoltage(value);
+                break;
+            case 1:
+                cond.setStorage(value & 0xFFFF);
+                break;
+            case 2:
+                cond.setStorage(cond.getStorage() | (value << 16));
+                break;
+            case 3:
+                chargeRate.setStorage(value/1024f);
+                break;
+            case 4:
+                dischargeRate.setStorage(value/1024f);
+                break;
+        }
     }
 
     @Override
@@ -237,5 +257,13 @@ public class TileBattery extends TileConductorLow implements IGuiSync, IInventor
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         getInv().writeToNBT(nbt);
+    }
+
+    public double getChargeRate() {
+        return chargeRate.getStorage();
+    }
+
+    public double getDischargeRate() {
+        return dischargeRate.getStorage();
     }
 }

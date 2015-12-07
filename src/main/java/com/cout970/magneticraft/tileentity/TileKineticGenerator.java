@@ -10,8 +10,10 @@ import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
+import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.util.tile.AverageBar;
+import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 import cpw.mods.fml.common.Optional;
 import net.minecraft.inventory.Container;
@@ -26,10 +28,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
     protected EnergyStorage storage = new EnergyStorage(32000);
     public float rotation = 0;
     private long time;
-    private int lastProd = 0;
-    private int prodCount = 0;
-    private int prodLastSec = 0;
-
+    private AverageBar energyBar = new AverageBar(20);
 
     public MgDirection getDirection() {
         return MgDirection.getDirection(getBlockMetadata() % 6);
@@ -37,16 +36,17 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 
     @Override
     public IElectricConductor initConductor() {
-        return new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
-            public double getInvCapacity() {
-                return EnergyConverter.RFtoW(1D);
+        return new ElectricConductor(this, 1, ElectricConstants.RESISTANCE_COPPER_MED) {
+            @Override
+            public double getVoltageCapacity() {
+                return ElectricConstants.MACHINE_CAPACITY*10;
             }
         };
     }
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
-        if (tier != 2) return null;
+        if (tier != 1) return null;
         if (VecInt.NULL_VECTOR.equals(dir)) {
             return new IElectricConductor[]{cond};
         }
@@ -57,29 +57,24 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
     public void updateEntity() {
         super.updateEntity();
         if (worldObj.isRemote) return;
-        lastProd = 0;
-        boolean working;
 
-        if (cond.getVoltage() > ElectricConstants.MACHINE_WORK * 100 && isControlled()) {
+        energyBar.tick();
+        if (cond.getVoltage() > ElectricConstants.MACHINE_WORK * cond.getVoltageMultiplier() && isControlled()) {
+
             float f = (storage.getMaxEnergyStored() - storage.getEnergyStored()) * 10f / storage.getMaxEnergyStored();
-            int min = (int) Math.min((cond.getVoltage() - ElectricConstants.MACHINE_WORK * 100) / 10, 40 * Math.ceil(f));
+            double eff = TileConductorLow.getEfficiency(cond.getVoltage(), ElectricConstants.MACHINE_WORK * cond.getVoltageMultiplier(), ElectricConstants.MAX_VOLTAGE * cond.getVoltageMultiplier());
+            int min = (int) Math.min(eff*400, 40 * Math.ceil(f));
+
             min = Math.min(storage.getMaxEnergyStored() - storage.getEnergyStored(), min);
             if (min > 0) {
                 cond.drainPower(EnergyConverter.RFtoW(min));
                 storage.modifyEnergyStored(min);
-                lastProd = min;
-                prodCount += min;
-                working = true;
-            } else {
-                working = false;
+                energyBar.addValue(min);
             }
-        } else {
-            working = false;
         }
+        boolean working = energyBar.getAverage() > 0;
 
         if (worldObj.getTotalWorldTime() % 20 == 0) {
-            prodLastSec = prodCount;
-            prodCount = 0;
             if (working && !isActive()) {
                 setActive(true);
             } else if (!working && isActive()) {
@@ -158,39 +153,39 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
     public void sendGUINetworkData(Container cont, ICrafting craft) {
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
         craft.sendProgressBarUpdate(cont, 1, storage.getEnergyStored());
-        craft.sendProgressBarUpdate(cont, 2, lastProd);
-        craft.sendProgressBarUpdate(cont, 3, prodLastSec);
+        craft.sendProgressBarUpdate(cont, 2, (int) (energyBar.getAverage()*16));
     }
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0) cond.setVoltage(value);
-        if (id == 1) storage.setEnergyStored(value);
-        if (id == 2) lastProd = value;
-        if (id == 3) prodLastSec = value;
+        switch (id) {
+            case 0:
+                cond.setVoltage(value);
+                break;
+            case 1:
+                storage.setEnergyStored(value);
+                break;
+            case 2:
+                energyBar.setStorage(value/16f);
+                break;
+        }
     }
 
-    public IEnergyTracker getEnergyTracker() {
-        return new IEnergyTracker() {
-
+    public IBarProvider getProductionBar(){
+        return new IBarProvider() {
             @Override
-            public boolean isConsume() {
-                return false;
+            public String getMessage() {
+                return String.format("%d RF", (int)energyBar.getStorage());
             }
 
             @Override
-            public float getMaxChange() {
+            public float getLevel() {
+                return energyBar.getStorage();
+            }
+
+            @Override
+            public float getMaxLevel() {
                 return 400;
-            }
-
-            @Override
-            public float getChangeInTheLastTick() {
-                return lastProd;
-            }
-
-            @Override
-            public float getChangeInTheLastSecond() {
-                return prodLastSec;
             }
         };
     }

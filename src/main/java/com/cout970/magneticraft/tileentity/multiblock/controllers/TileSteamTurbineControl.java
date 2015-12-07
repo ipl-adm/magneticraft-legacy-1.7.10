@@ -11,6 +11,7 @@ import com.cout970.magneticraft.tileentity.TileCopperTank;
 import com.cout970.magneticraft.tileentity.multiblock.TileMB_Base;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
+import com.cout970.magneticraft.util.tile.AverageBar;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.inventory.Container;
@@ -28,38 +29,24 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
     private static final int MAX_STEAM = 1200;
     public TankMg[] in = new TankMg[4];
     public IElectricConductor out;
-    private double energyProduce;
-    private double energyCounter;
-    //render
+    public AverageBar energy = new AverageBar(20);
+    public AverageBar steam = new AverageBar(20);
     public int drawCounter;
     public float animation;
     public float speed;
     private long time;
-
-    public IElectricConductor capacity = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED) {
+    private double[] flow = new double[1];
+    public IElectricConductor cond = new ElectricConductor(this, 1, ElectricConstants.RESISTANCE_COPPER_MED) {
         @Override
-        public double getInvCapacity() {
-            return EnergyConverter.RFtoW(1D);
+        public double getVoltageCapacity() {
+            return ElectricConstants.MACHINE_CAPACITY*10;
         }
 
-        @Override
-        public double getVoltageMultiplier() {
-            return 100;
-        }
     };
-    private double flow;
-    private float steamConsume;
-    private int steamCounter;
 
     private void updateConductor() {
         if (out == null) return;
-        double resistence = out.getResistance() + capacity.getResistance();
-        double difference = out.getVoltage() - capacity.getVoltage();
-        double change = flow;
-        flow += ((difference - change * resistence) * out.getIndScale()) / out.getVoltageMultiplier();
-        change += (difference * out.getCondParallel()) / out.getVoltageMultiplier();
-        out.applyCurrent(-change);
-        capacity.applyCurrent(change);
+        ElectricConductor.valance(cond, out, flow, 0);
     }
 
     public boolean isActive() {
@@ -83,23 +70,19 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
             speed -= 1 / 32f;
         }
         if (worldObj.isRemote) return;
+        energy.tick();
+        steam.tick();
         updateConductor();
         balanceTanks();
-        double miss = (ElectricConstants.MAX_VOLTAGE - capacity.getVoltage() / 100) * 100;
+        double miss = (ElectricConstants.MAX_VOLTAGE - cond.getVoltage() / cond.getVoltageMultiplier()) * 200;
         int steam = (int) Math.min(Math.min(getFluidAmount() > 1000 ? getFluidAmount() + 1000 : getFluidAmount(), miss), MAX_STEAM);
         steam = (int) Math.min(steam, ((getFluidAmount() + 1000) / 64000f) * MAX_STEAM);
-        if (steam > 0 && capacity.getVoltage() < ElectricConstants.MAX_VOLTAGE * 100) {
+        if (steam > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE * 100) {
             drain(steam, true);
             double power = EnergyConverter.STEAMtoW(steam);
-            capacity.applyPower(power);
-            energyCounter += power;
-            steamCounter += steam;
-        }
-        if (worldObj.getTotalWorldTime() % 20 == 1) {
-            energyProduce = energyCounter / 20d;
-            steamConsume = steamCounter / 20f;
-            energyCounter = 0;
-            steamCounter = 0;
+            cond.applyPower(power);
+            energy.addValue((float) power);
+            this.steam.addValue(steam);
         }
     }
 
@@ -154,7 +137,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
         t = MgUtils.getTileEntity(this, vec.copy().add(new VecInt(0, 1, 0)));
 
         if (t instanceof IElectricTile) {
-            out = ((IElectricTile) t).getConds(vec.getOpposite(), 2)[0];
+            out = ((IElectricTile) t).getConds(vec.getOpposite(), 1)[0];
         }
     }
 
@@ -184,8 +167,8 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
     @Override
     public void sendGUINetworkData(Container cont, ICrafting craft) {
         if (out != null)
-            craft.sendProgressBarUpdate(cont, 0, (int) capacity.getVoltage());
-        craft.sendProgressBarUpdate(cont, 1, (int) energyProduce);
+            craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
+        craft.sendProgressBarUpdate(cont, 1, (int) energy.getAverage()*16);
         for (int i = 0; i < 4; i++) {
             if (in[i] != null) {
                 if (in[i].getFluidAmount() > 0) {
@@ -196,28 +179,39 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
                 }
             }
         }
-        craft.sendProgressBarUpdate(cont, 10, (int) (steamConsume * 10));
+        craft.sendProgressBarUpdate(cont, 10, (int) steam.getAverage()*16);
     }
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0) capacity.setVoltage(value);
-        if (id == 1) energyProduce = value;
-        if (id >= 2 && id <= 9) {
-            int i = (id - 2) / 2;
-            if (in[i] != null) {
-                if (id - i * 2 + 2 != 0) {
-                    if (in[i].getFluid() != null)
-                        in[i].setFluid(new FluidStack(in[i].getFluid(), value));
-                } else {
-                    if (value == -1)
-                        in[i].setFluid(null);
-                    else
-                        in[i].setFluid(new FluidStack(FluidRegistry.getFluid(value), 1));
+        switch (id) {
+            case 0:
+                cond.setVoltage(value);
+                break;
+            case 1:
+                energy.setStorage(value / 16f);
+                break;
+            case 10:
+                steam.setStorage(value / 16f);
+                break;
+            default:
+                if (id >= 2 && id <= 9) {
+                    int i = (id - 2) / 2;
+                    if (in[i] != null) {
+                        if (id - i * 2 + 2 != 0) {
+                            if (in[i].getFluid() != null)
+                                in[i].setFluid(new FluidStack(in[i].getFluid(), value));
+                        } else {
+                            if (value == -1)
+                                in[i].setFluid(null);
+                            else
+                                in[i].setFluid(new FluidStack(FluidRegistry.getFluid(value), 1));
+                        }
+                    }
                 }
-            }
+                break;
         }
-        if (id == 10) steamConsume = value / 10f;
+
     }
 
     @Override
@@ -246,7 +240,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
         NBTTagList conduit = nbt.getTagList("Capacity_cond", 10);
         NBTTagCompound conduit_nbt = conduit.getCompoundTagAt(0);
-        capacity.load(conduit_nbt);
+        cond.load(conduit_nbt);
     }
 
     @Override
@@ -255,7 +249,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
         NBTTagList conduit = new NBTTagList();
         NBTTagCompound conduit_nbt = new NBTTagCompound();
-        capacity.save(conduit_nbt);
+        cond.save(conduit_nbt);
         conduit.appendTag(conduit_nbt);
         nbt.setTag("Capacity_cond", conduit);
     }
@@ -265,7 +259,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
             @Override
             public String getMessage() {
-                return String.format("Generating: %.3f kW", energyProduce / 1000d);
+                return String.format("Generating: %.3f kW", energy.getStorage() / 1000d);
             }
 
             @Override
@@ -275,17 +269,17 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
             @Override
             public float getLevel() {
-                return (float) Math.min(energyProduce, getMaxLevel());
+                return Math.min(energy.getStorage(), getMaxLevel());
             }
         };
     }
 
-    public IBarProvider getSteamConsumtionBar() {
+    public IBarProvider getSteamConsumptionBar() {
         return new IBarProvider() {
 
             @Override
             public String getMessage() {
-                return String.format("Consuming %.1f mB/t", steamConsume);
+                return String.format("Consuming %.1f mB/t", steam.getStorage());
             }
 
             @Override
@@ -295,7 +289,7 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
             @Override
             public float getLevel() {
-                return Math.min(steamConsume, getMaxLevel());
+                return Math.min(steam.getStorage(), getMaxLevel());
             }
         };
     }

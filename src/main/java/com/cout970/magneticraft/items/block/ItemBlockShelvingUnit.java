@@ -5,6 +5,7 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VecIntUtil;
 
+import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraft.world.World;
 public class ItemBlockShelvingUnit extends ItemBlockMg {
     public ItemBlockShelvingUnit(Block b) {
         super(ManagerBlocks.shelving_unit);
+        setCreativeTab(CreativeTabsMg.MainTab);
     }
 
     @Override

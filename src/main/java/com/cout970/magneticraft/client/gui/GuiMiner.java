@@ -23,7 +23,7 @@ public class GuiMiner extends GuiBasic {
     @Override
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/miner.png")));
-        comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar2.png"), new GuiPoint(23, 16), ((TileMiner) tile).capacity));
+        comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar2.png"), new GuiPoint(23, 16), ((TileMiner) tile).cond));
         comp.add(new CompEnergyTrackerBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/consumptionbar.png"), new GuiPoint(32, 19), ((TileMiner) tile).getEnergyTracker()));
         comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/efficiencybar.png"), new GuiPoint(41, 19), ((TileMiner) tile).getBlocksMinedLastSecondBar()));
         comp.add(new CompMiningBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/windbar.png"), new GuiPoint(50, 19)));

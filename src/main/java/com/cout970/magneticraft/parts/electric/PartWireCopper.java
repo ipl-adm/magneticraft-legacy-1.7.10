@@ -3,7 +3,6 @@ package com.cout970.magneticraft.parts.electric;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 import codechicken.multipart.NormallyOccludedPart;
-import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
@@ -127,8 +126,8 @@ public abstract class PartWireCopper extends PartElectric {
             }
 
             @Override
-            public double getInvCapacity() {
-                return getVoltageMultiplier() * EnergyConverter.RFtoW(0.8D);
+            public double getVoltageCapacity() {
+                return ElectricConstants.CABLE_LOW_CAPACITY;
             }
         };
     }

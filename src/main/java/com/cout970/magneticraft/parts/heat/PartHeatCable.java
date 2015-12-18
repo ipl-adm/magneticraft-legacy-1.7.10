@@ -31,7 +31,7 @@ public class PartHeatCable extends PartHeat implements ISidedHollowConnect {
 
     @Override
     public void create() {
-        heat = new HeatConductor(getTile(), 1400, 1000) {
+        heat = new HeatConductor(getTile(), 1500, 1000) {
             @Override
             public boolean isAbleToConnect(IConnectable cond, VecInt d) {
                 return d.equals(VecInt.NULL_VECTOR)

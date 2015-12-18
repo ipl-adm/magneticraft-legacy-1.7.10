@@ -25,9 +25,9 @@ public class GuiSteamTurbine extends GuiBasic {
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/turbine.png")));
         comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/efficiencybar.png"), new GuiPoint(29, 20), ((TileSteamTurbineControl) tile).getProductionBar()));
-        comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/consumptionbar.png"), new GuiPoint(39, 20), ((TileSteamTurbineControl) tile).getSteamConsumtionBar()));
+        comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/consumptionbar.png"), new GuiPoint(39, 20), ((TileSteamTurbineControl) tile).getSteamConsumptionBar()));
         comp.add(new CompFluidRender_Turbine((TileSteamTurbineControl) tile, new GuiPoint(50, 25), new GuiPoint(68, 64), new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png")));
-        comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar2.png"), new GuiPoint(19, 16), ((TileSteamTurbineControl) tile).capacity));
+        comp.add(new CompEnergyBarMediumVoltage(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar2.png"), new GuiPoint(19, 16), ((TileSteamTurbineControl) tile).cond));
     }
 
     public class CompFluidRender_Turbine implements IGuiComp {

@@ -1,8 +1,7 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.ArrayList;
-
 import com.cout970.magneticraft.ManagerBlocks;
+import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
@@ -16,7 +15,7 @@ import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -25,8 +24,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
 
 public class TileBreaker extends TileConductorLow implements IInventory, IGuiListener, IGuiSync {
 
@@ -74,7 +76,7 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
                     break;
                 }
                 BlockInfo bi = new BlockInfo(worldObj.getBlock(x, y, z), worldObj.getBlockMetadata(x, y, z), x, y, z);
-                if (MgUtils.isMineableBlock(worldObj, bi) && canBeStored(bi)) {
+                if (canMine(worldObj, bi) && canBeStored(bi)) {
                     ArrayList<ItemStack> items;
                     Block id = worldObj.getBlock(x, y, z);
                     int metadata = worldObj.getBlockMetadata(x, y, z);
@@ -88,6 +90,13 @@ public class TileBreaker extends TileConductorLow implements IInventory, IGuiLis
                 }
             }
         }
+    }
+
+    private boolean canMine(World w, BlockInfo info){
+        if(!MgUtils.isMineableBlock(worldObj, info))return false;
+        GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(info.getBlock());
+        if(ManagerConfig.blockBreakerBlacklist.contains(id.modId+":"+id.name))return false;
+        return true;
     }
 
     private boolean canBeStored(BlockInfo bi) {

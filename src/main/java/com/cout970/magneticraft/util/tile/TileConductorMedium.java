@@ -14,7 +14,7 @@ public abstract class TileConductorMedium extends TileBase implements IElectricT
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
-        if (tier != 2) return null;
+        if (tier != 1) return null;
         return new IElectricConductor[]{cond};
     }
 

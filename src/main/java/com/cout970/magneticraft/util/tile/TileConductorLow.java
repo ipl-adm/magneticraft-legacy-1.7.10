@@ -43,4 +43,10 @@ public abstract class TileConductorLow extends TileBase implements IElectricTile
         super.writeToNBT(nbt);
         cond.save(nbt);
     }
+
+    public static float getEfficiency(double curr, double vmin, double vmax) {
+        if(curr <= vmin)return 0;
+        if(curr >= vmax)return 1;
+        return (float) (Math.min(1, curr-vmin/(vmax-vmin)));
+    }
 }

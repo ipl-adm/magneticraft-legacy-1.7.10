@@ -2,12 +2,12 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.tool.IFurnaceCoil;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
+import com.cout970.magneticraft.util.tile.MachineElectricConductor;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -20,8 +20,9 @@ import net.minecraft.nbt.NBTTagCompound;
 public class TileElectricFurnace extends TileConductorLow implements IInventoryManaged, IGuiSync, ISidedInventory {
 
     public InventoryComponent inv = new InventoryComponent(this, 3, "Electric Furnace");
-    public int progress = 0;
+    public float progress = 0;
     private boolean working;
+    private float consumption, consumptionAux;
 
     public TileElectricFurnace() {
     }
@@ -35,16 +36,23 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
             } else if (!working && isActive()) {
                 setActive(false);
             }
+            consumption = consumptionAux / 20;
+            consumptionAux = 0;
         }
-        if (cond.getVoltage() >= ElectricConstants.MACHINE_WORK && isControlled()) {
+        if (cond.getVoltage() > ElectricConstants.MACHINE_WORK && isControlled()) {
             if (canSmelt()) {
-                progress++;
-                cond.drainPower(getConsumption());
-                if (progress >= getMaxProgres()) {
-                    smelt();
-                    progress = 0;
+                double speed = getEfficiency(cond.getVoltage(), ElectricConstants.MACHINE_WORK, ElectricConstants.BATTERY_CHARGE);
+
+                if(speed > 0) {
+                    progress += speed;
+                    cond.drainPower(getConsumption()*speed);
+                    consumptionAux += (float) (getConsumption()*speed);
+                    if (progress >= getMaxProgress()) {
+                        smelt();
+                        progress = 0;
+                    }
+                    working = true;
                 }
-                working = true;
             } else {
                 working = false;
                 progress = 0;
@@ -114,42 +122,44 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
     public void readFromNBT(NBTTagCompound nbtTagCompound) {
         super.readFromNBT(nbtTagCompound);
         getInv().readFromNBT(nbtTagCompound);
-        progress = nbtTagCompound.getInteger("P");
+        progress = nbtTagCompound.getFloat("P");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbtTagCompound) {
         super.writeToNBT(nbtTagCompound);
         getInv().writeToNBT(nbtTagCompound);
-        nbtTagCompound.setInteger("P", progress);
+        nbtTagCompound.setFloat("P", progress);
     }
 
     @Override
     public IElectricConductor initConductor() {
-        return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 80000, ElectricConstants.MACHINE_DISCHARGE, ElectricConstants.MACHINE_CHARGE);
+        return new MachineElectricConductor(this);
     }
 
     @Override
     public void sendGUINetworkData(Container cont, ICrafting craft) {
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-        craft.sendProgressBarUpdate(cont, 1, progress);
-        craft.sendProgressBarUpdate(cont, 2, (cond.getStorage() & 0xFFFF));
-        craft.sendProgressBarUpdate(cont, 3, ((cond.getStorage() & 0xFFFF0000) >>> 16));
+        craft.sendProgressBarUpdate(cont, 1, (int)progress);
+        craft.sendProgressBarUpdate(cont, 2, (int)(consumption*16));
     }
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0)
-            cond.setVoltage(value);
-        if (id == 1)
-            progress = value;
-        if (id == 2)
-            cond.setStorage(value & 0xFFFF);
-        if (id == 3)
-            cond.setStorage(cond.getStorage() | (value << 16));
+        switch (id) {
+            case 0:
+                cond.setVoltage(value);
+                break;
+            case 1:
+                progress = value;
+                break;
+            case 2:
+                consumption = value / 16;
+                break;
+        }
     }
 
-    public int getMaxProgres() {
+    public int getMaxProgress() {
         if (getInv().getStackInSlot(2) == null) return -1;
         if (!(getInv().getStackInSlot(2).getItem() instanceof IFurnaceCoil)) return -1;
         return ((IFurnaceCoil) getInv().getStackInSlot(2).getItem()).getCookTime();
@@ -216,7 +226,7 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
     public void closeInventory() {
     }
 
-    public IBarProvider getProgresBar() {
+    public IBarProvider getProgressBar() {
         return new IBarProvider() {
 
             @Override
@@ -226,12 +236,31 @@ public class TileElectricFurnace extends TileConductorLow implements IInventoryM
 
             @Override
             public float getMaxLevel() {
-                return getMaxProgres();
+                return getMaxProgress();
             }
 
             @Override
             public float getLevel() {
                 return progress;
+            }
+        };
+    }
+
+    public IBarProvider getConsumptionBar() {
+        return new IBarProvider() {
+            @Override
+            public String getMessage() {
+                return String.format("%.2fW", consumption);
+            }
+
+            @Override
+            public float getLevel() {
+                return (float) Math.min(consumption, getConsumption());
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return (float)getConsumption();
             }
         };
     }

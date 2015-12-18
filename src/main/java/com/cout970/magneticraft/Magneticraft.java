@@ -131,7 +131,7 @@ public class Magneticraft {
         Log.info("Starting postInit");
 
         if (Loader.isModLoaded("MineTweaker3")) {
-            Log.info("Seting up minetweaker compatibility");
+            Log.info("Setting up MineTweaker3 compatibility");
             MgMinetweaker.init();
         }
 

@@ -81,7 +81,7 @@ public class TileElectricPoleTier1 extends TileConductorLow implements ITileElec
     public IElectricConductor initConductor() {
         cond = new ElectricConductor(this) {
             @Override
-            public double getInvCapacity() {
+            public double getVoltageCapacity() {
                 return getVoltageMultiplier() * EnergyConverter.RFtoW(0.8D);
             }
         };

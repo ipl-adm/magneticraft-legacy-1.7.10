@@ -18,8 +18,8 @@ public class GuiElectricFurnace extends GuiBasic {
     public void initComponents() {
         comp.add(new CompBackground(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/electric_furnace.png")));
         comp.add(new CompEnergyBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(23, 16), ((TileElectricFurnace) tile).cond));
-        comp.add(new CompStorageBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/energybar.png"), new GuiPoint(31, 16), ((TileElectricFurnace) tile).cond));
-        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"), new GuiPoint(87, 31), ((TileElectricFurnace) tile).getProgresBar()));
+        comp.add(new CompGenericBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/efficiencybar.png"), new GuiPoint(31, 20),((TileElectricFurnace) tile).getConsumptionBar()));
+        comp.add(new CompProgressBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/progressbar1.png"), new GuiPoint(87, 31), ((TileElectricFurnace) tile).getProgressBar()));
         comp.add(new CompHeaterBar(new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatcoil.png"), new GuiPoint(64, 38)));
         comp.add(new CompButtonRedstoneControl(new GuiPoint(150, 8)));
     }

@@ -40,3 +40,4 @@ saves/**
 /server.properties
 *.psd
 classes
+extras/**

@@ -25,17 +25,22 @@ public class TileTransformerLow_Medium extends TileBase implements IElectricTile
             return ConnectionClass.CABLE_LOW;
         }
     };
-    public IElectricConductor medium = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_LOW);
+    public IElectricConductor medium = new ElectricConductor(this, 1, ElectricConstants.RESISTANCE_COPPER_LOW){
+        public double getVoltageCapacity() {
+            return ElectricConstants.CABLE_MEDIUM_CAPACITY;
+        }
+    };
     public double flow;
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
         if (VecInt.NULL_VECTOR.equals(dir)) {
-            return tier == 0 ? new IElectricConductor[]{low} : tier == 2 ? new IElectricConductor[]{medium} : null;
+            return tier == 0 ? new IElectricConductor[]{low} : tier == 1 ? new IElectricConductor[]{medium} : null;
         }
         MgDirection d = dir.toMgDirection();
-        if (d == MgDirection.getDirection(getBlockMetadata()) && tier == 0) return new IElectricConductor[]{low};
-        if (d == MgDirection.getDirection(getBlockMetadata()).opposite() && tier == 2)
+        if (d == MgDirection.getDirection(getBlockMetadata()) && tier == 0)
+            return new IElectricConductor[]{low};
+        if (d == MgDirection.getDirection(getBlockMetadata()).opposite() && tier == 1)
             return new IElectricConductor[]{medium};
         return null;
     }
@@ -46,18 +51,19 @@ public class TileTransformerLow_Medium extends TileBase implements IElectricTile
         if (worldObj.isRemote) return;
         low.recache();
         medium.recache();
+        for(int i = 0; i < 2; i++) {
+            low.iterate();
+            medium.iterate();
 
-        low.iterate();
-        medium.iterate();
-
-        double resistence = low.getResistance() + medium.getResistance();
-        double difference = low.getVoltage() * (medium.getVoltageMultiplier() / low.getVoltageMultiplier()) - medium.getVoltage();
-        double change = flow;
-        double slow = change * resistence;
-        flow += ((difference - slow) * medium.getIndScale()) / medium.getVoltageMultiplier();
-        change += (difference * medium.getCondParallel()) / medium.getVoltageMultiplier();
-        low.applyCurrent(-change);
-        medium.applyCurrent(change);
+            double resistence = low.getResistance() + medium.getResistance();
+            double difference = low.getVoltage() * (medium.getVoltageMultiplier() / low.getVoltageMultiplier()) - medium.getVoltage();
+            double change = flow;
+            double slow = change * resistence;
+            flow += ((difference - slow) * medium.getIndScale()) / medium.getVoltageMultiplier();
+            change += (difference * 0.5D) / medium.getVoltageMultiplier();
+            low.applyCurrent(-change);
+            medium.applyCurrent(change);
+        }
     }
 
     @Override

@@ -11,7 +11,7 @@ public class ContainerBasicGenerator extends ContainerBasic {
 
     public ContainerBasicGenerator(InventoryPlayer p, TileEntity t) {
         super(t);
-        this.addSlotToContainer(new Slot((IInventory) tile, 0, 40, 51));
+        this.addSlotToContainer(new Slot((IInventory) tile, 0, 34, 51));
         bindPlayerInventory(p);
     }
 

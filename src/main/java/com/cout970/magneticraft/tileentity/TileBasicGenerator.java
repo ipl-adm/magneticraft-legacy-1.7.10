@@ -2,7 +2,6 @@ package com.cout970.magneticraft.tileentity;
 
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
-import com.cout970.magneticraft.api.electricity.prefab.BufferedConductor;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.heat.IHeatTile;
 import com.cout970.magneticraft.api.heat.prefab.HeatConductor;
@@ -15,6 +14,8 @@ import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.IInventoryManaged;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.fluid.TankMg;
+import com.cout970.magneticraft.util.tile.AverageBar;
+import com.cout970.magneticraft.util.tile.MachineElectricConductor;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -30,18 +31,16 @@ import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileBasicGenerator extends TileConductorLow implements IFluidHandler1_8, IGuiSync, IInventoryManaged, IHeatTile {
 
+    private static final float MAX_ENERGY_PRODUCTION = 400;
     //cook
     public float progress = 0;
     public int maxProgres;
     //heat values 25-120
     public int maxHeat = 500;
-    public IHeatConductor heat = new HeatConductor(this, 1400, 1000);
+    public IHeatConductor heat = new HeatConductor(this, 1500, 1000);
     //gui data
-    public int steamProduction;
-    public int electricProduction;
-
-    public float steamProductionM;
-    public float electricProductionM;
+    public AverageBar steamProd = new AverageBar(20);
+    public AverageBar electricProd = new AverageBar(20);
     //steam tank
     public TankMg steam = new TankMg(this, 4000);
     public TankMg water = new TankMg(this, 2000);
@@ -54,7 +53,7 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
 
     @Override
     public IElectricConductor initConductor() {
-        return new BufferedConductor(this, ElectricConstants.RESISTANCE_COPPER_LOW, 160000, ElectricConstants.GENERATOR_DISCHARGE, ElectricConstants.GENERATOR_CHARGE);
+        return new MachineElectricConductor(this);
     }
 
     @Override
@@ -66,9 +65,9 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
             sendUpdateToClient();
             oldHeat = (int) heat.getTemperature();
         }
+        steamProd.tick();
+        electricProd.tick();
         if (worldObj.getTotalWorldTime() % 20 == 0) {
-            steamProduction = 0;
-            electricProduction = 0;
             if (working && !isActive()) {
                 setActive(true);
             } else if (!working && isActive()) {
@@ -95,14 +94,14 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
                 heat.drainCalories(EnergyConverter.WATERtoSTEAM_HEAT(change));
                 water.drain(change, true);
                 steam.fill(FluidRegistry.getFluidStack("steam", EnergyConverter.WATERtoSTEAM(change)), true);
-                steamProduction += EnergyConverter.WATERtoSTEAM(change);
+                steamProd.addValue(EnergyConverter.WATERtoSTEAM(change));
             }
         }
         //steam to power
-        int gas = Math.min(steam.getFluidAmount(), (int) EnergyConverter.WtoSTEAM(2000));
+        int gas = Math.min(steam.getFluidAmount(), (int) EnergyConverter.WtoSTEAM(MAX_ENERGY_PRODUCTION));
         if (gas > 0 && cond.getVoltage() < ElectricConstants.MAX_VOLTAGE && isControlled()) {
             cond.applyPower(EnergyConverter.STEAMtoW(gas));
-            electricProduction += EnergyConverter.STEAMtoW(gas);
+            electricProd.addValue((float) EnergyConverter.STEAMtoW(gas));
             steam.drain(gas, true);
         }
 
@@ -161,47 +160,54 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
     @Override
     public void sendGUINetworkData(Container cont, ICrafting craft) {
         craft.sendProgressBarUpdate(cont, 0, (int) cond.getVoltage());
-        craft.sendProgressBarUpdate(cont, 1, (cond.getStorage() & 0xFFFF));
-        craft.sendProgressBarUpdate(cont, 2, ((cond.getStorage() & 0xFFFF0000) >>> 16));
         craft.sendProgressBarUpdate(cont, 3, (int) progress);
         craft.sendProgressBarUpdate(cont, 4, maxProgres);
         craft.sendProgressBarUpdate(cont, 5, (int) Math.ceil(heat.getTemperature()));
         craft.sendProgressBarUpdate(cont, 6, steam.getFluidAmount());
         craft.sendProgressBarUpdate(cont, 7, water.getFluidAmount());
-        if (worldObj.getTotalWorldTime() % 20 == 0) {
-            craft.sendProgressBarUpdate(cont, 8, steamProduction);
-            craft.sendProgressBarUpdate(cont, 9, electricProduction);
-        }
+        craft.sendProgressBarUpdate(cont, 8, (int) (steamProd.getAverage()*16));
+        craft.sendProgressBarUpdate(cont, 9, (int) (electricProd.getAverage()*16));
     }
 
     @Override
     public void getGUINetworkData(int id, int value) {
-        if (id == 0)
-            cond.setVoltage(value);
-        if (id == 1)
-            cond.setStorage(value & 0xFFFF);
-        if (id == 2)
-            cond.setStorage(cond.getStorage() | (value << 16));
-        if (id == 3)
-            progress = value;
-        if (id == 4)
-            maxProgres = value;
-        if (id == 5)
-            heat.setTemperature(value);
-        if (id == 6)
-            steam.setFluid(FluidRegistry.getFluidStack("steam", value));
-        if (id == 7)
-            water.setFluid(FluidRegistry.getFluidStack("water", value));
-        if (id == 8)
-            steamProductionM = value / 20f;
-        if (id == 9)
-            electricProductionM = value / 20f;
+        switch (id) {
+            case 0:
+                cond.setVoltage(value);
+                break;
+            case 3:
+                progress = value;
+                break;
+            case 4:
+                maxProgres = value;
+                break;
+            case 5:
+                heat.setTemperature(value);
+                break;
+            case 6:
+                steam.setFluid(FluidRegistry.getFluidStack("steam", value));
+                break;
+            case 7:
+                water.setFluid(FluidRegistry.getFluidStack("water", value));
+                break;
+            case 8:
+                steamProd.setStorage(value / 16f);
+                break;
+            case 9:
+                electricProd.setStorage(value / 16f);
+                break;
+        }
     }
 
     @Override
     public int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-        if (resource != null && resource.getFluidID() == FluidRegistry.getFluidID("water"))
-            return water.fill(resource, doFill);
+        if (resource != null) {
+            if (resource.getFluidID() == FluidRegistry.getFluidID("water"))
+                return water.fill(resource, doFill);
+            if (resource.getFluidID() == FluidRegistry.getFluidID("steam")) {
+                return steam.fill(resource, doFill);
+            }
+        }
         return 0;
     }
 
@@ -328,6 +334,44 @@ public class TileBasicGenerator extends TileConductorLow implements IFluidHandle
             @Override
             public float getLevel() {
                 return progress;
+            }
+        };
+    }
+
+    public IBarProvider getEnergyProductionBar() {
+        return new IBarProvider() {
+            @Override
+            public String getMessage() {
+                return String.format("%dW", (int)electricProd.getStorage());
+            }
+
+            @Override
+            public float getLevel() {
+                return electricProd.getStorage();
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return MAX_ENERGY_PRODUCTION;
+            }
+        };
+    }
+
+    public IBarProvider getSteamProductionBar() {
+        return new IBarProvider() {
+            @Override
+            public String getMessage() {
+                return String.format("%.2f mB/t", steamProd.getStorage());
+            }
+
+            @Override
+            public float getLevel() {
+                return steamProd.getStorage();
+            }
+
+            @Override
+            public float getMaxLevel() {
+                return EnergyConverter.WATERtoSTEAM(speed);
             }
         };
     }

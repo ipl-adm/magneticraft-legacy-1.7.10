@@ -9,11 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class TileMB_Energy_Medium extends TileMB_Base implements IElectricTile {
 
-    public IElectricConductor cond = new ElectricConductor(this, 2, ElectricConstants.RESISTANCE_COPPER_MED);
+    public IElectricConductor cond = new ElectricConductor(this, 1, ElectricConstants.RESISTANCE_COPPER_MED);
 
     @Override
     public IElectricConductor[] getConds(VecInt dir, int tier) {
-        if (tier != 2) return null;
+        if (tier != 1) return null;
         return new IElectricConductor[]{cond};
     }
 

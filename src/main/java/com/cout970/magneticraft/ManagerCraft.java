@@ -1,5 +1,6 @@
 package com.cout970.magneticraft;
 
+import com.cout970.magneticraft.compat.ManagerIntegration;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -98,13 +99,13 @@ public class ManagerCraft {
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(pole_cable_wire), "cwc", "vwv", "vwa", 'w', "logWood", 'c', heavy_copper_coil, 'a', part_copper_cable_low));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sifter), "cbc", "mhm", "cbc", 'c', "ingotCarbide", 'b', refinery_gap, 'h', chassis, 'm', motor));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(electric_switch), "vlv", "chc", 'c', part_copper_cable_low, 'h', housing, 'l', Blocks.lever));
-        if (Magneticraft.RAILCRAFT) {
+        if (ManagerIntegration.RAILCRAFT) {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rc_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustLead"));
         }
-        if (Magneticraft.IC2) {
+        if (ManagerIntegration.IC2) {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(eu_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustQuartz"));
         }
-        if (Magneticraft.COFH_ENERGY) {
+        if (ManagerIntegration.COFH_ENERGY) {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(rf_alternator), "iei", "iai", "ccc", 'c', "ingotCarbide", 'i', "ingotIron", 'a', alternator, 'e', "dustRedstone"));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(kinetic), "ici", "ctc", "ici", 'c', copper_coil, 'i', "ingotIron", 't', "ingotCarbide"));
         }

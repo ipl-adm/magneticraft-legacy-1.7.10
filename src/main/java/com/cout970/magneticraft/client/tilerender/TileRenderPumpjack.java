@@ -18,7 +18,7 @@ public class TileRenderPumpjack extends TileEntitySpecialRenderer {
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
+    public void renderTileEntityAt(TileEntity t, double x, double y, double z, float partialTicks) {
         TilePumpJack tile = (TilePumpJack) t;
 
         GL11.glPushMatrix();
@@ -44,7 +44,7 @@ public class TileRenderPumpjack extends TileEntitySpecialRenderer {
         GL11.glTranslated(-2, 0, 0);
         
         if (tile.isActive())
-            tile.m += 0.25f * (tile.getDelta() / 1E6);
+            tile.m += 0.25f * (tile.getDelta(partialTicks));
         if (tile.m > 1000) tile.m -= 1000;
         if (tile.m > 10000) tile.m = 0;
 

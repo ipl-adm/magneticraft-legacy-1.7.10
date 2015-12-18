@@ -1,5 +1,6 @@
 package com.cout970.magneticraft;
 
+import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.items.ItemMeta;
 import com.cout970.magneticraft.util.NamedBlock;
 import com.cout970.magneticraft.util.NamedItem;
@@ -51,14 +52,14 @@ public class LangHelper {
                     w.write(s + ".name=" + name.get(unloc.indexOf(s)) + "\n");
                 }
             }
-            if (!Magneticraft.COFH_ENERGY) {
+            if (!ManagerIntegration.COFH_ENERGY) {
                 w.write("kinetic_generator.name=Kinetic Generator\n");
                 w.write("rf_alternator.name=RF Alternator\n");
             }
-            if (!Magneticraft.RAILCRAFT) {
+            if (!ManagerIntegration.RAILCRAFT) {
                 w.write("rc_alternator.name=RailCraft Charge Alternator\n");
             }
-            if (!Magneticraft.IC2) {
+            if (!ManagerIntegration.IC2) {
                 w.write("eu_alternator.name=EU Alternator\n");
             }
             w.close();

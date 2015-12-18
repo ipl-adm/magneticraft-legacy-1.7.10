@@ -9,9 +9,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import java.util.LinkedList;
 import java.util.Set;
 
-/**
- * Created by cout970 on 15/11/2015.
- */
 public class OilPathFinding extends PathFinding {
 
     private World world;
@@ -32,7 +29,7 @@ public class OilPathFinding extends PathFinding {
 
         VecInt vec = node.getPosition().copy().add(dir);
 
-        if (scanned.contains(vec) || toScan.contains(vec)) return;
+        if (scanned.contains(vec) || toScan.stream().anyMatch(n -> (n.getPosition().equals(vec)))) return;
 
         Block b = world.getBlock(vec.getX(), vec.getY(), vec.getZ());
 

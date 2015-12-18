@@ -1,9 +1,9 @@
 package com.cout970.magneticraft.items.block;
 
-import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.NBTUtils;
+import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.items.*;
 import com.cout970.magneticraft.parts.fluid.PartCopperPipe;
 import com.cout970.magneticraft.parts.fluid.PartIronPipe;
@@ -121,7 +121,7 @@ public class ManagerTooltip {
 				list.add(format + "Produces up to 400 RF/t, uses medium voltage");
 			} else if (b == miner) {
 				list.add(
-						format + "Mines blocks and puts them into adjacent inventories" + (Magneticraft.BUILDCRAFT ? " or Transport Pipes" : ""));
+						format + "Mines blocks and puts them into adjacent inventories" + (ManagerIntegration.BUILDCRAFT ? " or Transport Pipes" : ""));
 				list.add(format + "Uses medium voltage. Mining speed scales with exact voltage");
 				list.add(format + "Uses " + (int) EnergyConverter.RFtoW(500) + "J per block mined");
 			} else if (b == mirror) {

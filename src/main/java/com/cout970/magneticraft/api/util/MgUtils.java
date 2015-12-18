@@ -4,9 +4,11 @@ import buildcraft.api.tools.IToolWrench;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 import cofh.api.item.IToolHammer;
-import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.computer.IOpticFiber;
 import com.cout970.magneticraft.api.tool.IWrench;
+import com.cout970.magneticraft.compat.ManagerIntegration;
+import com.cout970.magneticraft.util.FakePlayerProvider;
+import com.google.common.primitives.Doubles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
@@ -15,13 +17,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import java.util.stream.IntStream;
@@ -90,7 +98,8 @@ public class MgUtils {
                 && !Block.isEqualTo(info.getBlock(), Blocks.mob_spawner)
                 && (info.getBlock() != Blocks.portal) && (info.getBlock() != Blocks.end_portal)
                 && (info.getBlock() != Blocks.end_portal_frame)
-                && (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) != -1);
+                && (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) != -1)
+                && (w.canMineBlock(FakePlayerProvider.getFakePlayer((WorldServer) w), info.getX(), info.getY(), info.getZ()));
     }
 
     /**
@@ -157,7 +166,7 @@ public class MgUtils {
     }
 
     public static boolean isWrench(Item item) {
-        return (item instanceof IWrench) || (Magneticraft.BUILDCRAFT && (item instanceof IToolWrench)) || (Magneticraft.COFH_TOOLS && (item instanceof IToolHammer));
+        return (item instanceof IWrench) || (ManagerIntegration.BUILDCRAFT && (item instanceof IToolWrench)) || (ManagerIntegration.COFH_TOOLS && (item instanceof IToolHammer));
     }
 
     public static boolean matchesPattern(ItemStack stack, String pattern) {
@@ -179,5 +188,83 @@ public class MgUtils {
             return true;
         }
         return false;
+    }
+
+    //I feel like there's a better way, but fuck it.
+    public static boolean isUnobstructed2D(World w, Pair<Integer, Integer> start, Pair<Integer, Integer> end, int height, boolean checkStart, boolean checkEnd, int precision) {
+        if (Objects.equals(start.getLeft(), end.getLeft())) {
+            if (Objects.equals(start.getRight(), end.getRight())) {
+                return !((checkEnd || checkStart) && (w.getBlock(start.getLeft(), height, start.getRight()) != null && !w.isAirBlock(start.getLeft(), height, start.getRight()))); //oh god
+            }
+
+            int x = start.getLeft();
+            int startZ = Math.min(start.getRight(), end.getRight());
+            int endZ = Math.max(start.getRight(), end.getRight());
+            for (int z = startZ; z <= endZ; z++) {
+
+                if (!checkStart && ((x == start.getLeft()) && (z == start.getRight()))) {
+                    continue;
+                }
+
+                if (!checkEnd && ((x == end.getLeft()) && (z == end.getRight()))) {
+                    continue;
+                }
+
+                Block b = w.getBlock(x, height, z);
+                if (b != null && !w.isAirBlock(x, height, z)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        final double x1 = start.getLeft(),
+                z1 = start.getRight(),
+                x2 = end.getLeft(),
+                z2 = end.getRight();
+        Function<Double, Double> lineFunction = (x -> ((z2 - z1) / (x2 - x1) * (x - x1) + z1));
+        boolean isPositive = ((z2 - z1) / (x2 - x1)) > 0;
+
+        int startX = Math.min(start.getLeft(), end.getLeft());
+        int endX = Math.max(start.getLeft(), end.getLeft());
+
+        double step = 1d / precision;
+
+        for (double dx = startX; Math.round(dx) <= endX; dx += step) {
+            double dz = lineFunction.apply(.0 + dx);
+            int cz = (int) Math.round(dz);
+            int cx = (int) Math.round(dx);
+
+            //check if corner, shitcode incoming
+            if ((Math.abs(dx - Math.floor(dx) - 0.5) < 1e-8) && (Math.abs(dz - Math.floor(dz) - 0.5) < 1e-8)) {
+                Block b1 = w.getBlock((int) Math.floor(dx), height, (int) Math.floor(dz));
+                Block b2 = w.getBlock((int) Math.floor(dx), height, (int) Math.ceil(dz));
+                Block b3 = w.getBlock((int) Math.ceil(dx), height, (int) Math.floor(dz));
+                Block b4 = w.getBlock((int) Math.ceil(dx), height, (int) Math.ceil(dz));
+                if (isPositive) {
+                    if ((b2 != null && !w.isAirBlock((int) Math.floor(dx), height, (int) Math.ceil(dz))) && (b3 != null && !w.isAirBlock((int) Math.ceil(dx), height, (int) Math.floor(dz)))) {
+                        return false;
+                    }
+                } else {
+                    if ((b1 != null && !w.isAirBlock((int) Math.floor(dx), height, (int) Math.floor(dz))) && (b4 != null && !w.isAirBlock((int) Math.ceil(dx), height, (int) Math.ceil(dz)))) {
+                        return false;
+                    }
+                }
+            }
+
+            if (!checkStart && ((cx == start.getLeft()) && (cz == start.getRight()))) {
+                continue;
+            }
+
+            if (!checkEnd && ((cx == end.getLeft()) && (cz == end.getRight()))) {
+                continue;
+            }
+
+            Block b = w.getBlock(cx, height, cz);
+            if (b != null && !w.isAirBlock(cx, height, cz)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

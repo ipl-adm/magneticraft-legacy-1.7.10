@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.items;
 
-import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConverter;
+import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 
 import cofh.api.energy.IEnergyContainerItem;
@@ -36,7 +36,7 @@ public class ItemSmallBattery extends ItemCharged {
                                 discharge(stack, toMove);
                             }
                         }
-                    } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
+                    } else if (ManagerIntegration.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
                         int space = st.getMaxEnergyStored(s) - st.getEnergyStored(s);
                         int toMove = (int) Math.min(space, EnergyConverter.WtoRF(getCharge(stack)));

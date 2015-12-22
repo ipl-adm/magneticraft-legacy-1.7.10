@@ -4,13 +4,14 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockSprinkler;
 import com.cout970.magneticraft.compat.ManagerIntegration;
-import com.cout970.magneticraft.entity.EntityWaterDrop;
+import com.cout970.magneticraft.entity.LiquidSprayFX;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.IGrowable;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
@@ -23,17 +24,6 @@ import java.util.*;
 
 public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
     public static Map<Fluid, FertilizerInfo> fertilizers = new HashMap<>();
-    private Map<Pair<Integer, Integer>, Integer>
-            heightmapPlants = new HashMap<>(),
-            heightmapFarms = new HashMap<>();
-
-    static {
-        fertilizers.put(FluidRegistry.WATER, new FertilizerInfo(1e-4, true, -1, 0));
-        if (ManagerIntegration.MFR) {
-            fertilizers.put(FluidRegistry.getFluid("sewage"), new FertilizerInfo(1e-2, false, -1, 0));
-        }
-    }
-
     public static int
             MAX_RADIUS = 3,
             MAX_HEIGHT = 7,
@@ -42,21 +32,49 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
             CONSUMPTION = 1,
             MAX_CONSUMPTION = MAX_AREA * CONSUMPTION,
             PRECISION = (MAX_RADIUS == 0) ? 1 : 1 << (int) (Math.ceil(Math.log(MAX_RADIUS) / Math.log(2) + 1)); //raytracing precision
+
+    static {
+        fertilizers.put(FluidRegistry.WATER, new FertilizerInfo(1e-4, true, -1, 0));
+        if (ManagerIntegration.MFR) {
+            fertilizers.put(FluidRegistry.getFluid("sewage"), new FertilizerInfo(1e-2, false, -1, 0));
+        }
+    }
+
+    private Map<Pair<Integer, Integer>, Integer>
+            heightmapPlants = new HashMap<>(),
+            heightmapFarms = new HashMap<>();
     private TankMg tank = new TankMg(this, MAX_CONSUMPTION);
 
     private boolean shouldRegen = true;
     private Fluid lastFluid = null;
     private int lastAmount = 0;
+    private float lastRotation = 0;
+    private float lastRender = 0;
+
+    public static int getRadius(int amount) {
+        int ret = amount / CONSUMPTION;
+        return (int) Math.floor(Math.sqrt(ret) / 2d - 0.5d);
+    }
 
     public MgDirection getDir() {
         return MgDirection.getDirection(getBlockMetadata());
     }
 
-
     @Override
     public void updateEntity() {
         super.updateEntity();
+
         if (worldObj.isRemote) {
+            if ((lastAmount > 0) && (worldObj.getTotalWorldTime() % 3 == 0)) {
+                for (int direction = 0; direction < 8; direction++) {
+                    for (int power = 1; power < getRadius(lastAmount); power++) {
+                        double angle = lastRotation + Math.PI * direction / 4;
+                        Vec3 v = Vec3.createVectorHelper(0.3 * power * Math.cos(angle), 0, 0.3 * power * Math.sin(angle));
+                        LiquidSprayFX fx = new LiquidSprayFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 0.3f, 0.7f, v, FluidRegistry.WATER);
+                        worldObj.spawnEntityInWorld(fx);
+                    }
+                }
+            }
             return;
         }
 
@@ -65,6 +83,7 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
         }
         if (tank.getFluidAmount() > 0) {
             sprinkle(tank.getFluid());
+
         }
 
         updateFluid(tank.getFluid());
@@ -128,11 +147,6 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
                 }
             }
         }
-    }
-
-    public static int getRadius(int amount) {
-        int ret = amount / CONSUMPTION;
-        return (int) Math.floor(Math.sqrt(ret) / 2d - 0.5d);
     }
 
     private void sprinkle(FluidStack fluid) {
@@ -204,6 +218,33 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
         return new FluidTankInfo[]{tank.getInfo()};
     }
 
+    public float rotate(float time) {
+        float diff = time - lastRender;
+        lastRender = time;
+        lastRotation = (lastRotation + lastAmount * diff) % 500;
+        return lastRotation;
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setInteger("lastAmount", lastAmount);
+        if (lastFluid != null) {
+            nbt.setInteger("fluidID", lastFluid.getID());
+        }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        lastAmount = nbt.getInteger("lastAmount");
+        if (nbt.hasKey("fluidID")) {
+            lastFluid = FluidRegistry.getFluid(nbt.getInteger("fluidID"));
+        } else {
+            lastFluid = null;
+        }
+    }
+
     public static class FertilizerInfo {
         private final double chance;
         private final boolean doesHydrate;
@@ -235,26 +276,6 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
 
         public int getPotionLength() {
             return potionLength;
-        }
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-        nbt.setInteger("lastAmount", lastAmount);
-        if (lastFluid != null) {
-            nbt.setInteger("fluidID", lastFluid.getID());
-        }
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        super.readFromNBT(nbt);
-        lastAmount = nbt.getInteger("lastRadius");
-        if (nbt.hasKey("fluidID")) {
-            lastFluid = FluidRegistry.getFluid(nbt.getInteger("fluidID"));
-        } else {
-            lastFluid = null;
         }
     }
 }

@@ -39,7 +39,12 @@ public class TileRenderGrinder extends TileEntitySpecialRenderer {
                 tile.rotation += (tile.getDelta() / 1E6) * 0.5;
                 if (tile.rotation > 1000) tile.rotation %= 1000;
             } else {
-                if (tile.rotation < 1000) tile.rotation += (tile.getDelta() / 1E6) * 0.5;
+                if (tile.rotation < 1000) {
+                    tile.rotation += (tile.getDelta() / 1E6) * 0.5;
+                    if (tile.rotation > 1000) {
+                        tile.rotation = 1000;
+                    }
+                }
             }
             RenderUtil.bindTexture(ModelTextures.GRINDER);
             model.renderStatic(0.0625f);

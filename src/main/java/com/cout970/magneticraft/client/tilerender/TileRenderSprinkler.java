@@ -3,7 +3,6 @@ package com.cout970.magneticraft.client.tilerender;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.client.model.ModelSprinkler;
 import com.cout970.magneticraft.tileentity.TileSprinkler;
-import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
@@ -27,9 +26,9 @@ public class TileRenderSprinkler extends TileEntitySpecialRenderer {
             GL11.glTranslatef(0, -2, 0);
         }
 
-        RenderUtil.bindTexture(ModelTextures.SPRINKLER);
+        bindTexture(ModelTextures.SPRINKLER);
         model.renderStatic();
-        float rotation = (float) ((te.getWorldObj().getTotalWorldTime() + partTicks) % 1000 * Math.PI);
+        float rotation = (float) (tile.rotate(te.getWorldObj().getTotalWorldTime() + partTicks) / 250f * Math.PI);
         model.renderDynamic(rotation);
         GL11.glPopMatrix();
     }

@@ -12,7 +12,6 @@ import net.minecraftforge.fluids.Fluid;
 public class LiquidSprayFX extends ExtendedFX {
     public LiquidSprayFX(World world, double x, double y, double z, float scale, float gravity, Vec3 vector, Fluid fluid) {
         super(world, x, y, z, scale, gravity, vector, fluid.getStillIcon());
-        this.particleAlpha = 0.5f;
         this.particleMaxAge = 15;
         this.setSize(0.2f, 0.2f);
         this.noClip = false;

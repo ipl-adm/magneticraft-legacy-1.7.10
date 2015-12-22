@@ -10,6 +10,7 @@ import com.cout970.magneticraft.util.fluid.TankMg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.IGrowable;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.IPlantable;
@@ -65,13 +66,13 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
         super.updateEntity();
 
         if (worldObj.isRemote) {
-            if ((lastAmount > 0) && (worldObj.getTotalWorldTime() % 3 == 0)) {
+            if ((lastAmount > 0) && (worldObj.getTotalWorldTime() % 2 == 0)) {
                 for (int direction = 0; direction < 8; direction++) {
                     for (int power = 1; power < getRadius(lastAmount); power++) {
                         double angle = lastRotation + Math.PI * direction / 4;
-                        Vec3 v = Vec3.createVectorHelper(0.3 * power * Math.cos(angle), 0, 0.3 * power * Math.sin(angle));
-                        LiquidSprayFX fx = new LiquidSprayFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 0.3f, 0.7f, v, FluidRegistry.WATER);
-                        worldObj.spawnEntityInWorld(fx);
+                        Vec3 v = Vec3.createVectorHelper(0.35 * power * Math.cos(angle), -power * 0.05, 0.35 * power * Math.sin(angle));
+                        LiquidSprayFX fx = new LiquidSprayFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 0.5f, 0.7f, v, lastFluid);
+                        Minecraft.getMinecraft().effectRenderer.addEffect(fx);
                     }
                 }
             }
@@ -221,7 +222,7 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
     public float rotate(float time) {
         float diff = time - lastRender;
         lastRender = time;
-        lastRotation = (lastRotation + lastAmount * diff) % 500;
+        lastRotation = (lastRotation + lastAmount * diff) % 1000;
         return lastRotation;
     }
 

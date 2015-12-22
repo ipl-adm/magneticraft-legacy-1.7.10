@@ -68,10 +68,10 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
         if (worldObj.isRemote) {
             if ((lastAmount > 0) && (worldObj.getTotalWorldTime() % 2 == 0)) {
                 for (int direction = 0; direction < 8; direction++) {
-                    for (int power = 1; power < getRadius(lastAmount); power++) {
+                    for (int power = 1; power <= getRadius(lastAmount); power++) {
                         double angle = lastRotation + Math.PI * direction / 4;
-                        Vec3 v = Vec3.createVectorHelper(0.35 * power * Math.cos(angle), -power * 0.05, 0.35 * power * Math.sin(angle));
-                        LiquidSprayFX fx = new LiquidSprayFX(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, 0.5f, 0.7f, v, lastFluid);
+                        Vec3 v = Vec3.createVectorHelper((0.05 + 0.20 * power) * Math.cos(angle), (blockMetadata == 1) ? 0 : 0, (0.05 + 0.20 * power) * Math.sin(angle));
+                        LiquidSprayFX fx = new LiquidSprayFX(worldObj, xCoord + 0.5, yCoord + 0.4 + 0.2 * blockMetadata, zCoord + 0.5, 0.5f, 1f, v, lastFluid);
                         Minecraft.getMinecraft().effectRenderer.addEffect(fx);
                     }
                 }

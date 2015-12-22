@@ -16,4 +16,13 @@ public class LiquidSprayFX extends ExtendedFX {
         this.setSize(0.2f, 0.2f);
         this.noClip = false;
     }
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+        if (onGround) {
+            //setDead();
+            particleAge = Math.max(particleAge, 13);
+        }
+    }
 }

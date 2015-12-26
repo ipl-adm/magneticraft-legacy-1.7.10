@@ -21,21 +21,24 @@ public class RecipeRefinery {
         out2 = o2;
     }
 
+    public static RecipeRefinery getRecipe(FluidStack i) {
+        for (RecipeRefinery r : MgRecipeRegister.refinery) {
+            if (r.matches(i)) return r;
+        }
+        return null;
+    }
 
     public FluidStack getInput() {
         return input;
     }
 
-
     public FluidStack getOut0() {
         return out0;
     }
 
-
     public FluidStack getOut1() {
         return out1;
     }
-
 
     public FluidStack getOut2() {
         return out2;
@@ -48,12 +51,5 @@ public class RecipeRefinery {
 
     public boolean matches(FluidStack f) {
         return MgUtils.areEqual(f, input);
-    }
-
-    public static RecipeRefinery getRecipe(FluidStack i) {
-        for (RecipeRefinery r : MgRecipeRegister.refinery) {
-            if (r.matches(i)) return r;
-        }
-        return null;
     }
 }

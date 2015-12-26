@@ -1,25 +1,13 @@
 package com.cout970.magneticraft.tileentity;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.util.IGuiListener;
-import com.cout970.magneticraft.util.IInventoryManaged;
-import com.cout970.magneticraft.util.InventoryComponent;
-import com.cout970.magneticraft.util.InventoryCrafterAux;
-import com.cout970.magneticraft.util.InventoryUtils;
-
+import com.cout970.magneticraft.util.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -30,8 +18,17 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync, IGuiListener {
 
+    public RedstoneState state = RedstoneState.NORMAL;
+    private InventoryComponent invResult = new InventoryComponent(this, 1, "Result");
+    private InventoryCrafting recipe = new InventoryCrafterAux(this, 3, 3);
+    private List<InvSlot> checkedInvs = new ArrayList<>();
+    private List<TankInfo> checkedTanks = new ArrayList<>();
+    private int itemMatches = -1;
     private InventoryComponent inv = new InventoryComponent(this, 16, "Crafter") {
         @Override
         public void setInventorySlotContents(int slot, ItemStack itemStack) {
@@ -40,15 +37,13 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
             itemMatches = -1;
         }
     };
-    private InventoryComponent invResult = new InventoryComponent(this, 1, "Result");
-    private InventoryCrafting recipe = new InventoryCrafterAux(this, 3, 3);
-    private List<InvSlot> checkedInvs = new ArrayList<>();
-    private List<TankInfo> checkedTanks = new ArrayList<>();
-    private int itemMatches = -1;
     private IRecipe craftRecipe;
     //private boolean nextCraft = false;
     private int craftState = 0; // 0 = awaiting high signal, 1 = ready to craft, 2 = awaiting low signal
-    public RedstoneState state = RedstoneState.NORMAL;
+
+    public static RedstoneState step(RedstoneState state) {
+        return state == RedstoneState.NORMAL ? RedstoneState.INVERTED : state == RedstoneState.INVERTED ? RedstoneState.PULSE : RedstoneState.NORMAL;
+    }
 
     public InventoryComponent getInv() {
         return inv;
@@ -101,7 +96,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                 }
             }
         }
-        
+
         if (craftRecipe != null) {
             ItemStack result = craftRecipe.getCraftingResult(recipe);
             if (result == null) {
@@ -332,6 +327,43 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
         nbt.setByte("State", (byte) state.ordinal());
     }
 
+    public void setRedstoneState(RedstoneState e) {
+        state = e;
+        sendUpdateToClient();
+    }
+
+    public boolean found(int j) {
+        return itemMatches != -1 && (craftRecipe == null || (itemMatches & (1 << j)) > 0);
+    }
+
+    @Override
+    public void sendGUINetworkData(Container cont, ICrafting craft) {
+        craft.sendProgressBarUpdate(cont, 0, itemMatches);
+
+    }
+
+    @Override
+    public void getGUINetworkData(int id, int value) {
+        if (id == 0) itemMatches = value;
+    }
+
+    @Override
+    public void onMessageReceive(int id, int data) {
+        if (id == 0) {
+            if (data == 1) {
+                for (int i = 0; i < 9; i++)
+                    getRecipe().setInventorySlotContents(i, null);
+                refreshRecipe();
+            } else if (data == 0) {
+                if (state == RedstoneState.PULSE) craftState = 1;
+            }
+        }
+    }
+
+    public enum RedstoneState {
+        NORMAL, INVERTED, PULSE
+    }
+
     public class InvSlot {
 
         public ItemStack content;
@@ -368,47 +400,6 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
 
         public boolean equals(Object o) {
             return o instanceof TankInfo && ((TankInfo) o).dir == this.dir && ((TankInfo) o).handler == this.handler;
-        }
-    }
-
-    public enum RedstoneState {
-        NORMAL, INVERTED, PULSE
-    }
-
-    public static RedstoneState step(RedstoneState state) {
-        return state == RedstoneState.NORMAL ? RedstoneState.INVERTED : state == RedstoneState.INVERTED ? RedstoneState.PULSE : RedstoneState.NORMAL;
-    }
-
-    public void setRedstoneState(RedstoneState e) {
-        state = e;
-        sendUpdateToClient();
-    }
-
-    public boolean found(int j) {
-        return itemMatches != -1 && (craftRecipe == null || (itemMatches & (1 << j)) > 0);
-    }
-
-    @Override
-    public void sendGUINetworkData(Container cont, ICrafting craft) {
-        craft.sendProgressBarUpdate(cont, 0, itemMatches);
-
-    }
-
-    @Override
-    public void getGUINetworkData(int id, int value) {
-        if (id == 0) itemMatches = value;
-    }
-
-    @Override
-    public void onMessageReceive(int id, int data) {
-        if (id == 0) {
-            if (data == 1) {
-                for (int i = 0; i < 9; i++)
-                    getRecipe().setInventorySlotContents(i, null);
-                refreshRecipe();
-            } else if (data == 0) {
-                if (state == RedstoneState.PULSE) craftState = 1;
-            }
         }
     }
 }

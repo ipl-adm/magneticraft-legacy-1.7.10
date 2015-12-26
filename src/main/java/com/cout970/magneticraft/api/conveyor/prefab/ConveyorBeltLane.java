@@ -28,6 +28,17 @@ public class ConveyorBeltLane implements IConveyorBeltLane {
         this.isLeft = isLeft;
     }
 
+    public static TileEntity getFrontConveyor(IConveyorBelt c) {
+        TileEntity t = c.getParent();
+        if (c.getOrientation().getLevel() == 1)
+            return MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, 1, 0));
+        TileEntity retval = MgUtils.getTileEntity(t, c.getDir());
+        if (!(retval instanceof IConveyorBelt)) {
+            retval = MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, -1, 0));
+        }
+        return retval;
+    }
+
     public void avance(IItemBox b) {
         setHitBoxSpace(b.getPosition(), false);
         if (hasHitBoxSpace(b.getPosition() + 1)) {
@@ -157,17 +168,6 @@ public class ConveyorBeltLane implements IConveyorBeltLane {
                 content.add(box);
             }
         }
-    }
-
-    public static TileEntity getFrontConveyor(IConveyorBelt c) {
-        TileEntity t = c.getParent();
-        if (c.getOrientation().getLevel() == 1)
-            return MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, 1, 0));
-        TileEntity retval = MgUtils.getTileEntity(t, c.getDir());
-        if (!(retval instanceof IConveyorBelt)) {
-            retval = MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, -1, 0));
-        }
-        return retval;
     }
 
     @Override

@@ -12,6 +12,51 @@ public class ConnectedTexture {
     public static List<ST> EXCEPTION = new ArrayList<>();
     public static ConnectedTexture INSTANCE = new ConnectedTexture().init();
 
+    public static int getTex(int side, boolean... a) {
+        List<ST> use;
+        if (side == 0 || side == 1 || side == 4 || side == 3) {
+            use = COMMON;
+        } else {
+            use = EXCEPTION;
+        }
+        for (ST b : use)
+            if (b.isThis(a)) return use.indexOf(b);
+        return 0;
+    }
+
+    public static int getConnectedTexturesIcon(IBlockAccess BA, int x, int y,
+                                               int z, int side) {
+        Block t = BA.getBlock(x, y, z);
+        Block[] w = new Block[9];
+        if (side == 0 || side == 1) {
+            int v = 0;
+            for (int k = -1; k < 2; k++) {
+                for (int i = -1; i < 2; i++) {
+                    w[v++] = BA.getBlock(x + i, y, z + k);
+                }
+            }
+        } else if (side == 2 || side == 3) {
+            int v = 0;
+            for (int j = 1; j > -2; j--) {
+                for (int i = -1; i < 2; i++) {
+                    w[v++] = BA.getBlock(x + i, y + j, z);
+                }
+            }
+        } else if (side == 4 || side == 5) {
+            int v = 0;
+            for (int j = 1; j > -2; j--) {
+                for (int k = -1; k < 2; k++) {
+                    w[v++] = BA.getBlock(x, y + j, z + k);
+                }
+            }
+        }
+        boolean[] b = new boolean[9];
+        for (int v = 0; v < 9; v++) {
+            b[v] = Block.isEqualTo(w[v], t);
+        }
+        return getTex(side, b);
+    }
+
     public ConnectedTexture init() {
         COMMON.add(new ST(2, 0, 2, 0, 1, 0, 2, 0, 2));//0 - 0
         COMMON.add(new ST(2, 1, 2, 1, 1, 1, 2, 1, 2));//1 - all sides
@@ -57,51 +102,6 @@ public class ConnectedTexture {
         EXCEPTION.add(new ST(2, 0, 2, 1, 1, 0, 0, 1, 2));//19 - corners with
         EXCEPTION.add(new ST(0, 1, 0, 1, 1, 1, 0, 1, 0));//20 - 4 sides with
         return this;
-    }
-
-    public static int getTex(int side, boolean... a) {
-        List<ST> use;
-        if (side == 0 || side == 1 || side == 4 || side == 3) {
-            use = COMMON;
-        } else {
-            use = EXCEPTION;
-        }
-        for (ST b : use)
-            if (b.isThis(a)) return use.indexOf(b);
-        return 0;
-    }
-
-    public static int getConnectedTexturesIcon(IBlockAccess BA, int x, int y,
-                                              int z, int side) {
-        Block t = BA.getBlock(x, y, z);
-        Block[] w = new Block[9];
-        if (side == 0 || side == 1) {
-            int v = 0;
-            for (int k = -1; k < 2; k++) {
-                for (int i = -1; i < 2; i++) {
-                    w[v++] = BA.getBlock(x + i, y, z + k);
-                }
-            }
-        } else if (side == 2 || side == 3) {
-            int v = 0;
-            for (int j = 1; j > -2; j--) {
-                for (int i = -1; i < 2; i++) {
-                    w[v++] = BA.getBlock(x + i, y + j, z);
-                }
-            }
-        } else if (side == 4 || side == 5) {
-            int v = 0;
-            for (int j = 1; j > -2; j--) {
-                for (int k = -1; k < 2; k++) {
-                    w[v++] = BA.getBlock(x, y + j, z + k);
-                }
-            }
-        }
-        boolean[] b = new boolean[9];
-        for (int v = 0; v < 9; v++) {
-            b[v] = Block.isEqualTo(w[v], t);
-        }
-        return getTex(side, b);
     }
 
     public class ST {

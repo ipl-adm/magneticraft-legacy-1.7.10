@@ -9,9 +9,9 @@ import java.util.List;
 public class FluidNetwork {
 
     public FluidNetWorkManager manager = new FluidNetWorkManager(this);
+    public Fluid fluid;
     private List<IFluidTransport> pipes = new ArrayList<>();
     private TileEntity tile;
-    public Fluid fluid;
 
 
     private FluidNetwork() {

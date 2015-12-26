@@ -11,15 +11,13 @@ import java.util.Map;
  */
 public class AttributeRegistry {
 
+    private static List<ISteelAttribute> unbakedList = new ArrayList<>();
+    private static Map<Integer, ISteelAttribute> attributeMap;
+    private static Map<ISteelAttribute, Integer> reverseAttributeMap;
+
     static {
 
     }
-
-    private static List<ISteelAttribute> unbakedList = new ArrayList<>();
-
-    private static Map<Integer, ISteelAttribute> attributeMap;
-
-    private static Map<ISteelAttribute, Integer> reverseAttributeMap;
 
     public static void registerAttribute(ISteelAttribute attribute) {
         unbakedList.add(attribute);

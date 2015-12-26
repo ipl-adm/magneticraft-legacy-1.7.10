@@ -1,12 +1,11 @@
 package com.cout970.magneticraft.util.network.pressure;
 
-import com.cout970.magneticraft.api.pressure.PressurizedFluid;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
+import com.cout970.magneticraft.api.pressure.PressurizedFluid;
 import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.network.NetworkNode;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.Fluid;

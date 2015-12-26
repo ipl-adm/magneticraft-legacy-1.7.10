@@ -1,12 +1,11 @@
 package com.cout970.magneticraft.items;
 
+import cofh.api.energy.IEnergyHandler;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ElectricUtils;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cofh.api.energy.IEnergyHandler;
 import ic2.api.tile.IEnergyStorage;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler;
@@ -39,14 +38,14 @@ public class ItemVoltmeter extends ItemBasic {
             }
         }
 
-        if (ManagerIntegration.RAILCRAFT && (t instanceof IElectricGrid)) {
+        if (Magneticraft.RAILCRAFT && (t instanceof IElectricGrid)) {
             IElectricGrid h = (IElectricGrid) t;
             ChargeHandler handler = h.getChargeHandler();
             String s = String.format("Charge: %.2fc | Draw: %.2fc/t | Loss: %.2fc/t", handler.getCharge(), handler.getDraw(), handler.getLosses());
             p.addChatMessage(new ChatComponentText(s));
         }
 
-        if (ManagerIntegration.IC2 && (t instanceof IEnergyStorage)) {
+        if (Magneticraft.IC2 && (t instanceof IEnergyStorage)) {
             IEnergyStorage h = (IEnergyStorage) t;
             int stored = h.getStored();
             int max = h.getCapacity();
@@ -54,7 +53,7 @@ public class ItemVoltmeter extends ItemBasic {
             p.addChatMessage(new ChatComponentText(s));
         }
 
-        if (ManagerIntegration.COFH_ENERGY && (t instanceof IEnergyHandler)) {
+        if (Magneticraft.COFH_ENERGY && (t instanceof IEnergyHandler)) {
             IEnergyHandler h = (IEnergyHandler) t;
             int stored = h.getEnergyStored(ForgeDirection.getOrientation(side));
             int max = h.getMaxEnergyStored(ForgeDirection.getOrientation(side));

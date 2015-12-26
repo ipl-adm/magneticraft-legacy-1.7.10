@@ -14,8 +14,8 @@ import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileCopperTank extends TileMB_Base implements IFluidHandler1_8, IBlockWithData {
 
-    private TankMg tank = new TankMg(this, 16000);
     public CubeRenderer_Util cubeRenderer;
+    private TankMg tank = new TankMg(this, 16000);
     private int oldAmount = -1;
 
     public TankMg getTank() {

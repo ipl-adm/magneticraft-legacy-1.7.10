@@ -52,6 +52,11 @@ public class HeatConductor implements IHeatConductor {
     }
 
     @Override
+    public void setTemperature(double h) {
+        temperature = h;
+    }
+
+    @Override
     public TileEntity getParent() {
         return parent;
     }
@@ -109,11 +114,6 @@ public class HeatConductor implements IHeatConductor {
         temperature = nbt.getDouble("Heat");
         mass = nbt.getDouble("Mass");
         maxHeat = nbt.getDouble("MaxHeat");
-    }
-
-    @Override
-    public void setTemperature(double h) {
-        temperature = h;
     }
 
     @Override

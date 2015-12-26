@@ -24,6 +24,13 @@ public class RecipeGrinder {
         this.prob3 = prob3;
     }
 
+    public static RecipeGrinder getRecipe(ItemStack i) {
+        for (RecipeGrinder r : MgRecipeRegister.grinder) {
+            if (r.matches(i)) return r;
+        }
+        return null;
+    }
+
     public ItemStack getInput() {
         return input;
     }
@@ -46,13 +53,6 @@ public class RecipeGrinder {
 
     public float getProb3() {
         return prob3;
-    }
-
-    public static RecipeGrinder getRecipe(ItemStack i) {
-        for (RecipeGrinder r : MgRecipeRegister.grinder) {
-            if (r.matches(i)) return r;
-        }
-        return null;
     }
 
     public boolean matches(ItemStack i) {

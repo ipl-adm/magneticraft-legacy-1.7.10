@@ -26,6 +26,15 @@ public abstract class GuiBasic extends GuiContainer {
         initComponents();
     }
 
+    public static boolean isIn(int mx, int my, int x, int y, int w, int h) {
+        if (mx > x && mx < x + w) {
+            if (my > y && my < y + h) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public abstract void initComponents();
 
     protected void drawCenteredStringWithoutShadow(FontRenderer fontRenderer, String string, int x, int y, int color) {
@@ -59,15 +68,6 @@ public abstract class GuiBasic extends GuiContainer {
         for (IGuiComp c : comp) {
             c.onClick(x, y, b, this);
         }
-    }
-
-    public static boolean isIn(int mx, int my, int x, int y, int w, int h) {
-        if (mx > x && mx < x + w) {
-            if (my > y && my < y + h) {
-                return true;
-            }
-        }
-        return false;
     }
 
     protected void keyTyped(char letter, int num) {

@@ -12,12 +12,11 @@ import net.minecraftforge.fluids.Fluid;
 
 public abstract class BlockFluidFiniteMg extends BlockFluidFinite {
 
+    public Fluid toIcon;
     @SideOnly(Side.CLIENT)
     protected IIcon stillIcon;
     @SideOnly(Side.CLIENT)
     protected IIcon flowingIcon;
-
-    public Fluid toIcon;
 
     public BlockFluidFiniteMg(Fluid fluid, Material material) {
         super(fluid, material);

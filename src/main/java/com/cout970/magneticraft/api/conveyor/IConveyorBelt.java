@@ -9,18 +9,6 @@ import net.minecraft.tileentity.TileEntity;
  */
 public interface IConveyorBelt {
 
-    enum BeltInteraction {
-        DIRECT, INVERSE, LEFT_T, RIGHT_T, NOTHING;
-
-        public static BeltInteraction InterBelt(MgDirection a, MgDirection b) {
-            if (a == b) return BeltInteraction.DIRECT;
-            if (a == b.opposite()) return BeltInteraction.INVERSE;
-            if (a == b.step(MgDirection.DOWN)) return BeltInteraction.LEFT_T;
-            if (a == b.step(MgDirection.UP)) return BeltInteraction.RIGHT_T;
-            return BeltInteraction.NOTHING;
-        }
-    }
-
     boolean addItem(MgDirection in, int pos, IItemBox it, boolean simulated);
 
     boolean removeItem(IItemBox it, boolean isLeft, boolean simulated);
@@ -38,4 +26,16 @@ public interface IConveyorBelt {
     Orientation getOrientation();
 
     void onChange();
+
+    enum BeltInteraction {
+        DIRECT, INVERSE, LEFT_T, RIGHT_T, NOTHING;
+
+        public static BeltInteraction InterBelt(MgDirection a, MgDirection b) {
+            if (a == b) return BeltInteraction.DIRECT;
+            if (a == b.opposite()) return BeltInteraction.INVERSE;
+            if (a == b.step(MgDirection.DOWN)) return BeltInteraction.LEFT_T;
+            if (a == b.step(MgDirection.UP)) return BeltInteraction.RIGHT_T;
+            return BeltInteraction.NOTHING;
+        }
+    }
 }

@@ -22,14 +22,14 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
 
     public static final int STEAM_LIMIT = 40;
     public float animation;
-    private long time;
     public TankMg tank = new TankMg(this, 6000);
-    private boolean working;
     //info
     public int steamConsumition;
     public int electricProduction;
     public float steamConsumitionM;
     public float electricProductionM;
+    private long time;
+    private boolean working;
 
     public float getDelta() {
         long aux = time;
@@ -67,15 +67,15 @@ public class TileSteamEngine extends TileConductorLow implements IFluidHandler1_
         }
     }
 
+    public boolean isActive() {
+        return getBlockMetadata() > 5;
+    }
+
     private void setActive(boolean b) {
         if (b)
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() + 6, 2);
         else
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() - 6, 2);
-    }
-
-    public boolean isActive() {
-        return getBlockMetadata() > 5;
     }
 
     @Override

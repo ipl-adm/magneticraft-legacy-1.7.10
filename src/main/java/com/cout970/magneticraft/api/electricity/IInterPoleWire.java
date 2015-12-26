@@ -6,9 +6,9 @@ import net.minecraft.world.World;
 
 public interface IInterPoleWire {
 
-    void setWorld(World w);
-
     World getWorld();
+
+    void setWorld(World w);
 
     void iterate();
 

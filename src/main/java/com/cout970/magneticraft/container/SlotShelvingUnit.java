@@ -9,9 +9,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class SlotShelvingUnit extends Slot implements ISlotToggleable, ISlotLockable {
     public static final int HIDE_OFFSET = 1 << 20;
+    public static ResourceLocation BG_LOCKED = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/slot_locked.png");
     public int baseX, baseY, invNum;
     public boolean hidden, locked;
-    public static ResourceLocation BG_LOCKED = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/slot_locked.png");
 
     public SlotShelvingUnit(IInventory inv, int index, int dx, int dy, int number) {
         super(inv, index, dx, dy);

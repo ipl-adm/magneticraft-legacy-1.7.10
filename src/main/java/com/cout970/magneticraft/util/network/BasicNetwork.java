@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.util.network;
 
+import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.api.util.VectorOffset;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VectorOffset;
 
 public class BasicNetwork {
 

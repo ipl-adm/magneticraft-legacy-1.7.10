@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.block.slabs;
 
-        import com.cout970.magneticraft.ManagerBlocks;
-        import net.minecraft.block.BlockSlab;
+import com.cout970.magneticraft.ManagerBlocks;
+import net.minecraft.block.BlockSlab;
 
 public class BlockCobbleLimeSlab extends BlockMgSlab {
 

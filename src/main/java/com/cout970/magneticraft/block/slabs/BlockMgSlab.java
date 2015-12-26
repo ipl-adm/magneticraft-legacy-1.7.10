@@ -1,9 +1,6 @@
 package com.cout970.magneticraft.block.slabs;
 
-import java.util.Random;
-
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public abstract class BlockMgSlab extends BlockSlab {
 

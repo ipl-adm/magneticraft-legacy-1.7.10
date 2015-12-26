@@ -27,17 +27,13 @@ import java.util.ArrayList;
 
 public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSync, IClientInformer, IGuiListener, IBusWire {
 
-    private IModuleMemoryController memory;
-    private IModuleDiskDrive floppyDisk;
-    private IModuleCPU cpu;
-    private IModuleROM rom;
-    private InventoryComponent inv = new InventoryComponent(this, 16, "R.E.D.");
     public int droidAction = -1;//0 move front, 1 move back
     public int droidProgress = -1;
     public boolean activate = true;
-    private long time;
     public int drillAnim;
-
+    public MonitorPeripheral monitor = new MonitorPeripheral(this);
+    private IModuleMemoryController memory;
+    private IModuleDiskDrive floppyDisk;
     public InventoryComponent extras = new InventoryComponent(this, 2, "R.E.D.") {
 
         @Override
@@ -56,7 +52,9 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
             return 1;
         }
     };
-
+    private IModuleCPU cpu;
+    private IModuleROM rom;
+    private InventoryComponent inv = new InventoryComponent(this, 16, "R.E.D.");
     public IPeripheral droid = new IPeripheral() {
 
         public int address = 0xa;
@@ -106,9 +104,7 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
             return TileDroidRED.this;
         }
     };
-
-    public MonitorPeripheral monitor = new MonitorPeripheral(this);
-
+    private long time;
 
     public void create() {
         memory = new ModuleMemoryController(0x10000, false, 8);
@@ -221,12 +217,12 @@ public class TileDroidRED extends TileConductorLow implements IComputer, IGuiSyn
         }
     }
 
-    private void setOrientation(Orientation o) {
-        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, o.ordinal(), 3);
-    }
-
     public Orientation getOrientation() {
         return Orientation.fromMeta(getBlockMetadata());
+    }
+
+    private void setOrientation(Orientation o) {
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, o.ordinal(), 3);
     }
 
     public void move(boolean front) {

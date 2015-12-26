@@ -3,7 +3,9 @@ package com.cout970.magneticraft.container;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.InventoryComponent;
-import invtweaks.api.container.*;
+import invtweaks.api.container.ChestContainer;
+import invtweaks.api.container.ContainerSection;
+import invtweaks.api.container.ContainerSectionCallback;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -13,9 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.CRATE_SIZE;
-import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.MAX_CRATES;
-import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.SHELF_CRATES;
+import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.*;
 
 @SuppressWarnings("unchecked")
 @ChestContainer

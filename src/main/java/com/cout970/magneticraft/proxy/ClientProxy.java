@@ -5,7 +5,6 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.client.itemrenderer.*;
 import com.cout970.magneticraft.client.tilerender.*;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.handlers.TooltipHandler;
 import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
@@ -63,14 +62,14 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.wooden_shaft), new ItemRenderWoodenShaft());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.diode), new ItemRenderDiode());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.resistance), new ItemRenderResistance());
-        if (ManagerIntegration.COFH_ENERGY) {
+        if (Magneticraft.COFH_ENERGY) {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rf_alternator), new ItemRenderRFAlternator());
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.kinetic), new ItemRenderKineticGenerator());
         }
-        if (ManagerIntegration.IC2) {
+        if (Magneticraft.IC2) {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.eu_alternator), new ItemRenderEUAlternator());
         }
-        if (ManagerIntegration.RAILCRAFT) {
+        if (Magneticraft.RAILCRAFT) {
             MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.rc_alternator), new ItemRenderRCAlternator());
         }
         if (Magneticraft.DEBUG) {
@@ -111,18 +110,17 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileHandCrankGenerator.class, new TileRenderHandCrank());
         ClientRegistry.bindTileEntitySpecialRenderer(TileDiode.class, new TileRenderDiode());
         ClientRegistry.bindTileEntitySpecialRenderer(TileResistance.class, new TileRenderResistance());
-        if (ManagerIntegration.COFH_ENERGY) {
+        if (Magneticraft.COFH_ENERGY) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileRFAlternator.class, new TileRenderRFAlternator());
             ClientRegistry.bindTileEntitySpecialRenderer(TileKineticGenerator.class, new TileRenderKineticGenerator());
         }
-        if (ManagerIntegration.IC2) {
+        if (Magneticraft.IC2) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileEUAlternator.class, new TileRenderEUAlternator());
         }
-        if (ManagerIntegration.RAILCRAFT) {
+        if (Magneticraft.RAILCRAFT) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileRCAlternator.class, new TileRenderRCAlternator());
         }
         if (Magneticraft.DEBUG) {
-            ClientRegistry.bindTileEntitySpecialRenderer(TileSprinkler.class, new TileRenderSprinkler());
         }
         ClientRegistry.bindTileEntitySpecialRenderer(TileElectricPoleCableWire.class, new TileRenderPoleCableWire());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSifter.class, new TileRenderSifter());

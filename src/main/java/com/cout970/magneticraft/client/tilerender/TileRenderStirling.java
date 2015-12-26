@@ -29,8 +29,25 @@ public class TileRenderStirling extends TileEntitySpecialRenderer {
             glTranslated(x, y, z);
             glRotatef(180, 1, 0, 0);
             glRotatef(-90, 0, 1, 0);
-
-            RenderUtil.applyRotation(tile.getDirection());
+            switch (tile.getDirection()) {
+                case NORTH:
+                    GL11.glRotatef(-90, 0, 1, 0);
+                    GL11.glTranslated(-1.5, -0.5, 0.5);
+                    break;
+                case SOUTH:
+                    GL11.glRotatef(90, 0, 1, 0);
+                    GL11.glTranslated(-0.5, -0.5, -0.5);
+                    break;
+                case WEST:
+                    GL11.glRotatef(180, 0, 1, 0);
+                    GL11.glTranslated(-0.5, -0.5, 0.5);
+                    break;
+                case EAST:
+                    GL11.glTranslated(-1.5, -0.5, -0.5);
+                    break;
+                default:
+                    break;
+            }
 
             if (tile.isWorking()) RenderUtil.bindTexture(ModelTextures.STIRLING_ON);
             else RenderUtil.bindTexture(ModelTextures.STIRLING_OFF);

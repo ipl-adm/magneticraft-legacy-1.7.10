@@ -16,13 +16,13 @@ public class TileMB_Base extends TileBase implements MB_Tile {
     public MgDirection dire;
 
     @Override
-    public void setControlPos(VecInt blockPosition) {
-        control = blockPosition;
+    public VecInt getControlPos() {
+        return control;
     }
 
     @Override
-    public VecInt getControlPos() {
-        return control;
+    public void setControlPos(VecInt blockPosition) {
+        control = blockPosition;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {
@@ -66,12 +66,12 @@ public class TileMB_Base extends TileBase implements MB_Tile {
     }
 
     @Override
-    public void setDirection(MgDirection e) {
-        dire = e;
+    public MgDirection getDirection() {
+        return dire;
     }
 
     @Override
-    public MgDirection getDirection() {
-        return dire;
+    public void setDirection(MgDirection e) {
+        dire = e;
     }
 }

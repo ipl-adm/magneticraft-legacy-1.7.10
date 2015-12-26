@@ -1,11 +1,10 @@
 package com.cout970.magneticraft.items;
 
+import cofh.api.energy.IEnergyContainerItem;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
-import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -46,7 +45,7 @@ public class ItemToolCharger extends ItemCharged {
                                 discharge(item, toMove);
                             }
                         }
-                    } else if (ManagerIntegration.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
+                    } else if (Magneticraft.COFH_ENERGY && (it instanceof IEnergyContainerItem)) {//calcs in RF
                         IEnergyContainerItem st = (IEnergyContainerItem) it;
                         int space = st.getMaxEnergyStored(s) - st.getEnergyStored(s);
                         int toMove = (int) Math.min(space, EnergyConverter.WtoRF(getCharge(item)));

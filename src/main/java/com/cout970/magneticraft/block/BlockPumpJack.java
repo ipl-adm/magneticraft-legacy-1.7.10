@@ -30,10 +30,14 @@ public class BlockPumpJack extends BlockMg {
     }
 
     public Item getItemDropped(int meta, Random rand, int fort) {
+        if (meta >= 4) return null;
         return Item.getItemFromBlock(this);
     }
 
     public void breakBlock(World w, int x, int y, int z, Block b, int meta) {
+        if (hasTileEntity(meta) && !(this instanceof BlockContainer)) {
+            w.removeTileEntity(x, y, z);
+        }
         if (meta >= MgDirection.AXIX_Y.length) {
             meta -= 4;
             if (meta >= MgDirection.AXIX_Y.length) {

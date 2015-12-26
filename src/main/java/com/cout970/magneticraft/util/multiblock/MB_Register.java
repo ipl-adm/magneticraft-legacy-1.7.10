@@ -7,7 +7,6 @@ import java.util.List;
 
 public class MB_Register {
 
-    private static List<Multiblock> mb = new ArrayList<>();
     public static final int ID_REFINERY = 0;
     public static final int ID_CRUSHER = 1;
     public static final int ID_GRINDER = 2;
@@ -17,7 +16,7 @@ public class MB_Register {
     public static final int ID_OIL_DISTILLERY = 6;
     public static final int ID_GRINDING_MILL = 7;
     public static final int ID_SIFTER = 8;
-
+    private static List<Multiblock> mb = new ArrayList<>();
 
     public static void init() {
         mb.add(new MultiblockRefinery());

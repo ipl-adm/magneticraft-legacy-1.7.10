@@ -1,10 +1,9 @@
 package com.cout970.magneticraft.items;
 
+import codechicken.lib.vec.BlockCoord;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileMirror;
 import com.cout970.magneticraft.tileentity.TileSolarTowerCore;
-
-import codechicken.lib.vec.BlockCoord;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

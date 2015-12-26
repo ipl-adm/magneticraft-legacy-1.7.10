@@ -18,6 +18,15 @@ public class RecipePolymerizer {
         this.minTemperature = minTemperature;
     }
 
+    public static RecipePolymerizer getRecipe(ItemStack i) {
+        for (RecipePolymerizer r : MgRecipeRegister.polymerizer) {
+            if (r.matches(i)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     public FluidStack getFluid() {
         return fluid;
     }
@@ -32,15 +41,6 @@ public class RecipePolymerizer {
 
     public double getTemperature() {
         return minTemperature;
-    }
-
-    public static RecipePolymerizer getRecipe(ItemStack i) {
-        for (RecipePolymerizer r : MgRecipeRegister.polymerizer) {
-            if (r.matches(i)) {
-                return r;
-            }
-        }
-        return null;
     }
 
     public boolean matches(ItemStack item) {

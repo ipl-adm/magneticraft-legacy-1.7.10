@@ -35,6 +35,20 @@ public class BlockCopperTank extends BlockMg implements MB_Block {
         setLightOpacity(0);
     }
 
+    public static ItemStack consumeItem(ItemStack stack) {
+        if (stack.stackSize == 1) {
+            if (stack.getItem().hasContainerItem(stack)) {
+                return stack.getItem().getContainerItem(stack);
+            } else {
+                return null;
+            }
+        } else {
+            stack.splitStack(1);
+
+            return stack;
+        }
+    }
+
     @Override
     public TileEntity createNewTileEntity(World w, int m) {
         return new TileCopperTank();
@@ -97,20 +111,6 @@ public class BlockCopperTank extends BlockMg implements MB_Block {
         }
 
         return false;
-    }
-
-    public static ItemStack consumeItem(ItemStack stack) {
-        if (stack.stackSize == 1) {
-            if (stack.getItem().hasContainerItem(stack)) {
-                return stack.getItem().getContainerItem(stack);
-            } else {
-                return null;
-            }
-        } else {
-            stack.splitStack(1);
-
-            return stack;
-        }
     }
 
     public boolean isOpaqueCube() {

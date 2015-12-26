@@ -12,13 +12,12 @@ import java.util.Locale;
 
 public class ItemMeta extends Item {
     public static final String name_base = "magneticraft:";
+    public IIcon[] icons;
     private String[] unloc_names;
     private String[] texture_names;
     private String[] oreDict_names;
     private String[] en_US_names;
     private int meta_amount;
-
-    public IIcon[] icons;
 
     public ItemMeta(String masterUnlocName, int nlength) {
         super();

@@ -80,5 +80,4 @@ public class ModelTextures {
     public static final ResourceLocation CRUSHING_TABLE = new ResourceLocation("magneticraft", "textures/misc/modelcrushingtable.png");
     public static final ResourceLocation SHELVING_UNIT = new ResourceLocation("magneticraft", "textures/misc/modelshelvingunit.png");
 	public static final ResourceLocation PUMPJACK = new ResourceLocation("magneticraft", "textures/misc/model_pumpjack.png");
-    public static final ResourceLocation SPRINKLER = new ResourceLocation("magneticraft", "textures/misc/model_sprinkler.png");
 }

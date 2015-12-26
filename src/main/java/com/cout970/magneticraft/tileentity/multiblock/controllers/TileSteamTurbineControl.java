@@ -34,8 +34,6 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
     public int drawCounter;
     public float animation;
     public float speed;
-    private long time;
-    private double[] flow = new double[1];
     public IElectricConductor cond = new ElectricConductor(this, 1, ElectricConstants.RESISTANCE_COPPER_MED) {
         @Override
         public double getVoltageCapacity() {
@@ -43,6 +41,8 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
         }
 
     };
+    private long time;
+    private double[] flow = new double[1];
 
     private void updateConductor() {
         if (out == null) return;
@@ -51,6 +51,13 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
 
     public boolean isActive() {
         return getBlockMetadata() > 6;
+    }
+
+    private void setActive(boolean b) {
+        if (b)
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6 + 6, 2);
+        else
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6, 2);
     }
 
     public void updateEntity() {
@@ -90,9 +97,6 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
         int sum = getFluidAmount();
         int rest = sum % 4;
         for (TankMg t : in) {
-            if (t == null) {
-                continue;
-            }
             t.setFluid(null);
             t.fill(FluidRegistry.getFluidStack("steam", sum / 4), true);
             if (rest > 0)
@@ -154,13 +158,6 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
     @Override
     public void onActivate(World w, VecInt p, Multiblock c, MgDirection e) {
         setActive(true);
-    }
-
-    private void setActive(boolean b) {
-        if (b)
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6 + 6, 2);
-        else
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6, 2);
     }
 
     public int getCapacity() {

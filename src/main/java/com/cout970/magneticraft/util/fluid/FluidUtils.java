@@ -1,8 +1,6 @@
 package com.cout970.magneticraft.util.fluid;
 
 
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import net.minecraft.tileentity.TileEntity;
@@ -71,23 +69,23 @@ public class FluidUtils {
     }
 
     public static boolean isPipe(TileEntity g) {
-        if (g instanceof TileMultipart) {
-            TileMultipart mp = (TileMultipart) g;
-            for (TMultiPart p : mp.jPartList()) {
-                if (p instanceof IFluidTransport) return true;
-            }
-        }
+//        if (g instanceof TileMultipart) {
+//            TileMultipart mp = (TileMultipart) g;
+//            for (TMultiPart p : mp.jPartList()) {
+//                if (p instanceof IFluidTransport) return true;
+//            }
+//        }
         return g instanceof IFluidTransport;
     }
 
     public static IFluidTransport getFluidTransport(TileEntity e) {
         if (e instanceof IFluidTransport) return (IFluidTransport) e;
-        if (e instanceof TileMultipart) {
-            TileMultipart mp = (TileMultipart) e;
-            for (TMultiPart p : mp.jPartList()) {
-                if (p instanceof IFluidTransport) return (IFluidTransport) p;
-            }
-        }
+//        if (e instanceof TileMultipart) {
+//            TileMultipart mp = (TileMultipart) e;
+//            for (TMultiPart p : mp.jPartList()) {
+//                if (p instanceof IFluidTransport) return (IFluidTransport) p;
+//            }
+//        }
         return null;
     }
 }

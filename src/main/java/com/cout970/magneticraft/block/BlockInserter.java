@@ -1,7 +1,6 @@
 package com.cout970.magneticraft.block;
 
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.ManagerItems;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;

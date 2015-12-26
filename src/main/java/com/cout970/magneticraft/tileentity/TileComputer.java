@@ -26,33 +26,10 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IComputer, IBusWire, ITileHandlerNBT {
 
+    public int addres = 0;
     private IModuleCPU procesor;
     private IModuleMemoryController memory;
     private IModuleROM rom;
-    private ModuleHardDrive hardDrive;
-    private ModuleDiskDrive floppyDrive;
-    private boolean isRuning;
-    public int addres = 0;
-
-    private InventoryComponent inv = new InventoryComponent(this, 5, "Computer") {
-        @Override
-        public void setInventorySlotContents(int slot, ItemStack itemStack) {
-            inventory[slot] = itemStack;
-
-            if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit()) {
-                itemStack.stackSize = this.getInventoryStackLimit();
-            }
-            markDirty();
-            if (slot == 3) hardDrive.insertDisk(itemStack);
-            if (slot == 4) floppyDrive.insertDisk(itemStack);
-        }
-
-        @Override
-        public int getInventoryStackLimit() {
-            return 1;
-        }
-    };
-
     public IPeripheral motherboard = new IPeripheral() {
 
         @Override
@@ -92,6 +69,27 @@ public class TileComputer extends TileBase implements IGuiListener, IGuiSync, IC
         @Override
         public String getName() {
             return "Computer";
+        }
+    };
+    private ModuleHardDrive hardDrive;
+    private ModuleDiskDrive floppyDrive;
+    private boolean isRuning;
+    private InventoryComponent inv = new InventoryComponent(this, 5, "Computer") {
+        @Override
+        public void setInventorySlotContents(int slot, ItemStack itemStack) {
+            inventory[slot] = itemStack;
+
+            if (itemStack != null && itemStack.stackSize > this.getInventoryStackLimit()) {
+                itemStack.stackSize = this.getInventoryStackLimit();
+            }
+            markDirty();
+            if (slot == 3) hardDrive.insertDisk(itemStack);
+            if (slot == 4) floppyDrive.insertDisk(itemStack);
+        }
+
+        @Override
+        public int getInventoryStackLimit() {
+            return 1;
         }
     };
 

@@ -15,6 +15,7 @@ import java.util.Random;
 public class BlockOre extends Block {
 
     public String name;
+    private Random rand = new Random();
 
     public BlockOre(String n, String tool, int harvestLevel) {
         super(Material.rock);
@@ -67,8 +68,6 @@ public class BlockOre extends Block {
     public void dropBlockAsItemWithChance(World p_149690_1_, int p_149690_2_, int p_149690_3_, int p_149690_4_, int p_149690_5_, float p_149690_6_, int p_149690_7_) {
         super.dropBlockAsItemWithChance(p_149690_1_, p_149690_2_, p_149690_3_, p_149690_4_, p_149690_5_, p_149690_6_, p_149690_7_);
     }
-
-    private Random rand = new Random();
 
     @Override
     public int getExpDrop(IBlockAccess p_149690_1_, int p_149690_5_, int p_149690_7_) {

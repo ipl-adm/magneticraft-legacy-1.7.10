@@ -1,13 +1,12 @@
 package com.cout970.magneticraft.items;
 
-import java.io.File;
-
 import com.cout970.magneticraft.api.computer.IStorageDevice;
 import com.cout970.magneticraft.api.computer.prefab.ComputerUtils;
 import com.cout970.magneticraft.api.util.NBTUtils;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import net.minecraft.item.ItemStack;
+
+import java.io.File;
 
 public class ItemFloppyDisk extends ItemBasic implements IStorageDevice {
 

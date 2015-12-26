@@ -70,7 +70,7 @@ public class ManagerItems {
     public static Item tool_jackhammer;
     public static Item heavy_copper_coil;
     public static Item tool_charger;
-    public static Item part_optic_fiber;
+    //    public static Item part_optic_fiber;
     public static Item dustBrass;
     public static Item stick_iron;
     public static Item small_battery;
@@ -81,7 +81,7 @@ public class ManagerItems {
     public static Item upgrade_suck;
     public static Item upgrade_slow;
     public static Item rubber;
-    public static Item part_brass_pipe;
+    //    public static Item part_brass_pipe;
     public static Item hammer_stone;
     public static Item hammer_iron;
     public static Item manometer;
@@ -167,7 +167,7 @@ public class ManagerItems {
         tool_jackhammer = new ItemJackHammer("jack_hammer");
         heavy_copper_coil = new ItemHeavyCopperCoil("heavy_copper_coil");
         tool_charger = new ItemToolCharger("tool_charger");
-        part_optic_fiber = new ItemPartOpticFiber("optic_fiber");
+//        part_optic_fiber = new ItemPartOpticFiber("optic_fiber");
         dustBrass = new ItemBasic("dustBrass", "dust_brass");
         stick_iron = new ItemBasic("stick_iron");
         small_battery = new ItemSmallBattery("battery_small");
@@ -178,7 +178,7 @@ public class ManagerItems {
         upgrade_suck = new ItemBasic("inserter_item_suck_upgrade");
         upgrade_slow = new ItemBasic("inserter_item_slow_upgrade");
         rubber = new ItemBasic("rubber");
-        part_brass_pipe = new ItemPartBrassPipe("brass_pipe");
+//        part_brass_pipe = new ItemPartBrassPipe("brass_pipe");
         hammer_stone = new ItemHammerStone("stone_hammer");
         hammer_iron = new ItemHammerIron("iron_hammer");
         manometer = new ItemManometer("manometer");
@@ -238,7 +238,7 @@ public class ManagerItems {
         addItem(tool_jackhammer, "Jackhammer");
         addItem(heavy_copper_coil, "Heavy Copper Coil");
         addItem(tool_charger, "Tool Charger");
-        addItem(part_optic_fiber, "Optic Fiber");
+//        addItem(part_optic_fiber, "Optic Fiber");
         addItem(dustBrass, "Brass Dust");
         addItem(stick_iron, "Iron Stick");
         addItem(small_battery, "Small Battery");
@@ -249,7 +249,7 @@ public class ManagerItems {
         addItem(upgrade_speed, "Inserter Upgrade: Increase Speed");
         addItem(upgrade_slow, "Inserter Upgrade: Decrease Speed");
         addItem(rubber, "Rubber Sheet");
-        addItem(part_brass_pipe, "Brass Pipe");
+//        addItem(part_brass_pipe, "Brass Pipe");
         addItem(hammer_stone, "Stone Hammer");
         addItem(hammer_iron, "Iron Hammer");
         if (Magneticraft.DEBUG) {

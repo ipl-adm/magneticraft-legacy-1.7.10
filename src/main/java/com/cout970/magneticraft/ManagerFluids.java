@@ -1,5 +1,6 @@
 package com.cout970.magneticraft;
 
+import blusunrize.immersiveengineering.api.energy.DieselHandler;
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import com.cout970.magneticraft.block.fluids.*;
 import com.cout970.magneticraft.handlers.FluidFuelHandler;
@@ -11,25 +12,9 @@ import net.minecraft.block.Block;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import blusunrize.immersiveengineering.api.energy.DieselHandler;
-
 import java.util.HashMap;
 
 public class ManagerFluids {
-
-    public static Fluid steam;
-    public static Fluid oil;
-    public static Fluid heavyOil;
-    public static Fluid lightOil;
-    public static Fluid naturalGas;
-    public static Fluid hotCrude;
-
-    public static Block steamBlock;
-    public static Block oilBlock;
-    public static Block lightOilBlock;
-    public static Block heavyOilBlock;
-    public static Block naturalGasBlock;
-    public static Block hotCrudeBlock;
 
     //names
     public static final String STEAM_NAME = "steam";
@@ -38,7 +23,18 @@ public class ManagerFluids {
     public static final String LIGHT_OIL = "lightoil";
     public static final String NATURAL_GAS = "naturalgas";
     public static final String HOT_CRUDE = "hotcrude";
-
+    public static Fluid steam;
+    public static Fluid oil;
+    public static Fluid heavyOil;
+    public static Fluid lightOil;
+    public static Fluid naturalGas;
+    public static Fluid hotCrude;
+    public static Block steamBlock;
+    public static Block oilBlock;
+    public static Block lightOilBlock;
+    public static Block heavyOilBlock;
+    public static Block naturalGasBlock;
+    public static Block hotCrudeBlock;
     public static HashMap<Fluid, BlockFuel> fuels;
 
     public static void initFluids() {

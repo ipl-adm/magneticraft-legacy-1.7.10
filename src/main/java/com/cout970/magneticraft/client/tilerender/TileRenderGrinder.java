@@ -33,22 +33,35 @@ public class TileRenderGrinder extends TileEntitySpecialRenderer {
             glTranslated(x, y, z);
             glRotatef(180, 1, 0, 0);
             glRotatef(-90, 0, 1, 0);
-            RenderUtil.applyRotation(tile.getDirection());
+            switch (tile.getDirection()) {
+                case NORTH:
+                    GL11.glRotatef(-90, 0, 1, 0);
+                    GL11.glTranslated(-1.5, -0.5, 0.5);
+                    break;
+                case SOUTH:
+                    GL11.glRotatef(90, 0, 1, 0);
+                    GL11.glTranslated(-0.5, -0.5, -0.5);
+                    break;
+                case WEST:
+                    GL11.glRotatef(180, 0, 1, 0);
+                    GL11.glTranslated(-0.5, -0.5, 0.5);
+                    break;
+                case EAST:
+                    GL11.glTranslated(-1.5, -0.5, -0.5);
+                    break;
+                default:
+                    break;
+            }
 
             if (tile.isWorking()) {
                 tile.rotation += (tile.getDelta() / 1E6) * 0.5;
                 if (tile.rotation > 1000) tile.rotation %= 1000;
             } else {
-                if (tile.rotation < 1000) {
-                    tile.rotation += (tile.getDelta() / 1E6) * 0.5;
-                    if (tile.rotation > 1000) {
-                        tile.rotation = 1000;
-                    }
-                }
+                if (tile.rotation < 1000) tile.rotation += (tile.getDelta() / 1E6) * 0.5;
             }
             RenderUtil.bindTexture(ModelTextures.GRINDER);
             model.renderStatic(0.0625f);
-            model.renderDynamic(0.0625f, (float) (tile.rotation * Math.PI * 2 / 1000f));
+            model.renderDynamic(0.0625f, (float) Math.toRadians(tile.rotation * 360 / 1000f));
             glPopMatrix();
         }
     }

@@ -21,18 +21,6 @@ public class BlockSteamEngine extends BlockMg {
         setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
     }
 
-    @Override
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileSteamEngine();
-    }
-
-    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int par6, float par7, float par8, float par9) {
-
-        if (p.isSneaking()) return false;
-        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
-        return true;
-    }
-
     public static ItemStack consumeItem(ItemStack stack) {
         if (stack.stackSize == 1) {
             if (stack.getItem().hasContainerItem(stack)) {
@@ -44,6 +32,18 @@ public class BlockSteamEngine extends BlockMg {
             stack.splitStack(1);
             return stack;
         }
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+        return new TileSteamEngine();
+    }
+
+    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int par6, float par7, float par8, float par9) {
+
+        if (p.isSneaking()) return false;
+        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
+        return true;
     }
 
     @Override

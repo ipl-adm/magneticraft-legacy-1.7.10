@@ -26,6 +26,15 @@ public class ModuleMemoryController implements IModuleMemoryController {
         littleEndian = little;
     }
 
+    public static int getRealAddress(IModuleMemoryController ram, int address) {
+        int mask = ComputerUtils.getBitsFromInt(address, 16, 31, false);
+        if (mask == 0x0040) {
+            return (address - 0x00400000) & 0xFFFF;//Program Code Space
+        }
+        if (mask == 0x1001) return ((address - 0x10010000) + 0x3000) & 0xFFFF;//Stack
+        return address & 0xFFFF;
+    }
+
     public int readWord(int pos) {
         int dato;
         if (littleEndian) {
@@ -138,16 +147,6 @@ public class ModuleMemoryController implements IModuleMemoryController {
         for (int i = 0; i < modules; i++) {
             nbt.setByteArray("Module_RAM_" + i, memory[i]);
         }
-    }
-
-
-    public static int getRealAddress(IModuleMemoryController ram, int address) {
-        int mask = ComputerUtils.getBitsFromInt(address, 16, 31, false);
-        if (mask == 0x0040) {
-            return (address - 0x00400000) & 0xFFFF;//Program Code Space
-        }
-        if (mask == 0x1001) return ((address - 0x10010000) + 0x3000) & 0xFFFF;//Stack
-        return address & 0xFFFF;
     }
 
     @Override

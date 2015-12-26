@@ -24,6 +24,17 @@ public enum Orientation {
         this.dir = dir;
     }
 
+    public static Orientation find(int level, MgDirection dir) {
+        for (Orientation o : values()) {
+            if (o.level == level && o.dir == dir) return o;
+        }
+        return null;
+    }
+
+    public static Orientation fromMeta(int meta) {
+        return values()[meta % values().length];
+    }
+
     public MgDirection getDirection() {
         return dir;
     }
@@ -32,22 +43,11 @@ public enum Orientation {
         return level;
     }
 
-    public static Orientation find(int level, MgDirection dir) {
-        for (Orientation o : values()) {
-            if (o.level == level && o.dir == dir) return o;
-        }
-        return null;
-    }
-
     public Orientation rotateY(boolean left) {
         return find(level, dir.step(left ? MgDirection.DOWN : MgDirection.UP));
     }
 
     public int toMeta() {
         return ordinal();
-    }
-
-    public static Orientation fromMeta(int meta) {
-        return values()[meta % values().length];
     }
 }

@@ -1,11 +1,8 @@
 package com.cout970.magneticraft.tileentity;
 
-import java.util.Random;
-
 import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.block.BlockMg;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -17,11 +14,13 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.Random;
+
 public class TileCrushingTable extends TileBase {
 
-    private ItemStack ore;
     public int progress;
     public int maxProgress;
+    private ItemStack ore;
 
     @Override
     public void onBlockBreaks() {
@@ -51,13 +50,13 @@ public class TileCrushingTable extends TileBase {
         nbt.setInteger("progress", progress);
     }
 
+    public ItemStack getInput() {
+        return ore;
+    }
+
     public void setInput(ItemStack i) {
         ore = i;
         markDirty();
-    }
-
-    public ItemStack getInput() {
-        return ore;
     }
 
     public void tick(int maxHits) {

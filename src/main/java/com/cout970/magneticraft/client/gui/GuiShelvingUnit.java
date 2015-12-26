@@ -2,7 +2,6 @@ package com.cout970.magneticraft.client.gui;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerNetwork;
-import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.gui.component.*;
 import com.cout970.magneticraft.container.ContainerShelvingUnit;
 import com.cout970.magneticraft.container.SlotShelvingUnit;
@@ -20,19 +19,18 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.cout970.magneticraft.client.gui.component.CompButton.*;
+import static com.cout970.magneticraft.client.gui.component.CompButton.ButtonState;
 
 public class GuiShelvingUnit extends GuiBasic {
     private static final ResourceLocation BG_DISABLED = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/shelving_unit_disabled.png");
     private static final MultilineString CRATE_MESSAGE = new MultilineString("{{0:-20}}This shelving unit{{0:-10}}has no crates!{{0:0}}Right-click it with a chest{{0:10}}to add one.");
+    public List<CompButton> tabButtons;
     private CompScrollBar scrollBar;
     private ContainerShelvingUnit shelfContainer;
     private int lastCrateCount;
     private int slotRenewal;
     private TileShelvingUnit shelf;
-    public List<CompButton> tabButtons;
     private CompTextField textField;
 
     public GuiShelvingUnit(Container c, TileEntity tile) {

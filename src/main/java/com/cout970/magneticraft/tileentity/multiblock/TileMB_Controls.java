@@ -14,6 +14,32 @@ import java.util.List;
 
 public class TileMB_Controls extends TileMB_Base {
 
+    public static boolean isHited(Cuboid6 c, Vector3 v) {
+        if (c == null || v == null) return false;
+        if ((float) c.max.y == (float) v.y || (float) c.min.y == (float) v.y) {
+            if ((c.min.x <= v.x) && (c.max.x >= v.x)) {
+                if ((c.min.z <= v.z) && (c.max.z >= v.z)) {
+                    return true;
+                }
+            }
+        }
+        if ((float) c.max.x == (float) v.x || (float) c.min.x == (float) v.x) {
+            if ((c.min.y <= v.y) && (c.max.y >= v.y)) {
+                if ((c.min.z <= v.z) && (c.max.z >= v.z)) {
+                    return true;
+                }
+            }
+        }
+        if ((float) c.max.z == (float) v.z || (float) c.min.z == (float) v.z) {
+            if ((c.min.x <= v.x) && (c.max.x >= v.x)) {
+                if ((c.min.y <= v.y) && (c.max.y >= v.y)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean onClick(MovingObjectPosition hit) {
         if (multi != null && multi.getID() == MB_Register.ID_SIFTER) {
             TileEntity tile = control.getTileEntity(worldObj);
@@ -89,31 +115,5 @@ public class TileMB_Controls extends TileMB_Base {
             list.add(new IndexedCuboid6(0, new Cuboid6(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1)));
         }
         return list;
-    }
-
-    public static boolean isHited(Cuboid6 c, Vector3 v) {
-        if (c == null || v == null) return false;
-        if ((float) c.max.y == (float) v.y || (float) c.min.y == (float) v.y) {
-            if ((c.min.x <= v.x) && (c.max.x >= v.x)) {
-                if ((c.min.z <= v.z) && (c.max.z >= v.z)) {
-                    return true;
-                }
-            }
-        }
-        if ((float) c.max.x == (float) v.x || (float) c.min.x == (float) v.x) {
-            if ((c.min.y <= v.y) && (c.max.y >= v.y)) {
-                if ((c.min.z <= v.z) && (c.max.z >= v.z)) {
-                    return true;
-                }
-            }
-        }
-        if ((float) c.max.z == (float) v.z || (float) c.min.z == (float) v.z) {
-            if ((c.min.x <= v.x) && (c.max.x >= v.x)) {
-                if ((c.min.y <= v.y) && (c.max.y >= v.y)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

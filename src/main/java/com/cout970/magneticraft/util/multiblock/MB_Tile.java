@@ -6,9 +6,9 @@ import net.minecraft.world.World;
 
 public interface MB_Tile {
 
-    void setControlPos(VecInt blockPosition);
-
     VecInt getControlPos();
+
+    void setControlPos(VecInt blockPosition);
 
     void onDestroy(World w, VecInt p, Multiblock c, MgDirection e);
 
@@ -18,7 +18,7 @@ public interface MB_Tile {
 
     void setMultiblock(Multiblock m);
 
-    void setDirection(MgDirection e);
-
     MgDirection getDirection();
+
+    void setDirection(MgDirection e);
 }

@@ -1,14 +1,12 @@
 package com.cout970.magneticraft.items;
 
-import org.lwjgl.opengl.GL11;
-
 import com.cout970.magneticraft.api.tool.IWindTurbine;
 import com.cout970.magneticraft.api.util.IRenderable;
 import com.cout970.magneticraft.client.model.ModelWindMillBig;
 import com.cout970.magneticraft.client.tilerender.ModelTextures;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class ItemTurbine extends ItemBasic implements IWindTurbine {
 

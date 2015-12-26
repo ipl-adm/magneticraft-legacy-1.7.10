@@ -8,11 +8,11 @@ public interface IFluidTransport {
 
     TileEntity getTileEntity();
 
-    void setNetwork(FluidNetwork fluidNetwork);
-
     void onNetworkUpdate();
 
     FluidNetwork getNetwork();
+
+    void setNetwork(FluidNetwork fluidNetwork);
 
     IFluidTank getTank();
 

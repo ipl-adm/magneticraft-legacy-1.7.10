@@ -2,7 +2,6 @@ package com.cout970.magneticraft.util;
 
 import codechicken.lib.vec.Vector3;
 import com.cout970.magneticraft.Magneticraft;
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecDouble;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.multiblock.*;
@@ -320,27 +319,5 @@ public class RenderUtil {
         t.addVertex(b.getX() + w, b.getY(), b.getZ());
 
 //		GL11.glDisable(GL11.GL_CULL_FACE);
-    }
-
-    public static void applyRotation(MgDirection direction) {
-        switch (direction) {
-            case NORTH:
-                GL11.glRotatef(-90, 0, 1, 0);
-                GL11.glTranslated(-1.5, -0.5, 0.5);
-                break;
-            case SOUTH:
-                GL11.glRotatef(90, 0, 1, 0);
-                GL11.glTranslated(-0.5, -0.5, -0.5);
-                break;
-            case WEST:
-                GL11.glRotatef(180, 0, 1, 0);
-                GL11.glTranslated(-0.5, -0.5, 0.5);
-                break;
-            case EAST:
-                GL11.glTranslated(-1.5, -0.5, -0.5);
-                break;
-            default:
-                break;
-        }
     }
 }

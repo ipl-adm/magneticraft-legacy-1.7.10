@@ -8,7 +8,6 @@ import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
 import com.cout970.magneticraft.util.tile.TilePressure;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;

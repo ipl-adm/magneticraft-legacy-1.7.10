@@ -104,15 +104,15 @@ public class TileBrickFurnace extends TileHeatConductor implements IInventoryMan
         }
     }
 
+    public boolean isActive() {
+        return getBlockMetadata() > 5;
+    }
+
     private void setActive(boolean b) {
         if (b)
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6 + 6, 2);
         else
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, getBlockMetadata() % 6, 2);
-    }
-
-    public boolean isActive() {
-        return getBlockMetadata() > 5;
     }
 
     @Override

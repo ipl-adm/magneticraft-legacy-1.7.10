@@ -1,12 +1,7 @@
 package com.cout970.magneticraft.api.electricity;
 
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
 import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.tileentity.TileEntity;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ElectricUtils {
 
@@ -34,10 +29,10 @@ public class ElectricUtils {
      * @return
      */
     public static IElectricConductor[] getElectricCond(TileEntity tile, VecInt f, int tier) {
-        if (tile instanceof TileMultipart) {
-            List<IElectricConductor> list = ((TileMultipart) tile).jPartList().stream().filter(m -> m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getElectricConductor(tier) != null).map(m -> ((IElectricMultiPart) m).getElectricConductor(tier)).collect(Collectors.toList());
-            return list.toArray(new IElectricConductor[list.size()]);
-        }
+//        if (tile instanceof TileMultipart) {
+//            List<IElectricConductor> list = ((TileMultipart) tile).jPartList().stream().filter(m -> m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getElectricConductor(tier) != null).map(m -> ((IElectricMultiPart) m).getElectricConductor(tier)).collect(Collectors.toList());
+//            return list.toArray(new IElectricConductor[list.size()]);
+//        }
         if (tile instanceof IElectricTile) return ((IElectricTile) tile).getConds(f, tier);
         return null;
     }

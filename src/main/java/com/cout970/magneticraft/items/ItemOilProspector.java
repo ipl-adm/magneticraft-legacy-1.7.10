@@ -4,7 +4,6 @@ import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.electricity.IBatteryItem;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

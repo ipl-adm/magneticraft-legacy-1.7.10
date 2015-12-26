@@ -5,7 +5,6 @@ import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.computer.IPeripheralProvider;
 import com.cout970.magneticraft.api.util.PathFinder;
 import com.cout970.magneticraft.api.util.VectorOffset;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 

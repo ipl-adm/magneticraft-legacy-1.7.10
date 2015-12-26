@@ -38,12 +38,12 @@ public class TileReactorActivator extends TileHeatConductor {
         }
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public int getLevel() {
         return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     private void search() {

@@ -1,16 +1,12 @@
 package com.cout970.magneticraft.util.network;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.cout970.magneticraft.api.util.VecInt;
-
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Finder {
 
@@ -26,9 +22,10 @@ public class Finder {
 		TileEntity tile = pos.getTileEntity(w);
 		if(tile != null && obj.getClass().isAssignableFrom(tile.getClass())){
 			list.add((T) tile);
-		}else if(tile instanceof TileMultipart){
-			list.addAll(((TileMultipart) tile).jPartList().stream().filter(part -> part != null && obj.getClass().isAssignableFrom(part.getClass())).map(part -> (T) part).collect(Collectors.toList()));
 		}
+//		else if(tile instanceof TileMultipart){
+//			list.addAll(((TileMultipart) tile).jPartList().stream().filter(part -> part != null && obj.getClass().isAssignableFrom(part.getClass())).map(part -> (T) part).collect(Collectors.toList()));
+//		}
 		return list;
 	}
 }

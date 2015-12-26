@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 
 public class CraftingPolymerizer extends TemplateRecipeHandler {
 
-    public List<RecipePolymerizer> recipes = new ArrayList<>();
     private static ResourceLocation tank = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/tank.png");
     private static ResourceLocation heat = new ResourceLocation(Magneticraft.NAME.toLowerCase() + ":textures/gui/heatbar.png");
+    public List<RecipePolymerizer> recipes = new ArrayList<>();
 
     @Override
     public String getRecipeName() {

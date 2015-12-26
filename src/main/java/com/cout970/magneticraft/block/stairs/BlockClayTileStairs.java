@@ -1,7 +1,6 @@
 package com.cout970.magneticraft.block.stairs;
 
 import com.cout970.magneticraft.ManagerBlocks;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.IIcon;

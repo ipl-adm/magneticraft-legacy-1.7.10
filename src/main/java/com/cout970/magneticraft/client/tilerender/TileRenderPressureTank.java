@@ -1,15 +1,13 @@
 package com.cout970.magneticraft.client.tilerender;
 
-import org.lwjgl.opengl.GL11;
-
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.tileentity.TilePressureTank;
 import com.cout970.magneticraft.util.CubeRenderer_Util;
-
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import org.lwjgl.opengl.GL11;
 
 public class TileRenderPressureTank extends TileEntitySpecialRenderer {
 

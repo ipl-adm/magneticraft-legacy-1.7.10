@@ -22,10 +22,10 @@ import java.util.Random;
 
 public class TileRenderCrusher extends TileEntitySpecialRenderer {
 
-    public ModelCrusherLeft model;
-    public ModelCrusherRight model2;
     private final RenderItem RenderItemMG;
     private final EntityItem itemEntity = new EntityItem(null);
+    public ModelCrusherLeft model;
+    public ModelCrusherRight model2;
 
     public TileRenderCrusher() {
         model = new ModelCrusherLeft();

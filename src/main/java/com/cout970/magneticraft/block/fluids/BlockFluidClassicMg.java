@@ -14,13 +14,11 @@ import net.minecraftforge.fluids.Fluid;
 public abstract class BlockFluidClassicMg extends BlockFluidClassic {
 
     public static Material fluidMaterial = Material.water;
-
+    public Fluid toIcon;
     @SideOnly(Side.CLIENT)
     protected IIcon stillIcon;
     @SideOnly(Side.CLIENT)
     protected IIcon flowingIcon;
-
-    public Fluid toIcon;
 
     public BlockFluidClassicMg(Fluid fluid, Material material) {
         super(fluid, material);

@@ -1,15 +1,14 @@
 package com.cout970.magneticraft.util.network.pressure;
 
-import java.util.List;
-
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.prefab.PressureConductor;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.util.network.NetworkNode;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.List;
 
 public class NodePressureConductor extends PressureConductor {
 
@@ -46,13 +45,13 @@ public class NodePressureConductor extends PressureConductor {
 		return getNet().getPressureCond().getVolume();
 	}
 
-	public double getVolumeNode() {
-		return volume;
-	}
-
 	@Override
 	public void setVolume(double vol) {
 		volume = vol;
+	}
+
+	public double getVolumeNode() {
+		return volume;
 	}
 
 	@Override
@@ -65,13 +64,13 @@ public class NodePressureConductor extends PressureConductor {
 		return getNet().getPressureCond().getTemperature();
 	}
 
-	public double getTemperatureNode() {
-		return temperature;
-	}
-
 	@Override
 	public void setTemperature(double temp) {
 		getNet().getPressureCond().setTemperature(temp);
+	}
+
+	public double getTemperatureNode() {
+		return temperature;
 	}
 
 	public void setTemperatureNode(double temp) {
@@ -83,13 +82,13 @@ public class NodePressureConductor extends PressureConductor {
 		return getNet().getPressureCond().getMoles();
 	}
 
-	public double getMolesNode() {
-		return moles;
-	}
-
 	@Override
 	public void setMoles(double mol) {
 		getNet().getPressureCond().setMoles(mol);
+	}
+
+	public double getMolesNode() {
+		return moles;
 	}
 
 	public void setMolesNode(double mol) {

@@ -40,6 +40,11 @@ public class KineticConductor implements IKineticConductor {
     }
 
     @Override
+    public void setLose(double lose) {
+        this.lose = lose;
+    }
+
+    @Override
     public void iterate() {
         lastSpeed = speed;
         speed = 0;
@@ -81,6 +86,11 @@ public class KineticConductor implements IKineticConductor {
     }
 
     @Override
+    public void setMass(double mass) {
+        this.mass = mass;
+    }
+
+    @Override
     public double getSpeed() {
         return lastSpeed;
     }
@@ -88,16 +98,6 @@ public class KineticConductor implements IKineticConductor {
     @Override
     public void setSpeed(double speed) {
         this.speed += speed;
-    }
-
-    @Override
-    public void setLose(double lose) {
-        this.lose = lose;
-    }
-
-    @Override
-    public void setMass(double mass) {
-        this.mass = mass;
     }
 
     @Override

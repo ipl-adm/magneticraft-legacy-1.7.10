@@ -31,9 +31,25 @@ public class TileRenderPolymerizer extends TileEntitySpecialRenderer {
             GL11.glTranslated(x, y, z);
             GL11.glRotatef(180, 0, 0, 1);
             GL11.glRotatef(90, 0, 1, 0);
-
-            RenderUtil.applyRotation(tile.getDirection());
-
+            switch (tile.getDirection()) {
+                case NORTH:
+                    GL11.glRotatef(-90, 0, 1, 0);
+                    GL11.glTranslated(-1.5, -0.5, 0.5);
+                    break;
+                case SOUTH:
+                    GL11.glRotatef(90, 0, 1, 0);
+                    GL11.glTranslated(-0.5, -0.5, -0.5);
+                    break;
+                case WEST:
+                    GL11.glRotatef(180, 0, 1, 0);
+                    GL11.glTranslated(-0.5, -0.5, 0.5);
+                    break;
+                case EAST:
+                    GL11.glTranslated(-1.5, -0.5, -0.5);
+                    break;
+                default:
+                    break;
+            }
             RenderUtil.bindTexture(ModelTextures.POLYMERIZER);
             model.renderStatic(0.0625f);
             if (tile.input != null) {

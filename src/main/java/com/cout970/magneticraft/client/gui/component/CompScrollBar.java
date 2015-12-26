@@ -6,11 +6,11 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class CompScrollBar implements IGuiComp {
+    public static ResourceLocation slider = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
     public GuiPoint posA, posB;
     public int curScroll, maxScroll, width, height;
     public double section;
     private boolean tracking;
-    public static ResourceLocation slider = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
 
     public CompScrollBar(GuiPoint a, GuiPoint b, int maxScroll) {
         posA = a;

@@ -30,12 +30,12 @@ public class TileElectricSwitch extends TileConductorLow {
         powerCut = powered = isPowered();
     }
 
-    public void setResistance(double res) {
-        cond.setResistance(res);
-    }
-
     public double getResistance() {
         return cond.getResistance();
+    }
+
+    public void setResistance(double res) {
+        cond.setResistance(res);
     }
 
 }

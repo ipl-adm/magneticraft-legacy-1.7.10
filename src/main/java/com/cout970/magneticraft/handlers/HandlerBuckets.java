@@ -58,7 +58,6 @@ public class HandlerBuckets {
         Block block = event.world.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
         if (block == ManagerBlocks.infinite_water) {
             event.setResult(Result.ALLOW);
-            event.result = new ItemStack(Items.water_bucket);
             return;
         }
         ItemStack result = fillCustomBucket(event.world, event.target);

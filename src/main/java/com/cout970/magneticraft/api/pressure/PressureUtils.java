@@ -1,7 +1,5 @@
 package com.cout970.magneticraft.api.pressure;
 
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
 import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -9,20 +7,19 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PressureUtils {
 
     public static IExplodable getExplodable(World world, VecInt pos) {
         TileEntity tile = pos.getTileEntity(world);
-        if (tile instanceof TileMultipart) {
-            TileMultipart mp = (TileMultipart) tile;
-            for (TMultiPart part : mp.jPartList()) {
-                if (part instanceof IExplodable) {
-                    return (IExplodable) part;
-                }
-            }
-        }
+//        if (tile instanceof TileMultipart) {
+//            TileMultipart mp = (TileMultipart) tile;
+//            for (TMultiPart part : mp.jPartList()) {
+//                if (part instanceof IExplodable) {
+//                    return (IExplodable) part;
+//                }
+//            }
+//        }
         if (tile instanceof IExplodable) {
             return (IExplodable) tile;
         }
@@ -42,9 +39,9 @@ public class PressureUtils {
                 }
             }
         }
-        if (tile instanceof TileMultipart) {
-            conds.addAll(((TileMultipart) tile).jPartList().stream().filter(part -> part instanceof IPressureMultipart).filter(part -> ((IPressureMultipart) part).getPressureConductor() != null).map(part -> ((IPressureMultipart) part).getPressureConductor()).collect(Collectors.toList()));
-        }
+//        if (tile instanceof TileMultipart) {
+//            conds.addAll(((TileMultipart) tile).jPartList().stream().filter(part -> part instanceof IPressureMultipart).filter(part -> ((IPressureMultipart) part).getPressureConductor() != null).map(part -> ((IPressureMultipart) part).getPressureConductor()).collect(Collectors.toList()));
+//        }
         return conds;
     }
 }

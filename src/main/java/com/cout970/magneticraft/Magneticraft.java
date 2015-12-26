@@ -37,7 +37,7 @@ import java.io.File;
 import java.util.List;
 
 
-@Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies = "required-after:ForgeMultipart;" +
+@Mod(modid = Magneticraft.ID, name = Magneticraft.NAME, version = Magneticraft.VERSION, guiFactory = Magneticraft.GUI_FACTORY, dependencies =
         "after:BuildCraft|Core;after:CoFHCore;after:IC2;after:Railcraft;after:ImmersiveEngineering")
 public class Magneticraft {
 
@@ -49,6 +49,12 @@ public class Magneticraft {
     public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
     public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     public static String DEV_HOME = null;
+    public static boolean BUILDCRAFT = false;
+    public static boolean RAILCRAFT = false;
+    public static boolean IC2 = false;
+    public static boolean COFH_ENERGY = false;
+    public static boolean COFH_TOOLS = false;
+    public static boolean IE = false;
 
     @Instance(NAME)
     public static Magneticraft INSTANCE;
@@ -64,7 +70,24 @@ public class Magneticraft {
         Log.init(event.getModLog());
         Log.info("Starting preInit");
 
-        ManagerIntegration.searchCompatibilities();
+        if (Loader.isModLoaded("BuildCraft|Core")) {
+            BUILDCRAFT = true;
+        }
+        if (Loader.isModLoaded("IC2")) {
+            IC2 = true;
+        }
+        if (Loader.isModLoaded("Railcraft")) {
+            RAILCRAFT = true;
+        }
+        if (Loader.isModLoaded("ImmersiveEngineering")) {
+            IE = true;
+        }
+        if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy")) {
+            COFH_ENERGY = true;
+        }
+        if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|item")) {
+            COFH_TOOLS = true;
+        }
 
         ManagerConfig.init(event.getSuggestedConfigurationFile());
 
@@ -78,6 +101,8 @@ public class Magneticraft {
         ManagerFluids.initFluids();
 
         proxy.init();
+
+        ManagerIntegration.searchCompatibilities();
 
         if (DEBUG) {
             //BEGIN FINDING OF SOURCE DIR
@@ -135,15 +160,15 @@ public class Magneticraft {
             MgMinetweaker.init();
         }
 
-        if (ManagerIntegration.BUILDCRAFT) {
+        if (BUILDCRAFT) {
             ManagerFluids.registerBCFuels();
         }
 
-        if (ManagerIntegration.RAILCRAFT) {
+        if (RAILCRAFT) {
             ManagerFluids.registerRCFuels();
         }
 
-        if (ManagerIntegration.IE) {
+        if (IE) {
             ManagerFluids.registerIEFuels();
         }
 

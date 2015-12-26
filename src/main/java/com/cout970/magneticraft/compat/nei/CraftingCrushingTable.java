@@ -1,22 +1,21 @@
 package com.cout970.magneticraft.compat.nei;
 
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import codechicken.nei.PositionedStack;
+import codechicken.nei.recipe.TemplateRecipeHandler;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.util.RenderUtil;
-
-import codechicken.nei.PositionedStack;
-import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CraftingCrushingTable extends TemplateRecipeHandler {
 

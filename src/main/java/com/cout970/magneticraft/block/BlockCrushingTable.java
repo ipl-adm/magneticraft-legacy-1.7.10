@@ -3,7 +3,6 @@ package com.cout970.magneticraft.block;
 import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.api.tool.IHammer;
 import com.cout970.magneticraft.tileentity.TileCrushingTable;
-
 import com.cout970.magneticraft.util.InventoryUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

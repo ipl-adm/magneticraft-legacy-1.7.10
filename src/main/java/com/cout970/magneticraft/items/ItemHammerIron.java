@@ -2,7 +2,6 @@ package com.cout970.magneticraft.items;
 
 import com.cout970.magneticraft.api.tool.IHammer;
 import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;

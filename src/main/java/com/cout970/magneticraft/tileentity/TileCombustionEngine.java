@@ -2,6 +2,7 @@ package com.cout970.magneticraft.tileentity;
 
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.api.fuels.IFuel;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.ManagerFluids;
 import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
@@ -15,7 +16,6 @@ import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.block.fluids.BlockFuel;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
@@ -30,22 +30,21 @@ import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileCombustionEngine extends TileConductorLow implements IFluidHandler1_8, IHeatTile, IGuiSync {
 
-    private TankMg tank = new TankMg(this, 4000);
     public IHeatConductor heat = new HeatConductor(this, 600, 800);
+    BlockFuel fuel;
+    IFuel fuelBC;
+    private TankMg tank = new TankMg(this, 4000);
     private float buffer;
     private float prod, counter;
     private int maxProd;
     private int oldHeat;
-
-    BlockFuel fuel;
-    IFuel fuelBC;
 
     public TankMg getTank() {
         return tank;
     }
 
     public void updateEntity() {
-        if (ManagerIntegration.BUILDCRAFT) {
+        if (Magneticraft.BUILDCRAFT) {
             updateEntityBC();
             return;
         }

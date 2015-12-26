@@ -14,8 +14,8 @@ import net.minecraftforge.fluids.FluidTankInfo;
 
 public class TileRefineryTank extends TileMB_Base implements IFluidHandler1_8 {
 
-    private TankMg tank = new TankMg(this, 4000);
     public CubeRenderer_Util CubeRenderer;
+    private TankMg tank = new TankMg(this, 4000);
     private int oldAmount;
 
     public TankMg getTank() {

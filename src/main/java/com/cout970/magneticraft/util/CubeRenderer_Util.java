@@ -10,12 +10,11 @@ import java.util.List;
 
 public class CubeRenderer_Util {
 
+    public boolean isCompiled;
     IIcon[] icons = new IIcon[6];
-
     float[] dims = new float[3];
     int[] excluded;
     int listNumber;
-    public boolean isCompiled;
 
     public void reset() {
         if (isCompiled) {

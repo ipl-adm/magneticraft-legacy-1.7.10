@@ -12,6 +12,15 @@ public class RecipeCrushingTable {
         this.output = output;
     }
 
+    public static RecipeCrushingTable getRecipe(ItemStack i) {
+        for (RecipeCrushingTable r : MgRecipeRegister.crushing_table) {
+            if (r.matches(i)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     public ItemStack getInput() {
         return input;
     }
@@ -22,15 +31,6 @@ public class RecipeCrushingTable {
 
     public boolean matches(ItemStack i) {
         return MgUtils.areEqual(input, i, true);
-    }
-
-    public static RecipeCrushingTable getRecipe(ItemStack i) {
-        for (RecipeCrushingTable r : MgRecipeRegister.crushing_table) {
-            if (r.matches(i)) {
-                return r;
-            }
-        }
-        return null;
     }
 
     @Override

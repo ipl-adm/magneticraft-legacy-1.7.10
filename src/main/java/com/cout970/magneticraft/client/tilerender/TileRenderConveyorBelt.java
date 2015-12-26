@@ -23,10 +23,10 @@ import org.lwjgl.opengl.GL11;
 
 public class TileRenderConveyorBelt extends TileEntitySpecialRenderer {
 
+    private static int DirectList = -1, UpList = -1, DownList = -1;
     private final RenderItem RenderItemMG;
     private final EntityItem itemEntity = new EntityItem(null);
     private ModelConveyorBelt model;
-    private static int DirectList = -1, UpList = -1, DownList = -1;
     private ModelConveyorBeltAddition extras;
 
     public TileRenderConveyorBelt() {
@@ -44,107 +44,6 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer {
             }
         };
         RenderItemMG.setRenderManager(RenderManager.instance);
-    }
-
-    @Override
-    public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float) x, (float) y, (float) z);
-        GL11.glTranslatef(0.5f, 1.5f, 0.5f);
-        TileConveyorBelt tile = (TileConveyorBelt) t;
-
-        for (IItemBox b : tile.getSideLane(true).getItemBoxes()) {
-            if (b == null) continue;
-            renderItemBox(b, tile);
-        }
-        for (IItemBox b : tile.getSideLane(false).getItemBoxes()) {
-            if (b == null) continue;
-            renderItemBox(b, tile);
-        }
-        GL11.glColor4f(1, 1, 1, 1);
-
-        GL11.glRotatef(180, 1, 0, 0);
-        GL11.glRotatef(180, 0, 1, 0);
-
-        if (tile.getDir() == MgDirection.SOUTH) {
-            GL11.glRotatef(180, 0, 1, 0);
-        } else if (tile.getDir() == MgDirection.EAST) {
-            GL11.glRotatef(90, 0, 1, 0);
-        } else if (tile.getDir() == MgDirection.WEST) {
-            GL11.glRotatef(-90, 0, 1, 0);
-        }
-        if (tile.getOrientation().getLevel() == 0) {
-            int sides = 3;
-            for (int h = -1; h <= 1; h++) {
-                VecInt vec = tile.getDir().step(MgDirection.UP).toVecInt();
-                vec.add(new VecInt(tile));
-                TileEntity conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
-                if (conveyor instanceof IConveyorBelt) {
-                    if (((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.UP).opposite()) {
-                        sides &= 1;
-                    }
-                }
-
-                vec = tile.getDir().step(MgDirection.DOWN).toVecInt();
-                vec.add(new VecInt(tile));
-                conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
-                if (conveyor instanceof IConveyorBelt) {
-                    if (((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.DOWN).opposite()) {
-                        sides &= 2;
-                    }
-                }
-            }
-
-            RenderUtil.bindTexture(ModelTextures.CONVEYOR_BELT_LOW);
-            model.renderStatic_block(0.0625f);
-            model.renderDynamic(0.0625f, sides);
-        } else {
-            if (tile.getOrientation().getLevel() == -1) {
-                GL11.glRotatef(180, 0, 1, 0);
-            }
-            RenderUtil.bindTexture(ModelTextures.CONVEYOR_BELT_LOW_ADD);
-            extras.renderStatic(0.0625f);
-        }
-        GL11.glPopMatrix();
-
-        GL11.glPushMatrix();
-        GL11.glTranslatef((float) x + 0.0F, (float) y - 13 / 16F, (float) z + 0.0F);
-        if (tile.getDir() == MgDirection.NORTH) {
-            GL11.glRotatef(180, 0, 1, 0);
-            GL11.glTranslatef(-1, 0, -1);
-        } else if (tile.getDir() == MgDirection.WEST) {
-            GL11.glRotatef(-90, 0, 1, 0);
-            GL11.glTranslatef(0, 0, -1);
-        } else if (tile.getDir() == MgDirection.EAST) {
-            GL11.glRotatef(90, 0, 1, 0);
-            GL11.glTranslatef(-1, 0, 0);
-        }
-
-        if (tile.getOrientation().getLevel() == 0) {
-            if (DirectList == -1) {
-                Tessellator tess = Tessellator.instance;
-                DirectList = GL11.glGenLists(1);
-                GL11.glNewList(DirectList, GL11.GL_COMPILE_AND_EXECUTE);
-                RenderUtil.bindTexture(TextureMap.locationBlocksTexture);
-                tess.startDrawingQuads();
-                renderFaceTop(BlockConveyorLow.conveyor_low, 0, 0, 0);
-                renderFaceFront(BlockConveyorLow.conveyor_low, 0, 0, 0);
-                renderFaceBack(BlockConveyorLow.conveyor_low, 0, 0, 0);
-                tess.draw();
-                RenderUtil.bindTexture(ModelTextures.CONVEYOR_BELT_LOW);
-                tess.startDrawingQuads();
-                renderFaceBottom(0, 0, 0);
-                tess.draw();
-                GL11.glEndList();
-            } else {
-                GL11.glCallList(DirectList);
-            }
-        } else if (tile.getOrientation().getLevel() == -1) {
-            renderSlopeDown(BlockConveyorLow.conveyor_low, 0, 0, 0);
-        } else if (tile.getOrientation().getLevel() == 1) {
-            renderSlopeUp(BlockConveyorLow.conveyor_low, 0, 0, 0);
-        }
-        GL11.glPopMatrix();
     }
 
     public static void renderFaceTop(IIcon i, int x, int y, int z) {
@@ -267,6 +166,107 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer {
         } else {
             GL11.glCallList(DownList);
         }
+    }
+
+    @Override
+    public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
+        GL11.glPushMatrix();
+        GL11.glTranslatef((float) x, (float) y, (float) z);
+        GL11.glTranslatef(0.5f, 1.5f, 0.5f);
+        TileConveyorBelt tile = (TileConveyorBelt) t;
+
+        for (IItemBox b : tile.getSideLane(true).getItemBoxes()) {
+            if (b == null) continue;
+            renderItemBox(b, tile);
+        }
+        for (IItemBox b : tile.getSideLane(false).getItemBoxes()) {
+            if (b == null) continue;
+            renderItemBox(b, tile);
+        }
+        GL11.glColor4f(1, 1, 1, 1);
+
+        GL11.glRotatef(180, 1, 0, 0);
+        GL11.glRotatef(180, 0, 1, 0);
+
+        if (tile.getDir() == MgDirection.SOUTH) {
+            GL11.glRotatef(180, 0, 1, 0);
+        } else if (tile.getDir() == MgDirection.EAST) {
+            GL11.glRotatef(90, 0, 1, 0);
+        } else if (tile.getDir() == MgDirection.WEST) {
+            GL11.glRotatef(-90, 0, 1, 0);
+        }
+        if (tile.getOrientation().getLevel() == 0) {
+            int sides = 3;
+            for (int h = -1; h <= 1; h++) {
+                VecInt vec = tile.getDir().step(MgDirection.UP).toVecInt();
+                vec.add(new VecInt(tile));
+                TileEntity conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
+                if (conveyor instanceof IConveyorBelt) {
+                    if (((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.UP).opposite()) {
+                        sides &= 1;
+                    }
+                }
+
+                vec = tile.getDir().step(MgDirection.DOWN).toVecInt();
+                vec.add(new VecInt(tile));
+                conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
+                if (conveyor instanceof IConveyorBelt) {
+                    if (((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.DOWN).opposite()) {
+                        sides &= 2;
+                    }
+                }
+            }
+
+            RenderUtil.bindTexture(ModelTextures.CONVEYOR_BELT_LOW);
+            model.renderStatic_block(0.0625f);
+            model.renderDynamic(0.0625f, sides);
+        } else {
+            if (tile.getOrientation().getLevel() == -1) {
+                GL11.glRotatef(180, 0, 1, 0);
+            }
+            RenderUtil.bindTexture(ModelTextures.CONVEYOR_BELT_LOW_ADD);
+            extras.renderStatic(0.0625f);
+        }
+        GL11.glPopMatrix();
+
+        GL11.glPushMatrix();
+        GL11.glTranslatef((float) x + 0.0F, (float) y - 13 / 16F, (float) z + 0.0F);
+        if (tile.getDir() == MgDirection.NORTH) {
+            GL11.glRotatef(180, 0, 1, 0);
+            GL11.glTranslatef(-1, 0, -1);
+        } else if (tile.getDir() == MgDirection.WEST) {
+            GL11.glRotatef(-90, 0, 1, 0);
+            GL11.glTranslatef(0, 0, -1);
+        } else if (tile.getDir() == MgDirection.EAST) {
+            GL11.glRotatef(90, 0, 1, 0);
+            GL11.glTranslatef(-1, 0, 0);
+        }
+
+        if (tile.getOrientation().getLevel() == 0) {
+            if (DirectList == -1) {
+                Tessellator tess = Tessellator.instance;
+                DirectList = GL11.glGenLists(1);
+                GL11.glNewList(DirectList, GL11.GL_COMPILE_AND_EXECUTE);
+                RenderUtil.bindTexture(TextureMap.locationBlocksTexture);
+                tess.startDrawingQuads();
+                renderFaceTop(BlockConveyorLow.conveyor_low, 0, 0, 0);
+                renderFaceFront(BlockConveyorLow.conveyor_low, 0, 0, 0);
+                renderFaceBack(BlockConveyorLow.conveyor_low, 0, 0, 0);
+                tess.draw();
+                RenderUtil.bindTexture(ModelTextures.CONVEYOR_BELT_LOW);
+                tess.startDrawingQuads();
+                renderFaceBottom(0, 0, 0);
+                tess.draw();
+                GL11.glEndList();
+            } else {
+                GL11.glCallList(DirectList);
+            }
+        } else if (tile.getOrientation().getLevel() == -1) {
+            renderSlopeDown(BlockConveyorLow.conveyor_low, 0, 0, 0);
+        } else if (tile.getOrientation().getLevel() == 1) {
+            renderSlopeUp(BlockConveyorLow.conveyor_low, 0, 0, 0);
+        }
+        GL11.glPopMatrix();
     }
 
     private void renderItemBox(IItemBox b, TileConveyorBelt c) {

@@ -1,24 +1,18 @@
 package com.cout970.magneticraft.api.pressure.prefab;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.cout970.magneticraft.api.pressure.PressurizedFluid;
 import com.cout970.magneticraft.api.pressure.IPressureConductor;
 import com.cout970.magneticraft.api.pressure.PressureUtils;
-import com.cout970.magneticraft.api.util.ConnectionClass;
-import com.cout970.magneticraft.api.util.EnergyConverter;
-import com.cout970.magneticraft.api.util.IConnectable;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VecIntUtil;
-
+import com.cout970.magneticraft.api.pressure.PressurizedFluid;
+import com.cout970.magneticraft.api.util.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PressureConductor implements IPressureConductor {
 

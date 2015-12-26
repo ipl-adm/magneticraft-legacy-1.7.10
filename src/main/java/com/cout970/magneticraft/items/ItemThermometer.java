@@ -4,7 +4,6 @@ import com.cout970.magneticraft.api.heat.HeatUtils;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

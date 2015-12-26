@@ -39,19 +39,22 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
     public boolean isDisplayed;
     public IRenderable rend;
     public int oldTurbine = -2;
-
+    public float speed;
     private int tracer;
     private byte[] rayTrace;
     private int efficiency;
     private double wind;
     private int power;
-    public float speed;
     private int height;
     private int length;
     private double turbinePotency;
     private float production;
     private float productionPerSecond;
     private float averageProdCalc;
+
+    public TileWindTurbine() {
+        super();
+    }
 
     private void traceAir1() {
         int yHeight = this.tracer / 17;
@@ -78,10 +81,6 @@ public class TileWindTurbine extends TileConductorLow implements IInventoryManag
         if (this.tracer >= 289) {
             this.tracer = 0;
         }
-    }
-
-    public TileWindTurbine() {
-        super();
     }
 
     public void updateEntity() {

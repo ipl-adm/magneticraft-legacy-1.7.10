@@ -17,9 +17,9 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IElectricTile {
 
+    public static int MaxProduction = 120;//RF
     public IHeatConductor heat = new HeatConductor(this, 1400, 1000);
     public IElectricConductor cond = initConductor();
-    public static int MaxProduction = 120;//RF
     public int oldHeat;
     private boolean working;
 
@@ -65,6 +65,10 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
         }
     }
 
+    public boolean isActive() {
+        return getBlockMetadata() == 1;
+    }
+
     private void setActive(boolean b) {
         if (getBlockMetadata() != 2) {
             if (b)
@@ -72,10 +76,6 @@ public class TileHeater extends TileMB_Base implements IHeatTile, IGuiSync, IEle
             else
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 2);
         }
-    }
-
-    public boolean isActive() {
-        return getBlockMetadata() == 1;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {

@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.handlers;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.*;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.container.*;
 import com.cout970.magneticraft.tileentity.*;
-import com.cout970.magneticraft.tileentity.multiblock.*;
+import com.cout970.magneticraft.tileentity.multiblock.TileMB_Inv;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -171,7 +171,7 @@ public class GuiHandler implements IGuiHandler {
         if (tile instanceof TileMiner) {
             return new GuiMiner(new ContainerMiner(player.inventory, tile), tile);
         }
-        if (ManagerIntegration.COFH_ENERGY && (tile instanceof TileKineticGenerator)) {
+        if (Magneticraft.COFH_ENERGY && (tile instanceof TileKineticGenerator)) {
             return new GuiKineticGenerator(new ContainerKineticGenerator(player.inventory, tile), tile);
         }
         if (tile instanceof TileBiomassBurner) {

@@ -15,9 +15,9 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileRCAlternator extends TileConductorLow implements IElectricGrid {
 
-    private ChargeHandler charge = new ChargeHandler(this, ConnectType.BLOCK);
     public int maxStorage = 10000;
     public double level = ElectricConstants.BATTERY_DISCHARGE;
+    private ChargeHandler charge = new ChargeHandler(this, ConnectType.BLOCK);
 
     @Override
     public IElectricConductor initConductor() {
@@ -47,13 +47,13 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid 
             }
 
             @Override
-            public int getMaxStorage() {
-                return maxStorage;
+            public void setStorage(int charg) {
+                charge.setCharge(charg);
             }
 
             @Override
-            public void setStorage(int charg) {
-                charge.setCharge(charg);
+            public int getMaxStorage() {
+                return maxStorage;
             }
 
             @Override

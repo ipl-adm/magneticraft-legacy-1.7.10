@@ -3,7 +3,6 @@ package com.cout970.magneticraft.api.computer.prefab;
 import com.cout970.magneticraft.api.computer.IPeripheral;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.api.util.VectorOffset;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

@@ -15,8 +15,8 @@ import org.lwjgl.opengl.GL11;
 
 public class CompScreen implements IGuiComp {
 
-    private double zLevel;
     public MonitorPeripheral mon;
+    private double zLevel;
 
     public CompScreen(MonitorPeripheral m) {
         mon = m;

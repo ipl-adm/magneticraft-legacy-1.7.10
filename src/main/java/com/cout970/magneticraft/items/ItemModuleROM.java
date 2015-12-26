@@ -4,7 +4,6 @@ import com.cout970.magneticraft.api.computer.IHardwareComponent;
 import com.cout970.magneticraft.api.computer.IHardwareProvider;
 import com.cout970.magneticraft.api.computer.prefab.ModuleROM;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
-
 import net.minecraft.item.ItemStack;
 
 public class ItemModuleROM extends ItemBasic implements IHardwareProvider {

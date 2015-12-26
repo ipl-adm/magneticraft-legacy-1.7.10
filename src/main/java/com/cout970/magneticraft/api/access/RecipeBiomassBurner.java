@@ -17,6 +17,15 @@ public class RecipeBiomassBurner {
         useNBT = c;
     }
 
+    public static RecipeBiomassBurner getRecipe(ItemStack i) {
+        for (RecipeBiomassBurner r : MgRecipeRegister.biomassBurner) {
+            if (r.matches(i)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     public ItemStack getFuel() {
         return fuel;
     }
@@ -27,15 +36,6 @@ public class RecipeBiomassBurner {
 
     public boolean useNBT() {
         return useNBT;
-    }
-
-    public static RecipeBiomassBurner getRecipe(ItemStack i) {
-        for (RecipeBiomassBurner r : MgRecipeRegister.biomassBurner) {
-            if (r.matches(i)) {
-                return r;
-            }
-        }
-        return null;
     }
 
     public boolean matches(ItemStack item) {

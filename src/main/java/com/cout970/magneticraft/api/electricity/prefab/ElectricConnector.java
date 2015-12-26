@@ -16,18 +16,39 @@ import java.util.List;
 
 public class ElectricConnector implements IElectricPole {
 
-    protected List<IInterPoleWire> connections = new ArrayList<>();
-    private int connectionsBlocked;
-    protected IElectricConductor cond;
-    protected TileEntity parent;
     public boolean update = true;
     //wire render only
     public int glList = -1;
+    protected List<IInterPoleWire> connections = new ArrayList<>();
+    protected IElectricConductor cond;
+    protected TileEntity parent;
+    private int connectionsBlocked;
 
     public ElectricConnector(TileEntity tile, IElectricConductor cond) {
         parent = tile;
         this.cond = cond;
         connectionsBlocked = 1;
+    }
+
+    public static void findConnections(IElectricPole pole) {
+        pole.disconnectAll();
+        int rad = 16;
+        for (int x = -rad; x <= rad; x++) {
+            for (int z = -rad; z <= rad; z++) {
+                for (int y = -5; y <= 5; y++) {
+                    if (x == 0 && z == 0) continue;
+                    TileEntity t = new VecInt(pole.getParent()).add(x, y, z).getTileEntity(pole.getParent().getWorldObj());
+                    IElectricPole p = ElectricUtils.getElectricPole(t);
+                    if (p == null) continue;
+                    if (p.canConnectWire(0, pole, false) && pole.canConnectWire(0, p, false)) {
+                        InterPoleWire wire = new InterPoleWire(new VecInt(pole.getParent()), new VecInt(p.getParent()));
+                        wire.setWorld(p.getParent().getWorldObj());
+                        pole.onConnect(wire);
+                        p.onConnect(wire);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -152,6 +173,11 @@ public class ElectricConnector implements IElectricPole {
         return connectionsBlocked;
     }
 
+    public void setConnectionMode(int mode) {
+        disconnectAll();
+        connectionsBlocked = mode;
+    }
+
     public void blockAllConnections() {
         disconnectAll();
         connectionsBlocked = 2;
@@ -165,11 +191,6 @@ public class ElectricConnector implements IElectricPole {
     public void allowConnections() {
         findConnections(this);
         connectionsBlocked = 0;
-    }
-
-    public void setConnectionMode(int mode) {
-        disconnectAll();
-        connectionsBlocked = mode;
     }
 
     @Override
@@ -196,26 +217,5 @@ public class ElectricConnector implements IElectricPole {
             connections.add(p);
         }
         connectionsBlocked = nbt.getInteger("mode");
-    }
-
-    public static void findConnections(IElectricPole pole) {
-        pole.disconnectAll();
-        int rad = 16;
-        for (int x = -rad; x <= rad; x++) {
-            for (int z = -rad; z <= rad; z++) {
-                for (int y = -5; y <= 5; y++) {
-                    if (x == 0 && z == 0) continue;
-                    TileEntity t = new VecInt(pole.getParent()).add(x, y, z).getTileEntity(pole.getParent().getWorldObj());
-                    IElectricPole p = ElectricUtils.getElectricPole(t);
-                    if (p == null) continue;
-                    if (p.canConnectWire(0, pole, false) && pole.canConnectWire(0, p, false)) {
-                        InterPoleWire wire = new InterPoleWire(new VecInt(pole.getParent()), new VecInt(p.getParent()));
-                        wire.setWorld(p.getParent().getWorldObj());
-                        pole.onConnect(wire);
-                        p.onConnect(wire);
-                    }
-                }
-            }
-        }
     }
 }

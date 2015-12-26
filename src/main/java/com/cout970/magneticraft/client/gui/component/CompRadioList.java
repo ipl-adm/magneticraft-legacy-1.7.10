@@ -11,6 +11,10 @@ public class CompRadioList implements IGuiComp {
     List<CompButton> buttons;
     private int curButton = 0;
 
+    public CompRadioList(CompButton... buttons) {
+        this.buttons = new ArrayList<>(Arrays.asList(buttons));
+    }
+
     @Override
     public void render(int mx, int my, TileEntity tile, GuiBasic gui) {
 
@@ -29,10 +33,6 @@ public class CompRadioList implements IGuiComp {
     @Override
     public void renderTop(int mx, int my, TileEntity tile, GuiBasic gui) {
 
-    }
-
-    public CompRadioList(CompButton... buttons) {
-        this.buttons = new ArrayList<>(Arrays.asList(buttons));
     }
 
     public int getCurrentButton() {

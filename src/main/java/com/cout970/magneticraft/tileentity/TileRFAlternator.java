@@ -39,13 +39,13 @@ public class TileRFAlternator extends TileConductorLow implements IEnergyHandler
             }
 
             @Override
-            public int getMaxStorage() {
-                return maxStorage;
+            public void setStorage(int charge) {
+                storage = charge;
             }
 
             @Override
-            public void setStorage(int charge) {
-                storage = charge;
+            public int getMaxStorage() {
+                return maxStorage;
             }
 
             @Override

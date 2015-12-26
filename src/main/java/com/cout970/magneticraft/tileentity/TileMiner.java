@@ -14,7 +14,6 @@ import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.util.*;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 import com.google.common.collect.Sets;
@@ -216,7 +215,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                         }
                     }
                 }
-            } else if (ManagerIntegration.BUILDCRAFT && (t instanceof IPipeTile)) {
+            } else if (Magneticraft.BUILDCRAFT && (t instanceof IPipeTile)) {
                 IPipeTile a = (IPipeTile) t;
                 if (a.getPipeType() == PipeType.ITEM) {
                     int r = a.injectItem(i, true, d.toForgeDir().getOpposite(), EnumColor.WHITE);
@@ -237,10 +236,6 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
 
     public MgDirection getDirection() {
         return MgDirection.getDirection(getBlockMetadata()).opposite();
-    }
-
-    public enum WorkState {
-        UNREADY, FINISHED, WORKING, IDLE, BLOCKED
     }
 
     public InventoryComponent getInv() {
@@ -433,14 +428,14 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
         };
     }
 
-    //chunk loading
-
     public void updateTicket() {
         if (chunkTicket == null) return;
         ForgeChunkManager.releaseTicket(chunkTicket);
         chunkTicket = null;
         loadChunk();
     }
+
+    //chunk loading
 
     public void loadChunk() {
         isFirstTime = true;
@@ -496,5 +491,9 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             }
         }
         Log.info("Miner at " + xCoord + " " + yCoord + " " + zCoord + " will keep " + chunks.size() + " chunks loaded");
+    }
+
+    public enum WorkState {
+        UNREADY, FINISHED, WORKING, IDLE, BLOCKED
     }
 }

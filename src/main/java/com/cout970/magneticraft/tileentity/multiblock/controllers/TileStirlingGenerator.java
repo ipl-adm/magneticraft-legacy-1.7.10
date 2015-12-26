@@ -33,10 +33,10 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
     public InventoryComponent inv = new InventoryComponent(this, 1, "Stirling generator");
     public IElectricConductor cond;
     public int oldHeat;
+    public int drawCounter = 0;
     private int progress;
     private boolean working;
     private int maxProgres;
-    public int drawCounter = 0;
     private boolean burning;
     private double prodCounter;
     private double prodSecond;
@@ -135,11 +135,6 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
         if (tile instanceof IElectricTile) {
             cond = ((IElectricTile) tile).getConds(VecInt.NULL_VECTOR, 0)[0];
         }
-    }
-
-    private void setActive(boolean b) {
-        burning = b;
-        sendUpdateToClient();
     }
 
     public boolean isWorking() {
@@ -310,5 +305,10 @@ public class TileStirlingGenerator extends TileMB_Base implements IInventoryMana
 
     public boolean isActive() {
         return getBlockMetadata() > 5;
+    }
+
+    private void setActive(boolean b) {
+        burning = b;
+        sendUpdateToClient();
     }
 }

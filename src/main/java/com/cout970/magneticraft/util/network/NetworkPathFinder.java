@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.util.network;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.cout970.magneticraft.api.util.PathFinder;
 import com.cout970.magneticraft.api.util.VectorOffset;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class NetworkPathFinder extends PathFinder {
 

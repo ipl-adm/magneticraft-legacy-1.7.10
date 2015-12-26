@@ -1,11 +1,7 @@
 package com.cout970.magneticraft.block;
 
-import buildcraft.api.tools.IToolWrench;
-import cofh.api.item.IToolHammer;
-import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.electricity.ITileElectricPole;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricPoleTier1;
-import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.pole.TileElectricPoleGap;

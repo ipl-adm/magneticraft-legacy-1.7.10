@@ -17,6 +17,13 @@ public class RecipeOilDistillery {
         this.cost = cost;
     }
 
+    public static RecipeOilDistillery getRecipe(FluidStack f) {
+        for (RecipeOilDistillery r : MgRecipeRegister.oilDistillery) {
+            if (r.matches(f)) return r;
+        }
+        return null;
+    }
+
     public FluidStack getInput() {
         return input;
     }
@@ -35,12 +42,5 @@ public class RecipeOilDistillery {
 
     public String toString() {
         return "Oil Distillery Recipe, Input: " + input.getLocalizedName() + ", Amount:" + input.amount + ", Output: " + output.getLocalizedName() + ", Amount:" + input.amount + ", Energy Cost: " + cost + "W";
-    }
-
-    public static RecipeOilDistillery getRecipe(FluidStack f) {
-        for (RecipeOilDistillery r : MgRecipeRegister.oilDistillery) {
-            if (r.matches(f)) return r;
-        }
-        return null;
     }
 }

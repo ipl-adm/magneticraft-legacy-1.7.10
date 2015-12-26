@@ -16,6 +16,7 @@ import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 
 public class ModelPoleCableWire extends ModelBase {
+    public int glList = -1;
     //fields
     ModelRenderer Shape1;
     ModelRenderer Shape2;
@@ -54,7 +55,6 @@ public class ModelPoleCableWire extends ModelBase {
     ModelRenderer Shape35;
     ModelRenderer Shape36;
     ModelRenderer Shape37;
-    public int glList = -1;
 
     public ModelPoleCableWire() {
         textureWidth = 64;

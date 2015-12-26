@@ -17,6 +17,13 @@ public class RecipeSifter {
         this.prob = prob;
     }
 
+    public static RecipeSifter getRecipe(ItemStack i) {
+        for (RecipeSifter r : MgRecipeRegister.sifter) {
+            if (r.matches(i)) return r;
+        }
+        return null;
+    }
+
     public ItemStack getInput() {
         return input;
     }
@@ -31,13 +38,6 @@ public class RecipeSifter {
 
     public float getProb() {
         return prob;
-    }
-
-    public static RecipeSifter getRecipe(ItemStack i) {
-        for (RecipeSifter r : MgRecipeRegister.sifter) {
-            if (r.matches(i)) return r;
-        }
-        return null;
     }
 
     public boolean matches(ItemStack i) {

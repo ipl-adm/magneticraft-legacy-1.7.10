@@ -2,7 +2,6 @@ package com.cout970.magneticraft.tileentity;
 
 import codechicken.lib.vec.BlockCoord;
 import codechicken.lib.vec.Vector3;
-import codechicken.multipart.BlockMultipart;
 import com.cout970.magneticraft.api.heat.HeatUtils;
 import com.cout970.magneticraft.api.heat.IHeatConductor;
 import com.cout970.magneticraft.api.util.EnergyConverter;
@@ -97,8 +96,8 @@ public class TileMirror extends TileBase {
         //TODO find a better way to check transparency. Checking for vanilla blocks only is an awful idea in modded MC.
         return (block.getMaterial() == Material.air)
                 || Block.isEqualTo(block, Blocks.glass)
-                || Block.isEqualTo(block, Blocks.stained_glass)
-                || (block instanceof BlockMultipart);
+                || Block.isEqualTo(block, Blocks.stained_glass);
+//                || (block instanceof BlockMultipart);
     }
 
     public void readFromNBT(NBTTagCompound nbt) {

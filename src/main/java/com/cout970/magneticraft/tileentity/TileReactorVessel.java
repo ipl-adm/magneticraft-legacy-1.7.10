@@ -64,12 +64,12 @@ public class TileReactorVessel extends TileHeatConductor implements IInventoryMa
         neutrons += d;
     }
 
-    public void setRadiation(double rad) {
-        neutrons = rad;
-    }
-
     public double getRadiation() {
         return neutrons;
+    }
+
+    public void setRadiation(double rad) {
+        neutrons = rad;
     }
 
     public double getSpeed() {

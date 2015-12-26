@@ -22,26 +22,6 @@ public class BlockBreaker extends BlockMg {
         setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
     }
 
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return (side != meta ? icons[1] : icons[0]);
-    }
-
-
-    public String[] getTextures() {
-        return new String[]{"breaker_head", "breaker"};
-    }
-
-    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-        if (p.isSneaking()) return false;
-        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
-        return true;
-    }
-
-    public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i) {
-        w.setBlockMetadataWithNotify(x, y, z, Facing.oppositeSide[determineOrientation(w, x, y, z, p)], 2);
-    }
-
     public static int determineOrientation(World w, int x, int y, int z, EntityLivingBase p) {
         if (MathHelper.abs((float) p.posX - (float) x) < 2.0F && MathHelper.abs((float) p.posZ - (float) z) < 2.0F) {
             double d0 = p.posY + 1.82D - (double) p.yOffset;
@@ -57,6 +37,25 @@ public class BlockBreaker extends BlockMg {
 
         int l = MathHelper.floor_double((double) (p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
         return l == 0 ? 2 : (l == 1 ? 5 : (l == 2 ? 3 : (l == 3 ? 4 : 0)));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        return (side != meta ? icons[1] : icons[0]);
+    }
+
+    public String[] getTextures() {
+        return new String[]{"breaker_head", "breaker"};
+    }
+
+    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+        if (p.isSneaking()) return false;
+        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
+        return true;
+    }
+
+    public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i) {
+        w.setBlockMetadataWithNotify(x, y, z, Facing.oppositeSide[determineOrientation(w, x, y, z, p)], 2);
     }
 
     @Override

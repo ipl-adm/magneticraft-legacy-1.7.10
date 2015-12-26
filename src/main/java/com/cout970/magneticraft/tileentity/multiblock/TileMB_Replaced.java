@@ -13,16 +13,16 @@ public class TileMB_Replaced extends TileMB_Base implements MB_Tile_Replaced {
     public List<ItemStack> drops = new ArrayList<>();
 
     @Override
+    public List<ItemStack> getDrops() {
+        return drops;
+    }
+
+    @Override
     public void setDrops(List<ItemStack> drop) {
         drops.clear();
         if (drop != null) {
             drops.addAll(drop);
         }
-    }
-
-    @Override
-    public List<ItemStack> getDrops() {
-        return drops;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {

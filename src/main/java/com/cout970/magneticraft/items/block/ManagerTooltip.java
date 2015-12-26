@@ -1,12 +1,9 @@
 package com.cout970.magneticraft.items.block;
 
-import com.cout970.magneticraft.api.electricity.ElectricConstants;
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.NBTUtils;
-import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.items.*;
-import com.cout970.magneticraft.parts.fluid.PartCopperPipe;
-import com.cout970.magneticraft.parts.fluid.PartIronPipe;
 import com.cout970.magneticraft.tileentity.TileMiner;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -132,8 +129,7 @@ public class ManagerTooltip {
 				list.add(format + "Generates Redstone Flux from electricity");
 				list.add(format + "Produces up to 400 RF/t, uses medium voltage");
 			} else if (b == miner) {
-				list.add(
-						format + "Mines blocks and puts them into adjacent inventories" + (ManagerIntegration.BUILDCRAFT ? " or Transport Pipes" : ""));
+				list.add(format + "Mines blocks and puts them into adjacent inventories" + (Magneticraft.BUILDCRAFT ? " or Transport Pipes" : ""));
 				list.add(format + "Uses medium voltage. Mining speed scales with exact voltage");
 				list.add(format + "Uses " + (int) EnergyConverter.RFtoW(TileMiner.MINING_COST_PER_BLOCK) + "J per block mined");
 			} else if (b == mirror) {
@@ -281,27 +277,28 @@ public class ManagerTooltip {
 			}else if(i == battery_item){
 				list.add(format + (int) EnergyConverter.WtoRF(((ItemBattery) i).getCharge(item)) + "/" + (int) EnergyConverter.WtoRF(((ItemBattery) i).getMaxCharge(item)) + " RF");
 			}
-		}else if(item.getItem() instanceof ItemPartBase){
-			Item i = item.getItem();
-			if(i == part_optic_fiber){
-				list.add(format + "[WIP]");
-			}else if(i == part_iron_pipe){
-				list.add(format + "Transfers fluids. ");
-				list.add(format + "Right-click connection with a wrench to change mode");
-		        list.add(format + "Can transfer " + PartIronPipe.MAX_EXTRACT + "mB/t per side");
-			}else if(i == part_copper_pipe){
-				list.add(format + "Transfers fluids. Right-click connection with a wrench to change mode");
-		        list.add(format + "Can transfer " + PartCopperPipe.MAX_EXTRACT + "mB/t per side");
-			}else if(i == part_copper_wire){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Ohms");
-			}else if(i == part_copper_cable_low){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Ohms");
-			}else if(i == part_copper_cable_medium){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_MED + " Ohms");
-			}else if(i == part_copper_cable_high){
-				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_HIGH + " Ohms");
-			}
 		}
+//		if(item.getItem() instanceof ItemPartBase){
+//			Item i = item.getItem();
+//			if(i == part_optic_fiber){
+//				list.add(format + "[WIP]");
+//			}else if(i == part_iron_pipe){
+//				list.add(format + "Transfers fluids. ");
+//				list.add(format + "Right-click connection with a wrench to change mode");
+//		        list.add(format + "Can transfer " + PartIronPipe.MAX_EXTRACT + "mB/t per side");
+//			}else if(i == part_copper_pipe){
+//				list.add(format + "Transfers fluids. Right-click connection with a wrench to change mode");
+//		        list.add(format + "Can transfer " + PartCopperPipe.MAX_EXTRACT + "mB/t per side");
+//			}else if(i == part_copper_wire){
+//				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Ohms");
+//			}else if(i == part_copper_cable_low){
+//				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_LOW + " Ohms");
+//			}else if(i == part_copper_cable_medium){
+//				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_MED + " Ohms");
+//			}else if(i == part_copper_cable_high){
+//				list.add(format + "Has a resistance of " + ElectricConstants.RESISTANCE_COPPER_HIGH + " Ohms");
+//			}
+//		}
 		return list;
 	}
 }

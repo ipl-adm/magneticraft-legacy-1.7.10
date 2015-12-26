@@ -1,8 +1,13 @@
 package com.cout970.magneticraft.client.tilerender;
 
+import com.cout970.magneticraft.api.electricity.ElectricUtils;
+import com.cout970.magneticraft.api.util.MgDirection;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.model.ModelCableLow;
+import com.cout970.magneticraft.util.RenderUtil;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import org.lwjgl.opengl.GL11;
 
 public class TileRenderCableLow extends TileEntitySpecialRenderer {
 
@@ -15,17 +20,18 @@ public class TileRenderCableLow extends TileEntitySpecialRenderer {
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y,
                                    double z, float scale) {
-//		GL11.glPushMatrix();
-//		GL11.glTranslatef((float) x + 0.5F, (float) y - 0.5F, (float) z + 0.5F);
-//		GL11.glColor4f(1, 1, 1, 1);
-//		RenderUtil.bindTexture(ModelTextures.CABLE_LOW);
-//		boolean[] s = new boolean[6];
-//		for(MgDirection d : MgDirection.values()){
-//			s[d.ordinal()] = MgUtils.isConductor(MgUtils.getTileEntity(te, d), 0);
-//		}
-//			
-//		model.render(0.0625f, s);
-//		GL11.glPopMatrix();
+		GL11.glPushMatrix();
+		GL11.glTranslatef((float) x + 0.5F, (float) y - 0.5F, (float) z + 0.5F);
+		GL11.glColor4f(1, 1, 1, 1);
+		RenderUtil.bindTexture(ModelTextures.CABLE_LOW);
+		boolean[] s = new boolean[6];
+		model.renderBase(0.0625f);
+		for (MgDirection d : MgDirection.values()) {
+			s[d.ordinal()] = ElectricUtils.isConductor(MgUtils.getTileEntity(te, d), 0);
+		}
+
+		model.render(0.0625f, s);
+		GL11.glPopMatrix();
 
     }
 

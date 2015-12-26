@@ -78,6 +78,7 @@ public class ClientProxy implements IProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.pole_cable_wire), new ItemRenderPoleCableWire());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.crushing_table), new ItemRenderHammerTable());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.shelving_unit), new ItemRenderShelvingUnit());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ManagerBlocks.electric_cable_1), new ItemRenderCableLow());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TilePumpJack.class, new TileRenderPumpjack());
         ClientRegistry.bindTileEntitySpecialRenderer(TileMirror.class, new TileRenderMirror());
@@ -127,5 +128,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCrushingTable.class, new TileRenderCrushingTable());
         ClientRegistry.bindTileEntitySpecialRenderer(TilePressureTank.class, new TileRenderPressureTank());
         ClientRegistry.bindTileEntitySpecialRenderer(TileShelvingUnit.class, new TileRenderShelvingUnit());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileElectricCableLow.class, new TileRenderCableLow());
     }
 }

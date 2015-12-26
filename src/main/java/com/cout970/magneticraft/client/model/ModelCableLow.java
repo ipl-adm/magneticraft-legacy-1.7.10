@@ -77,6 +77,15 @@ public class ModelCableLow extends ModelBase {
         if ((connections & 32) == 32) L.render(f5);
     }
 
+    public void render(float f5, boolean[] connections) {
+        if (connections[0]) U.render(f5);
+        if (connections[1]) D.render(f5);
+        if (connections[2]) F.render(f5);
+        if (connections[3]) B.render(f5);
+        if (connections[4]) R.render(f5);
+        if (connections[5]) L.render(f5);
+    }
+
     public void renderBase(float f5) {
 
         base.render(f5);

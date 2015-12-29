@@ -233,7 +233,7 @@ public class ManagerItems {
         addItem(bucket_heavy_oil, "Heavy Oil Bucket");
         addItem(bucket_hot_crude, "Hot Crude Bucket");
 
-        addItem(part_iron_pipe, "Iron Pipe");
+        //addItem(part_iron_pipe, "Iron Pipe");
         addItem(partheatcable, "Heat Cable");
         addItem(tool_jackhammer, "Jackhammer");
         addItem(heavy_copper_coil, "Heavy Copper Coil");

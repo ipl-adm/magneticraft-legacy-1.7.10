@@ -191,6 +191,7 @@ public class ManagerBlocks {
     public static Block electric_cable_1;
     public static Block electric_cable_2;
     public static Block electric_cable_3;
+    public static Block iron_pipe;
 
     public static void initBlocks() {
         //ores & resources
@@ -360,6 +361,7 @@ public class ManagerBlocks {
         electric_cable_1 = new BlockElectricCableT1();
         electric_cable_2 = new BlockElectricCableT2();
         electric_cable_3 = new BlockElectricCableT3();
+        iron_pipe = new BlockIronPipe();
     }
 
     public static void registerBlocks() {
@@ -515,6 +517,7 @@ public class ManagerBlocks {
         addBlock(electric_cable_1, "Electric Cable Low Voltage");
         addBlock(electric_cable_2, "Electric Cable Medium Voltage");
         addBlock(electric_cable_3, "Electric Cable High Voltage");
+        addBlock(iron_pipe, "Iron Pipe");
 
         for (Block b : blocks)
             GameRegistry.registerBlock(b, ItemBlockMg.class, b.getUnlocalizedName());
@@ -626,6 +629,7 @@ public class ManagerBlocks {
         tileEntities.add(TileElectricCableLow.class);
         tileEntities.add(TileElectricCableMedium.class);
         tileEntities.add(TileElectricCableHigh.class);
+        tileEntities.add(TileIronPipe.class);
 
         for (Class<? extends TileEntity> c : tileEntities) {
             GameRegistry.registerTileEntity(c, c.getName() + "_Mg");

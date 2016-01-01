@@ -4,6 +4,7 @@ import com.cout970.magneticraft.api.electricity.ElectricConstants;
 import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
+import net.minecraft.util.AxisAlignedBB;
 
 /**
  * Created by cout970 on 23/12/2015.
@@ -18,5 +19,10 @@ public class TileElectricCableMedium extends TileConductorMedium {
                 return ElectricConstants.CABLE_MEDIUM_CAPACITY;
             }
         };
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
     }
 }

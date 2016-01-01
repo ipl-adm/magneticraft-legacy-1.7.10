@@ -28,7 +28,7 @@ public class TileRenderCableMedium extends TileEntitySpecialRenderer {
         for (MgDirection d : MgDirection.values()) {
             s[d.ordinal()] = ElectricUtils.isConductor(MgUtils.getTileEntity(te, d), 1);
         }
-
+        model.renderBase(0.0625f);
         model.render(0.0625f, s);
         GL11.glPopMatrix();
     }

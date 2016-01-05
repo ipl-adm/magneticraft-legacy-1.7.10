@@ -54,13 +54,13 @@ public class ItemWrench extends ItemBasic implements IWrench, IToolWrench, ITool
     }
 
     @Override
-    @Optional.Method(modid = "CoFHCore")
+    @Optional.Method(modid = "CoFHAPI|item")
     public boolean isUsable(ItemStack item, EntityLivingBase user, int x, int y, int z) {
         return true;
     }
 
     @Override
-    @Optional.Method(modid = "CoFHCore")
+    @Optional.Method(modid = "CoFHAPI|item")
     public void toolUsed(ItemStack item, EntityLivingBase user, int x, int y, int z) {
     }
 }

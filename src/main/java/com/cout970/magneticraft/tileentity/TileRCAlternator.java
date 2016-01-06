@@ -17,7 +17,7 @@ public class TileRCAlternator extends TileConductorLow implements IElectricGrid 
 
     private ChargeHandler charge = new ChargeHandler(this, ConnectType.BLOCK);
     public int maxStorage = 10000;
-    public double level = ElectricConstants.BATTERY_DISCHARGE;
+    public double level = ElectricConstants.MAX_VOLTAGE;
 
     @Override
     public IElectricConductor initConductor() {

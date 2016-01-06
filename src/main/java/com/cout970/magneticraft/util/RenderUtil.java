@@ -286,8 +286,6 @@ public class RenderUtil {
     public static void drawLine(VecDouble a, VecDouble b, float f) {
         Tessellator t = Tessellator.instance;
         float w = f / 2;
-//		GL11.glEnable(GL11.GL_CULL_FACE);
-//		t.startDrawing(GL11.GL_QUADS);
         t.addVertex(a.getX(), a.getY() - w, a.getZ());
         t.addVertex(a.getX(), a.getY() + w, a.getZ());
         t.addVertex(b.getX(), b.getY() + w, b.getZ());
@@ -318,6 +316,5 @@ public class RenderUtil {
         t.addVertex(b.getX() - w, b.getY(), b.getZ());
         t.addVertex(b.getX() + w, b.getY(), b.getZ());
 
-//		GL11.glDisable(GL11.GL_CULL_FACE);
     }
 }

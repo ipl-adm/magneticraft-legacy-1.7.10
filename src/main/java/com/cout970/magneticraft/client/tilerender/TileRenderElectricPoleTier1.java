@@ -88,7 +88,7 @@ public class TileRenderElectricPoleTier1 extends TileEntitySpecialRenderer {
                     double lenght = ab.mag();//distance between a and b
                     VecDouble mid = ab.copy(); //(b-a)
                     mid.multiply(0.5).add(a);//(b-a)/2 + a
-                    double lowPoint = mid.getY() - lenght * 0.05;//height of the middel point less the weight
+                    double lowPoint = mid.getY() - lenght * 0.05;//height of the middel point (-weight)
                     double quallity = 8;
                     Tessellator t = Tessellator.instance;
                     t.startDrawingQuads();

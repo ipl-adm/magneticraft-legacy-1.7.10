@@ -1,11 +1,11 @@
 package com.cout970.magneticraft.guide;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import com.cout970.magneticraft.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class GuideBookIO {
 
@@ -50,6 +50,7 @@ public class GuideBookIO {
 //			book.addPage("index", page2);
         }
 		String json = gson.toJson(book);
+
 		Log.debug(json);
     }
 

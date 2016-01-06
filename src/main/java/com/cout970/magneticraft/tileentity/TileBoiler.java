@@ -45,6 +45,7 @@ public class TileBoiler extends TileHeatConductor implements IFluidHandler1_8, I
             }
         }
 
+        //TODO change this to only use tileEntities from 3 directions instead the 6 sides, "MgC boilers produces about 1.4% of the lag of the server" asie
         MgUtils.getNeig(this).stream().filter(t -> t instanceof TileBoiler).forEach(t -> {
             TileBoiler b = (TileBoiler) t;
             int dif = water.getFluidAmount() - b.water.getFluidAmount();

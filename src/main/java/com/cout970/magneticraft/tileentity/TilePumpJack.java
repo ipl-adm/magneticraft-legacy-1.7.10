@@ -146,7 +146,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
             VecInt pos = new VecInt(xCoord, yCoord - i, zCoord);
             Block b = worldObj.getBlock(pos.getX(), pos.getY(), pos.getZ());
 
-            if (!scanned.contains(pos) && (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil))) {
+            if (!scanned.contains(pos) && (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil) || b.equals(ManagerBlocks.oilSourceDrained))) {
                 OilPathFinding pathFinding = new OilPathFinding(worldObj);
                 pathFinding.setStart(pos);
                 pathFinding.getPathEnd();
@@ -184,7 +184,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
             if (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil)) {
                 break;
-            } else if (MgUtils.isMineableBlock(worldObj, new BlockInfo(b, meta)) && !b.equals(ManagerBlocks.concreted_pipe) && !b.equals(ManagerBlocks.oilSourceDrained)) {
+            } else if (b.equals(Blocks.air) || MgUtils.isMineableBlock(worldObj, new BlockInfo(b, meta)) && !b.equals(ManagerBlocks.concreted_pipe) && !b.equals(ManagerBlocks.oilSourceDrained)) {
                 pipes.add(new VecInt(xCoord, yCoord - i, zCoord));
             }
         }

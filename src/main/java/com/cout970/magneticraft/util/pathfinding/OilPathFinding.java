@@ -33,12 +33,12 @@ public class OilPathFinding extends PathFinding {
 
         Block b = world.getBlock(vec.getX(), vec.getY(), vec.getZ());
 
-        if(b.equals(ManagerBlocks.oilSource)){
+        if (b == ManagerBlocks.oilSource) {
             oilBlocks.add(vec);
             toScan.add(new PathNode(vec, node));
-        }else if(b.equals(ManagerBlocks.oilSourceDrained)){
+        } else if (b == ManagerBlocks.oilSourceDrained) {
             toScan.add(new PathNode(vec, node));
-        }else if (b.equals(FluidRegistry.getFluid("oil").getBlock())) {
+        } else if (b == FluidRegistry.getFluid("oil").getBlock()) {
             toScan.add(new PathNode(vec, node));
             fluidOilBlocks.add(vec);
         }

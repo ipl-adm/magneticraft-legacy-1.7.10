@@ -31,7 +31,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
     // client
     public float m;
     public boolean active;
-    public long time;
+    public float time;
     // server
     public TankMg tank = new TankMg(this, 4000);
     private List<VecInt> pipes = new LinkedList<>();
@@ -40,6 +40,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
     private boolean pipesPlaced;
     private boolean foundOilDeposit;
+    private boolean searchInProgress;
     private int cooldown;
     private int buffer;
 
@@ -139,7 +140,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
         Set<VecInt> scanned = new HashSet<>();
         fluid.clear();
         oilBlocks.clear();
-        foundOilDeposit = false;
+        searchInProgress = true;
 
         for (int i = 0; i < yCoord; i++) {
             VecInt pos = new VecInt(xCoord, yCoord - i, zCoord);
@@ -273,9 +274,9 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
         return new FluidTankInfo[]{tank.getInfo()};
     }
 
-    public float getDelta() {
-        long aux = time;
-        time = System.nanoTime();
+    public float getDelta(float partial) {
+        float aux = time;
+        time = (worldObj.getTotalWorldTime() + partial) * 50;
         return time - aux;
     }
 

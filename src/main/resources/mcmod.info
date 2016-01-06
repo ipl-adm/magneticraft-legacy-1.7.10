@@ -10,10 +10,10 @@
   "authorList": [
   "Cout970", "Minecreatr", "MattDahEpic","MechWarrior99","Cypher121"
   ],
-  "credits": "By Magneticraft Team: Cout970, Cypher121, Minecreatr, MattDahEpic (Developers) and MechWarrior99 (Artist)",
+  "credits": "By Magneticraft Team: Cout970, Cypher121, Minecreatr, MattDahEpic (Developers) and MechWarrior99 (Artist). Additional credits to Drullkus for motivational shitposting on #magneticraft",
   "logoFile": "assets/magneticraft/textures/logo/logo.png",
   "screenshots": [],
   "requiredMods": [ "Forge", "ForgeMultipart" ],
-  "dependencies": [ "Railcraft", "ForgeMultipart", "BuildCraft|Core", "CoFHCore", "IC2", "ImmersiveEngineering" ]
+  "dependencies": [ "Railcraft", "ForgeMultipart", "BuildCraft|Core", "CoFHCore", "IC2", "ImmersiveEngineering", "MineFactoryReloaded" ]
 }
 ]

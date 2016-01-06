@@ -34,25 +34,9 @@ public class TileRenderTurbine extends TileEntitySpecialRenderer {
             glRotatef(180, 1, 0, 0);
             glRotatef(-90, 0, 1, 0);
             glEnable(GL_CULL_FACE);
-            switch (tile.getDirection()) {
-                case NORTH:
-                    GL11.glRotatef(-90, 0, 1, 0);
-                    GL11.glTranslated(-1.5, -0.5, 0.5);
-                    break;
-                case SOUTH:
-                    GL11.glRotatef(90, 0, 1, 0);
-                    GL11.glTranslated(-0.5, -0.5, -0.5);
-                    break;
-                case WEST:
-                    GL11.glRotatef(180, 0, 1, 0);
-                    GL11.glTranslated(-0.5, -0.5, 0.5);
-                    break;
-                case EAST:
-                    GL11.glTranslated(-1.5, -0.5, -0.5);
-                    break;
-                default:
-                    break;
-            }
+
+            RenderUtil.applyRotation(tile.getDirection());
+
             if (tile.getFluidAmount() > 0) {
                 tile.animation += (tile.getDelta() / 1E8) * tile.speed;
             }

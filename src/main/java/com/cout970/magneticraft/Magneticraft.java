@@ -49,12 +49,6 @@ public class Magneticraft {
     public final static String GUI_FACTORY = "com.cout970.magneticraft.handlers.MgGuiFactory";
     public static final boolean DEBUG = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     public static String DEV_HOME = null;
-    public static boolean BUILDCRAFT = false;
-    public static boolean RAILCRAFT = false;
-    public static boolean IC2 = false;
-    public static boolean COFH_ENERGY = false;
-    public static boolean COFH_TOOLS = false;
-    public static boolean IE = false;
 
     @Instance(NAME)
     public static Magneticraft INSTANCE;
@@ -70,24 +64,7 @@ public class Magneticraft {
         Log.init(event.getModLog());
         Log.info("Starting preInit");
 
-        if (Loader.isModLoaded("BuildCraft|Core")) {
-            BUILDCRAFT = true;
-        }
-        if (Loader.isModLoaded("IC2")) {
-            IC2 = true;
-        }
-        if (Loader.isModLoaded("Railcraft")) {
-            RAILCRAFT = true;
-        }
-        if (Loader.isModLoaded("ImmersiveEngineering")) {
-            IE = true;
-        }
-        if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy")) {
-            COFH_ENERGY = true;
-        }
-        if (ModAPIManager.INSTANCE.hasAPI("CoFHAPI|item")) {
-            COFH_TOOLS = true;
-        }
+        ManagerIntegration.searchCompatibilities();
 
         ManagerConfig.init(event.getSuggestedConfigurationFile());
 
@@ -101,8 +78,6 @@ public class Magneticraft {
         ManagerFluids.initFluids();
 
         proxy.init();
-
-        ManagerIntegration.searchCompatibilities();
 
         if (DEBUG) {
             //BEGIN FINDING OF SOURCE DIR
@@ -160,15 +135,15 @@ public class Magneticraft {
             MgMinetweaker.init();
         }
 
-        if (BUILDCRAFT) {
+        if (ManagerIntegration.BUILDCRAFT) {
             ManagerFluids.registerBCFuels();
         }
 
-        if (RAILCRAFT) {
+        if (ManagerIntegration.RAILCRAFT) {
             ManagerFluids.registerRCFuels();
         }
 
-        if (IE) {
+        if (ManagerIntegration.IE) {
             ManagerFluids.registerIEFuels();
         }
 

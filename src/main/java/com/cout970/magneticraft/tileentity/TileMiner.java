@@ -14,6 +14,7 @@ import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.client.gui.component.IBarProvider;
 import com.cout970.magneticraft.client.gui.component.IEnergyTracker;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
+import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.util.*;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
 import com.google.common.collect.Sets;
@@ -215,7 +216,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
                         }
                     }
                 }
-            } else if (Magneticraft.BUILDCRAFT && (t instanceof IPipeTile)) {
+            } else if (ManagerIntegration.BUILDCRAFT && (t instanceof IPipeTile)) {
                 IPipeTile a = (IPipeTile) t;
                 if (a.getPipeType() == PipeType.ITEM) {
                     int r = a.injectItem(i, true, d.toForgeDir().getOpposite(), EnumColor.WHITE);

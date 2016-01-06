@@ -30,38 +30,34 @@ public class BlockPumpJack extends BlockMg {
     }
 
     public Item getItemDropped(int meta, Random rand, int fort) {
-        if (meta >= 4) return null;
         return Item.getItemFromBlock(this);
     }
 
     public void breakBlock(World w, int x, int y, int z, Block b, int meta) {
-        if (hasTileEntity(meta) && !(this instanceof BlockContainer)) {
-            w.removeTileEntity(x, y, z);
-        }
-        if(meta >= MgDirection.AXIX_Y.length){
-        	meta -= 4;
-        	if(meta >= MgDirection.AXIX_Y.length){
-        		meta -= 4;
-        		if(meta >= MgDirection.AXIX_Y.length){
-            		w.setBlockToAir(x,y-1,z);
-            	}else{
-            		MgDirection dir = MgDirection.AXIX_Y[meta];
-            		w.setBlockToAir(x+dir.getOffsetX(), y, z+dir.getOffsetZ());
-            	}
-        	}else{
-        		MgDirection dir = MgDirection.AXIX_Y[meta];
-        		w.setBlockToAir(x+dir.getOffsetX(), y, z+dir.getOffsetZ());
-        	}
-        }else{
-        	MgDirection dir = MgDirection.AXIX_Y[meta];
-        	VecInt pos = new VecInt(x, y, z);
-        	for (int i = 0; i < 3; i++) {
-    			for (int j = 0; j < 3; j++) {
-    				if(i == 0 && j == 0)continue;
-    				VecInt check = pos.copy().add(dir.toVecInt().multiply(i).add(0, j, 0));
-    				w.setBlockToAir(check.getX(), check.getY(), check.getZ());
-    			}
-    		}
+        if (meta >= MgDirection.AXIX_Y.length) {
+            meta -= 4;
+            if (meta >= MgDirection.AXIX_Y.length) {
+                meta -= 4;
+                if (meta >= MgDirection.AXIX_Y.length) {
+                    w.setBlockToAir(x, y - 1, z);
+                } else {
+                    MgDirection dir = MgDirection.AXIX_Y[meta];
+                    w.setBlockToAir(x + dir.getOffsetX(), y, z + dir.getOffsetZ());
+                }
+            } else {
+                MgDirection dir = MgDirection.AXIX_Y[meta];
+                w.setBlockToAir(x + dir.getOffsetX(), y, z + dir.getOffsetZ());
+            }
+        } else {
+            MgDirection dir = MgDirection.AXIX_Y[meta];
+            VecInt pos = new VecInt(x, y, z);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (i == 0 && j == 0) continue;
+                    VecInt check = pos.copy().add(dir.toVecInt().multiply(i).add(0, j, 0));
+                    w.setBlockToAir(check.getX(), check.getY(), check.getZ());
+                }
+            }
         }
     }
 
@@ -69,8 +65,8 @@ public class BlockPumpJack extends BlockMg {
     public TileEntity createNewTileEntity(World w, int m) {
         if (m <= 3)
             return new TilePumpJack();
-        if( m >= 8 && m < 12)
-        	return new TilePumpjackEnergyLink();
+        if (m >= 8 && m < 12)
+            return new TilePumpjackEnergyLink();
         return null;
     }
 

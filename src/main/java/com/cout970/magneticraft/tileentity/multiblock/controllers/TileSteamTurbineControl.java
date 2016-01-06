@@ -90,6 +90,9 @@ public class TileSteamTurbineControl extends TileMB_Base implements IGuiSync {
         int sum = getFluidAmount();
         int rest = sum % 4;
         for (TankMg t : in) {
+            if (t == null) {
+                continue;
+            }
             t.setFluid(null);
             t.fill(FluidRegistry.getFluidStack("steam", sum / 4), true);
             if (rest > 0)

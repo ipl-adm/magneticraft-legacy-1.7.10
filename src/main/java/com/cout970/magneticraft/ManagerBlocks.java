@@ -16,6 +16,7 @@ import com.cout970.magneticraft.block.multiblock.*;
 import com.cout970.magneticraft.block.multiblock.controllers.*;
 import com.cout970.magneticraft.block.slabs.*;
 import com.cout970.magneticraft.block.stairs.*;
+import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.items.block.ItemBlockMg;
 import com.cout970.magneticraft.items.block.ItemBlockMgSlab;
 import com.cout970.magneticraft.items.block.ItemBlockPumpjack;
@@ -146,6 +147,7 @@ public class ManagerBlocks {
     public static Block pressure_tank;
     public static Block crushing_table;
     public static Block shelving_unit;
+    public static Block sprinkler;
 
     public static BlockSlab slabOreLimeSingle;
     public static BlockSlab slabOreLimeDouble;
@@ -317,18 +319,18 @@ public class ManagerBlocks {
         electric_switch = new BlockElectricSwitch();
         diode = new BlockDiode();
         resistance = new BlockResistance();
-        if (Magneticraft.COFH_ENERGY) {
+        if (ManagerIntegration.COFH_ENERGY) {
             rf_alternator = new BlockRFAlternator();
             kinetic = new BlockKineticGenerator();
         }
-        if (Magneticraft.RAILCRAFT) {
+        if (ManagerIntegration.RAILCRAFT) {
             rc_alternator = new BlockRCAlternator();
         }
-        if (Magneticraft.IC2) {
+        if (ManagerIntegration.IC2) {
             eu_alternator = new BlockEUAlternator();
         }
         if (Magneticraft.DEBUG) {
-
+            sprinkler = new BlockSprinkler();
         }
         pole_cable_wire = new BlockElectricPoleCableWire();
         infinite_energy = new BlockInfiniteEnergy();
@@ -467,14 +469,14 @@ public class ManagerBlocks {
         addBlock(electric_switch, "Electric Switch");
         addBlock(diode, "Diode");
         addBlock(resistance, "Resistance");
-        if (Magneticraft.COFH_ENERGY) {
+        if (ManagerIntegration.COFH_ENERGY) {
             addBlock(rf_alternator, "RF Alternator");
             addBlock(kinetic, "Kinetic Generator");
         }
-        if (Magneticraft.RAILCRAFT) {
+        if (ManagerIntegration.RAILCRAFT) {
             addBlock(rc_alternator, "RailCraft Charge Alternator");
         }
-        if (Magneticraft.IC2) {
+        if (ManagerIntegration.IC2) {
             addBlock(eu_alternator, "EU Alternator");
         }
         if (Magneticraft.DEBUG) {
@@ -492,6 +494,7 @@ public class ManagerBlocks {
             addBlock(cpu, "CPU");
             addBlock(droid_red, "R.E.D.");
             addBlock(pressure_tank, "Pressure Tank");
+            addBlock(sprinkler, "Sprinkler");
         }
         addBlock(pole_cable_wire, "Electrical Pole With Transformer");
         addBlock(infinite_energy, "Creative Infinite Energy");
@@ -585,19 +588,20 @@ public class ManagerBlocks {
         tileEntities.add(TileDiode.class);
         tileEntities.add(TileResistance.class);
         
-        if (Magneticraft.COFH_ENERGY) {
+        if (ManagerIntegration.COFH_ENERGY) {
             tileEntities.add(TileRFAlternator.class);
             tileEntities.add(TileKineticGenerator.class);
         }
-        if (Magneticraft.RAILCRAFT) {
+        if (ManagerIntegration.RAILCRAFT) {
             tileEntities.add(TileRCAlternator.class);
         }
-        if (Magneticraft.IC2) {
+        if (ManagerIntegration.IC2) {
             tileEntities.add(TileEUAlternator.class);
         }
         if (Magneticraft.DEBUG) {
         	tileEntities.add(TileElectricConnector.class);
         	tileEntities.add(TileElectricConnectorDown.class);
+            tileEntities.add(TileSprinkler.class);
         }
         tileEntities.add(TileElectricPoleCableWire.class);
         tileEntities.add(TileElectricPoleCableWireDown.class);

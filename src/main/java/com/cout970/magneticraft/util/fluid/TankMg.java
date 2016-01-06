@@ -16,6 +16,9 @@ public class TankMg extends FluidTank {
 
     public void readFromNBT(NBTTagCompound main, String string) {
         NBTTagCompound nbt = (NBTTagCompound) main.getTag(string);
+        if (nbt == null) {
+            return;
+        }
         this.readFromNBT(nbt);
     }
 

@@ -23,6 +23,19 @@ import java.util.Map;
 public class HandlerBuckets {
 
     public static HandlerBuckets INSTANCE;
+    public Map<Block, Item> buckets = new HashMap<>();
+
+    public HandlerBuckets() {
+        buckets.put(ManagerFluids.oilBlock, ManagerItems.bucket_oil);
+        buckets.put(ManagerFluids.lightOilBlock, ManagerItems.bucket_light_oil);
+        buckets.put(ManagerFluids.heavyOilBlock, ManagerItems.bucket_heavy_oil);
+        buckets.put(ManagerFluids.hotCrudeBlock, ManagerItems.bucket_hot_crude);
+
+        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.OIL_NAME, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_oil), new ItemStack(Items.bucket));
+        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.LIGHT_OIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_light_oil), new ItemStack(Items.bucket));
+        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.HEAVY_OIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_heavy_oil), new ItemStack(Items.bucket));
+        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.HOT_CRUDE, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_hot_crude), new ItemStack(Items.bucket));
+    }
 
     public FluidStack getFluid(ItemStack item) {
         Item i = item.getItem();
@@ -39,26 +52,13 @@ public class HandlerBuckets {
         return null;
     }
 
-    public Map<Block, Item> buckets = new HashMap<>();
-
-    public HandlerBuckets() {
-        buckets.put(ManagerFluids.oilBlock, ManagerItems.bucket_oil);
-        buckets.put(ManagerFluids.lightOilBlock, ManagerItems.bucket_light_oil);
-        buckets.put(ManagerFluids.heavyOilBlock, ManagerItems.bucket_heavy_oil);
-        buckets.put(ManagerFluids.hotCrudeBlock, ManagerItems.bucket_hot_crude);
-
-        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.OIL_NAME, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_oil), new ItemStack(Items.bucket));
-        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.LIGHT_OIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_light_oil), new ItemStack(Items.bucket));
-        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.HEAVY_OIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_heavy_oil), new ItemStack(Items.bucket));
-        FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluidStack(ManagerFluids.HOT_CRUDE, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(ManagerItems.bucket_hot_crude), new ItemStack(Items.bucket));
-    }
-
     @SubscribeEvent
     public void onBucketFill(FillBucketEvent event) {
 
         Block block = event.world.getBlock(event.target.blockX, event.target.blockY, event.target.blockZ);
         if (block == ManagerBlocks.infinite_water) {
             event.setResult(Result.ALLOW);
+            event.result = new ItemStack(Items.water_bucket);
             return;
         }
         ItemStack result = fillCustomBucket(event.world, event.target);

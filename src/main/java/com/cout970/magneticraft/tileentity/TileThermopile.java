@@ -18,7 +18,7 @@ import net.minecraft.inventory.ICrafting;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileThermophile extends TileConductorLow implements IGuiSync {
+public class TileThermopile extends TileConductorLow implements IGuiSync {
 
     public int ticks;
     public double diff;

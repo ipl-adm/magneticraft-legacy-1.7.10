@@ -30,7 +30,9 @@ public class OilPathFinding extends PathFinding {
         VecInt vec = node.getPosition().copy().add(dir);
 
         if (scanned.contains(vec) || toScan.stream().anyMatch(n -> (n.getPosition().equals(vec)))) return;
-
+        if (!world.blockExists(vec.getX(), vec.getY(), vec.getZ())) {
+            return;
+        }
         Block b = world.getBlock(vec.getX(), vec.getY(), vec.getZ());
 
         if (b == ManagerBlocks.oilSource) {

@@ -2,80 +2,219 @@ package com.cout970.magneticraft.util.pathfinding;
 
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.util.Log;
+import net.minecraft.world.IBlockAccess;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+import java.util.stream.Collectors;
 
-/**
- * Created by cout970 on 13/11/2015.
- */
 public abstract class PathFinding {
-
-    protected HashSet<VecInt> scanned;
+    protected List<PathNode> scanned;
     protected Queue<PathNode> toScan;
-    protected VecInt start;
-    protected VecInt end;
+    protected IBlockAccess field;
+    protected State currentState;
+    protected PathNode goal;
+    protected PathNode start;
 
-    public PathFinding() {
-        scanned = new HashSet<>();
-        toScan = new LinkedList<>();
+    /**
+     * Initializes a new PathFinding instance that will work on given field, starting with a block at given position.
+     *
+     * @param ba {@link IBlockAccess} that will provide information about blocks for the algorithm
+     * @param start {@link VecInt} containing coordinates of a start block.
+     */
+    public PathFinding(IBlockAccess ba, VecInt start) {
+        scanned = new ArrayList<>();
+        toScan = new ArrayDeque<>();
+        this.start = new PathNode(start, null);
+        field = ba;
+        currentState = State.NOT_STARTED;
+        goal = null;
     }
 
-    public void setStart(VecInt vec) {
-        start = vec.copy();
-    }
-
-    public void setEnd(VecInt vec) {
-        end = vec.copy();
-    }
-
-    public void addAdjacentNodes(PathNode node) {
-        for(MgDirection d : MgDirection.values())
-            addNode(node, d.toVecInt());
-    }
-
-    public PathNode scan(PathNode node) {
-
-        scanned.add(node.getPosition());
-        if (isEnd(node)) {
-            return node;
+    /**
+     * Iterates algorithms for a maximum of <code>maxIterations</code> steps. This ensures that algorithm can be
+     * interrupted and resumed later. Default implementation uses Breadth-First Search algorithm.
+     *
+     * @param maxIterations maximal number of iterations
+     */
+    public void iterate(int maxIterations) {
+        //prepare for work by adding initial node
+        if (currentState == State.NOT_STARTED) {
+            toScan.add(start);
+            currentState = State.WORKING;
         }
-        addAdjacentNodes(node);
-        return null;
-    }
 
-    public abstract void addNode(PathNode node, VecInt dir);
+        //don't try to work if it's done
+        if (isDone()) {
+            return;
+        }
 
-    protected abstract boolean isEnd(PathNode node);
+        //stop working on fail condition
+        if (hasFailed()) {
+            currentState = State.FAIL;
+            return;
+        }
 
-    public LinkedList<VecInt> getPath(){
-        PathNode node = getPathEnd();
+        int curIterations = 0;
+        PathNode node;
+        while ((node = toScan.poll()) != null) {
+            scanned.add(node);
 
-        if (node != null) {
-            LinkedList<VecInt> path = new LinkedList<>();
-            for (PathNode current = node; current.getBefore() != null; current = current.getBefore()) {
-                path.addFirst(current.getPosition());
+            //if reached end, finalize work
+            if (isGoal(node)) {
+                goal = node;
+                currentState = State.SUCCESS;
+                return;
             }
-            return path;
-        }
 
-        return null;
-    }
+            //add all adjacent blocks if they are suitable and have not been added yet
+            for (MgDirection dir : MgDirection.values()) {
+                PathNode next = node.step(dir);
+                if (!isPath(next)) {
+                    continue;
+                }
 
-    public PathNode getPathEnd(){
-        toScan.clear();
-        scanned.clear();
-        addNode(new PathNode(start, null), VecInt.NULL_VECTOR);
-        PathNode node = null;
+                if (scanned.stream().anyMatch(n -> n.getPosition().equals(next.getPosition()))) {
+                    continue;
+                }
 
-        while (!toScan.isEmpty()) {
-            node = scan(toScan.poll());
-            if (node != null) {
+                if (toScan.stream().anyMatch(n -> n.getPosition().equals(next.getPosition()))) {
+                    continue;
+                }
+                toScan.add(next);
+            }
+
+            if ((++curIterations) >= maxIterations) {
                 break;
             }
         }
 
-        return node;
+        //if no blocks are left, search failed
+        if (toScan.isEmpty()) {
+            currentState = State.FAIL;
+        }
+    }
+
+    /**
+     * Determines if algorithm has reached its failing condition and should stop iterating
+     *
+     * @return <code>true</code> if algorithm has failed and <code>false</code> otherwise
+     */
+    protected abstract boolean hasFailed();
+
+    /**
+     * Determines if this algorithm has a goal, such as oil block, TileEntity with specific properties, etc.
+     *
+     * @return <code>true</code> if algorithm has a goal and <code>false</code> otherwise.
+     */
+    public abstract boolean hasGoal();
+
+    /**
+     * Determines if given {@link PathNode} is an algorithm's goal
+     *
+     * @param node potential goal node
+     *
+     * @return <code>true</code> if given PathNode is a suitable goal and <code>false</code> otherwise.
+     */
+    public abstract boolean isGoal(PathNode node);
+
+    /**
+     * Determines if algorithm can move through a given {@link PathNode} to another one
+     *
+     * @param node potential path node
+     *
+     * @return <code>true</code> if given PathNode can be a part of the path and <code>false</code> otherwise.
+     */
+    public abstract boolean isPath(PathNode node);
+
+    /**
+     * Determines if algorithm is done working and that its result can now be used. Note that this does not mean
+     * that algorithm has reached its goal, because it may have failed or could have no goal in the first place.
+     *
+     * @return <code>true</code> if algorithm has completed its work and <code>false</code> otherwise.
+     */
+    public boolean isDone() {
+        return (currentState == State.FAIL) || (currentState == State.SUCCESS);
+    }
+
+    /**
+     * Determines current state of the algorithm
+     *
+     * @see State
+     *
+     * @return current {@link State} of the algorithm
+     */
+    public State getCurrentState() {
+        return currentState;
+    }
+
+    /**
+     * returns the {@link Result} of algorithm's operation
+     *
+     * @return instance of {@link Result} containing data about algorithm's operation or <code>null</code> if algorithm
+     * is still running
+     *
+     * @see Result
+     */
+    public Result getResult() {
+        if (!isDone()) {
+            return null;
+        }
+
+        return new Result(this);
+    }
+
+    public enum State {
+        NOT_STARTED,
+        WORKING,
+        FAIL,
+        SUCCESS
+    }
+
+    public static class Result {
+        private final VecInt goal;
+        private final List<VecInt> pathToGoal;
+        private final List<VecInt> scanned;
+        private final List<VecInt> toScan;
+        private final List<VecInt> all;
+        private final boolean success;
+
+        public Result(PathFinding p) {
+            success = p.currentState == State.SUCCESS;
+            toScan = p.toScan.stream().map(PathNode::getPosition).collect(Collectors.toList());
+            scanned = p.scanned.stream().map(PathNode::getPosition).collect(Collectors.toList());
+            all = new ArrayList<>();
+            all.addAll(toScan);
+            all.addAll(scanned);
+
+            goal = (p.goal == null) ? null : p.goal.getPosition();
+            if (goal == null) {
+                pathToGoal = null;
+            } else {
+                pathToGoal = new ArrayList<>();
+                PathNode t = p.goal;
+                while (t != null) {
+                    pathToGoal.add(t.getPosition());
+                    t = t.getBefore();
+                }
+                Collections.reverse(pathToGoal);
+            }
+        }
+
+        public List<VecInt> getScanned() {
+            return scanned;
+        }
+
+        public List<VecInt> getToScan() {
+            return toScan;
+        }
+
+        public List<VecInt> getAllScanned() {
+            return all;
+        }
+
+        public boolean isSuccessful() {
+            return success;
+        }
     }
 }

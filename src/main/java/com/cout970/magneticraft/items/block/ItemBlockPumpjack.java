@@ -31,15 +31,15 @@ public class ItemBlockPumpjack extends ItemBlockMg {
 	}
 
 	private void placeBlock(World w, int x, int y, int z, EntityPlayer player) {
-		MgDirection dir = MgDirection.getDirectionFromRotaton(player.rotationYaw);
+		MgDirection dir = MgDirection.getDirectionFromRotation(player.rotationYaw);
 		
 		VecInt pos = new VecInt(x, y, z);
 		VecInt check;
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				int meta = j != 0 ? 12 : i == 0 ? getMetaFromDir(dir) : i == 2 && j == 0? getMetaFromDir(dir.opposite())+8 : getMetaFromDir(dir.opposite())+4;
-				check = pos.copy().add(dir.toVecInt().multiply(i).add(0, j, 0));
+				int meta = j != 0 ? 12 : i == 0 ? getMetaFromDir(dir) : i == 2 ? getMetaFromDir(dir.opposite()) + 8 : getMetaFromDir(dir.opposite()) + 4;
+				check = pos.copy().add(dir.toVecInt().multiply(i).add(0, j, 0).add(dir.opposite()));
 				w.setBlock(check.getX(), check.getY(), check.getZ(), field_150939_a, meta, 3);
 			}
 		}
@@ -54,7 +54,7 @@ public class ItemBlockPumpjack extends ItemBlockMg {
 	}
 
 	private boolean canBePlaced(World w, int x, int y, int z, EntityPlayer player) {
-		MgDirection dir = MgDirection.getDirectionFromRotaton(player.rotationYaw);
+		MgDirection dir = MgDirection.getDirectionFromRotation(player.rotationYaw);
 		if(dir == null)return false;
 		
 		VecInt pos = new VecInt(x, y, z);
@@ -62,8 +62,8 @@ public class ItemBlockPumpjack extends ItemBlockMg {
 
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				check = pos.copy().add(dir.toVecInt().multiply(i).add(0, j, 0));
-				if (!w.getBlock(check.getX(), check.getY(), check.getZ()).isReplaceable(w, check.getX(),
+				check = pos.copy().add(dir.toVecInt().multiply(i).add(0, j, 0)).add(dir.opposite());
+				if (check.getBlock(w) == null || !check.getBlock(w).isReplaceable(w, check.getX(),
 						check.getY(), check.getZ())) {
 					return false;
 				}

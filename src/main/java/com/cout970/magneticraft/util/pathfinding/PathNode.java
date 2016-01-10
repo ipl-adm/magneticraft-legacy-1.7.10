@@ -1,10 +1,8 @@
 package com.cout970.magneticraft.util.pathfinding;
 
+import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 
-/**
- * Created by cout970 on 13/11/2015.
- */
 public class PathNode {
 
     private VecInt position;
@@ -33,5 +31,9 @@ public class PathNode {
 
     public void setPosition(VecInt position) {
         this.position = position;
+    }
+
+    public PathNode step(MgDirection dir) {
+        return new PathNode(new VecInt(this.getPosition(), dir), this);
     }
 }

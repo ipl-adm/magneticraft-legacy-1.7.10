@@ -98,7 +98,7 @@ public class MgUtils {
                 && !Block.isEqualTo(info.getBlock(), Blocks.mob_spawner)
                 && (info.getBlock() != Blocks.portal) && (info.getBlock() != Blocks.end_portal)
                 && (info.getBlock() != Blocks.end_portal_frame)
-                && (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) != -1)
+                && (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) >= 0)
                 && (w.canMineBlock(FakePlayerProvider.getFakePlayer((WorldServer) w), info.getX(), info.getY(), info.getZ()));
     }
 

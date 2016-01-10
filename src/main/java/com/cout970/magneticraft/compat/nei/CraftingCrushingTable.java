@@ -52,13 +52,13 @@ public class CraftingCrushingTable extends TemplateRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        recipes.addAll(MgRecipeRegister.crushing_table.stream().filter(recipe -> MgUtils.areEqual(recipe.getOutput(), result, true)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.crushing_table.stream().filter(recipe -> (recipe != null) && MgUtils.areEqual(recipe.getOutput(), result, true)).collect(Collectors.toList()));
     }
 
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        recipes.addAll(MgRecipeRegister.crushing_table.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.crushing_table.stream().filter(recipe -> (recipe != null) && recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override

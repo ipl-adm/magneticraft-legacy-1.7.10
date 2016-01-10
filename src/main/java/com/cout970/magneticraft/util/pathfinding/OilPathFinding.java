@@ -2,64 +2,35 @@ package com.cout970.magneticraft.util.pathfinding;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.VecInt;
+import com.cout970.magneticraft.tileentity.TilePumpJack;
 import net.minecraft.block.Block;
-import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidRegistry;
-
-import java.util.LinkedList;
-import java.util.Set;
+import net.minecraft.world.IBlockAccess;
 
 public class OilPathFinding extends PathFinding {
 
-    private World world;
-    private LinkedList<VecInt> oilBlocks;
-    private LinkedList<VecInt> fluidOilBlocks;
-
-    public OilPathFinding(World world) {
-        this.world = world;
-        oilBlocks = new LinkedList<>();
-        fluidOilBlocks = new LinkedList<>();
+    public OilPathFinding(IBlockAccess ba, VecInt start) {
+        super(ba, start);
     }
 
     @Override
-    public void addNode(PathNode node, VecInt dir) {
-
-        if (scanned.size() > 4000) return;
-        if (toScan.size() > 10000) return;
-
-        VecInt vec = node.getPosition().copy().add(dir);
-
-        if (scanned.contains(vec) || toScan.stream().anyMatch(n -> (n.getPosition().equals(vec)))) return;
-        if (!world.blockExists(vec.getX(), vec.getY(), vec.getZ())) {
-            return;
-        }
-        Block b = world.getBlock(vec.getX(), vec.getY(), vec.getZ());
-
-        if (b == ManagerBlocks.oilSource) {
-            oilBlocks.add(vec);
-            toScan.add(new PathNode(vec, node));
-        } else if (b == ManagerBlocks.oilSourceDrained) {
-            toScan.add(new PathNode(vec, node));
-        } else if (b == FluidRegistry.getFluid("oil").getBlock()) {
-            toScan.add(new PathNode(vec, node));
-            fluidOilBlocks.add(vec);
-        }
+    protected boolean hasFailed() {
+        return (scanned.size() > 4000) || (toScan.size() > 10000);
     }
 
     @Override
-    protected boolean isEnd(PathNode node) {
+    public boolean hasGoal() {
         return false;
     }
 
-    public Set<VecInt> getScannedBlocks() {
-        return scanned;
+    @Override
+    public boolean isGoal(PathNode node) {
+        return false;
     }
 
-    public LinkedList<VecInt> getOilBlocks() {
-        return oilBlocks;
-    }
+    @Override
+    public boolean isPath(PathNode node) {
+        Block b = node.getPosition().getBlock(field);
 
-    public LinkedList<VecInt> getFluidOilBlocks() {
-        return fluidOilBlocks;
+        return b == ManagerBlocks.oilSource || b == ManagerBlocks.oilSourceDrained || b == TilePumpJack.fluidOil;
     }
 }

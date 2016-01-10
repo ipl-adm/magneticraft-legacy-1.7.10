@@ -6,8 +6,12 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.prefab.ElectricConductor;
 import com.cout970.magneticraft.api.util.*;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
+import com.cout970.magneticraft.util.concurrency.PathFindingCallable;
+import com.cout970.magneticraft.util.concurrency.PathFindingExecutor;
+import com.cout970.magneticraft.util.concurrency.ThreadSafeBlockAccess;
 import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.pathfinding.OilPathFinding;
+import com.cout970.magneticraft.util.pathfinding.PathFinding;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -22,11 +26,12 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 
 import java.util.*;
+import java.util.concurrent.Future;
 
 public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
     private static final int speed = 50;
-    private static Block fluidOil;
+    public static Block fluidOil;
 
     // client
     public float m;
@@ -40,9 +45,10 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
     private boolean pipesPlaced;
     private boolean foundOilDeposit;
-    private boolean searchInProgress;
     private int cooldown;
     private int buffer;
+    private int lastY = -1;
+    private Future<PathFinding> result;
 
 
     @Override
@@ -88,8 +94,42 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
             fluidOil = FluidRegistry.getFluid("oil").getBlock();
 
         if (!foundOilDeposit) {
-            if (worldObj.getTotalWorldTime() % 80 == 0)
+            //trying to extract result from the thread
+            if (result != null) {
+                if (result.isDone()) {
+                    PathFinding pf = null;
+                    try {
+                        pf = result.get();
+                    } catch (Throwable ex) {
+                        ex.printStackTrace();
+                    }
+                    if (pf != null) {
+                        //finished
+                        if (pf.isDone()) {
+                            PathFinding.Result pfResult = pf.getResult();
+                            List<VecInt> all = pfResult.getAllScanned();
+                            if (!all.isEmpty()) {
+                                all.stream().filter(v -> v.getBlock(worldObj) == ManagerBlocks.oilSource).forEach(oilBlocks::add);
+                                all.stream().filter(v -> v.getBlock(worldObj) == fluidOil).forEach(fluid::add);
+                                lastY = -1;
+                                foundOilDeposit = true;
+                            } else {
+                                lastY--;
+                                foundOilDeposit = false;
+                            }
+                            result = null;
+                        } else {
+                            //not finished
+                            result = PathFindingExecutor.INSTANCE.submit(new PathFindingCallable(pf, PathFindingExecutor.INSTANCE));
+                        }
+                    } else {
+                        //errored
+                        result = null;
+                    }
+                }
+            } else if (worldObj.getTotalWorldTime() % 80 == 0) {
                 updateOilDeposit();
+            }
 
         } else {
             if (!pipesPlaced) {
@@ -137,29 +177,19 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
     }
 
     private void updateOilDeposit() {
-        Set<VecInt> scanned = new HashSet<>();
         fluid.clear();
         oilBlocks.clear();
-        searchInProgress = true;
+        int start = lastY == -1 ? yCoord : lastY;
+        for (int i = start; i > 0; i--) {
+            VecInt pos = new VecInt(xCoord, i, zCoord);
+            Block b = pos.getBlock(worldObj);
 
-        for (int i = 0; i < yCoord; i++) {
-            VecInt pos = new VecInt(xCoord, yCoord - i, zCoord);
-            Block b = worldObj.getBlock(pos.getX(), pos.getY(), pos.getZ());
-
-            if (!scanned.contains(pos) && (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil) || b.equals(ManagerBlocks.oilSourceDrained))) {
-                OilPathFinding pathFinding = new OilPathFinding(worldObj);
-                pathFinding.setStart(pos);
-                pathFinding.getPathEnd();
-                scanned.addAll(pathFinding.getScannedBlocks());
-                oilBlocks.addAll(pathFinding.getOilBlocks());
-                fluid.addAll(pathFinding.getFluidOilBlocks());
-                if (!oilBlocks.isEmpty() || !fluid.isEmpty()) {
-                    foundOilDeposit = true;
-                    break;
-                }
+            if (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil) || b.equals(ManagerBlocks.oilSourceDrained)) {
+                OilPathFinding pathFinding = new OilPathFinding(ThreadSafeBlockAccess.getAccess(worldObj), pos);
+                result = PathFindingExecutor.INSTANCE.submit(new PathFindingCallable(pathFinding, PathFindingExecutor.INSTANCE));
+                break;
             }
         }
-        pipesPlaced = false;
     }
 
     private void placePipes() {
@@ -184,7 +214,7 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
 
             if (b.equals(ManagerBlocks.oilSource) || b.equals(fluidOil)) {
                 break;
-            } else if (b.equals(Blocks.air) || MgUtils.isMineableBlock(worldObj, new BlockInfo(b, meta)) && !b.equals(ManagerBlocks.concreted_pipe) && !b.equals(ManagerBlocks.oilSourceDrained)) {
+            } else if (b == Blocks.air || MgUtils.isMineableBlock(worldObj, new BlockInfo(b, meta)) && b != ManagerBlocks.concreted_pipe && b != ManagerBlocks.oilSourceDrained) {
                 pipes.add(new VecInt(xCoord, yCoord - i, zCoord));
             }
         }
@@ -199,9 +229,9 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
             items = id.getDrops(worldObj, x, y, z, metadata, 0);
             items.stream().filter(item -> item != null && item.stackSize > 0).forEach(item -> {
                 MgDirection dir = getOrientation().opposite();
-                float rx = dir.getOffsetX()+0.5f;
+                float rx = dir.getOffsetX() + 0.5f;
                 float ry = 0.5F;
-                float rz = dir.getOffsetZ()+0.5f;
+                float rz = dir.getOffsetZ() + 0.5f;
                 EntityItem entityItem = new EntityItem(worldObj,
                         xCoord + rx, yCoord + ry, zCoord + rz,
                         new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
@@ -330,5 +360,4 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
     public int getConnections() {
         return -1;
     }
-
 }

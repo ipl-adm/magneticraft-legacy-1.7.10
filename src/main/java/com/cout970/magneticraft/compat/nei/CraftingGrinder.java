@@ -60,7 +60,7 @@ public class CraftingGrinder extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        recipes.addAll(MgRecipeRegister.grinder.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.grinder.stream().filter(recipe -> (recipe != null) && recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override

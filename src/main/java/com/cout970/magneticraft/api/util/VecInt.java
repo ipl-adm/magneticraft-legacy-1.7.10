@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -18,9 +19,9 @@ import javax.annotation.Nonnull;
  * @author Cout970
  */
 public class VecInt implements Comparable<VecInt> {
-	
-    public static final VecInt NULL_VECTOR = new InmutVecInt(0, 0, 0);
-    
+
+    public static final VecInt NULL_VECTOR = new ImmutableVecInt(0, 0, 0);
+
     protected int x;
     protected int y;
     protected int z;
@@ -29,6 +30,12 @@ public class VecInt implements Comparable<VecInt> {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public VecInt(VecInt base, MgDirection dir) {
+        x = base.x + dir.getOffsetX();
+        y = base.y + dir.getOffsetY();
+        z = base.z + dir.getOffsetZ();
     }
 
     public VecInt(double x, double y, double z) {
@@ -75,9 +82,7 @@ public class VecInt implements Comparable<VecInt> {
 
         VecInt vecInt = (VecInt) o;
 
-        if (getX() != vecInt.getX()) return false;
-        if (getY() != vecInt.getY()) return false;
-        return getZ() == vecInt.getZ();
+        return getX() == vecInt.getX() && getY() == vecInt.getY() && getZ() == vecInt.getZ();
 
     }
 
@@ -164,7 +169,7 @@ public class VecInt implements Comparable<VecInt> {
         nbt.setInteger(name + "_z", z);
     }
 
-    public TileEntity getTileEntity(World w) {
+    public TileEntity getTileEntity(IBlockAccess w) {
         return w.getTileEntity(x, y, z);
     }
 
@@ -172,23 +177,23 @@ public class VecInt implements Comparable<VecInt> {
         return this.add(dir.getOffsetX(), dir.getOffsetY(), dir.getOffsetZ());
     }
 
-    public Block getBlock(World world) {
+    public Block getBlock(IBlockAccess world) {
         return world.getBlock(x, y, z);
     }
 
-	public int getBlockMetadata(World world) {
-		 return world.getBlockMetadata(x, y, z);
-	}
+    public int getBlockMetadata(IBlockAccess world) {
+        return world.getBlockMetadata(x, y, z);
+    }
 
-	public void setBlockMetadata(World world, int meta, int flags) {
-		world.setBlockMetadataWithNotify(x, y, z, meta, flags);
-	}
-	
-	public void setBlock(World world, Block block){
-		world.setBlock(x, y, z, block);
-	}
+    public void setBlockMetadata(World world, int meta, int flags) {
+        world.setBlockMetadataWithNotify(x, y, z, meta, flags);
+    }
 
-    public boolean isBlockReplaceable(World world) {
+    public void setBlock(World world, Block block) {
+        world.setBlock(x, y, z, block);
+    }
+
+    public boolean isBlockReplaceable(IBlockAccess world) {
         return getBlock(world).isReplaceable(world, x, y, z);
     }
 
@@ -203,23 +208,23 @@ public class VecInt implements Comparable<VecInt> {
     public boolean blockExists(World world) {
         return world.blockExists(x, y, z);
     }
-    
-    private static class InmutVecInt extends VecInt{
 
-		public InmutVecInt(int x, int y, int z) {
-			super(x, y, z);
-		}
-    	
-		public VecInt multiply(int i) {
-	        return this;
-	    }
+    public static class ImmutableVecInt extends VecInt {
 
-	    public VecInt add(VecInt v) {
-	        return this;
-	    }
+        public ImmutableVecInt(int x, int y, int z) {
+            super(x, y, z);
+        }
 
-	    public VecInt add(int a, int b, int c) {
-	        return this;
-	    }
+        public VecInt multiply(int i) {
+            throw new UnsupportedOperationException("Trying to modify immutable vector object");
+        }
+
+        public VecInt add(VecInt v) {
+            throw new UnsupportedOperationException("Trying to modify immutable vector object");
+        }
+
+        public VecInt add(int a, int b, int c) {
+            throw new UnsupportedOperationException("Trying to modify immutable vector object");
+        }
     }
 }

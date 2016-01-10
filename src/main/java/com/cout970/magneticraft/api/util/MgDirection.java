@@ -82,7 +82,7 @@ public enum MgDirection {
         return !isPerpendicular(dir);
     }
 
-	public static MgDirection getDirectionFromRotaton(float cameraYaw) {
+	public static MgDirection getDirectionFromRotation(float cameraYaw) {
 		float yaw = wrapTo180(cameraYaw);
 		
 		if(yaw > -135 && yaw <= -45)

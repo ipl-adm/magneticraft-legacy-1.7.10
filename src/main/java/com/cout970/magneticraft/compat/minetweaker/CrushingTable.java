@@ -25,7 +25,9 @@ public class CrushingTable {
     @ZenMethod
     public static void removeRecipe(IItemStack input) {
         RecipeCrushingTable r = RecipeCrushingTable.getRecipe(MgMinetweaker.toStack(input));
-        MineTweakerAPI.apply(new RemoveRecipe(r));
+        if (r != null) {
+            MineTweakerAPI.apply(new RemoveRecipe(r));
+        }
     }
 
     public static class AddRecipe implements IUndoableAction {

@@ -51,12 +51,12 @@ public class CraftingPolymerizer extends TemplateRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        recipes.addAll(MgRecipeRegister.polymerizer.stream().filter(rec -> MgUtils.areEqual(result, rec.getOutput(), true)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.polymerizer.stream().filter(rec -> (rec != null) && MgUtils.areEqual(result, rec.getOutput(), true)).collect(Collectors.toList()));
     }
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        recipes.addAll(MgRecipeRegister.polymerizer.stream().filter(rec -> MgUtils.areEqual(ingredient, rec.getInput(), true)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.polymerizer.stream().filter(rec -> (rec != null) && MgUtils.areEqual(ingredient, rec.getInput(), true)).collect(Collectors.toList()));
     }
 
     @Override

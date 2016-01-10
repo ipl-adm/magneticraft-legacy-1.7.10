@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.CRATE_SIZE;
 import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.MAX_CRATES;
 import static com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit.SHELF_CRATES;
+import static java.util.Comparator.comparingInt;
 
 @SuppressWarnings("unchecked")
 @ChestContainer
@@ -64,7 +65,7 @@ public class ContainerShelvingUnit extends ContainerBasic {
         Map<ContainerSection, List<Slot>> retMap = new EnumMap<>(ContainerSection.class);
         List<Slot> inventory = (List<Slot>) inventorySlots.stream()
                 .filter(s -> !(s instanceof SlotShelvingUnit))
-                .sorted((s1, s2) -> Integer.compare(((Slot) s1).slotNumber, ((Slot) s2).slotNumber))
+                .sorted(comparingInt(s -> ((Slot) s).slotNumber))
                 .collect(Collectors.toList());
         List<? extends Slot> curSlots;
         if (isFiltered) {

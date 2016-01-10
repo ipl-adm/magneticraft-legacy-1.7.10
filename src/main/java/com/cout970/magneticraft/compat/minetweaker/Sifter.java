@@ -25,7 +25,9 @@ public class Sifter {
     @ZenMethod
     public static void removeRecipe(IItemStack input) {
         RecipeSifter r = RecipeSifter.getRecipe(MgMinetweaker.toStack(input));
-        MineTweakerAPI.apply(new RemoveRecipe(r));
+        if (r != null) {
+            MineTweakerAPI.apply(new RemoveRecipe(r));
+        }
     }
 
     public static class AddRecipe implements IUndoableAction {

@@ -25,7 +25,9 @@ public class Grinder {
     @ZenMethod
     public static void removeRecipe(IItemStack input) {
         RecipeGrinder r = RecipeGrinder.getRecipe(MgMinetweaker.toStack(input));
-        MineTweakerAPI.apply(new RemoveRecipe(r));
+        if (r != null) {
+            MineTweakerAPI.apply(new RemoveRecipe(r));
+        }
     }
 
     public static class AddRecipe implements IUndoableAction {

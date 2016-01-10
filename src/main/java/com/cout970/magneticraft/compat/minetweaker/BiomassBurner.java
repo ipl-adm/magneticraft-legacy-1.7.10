@@ -24,7 +24,9 @@ public class BiomassBurner {
     public static void removeFuel(IItemStack fuel) {
         ItemStack a = MgMinetweaker.toStack(fuel);
         RecipeBiomassBurner r = RecipeBiomassBurner.getRecipe(a);
-        MineTweakerAPI.apply(new RemoveRecipe(r));
+        if (r != null) {
+            MineTweakerAPI.apply(new RemoveRecipe(r));
+        }
     }
 
     public static class AddRecipe implements IUndoableAction {

@@ -60,7 +60,7 @@ public class CraftingCrusher extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        recipes.addAll(MgRecipeRegister.crusher.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.crusher.stream().filter(recipe -> (recipe != null) && recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override

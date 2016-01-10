@@ -53,7 +53,7 @@ public class CraftingBiomassBurner extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        recipes.addAll(MgRecipeRegister.biomassBurner.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.biomassBurner.stream().filter(recipe -> (recipe != null) && recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override

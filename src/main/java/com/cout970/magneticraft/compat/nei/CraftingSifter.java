@@ -58,7 +58,7 @@ public class CraftingSifter extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        recipes.addAll(MgRecipeRegister.sifter.stream().filter(recipe -> recipe.matches(ingredient)).collect(Collectors.toList()));
+        recipes.addAll(MgRecipeRegister.sifter.stream().filter(recipe -> (recipe != null) && recipe.matches(ingredient)).collect(Collectors.toList()));
     }
 
     @Override

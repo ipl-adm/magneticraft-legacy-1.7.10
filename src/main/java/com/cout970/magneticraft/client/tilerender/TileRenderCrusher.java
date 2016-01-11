@@ -49,7 +49,7 @@ public class TileRenderCrusher extends TileEntitySpecialRenderer {
     public void renderTileEntityAt(TileEntity t, double x, double y, double z, float frames) {
         TileCrusher tile = (TileCrusher) t;
 
-        int meta = t.getWorld()().getBlockMetadata(t.xCoord, t.yCoord, t.zCoord);
+        int meta = t.getWorld().getBlockMetadata(t.xCoord, t.yCoord, t.zCoord);
         if (meta >= 8) {
             GL11.glPushMatrix();
             GL11.glTranslated(x, y, z);
@@ -120,10 +120,10 @@ public class TileRenderCrusher extends TileEntitySpecialRenderer {
                 itemEntity.setEntityItemStack(item);
                 RenderItemMG.doRender(itemEntity, 0, 0, 0, 0, 0);
                 if (tile.cond.getVoltage() > ElectricConstants.MACHINE_WORK && tile.working) {
-                    Random r = tile.getWorld()().rand;
+                    Random r = tile.getWorld().rand;
                     if ((int) (tile.animation) < 550 && (int) (tile.animation) > 450 && r.nextBoolean()) {
                         try {
-                            tile.getWorld()().spawnParticle("smoke", tile.xCoord + vec.getX() + 0.5f, tile.yCoord + vec.getY() + 1.4f, tile.zCoord + vec.getZ() + 0.5f, 0.03125 / 2 - r.nextFloat() * 0.03125, 0.03125 / 2 - r.nextFloat() * 0.03125, 0.03125 / 2 - r.nextFloat() * 0.03125);
+                            tile.getWorld().spawnParticle("smoke", tile.xCoord + vec.getX() + 0.5f, tile.yCoord + vec.getY() + 1.4f, tile.zCoord + vec.getZ() + 0.5f, 0.03125 / 2 - r.nextFloat() * 0.03125, 0.03125 / 2 - r.nextFloat() * 0.03125, 0.03125 / 2 - r.nextFloat() * 0.03125);
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.error("-----------------------------------------------------------");

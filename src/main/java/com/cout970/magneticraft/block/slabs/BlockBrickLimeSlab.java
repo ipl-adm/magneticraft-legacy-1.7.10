@@ -2,6 +2,7 @@ package com.cout970.magneticraft.block.slabs;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.properties.IProperty;
 
 public class BlockBrickLimeSlab extends BlockMgSlab {
 
@@ -9,8 +10,8 @@ public class BlockBrickLimeSlab extends BlockMgSlab {
         super(full, ManagerBlocks.brickLime.getMaterial(), ManagerBlocks.brickLime.getUnlocalizedName() + "Slab" + (full ? "Full" : ""));
         setHardness(1.5F);
         setStepSound(soundTypeStone);
-        setHarvestLevel(ManagerBlocks.brickLime.getHarvestTool(0), ManagerBlocks.brickLime.getHarvestLevel(0));
-        setBlockTextureName("magneticraft:brick_limestone");
+        setHarvestLevel(ManagerBlocks.brickLime.getHarvestTool(ManagerBlocks.brickLime.getDefaultState()),
+                ManagerBlocks.brickLime.getHarvestLevel(ManagerBlocks.brickLime.getDefaultState()));
     }
 
     @Override
@@ -21,5 +22,10 @@ public class BlockBrickLimeSlab extends BlockMgSlab {
     @Override
     public BlockSlab getSingleBlock() {
         return ManagerBlocks.slabBrickLimeSingle;
+    }
+
+    @Override
+    public IProperty<?> getVariantProperty() {
+        return null;
     }
 }

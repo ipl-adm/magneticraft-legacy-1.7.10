@@ -7,8 +7,8 @@ import net.minecraft.block.BlockStairs;
 public class BlockMgStairs extends BlockStairs {
 
         public BlockMgStairs(Block source, String name) {
-            super(source, 0);
-            setBlockName(name);
+            super(source.getDefaultState());
+            setUnlocalizedName(name);
             setCreativeTab(CreativeTabsMg.MainTab);
             setLightOpacity(0);
         }

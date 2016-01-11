@@ -2,6 +2,7 @@ package com.cout970.magneticraft.block.compat;
 
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
 import net.minecraft.block.state.IBlockState;
@@ -14,8 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Facing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -27,9 +26,9 @@ public class BlockKineticGenerator extends BlockMg {
     }
 
     @Override
-    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+    public boolean onBlockActivated(World w, BlockPos pos, IBlockState state, EntityPlayer p, EnumFacing facing, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
-        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
+        GuiHandler.open(p, w, pos);
         return true;
     }
 

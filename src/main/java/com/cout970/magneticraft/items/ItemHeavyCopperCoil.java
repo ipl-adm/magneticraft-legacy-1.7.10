@@ -51,7 +51,7 @@ public class ItemHeavyCopperCoil extends ItemBasic {
                         }
                         if (pole1.canConnectWire(pole2.getTier(), pole2, true) && pole2.canConnectWire(pole1.getTier(), pole1, true)) {
                             InterPoleWire wire = new InterPoleWire(new VecInt(pole1.getParent()), new VecInt(pole2.getParent()));
-                            wire.setWorld(pole1.getParent().getWorld()());
+                            wire.setWorld(pole1.getParent().getWorld());
                             if (wire.getDistance() <= 16) {
                                 pole1.onConnect(wire);
                                 pole2.onConnect(wire);

@@ -2,6 +2,8 @@ package com.cout970.magneticraft.block.compat;
 
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tileentity.TileRFAlternator;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -33,26 +35,13 @@ public class BlockRFAlternator extends BlockMg {
         return "rf_alternator";
     }
 
-    public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i) {
-        int l = MathHelper.floor_double((double) (p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        if (l == 0) {
-            w.setBlockMetadataWithNotify(x, y, z, 3, 2);
-        }
-        if (l == 1) {
-            w.setBlockMetadataWithNotify(x, y, z, 4, 2);
-        }
-        if (l == 2) {
-            w.setBlockMetadataWithNotify(x, y, z, 2, 2);
-        }
-        if (l == 3) {
-            w.setBlockMetadataWithNotify(x, y, z, 5, 2);
-        }
+
+    @Override
+    public void onBlockPlacedBy(World w, BlockPos pos, IBlockState state, EntityLivingBase p, ItemStack i) {
+        rotate(w, pos, state, p);
     }
 
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }

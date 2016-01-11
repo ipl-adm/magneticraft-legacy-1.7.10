@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.handlers;
 
+import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.client.gui.*;
 import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.container.*;
@@ -7,6 +8,7 @@ import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.*;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +23,7 @@ public class GuiHandler implements IGuiHandler {
     		return new ContainerGuideBook(player.inventory, null);
     	}
     	
-        TileEntity tile = world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 
         if (tile instanceof TileElectricFurnace) {
             return new ContainerElectricFurnace(player.inventory, tile);
@@ -130,7 +132,7 @@ public class GuiHandler implements IGuiHandler {
     		return new GuiGuideBook(new ContainerGuideBook(player.inventory, null));
     	}
     	
-        TileEntity tile = world.getTileEntity(x, y, z);
+        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 
         if (tile instanceof TileElectricFurnace) {
             return new GuiElectricFurnace(new ContainerElectricFurnace(player.inventory, tile), tile);
@@ -231,4 +233,7 @@ public class GuiHandler implements IGuiHandler {
         return null;
     }
 
+    public static void open(EntityPlayer p, World w, BlockPos pos) {
+        p.openGui(Magneticraft.INSTANCE, 0, w, pos.getX(), pos.getY(), pos.getZ());
+    }
 }

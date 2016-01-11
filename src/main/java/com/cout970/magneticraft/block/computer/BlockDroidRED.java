@@ -3,8 +3,12 @@ package com.cout970.magneticraft.block.computer;
 import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.api.util.Orientation;
 import com.cout970.magneticraft.block.BlockMg;
+import com.cout970.magneticraft.handlers.GuiHandler;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileDroidRED;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -30,9 +34,10 @@ public class BlockDroidRED extends BlockMg {
         return new TileDroidRED();
     }
 
-    public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+    @Override
+    public boolean onBlockActivated(World w, BlockPos pos, IBlockState state, EntityPlayer p, EnumFacing facing, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
-        p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
+        GuiHandler.open(p, w, pos);
         return true;
     }
 
@@ -46,68 +51,45 @@ public class BlockDroidRED extends BlockMg {
         return "droid_red";
     }
 
-    public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i) {
-        int l = MathHelper.floor_double((double) (p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        if (l == 0) {
-            w.setBlockMetadataWithNotify(x, y, z, Orientation.NORTH.toMeta(), 2);
-        }
-        if (l == 1) {
-            w.setBlockMetadataWithNotify(x, y, z, Orientation.EAST.toMeta(), 2);
-        }
-        if (l == 2) {
-            w.setBlockMetadataWithNotify(x, y, z, Orientation.SOUTH.toMeta(), 2);
-        }
-        if (l == 3) {
-            w.setBlockMetadataWithNotify(x, y, z, Orientation.WEST.toMeta(), 2);
-        }
+    public void onBlockPlacedBy(World w, BlockPos pos, IBlockState state, EntityLivingBase p, ItemStack i) {
+        rotate(w, pos, state, p);
     }
 
     @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World w, int x, int y, int z) {
+    @Override
+    public AxisAlignedBB getSelectedBoundingBox(World w, BlockPos pos) {
         double desp = 0.0625 * 4;
-        Orientation o = Orientation.fromMeta(w.getBlockMetadata(x, y, z));
+        Orientation o = Orientation.fromMeta(w.getBlockState(pos).getBlock().getMetaFromState(w.getBlockState(pos)));
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
         if (o.getLevel() == 1 || o.getLevel() == -1)
-            return AxisAlignedBB.getBoundingBox(x + desp, y, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
+            return AxisAlignedBB.fromBounds(x + desp, y, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
         switch (o) {
             case NORTH:
             case SOUTH:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
+                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
             case WEST:
             case EAST:
-                return AxisAlignedBB.getBoundingBox(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
+                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
             default:
                 break;
         }
-        return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+        return AxisAlignedBB.fromBounds((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z) {
-        double desp = 0.0625 * 4;
-        Orientation o = Orientation.fromMeta(w.getBlockMetadata(x, y, z));
-        if (o.getLevel() == 1 || o.getLevel() == -1)
-            return AxisAlignedBB.getBoundingBox(x + desp, y, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
-        switch (o) {
-            case NORTH:
-            case SOUTH:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
-            case WEST:
-            case EAST:
-                return AxisAlignedBB.getBoundingBox(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
-            default:
-                break;
-        }
-        return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
+        return getSelectedBoundingBox(w, pos);
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing facing) {
         return false;
     }
 
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }

@@ -1,9 +1,12 @@
 package com.cout970.magneticraft.block.heat;
 
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileHeatSink;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -11,7 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class BlockHeatSink extends BlockMg {
 
@@ -20,12 +22,14 @@ public class BlockHeatSink extends BlockMg {
         setCreativeTab(CreativeTabsMg.IndustrialAgeTab);
     }
 
+    @Override
     public String[] getTextures() {
         return new String[]{"void"};
     }
 
-    public int onBlockPlaced(World w, int x, int y, int z, int side, float p_149660_6_, float p_149660_7_, float p_149660_8_, int meta) {
-        return ForgeDirection.getOrientation(side).getOpposite().ordinal();
+    @Override
+    public IBlockState onBlockPlaced(World w, BlockPos pos, EnumFacing facing, float hitx, float hity, float hitz, int meta, EntityLivingBase placer) {
+        return getBlockState().getBaseState().withProperty(FACING, facing.getOpposite());
     }
 
     @Override
@@ -39,23 +43,22 @@ public class BlockHeatSink extends BlockMg {
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing facing) {
         return false;
     }
 
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess w, int x, int y, int z) {
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess w, BlockPos pos) {
         float desp = 0.0625f * 2f;
         float height = 0.0625f * 4f;
-        MgDirection o = MgDirection.getDirection(w.getBlockMetadata(x, y, z));
-        switch (o) {
+        EnumFacing facing = w.getBlockState(pos).getValue(FACING);
+        switch (facing) {
             case DOWN:
                 setBlockBounds(desp, 0, desp, 1 - desp, height, 1 - desp);
                 break;
@@ -77,51 +80,56 @@ public class BlockHeatSink extends BlockMg {
         }
     }
 
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World w, int x, int y, int z) {
-
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBox(World w, BlockPos pos) {
         double desp = 0.0625 * 2;
         double height = 0.0625 * 4;
-        MgDirection o = MgDirection.getDirection(w.getBlockMetadata(x, y, z));
-        switch (o) {
+        EnumFacing facing = w.getBlockState(pos).getValue(FACING);
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
+        
+        switch (facing) {
             case DOWN:
-                return AxisAlignedBB.getBoundingBox(x + desp, y, z + desp, x + 1 - desp, y + height, z + 1 - desp);
+                return AxisAlignedBB.fromBounds(x + desp, y, z + desp, x + 1 - desp, y + height, z + 1 - desp);
             case UP:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + 1 - height, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
+                return AxisAlignedBB.fromBounds(x + desp, y + 1 - height, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
             case NORTH:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + desp, z, x + 1 - desp, y + 1 - desp, z + height);
+                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - desp, z + height);
             case SOUTH:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + desp, z + 1 - height, x + 1 - desp, y + 1 - desp, z + 1);
+                return AxisAlignedBB.fromBounds(x + desp, y + desp, z + 1 - height, x + 1 - desp, y + 1 - desp, z + 1);
             case WEST:
-                return AxisAlignedBB.getBoundingBox(x, y + desp, z + desp, x + height, y + 1 - desp, z + 1 - desp);
+                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + height, y + 1 - desp, z + 1 - desp);
             case EAST:
-                return AxisAlignedBB.getBoundingBox(x + 1 - height, y + desp, z + desp, x + 1, y + 1 - desp, z + 1 - desp);
+                return AxisAlignedBB.fromBounds(x + 1 - height, y + desp, z + desp, x + 1, y + 1 - desp, z + 1 - desp);
         }
-        return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+        return AxisAlignedBB.fromBounds((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z) {
-
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
         double desp = 0.0625 * 2;
         double height = 0.0625 * 4;
-        MgDirection o = MgDirection.getDirection(w.getBlockMetadata(x, y, z));
-        switch (o) {
-            case DOWN:
-                return AxisAlignedBB.getBoundingBox(x + desp, y, z + desp, x + 1 - desp, y + height, z + 1 - desp);
-            case UP:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + 1 - height, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
-            case NORTH:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + desp, z, x + 1 - desp, y + 1 - desp, z + height);
-            case SOUTH:
-                return AxisAlignedBB.getBoundingBox(x + desp, y + desp, z + 1 - height, x + 1 - desp, y + 1 - desp, z + 1);
-            case WEST:
-                return AxisAlignedBB.getBoundingBox(x, y + desp, z + desp, x + height, y + 1 - desp, z + 1 - desp);
-            case EAST:
-                return AxisAlignedBB.getBoundingBox(x + 1 - height, y + desp, z + desp, x + 1, y + 1 - desp, z + 1 - desp);
-        }
-        return AxisAlignedBB.getBoundingBox((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
-    }
+        EnumFacing facing = w.getBlockState(pos).getValue(FACING);
+        int x = pos.getX();
+        int y = pos.getY();
+        int z = pos.getZ();
 
-    public ForgeDirection[] getValidRotations(World worldObj, int x, int y, int z) {
-        return ForgeDirection.VALID_DIRECTIONS;
+        switch (facing) {
+            case DOWN:
+                return AxisAlignedBB.fromBounds(x + desp, y, z + desp, x + 1 - desp, y + height, z + 1 - desp);
+            case UP:
+                return AxisAlignedBB.fromBounds(x + desp, y + 1 - height, z + desp, x + 1 - desp, y + 1, z + 1 - desp);
+            case NORTH:
+                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - desp, z + height);
+            case SOUTH:
+                return AxisAlignedBB.fromBounds(x + desp, y + desp, z + 1 - height, x + 1 - desp, y + 1 - desp, z + 1);
+            case WEST:
+                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + height, y + 1 - desp, z + 1 - desp);
+            case EAST:
+                return AxisAlignedBB.fromBounds(x + 1 - height, y + desp, z + desp, x + 1, y + 1 - desp, z + 1 - desp);
+        }
+        return AxisAlignedBB.fromBounds((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 }

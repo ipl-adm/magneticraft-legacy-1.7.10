@@ -13,11 +13,11 @@ import com.cout970.magneticraft.util.energy.EnergyInterfaceFactory;
 import com.cout970.magneticraft.util.multiblock.MB_Register;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
 import com.google.common.collect.Lists;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
@@ -181,7 +181,7 @@ public class Magneticraft {
                 int x = ticket.getModData().getInteger("quarryX");
                 int y = ticket.getModData().getInteger("quarryY");
                 int z = ticket.getModData().getInteger("quarryZ");
-                TileEntity tq = world.getTileEntity(x, y, z);
+                TileEntity tq = world.getTileEntity(new BlockPos(x, y, z));
                 if (tq instanceof TileMiner) {
                     ((TileMiner) tq).forceChunkLoading(ticket);
                 }
@@ -197,7 +197,7 @@ public class Magneticraft {
                     int y = ticket.getModData().getInteger("quarryY");
                     int z = ticket.getModData().getInteger("quarryZ");
 
-                    Block block = world.getBlock(x, y, z);
+                    Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
                     if (block == ManagerBlocks.miner) {
                         validTickets.add(ticket);
                     }

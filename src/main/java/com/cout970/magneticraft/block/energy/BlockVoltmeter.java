@@ -26,5 +26,4 @@ public class BlockVoltmeter extends BlockMg {
     public String getName() {
         return "block_voltmeter";
     }
-
 }

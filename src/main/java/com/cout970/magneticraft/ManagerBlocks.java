@@ -207,43 +207,43 @@ public class ManagerBlocks {
         stairsOreLime = new BlockOreLimeStairs();
 
         burntLime = new BlockSimple("burnt_limestone");
-        burntLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
+        burntLime.setHarvestLevel(oreLime.getHarvestTool(oreLime.getDefaultState()), oreLime.getHarvestLevel(oreLime.getDefaultState()));
         slabBurntLimeSingle = new BlockBurntLimeSlab(false);
         slabBurntLimeDouble = new BlockBurntLimeSlab(true);
         stairsBurntLime = new BlockBurntLimeStairs();
 
         brickLime = new BlockSimple("brick_limestone");
-        brickLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
+        brickLime.setHarvestLevel(oreLime.getHarvestTool(oreLime.getDefaultState()), oreLime.getHarvestLevel(oreLime.getDefaultState()));
         slabBrickLimeSingle = new BlockBrickLimeSlab(false);
         slabBrickLimeDouble = new BlockBrickLimeSlab(true);
         stairsBrickLime = new BlockBrickLimeStairs();
 
         roofTile = new BlockClayTile();
-        roofTile.setHarvestLevel(Blocks.hardened_clay.getHarvestTool(0), Blocks.hardened_clay.getHarvestLevel(0));
+        roofTile.setHarvestLevel(Blocks.hardened_clay.getHarvestTool(Blocks.hardened_clay.getDefaultState()), Blocks.hardened_clay.getHarvestLevel(Blocks.hardened_clay.getDefaultState()));
         slabRoofTileSingle = new BlockClayTileSlab(false);
         slabRoofTileDouble = new BlockClayTileSlab(true);
         stairsRoofTile = new BlockClayTileStairs();
 
         tileLime = new BlockSimple("tile_limestone");
-        tileLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
+        tileLime.setHarvestLevel(oreLime.getHarvestTool(oreLime.getDefaultState()), oreLime.getHarvestLevel(oreLime.getDefaultState()));
         slabTileLimeSingle = new BlockTileLimeSlab(false);
         slabTileLimeDouble = new BlockTileLimeSlab(true);
         stairsTileLime = new BlockTileLimeStairs();
 
         cobbleLime = new BlockSimple("cobble_limestone");
-        cobbleLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
+        cobbleLime.setHarvestLevel(oreLime.getHarvestTool(oreLime.getDefaultState()), oreLime.getHarvestLevel(oreLime.getDefaultState()));
         slabCobbleLimeSingle = new BlockCobbleLimeSlab(false);
         slabCobbleLimeDouble = new BlockCobbleLimeSlab(true);
         stairsCobbleLime = new BlockCobbleLimeStairs();
 
         burntBrickLime = new BlockSimple("burnt_brick_limestone");
-        burntBrickLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
+        burntBrickLime.setHarvestLevel(oreLime.getHarvestTool(oreLime.getDefaultState()), oreLime.getHarvestLevel(oreLime.getDefaultState()));
         slabBurntBrickLimeSingle = new BlockBurntBrickLimeSlab(false);
         slabBurntBrickLimeDouble = new BlockBurntBrickLimeSlab(true);
         stairsBurntBrickLime = new BlockBurntBrickLimeStairs();
 
         burntCobbleLime = new BlockSimple("burnt_cobble_limestone");
-        burntCobbleLime.setHarvestLevel(oreLime.getHarvestTool(0), oreLime.getHarvestLevel(0));
+        burntCobbleLime.setHarvestLevel(oreLime.getHarvestTool(oreLime.getDefaultState()), oreLime.getHarvestLevel(oreLime.getDefaultState()));
         slabBurntCobbleLimeSingle = new BlockBurntCobbleLimeSlab(false);
         slabBurntCobbleLimeDouble = new BlockBurntCobbleLimeSlab(true);
         stairsBurntCobbleLime = new BlockBurntCobbleLimeStairs();
@@ -336,19 +336,19 @@ public class ManagerBlocks {
         infinite_energy = new BlockInfiniteEnergy();
         sifter = new BlockSifter();
         ingot_block_copper = new BlockOfIngots("block_copper");
-        ingot_block_copper.setHarvestLevel(oreCopper.getHarvestTool(0), oreCopper.getHarvestLevel(0));
+        ingot_block_copper.setHarvestLevel(oreCopper.getHarvestTool(oreCopper.getDefaultState()), oreCopper.getHarvestLevel(oreCopper.getDefaultState()));
         ingot_block_tungsten = new BlockOfIngots("block_tungsten");
-        ingot_block_tungsten.setHarvestLevel(oreTungsten.getHarvestTool(0), oreTungsten.getHarvestLevel(0));
+        ingot_block_tungsten.setHarvestLevel(oreTungsten.getHarvestTool(oreTungsten.getDefaultState()), oreTungsten.getHarvestLevel(oreTungsten.getDefaultState()));
         ingot_block_carbide = new BlockOfIngots("block_carbide");
-        ingot_block_carbide.setHarvestLevel(oreTungsten.getHarvestTool(0), oreTungsten.getHarvestLevel(0));
+        ingot_block_carbide.setHarvestLevel(oreTungsten.getHarvestTool(oreTungsten.getDefaultState()), oreTungsten.getHarvestLevel(oreTungsten.getDefaultState()));
         ingot_block_brass = new BlockOfIngots("block_brass");
-        ingot_block_brass.setHarvestLevel(oreCopper.getHarvestTool(0), oreCopper.getHarvestLevel(0));
+        ingot_block_brass.setHarvestLevel(oreCopper.getHarvestTool(oreCopper.getDefaultState()), oreCopper.getHarvestLevel(oreCopper.getDefaultState()));
         ingot_block_zinc = new BlockOfIngots("block_zinc");
-        ingot_block_zinc.setHarvestLevel(oreZinc.getHarvestTool(0), oreZinc.getHarvestLevel(0));
+        ingot_block_zinc.setHarvestLevel(oreZinc.getHarvestTool(oreZinc.getDefaultState()), oreZinc.getHarvestLevel(oreZinc.getDefaultState()));
         dust_block_salt = new BlockOfIngots("block_salt");
-        dust_block_salt.setHarvestLevel(oreSalt.getHarvestTool(0), oreSalt.getHarvestLevel(0));
+        dust_block_salt.setHarvestLevel(oreSalt.getHarvestTool(oreSalt.getDefaultState()), oreSalt.getHarvestLevel(oreSalt.getDefaultState()));
         dust_block_sulfur = new BlockOfIngots("block_sulfur");
-        dust_block_sulfur.setHarvestLevel(oreSulfur.getHarvestTool(0), oreSulfur.getHarvestLevel(0));
+        dust_block_sulfur.setHarvestLevel(oreSulfur.getHarvestTool(oreSulfur.getDefaultState()), oreSulfur.getHarvestLevel(oreSulfur.getDefaultState()));
         mb_controls = new BlockMB_Controls();
         pressure_tank = new BlockPressureTank();
         crushing_table = new BlockCrushingTable();

@@ -1,6 +1,5 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.update1_8.IFluidHandler1_8;
@@ -16,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 
 public class TileFluidHopper extends TileBase implements IFluidHandler1_8, IGuiSync, ISidedInventory {

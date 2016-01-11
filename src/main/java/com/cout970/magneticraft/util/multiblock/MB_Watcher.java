@@ -3,12 +3,14 @@ package com.cout970.magneticraft.util.multiblock;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public class MB_Watcher {
 
-    public static void watchStructure(World w, VecInt p, Multiblock c, MgDirection e, EntityPlayer player) {
+    public static void watchStructure(World w, BlockPos p, Multiblock c, EnumFacing e, EntityPlayer player) {
         if (c == null) return;
         int[] q = c.getDimensions(e);
         int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
@@ -30,7 +32,7 @@ public class MB_Watcher {
         player.addChatMessage(new ChatComponentText(s));
     }
 
-    public static void establishStructure(World w, VecInt p, Multiblock c, MgDirection e) {
+    public static void establishStructure(World w, BlockPos p, Multiblock c, EnumFacing e) {
         int[] q = c.getDimensions(e);
         int meta = w.getBlockMetadata(p.getX(), p.getY(), p.getZ());
         for (int y = 0; y < q[1]; y++) {
@@ -43,7 +45,7 @@ public class MB_Watcher {
         }
     }
 
-    public static void destroyStructure(World w, VecInt p, Multiblock c, MgDirection e) {
+    public static void destroyStructure(World w, BlockPos p, Multiblock c, EnumFacing e) {
         // Log.debug("Breaking "+e);
         if (c == null) return;
         int[] q = c.getDimensions(e);

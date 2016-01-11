@@ -6,22 +6,16 @@ import com.cout970.magneticraft.tileentity.shelf.TileShelf;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -101,7 +95,7 @@ public abstract class BlockMg extends BlockContainer {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        EnumFacing facing = (EnumFacing) state.getProperties().get(FACING);
+        EnumFacing facing = state.getValue(FACING);
         return facing.ordinal();
     }
 

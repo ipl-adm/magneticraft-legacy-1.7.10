@@ -187,19 +187,19 @@ public class RenderUtil {
         float s = 0.5f, p = 1f;
         glScalef(s, s, s);
         int[] q = mb.getDimensions(tile.getDirection());
-        int meta = t.getWorld()().getBlockMetadata(t.xCoord, t.yCoord, t.zCoord);
+        int meta = t.getWorld().getBlockMetadata(t.xCoord, t.yCoord, t.zCoord);
         for (int j = 0; j < q[1]; j++) {
             for (int k = 0; k < q[2]; k++) {
                 for (int i = 0; i < q[0]; i++) {
                     Mg_Component mut = mb.matrix[i][j][k];
-                    VecInt rot = mb.translate(t.getWorld()(), new VecInt(t.xCoord, t.yCoord, t.zCoord), i, j, k, mb, tile.getDirection(), meta);
+                    VecInt rot = mb.translate(t.getWorld(), new VecInt(t.xCoord, t.yCoord, t.zCoord), i, j, k, mb, tile.getDirection(), meta);
                     if (mut instanceof SimpleComponent) {
                         SimpleComponent comp = (SimpleComponent) mut;
                         glPushMatrix();
                         GL11.glTranslatef(0.5f + p * rot.getX(), 0.5f + p * rot.getY(), 0.5f + p * rot.getZ());
                         if (comp.blocks.get(0) != Blocks.air) {
                             tess.startDrawingQuads();
-                            RenderUtil.renderBlock(comp.blocks.get(0), 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorld()());
+                            RenderUtil.renderBlock(comp.blocks.get(0), 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorld());
                             tess.draw();
                         }
                         glPopMatrix();
@@ -210,9 +210,9 @@ public class RenderUtil {
                         if (comp.origin != Blocks.air) {
                             tess.startDrawingQuads();
                             if (comp.origin instanceof BlockSlab) {
-                                RenderUtil.renderSlab(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorld()());
+                                RenderUtil.renderSlab(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorld());
                             } else {
-                                RenderUtil.renderBlock(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorld()());
+                                RenderUtil.renderBlock(comp.origin, 0, rot.getX(), rot.getY(), rot.getZ(), t.getWorld());
                             }
                             tess.draw();
                         }

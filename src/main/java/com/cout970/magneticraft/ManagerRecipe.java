@@ -90,15 +90,15 @@ public class ManagerRecipe {
 
     public static void registerThermopileRecipes() {
         MgRecipeRegister.addThermopileDecay(new ThermophileDecay());
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.air, -1), 1, false);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow, -1), 100, false);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.ice, -1), 100, false);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow_layer, -1), 50, false);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.torch, -1), 5, true);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.lit_pumpkin, -1), 3, true);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.water, -1), 25, false);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.lava, -1), 100, true);
-        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.fire, -1), 25, true);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.air.getDefaultState(), null), 1, false);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow.getDefaultState(), null), 100, false);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.ice.getDefaultState(), null), 100, false);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.snow_layer.getDefaultState(), null), 50, false);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.torch.getDefaultState(), null), 5, true);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.lit_pumpkin.getDefaultState(), null), 3, true);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.water.getDefaultState(), null), 25, false);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.lava.getDefaultState(), null), 100, true);
+        MgRecipeRegister.addThermopileSource(new BlockInfo(Blocks.fire.getDefaultState(), null), 25, true);
     }
 
     public static void registerBiomassBurnerRecipes() {

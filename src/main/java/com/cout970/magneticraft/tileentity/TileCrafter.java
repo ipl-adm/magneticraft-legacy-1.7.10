@@ -198,7 +198,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                         getInv().setInventorySlotContents(slot, result);
                     } else {
                         if (!InventoryUtils.dropIntoInventory(item, getInv())) {
-                            BlockMg.dropItem(item, getWorld()().rand, xCoord, yCoord, zCoord, getWorld()());
+                            BlockMg.dropItem(item, getWorld().rand, xCoord, yCoord, zCoord, getWorld());
                         }
                     }
                     checkedInvs.clear();

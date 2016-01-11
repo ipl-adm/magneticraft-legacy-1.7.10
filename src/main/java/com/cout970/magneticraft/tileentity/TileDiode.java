@@ -63,7 +63,7 @@ public class TileDiode extends TileConductorLow {
         	@Override
             public void iterate() {
                 TileEntity tile = getParent();
-                World w = tile.getWorld()();
+                World w = tile.getWorld();
                 //only calculated on server side
                 if (w.isRemote) return;
                 tile.markDirty();

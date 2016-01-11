@@ -3,7 +3,6 @@ package com.cout970.magneticraft;
 import codechicken.multipart.MultiPartRegistry;
 import codechicken.multipart.MultiPartRegistry.IPartFactory;
 import codechicken.multipart.TMultiPart;
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.parts.PartOpticFiber;
 import com.cout970.magneticraft.parts.electric.PartCableHigh;
 import com.cout970.magneticraft.parts.electric.PartCableLow;
@@ -13,6 +12,7 @@ import com.cout970.magneticraft.parts.fluid.PartBrassPipe;
 import com.cout970.magneticraft.parts.fluid.PartCopperPipe;
 import com.cout970.magneticraft.parts.fluid.PartIronPipe;
 import com.cout970.magneticraft.parts.heat.PartHeatCable;
+import net.minecraft.util.EnumFacing;
 
 public class ManagerMultiPart {
 
@@ -27,7 +27,7 @@ public class ManagerMultiPart {
             MultiPartRegistry.registerParts(new OpticFiberFactory(), new String[]{ManagerItems.part_optic_fiber.getUnlocalizedName()});
             MultiPartRegistry.registerParts(new BrassPipeFactory(), new String[]{ManagerItems.part_brass_pipe.getUnlocalizedName()});
         }
-        for (MgDirection d : MgDirection.values())
+        for (EnumFacing d : EnumFacing.values())
             MultiPartRegistry.registerParts(new CopperWireFactory(), new String[]{ManagerItems.part_copper_wire.getUnlocalizedName() + "_" + d.name()});
     }
 
@@ -90,13 +90,13 @@ public class ManagerMultiPart {
     public class CopperWireFactory implements IPartFactory {
         @Override
         public TMultiPart createPart(String name, boolean arg1) {
-            MgDirection dir = MgDirection.valueOf(name.replaceFirst(ManagerItems.part_copper_wire.getUnlocalizedName() + "_", ""));
-            if (dir == MgDirection.DOWN) return new PartWireCopper_Down();
-            if (dir == MgDirection.UP) return new PartWireCopper_Up();
-            if (dir == MgDirection.NORTH) return new PartWireCopper_North();
-            if (dir == MgDirection.SOUTH) return new PartWireCopper_South();
-            if (dir == MgDirection.WEST) return new PartWireCopper_West();
-            if (dir == MgDirection.EAST) return new PartWireCopper_East();
+            EnumFacing dir = EnumFacing.valueOf(name.replaceFirst(ManagerItems.part_copper_wire.getUnlocalizedName() + "_", ""));
+            if (dir == EnumFacing.DOWN) return new PartWireCopper_Down();
+            if (dir == EnumFacing.UP) return new PartWireCopper_Up();
+            if (dir == EnumFacing.NORTH) return new PartWireCopper_North();
+            if (dir == EnumFacing.SOUTH) return new PartWireCopper_South();
+            if (dir == EnumFacing.WEST) return new PartWireCopper_West();
+            if (dir == EnumFacing.EAST) return new PartWireCopper_East();
             return null;
         }
     }

@@ -15,7 +15,7 @@ public class TileElectricPoleGap extends TileBase implements ITileElectricPole {
 
     @Override
     public ITileElectricPole getMainTile() {
-        TileEntity tile = new VecInt(this).add(0, 4 - getBlockMetadata(), 0).getTileEntity(getWorld()());
+        TileEntity tile = new VecInt(this).add(0, 4 - getBlockMetadata(), 0).getTileEntity(getWorld());
         if (tile instanceof ITileElectricPole) return (ITileElectricPole) tile;
         return null;
     }

@@ -11,6 +11,9 @@ import com.cout970.magneticraft.util.multiblock.MB_Watcher;
 import com.cout970.magneticraft.util.multiblock.Multiblock;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockPolymerizer;
 import com.cout970.magneticraft.util.multiblock.types.MultiblockTurbine;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -121,37 +124,41 @@ public class BlockCopperTank extends BlockMg implements MB_Block {
         return false;
     }
 
-    public void breakBlock(World w, int x, int y, int z, Block b, int side) {
+    @Override
+    public void breakBlock(World w, BlockPos pos, IBlockState state) {
         if (!w.isRemote) {
-            TileEntity t = w.getTileEntity(x, y, z);
+            TileEntity t = w.getTileEntity(pos);
             if (t instanceof MB_Tile) {
                 if (((MB_Tile) t).getControlPos() != null && ((MB_Tile) t).getMultiblock() != null)
                     MB_Watcher.destroyStructure(w, ((MB_Tile) t).getControlPos(), ((MB_Tile) t).getMultiblock(), ((MB_Tile) t).getDirection());
             }
         }
-        super.breakBlock(w, x, y, z, b, side);
+        super.breakBlock(w, pos, state);
     }
 
-    public void onBlockHarvested(World w, int x, int y, int z, int meta, EntityPlayer p) {
+    @Override
+    public void onBlockHarvested(World w, BlockPos pos, IBlockState state, EntityPlayer p) {
         if (!p.capabilities.isCreativeMode)
-            dropBlockAsItem(w, x, y, z, meta, 0);
-        super.onBlockHarvested(w, x, y, z, meta, p);
+            dropBlockAsItem(w, pos, state, 0);
+        super.onBlockHarvested(w, pos, state, p);
     }
 
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+    @Override
+    public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         ArrayList<ItemStack> ret = new ArrayList<>();
-        if (world.isRemote) return ret;
-        if (!world.isRemote) {
-            TileEntity b = world.getTileEntity(x, y, z);
-            if (b instanceof IBlockWithData) {
-                IBlockWithData d = (IBlockWithData) b;
-                ItemStack drop = new ItemStack(this, 1, metadata);
-                NBTTagCompound nbt = new NBTTagCompound();
-                nbt.setBoolean(IBlockWithData.KEY, true);
-                d.saveData(nbt);
-                drop.stackTagCompound = nbt;
-                ret.add(drop);
-            }
+        if ((world instanceof World) && ((World) world).isRemote) {
+            return ret;
+        }
+
+        TileEntity b = world.getTileEntity(pos);
+        if (b instanceof IBlockWithData) {
+            IBlockWithData d = (IBlockWithData) b;
+            ItemStack drop = new ItemStack(this, 1, getMetaFromState(state));
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setBoolean(IBlockWithData.KEY, true);
+            d.saveData(nbt);
+            drop.setTagCompound(nbt);
+            ret.add(drop);
         }
         return ret;
     }

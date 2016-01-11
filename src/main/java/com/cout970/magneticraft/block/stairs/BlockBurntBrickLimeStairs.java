@@ -7,7 +7,7 @@ public class BlockBurntBrickLimeStairs extends BlockMgStairs {
         super(ManagerBlocks.burntBrickLime, ManagerBlocks.burntBrickLime.getUnlocalizedName() + "Stairs");
         setHardness(1.5F);
         setStepSound(soundTypeStone);
-        setBlockTextureName("magneticraft:burnt_brick_limestone");
-        setHarvestLevel(ManagerBlocks.burntBrickLime.getHarvestTool(0), ManagerBlocks.burntBrickLime.getHarvestLevel(0));
+        setHarvestLevel(ManagerBlocks.burntBrickLime.getHarvestTool(ManagerBlocks.burntBrickLime.getDefaultState()),
+                ManagerBlocks.burntBrickLime.getHarvestLevel(ManagerBlocks.burntBrickLime.getDefaultState()));
     }
 }

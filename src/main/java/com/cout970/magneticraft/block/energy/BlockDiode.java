@@ -1,5 +1,6 @@
 package com.cout970.magneticraft.block.energy;
 
+import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
@@ -70,45 +71,11 @@ public class BlockDiode extends BlockMg {
     @SideOnly(Side.CLIENT)
     @Override
     public AxisAlignedBB getSelectedBoundingBox(World w, BlockPos pos) {
-        double desp = 0.0625 * 4;
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-
-        EnumFacing facing = (EnumFacing) w.getBlockState(pos).getProperties().get(FACING);
-
-        switch (facing) {
-            case NORTH:
-            case SOUTH:
-                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
-            case WEST:
-            case EAST:
-                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
-            default:
-                break;
-        }
-        return AxisAlignedBB.fromBounds((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+        return ManagerBlocks.resistance.getSelectedBoundingBox(w, pos);
     }
 
     @Override
     public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
-        double desp = 0.0625 * 4;
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-
-        EnumFacing facing = state.getValue(FACING);
-
-        switch (facing) {
-            case NORTH:
-            case SOUTH:
-                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
-            case WEST:
-            case EAST:
-                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
-            default:
-                break;
-        }
-        return AxisAlignedBB.fromBounds((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+        return getSelectedBoundingBox(w, pos);
     }
 }

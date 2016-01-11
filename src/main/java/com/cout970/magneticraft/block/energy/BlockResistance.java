@@ -45,7 +45,7 @@ public class BlockResistance extends BlockMg {
     public boolean onBlockActivated(World w, BlockPos pos, IBlockState state, EntityPlayer p, EnumFacing facing, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
         if (MgUtils.isWrench(p.getCurrentEquippedItem())) {
-            EnumFacing cur = (EnumFacing) state.getValue(FACING);
+            EnumFacing cur = state.getValue(FACING);
             w.setBlockState(pos, state.withProperty(FACING, cur.getOpposite()), 2);
             return true;
         }
@@ -57,16 +57,14 @@ public class BlockResistance extends BlockMg {
         rotate(w, pos, state, p);
     }
 
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing facing) {
         return false;
     }
 
@@ -82,10 +80,10 @@ public class BlockResistance extends BlockMg {
         switch (facing) {
             case NORTH:
             case SOUTH:
-                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
+                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - desp, z + 1);
             case WEST:
             case EAST:
-                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
+                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + 1, y + 1 - desp, z + 1 - desp);
             default:
                 break;
         }
@@ -94,22 +92,6 @@ public class BlockResistance extends BlockMg {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBox(World w, BlockPos pos, IBlockState state) {
-        double desp = 0.0625 * 4;
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-
-        EnumFacing facing = state.getValue(FACING);
-        switch (facing) {
-            case NORTH:
-            case SOUTH:
-                return AxisAlignedBB.fromBounds(x + desp, y + desp, z, x + 1 - desp, y + 1 - +desp, z + 1);
-            case WEST:
-            case EAST:
-                return AxisAlignedBB.fromBounds(x, y + desp, z + desp, x + 1, y + 1 - +desp, z + 1 - desp);
-            default:
-                break;
-        }
-        return AxisAlignedBB.fromBounds((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+        return getSelectedBoundingBox(w, pos);
     }
 }

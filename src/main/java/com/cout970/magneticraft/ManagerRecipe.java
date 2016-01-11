@@ -4,7 +4,7 @@ import com.cout970.magneticraft.api.access.MgRecipeRegister;
 import com.cout970.magneticraft.api.util.BlockInfo;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.util.ThermophileDecay;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

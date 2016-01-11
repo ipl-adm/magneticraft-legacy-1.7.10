@@ -16,8 +16,8 @@ public class TileInfiniteSteam extends TileBase implements IFluidHandler1_8 {
             TileEntity t = MgUtils.getTileEntity(this, d);
             if (t instanceof IFluidHandler) {
                 IFluidHandler f = (IFluidHandler) t;
-                if (f.canFill(d.toForgeDir(), FluidRegistry.getFluid("steam"))) {
-                    f.fill(d.toForgeDir().getOpposite(), FluidRegistry.getFluidStack("steam", 500), true);
+                if (f.canFill(d.toEnumFacing(), FluidRegistry.getFluid("steam"))) {
+                    f.fill(d.toEnumFacing().getOpposite(), FluidRegistry.getFluidStack("steam", 500), true);
                 }
             }
         }

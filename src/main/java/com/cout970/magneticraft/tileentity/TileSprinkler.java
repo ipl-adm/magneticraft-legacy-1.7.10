@@ -207,7 +207,7 @@ public class TileSprinkler extends TileBase implements IFluidHandler1_8 {
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return fertilizers.containsKey(fluid) && from.equals(getDir().toForgeDir());
+        return fertilizers.containsKey(fluid) && from.equals(getDir().toEnumFacing());
     }
 
     @Override

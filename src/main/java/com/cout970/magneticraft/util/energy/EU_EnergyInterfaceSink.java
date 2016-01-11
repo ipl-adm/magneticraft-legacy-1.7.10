@@ -20,7 +20,7 @@ public class EU_EnergyInterfaceSink implements IEnergyInterface {
 
     @Override
     public double applyEnergy(double watts) {
-        return watts - EnergyConverter.EUtoW(tile.injectEnergy(dir.toForgeDir(), EnergyConverter.WtoEU(watts), 512));
+        return watts - EnergyConverter.EUtoW(tile.injectEnergy(dir.toEnumFacing(), EnergyConverter.WtoEU(watts), 512));
     }
 
     @Override

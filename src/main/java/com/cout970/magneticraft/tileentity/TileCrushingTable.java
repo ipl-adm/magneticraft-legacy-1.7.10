@@ -6,8 +6,8 @@ import com.cout970.magneticraft.ManagerConfig;
 import com.cout970.magneticraft.api.access.RecipeCrushingTable;
 import com.cout970.magneticraft.block.BlockMg;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityBlockDustFX;

@@ -1,9 +1,9 @@
 package com.cout970.magneticraft.util;
 
 import com.cout970.magneticraft.Magneticraft;
-import cpw.mods.fml.client.CustomModLoadingErrorDisplayException;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiErrorScreen;

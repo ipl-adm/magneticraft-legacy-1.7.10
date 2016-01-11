@@ -91,7 +91,7 @@ public class TileRFAlternator extends TileConductorLow implements IEnergyHandler
 
     @Override
     public boolean canConnectEnergy(ForgeDirection from) {
-        return getDirection().toForgeDir() == from;
+        return getDirection().toEnumFacing() == from;
     }
 
     @Override

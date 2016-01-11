@@ -3,8 +3,8 @@ package com.cout970.magneticraft;
 import com.cout970.magneticraft.world.OreGenConfig;
 import com.cout970.magneticraft.world.GaussOreGenConfig;
 import com.cout970.magneticraft.world.WorldGenManagerMg;
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;

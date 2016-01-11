@@ -2,7 +2,7 @@ package com.cout970.magneticraft.world;
 
 import com.cout970.magneticraft.ManagerBlocks;
 import com.cout970.magneticraft.api.util.BlockInfo;
-import cpw.mods.fml.common.IWorldGenerator;
+import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;

@@ -20,17 +20,17 @@ public class RF_EnergyInterface implements IEnergyInterface {
 
     @Override
     public double applyEnergy(double watts) {
-        return EnergyConverter.RFtoW(tile.receiveEnergy(dir.toForgeDir(), (int) EnergyConverter.WtoRF(watts), false));
+        return EnergyConverter.RFtoW(tile.receiveEnergy(dir.toEnumFacing(), (int) EnergyConverter.WtoRF(watts), false));
     }
 
     @Override
     public double getCapacity() {
-        return EnergyConverter.RFtoW(tile.getMaxEnergyStored(dir.toForgeDir()));
+        return EnergyConverter.RFtoW(tile.getMaxEnergyStored(dir.toEnumFacing()));
     }
 
     @Override
     public double getEnergyStored() {
-        return EnergyConverter.RFtoW(tile.getEnergyStored(dir.toForgeDir()));
+        return EnergyConverter.RFtoW(tile.getEnergyStored(dir.toEnumFacing()));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class RF_EnergyInterface implements IEnergyInterface {
 
     @Override
     public boolean canConnect(VecInt f) {
-        return tile.canConnectEnergy(dir.toForgeDir());
+        return tile.canConnectEnergy(dir.toEnumFacing());
     }
 
     @Override

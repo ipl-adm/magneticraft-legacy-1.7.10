@@ -2,7 +2,7 @@ package com.cout970.magneticraft;
 
 import com.cout970.magneticraft.items.*;
 import com.cout970.magneticraft.util.NamedItem;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;

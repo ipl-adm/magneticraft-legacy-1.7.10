@@ -7,7 +7,7 @@ import com.cout970.magneticraft.tileentity.*;
 import com.cout970.magneticraft.tileentity.multiblock.*;
 import com.cout970.magneticraft.tileentity.multiblock.controllers.*;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
-import cpw.mods.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

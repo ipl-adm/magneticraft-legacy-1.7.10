@@ -14,7 +14,7 @@ import com.cout970.magneticraft.tileentity.pole.TileElectricPoleTier1;
 import com.cout970.magneticraft.tileentity.shelf.TileShelvingUnit;
 import com.cout970.magneticraft.util.Log;
 import com.cout970.magneticraft.util.OutdatedJavaException;
-import cpw.mods.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;

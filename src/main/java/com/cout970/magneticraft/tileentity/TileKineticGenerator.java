@@ -15,7 +15,7 @@ import com.cout970.magneticraft.client.gui.component.IGuiSync;
 import com.cout970.magneticraft.util.tile.AverageBar;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
 import com.cout970.magneticraft.util.tile.TileConductorMedium;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.nbt.NBTTagCompound;
@@ -86,9 +86,9 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
             TileEntity t = MgUtils.getTileEntity(this, getDirection());
             if (t instanceof IEnergyReceiver) {
                 IEnergyReceiver e = (IEnergyReceiver) t;
-                if (e.canConnectEnergy(getDirection().opposite().toForgeDir())) {
+                if (e.canConnectEnergy(getDirection().opposite().toEnumFacing())) {
                     int transfer = Math.min(400, storage.getEnergyStored());
-                    int accepted = e.receiveEnergy(getDirection().opposite().toForgeDir(), transfer, false);
+                    int accepted = e.receiveEnergy(getDirection().opposite().toEnumFacing(), transfer, false);
                     storage.modifyEnergyStored(-accepted);
                 }
             }
@@ -114,7 +114,7 @@ public class TileKineticGenerator extends TileConductorMedium implements IEnergy
 
     @Override
     public boolean canConnectEnergy(ForgeDirection from) {
-        return getDirection().toForgeDir() == from;
+        return getDirection().toEnumFacing() == from;
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.cout970.magneticraft.util.IGuiListener;
 import com.cout970.magneticraft.util.InventoryComponent;
 import com.cout970.magneticraft.util.MgBeltUtils;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

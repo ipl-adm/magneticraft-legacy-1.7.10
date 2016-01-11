@@ -1,13 +1,9 @@
 package com.cout970.magneticraft.tileentity;
 
-import com.cout970.magneticraft.ManagerNetwork;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.messages.MessageNBTUpdate;
 import com.cout970.magneticraft.util.ITileHandlerNBT;
 import com.cout970.magneticraft.util.tile.RedstoneControl;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -29,35 +25,15 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
     public void onBlockBreaks() {
     }
 
-    @SuppressWarnings("unchecked")
-    public void sendUpdateToClient() {
-        if (worldObj.isRemote) return;
-        NBTTagCompound nbt = new NBTTagCompound();
-        saveInServer(nbt);
-        MessageNBTUpdate message = new MessageNBTUpdate(this, nbt);
-        worldObj.playerEntities.stream().filter(obj -> obj instanceof EntityPlayerMP).forEach(obj -> {
-            EntityPlayerMP player = (EntityPlayerMP) obj;
-            if (getDistanceSquaredFrom(player, this) <= 16384) {
-                ManagerNetwork.INSTANCE.sendTo(message, player);
-            }
-        });
-    }
-
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared() {
         return 16384.0D;
     }
 
-    protected int getDistanceSquaredFrom(EntityPlayerMP pl, TileBase tile) {
-        VecInt vecPl = new VecInt(pl);
-        VecInt vecTE = new VecInt(tile);
-        return vecPl.add(vecTE.getOpposite()).squareDistance();
-    }
-
     public void setRedstoneControl(RedstoneControl newState) {
         redstone = newState;
         onNeigChange();
-        sendUpdateToClient();
+        markDirty();
     }
 
     public boolean isControlled() {
@@ -80,12 +56,12 @@ public class TileBase extends Tile1_8Updater implements ITileHandlerNBT {
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         this.writeToNBT(nbt);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
+        return new S35PacketUpdateTileEntity(pos, 0, nbt);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.func_148857_g());
+        this.readFromNBT(pkt.getNbtCompound());
     }
 
     @Override

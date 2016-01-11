@@ -148,12 +148,12 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                             IFluidHandler tank = (IFluidHandler) t;
                             boolean breaked = false;
                             for (MgDirection d : MgDirection.values()) {
-                                FluidStack f = tank.drain(d.toForgeDir(), 1000, false);
+                                FluidStack f = tank.drain(d.toEnumFacing(), 1000, false);
                                 if (f != null && MgUtils.areEqual(fluid, f)) {
                                     TankInfo comp = new TankInfo(tank, dir);
                                     if (checkedTanks.contains(comp)) {
                                         TankInfo comp2 = checkedTanks.get(checkedTanks.indexOf(comp));
-                                        FluidStack f2 = tank.drain(d.toForgeDir(), comp2.amount + FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot)), false);
+                                        FluidStack f2 = tank.drain(d.toEnumFacing(), comp2.amount + FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot)), false);
                                         if (f2 != null && f2.amount == comp2.amount + FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot))) {
                                             comp2.amount += FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot));
                                             checkedTanks.add(comp);
@@ -162,7 +162,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                                             break;
                                         }
                                     } else {
-                                        FluidStack f2 = tank.drain(d.toForgeDir(), FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot)), false);
+                                        FluidStack f2 = tank.drain(d.toEnumFacing(), FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot)), false);
                                         if (f2 != null && f2.amount == FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot))) {
                                             comp.amount = FluidContainerRegistry.getContainerCapacity(recipe.getStackInSlot(slot));
                                             checkedTanks.add(comp);
@@ -191,7 +191,7 @@ public class TileCrafter extends TileBase implements IInventoryManaged, IGuiSync
                         InventoryUtils.remove(s.inv, s.slot, s.amount, getInv());
                     }
                     for (TankInfo s : checkedTanks) {
-                        s.handler.drain(s.dir.toForgeDir(), s.amount, true);
+                        s.handler.drain(s.dir.toEnumFacing(), s.amount, true);
                     }
                     if (InventoryUtils.canCombine(getInv().getStackInSlot(slot), item, 64)) {
                         ItemStack result = InventoryUtils.addition(getInv().getStackInSlot(slot), item);

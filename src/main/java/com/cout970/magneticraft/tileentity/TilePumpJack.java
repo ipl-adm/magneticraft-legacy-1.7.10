@@ -13,8 +13,8 @@ import com.cout970.magneticraft.util.fluid.TankMg;
 import com.cout970.magneticraft.util.pathfinding.OilPathFinding;
 import com.cout970.magneticraft.util.pathfinding.PathFinding;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -263,8 +263,8 @@ public class TilePumpJack extends TileConductorLow implements IFluidHandler1_8 {
                 TileEntity t = MgUtils.getTileEntity(this, d);
                 if (t instanceof IFluidHandler) {
                     IFluidHandler f = (IFluidHandler) t;
-                    if (f.canFill(d.toForgeDir(), FluidRegistry.getFluid("oil"))) {
-                        int m = f.fill(d.toForgeDir(), tank.drain(100, false), true);
+                    if (f.canFill(d.toEnumFacing(), FluidRegistry.getFluid("oil"))) {
+                        int m = f.fill(d.toEnumFacing(), tank.drain(100, false), true);
                         tank.drain(m, true);
                     }
                     if (tank.getFluidAmount() == 0)

@@ -10,7 +10,7 @@ public interface IFluidHandler1_8 extends net.minecraftforge.fluids.IFluidHandle
     //anticipation the 1.8 update
 
     default int fillMg(MgDirection from, FluidStack resource, boolean doFill) {
-        return fill(from.toForgeDir(), resource, doFill);
+        return fill(from.toEnumFacing(), resource, doFill);
     }
 
     default FluidStack drainMg_F(MgDirection from, FluidStack resource, boolean doDrain) {
@@ -18,19 +18,19 @@ public interface IFluidHandler1_8 extends net.minecraftforge.fluids.IFluidHandle
     }
 
     default FluidStack drainMg(MgDirection from, int maxDrain, boolean doDrain) {
-        return drain(from.toForgeDir(), maxDrain, doDrain);
+        return drain(from.toEnumFacing(), maxDrain, doDrain);
     }
 
     default boolean canFillMg(MgDirection from, Fluid fluid) {
-        return canFill(from.toForgeDir(), fluid);
+        return canFill(from.toEnumFacing(), fluid);
     }
 
     default boolean canDrainMg(MgDirection from, Fluid fluid) {
-        return canDrain(from.toForgeDir(), fluid);
+        return canDrain(from.toEnumFacing(), fluid);
     }
 
     default FluidTankInfo[] getTankInfoMg(MgDirection from) {
-        return getTankInfo(from.toForgeDir());
+        return getTankInfo(from.toEnumFacing());
     }
 
 //	public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {

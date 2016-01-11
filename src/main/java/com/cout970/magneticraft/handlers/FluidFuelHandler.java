@@ -2,7 +2,7 @@ package com.cout970.magneticraft.handlers;
 
 import buildcraft.api.fuels.IFuel;
 import buildcraft.api.fuels.IFuelManager;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fluids.Fluid;
 
 import java.util.Collection;

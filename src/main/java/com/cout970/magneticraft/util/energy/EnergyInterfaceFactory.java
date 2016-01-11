@@ -7,7 +7,7 @@ import com.cout970.magneticraft.api.electricity.InteractionHelper;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.compat.ManagerIntegration;
-import cpw.mods.fml.common.Optional;
+import net.minecraftforge.fml.common.Optional;
 import ic2.api.energy.tile.IEnergySink;
 import mods.railcraft.api.electricity.IElectricGrid;
 import mods.railcraft.api.electricity.IElectricGrid.ChargeHandler.ConnectType;
@@ -32,12 +32,12 @@ public class EnergyInterfaceFactory implements IEnergyInterfaceFactory {
                     return getElectricalGrid((IElectricGrid) tile);
             }
             if (ManagerIntegration.COFH_ENERGY && (tile instanceof IEnergyHandler) && (f.toMgDirection() != null)) {
-                if (((IEnergyHandler) tile).canConnectEnergy(f.toMgDirection().toForgeDir())) {
+                if (((IEnergyHandler) tile).canConnectEnergy(f.toMgDirection().toEnumFacing())) {
                     return getEnergyHandler((IEnergyHandler) tile, f.toMgDirection());
                 }
             }
             if (ManagerIntegration.IC2 && (tile instanceof IEnergySink) && (f.toMgDirection() != null)) {
-                if (((IEnergySink) tile).acceptsEnergyFrom(null, f.toMgDirection().toForgeDir())) {
+                if (((IEnergySink) tile).acceptsEnergyFrom(null, f.toMgDirection().toEnumFacing())) {
                     return getEnergySink((IEnergySink) tile, f.toMgDirection());
                 }
             }

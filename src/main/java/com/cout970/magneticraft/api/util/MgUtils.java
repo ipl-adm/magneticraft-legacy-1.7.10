@@ -11,10 +11,16 @@ import com.cout970.magneticraft.util.FakePlayerProvider;
 import com.google.common.primitives.Doubles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -98,7 +104,7 @@ public class MgUtils {
                 && !Block.isEqualTo(info.getBlock(), Blocks.mob_spawner)
                 && (info.getBlock() != Blocks.portal) && (info.getBlock() != Blocks.end_portal)
                 && (info.getBlock() != Blocks.end_portal_frame)
-                && (info.getBlock().getBlockHardness(w, info.getX(), info.getY(), info.getZ()) >= 0)
+                && (info.getBlock().getBlockHardness(w, info.getPosition()) >= 0)
                 && (w.canMineBlock(FakePlayerProvider.getFakePlayer((WorldServer) w), info.getX(), info.getY(), info.getZ()));
     }
 
@@ -139,18 +145,14 @@ public class MgUtils {
         return false;
     }
 
-    public static TileEntity getTileEntity(World w, VecInt v) {
-        return w.getTileEntity(v.getX(), v.getY(), v.getZ());
-    }
-
-    public static boolean contains(MgDirection[] vec, MgDirection d) {
-        for (MgDirection dir : vec) {
+    public static boolean contains(EnumFacing[] vec, EnumFacing d) {
+        for (EnumFacing dir : vec) {
             if (dir == d) return true;
         }
         return false;
     }
 
-    public static IOpticFiber getOpticFiber(TileEntity tile, MgDirection dir) {
+    public static IOpticFiber getOpticFiber(TileEntity tile, EnumFacing dir) {
         if (tile instanceof TileMultipart) {
             for (TMultiPart p : ((TileMultipart) tile).jPartList()) {
                 if (p instanceof IOpticFiber) {
@@ -237,16 +239,20 @@ public class MgUtils {
 
             //check if corner, shitcode incoming
             if ((Math.abs(dx - Math.floor(dx) - 0.5) < 1e-8) && (Math.abs(dz - Math.floor(dz) - 0.5) < 1e-8)) {
-                Block b1 = w.getBlock((int) Math.floor(dx), height, (int) Math.floor(dz));
-                Block b2 = w.getBlock((int) Math.floor(dx), height, (int) Math.ceil(dz));
-                Block b3 = w.getBlock((int) Math.ceil(dx), height, (int) Math.floor(dz));
-                Block b4 = w.getBlock((int) Math.ceil(dx), height, (int) Math.ceil(dz));
+                BlockPos pos1 = new BlockPos((int) Math.floor(dx), height, (int) Math.floor(dz));
+                BlockPos pos2 = new BlockPos((int) Math.floor(dx), height, (int) Math.ceil(dz));
+                BlockPos pos3 = new BlockPos((int) Math.ceil(dx), height, (int) Math.floor(dz));
+                BlockPos pos4 = new BlockPos((int) Math.ceil(dx), height, (int) Math.ceil(dz));
+                Block b1 = w.getBlockState(pos1).getBlock();
+                Block b2 = w.getBlockState(pos2).getBlock();
+                Block b3 = w.getBlockState(pos3).getBlock();
+                Block b4 = w.getBlockState(pos4).getBlock();
                 if (isPositive) {
-                    if ((b2 != null && !w.isAirBlock((int) Math.floor(dx), height, (int) Math.ceil(dz))) && (b3 != null && !w.isAirBlock((int) Math.ceil(dx), height, (int) Math.floor(dz)))) {
+                    if (b2 != null && !w.isAirBlock(pos2) && (b3 != null && !w.isAirBlock(pos3))) {
                         return false;
                     }
                 } else {
-                    if ((b1 != null && !w.isAirBlock((int) Math.floor(dx), height, (int) Math.floor(dz))) && (b4 != null && !w.isAirBlock((int) Math.ceil(dx), height, (int) Math.ceil(dz)))) {
+                    if (b1 != null && !w.isAirBlock(pos1) && (b4 != null && !w.isAirBlock(pos4))) {
                         return false;
                     }
                 }
@@ -260,11 +266,13 @@ public class MgUtils {
                 continue;
             }
 
-            Block b = w.getBlock(cx, height, cz);
-            if (b != null && !w.isAirBlock(cx, height, cz)) {
+            BlockPos pos = new BlockPos(cx, height, cz);
+            Block b = w.getBlockState(pos).getBlock();
+            if (b != null && !w.isAirBlock(pos)) {
                 return false;
             }
         }
         return true;
     }
+
 }

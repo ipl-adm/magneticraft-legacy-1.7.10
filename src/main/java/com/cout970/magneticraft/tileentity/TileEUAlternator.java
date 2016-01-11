@@ -8,7 +8,7 @@ import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.VecInt;
 import com.cout970.magneticraft.util.tile.TileConductorLow;
-import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
@@ -121,7 +121,7 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 
     @Override
     public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-        return direction == getDirection().toForgeDir();
+        return direction == getDirection().toEnumFacing();
     }
 
     @Override
@@ -136,7 +136,7 @@ public class TileEUAlternator extends TileConductorLow implements IEnergySink, I
 
     @Override
     public double injectEnergy(ForgeDirection dir, double amount, double voltage) {
-        if (dir == getDirection().toForgeDir()) {
+        if (dir == getDirection().toEnumFacing()) {
             double move = Math.min(amount, maxStorage - storage);
             storage += move;
             return amount - move;

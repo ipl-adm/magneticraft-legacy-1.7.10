@@ -2,7 +2,7 @@ package com.cout970.magneticraft.handlers;
 
 import com.cout970.magneticraft.api.steel.ISteelAttribute;
 import com.cout970.magneticraft.api.steel.ISteelItem;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 

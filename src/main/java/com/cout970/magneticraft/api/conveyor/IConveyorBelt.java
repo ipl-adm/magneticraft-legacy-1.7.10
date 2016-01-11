@@ -1,8 +1,8 @@
 package com.cout970.magneticraft.api.conveyor;
 
-import com.cout970.magneticraft.api.util.MgDirection;
 import com.cout970.magneticraft.api.util.Orientation;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 /**
  * @author Cout970
@@ -12,22 +12,22 @@ public interface IConveyorBelt {
     enum BeltInteraction {
         DIRECT, INVERSE, LEFT_T, RIGHT_T, NOTHING;
 
-        public static BeltInteraction InterBelt(MgDirection a, MgDirection b) {
+        public static BeltInteraction InterBelt(EnumFacing a, EnumFacing b) {
             if (a == b) return BeltInteraction.DIRECT;
-            if (a == b.opposite()) return BeltInteraction.INVERSE;
-            if (a == b.step(MgDirection.DOWN)) return BeltInteraction.LEFT_T;
-            if (a == b.step(MgDirection.UP)) return BeltInteraction.RIGHT_T;
+            if (a == b.getOpposite()) return BeltInteraction.INVERSE;
+            if (a == b.step(EnumFacing.DOWN)) return BeltInteraction.LEFT_T;
+            if (a == b.step(EnumFacing.UP)) return BeltInteraction.RIGHT_T;
             return BeltInteraction.NOTHING;
         }
     }
 
-    boolean addItem(MgDirection in, int pos, IItemBox it, boolean simulated);
+    boolean addItem(EnumFacing in, int pos, IItemBox it, boolean simulated);
 
     boolean removeItem(IItemBox it, boolean isLeft, boolean simulated);
 
     IConveyorBeltLane getSideLane(boolean left);
 
-    MgDirection getDir();
+    EnumFacing getDir();
 
     boolean extract(IItemBox box, boolean isOnLeft, boolean simulated);
 

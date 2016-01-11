@@ -18,8 +18,8 @@ public class TileInfiniteWater extends TileBase implements IFluidHandler1_8 {
         		TileEntity t = MgUtils.getTileEntity(this, d);
         		if (t instanceof IFluidHandler) {
         			IFluidHandler f = (IFluidHandler) t;
-        			if (f.canFill(d.toForgeDir(), FluidRegistry.WATER)) {
-        				f.fill(d.toForgeDir().getOpposite(), FluidRegistry.getFluidStack("water", ManagerConfig.INFINITE_WATER_GENERATION), true);
+        			if (f.canFill(d.toEnumFacing(), FluidRegistry.WATER)) {
+        				f.fill(d.toEnumFacing().getOpposite(), FluidRegistry.getFluidStack("water", ManagerConfig.INFINITE_WATER_GENERATION), true);
         			}
         		}
         	}

@@ -221,7 +221,7 @@ public abstract class PartWireCopper extends PartElectric {
     public void onNeighborChanged() {
         super.onNeighborChanged();
         MgDirection d = getDirection();
-        if (!world().isRemote && !world().isSideSolid(X() + d.getOffsetX(), Y() + d.getOffsetY(), Z() + d.getOffsetZ(), d.toForgeDir(), false)) {
+        if (!world().isRemote && !world().isSideSolid(X() + d.getOffsetX(), Y() + d.getOffsetY(), Z() + d.getOffsetZ(), d.toEnumFacing(), false)) {
             tile().dropItems(this.getDrops());
             tile().remPart(this);
         }

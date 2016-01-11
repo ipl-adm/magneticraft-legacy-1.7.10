@@ -1,6 +1,8 @@
 package com.cout970.magneticraft.api.util;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
 
 /**
  * An Object to store all possible data from a single block
@@ -9,63 +11,51 @@ import net.minecraft.block.Block;
  */
 public class BlockInfo {
 
-    private Block b;
-    private int meta;
-    private int x, y, z;
+    private IBlockState state;
+    private BlockPos pos;
 
-    public BlockInfo(Block b, int meta) {
-        this.b = b;
-        this.meta = meta;
+    public BlockInfo(IBlockState state) {
+        this.state = state;
     }
 
-    public BlockInfo(Block b, int meta, int x, int y, int z) {
-        this(b, meta);
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public BlockInfo(IBlockState state, int x, int y, int z) {
+        this(state, new BlockPos(x, y, z));
     }
 
-    public BlockInfo(Block b2, int meta2, VecInt a) {
-        this(b2, meta2, a.getX(), a.getY(), a.getZ());
+    public BlockInfo(IBlockState state, BlockPos a) {
+        this(state);
+        pos = a;
     }
 
     public Block getBlock() {
-        return b;
+        return state.getBlock();
     }
 
-    /**
-     * if meta is not used or ignored should be -1
-     *
-     * @return
-     */
-    public int getMeta() {
-        return meta;
+    public IBlockState getState() {
+        return state;
     }
 
-    public int[] getPosition() {
-        return new int[]{x, y, z};
+    public BlockPos getPosition() {
+        return pos;
     }
 
-    public boolean equals(Object o) {
-        if (o instanceof BlockInfo) {
-            if (((BlockInfo) o).getBlock() == this.b && (meta == -1 || ((BlockInfo) o).getMeta() == meta)) return true;
-        }
-        return false;
+    public boolean equals(BlockInfo info) {
+        return (pos.equals(info.getPosition()) && state.equals(info.getState()));
     }
 
     public String toString() {
-        return "Block: " + b.getUnlocalizedName() + " Metadata: " + meta + " Pos: " + x + " " + y + " " + z;
+        return "Block: " + state.getBlock().getUnlocalizedName() + " State: " + state.toString() + " Pos: " + pos.toString();
     }
 
     public int getX() {
-        return x;
+        return pos.getX();
     }
 
     public int getY() {
-        return y;
+        return pos.getY();
     }
 
     public int getZ() {
-        return z;
+        return pos.getZ();
     }
 }

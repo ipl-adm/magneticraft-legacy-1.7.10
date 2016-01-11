@@ -219,7 +219,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             } else if (ManagerIntegration.BUILDCRAFT && (t instanceof IPipeTile)) {
                 IPipeTile a = (IPipeTile) t;
                 if (a.getPipeType() == PipeType.ITEM) {
-                    int r = a.injectItem(i, true, d.toForgeDir().getOpposite(), EnumColor.WHITE);
+                    int r = a.injectItem(i, true, d.toEnumFacing().getOpposite(), EnumColor.WHITE);
                     if (r > 0) return true;
                 }
             } else if (t instanceof IConveyorBelt) {

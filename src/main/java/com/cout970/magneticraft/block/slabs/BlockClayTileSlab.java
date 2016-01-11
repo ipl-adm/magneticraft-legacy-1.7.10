@@ -2,8 +2,8 @@ package com.cout970.magneticraft.block.slabs;
 
 import com.cout970.magneticraft.ManagerBlocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;

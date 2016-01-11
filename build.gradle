@@ -11,54 +11,59 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
     }
 }
 
-apply plugin: 'forge'
-apply plugin: 'curseforge'
+plugins {
+    id 'com.matthewprenger.cursegradle' version '1.0.6'
+}
 
-version = "0.6.0-beta2"
-group= "com.cout970.magneticraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "0.7.0-alpha1"
+group= "com.cout970.magneticraft"
 archivesBaseName = "magneticraft"
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
-curse {
-    projectId = '224808'
-    displayName = 'Magneticraft ' + version
+curseforge {
     apiKey = project.curseForgeApiKey
-    releaseType = 'release'
-    changelog = new File('./changelogs/' + version + '.txt').text
-	//Why i don't have this changelogs?
-	//i get errors because this line
-    if (version.contains('beta')) {
-        releaseType = 'beta'
+    project {
+        id = '224808'
+        mainArtifact(jar) {
+            displayName = 'Magneticraft ' + version
+        }
+        releaseType = 'release'
+        changelog = file('./changelogs/' + version + '.txt')
+        if (version.contains('beta')) {
+            releaseType = 'beta'
+        }
+        if (version.contains('alpha')) {
+            releaseType = 'alpha'
+        }
+        relations {
+            requiredLibrary 'mcmultipart'
+        }
     }
-    if (version.contains('alpha')) {
-        releaseType = 'alpha'
-    }
-    addGameVersion '1.7.10'
-    relatedProject 'forge-multi-part'
-    relatedProject 'codechickencore'
 }
 
 minecraft {
-    version = "1.7.10-10.13.4.1448-1.7.10"
+    version = "1.8.9-11.15.0.1693"
     runDir = "eclipse"
 
-    //make version only have to be changed by one place, and that is here
     replace "@VERSION@", project.version
     replaceIn "Magneticraft.java"
+    mappings = "stable_20"
 }
 
 repositories {
-    maven { // The repo from which to get waila
+    maven {
         name "Mobius Repo"
         url "http://mobiusstrip.eu/maven"
     }
-    maven { // the repo from which to get NEI and stuff
+    maven {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
@@ -66,27 +71,26 @@ repositories {
         name = "tehnut"
         url = "http://tehnut.info/maven/"
     }
+    maven {
+        name = "amadornes"
+        url = "http://maven.amadornes.com/"
+    }
 }
 
 dependencies {
-    compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
-    compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
-    compile "codechicken:NotEnoughItems:1.7.10-1.0.5.118:dev"
-    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
-    compile "info.amerifrance.guideapi:Guide-API:1.7.10-1.0.1-20:deobf"
+    deobfCompile "MCMultiPart:MCMultiPart:1.0.4:universal"
+    //compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
+    //compile "info.amerifrance.guideapi:Guide-API:1.7.10-1.0.1-20:deobf"
 }
 
 processResources
         {
-            // this will ensure that this task is redone when the versions change.
             inputs.property "version", project.version
             inputs.property "mcversion", project.minecraft.version
 
-            // replace stuff in mcmod.info, nothing else
             from(sourceSets.main.resources.srcDirs) {
                 include 'mcmod.info'
 
-                // replace version and mcversion
                 expand 'version':project.version, 'mcversion':project.minecraft.version
             }
 

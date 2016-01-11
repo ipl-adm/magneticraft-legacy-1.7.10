@@ -3,8 +3,15 @@ package com.cout970.magneticraft.block;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileBase;
 import com.cout970.magneticraft.tileentity.shelf.TileShelf;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,23 +27,29 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public abstract class BlockMg extends BlockContainer {
-
     public static String base = "magneticraft:";
     public IIcon[] icons;
+    public PropertyDirection FACING;
 
     public BlockMg(Material m) {
         super(m);
         setCreativeTab(CreativeTabsMg.MainTab);
         setHardness(2.0f);
+        FACING = PropertyDirection.create("facing");
     }
 
-    public static void dropItem(ItemStack item, Random rand, int x, int y, int z, World w) {
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
+
+    public static void dropItem(ItemStack item, Random rand, BlockPos pos, World w) {
         if (item != null && item.stackSize > 0) {
             float rx = rand.nextFloat() * 0.8F + 0.1F;
             float ry = rand.nextFloat() * 0.8F + 0.1F;
             float rz = rand.nextFloat() * 0.8F + 0.1F;
             EntityItem entityItem = new EntityItem(w,
-                    x + rx, y + ry, z + rz,
+                    pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz,
                     new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
             if (item.hasTagCompound()) {
                 entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
@@ -50,20 +63,32 @@ public abstract class BlockMg extends BlockContainer {
         }
     }
 
-    public void onNeighborBlockChange(World w, int x, int y, int z, Block b) {
-        TileEntity t = w.getTileEntity(x, y, z);
+    @Override
+    public void onNeighborChange(IBlockAccess w, BlockPos pos, BlockPos neig) {
+        TileEntity t = w.getTileEntity(pos);
         if (t instanceof TileBase) {
             ((TileBase) t).onNeigChange();
-            ((TileBase) t).sendUpdateToClient();
+            ((TileBase) t).markDirty();
         }
     }
 
-    public void breakBlock(World w, int x, int y, int z, Block b, int meta) {
-        TileEntity t = w.getTileEntity(x, y, z);
+    @Override
+    public void breakBlock(World w, BlockPos pos, IBlockState state) {
+        TileEntity t = w.getTileEntity(pos);
         if (t instanceof TileBase) {
             ((TileBase) t).onBlockBreaks();
         }
-        super.breakBlock(w, x, y, z, b, meta);
+
+        if (w.isRemote) return;
+        if ((t instanceof IInventory) && !(t instanceof TileShelf)) {
+            IInventory inventory = (IInventory) t;
+            Random rand = w.rand;
+            for (int i = 0; i < inventory.getSizeInventory(); i++) {
+                dropItem(inventory.getStackInSlot(i), rand, pos, w);
+            }
+        }
+
+        super.breakBlock(w, pos, state);
     }
 
     public String getUnlocalizedName() {
@@ -87,16 +112,18 @@ public abstract class BlockMg extends BlockContainer {
 
     public abstract String getName();
 
-    public void onBlockPreDestroy(World w, int x, int y, int z, int meta) {
-        super.onBlockPreDestroy(w, x, y, z, meta);
-        if (w.isRemote) return;
-        TileEntity tileEntity = w.getTileEntity(x, y, z);
-        if ((tileEntity instanceof IInventory) && !(tileEntity instanceof TileShelf)) {
-            IInventory inventory = (IInventory) tileEntity;
-            Random rand = w.rand;
-            for (int i = 0; i < inventory.getSizeInventory(); i++) {
-                dropItem(inventory.getStackInSlot(i), rand, x, y, z, w);
-            }
-        }
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        EnumFacing facing = (EnumFacing) state.getProperties().get(FACING);
+        return facing.ordinal();
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getBlockState().getBaseState().withProperty(FACING, EnumFacing.getFront(meta));
+    }
+
+    public void rotate(World w, BlockPos pos, IBlockState state, EntityLivingBase p) {
+        w.setBlockState(pos, state.withProperty(FACING, EnumFacing.fromAngle(p.rotationYaw)));
     }
 }

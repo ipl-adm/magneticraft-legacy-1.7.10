@@ -1,10 +1,10 @@
 package com.cout970.magneticraft.api.kinetic;
 
-import com.cout970.magneticraft.api.util.MgDirection;
+import net.minecraft.util.EnumFacing;
 
 public interface IKineticTile {
 
-    IKineticConductor getKineticConductor(MgDirection dir);
+    IKineticConductor getKineticConductor(EnumFacing dir);
 
-    MgDirection[] getValidSides();
+    EnumFacing[] getValidSides();
 }

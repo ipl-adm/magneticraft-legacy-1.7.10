@@ -28,7 +28,6 @@ import java.util.Random;
 
 public abstract class BlockMg extends BlockContainer {
     public static String base = "magneticraft:";
-    public IIcon[] icons;
     public PropertyDirection FACING;
 
     public BlockMg(Material m) {
@@ -36,6 +35,7 @@ public abstract class BlockMg extends BlockContainer {
         setCreativeTab(CreativeTabsMg.MainTab);
         setHardness(2.0f);
         FACING = PropertyDirection.create("facing");
+        isBlockContainer = true;
     }
 
     @Override
@@ -68,7 +68,7 @@ public abstract class BlockMg extends BlockContainer {
         TileEntity t = w.getTileEntity(pos);
         if (t instanceof TileBase) {
             ((TileBase) t).onNeigChange();
-            ((TileBase) t).markDirty();
+            t.markDirty();
         }
     }
 
@@ -93,19 +93,6 @@ public abstract class BlockMg extends BlockContainer {
 
     public String getUnlocalizedName() {
         return getName();
-    }
-
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return icons[0];
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister IR) {
-        int pos = 0;
-        icons = new IIcon[getTextures().length];
-        for (String name : getTextures())
-            icons[pos++] = IR.registerIcon(base + name);
     }
 
     public abstract String[] getTextures();

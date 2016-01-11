@@ -1,4 +1,4 @@
-package com.cout970.magneticraft.api.util;
+/*package com.cout970.magneticraft.api.util;
 
 public class VectorOffset {
 
@@ -18,3 +18,4 @@ public class VectorOffset {
 		return direction.copy();
 	}
 }
+*/

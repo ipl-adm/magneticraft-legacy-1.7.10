@@ -1,23 +1,24 @@
 package com.cout970.magneticraft.api.electricity.prefab;
 
 import com.cout970.magneticraft.api.electricity.*;
+import com.cout970.magneticraft.api.util.MgUtils;
 import com.cout970.magneticraft.api.util.VecDouble;
-import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class InterPoleWire implements IInterPoleWire {
 
     protected World w;
-    protected VecInt start;
-    protected VecInt end;
+    protected BlockPos start;
+    protected BlockPos end;
     //cache
     protected IElectricPole cache_start;
     protected IElectricPole cache_end;
     protected double distance;
     protected double energyFlow;
 
-    public InterPoleWire(VecInt s, VecInt e) {
+    public InterPoleWire(BlockPos s, BlockPos e) {
         start = s;
         end = e;
         VecDouble vec = new VecDouble(s).add(new VecDouble(e).getOpposite());
@@ -41,24 +42,24 @@ public class InterPoleWire implements IInterPoleWire {
 
     public IElectricPole getStart() {
         if (cache_start == null) {
-            cache_start = ElectricUtils.getElectricPole(start.getTileEntity(w));
+            cache_start = ElectricUtils.getElectricPole(w.getTileEntity(start));
         }
         return cache_start;
     }
 
     public IElectricPole getEnd() {
         if (cache_end == null) {
-            cache_end = ElectricUtils.getElectricPole(end.getTileEntity(w));
+            cache_end = ElectricUtils.getElectricPole(w.getTileEntity(end));
         }
         return cache_end;
     }
 
-    public VecInt vecStart() {
-        return start.copy();
+    public BlockPos posStart() {
+        return new BlockPos(start);
     }
 
-    public VecInt vecEnd() {
-        return end.copy();
+    public BlockPos posEnd() {
+        return new BlockPos(start);
     }
 
     public double getDistance() {
@@ -66,14 +67,14 @@ public class InterPoleWire implements IInterPoleWire {
     }
 
     public void save(NBTTagCompound nbt) {
-        start.save(nbt, "Start");
-        end.save(nbt, "End");
+        MgUtils.writePos(nbt, "Start", start);
+        MgUtils.writePos(nbt, "End", end);
         nbt.setDouble("EnergyFlow", energyFlow);
     }
 
     public void load(NBTTagCompound nbt) {
-        start = new VecInt(nbt, "Start");
-        end = new VecInt(nbt, "End");
+        start = MgUtils.readPos(nbt, "Start");
+        end = MgUtils.readPos(nbt, "End");
         energyFlow = nbt.getDouble("EnergyFlow");
         VecDouble vec = new VecDouble(start).add(new VecDouble(end).getOpposite());
         distance = vec.mag();

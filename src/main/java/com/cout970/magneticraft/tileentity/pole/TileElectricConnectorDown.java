@@ -39,7 +39,7 @@ public class TileElectricConnectorDown extends TileConductorLow implements ITile
 
     @Override
     public ITileElectricPole getMainTile() {
-        TileEntity pole = new VecInt(this).add(0, 1, 0).getTileEntity(getWorldObj());
+        TileEntity pole = new VecInt(this).add(0, 1, 0).getTileEntity(getWorld()());
         if (pole instanceof ITileElectricPole) return (ITileElectricPole) pole;
         return null;
     }

@@ -2,6 +2,7 @@ package com.cout970.magneticraft.api.util;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 public interface IConnectable {
 
@@ -9,11 +10,11 @@ public interface IConnectable {
 
     void iterate();
 
-    VecInt[] getValidConnections();
+    EnumFacing[] getValidConnections();
 
-    boolean isAbleToConnect(IConnectable cond, VecInt dir);
+    boolean isAbleToConnect(IConnectable cond, EnumFacing dir);
 
-    ConnectionClass getConnectionClass(VecInt v);
+    ConnectionClass getConnectionClass(EnumFacing v);
 
     //save and load data
     void save(NBTTagCompound nbt);

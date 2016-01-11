@@ -5,7 +5,6 @@ import com.cout970.magneticraft.api.electricity.IElectricConductor;
 import com.cout970.magneticraft.api.electricity.IElectricPole;
 import com.cout970.magneticraft.api.electricity.IInterPoleWire;
 import com.cout970.magneticraft.api.util.VecDouble;
-import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -38,7 +37,7 @@ public class ElectricConnector implements IElectricPole {
         for (IInterPoleWire con : list) {
             if (con.getWorld() == null) {
                 if (parent == null) continue;
-                con.setWorld(parent.getWorldObj());
+                con.setWorld(parent.getWorld());
             }
             if (con.getStart() != null) con.getStart().onDisconnect(con);
             if (con.getEnd() != null) con.getEnd().onDisconnect(con);
@@ -50,11 +49,11 @@ public class ElectricConnector implements IElectricPole {
         if (update) {
             update = false;
             for (IInterPoleWire c : connections) {
-                c.setWorld(getParent().getWorldObj());
+                c.setWorld(getParent().getWorld());
             }
             refreshList();
         }
-        if (parent.getWorldObj().isRemote) return;
+        if (parent.getWorld().isRemote) return;
         connections.stream().filter(c -> c.getStart() == this).forEach(com.cout970.magneticraft.api.electricity.IInterPoleWire::iterate);
     }
 
@@ -70,8 +69,8 @@ public class ElectricConnector implements IElectricPole {
         VecDouble vec = new VecDouble(getParent()).add(new VecDouble(to.getParent()).getOpposite());
         if (vec.mag() > 16) return false;
         for (IInterPoleWire i : connections) {
-            if (i.vecStart().equals(new VecInt(getParent()))) {
-                if (i.vecEnd().equals(new VecInt(to.getParent()))) {
+            if (i.posStart().equals(getParent().getPos())) {
+                if (i.posEnd().equals(to.getParent().getPos())) {
                     return false;
                 }
             }
@@ -140,7 +139,7 @@ public class ElectricConnector implements IElectricPole {
     }
 
     private void refreshList() {
-        if (getParent().getWorldObj().isRemote) {
+        if (getParent().getWorld().isRemote) {
             if (glList != -1) {
                 GL11.glDeleteLists(glList, 1);
                 glList = -1;
@@ -205,12 +204,12 @@ public class ElectricConnector implements IElectricPole {
             for (int z = -rad; z <= rad; z++) {
                 for (int y = -5; y <= 5; y++) {
                     if (x == 0 && z == 0) continue;
-                    TileEntity t = new VecInt(pole.getParent()).add(x, y, z).getTileEntity(pole.getParent().getWorldObj());
+                    TileEntity t = pole.getParent().getWorld().getTileEntity(pole.getParent().getPos().add(x, y, z));
                     IElectricPole p = ElectricUtils.getElectricPole(t);
                     if (p == null) continue;
                     if (p.canConnectWire(0, pole, false) && pole.canConnectWire(0, p, false)) {
-                        InterPoleWire wire = new InterPoleWire(new VecInt(pole.getParent()), new VecInt(p.getParent()));
-                        wire.setWorld(p.getParent().getWorldObj());
+                        InterPoleWire wire = new InterPoleWire(pole.getParent().getPos(), p.getParent().getPos());
+                        wire.setWorld(p.getParent().getWorld());
                         pole.onConnect(wire);
                         p.onConnect(wire);
                     }

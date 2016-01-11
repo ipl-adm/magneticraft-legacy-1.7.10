@@ -3,7 +3,8 @@ package com.cout970.magneticraft.api.util;
 import com.google.common.base.Objects;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 
 /**
  * Simple implementation a 3D vector with doubles
@@ -43,20 +44,16 @@ public class VecDouble {
         this(ar[0], ar[1], ar[2]);
     }
 
-    public VecDouble(VecInt vec) {
+    public VecDouble(BlockPos vec) {
         this(vec.getX(), vec.getY(), vec.getZ());
     }
 
     public VecDouble(TileEntity t) {
-        this(t.xCoord, t.yCoord, t.zCoord);
+        this(t.getPos());
     }
 
-    public static VecDouble getConnection(MgDirection d) {
-        return new VecDouble(d.getOffsetX(), d.getOffsetY(), d.getOffsetZ());
-    }
-
-    public static VecDouble getConnection(ForgeDirection d) {
-        return new VecDouble(d.offsetX, d.offsetY, d.offsetZ);
+    public static VecDouble getConnection(EnumFacing d) {
+        return new VecDouble(d.getFrontOffsetX(), d.getFrontOffsetY(), d.getFrontOffsetZ());
     }
 
     public VecDouble getOpposite() {

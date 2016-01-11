@@ -9,6 +9,7 @@ import com.cout970.magneticraft.api.util.MgUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,11 +162,12 @@ public class ConveyorBeltLane implements IConveyorBeltLane {
 
     public static TileEntity getFrontConveyor(IConveyorBelt c) {
         TileEntity t = c.getParent();
+        BlockPos front = t.getPos().add(c.getDir().getDirectionVec());
         if (c.getOrientation().getLevel() == 1)
-            return MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, 1, 0));
-        TileEntity retval = MgUtils.getTileEntity(t, c.getDir());
+            return t.getWorld().getTileEntity(front.up());
+        TileEntity retval = t.getWorld().getTileEntity(front);
         if (!(retval instanceof IConveyorBelt)) {
-            retval = MgUtils.getTileEntity(t, c.getDir().toVecInt().add(0, -1, 0));
+            retval = t.getWorld().getTileEntity(front.down());
         }
         return retval;
     }

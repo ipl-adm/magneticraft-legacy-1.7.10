@@ -1,30 +1,32 @@
 package com.cout970.magneticraft.api.util;
 
 
+import net.minecraft.util.EnumFacing;
+
 public enum Orientation {
 
-    UP_NORTH(1, MgDirection.NORTH),
-    UP_EAST(1, MgDirection.EAST),
-    UP_SOUTH(1, MgDirection.SOUTH),
-    UP_WEST(1, MgDirection.WEST),
-    NORTH(0, MgDirection.NORTH),
-    EAST(0, MgDirection.EAST),
-    SOUTH(0, MgDirection.SOUTH),
-    WEST(0, MgDirection.WEST),
-    DOWN_NORTH(-1, MgDirection.NORTH),
-    DOWN_EAST(-1, MgDirection.EAST),
-    DOWN_SOUTH(-1, MgDirection.SOUTH),
-    DOWN_WEST(-1, MgDirection.WEST);
+    UP_NORTH(1, EnumFacing.NORTH),
+    UP_EAST(1, EnumFacing.EAST),
+    UP_SOUTH(1, EnumFacing.SOUTH),
+    UP_WEST(1, EnumFacing.WEST),
+    NORTH(0, EnumFacing.NORTH),
+    EAST(0, EnumFacing.EAST),
+    SOUTH(0, EnumFacing.SOUTH),
+    WEST(0, EnumFacing.WEST),
+    DOWN_NORTH(-1, EnumFacing.NORTH),
+    DOWN_EAST(-1, EnumFacing.EAST),
+    DOWN_SOUTH(-1, EnumFacing.SOUTH),
+    DOWN_WEST(-1, EnumFacing.WEST);
 
     private int level;
-    private MgDirection dir;
+    private EnumFacing dir;
 
-    Orientation(int l, MgDirection dir) {
+    Orientation(int l, EnumFacing dir) {
         level = l;
         this.dir = dir;
     }
 
-    public MgDirection getDirection() {
+    public EnumFacing getDirection() {
         return dir;
     }
 
@@ -32,7 +34,7 @@ public enum Orientation {
         return level;
     }
 
-    public static Orientation find(int level, MgDirection dir) {
+    public static Orientation find(int level, EnumFacing dir) {
         for (Orientation o : values()) {
             if (o.level == level && o.dir == dir) return o;
         }
@@ -40,7 +42,7 @@ public enum Orientation {
     }
 
     public Orientation rotateY(boolean left) {
-        return find(level, dir.step(left ? MgDirection.DOWN : MgDirection.UP));
+        return find(level, dir.rotateAround(left ? EnumFacing.DOWN.getAxis() : EnumFacing.UP.getAxis()));
     }
 
     public int toMeta() {

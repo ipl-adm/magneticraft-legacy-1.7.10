@@ -11,48 +11,48 @@ import net.minecraft.nbt.NBTTagCompound;
 public class NBTUtils {
 
     public static void sanityCheck(ItemStack i) {
-        if (i.stackTagCompound == null) {
-            i.stackTagCompound = new NBTTagCompound();
+        if (i.getTagCompound() == null) {
+            i.setTagCompound(new NBTTagCompound());
         }
     }
 
     public static double getDouble(String string, ItemStack stack) {
         sanityCheck(stack);
-        return stack.stackTagCompound.getDouble(string);
+        return stack.getTagCompound().getDouble(string);
     }
 
     public static void setDouble(String string, ItemStack stack, double n) {
         sanityCheck(stack);
-        stack.stackTagCompound.setDouble(string, n);
+        stack.getTagCompound().setDouble(string, n);
     }
 
     public static int getInteger(String string, ItemStack stack) {
         sanityCheck(stack);
-        return stack.stackTagCompound.getInteger(string);
+        return stack.getTagCompound().getInteger(string);
     }
 
     public static void setInteger(String string, ItemStack stack, int n) {
         sanityCheck(stack);
-        stack.stackTagCompound.setInteger(string, n);
+        stack.getTagCompound().setInteger(string, n);
     }
 
     public static String getString(String string, ItemStack stack) {
         sanityCheck(stack);
-        return stack.stackTagCompound.getString(string);
+        return stack.getTagCompound().getString(string);
     }
 
     public static void setString(String string, ItemStack stack, String label) {
         sanityCheck(stack);
-        stack.stackTagCompound.setString(string, label);
+        stack.getTagCompound().setString(string, label);
     }
 
     public static boolean getBoolean(String string, ItemStack stack) {
         sanityCheck(stack);
-        return stack.stackTagCompound.getBoolean(string);
+        return stack.getTagCompound().getBoolean(string);
     }
 
     public static void setBoolean(String string, ItemStack stack, boolean label) {
         sanityCheck(stack);
-        stack.stackTagCompound.setBoolean(string, label);
+        stack.getTagCompound().setBoolean(string, label);
     }
 }

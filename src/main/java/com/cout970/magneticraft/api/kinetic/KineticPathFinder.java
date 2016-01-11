@@ -1,9 +1,8 @@
 package com.cout970.magneticraft.api.kinetic;
 
-import com.cout970.magneticraft.api.util.MgDirection;
-import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.HashSet;
@@ -13,8 +12,8 @@ public class KineticPathFinder {
 
     public LinkedList<IKineticConductor> conds;
     public World w;
-    public LinkedList<ExtendedVec> scanPosition;
-    public HashSet<VecInt> scanMap;
+    public LinkedList<ExtendedPos> scanPosition;
+    public HashSet<BlockPos> scanMap;
 
     public KineticPathFinder(World w, IKineticConductor cond) {
         this.w = w;
@@ -22,16 +21,16 @@ public class KineticPathFinder {
         scanPosition = new LinkedList<>();
         scanMap = new HashSet<>();
         conds.addLast(cond);
-        scanMap.add(new VecInt(cond.getParent()));
-        for (MgDirection dir : cond.getValidSides()) {
-            addBlock(new ExtendedVec(new VecInt(cond.getParent()).add(dir.toVecInt()), dir));
+        scanMap.add(cond.getParent().getPos());
+        for (EnumFacing dir : cond.getValidSides()) {
+            addBlock(new ExtendedPos(cond.getParent().getPos().add(dir.getDirectionVec()), dir));
         }
     }
 
-    public void addBlock(ExtendedVec v) {
-        if (!scanMap.contains(v.vec)) {
+    public void addBlock(ExtendedPos v) {
+        if (!scanMap.contains(v.pos)) {
             scanPosition.addLast(v);
-            scanMap.add(v.vec);
+            scanMap.add(v.pos);
         }
     }
 
@@ -39,33 +38,33 @@ public class KineticPathFinder {
         if (scanPosition.size() == 0) {
             return false;
         } else {
-            ExtendedVec vec = scanPosition.removeFirst();
+            ExtendedPos vec = scanPosition.removeFirst();
             return step(vec);
         }
     }
 
-    public boolean step(ExtendedVec vec) {
-        TileEntity tile = MgUtils.getTileEntity(w, vec.vec);
+    public boolean step(ExtendedPos vec) {
+        TileEntity tile = w.getTileEntity(vec.pos);
         if (tile instanceof IKineticTile) {
             IKineticTile k = (IKineticTile) tile;
             IKineticConductor cond = k.getKineticConductor(vec.dir);
             if (cond != null) {
                 conds.add(cond);
-                for (MgDirection d : k.getValidSides()) {
-                    addBlock(new ExtendedVec(vec.vec.copy().add(d.toVecInt()), d.opposite()));
+                for (EnumFacing d : k.getValidSides()) {
+                    addBlock(new ExtendedPos(new BlockPos(vec.pos).add(d.getDirectionVec()), d.getOpposite()));
                 }
             }
         }
         return true;
     }
 
-    public class ExtendedVec {
+    public class ExtendedPos {
 
-        public VecInt vec;
-        public MgDirection dir;
+        public BlockPos pos;
+        public EnumFacing dir;
 
-        public ExtendedVec(VecInt vec, MgDirection d) {
-            this.vec = vec;
+        public ExtendedPos(BlockPos pos, EnumFacing d) {
+            this.pos = pos;
             dir = d;
         }
     }

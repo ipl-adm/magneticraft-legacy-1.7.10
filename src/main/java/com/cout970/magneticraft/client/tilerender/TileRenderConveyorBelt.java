@@ -78,7 +78,7 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer {
             for (int h = -1; h <= 1; h++) {
                 VecInt vec = tile.getDir().step(MgDirection.UP).toVecInt();
                 vec.add(new VecInt(tile));
-                TileEntity conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
+                TileEntity conveyor = tile.getWorld()().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
                 if (conveyor instanceof IConveyorBelt) {
                     if (((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.UP).opposite()) {
                         sides &= 1;
@@ -87,7 +87,7 @@ public class TileRenderConveyorBelt extends TileEntitySpecialRenderer {
 
                 vec = tile.getDir().step(MgDirection.DOWN).toVecInt();
                 vec.add(new VecInt(tile));
-                conveyor = tile.getWorldObj().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
+                conveyor = tile.getWorld()().getTileEntity(vec.getX(), vec.getY() + h, vec.getZ());
                 if (conveyor instanceof IConveyorBelt) {
                     if (((IConveyorBelt) conveyor).getDir() == tile.getDir().step(MgDirection.DOWN).opposite()) {
                         sides &= 2;

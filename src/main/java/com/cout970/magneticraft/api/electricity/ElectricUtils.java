@@ -1,9 +1,8 @@
 package com.cout970.magneticraft.api.electricity;
 
-import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
-import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ public class ElectricUtils {
      * @param opp
      * @return
      */
-    public static boolean alreadyContains(IIndexedConnection[] con, VecInt opp) {
+    public static boolean alreadyContains(IIndexedConnection[] con, EnumFacing opp) {
         if (con == null) return false;
         if (opp == null) return false;
         for (IIndexedConnection i : con)
@@ -33,7 +32,7 @@ public class ElectricUtils {
      * @param tier
      * @return
      */
-    public static IElectricConductor[] getElectricCond(TileEntity tile, VecInt f, int tier) {
+    public static IElectricConductor[] getElectricCond(TileEntity tile, EnumFacing f, int tier) {
         if (tile instanceof TileMultipart) {
             List<IElectricConductor> list = ((TileMultipart) tile).jPartList().stream().filter(m -> m instanceof IElectricMultiPart && ((IElectricMultiPart) m).getElectricConductor(tier) != null).map(m -> ((IElectricMultiPart) m).getElectricConductor(tier)).collect(Collectors.toList());
             return list.toArray(new IElectricConductor[list.size()]);
@@ -50,7 +49,7 @@ public class ElectricUtils {
      * @param tier
      * @return
      */
-    public static IEnergyInterface getInterface(TileEntity t, VecInt i, int tier) {
+    public static IEnergyInterface getInterface(TileEntity t, EnumFacing i, int tier) {
         return InteractionHelper.processTile(t, i, tier);
     }
 
@@ -62,7 +61,7 @@ public class ElectricUtils {
      * @return
      */
     public static boolean isConductor(TileEntity tile, int tier) {
-        return getElectricCond(tile, VecInt.NULL_VECTOR, tier) != null;
+        return getElectricCond(tile, null, tier) != null;
     }
 
     public static IElectricPole getElectricPole(TileEntity tile) {

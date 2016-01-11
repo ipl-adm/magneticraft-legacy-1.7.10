@@ -11,11 +11,10 @@ import com.cout970.magneticraft.api.util.ConnectionClass;
 import com.cout970.magneticraft.api.util.EnergyConverter;
 import com.cout970.magneticraft.api.util.IConnectable;
 import com.cout970.magneticraft.api.util.MgUtils;
-import com.cout970.magneticraft.api.util.VecInt;
-import com.cout970.magneticraft.api.util.VecIntUtil;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -41,12 +40,12 @@ public class PressureConductor implements IPressureConductor {
 
     @Override
     public void iterate() {
-        World w = parent.getWorldObj();
+        World w = parent.getWorld();
         if (w.isRemote)
             return;
         if (getFluid() == null)
             return;
-        for (VecInt vec : getValidConnections()) {
+        for (EnumFacing vec : getValidConnections()) {
 			TileEntity tile = MgUtils.getTileEntity(parent, vec);
 			if (tile != null) {
 				List<IPressureConductor> pre = PressureUtils.getPressureCond(tile, vec.getOpposite());
@@ -79,17 +78,17 @@ public class PressureConductor implements IPressureConductor {
     }
 
     @Override
-    public VecInt[] getValidConnections() {
-        return VecIntUtil.FORGE_DIRECTIONS;
+    public EnumFacing[] getValidConnections() {
+        return EnumFacing.values();
     }
 
     @Override
-    public boolean isAbleToConnect(IConnectable cond, VecInt dir) {
+    public boolean isAbleToConnect(IConnectable cond, EnumFacing dir) {
         return true;
     }
 
     @Override
-    public ConnectionClass getConnectionClass(VecInt v) {
+    public ConnectionClass getConnectionClass(EnumFacing v) {
         return ConnectionClass.FULL_BLOCK;
     }
 

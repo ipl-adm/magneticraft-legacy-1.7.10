@@ -4,6 +4,8 @@ import com.cout970.magneticraft.api.electricity.*;
 import com.cout970.magneticraft.api.util.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Vec3i;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -50,7 +52,7 @@ public class ElectricConductor implements IElectricConductor {
      */
     @Override
     public double getVoltage() {
-        long worldTime = this.getParent().getWorldObj().getTotalWorldTime();
+        long worldTime = this.getParent().getWorld().getTotalWorldTime();
         if ((worldTime & 65535L) == this.lastTick) {
             return this.V;
         } else {
@@ -66,7 +68,7 @@ public class ElectricConductor implements IElectricConductor {
             connected = true;
             con.clear();
             int sides = 0;
-            for (VecInt f : getValidConnections()) {//search for other conductors
+            for (EnumFacing f : getValidConnections()) {//search for other conductors
 
                 TileEntity target = MgUtils.getTileEntity(tile, f);
                 IElectricConductor[] c = ElectricUtils.getElectricCond(target, f.getOpposite(), getTier());
@@ -103,7 +105,7 @@ public class ElectricConductor implements IElectricConductor {
     @Override
     public void iterate() {
         TileEntity tile = getParent();
-        World w = tile.getWorldObj();
+        World w = tile.getWorld();
         //only calculated on server side
         if (w.isRemote) return;
         tile.markDirty();
@@ -290,12 +292,12 @@ public class ElectricConductor implements IElectricConductor {
     }
 
     @Override
-    public VecInt[] getValidConnections() {
-        return VecIntUtil.FORGE_DIRECTIONS;
+    public EnumFacing[] getValidConnections() {
+        return EnumFacing.values();
     }
 
     @Override
-    public boolean isAbleToConnect(IConnectable c, VecInt d) {
+    public boolean isAbleToConnect(IConnectable c, EnumFacing d) {
         return true;
     }
 
@@ -309,7 +311,7 @@ public class ElectricConductor implements IElectricConductor {
     }
 
     @Override
-    public ConnectionClass getConnectionClass(VecInt v) {
+    public ConnectionClass getConnectionClass(EnumFacing v) {
         return ConnectionClass.FULL_BLOCK;
     }
 

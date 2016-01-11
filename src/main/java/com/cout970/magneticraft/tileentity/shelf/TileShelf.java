@@ -87,7 +87,7 @@ public abstract class TileShelf extends TileBase implements IInventory {
             if (itemStack.stackSize == 0) {
                 itemStack = null;
             }
-            main.getWorldObj().markBlockForUpdate(main.xCoord, main.yCoord, main.zCoord);
+            main.getWorld()().markBlockForUpdate(main.xCoord, main.yCoord, main.zCoord);
         }
 
         if ((getInventory() != null) && ((i > 0) || (getRealSize() > 0))) {

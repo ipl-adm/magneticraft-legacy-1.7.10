@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.api.electricity;
 
-import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public interface IInterPoleWire {
@@ -20,9 +20,9 @@ public interface IInterPoleWire {
 
     IElectricPole getEnd();
 
-    VecInt vecStart();
+    BlockPos posStart();
 
-    VecInt vecEnd();
+    BlockPos posEnd();
 
     double getDistance();
 

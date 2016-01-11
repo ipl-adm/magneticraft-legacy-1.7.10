@@ -109,7 +109,7 @@ public class InventoryUtils {
                 }
                 TileEntity tile = comp.tile;
                 if (!InventoryUtils.dropIntoInventory(itemContainer, comp)) {
-                    BlockMg.dropItem(itemContainer, tile.getWorldObj().rand, tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj());
+                    BlockMg.dropItem(itemContainer, tile.getWorld()().rand, tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorld()());
                 }
             }
         }

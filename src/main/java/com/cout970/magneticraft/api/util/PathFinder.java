@@ -1,20 +1,22 @@
-package com.cout970.magneticraft.api.util;
+/*package com.cout970.magneticraft.api.util;
+
+import net.minecraft.util.BlockPos;
 
 import java.util.HashSet;
 import java.util.LinkedList;
 
 public abstract class PathFinder {
 
-    public LinkedList<VectorOffset> scanPosition;
-    public HashSet<VecInt> scanMap;
+    public LinkedList<BlockPos> scanPosition;
+    public HashSet<BlockPos> scanMap;
 
     public void init() {
         scanPosition = new LinkedList<>();
         scanMap = new HashSet<>();
     }
 
-    public void addBlock(VectorOffset v) {
-        if (!scanMap.contains(v.getCoords())) {
+    public void addBlock(BlockPos v) {
+        if (!scanMap.contains(v)) {
             scanPosition.addLast(v);
             scanMap.add(v.getCoords());
         }
@@ -37,3 +39,4 @@ public abstract class PathFinder {
         }
     }
 }
+*/

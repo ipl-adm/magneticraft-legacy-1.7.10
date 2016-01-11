@@ -41,7 +41,7 @@ public class FluidNetwork {
         for (IFluidTransport e : pipes) {
             if (e != null) {
                 TileEntity t = e.getTileEntity();
-                if (t != null && t.getWorldObj().getTileEntity(t.xCoord, t.yCoord, t.zCoord) != null) {
+                if (t != null && t.getWorld()().getTileEntity(t.xCoord, t.yCoord, t.zCoord) != null) {
                     base = e;
                 }
             }

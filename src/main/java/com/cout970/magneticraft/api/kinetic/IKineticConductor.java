@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.api.kinetic;
 
-import com.cout970.magneticraft.api.util.MgDirection;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 public interface IKineticConductor {
 
@@ -35,5 +35,5 @@ public interface IKineticConductor {
 
     KineticType getFunction();
 
-    MgDirection[] getValidSides();
+    EnumFacing[] getValidSides();
 }

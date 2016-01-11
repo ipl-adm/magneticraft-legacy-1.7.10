@@ -11,7 +11,7 @@ public class KineticNetwork {
 
     public KineticNetwork(IKineticConductor firts) {
         componets.add(firts);
-        world = firts.getParent().getWorldObj();
+        world = firts.getParent().getWorld();
     }
 
     public void findComponents() {

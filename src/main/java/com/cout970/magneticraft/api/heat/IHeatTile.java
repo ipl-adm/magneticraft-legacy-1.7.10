@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.api.heat;
 
-import com.cout970.magneticraft.api.util.VecInt;
+import net.minecraft.util.EnumFacing;
 
 /**
  * @author Cout970
@@ -13,6 +13,6 @@ public interface IHeatTile {
      * @param c
      * @return
      */
-    IHeatConductor[] getHeatCond(VecInt c);
+    IHeatConductor[] getHeatCond(EnumFacing c);
 
 }

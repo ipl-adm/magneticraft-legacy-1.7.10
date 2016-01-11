@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.api.electricity;
 
-import com.cout970.magneticraft.api.util.VecInt;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 /**
  * @author Cout970
@@ -39,7 +39,7 @@ public interface IEnergyInterface {
      * @param f
      * @return
      */
-    boolean canConnect(VecInt f);
+    boolean canConnect(EnumFacing f);
 
     /**
      * the tileEntity that has the block

@@ -1,26 +1,28 @@
 package com.cout970.magneticraft.api.util;
 
 
+import net.minecraft.util.EnumFacing;
+
 /**
  * @author Cout970
  */
 public enum ConnectionClass {
 
     FULL_BLOCK,
-    SLAB_BOTTOM(MgDirection.DOWN),
-    SLAB_TOP(MgDirection.UP),
-    SLAB_NORTH(MgDirection.NORTH),
-    SLAB_SOUTH(MgDirection.SOUTH),
-    SLAB_WEST(MgDirection.WEST),
-    SLAB_EAST(MgDirection.EAST),
+    SLAB_BOTTOM(EnumFacing.DOWN),
+    SLAB_TOP(EnumFacing.UP),
+    SLAB_NORTH(EnumFacing.NORTH),
+    SLAB_SOUTH(EnumFacing.SOUTH),
+    SLAB_WEST(EnumFacing.WEST),
+    SLAB_EAST(EnumFacing.EAST),
     CABLE_LOW,
     Cable_MEDIUM,
     CABLE_HIGH,
     CABLE_HUGE;
 
-    public MgDirection orientation;
+    public EnumFacing orientation;
 
-    ConnectionClass(MgDirection dir) {
+    ConnectionClass(EnumFacing dir) {
         orientation = dir;
     }
 
@@ -28,6 +30,6 @@ public enum ConnectionClass {
     }
 
     public static boolean isSlabCompatible(ConnectionClass a, ConnectionClass b) {
-        return !(a.orientation == null || b.orientation == null) && !a.orientation.isParallel(b.orientation);
+        return !(a.orientation == null || b.orientation == null) && !(a.orientation.getAxis() == b.orientation.getAxis());
     }
 }

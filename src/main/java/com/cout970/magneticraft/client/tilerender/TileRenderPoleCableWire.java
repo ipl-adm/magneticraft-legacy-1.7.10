@@ -33,7 +33,7 @@ public class TileRenderPoleCableWire extends TileEntitySpecialRenderer {
 
         TileElectricPoleCableWireDown down = ((TileElectricPoleCableWire) te).getBase();
         if (down != null) {
-            if (down.getWorldObj().getTotalWorldTime() % 20 == 0) down.mask = -1;
+            if (down.getWorld()().getTotalWorldTime() % 20 == 0) down.mask = -1;
             if (down.mask == -1) {
                 down.mask = 0;
                 TileEntity tile = MgUtils.getTileEntity(te, new VecInt(-1, -4, 0));

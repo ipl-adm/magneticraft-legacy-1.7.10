@@ -134,7 +134,7 @@ public class TileMiner extends TileConductorMedium implements IInventoryManaged,
             Block b = worldObj.getBlock(f.getX(), f.getY(), f.getZ());
             int meta = worldObj.getBlockMetadata(f.getX(), f.getY(), f.getZ());
             BlockInfo f0 = new BlockInfo(b, meta);
-            if (f0.getBlock() != Blocks.air && (MgUtils.isMineableBlock(getWorldObj(), f0)) || (Block.isEqualTo(b, Blocks.water) || Block.isEqualTo(b, Blocks.lava) || Block.isEqualTo(b, Blocks.flowing_lava) || Block.isEqualTo(b, Blocks.flowing_water))) {
+            if (f0.getBlock() != Blocks.air && (MgUtils.isMineableBlock(getWorld()(), f0)) || (Block.isEqualTo(b, Blocks.water) || Block.isEqualTo(b, Blocks.lava) || Block.isEqualTo(b, Blocks.flowing_lava) || Block.isEqualTo(b, Blocks.flowing_water))) {
                 //break block
                 items.addAll(f.getBlock().getDrops(worldObj, f.getX(), f.getY(), f.getZ(), f.getMeta(), 0));
                 if (replaceWithDirt) {

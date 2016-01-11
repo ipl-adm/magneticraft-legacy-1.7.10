@@ -28,7 +28,7 @@ public class TileRenderSprinkler extends TileEntitySpecialRenderer {
 
         bindTexture(ModelTextures.SPRINKLER);
         model.renderStatic();
-        float rotation = (float) (tile.rotate(te.getWorldObj().getTotalWorldTime() + partTicks) / 500f * Math.PI);
+        float rotation = (float) (tile.rotate(te.getWorld()().getTotalWorldTime() + partTicks) / 500f * Math.PI);
         if (te.getBlockMetadata() == 1) {
             rotation = -rotation;
         }

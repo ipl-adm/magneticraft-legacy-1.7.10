@@ -7,6 +7,7 @@ import com.cout970.magneticraft.api.util.PathFinder;
 import com.cout970.magneticraft.api.util.VectorOffset;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ComputerPathFinder extends PathFinder {
@@ -17,12 +18,12 @@ public class ComputerPathFinder extends PathFinder {
 
     public ComputerPathFinder(TileEntity t, int address) {
         this.address = address;
-        w = t.getWorldObj();
+        w = t.getWorld();
     }
 
     @Override
-    public boolean step(VectorOffset coord) {
-        TileEntity t = coord.getCoords().getTileEntity(w);
+    public boolean step(BlockPos coord) {
+        TileEntity t = ;
 
         if (t instanceof IPeripheral && ((IPeripheral) t).getAddress() == address) {
             result = (IPeripheral) t;

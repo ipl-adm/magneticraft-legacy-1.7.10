@@ -47,7 +47,7 @@ public class BlockCrushingTable extends BlockMg {
                                 if (stack != null && stack.stackSize > 0 && RecipeCrushingTable.getRecipe(stack) != null) {
                                     tile.setInput(p.inventory.decrStackSize(j, 1));
 
-                                    tile.getWorldObj().markBlockForUpdate(x, y, z);
+                                    tile.getWorld()().markBlockForUpdate(x, y, z);
                                     tile.markDirty();
 
                                     return true;
@@ -60,7 +60,7 @@ public class BlockCrushingTable extends BlockMg {
                         }
 
 
-                        tile.getWorldObj().markBlockForUpdate(x, y, z);
+                        tile.getWorld()().markBlockForUpdate(x, y, z);
                         tile.markDirty();
 
                         return true;
@@ -71,7 +71,7 @@ public class BlockCrushingTable extends BlockMg {
                     p.setCurrentItemOrArmor(0, (i.stackSize > 0) ? i : null);
                     tile.setInput(split);
 
-                    tile.getWorldObj().markBlockForUpdate(x, y, z);
+                    tile.getWorld()().markBlockForUpdate(x, y, z);
                     tile.markDirty();
 
                     return true;
@@ -83,7 +83,7 @@ public class BlockCrushingTable extends BlockMg {
                     tile.setInput(null);
                 }
             }
-            tile.getWorldObj().markBlockForUpdate(x, y, z);
+            tile.getWorld()().markBlockForUpdate(x, y, z);
             tile.markDirty();
         }
         return true;

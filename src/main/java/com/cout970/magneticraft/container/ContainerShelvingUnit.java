@@ -173,9 +173,10 @@ public class ContainerShelvingUnit extends ContainerBasic {
                     .collect(Collectors.toList());
         }
         if (mode == 2) {
-            currentSlots = (List<SlotShelvingUnit>) inventorySlots.stream()
+            currentSlots = inventorySlots.stream()
                     .filter(s -> s instanceof SlotShelvingUnit)
-                    .filter(s -> (((SlotShelvingUnit) s).invNum == curInv) && MgUtils.matchesPattern(((SlotShelvingUnit) s).getStack(), filter))
+                    .map(s -> (SlotShelvingUnit) s)
+                    .filter(s -> (s.invNum == curInv) && MgUtils.matchesPattern(s.getStack(), filter))
                     .collect(Collectors.toList());
 
         }

@@ -15,8 +15,8 @@ public interface IConveyorBelt {
         public static BeltInteraction InterBelt(EnumFacing a, EnumFacing b) {
             if (a == b) return BeltInteraction.DIRECT;
             if (a == b.getOpposite()) return BeltInteraction.INVERSE;
-            if (a == b.step(EnumFacing.DOWN)) return BeltInteraction.LEFT_T;
-            if (a == b.step(EnumFacing.UP)) return BeltInteraction.RIGHT_T;
+            if (a == b.rotateAround(EnumFacing.DOWN.getAxis())) return BeltInteraction.LEFT_T;
+            if (a == b.rotateAround(EnumFacing.UP.getAxis())) return BeltInteraction.RIGHT_T;
             return BeltInteraction.NOTHING;
         }
     }

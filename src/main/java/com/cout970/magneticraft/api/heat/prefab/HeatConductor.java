@@ -6,6 +6,7 @@ import com.cout970.magneticraft.api.util.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 /**
@@ -59,12 +60,12 @@ public class HeatConductor implements IHeatConductor {
     @Override
     public void iterate() {
         TileEntity t = getParent();
-        World w = t.getWorldObj();
+        World w = t.getWorld();
         if (w.isRemote) return;
         if (this.getTemperature() >= getMaxTemp()) {
             onBlockOverHeat();
         }
-        for (VecInt d : getValidConnections()) {
+        for (EnumFacing d : getValidConnections()) {
             TileEntity tile = MgUtils.getTileEntity(t, d);
             if (tile == null) continue;
             IHeatConductor[] comp = HeatUtils.getHeatCond(tile, d);
@@ -128,23 +129,23 @@ public class HeatConductor implements IHeatConductor {
     @Override
     public void onBlockOverHeat() {
         TileEntity t = getParent();
-        World w = t.getWorldObj();
-        w.setBlock(t.xCoord, t.yCoord, t.zCoord, Blocks.lava);
-        w.notifyBlockOfNeighborChange(t.xCoord, t.yCoord, t.zCoord, Blocks.lava);
+        World w = t.getWorld();
+        w.setBlockState(t.getPos(), Blocks.lava.getDefaultState());
+        w.notifyNeighborsOfStateChange(t.getPos(), Blocks.lava);
     }
 
     @Override
-    public VecInt[] getValidConnections() {
-        return VecIntUtil.FORGE_DIRECTIONS;
+    public EnumFacing[] getValidConnections() {
+        return EnumFacing.values();
     }
 
     @Override
-    public boolean isAbleToConnect(IConnectable cond, VecInt dir) {
+    public boolean isAbleToConnect(IConnectable cond, EnumFacing dir) {
         return true;
     }
 
     @Override
-    public ConnectionClass getConnectionClass(VecInt v) {
+    public ConnectionClass getConnectionClass(EnumFacing v) {
         return ConnectionClass.FULL_BLOCK;
     }
 }

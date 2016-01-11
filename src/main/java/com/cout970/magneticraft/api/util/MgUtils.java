@@ -4,23 +4,18 @@ import buildcraft.api.tools.IToolWrench;
 import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TileMultipart;
 import cofh.api.item.IToolHammer;
-import com.cout970.magneticraft.api.computer.IOpticFiber;
 import com.cout970.magneticraft.api.tool.IWrench;
 import com.cout970.magneticraft.compat.ManagerIntegration;
 import com.cout970.magneticraft.util.FakePlayerProvider;
-import com.google.common.primitives.Doubles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -28,8 +23,6 @@ import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -54,25 +47,11 @@ public class MgUtils {
      * @param d
      * @return
      */
-    public static TileEntity getTileEntity(TileEntity tile, VecInt d) {
-        if (!tile.getWorldObj().blockExists(tile.xCoord + d.getX(), tile.yCoord + d.getY(), tile.zCoord + d.getZ())) {
-            return null;
+    public static TileEntity getTileEntity(TileEntity tile, EnumFacing d) {
+        if (tile.getWorld().getBlockState(tile.getPos().add(d.getDirectionVec())).getBlock() != null) {
+            return tile.getWorld().getTileEntity(tile.getPos().add(d.getDirectionVec()));
         }
-        return tile.getWorldObj().getTileEntity(tile.xCoord + d.getX(), tile.yCoord + d.getY(), tile.zCoord + d.getZ());
-    }
-
-    /**
-     * Useful method to get an adjacent TileEntity
-     *
-     * @param tile
-     * @param d
-     * @return
-     */
-    public static TileEntity getTileEntity(TileEntity tile, MgDirection d) {
-        if (!tile.getWorldObj().blockExists(tile.xCoord + d.getOffsetX(), tile.yCoord + d.getOffsetY(), tile.zCoord + d.getOffsetZ())) {
-            return null;
-        }
-        return tile.getWorldObj().getTileEntity(tile.xCoord + d.getOffsetX(), tile.yCoord + d.getOffsetY(), tile.zCoord + d.getOffsetZ());
+        return null;
     }
 
     /**
@@ -83,7 +62,7 @@ public class MgUtils {
      */
     public static List<TileEntity> getNeig(TileEntity t) {
         List<TileEntity> list = new ArrayList<>();
-        for (MgDirection d : MgDirection.values()) {
+        for (EnumFacing d : EnumFacing.values()) {
             TileEntity f = getTileEntity(t, d);
             if (f != null) list.add(f);
         }
@@ -105,7 +84,7 @@ public class MgUtils {
                 && (info.getBlock() != Blocks.portal) && (info.getBlock() != Blocks.end_portal)
                 && (info.getBlock() != Blocks.end_portal_frame)
                 && (info.getBlock().getBlockHardness(w, info.getPosition()) >= 0)
-                && (w.canMineBlock(FakePlayerProvider.getFakePlayer((WorldServer) w), info.getX(), info.getY(), info.getZ()));
+                && (w.canMineBlockBody(FakePlayerProvider.getFakePlayer((WorldServer) w), info.getPosition()));
     }
 
     /**
@@ -151,7 +130,7 @@ public class MgUtils {
         }
         return false;
     }
-
+/*
     public static IOpticFiber getOpticFiber(TileEntity tile, EnumFacing dir) {
         if (tile instanceof TileMultipart) {
             for (TMultiPart p : ((TileMultipart) tile).jPartList()) {
@@ -162,16 +141,22 @@ public class MgUtils {
         }
         return null;
     }
-
+*/
     public static boolean isWrench(ItemStack is) {
         return (is != null) && isWrench(is.getItem());
     }
 
     public static boolean isWrench(Item item) {
-        return (item instanceof IWrench) || (ManagerIntegration.BUILDCRAFT && (item instanceof IToolWrench)) || (ManagerIntegration.COFH_TOOLS && (item instanceof IToolHammer));
+        return (item instanceof IWrench) ||
+                (ManagerIntegration.BUILDCRAFT && (item instanceof IToolWrench)) ||
+                (ManagerIntegration.COFH_TOOLS && (item instanceof IToolHammer));
     }
 
     public static boolean matchesPattern(ItemStack stack, String pattern) {
+        if (stack == null) {
+            return pattern.isEmpty();
+        }
+
         String realPattern = ".*(?i:" + pattern + ").*";
         try {
             //noinspection ResultOfMethodCallIgnored
@@ -183,7 +168,7 @@ public class MgUtils {
         if (StringUtils.isNullOrEmpty(pattern)) {
             return true;
         }
-        if ((stack != null) && (stack.getDisplayName().matches(realPattern))) {
+        if (stack.getDisplayName().matches(realPattern)) {
             return true;
         }
         if (IntStream.of(OreDictionary.getOreIDs(stack)).mapToObj(OreDictionary::getOreName).anyMatch(s -> s.matches(realPattern))) {
@@ -193,42 +178,44 @@ public class MgUtils {
     }
 
     //I feel like there's a better way, but fuck it.
-    public static boolean isUnobstructed2D(World w, Pair<Integer, Integer> start, Pair<Integer, Integer> end, int height, boolean checkStart, boolean checkEnd, int precision) {
-        if (Objects.equals(start.getLeft(), end.getLeft())) {
-            if (Objects.equals(start.getRight(), end.getRight())) {
-                return !((checkEnd || checkStart) && (w.getBlock(start.getLeft(), height, start.getRight()) != null && !w.isAirBlock(start.getLeft(), height, start.getRight()))); //oh god
+    public static boolean isUnobstructed2D(World w, BlockPos start, BlockPos end, boolean checkStart, boolean checkEnd, int precision) {
+        int height = start.getY();
+        if (Objects.equals(start.getX(), end.getX())) {
+            if (Objects.equals(start.getZ(), end.getZ())) {
+                return !((checkEnd || checkStart) && (w.getBlockState(start).getBlock() != null && !w.isAirBlock(start))); //oh god
             }
 
-            int x = start.getLeft();
-            int startZ = Math.min(start.getRight(), end.getRight());
-            int endZ = Math.max(start.getRight(), end.getRight());
+            int x = start.getX();
+            int startZ = Math.min(start.getZ(), end.getZ());
+            int endZ = Math.max(start.getZ(), end.getZ());
             for (int z = startZ; z <= endZ; z++) {
 
-                if (!checkStart && ((x == start.getLeft()) && (z == start.getRight()))) {
+                if (!checkStart && ((x == start.getX()) && (z == start.getZ()))) {
                     continue;
                 }
 
-                if (!checkEnd && ((x == end.getLeft()) && (z == end.getRight()))) {
+                if (!checkEnd && ((x == end.getX()) && (z == end.getZ()))) {
                     continue;
                 }
 
-                Block b = w.getBlock(x, height, z);
-                if (b != null && !w.isAirBlock(x, height, z)) {
+                BlockPos pos = new BlockPos(x, height, z);
+                Block b = w.getBlockState(pos).getBlock();
+                if (b != null && !w.isAirBlock(pos)) {
                     return false;
                 }
             }
             return true;
         }
 
-        final double x1 = start.getLeft(),
-                z1 = start.getRight(),
-                x2 = end.getLeft(),
-                z2 = end.getRight();
+        final double x1 = start.getX(),
+                z1 = start.getZ(),
+                x2 = end.getX(),
+                z2 = end.getZ();
         Function<Double, Double> lineFunction = (x -> ((z2 - z1) / (x2 - x1) * (x - x1) + z1));
         boolean isPositive = ((z2 - z1) / (x2 - x1)) > 0;
 
-        int startX = Math.min(start.getLeft(), end.getLeft());
-        int endX = Math.max(start.getLeft(), end.getLeft());
+        int startX = Math.min(start.getX(), end.getX());
+        int endX = Math.max(start.getX(), end.getX());
 
         double step = 1d / precision;
 
@@ -258,11 +245,11 @@ public class MgUtils {
                 }
             }
 
-            if (!checkStart && ((cx == start.getLeft()) && (cz == start.getRight()))) {
+            if (!checkStart && ((cx == start.getX()) && (cz == start.getZ()))) {
                 continue;
             }
 
-            if (!checkEnd && ((cx == end.getLeft()) && (cz == end.getRight()))) {
+            if (!checkEnd && ((cx == end.getX()) && (cz == end.getZ()))) {
                 continue;
             }
 
@@ -275,4 +262,13 @@ public class MgUtils {
         return true;
     }
 
+    public static void writePos(NBTTagCompound nbt, String name, BlockPos pos) {
+        nbt.setInteger(name + "_x", pos.getX());
+        nbt.setInteger(name + "_y", pos.getY());
+        nbt.setInteger(name + "_z", pos.getZ());
+    }
+
+    public static BlockPos readPos(NBTTagCompound nbt, String name) {
+        return new BlockPos(nbt.getInteger(name + "_x"), nbt.getInteger(name + "_y"), nbt.getInteger(name + "_z"));
+    }
 }

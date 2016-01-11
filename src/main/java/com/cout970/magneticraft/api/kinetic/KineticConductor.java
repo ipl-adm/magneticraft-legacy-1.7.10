@@ -1,7 +1,7 @@
 package com.cout970.magneticraft.api.kinetic;
 
-import com.cout970.magneticraft.api.util.MgDirection;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 public class KineticConductor implements IKineticConductor {
 
@@ -71,7 +71,7 @@ public class KineticConductor implements IKineticConductor {
     }
 
     @Override
-    public MgDirection[] getValidSides() {
+    public EnumFacing[] getValidSides() {
         return ((IKineticTile) tile).getValidSides();
     }
 

@@ -4,6 +4,9 @@ import com.cout970.magneticraft.Magneticraft;
 import com.cout970.magneticraft.block.BlockMg;
 import com.cout970.magneticraft.tabs.CreativeTabsMg;
 import com.cout970.magneticraft.tileentity.TileKineticGenerator;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -23,6 +26,7 @@ public class BlockKineticGenerator extends BlockMg {
         setCreativeTab(CreativeTabsMg.ElectricalAgeTab);
     }
 
+    @Override
     public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (p.isSneaking()) return false;
         p.openGui(Magneticraft.INSTANCE, 0, w, x, y, z);
@@ -45,36 +49,18 @@ public class BlockKineticGenerator extends BlockMg {
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+    @Override
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, BlockPos pos, EnumFacing facing) {
         return false;
     }
 
-    public boolean renderAsNormalBlock() {
-        return false;
-    }
-
+    @Override
     public boolean isOpaqueCube() {
         return false;
     }
 
-    public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack i) {
-        w.setBlockMetadataWithNotify(x, y, z, Facing.oppositeSide[determineOrientation(w, x, y, z, p)], 2);
+    @Override
+    public void onBlockPlacedBy(World w, BlockPos pos, IBlockState state, EntityLivingBase p, ItemStack i) {
+        rotate(w, pos, state, p);
     }
-
-    public static int determineOrientation(World w, int x, int y, int z, EntityLivingBase p) {
-        if (MathHelper.abs((float) p.posX - (float) x) < 2.0F && MathHelper.abs((float) p.posZ - (float) z) < 2.0F) {
-            double d0 = p.posY + 1.82D - (double) p.yOffset;
-
-            if (d0 - (double) y > 2.0D) {
-                return 1;
-            }
-
-            if ((double) y - d0 > 0.0D) {
-                return 0;
-            }
-        }
-        int l = MathHelper.floor_double((double) (p.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-        return l == 0 ? 2 : (l == 1 ? 5 : (l == 2 ? 3 : (l == 3 ? 4 : 0)));
-    }
-
 }

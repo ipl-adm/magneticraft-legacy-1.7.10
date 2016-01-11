@@ -1,6 +1,6 @@
 package com.cout970.magneticraft.api.electricity;
 
-import com.cout970.magneticraft.api.util.VecInt;
+import net.minecraft.util.EnumFacing;
 
 /**
  * interface for TileEntities
@@ -15,5 +15,5 @@ public interface IElectricTile {
      * if the args are NULL_VECTOR this should always return the conductor if the block has one or more.
      * the cablecompound can't be empty, it must be null or have at least one element
      */
-    IElectricConductor[] getConds(VecInt dir, int Vtier);
+    IElectricConductor[] getConds(EnumFacing dir, int Vtier);
 }

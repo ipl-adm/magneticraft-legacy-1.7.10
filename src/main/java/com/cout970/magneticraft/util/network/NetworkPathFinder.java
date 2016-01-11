@@ -18,7 +18,7 @@ public class NetworkPathFinder extends PathFinder {
 
 	@Override
 	public boolean step(VectorOffset coord) {
-		List<NetworkNode> list = Finder.find(start, start.getParent().getWorldObj(), coord.getCoords(), false);
+		List<NetworkNode> list = Finder.find(start, start.getParent().getWorld()(), coord.getCoords(), false);
 		boolean cont = false;
 		for(NetworkNode nd : list){
 			if(start.canAddToNetwork(nd)){

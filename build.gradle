@@ -1,4 +1,4 @@
-buildscript {
+=buildscript {
     repositories {
         mavenCentral()
         maven {
@@ -18,7 +18,7 @@ buildscript {
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 
-version = "0.6.0-beta2"
+version = "0.6.0-final"
 group= "com.cout970.magneticraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "magneticraft"
 
